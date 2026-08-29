@@ -6,17 +6,17 @@ import argparse
 import json
 from pathlib import Path
 
-from .env import WheelLeggedResidualEnv
-
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--robot", choices=("planar", "d1"), default="planar")
+    parser.add_argument("--baseline", choices=("lqr", "mpc"), default="lqr")
     parser.add_argument("--steps", type=int, default=400_000)
     parser.add_argument("--envs", type=int, default=8)
     parser.add_argument("--seed", type=int, default=7)
     parser.add_argument("--device", default="auto")
     parser.add_argument("--verbose", action="store_true")
-    parser.add_argument("--output", type=Path, default=Path("results/residual_ppo"))
+    parser.add_argument("--output", type=Path)
     return parser
 
 
@@ -31,16 +31,25 @@ def main(argv: list[str] | None = None) -> None:
     except ImportError as error:
         raise SystemExit('install RL dependencies with: pip install -e ".[rl]"') from error
 
+    if args.output is None:
+        args.output = Path(
+            "results/residual_ppo" if args.robot == "planar" else "results/d1_residual_ppo"
+        )
+    if args.robot == "planar":
+        from .env import WheelLeggedResidualEnv as Environment
+    else:
+        from .d1.env import D1ResidualEnv as Environment
+
     args.output.mkdir(parents=True, exist_ok=True)
     vector_class = SubprocVecEnv if args.envs > 1 else DummyVecEnv
     vector_kwargs = {"start_method": "fork"} if args.envs > 1 else None
     vector_env = make_vec_env(
-        WheelLeggedResidualEnv,
+        Environment,
         n_envs=args.envs,
         seed=args.seed,
         vec_env_cls=vector_class,
         vec_env_kwargs=vector_kwargs,
-        env_kwargs={"baseline": "lqr", "randomize": True},
+        env_kwargs={"baseline": args.baseline, "randomize": True},
     )
     model = PPO(
         "MlpPolicy",
@@ -61,8 +70,12 @@ def main(argv: list[str] | None = None) -> None:
     model.learn(total_timesteps=args.steps)
     model_path = args.output / "model"
     model.save(model_path)
+    training_config = vars(args) | {
+        "output": str(args.output),
+        "actual_timesteps": model.num_timesteps,
+    }
     (args.output / "training_config.json").write_text(
-        json.dumps(vars(args) | {"output": str(args.output)}, indent=2), encoding="utf-8"
+        json.dumps(training_config, indent=2), encoding="utf-8"
     )
     vector_env.close()
     print(f"saved policy to {model_path}.zip")

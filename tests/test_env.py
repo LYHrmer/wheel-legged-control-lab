@@ -32,3 +32,15 @@ def test_zero_residual_rollout_is_finite() -> None:
         assert not terminated
     assert truncated
     env.close()
+
+
+def test_transition_info_and_reward_use_the_same_command() -> None:
+    env = WheelLeggedResidualEnv(randomize=False, episode_seconds=1.1)
+    env.reset(seed=2, options={"scenario": "nominal"})
+    command_history = []
+    for _ in range(51):
+        _, _, _, _, info = env.step(np.zeros(2))
+        command_history.append(info["command_velocity_mps"])
+    assert command_history[49] == 0.0
+    assert command_history[50] == 0.8
+    env.close()

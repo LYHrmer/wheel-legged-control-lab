@@ -181,17 +181,26 @@ class WheelLeggedResidualEnv(gym.Env[np.ndarray, np.ndarray]):
         self._delay_queue = deque(
             [self.plant.equilibrium_control.copy() for _ in range(self._delay_steps)]
         )
-        info = self._info(self.plant.state(), self.plant.equilibrium_control, 0.0)
+        info = self._info(
+            self.plant.state(),
+            self.plant.equilibrium_control,
+            0.0,
+            self._command,
+        )
         return self._observation(measured_state), info
 
     def _info(
-        self, state: np.ndarray, applied_control: np.ndarray, push_force_n: float
+        self,
+        state: np.ndarray,
+        applied_control: np.ndarray,
+        push_force_n: float,
+        command: TrackingCommand,
     ) -> dict[str, Any]:
         return {
             "state": state.astype(np.float64, copy=True),
             "control": applied_control.astype(np.float64, copy=True),
-            "command_velocity_mps": self._command.velocity_mps,
-            "command_leg_extension_m": self._command.leg_extension_m,
+            "command_velocity_mps": command.velocity_mps,
+            "command_leg_extension_m": command.leg_extension_m,
             "push_force_n": push_force_n,
             "baseline": self.baseline_name,
             "delay_steps": self._delay_steps,
@@ -215,27 +224,29 @@ class WheelLeggedResidualEnv(gym.Env[np.ndarray, np.ndarray]):
             if self._push_start <= self._step_count < self._push_end
             else 0.0
         )
+        transition_command = self._command
         state = self.plant.step(applied_control, push_force)
-        self._step_count += 1
-        self._command = self._command_at_step()
-        measured_state = self._measure_state()
-        self._baseline_control = self.controller.compute(measured_state, self._command)
-        self._previous_residual = normalized_action.copy()
 
         terminated = bool(
             not np.all(np.isfinite(state))
             or abs(state[1]) >= self.plant.limits.fall_pitch_rad
         )
-        truncated = bool(self._step_count >= self.max_steps)
         reward_terms = calculate_reward(
             state,
-            self._command.velocity_mps,
-            self._command.leg_extension_m,
+            transition_command.velocity_mps,
+            transition_command.leg_extension_m,
             normalized_action,
             terminated,
         )
         reward = reward_terms.total
-        info = self._info(state, applied_control, push_force)
+        info = self._info(state, applied_control, push_force, transition_command)
+
+        self._step_count += 1
+        self._command = self._command_at_step()
+        measured_state = self._measure_state()
+        self._baseline_control = self.controller.compute(measured_state, self._command)
+        self._previous_residual = normalized_action.copy()
+        truncated = bool(self._step_count >= self.max_steps)
         info["is_success"] = bool(truncated and not terminated)
         info["reward_terms"] = reward_terms.as_dict()
         return self._observation(measured_state), reward, terminated, truncated, info

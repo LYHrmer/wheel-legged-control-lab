@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "wheel-legged-control-lab"
-version = "0.1.0"
-description = "Reproducible LQR, linear MPC, and residual RL for a planar wheel-legged robot."
+version = "0.2.0"
+description = "Reproducible LQR, MPC, VMC, and residual RL from a teaching model to full-body D1 simulation."
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
@@ -13,7 +13,7 @@ license-files = ["LICENSE"]
 dependencies = [
   "gymnasium>=0.29,<2",
   "matplotlib>=3.7,<4",
-  "mujoco>=3.1,<4",
+  "mujoco>=3.2.5,<4",
   "numpy>=1.24,<3",
   "pillow>=9,<13",
   "scipy>=1.10,<2",
@@ -26,6 +26,7 @@ dev = ["pytest>=7,<9", "ruff>=0.6,<1"]
 [project.scripts]
 wheel-legged-train = "wheel_legged_control.train:main"
 wheel-legged-benchmark = "wheel_legged_control.experiments:main"
+wheel-legged-d1-benchmark = "wheel_legged_control.d1.experiments:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
@@ -34,7 +35,12 @@ package-dir = {"" = "src"}
 where = ["src"]
 
 [tool.setuptools.package-data]
-wheel_legged_control = ["assets/*.xml"]
+wheel_legged_control = [
+  "assets/*.xml",
+  "d1/assets/*.txt",
+  "d1/assets/meshes/*.STL",
+  "d1/assets/urdf/*.urdf",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
