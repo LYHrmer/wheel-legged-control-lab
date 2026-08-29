@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wheel-legged-control-lab"
+version = "0.1.0"
+description = "Reproducible LQR, linear MPC, and residual RL for a planar wheel-legged robot."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+dependencies = [
+  "gymnasium>=0.29,<2",
+  "matplotlib>=3.7,<4",
+  "mujoco>=3.1,<4",
+  "numpy>=1.24,<3",
+  "pillow>=9,<13",
+  "scipy>=1.10,<2",
+]
+
+[project.optional-dependencies]
+rl = ["stable-baselines3>=2.4,<3", "torch>=2.8,<3"]
+dev = ["pytest>=7,<9", "ruff>=0.6,<1"]
+
+[project.scripts]
+wheel-legged-train = "wheel_legged_control.train:main"
+wheel-legged-benchmark = "wheel_legged_control.experiments:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+wheel_legged_control = ["assets/*.xml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
