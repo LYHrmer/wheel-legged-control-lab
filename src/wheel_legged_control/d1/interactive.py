@@ -474,7 +474,7 @@ def run_scripted_demo(
     )
     simulation.reset(zone)
     duration_s = {
-        "start": 6.0,
+        "start": 7.0,
         "rough": 8.0,
         "ramp": 13.0,
         "stairs": 13.0,
@@ -619,7 +619,7 @@ def write_course_audit(
     ]
     output.mkdir(parents=True, exist_ok=True)
     with (output / "course_metrics.csv").open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(records[0]))
+        writer = csv.DictWriter(handle, fieldnames=list(records[0]), lineterminator="\n")
         writer.writeheader()
         writer.writerows(records)
     lines = [

@@ -2,11 +2,11 @@
 
 Scripted commands in the same MuJoCo course used by the keyboard demo.
 
-| Zone | Pass | Progress [m] | Roll max [deg] | Pitch max [deg] | 4-wheel contact | Jumps | Hurdles | Step P95 [ms] |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| start | 1 | 1.28 | 2.36 | 8.40 | 0.893 | 0 | 0 | 1.086 |
-| rough | 1 | 2.73 | 2.82 | 8.28 | 0.660 | 0 | 0 | 1.053 |
-| ramp | 1 | 4.91 | 0.04 | 10.50 | 0.989 | 0 | 0 | 0.973 |
-| stairs | 1 | 3.99 | 2.72 | 7.51 | 0.706 | 0 | 0 | 1.051 |
-| bumps | 1 | 5.13 | 2.19 | 5.09 | 0.798 | 0 | 0 | 1.037 |
-| jump | 1 | 2.87 | 2.84 | 7.66 | 0.855 | 1 | 1 | 0.945 |
+| Zone | Pass | Progress [m] | Roll max [deg] | Pitch max [deg] | 4-wheel contact | Jumps | Hurdles | Compensation applied | Rejected | Step P95 [ms] |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| start | 1 | 1.32 | 2.48 | 6.23 | 0.917 | 0 | 0 | 0.000 | 0 | 1.624 |
+| rough | 1 | 2.82 | 2.52 | 6.59 | 0.676 | 0 | 0 | 0.000 | 0 | 1.719 |
+| ramp | 1 | 4.89 | 0.04 | 10.49 | 0.991 | 0 | 0 | 0.000 | 0 | 1.326 |
+| stairs | 1 | 4.07 | 2.52 | 7.81 | 0.707 | 0 | 0 | 0.000 | 0 | 1.604 |
+| bumps | 1 | 5.37 | 1.63 | 5.07 | 0.742 | 0 | 0 | 0.000 | 0 | 1.452 |
+| jump | 1 | 2.98 | 3.11 | 10.72 | 0.851 | 1 | 2 | 0.000 | 0 | 1.301 |

@@ -46,7 +46,8 @@ PPO 观察；`estimated` 下，状态延迟和字段噪声会进入 VMC、LQR/MP
 地形课程是另一组确定性探针。六个区域的时长、目标速度和最低进度直接写在
 [`run_scripted_demo()`](../src/wheel_legged_control/d1/interactive.py) 中：起点、乱石、坡道、台阶、
 波浪路和跳跃道的最低进度分别为 `1.0/2.0/4.0/3.5/3.5/1.7 m`。跳跃道还要求至少完成一次
-四轮离地的跳跃，并让基座越过第一根横杆末端 `0.30 m`。课程结果不替代随机域审计。
+四轮离地的跳跃，并让基座越过第一根横杆末端 `0.30 m`。`start` 固定运行 `7 s`，其余区域
+为 `8–14 s`；课程结果不替代随机域审计。
 
 ## 成功、摔倒和连续指标
 
@@ -173,6 +174,10 @@ MuJoCo truth
 | `state_delay_sensitivity.md/.png` | 可读表格和带误差线的四联图 |
 | `delay_sweep_manifest.json` | 完成状态、输入配对检查、记录数和所有产物 SHA-256 |
 
+普通固定场景与随机域基准使用同一规则。`benchmark_manifest.json` 在最后一步原子写入；程序会
+从最终 CSV 回读行数，核对控制器间的初态、命令和推力指纹，再记录配置、CSV、图像及可选
+GIF 的 SHA-256。运行中断时目录里不会保留旧的 `complete` 标记。
+
 源码 provenance 在运行开始时记录 Git commit、dirty 状态和 dirty worktree SHA-256。加载策略时
 另存 checkpoint 路径、选择方式和模型 SHA-256。正式 README 数字应来自 clean commit；dirty
 运行可以用于调试，但要保留指纹并标成 exploratory。新训练必须把 Python、依赖版本、设备、
@@ -189,9 +194,9 @@ MuJoCo truth
 |---|---|---|---|
 | D1 模型能以 `23 nq / 22 nv / 16 nu` 运行，执行器与关节顺序一致 | 模型维度、关节、接触和静止闭环测试 | [`test_d1_model.py`](../tests/test_d1_model.py)、[`d1_model_card.md`](d1_model_card.md) | 只在 MuJoCo 整机仿真中验证；没有实机参数对照 |
 | 一次控制周期内所有控制模块读取同一份状态快照 | 快照不可变性、整回路状态延迟与环境 info 测试 | [`test_d1_state_estimation.py`](../tests/test_d1_state_estimation.py)、[`test_d1_env.py`](../tests/test_d1_env.py) | oracle 与带噪延迟状态源可切换；estimated 仍是人为误差通道 |
-| LQR/MPC/PPO 能完成当前固定平地场景 | 单种子 nominal、push、mismatch 回放 | [`metrics.csv`](../results/d1_benchmark/metrics.csv)、[`metrics.md`](../results/d1_benchmark/metrics.md) | 当前提交的三种控制器通过固定回放；这是回归结果，不是域外鲁棒性证据 |
-| 已提交 PPO 稳定优于 LQR | 30 个匹配随机域 seed 的连续指标配对区间 | [`randomized_audit.csv`](../results/d1_benchmark/randomized_audit.csv)、[`randomized_audit.md`](../results/d1_benchmark/randomized_audit.md) | 三个主要误差区间均跨 0，当前证据不支持“稳定优于” |
-| LQR 能通过当前物理地形课程 | 六区域脚本探针与对应 pytest | [`course_metrics.csv`](../results/d1_interactive/course_metrics.csv)、[`test_d1_interactive.py`](../tests/test_d1_interactive.py) | oracle/LQR 当前为 6/6；只越过第一根 `20 mm` 横杆，未验证 estimated 或实机 |
+| LQR/MPC/PPO 能完成当前固定平地场景 | 单种子 nominal、push、mismatch 回放 | [`metrics.csv`](../results/d1_benchmark/metrics.csv)、[`metrics.md`](../results/d1_benchmark/metrics.md)、[`benchmark_manifest.json`](../results/d1_benchmark/benchmark_manifest.json) | 当前提交的三种控制器通过固定回放；这是回归结果，不是域外鲁棒性证据 |
+| 已提交 PPO 稳定优于 LQR | 30 个匹配随机域 seed 的连续指标配对区间 | [`randomized_audit.csv`](../results/d1_benchmark/randomized_audit.csv)、[`randomized_audit.md`](../results/d1_benchmark/randomized_audit.md) | 三个误差区间均跨 0，平均奖励还显著降低；当前证据不支持“稳定优于” |
+| LQR 能通过当前物理地形课程 | 六区域脚本探针与对应 pytest | [`course_metrics.csv`](../results/d1_interactive/course_metrics.csv)、[`test_d1_interactive.py`](../tests/test_d1_interactive.py) | oracle/LQR 当前为 6/6；验收要求第一根横杆，本次终点超过前两根，`60 mm` 横杆、estimated 与实机均未验证 |
 | 常速度外推改善状态延迟鲁棒性 | raw 与 compensated 的同 seed `0/10/20/30/50 ms` 扫描 | [`raw 结果`](../results/d1_state_delay_raw/state_delay_sensitivity.md)、[`补偿结果`](../results/d1_state_delay_compensated/state_delay_sensitivity.md)、[`test_d1_experiments.py`](../tests/test_d1_experiments.py) | `10 ms` 下减小部分误差；`20 ms` 成功数提高但配对区间跨 0，`30/50 ms` 均全部失败，不支持延迟裕量已改善 |
 | 常速度外推遵守短时运动学边界 | `0/50/>50 ms`、腿关节位移和限位边界测试 | [`test_d1_state_estimation.py`](../tests/test_d1_state_estimation.py) | 边界已有测试；方法仍不预测接触切换 |
 | 仓库已经实现可上实机的状态估计 | 无 | [`state_estimation.md`](state_estimation.md) | 未实现，不作该主张 |

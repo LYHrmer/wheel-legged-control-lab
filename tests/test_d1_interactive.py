@@ -105,7 +105,7 @@ def test_interactive_can_apply_short_horizon_latency_compensation() -> None:
     assert statuses[-1].compensation_horizon_ms == pytest.approx(20.0)
 
 
-@pytest.mark.parametrize("zone", ("rough", "ramp", "stairs", "bumps", "jump"))
+@pytest.mark.parametrize("zone", ("start", "rough", "ramp", "stairs", "bumps", "jump"))
 def test_scripted_course_zone_reaches_its_acceptance_target(zone: str) -> None:
     metrics = run_scripted_demo(zone)
     assert metrics["success"] == 1, metrics

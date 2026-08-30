@@ -36,6 +36,18 @@ D1_SWEEP_ARTIFACTS = (
     "evaluation_config.json",
     "delay_sweep_manifest.json",
 )
+D1_BENCHMARK_ARTIFACTS = (
+    "evaluation_config.json",
+    "metrics.csv",
+    "metrics.md",
+    "nominal.png",
+    "push.png",
+    "mismatch_delay.png",
+    "randomized_audit.csv",
+    "randomized_audit.md",
+    "d1_push_comparison.gif",
+    "benchmark_manifest.json",
+)
 
 # The Markdown report emits every item in this registry.  Keep the primary
 # survival outcomes first; the remaining values describe the trajectory prefix
@@ -478,7 +490,7 @@ def compute_d1_metrics(rollout: D1Rollout) -> dict[str, float | str | int]:
 
 def write_d1_metrics(records: list[dict[str, float | str | int]], output: Path) -> None:
     with (output / "metrics.csv").open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(records[0]))
+        writer = csv.DictWriter(handle, fieldnames=list(records[0]), lineterminator="\n")
         writer.writeheader()
         writer.writerows(records)
     lines = [
@@ -652,7 +664,7 @@ def write_d1_randomized_audit(records: list[dict[str, float | str | int]], outpu
             mean, lower, upper = _paired_ci(residual_values - baseline_values)
             lines.append(f"- {label}: {_format_ci(mean, lower, upper, signed=True)}")
     with (output / "randomized_audit.csv").open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(records[0]))
+        writer = csv.DictWriter(handle, fieldnames=list(records[0]), lineterminator="\n")
         writer.writeheader()
         writer.writerows(records)
     (output / "randomized_audit.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
@@ -778,6 +790,81 @@ def _file_sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def _csv_data_row_count(path: Path) -> int:
+    with path.open(newline="", encoding="utf-8") as handle:
+        return sum(1 for _ in csv.DictReader(handle))
+
+
+def _write_json_atomically(path: Path, payload: dict[str, Any]) -> None:
+    """Publish a JSON completion record with a same-directory atomic replace."""
+
+    temporary = path.with_name(f".{path.name}.tmp")
+    try:
+        temporary.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+        temporary.replace(path)
+    finally:
+        temporary.unlink(missing_ok=True)
+
+
+def _validate_benchmark_inputs(
+    records: list[dict[str, float | str | int]],
+    *,
+    controller_names: list[str],
+) -> None:
+    """Reject incomplete or unpaired controller comparisons before publication."""
+
+    expected_controllers = set(controller_names)
+    condition_keys = (
+        "state_estimation_mode",
+        "latency_compensation",
+        "base_mass_scale",
+        "damping_scale",
+        "friction_scale",
+        "actuator_strength_scale",
+        "action_delay_steps",
+        "state_delay_steps",
+        "sensor_noise_scale",
+        "state_estimator_seed",
+        "initial_state_fingerprint",
+        "initial_command_fingerprint",
+        "push_schedule_fingerprint",
+    )
+    groups: dict[tuple[str, int], list[dict[str, float | str | int]]] = {}
+    for record in records:
+        group = (str(record["scenario"]), int(record["evaluation_seed"]))
+        groups.setdefault(group, []).append(record)
+    if not groups:
+        raise ValueError("benchmark produced no records")
+
+    for (scenario, evaluation_seed), selected in groups.items():
+        controllers = [str(record["controller"]) for record in selected]
+        if len(controllers) != len(set(controllers)):
+            raise ValueError(
+                f"duplicate controller record for {scenario} at seed {evaluation_seed}"
+            )
+        if set(controllers) != expected_controllers:
+            raise ValueError(
+                f"incomplete controller set for {scenario} at seed {evaluation_seed}"
+            )
+        reference = selected[0]
+        for record in selected:
+            for key in condition_keys:
+                if record[key] != reference[key]:
+                    raise ValueError(
+                        f"benchmark condition {key!r} differs for {scenario} "
+                        f"at seed {evaluation_seed}"
+                    )
+        for key in (
+            "initial_state_fingerprint",
+            "initial_command_fingerprint",
+            "push_schedule_fingerprint",
+        ):
+            if not reference[key]:
+                raise ValueError(
+                    f"benchmark is missing {key!r} for {scenario} at seed {evaluation_seed}"
+                )
+
+
 def run_d1_state_delay_sweep(
     *,
     output: Path,
@@ -813,6 +900,7 @@ def run_d1_state_delay_sweep(
     output.mkdir(parents=True, exist_ok=True)
     for filename in D1_SWEEP_ARTIFACTS:
         (output / filename).unlink(missing_ok=True)
+    (output / ".delay_sweep_manifest.json.tmp").unlink(missing_ok=True)
 
     checkpoint = provenance.get("checkpoint", {})
     if bool(checkpoint.get("included", policy is not None)) != (policy is not None):
@@ -936,11 +1024,11 @@ def run_d1_state_delay_sweep(
                 )
 
     with (output / "delay_sweep_episodes.csv").open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(records[0]))
+        writer = csv.DictWriter(handle, fieldnames=list(records[0]), lineterminator="\n")
         writer.writeheader()
         writer.writerows(records)
     with (output / "delay_sweep_summary.csv").open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(summary[0]))
+        writer = csv.DictWriter(handle, fieldnames=list(summary[0]), lineterminator="\n")
         writer.writeheader()
         writer.writerows(summary)
 
@@ -1068,9 +1156,7 @@ def run_d1_state_delay_sweep(
         },
         "artifacts": artifact_hashes,
     }
-    (output / "delay_sweep_manifest.json").write_text(
-        json.dumps(manifest, indent=2), encoding="utf-8"
-    )
+    _write_json_atomically(output / "delay_sweep_manifest.json", manifest)
     return records
 
 
@@ -1179,15 +1265,36 @@ def main(argv: list[str] | None = None) -> None:
         return
 
     args.output.mkdir(parents=True, exist_ok=True)
-    for filename in D1_SWEEP_ARTIFACTS:
-        if filename != "evaluation_config.json":
-            (args.output / filename).unlink(missing_ok=True)
-    if args.audit_episodes == 0:
-        for filename in ("randomized_audit.csv", "randomized_audit.md"):
-            (args.output / filename).unlink(missing_ok=True)
-    if not args.gif:
-        (args.output / "d1_push_comparison.gif").unlink(missing_ok=True)
+    for filename in set(D1_SWEEP_ARTIFACTS + D1_BENCHMARK_ARTIFACTS):
+        (args.output / filename).unlink(missing_ok=True)
+    (args.output / ".benchmark_manifest.json.tmp").unlink(missing_ok=True)
+
+    controller_names = ["D1 LQR+VMC", "D1 MPC+VMC"]
+    if policy is not None:
+        controller_names.append("D1 LQR+VMC+PPO")
+    evaluation_seeds = list(
+        range(args.seed + 100, args.seed + 100 + args.audit_episodes)
+    )
+    protocol = {
+        "state_mode": args.state_mode,
+        "latency_compensation": args.latency_compensation,
+        "fixed_seed": args.seed,
+        "fixed_scenarios": list(D1_SCENARIOS),
+        "controllers": controller_names,
+        "randomized_evaluation_seeds": evaluation_seeds,
+        "audit_episodes": args.audit_episodes,
+        "capture_gif": args.gif,
+    }
+    run_identity = json.dumps(
+        {"protocol": protocol, "provenance": run_metadata},
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode("utf-8")
+    run_id = f"d1-benchmark-{hashlib.sha256(run_identity).hexdigest()[:16]}"
     evaluation_config = {
+        "schema": "d1-benchmark-evaluation-config-v1",
+        "run_id": run_id,
+        "protocol": protocol,
         "seed": args.seed,
         "audit_episodes": args.audit_episodes,
         "state_delay_sweep": args.state_delay_sweep,
@@ -1241,8 +1348,8 @@ def main(argv: list[str] | None = None) -> None:
 
     records = [compute_d1_metrics(rollout) for rollout in all_rollouts]
     write_d1_metrics(records, args.output)
+    audit_records: list[dict[str, float | str | int]] = []
     if args.audit_episodes > 0:
-        audit_records: list[dict[str, float | str | int]] = []
         for offset in range(args.audit_episodes):
             seed = args.seed + 100 + offset
             rollouts = [
@@ -1274,6 +1381,64 @@ def main(argv: list[str] | None = None) -> None:
                 )
             audit_records.extend(compute_d1_metrics(rollout) for rollout in rollouts)
         write_d1_randomized_audit(audit_records, args.output)
+
+    _validate_benchmark_inputs(records + audit_records, controller_names=controller_names)
+    expected_fixed_records = len(D1_SCENARIOS) * len(controller_names)
+    expected_randomized_records = args.audit_episodes * len(controller_names)
+    written_fixed_records = _csv_data_row_count(args.output / "metrics.csv")
+    written_randomized_records = (
+        _csv_data_row_count(args.output / "randomized_audit.csv")
+        if args.audit_episodes > 0
+        else 0
+    )
+    if (
+        len(records) != expected_fixed_records
+        or len(audit_records) != expected_randomized_records
+        or written_fixed_records != expected_fixed_records
+        or written_randomized_records != expected_randomized_records
+    ):
+        raise ValueError("benchmark record count does not match the configured protocol")
+
+    artifact_names = [
+        "evaluation_config.json",
+        "metrics.csv",
+        "metrics.md",
+        *(f"{scenario}.png" for scenario in D1_SCENARIOS),
+    ]
+    if args.audit_episodes > 0:
+        artifact_names.extend(("randomized_audit.csv", "randomized_audit.md"))
+    if args.gif:
+        artifact_names.append("d1_push_comparison.gif")
+    missing_artifacts = [name for name in artifact_names if not (args.output / name).is_file()]
+    if missing_artifacts:
+        raise ValueError(f"benchmark artifacts are missing: {missing_artifacts}")
+    row_counts = {
+        "metrics.csv": {
+            "expected": expected_fixed_records,
+            "actual": written_fixed_records,
+        }
+    }
+    if args.audit_episodes > 0:
+        row_counts["randomized_audit.csv"] = {
+            "expected": expected_randomized_records,
+            "actual": written_randomized_records,
+        }
+    manifest = {
+        "schema": "d1-benchmark-v1",
+        "run_id": run_id,
+        "status": "complete",
+        "completed": True,
+        "protocol": protocol,
+        "provenance": run_metadata,
+        "validation": {
+            "matched_input_fingerprints": True,
+            "row_counts": row_counts,
+        },
+        "artifacts": {
+            filename: _file_sha256(args.output / filename) for filename in artifact_names
+        },
+    }
+    _write_json_atomically(args.output / "benchmark_manifest.json", manifest)
     print((args.output / "metrics.md").read_text(encoding="utf-8"))
 
 

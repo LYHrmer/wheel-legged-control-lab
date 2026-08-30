@@ -1,4 +1,5 @@
 import csv
+import hashlib
 import json
 
 import numpy as np
@@ -15,6 +16,7 @@ from wheel_legged_control.d1.experiments import (
     compute_d1_metrics,
     main,
     run_d1_state_delay_sweep,
+    write_d1_metrics,
     write_d1_randomized_audit,
 )
 from wheel_legged_control.d1.model import JOINT_TORQUE_LIMIT
@@ -340,6 +342,10 @@ def test_state_delay_sweep_writes_complete_paired_evidence(tmp_path, monkeypatch
         "state_delay_sensitivity.png",
         "evaluation_config.json",
     }
+    for filename, expected_sha256 in manifest["artifacts"].items():
+        actual_sha256 = hashlib.sha256((tmp_path / filename).read_bytes()).hexdigest()
+        assert actual_sha256 == expected_sha256
+    assert not (tmp_path / ".delay_sweep_manifest.json.tmp").exists()
 
     with (tmp_path / "delay_sweep_summary.csv").open(newline="", encoding="utf-8") as handle:
         summary = list(csv.DictReader(handle))
@@ -426,6 +432,116 @@ def test_policy_flags_conflict_and_explicit_missing_checkpoint_fails_before_outp
     with pytest.raises(SystemExit, match="policy checkpoint not found"):
         main(["--policy", str(tmp_path / "missing.zip"), "--output", str(output)])
     assert not output.exists()
+
+
+def _patch_fast_benchmark(monkeypatch) -> None:
+    def fake_rollout(baseline, scenario, seed, policy=None, **kwargs):
+        rollout = _rollout()
+        suffix = "+PPO" if policy is not None else ""
+        rollout.controller = f"D1 {baseline.upper()}+VMC{suffix}"
+        rollout.scenario = scenario
+        rollout.evaluation_seed = seed
+        rollout.state_estimation_mode = kwargs.get("state_mode", "oracle")
+        rollout.latency_compensation = kwargs.get("latency_compensation", "none")
+        return rollout
+
+    def fake_plot(rollouts, output):
+        (output / f"{rollouts[0].scenario}.png").write_bytes(b"plot")
+
+    def fake_gif(rollouts, output):
+        del rollouts
+        (output / "d1_push_comparison.gif").write_bytes(b"gif")
+
+    monkeypatch.setattr(
+        "wheel_legged_control.d1.experiments.run_d1_rollout",
+        fake_rollout,
+    )
+    monkeypatch.setattr(
+        "wheel_legged_control.d1.experiments.plot_d1_scenario",
+        fake_plot,
+    )
+    monkeypatch.setattr(
+        "wheel_legged_control.d1.experiments.create_d1_comparison_gif",
+        fake_gif,
+    )
+    monkeypatch.setattr(
+        "wheel_legged_control.d1.experiments.capture_git_provenance",
+        lambda path: {"git_commit": "abc", "git_dirty": False},
+    )
+
+
+def test_main_writes_complete_benchmark_manifest_last(tmp_path, monkeypatch) -> None:
+    _patch_fast_benchmark(monkeypatch)
+
+    main(["--no-policy", "--audit-episodes", "1", "--gif", "--output", str(tmp_path)])
+
+    manifest = json.loads((tmp_path / "benchmark_manifest.json").read_text())
+    config = json.loads((tmp_path / "evaluation_config.json").read_text())
+    assert manifest["status"] == "complete"
+    assert manifest["completed"] is True
+    assert manifest["schema"] == "d1-benchmark-v1"
+    assert config["schema"] == "d1-benchmark-evaluation-config-v1"
+    assert manifest["run_id"] == config["run_id"]
+    assert manifest["provenance"] == config["provenance"]
+    assert manifest["provenance"]["source"] == {"git_commit": "abc", "git_dirty": False}
+    assert manifest["provenance"]["checkpoint"]["included"] is False
+    assert manifest["validation"]["matched_input_fingerprints"] is True
+    assert manifest["validation"]["row_counts"] == {
+        "metrics.csv": {"expected": 6, "actual": 6},
+        "randomized_audit.csv": {"expected": 2, "actual": 2},
+    }
+    assert set(manifest["artifacts"]) == {
+        "evaluation_config.json",
+        "metrics.csv",
+        "metrics.md",
+        "nominal.png",
+        "push.png",
+        "mismatch_delay.png",
+        "randomized_audit.csv",
+        "randomized_audit.md",
+        "d1_push_comparison.gif",
+    }
+    for filename, expected_sha256 in manifest["artifacts"].items():
+        actual_sha256 = hashlib.sha256((tmp_path / filename).read_bytes()).hexdigest()
+        assert actual_sha256 == expected_sha256
+    assert not (tmp_path / ".benchmark_manifest.json.tmp").exists()
+
+
+def test_main_removes_stale_completion_manifest_before_running(tmp_path, monkeypatch) -> None:
+    (tmp_path / "benchmark_manifest.json").write_text('{"status":"complete"}')
+    monkeypatch.setattr(
+        "wheel_legged_control.d1.experiments.capture_git_provenance",
+        lambda path: {"git_commit": "abc", "git_dirty": False},
+    )
+    monkeypatch.setattr(
+        "wheel_legged_control.d1.experiments.run_d1_rollout",
+        lambda *args, **kwargs: (_ for _ in ()).throw(RuntimeError("interrupted")),
+    )
+
+    with pytest.raises(RuntimeError, match="interrupted"):
+        main(["--no-policy", "--output", str(tmp_path)])
+
+    assert not (tmp_path / "benchmark_manifest.json").exists()
+
+
+def test_main_rejects_truncated_metrics_before_completion(tmp_path, monkeypatch) -> None:
+    _patch_fast_benchmark(monkeypatch)
+
+    def write_truncated_metrics(records, output):
+        write_d1_metrics(records, output)
+        path = output / "metrics.csv"
+        header = path.read_text(encoding="utf-8").splitlines()[0]
+        path.write_text(header + "\n", encoding="utf-8")
+
+    monkeypatch.setattr(
+        "wheel_legged_control.d1.experiments.write_d1_metrics",
+        write_truncated_metrics,
+    )
+
+    with pytest.raises(ValueError, match="record count"):
+        main(["--no-policy", "--output", str(tmp_path)])
+
+    assert not (tmp_path / "benchmark_manifest.json").exists()
 
 
 def test_randomized_audit_rejects_unmatched_seed_sets(tmp_path) -> None:
