@@ -109,3 +109,26 @@ def test_oracle_reports_only_applied_delay_and_legacy_delay_is_action_only() -> 
     assert estimated_info["action_delay_steps"] == 2
     assert estimated_info["state_delay_steps"] == 0
     estimated.close()
+
+
+def test_estimated_env_reports_latency_compensation_without_hiding_state_age() -> None:
+    env = D1ResidualEnv(
+        state_mode="estimated",
+        latency_compensation="constant_velocity",
+        randomize=False,
+        episode_seconds=0.1,
+    )
+    env.reset(seed=2, options={"state_delay_steps": 2, "sensor_noise": 0.0})
+
+    info = {}
+    for _ in range(4):
+        _, _, _, _, info = env.step(np.zeros(2))
+
+    assert info["state_age_ms"] == pytest.approx(20.0)
+    assert info["latency_compensation"] == "constant_velocity"
+    assert info["latency_compensation_status"] == "applied"
+    assert info["latency_compensation_horizon_ms"] == pytest.approx(20.0)
+    np.testing.assert_allclose(info["estimated_state"], info["control_state"])
+    assert info["raw_estimated_state"].shape == info["control_state"].shape
+    assert not np.shares_memory(info["raw_estimated_state"], info["control_state"])
+    env.close()

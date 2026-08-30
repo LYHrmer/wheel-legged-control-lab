@@ -88,11 +88,31 @@ def test_estimated_interactive_state_is_sampled_after_each_physics_step() -> Non
     assert not simulation.plant.has_fallen()
 
 
+def test_interactive_can_apply_short_horizon_latency_compensation() -> None:
+    simulation = D1InteractiveSimulation(
+        state_mode="estimated",
+        latency_compensation="constant_velocity",
+        state_delay_steps=2,
+        sensor_noise=0.0,
+        seed=5,
+    )
+
+    statuses = [simulation.step() for _ in range(5)]
+
+    assert statuses[-1].latency_compensation == "constant_velocity"
+    assert statuses[-1].compensation_status == "applied"
+    assert statuses[-1].state_age_ms == pytest.approx(20.0)
+    assert statuses[-1].compensation_horizon_ms == pytest.approx(20.0)
+
+
 @pytest.mark.parametrize("zone", ("rough", "ramp", "stairs", "bumps", "jump"))
 def test_scripted_course_zone_reaches_its_acceptance_target(zone: str) -> None:
     metrics = run_scripted_demo(zone)
     assert metrics["success"] == 1, metrics
     assert metrics["step_time_p95_ms"] < 10.0
+    assert metrics["compensation_applied_ratio"] == 0.0
+    assert metrics["compensation_horizon_p95_ms"] == 0.0
+    assert metrics["compensation_rejected_steps"] == 0
     if zone == "jump":
         assert metrics["cleared_hurdles"] >= 1
         assert metrics["jump_height_gain_m"] > 0.05

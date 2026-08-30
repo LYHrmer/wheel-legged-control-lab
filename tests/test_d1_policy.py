@@ -27,3 +27,29 @@ def test_checkpoint_state_mode_must_match_runtime(tmp_path) -> None:
 
     with pytest.raises(ValueError, match="trained with 'oracle' state"):
         load_compatible_d1_policy(model, expected_state_mode="estimated")
+
+
+def test_checkpoint_latency_compensation_must_match_runtime(tmp_path) -> None:
+    model = tmp_path / "model.zip"
+    model.write_bytes(b"checkpoint")
+    (tmp_path / "training_config.json").write_text(
+        json.dumps(
+            {
+                "robot": "d1",
+                "baseline": "lqr",
+                "state_mode": "estimated",
+                "latency_compensation": "none",
+                "observation_schema": D1_OBSERVATION_SCHEMA,
+                "reward_schema": D1_REWARD_SCHEMA,
+                "model_sha256": hashlib.sha256(model.read_bytes()).hexdigest(),
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="latency compensation"):
+        load_compatible_d1_policy(
+            model,
+            expected_state_mode="estimated",
+            expected_latency_compensation="constant_velocity",
+        )

@@ -102,6 +102,7 @@ def test_train_once_records_reproducibility_metadata(
         "baseline": "lqr",
         "randomize": True,
         "state_mode": "estimated",
+        "latency_compensation": "none",
     }
     assert config["seed"] == 13
     assert config["state_mode"] == "estimated"
@@ -188,3 +189,8 @@ def test_single_run_keeps_legacy_output_and_planar_rejects_estimated_state(
 def test_runs_must_be_positive(runs: str) -> None:
     with pytest.raises(SystemExit, match="must be positive"):
         train.main(["--runs", runs])
+
+
+def test_latency_compensation_requires_estimated_d1_state() -> None:
+    with pytest.raises(SystemExit, match="requires --state-mode estimated"):
+        train.main(["--robot", "d1", "--latency-compensation", "constant_velocity"])

@@ -30,14 +30,24 @@ MuJoCo 的 URDF 导入器默认得到固定基座、零执行器模型。
 [`THIRD_PARTY_NOTICES.md`](../THIRD_PARTY_NOTICES.md)。
 
 本末科技公开的
-[`DDTRobot/d1_mjlab`](https://github.com/DDTRobot/d1_mjlab) 被用来交叉核对自由度、质量、
-关节顺序和控制量级。该仓库当前没有明确 LICENSE，本项目没有复制其中的代码或 XML。
-模型来源和算法来源分开记录。
+[`DDTRobot/d1_mjlab`](https://github.com/DDTRobot/d1_mjlab/tree/1277e5ad30c41116dda53a70b5a93a24997d8c29)
+提交 `1277e5ad30c41116dda53a70b5a93a24997d8c29` 被用来交叉核对自由度、质量、关节顺序和控制
+量级（访问于 2026-08-30）。GitHub 在该日期未识别出仓库许可证，本项目没有复制其中的代码
+或 XML。模型来源和算法来源分开记录。
 
 ## `d1h_wcd_description` 的审计结果
 
 用户提供的本地目录能通过 `check_urdf`，其中网格引用也完整；`mujoco/robot.xml` 和
 `scene.xml` 能由 MuJoCo 3.12 正常编译。文件本身可用，授权和构型一致性仍有以下问题：
+
+本次审计以四个入口文件的 SHA-256 为准，避免同名目录更新后仍沿用旧结论：
+
+| 文件 | SHA-256 |
+|---|---|
+| `urdf/robot.urdf` | `c0ae4d63685521a3505bfef3093428236fb54d649abacbe8db8e9ddeb8e8544b` |
+| `mujoco/robot.xml` | `7c3b735690b18fd24f35a435ff888d5ee4030d4bf8270f7f549682b5d92e1982` |
+| `mujoco/scene.xml` | `274d35e2c83b4829f144d119f5bff51b8fc6c75cf2783164f1767afecc5b7410` |
+| `package.xml` | `3362ec4d48cc5835e3f2d49bd85254bdf042c566161e8035a4d9448671ced3a3` |
 
 | 检查项 | 本地模型结果 |
 |---|---:|
@@ -72,6 +82,7 @@ MuJoCo 的 URDF 导入器默认得到固定基座、零执行器模型。
 - `oracle` 模式下，固定场景与 30 个随机域种子完成 LQR/MPC/PPO 对照；
 - `oracle` 物理地形课程通过乱石、8° 坡道、75 mm 台阶和低矮跳跃横杆探针；
 - 控制器统一读取不可变状态快照，并能切换真值 source 与确定性的带噪延迟 source；
+- 一阶外推只使用延迟快照，不读取当前 MuJoCo 状态；日志分别记录原始状态年龄和实际外推时长；
 - 测试覆盖模型维度、接触、坐标系、快照不可变性、整回路状态延迟、闭环稳定性、MPC
   约束、策略门控、评测 seed 配对、训练元数据与 Gym API。
 
@@ -82,5 +93,6 @@ MuJoCo 的 URDF 导入器默认得到固定基座、零执行器模型。
 - 编码器/IMU 时间同步、传感器融合、bias/丢包与 ROS2 通信；
 - 与某一台实机的参数辨识或 sim-to-real。
 
-`estimated` 目前只是从完整 MuJoCo 状态构造的误差通道，不能算真实状态估计器。README
-使用“full-body D1 simulation”，不使用“数字孪生”或“已完成实机部署”。
+`estimated` 目前由完整 MuJoCo 状态构造误差通道，常速度外推也没有估计协方差或传感器
+bias。README 只称它为“D1 整机仿真”。仓库没有做过实机参数对照，暂时不能写成
+数字孪生或 sim-to-real。

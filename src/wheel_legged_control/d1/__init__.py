@@ -16,10 +16,13 @@ from .model import (
 )
 from .state_estimation import (
     D1EstimatorImpairments,
+    D1LatencyCompensationResult,
     D1MujocoTruthStateSource,
     D1NoisyDelayedStateSource,
     D1StateEstimate,
+    compensate_d1_state_constant_velocity,
     make_default_d1_estimator_impairments,
+    prepare_d1_control_state,
 )
 
 __all__ = [
@@ -29,6 +32,7 @@ __all__ = [
     "D1Command",
     "D1EstimatorImpairments",
     "D1LQRVMCController",
+    "D1LatencyCompensationResult",
     "D1MPCVMCController",
     "D1MujocoTruthStateSource",
     "D1NoisyDelayedStateSource",
@@ -36,5 +40,7 @@ __all__ = [
     "D1ResidualEnv",
     "D1StateEstimate",
     "D1VMCController",
+    "compensate_d1_state_constant_velocity",
     "make_default_d1_estimator_impairments",
+    "prepare_d1_control_state",
 ]

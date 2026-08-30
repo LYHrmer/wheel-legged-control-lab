@@ -5,13 +5,25 @@ from dataclasses import FrozenInstanceError, replace
 import numpy as np
 import pytest
 
-from wheel_legged_control.d1.model import D1Plant
+from wheel_legged_control.d1.model import JOINT_POSITION_HIGH, D1Plant
 from wheel_legged_control.d1.state_estimation import (
     D1EstimatorImpairments,
     D1MujocoTruthStateSource,
     D1NoisyDelayedStateSource,
+    compensate_d1_state_constant_velocity,
     make_d1_state_source,
+    prepare_d1_control_state,
 )
+
+
+def _yaw_rotation(angle_rad: float) -> np.ndarray:
+    return np.asarray(
+        (
+            (np.cos(angle_rad), -np.sin(angle_rad), 0.0),
+            (np.sin(angle_rad), np.cos(angle_rad), 0.0),
+            (0.0, 0.0, 1.0),
+        )
+    )
 
 
 def test_truth_source_returns_control_ready_immutable_snapshot() -> None:
@@ -143,6 +155,170 @@ def test_state_rejects_inconsistent_frame_representations() -> None:
         replace(state, base_rotation=np.zeros((3, 3)))
     with pytest.raises(ValueError, match="velocities must agree"):
         replace(state, base_linear_velocity_world=np.ones(3))
+
+
+def test_latency_compensation_is_identity_without_measurement_age() -> None:
+    state = D1MujocoTruthStateSource(D1Plant()).reset()
+
+    result = compensate_d1_state_constant_velocity(state)
+
+    assert result.control_state is state
+    assert result.status == "bypassed"
+    assert result.applied_horizon_s == 0.0
+
+
+def test_latency_compensation_extrapolates_twist_and_joint_kinematics() -> None:
+    state = D1MujocoTruthStateSource(D1Plant()).reset()
+    base_rotation = _yaw_rotation(0.3)
+    linear_body = np.asarray((1.0, 0.5, -0.25))
+    angular_body = np.asarray((0.0, 0.0, 1.0))
+    joint_velocity = np.linspace(-0.2, 0.2, 16)
+    delayed = replace(
+        state,
+        control_time_s=0.02,
+        measurement_time_s=0.0,
+        base_rotation=base_rotation,
+        base_linear_velocity_body=linear_body,
+        base_angular_velocity_body=angular_body,
+        base_linear_velocity_world=base_rotation @ linear_body,
+        base_angular_velocity_world=base_rotation @ angular_body,
+        joint_velocity=joint_velocity,
+        undesired_ground_contacts=3,
+    )
+
+    result = compensate_d1_state_constant_velocity(delayed)
+    predicted = result.control_state
+
+    horizon_s = delayed.age_s
+    expected_rotation = base_rotation @ _yaw_rotation(horizon_s)
+    expected_midpoint_rotation = base_rotation @ _yaw_rotation(0.5 * horizon_s)
+    expected_position = delayed.base_position + expected_midpoint_rotation @ linear_body * horizon_s
+    expected_foot_position = np.empty_like(delayed.foot_position)
+    expected_foot_jacobian = np.empty_like(delayed.foot_jacobian)
+    for leg_index in range(4):
+        joint_slice = slice(4 * leg_index, 4 * (leg_index + 1))
+        offset_body = base_rotation.T @ (delayed.foot_position[leg_index] - delayed.base_position)
+        jacobian_body = base_rotation.T @ delayed.foot_jacobian[leg_index]
+        expected_offset_body = offset_body + jacobian_body @ joint_velocity[joint_slice] * horizon_s
+        expected_foot_position[leg_index] = (
+            expected_position + expected_rotation @ expected_offset_body
+        )
+        expected_foot_jacobian[leg_index] = expected_rotation @ jacobian_body
+
+    np.testing.assert_allclose(predicted.base_rotation, expected_rotation, atol=1e-10)
+    np.testing.assert_allclose(predicted.base_position, expected_position, atol=1e-10)
+    np.testing.assert_allclose(
+        predicted.base_linear_velocity_world,
+        expected_rotation @ linear_body,
+        atol=1e-10,
+    )
+    np.testing.assert_allclose(
+        predicted.base_angular_velocity_world,
+        expected_rotation @ angular_body,
+        atol=1e-10,
+    )
+    np.testing.assert_allclose(
+        predicted.joint_position,
+        delayed.joint_position + joint_velocity * horizon_s,
+    )
+    np.testing.assert_allclose(predicted.foot_position, expected_foot_position, atol=1e-10)
+    np.testing.assert_allclose(predicted.foot_jacobian, expected_foot_jacobian, atol=1e-10)
+    assert result.status == "applied"
+    assert result.source_age_s == pytest.approx(0.02)
+    assert result.estimate_time_s == pytest.approx(delayed.control_time_s)
+    assert predicted.sequence == delayed.sequence
+    assert predicted.control_time_s == delayed.control_time_s
+    assert predicted.measurement_time_s == delayed.measurement_time_s
+    np.testing.assert_array_equal(predicted.wheel_contact, delayed.wheel_contact)
+    np.testing.assert_array_equal(predicted.wheel_contact_point, delayed.wheel_contact_point)
+    assert predicted.undesired_ground_contacts == delayed.undesired_ground_contacts
+
+
+@pytest.mark.parametrize(
+    ("age_s", "expected_status"),
+    (
+        (0.049999, "applied"),
+        (0.050000, "applied"),
+        (0.050001, "horizon_exceeded"),
+    ),
+)
+def test_latency_compensation_obeys_50_ms_horizon_boundary(
+    age_s: float,
+    expected_status: str,
+) -> None:
+    state = D1MujocoTruthStateSource(D1Plant()).reset()
+    delayed = replace(state, control_time_s=age_s)
+
+    result = compensate_d1_state_constant_velocity(delayed, max_horizon_s=0.05)
+
+    assert result.status == expected_status
+    if expected_status == "applied":
+        assert result.control_state is not delayed
+        assert result.applied_horizon_s == pytest.approx(age_s)
+        assert result.estimate_time_s == pytest.approx(delayed.control_time_s)
+    else:
+        assert result.control_state is delayed
+        assert result.applied_horizon_s == 0.0
+        assert result.estimate_time_s == pytest.approx(delayed.measurement_time_s)
+
+
+def test_latency_compensation_rejects_excessive_leg_joint_displacement() -> None:
+    state = D1MujocoTruthStateSource(D1Plant()).reset()
+    joint_velocity = np.zeros(16)
+    joint_velocity[0] = 1.0
+    delayed = replace(state, control_time_s=0.02, joint_velocity=joint_velocity)
+
+    result = compensate_d1_state_constant_velocity(
+        delayed,
+        max_leg_joint_delta_rad=0.01,
+    )
+
+    assert result.control_state is delayed
+    assert result.status == "kinematic_horizon_exceeded"
+    assert result.applied_horizon_s == 0.0
+    assert result.estimate_time_s == pytest.approx(delayed.measurement_time_s)
+
+
+def test_latency_compensation_rejects_predicted_leg_joint_limit_violation() -> None:
+    state = D1MujocoTruthStateSource(D1Plant()).reset()
+    joint_position = state.joint_position.copy()
+    joint_velocity = np.zeros(16)
+    joint_position[0] = JOINT_POSITION_HIGH[0] - 0.001
+    joint_velocity[0] = 0.1
+    delayed = replace(
+        state,
+        control_time_s=0.02,
+        joint_position=joint_position,
+        joint_velocity=joint_velocity,
+    )
+
+    result = compensate_d1_state_constant_velocity(delayed)
+
+    assert joint_velocity[0] * delayed.age_s < 0.35
+    assert result.control_state is delayed
+    assert result.status == "kinematic_horizon_exceeded"
+    assert result.applied_horizon_s == 0.0
+
+
+def test_prepare_control_state_none_preserves_delayed_measurement() -> None:
+    state = D1MujocoTruthStateSource(D1Plant()).reset()
+    delayed = replace(state, control_time_s=0.02)
+
+    result = prepare_d1_control_state(delayed, latency_compensation="none")
+
+    assert result.control_state is delayed
+    assert result.method == "none"
+    assert result.status == "disabled"
+    assert result.source_age_s == pytest.approx(0.02)
+    assert result.applied_horizon_s == 0.0
+    assert result.estimate_time_s == pytest.approx(delayed.measurement_time_s)
+
+
+def test_prepare_control_state_rejects_unknown_mode() -> None:
+    state = D1MujocoTruthStateSource(D1Plant()).reset()
+
+    with pytest.raises(ValueError, match="latency_compensation"):
+        prepare_d1_control_state(state, latency_compensation="kalman")
 
 
 @pytest.mark.parametrize(

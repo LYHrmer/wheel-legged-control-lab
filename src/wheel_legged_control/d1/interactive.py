@@ -23,6 +23,7 @@ from .state_estimation import (
     D1StateEstimate,
     make_d1_state_source,
     make_default_d1_estimator_impairments,
+    prepare_d1_control_state,
 )
 from .terrain import D1_COURSE_SPAWNS, D1TerrainAttitudeEstimator
 
@@ -70,6 +71,9 @@ class D1TeleopStatus:
     torque_saturation_fraction: float
     state_estimation_mode: str
     state_age_ms: float
+    latency_compensation: str
+    compensation_status: str
+    compensation_horizon_ms: float
 
 
 def _yaw_quaternion(yaw_rad: float) -> np.ndarray:
@@ -96,6 +100,7 @@ class D1TeleopController:
         baseline: str = "lqr",
         residual_policy: Any | None = None,
         state_mode: str = "oracle",
+        latency_compensation: str = "none",
         state_delay_steps: int = 0,
         sensor_noise: float = 0.0,
         seed: int = 0,
@@ -104,10 +109,15 @@ class D1TeleopController:
             raise ValueError("baseline must be 'lqr' or 'mpc'")
         if state_mode not in {"oracle", "estimated"}:
             raise ValueError("state_mode must be 'oracle' or 'estimated'")
+        if latency_compensation not in {"none", "constant_velocity"}:
+            raise ValueError("latency_compensation must be 'none' or 'constant_velocity'")
+        if state_mode == "oracle" and latency_compensation != "none":
+            raise ValueError("latency compensation requires state_mode='estimated'")
         if state_delay_steps < 0 or sensor_noise < 0.0:
             raise ValueError("state delay and sensor noise must be non-negative")
         self.plant = plant
         self.state_mode = state_mode
+        self.latency_compensation = latency_compensation
         self.seed = seed
         self.residual_policy = residual_policy
         self.controller = (
@@ -138,7 +148,18 @@ class D1TeleopController:
             seed=seed,
         )
         self._state: D1StateEstimate
+        self._compensation_status = "disabled"
+        self._compensation_horizon_s = 0.0
         self.reset("start")
+
+    def _publish_control_state(self, raw_state: D1StateEstimate) -> None:
+        result = prepare_d1_control_state(
+            raw_state,
+            latency_compensation=self.latency_compensation,
+        )
+        self._state = result.control_state
+        self._compensation_status = result.status
+        self._compensation_horizon_s = result.applied_horizon_s
 
     def reset(self, spawn: str = "start") -> None:
         if spawn not in D1_COURSE_SPAWNS:
@@ -148,7 +169,7 @@ class D1TeleopController:
             base_position=np.asarray(target.position_m, dtype=np.float64),
             base_quaternion=_yaw_quaternion(target.yaw_rad),
         )
-        self._state = self.state_source.reset(seed=self.seed)
+        self._publish_control_state(self.state_source.reset(seed=self.seed))
         self.controller.reset()
         self.terrain_attitude.reset()
         self._last_torque[:] = 0.0
@@ -345,13 +366,16 @@ class D1TeleopController:
             torque_saturation_fraction=float(np.mean(np.abs(torque) >= 0.98 * JOINT_TORQUE_LIMIT)),
             state_estimation_mode=self.state_mode,
             state_age_ms=1e3 * state.age_s,
+            latency_compensation=self.latency_compensation,
+            compensation_status=self._compensation_status,
+            compensation_horizon_ms=1e3 * self._compensation_horizon_s,
         )
         return torque, status
 
     def update_state(self) -> None:
         """Publish the measurement produced after the latest physics step."""
 
-        self._state = self.state_source.read()
+        self._publish_control_state(self.state_source.read())
 
 
 class D1InteractiveSimulation:
@@ -364,6 +388,7 @@ class D1InteractiveSimulation:
         arena: str = "course",
         residual_policy: Any | None = None,
         state_mode: str = "oracle",
+        latency_compensation: str = "none",
         state_delay_steps: int = 0,
         sensor_noise: float = 0.0,
         seed: int = 0,
@@ -374,6 +399,7 @@ class D1InteractiveSimulation:
             baseline=baseline,
             residual_policy=residual_policy,
             state_mode=state_mode,
+            latency_compensation=latency_compensation,
             state_delay_steps=state_delay_steps,
             sensor_noise=sensor_noise,
             seed=seed,
@@ -417,7 +443,7 @@ def _render_frame(
         f"yaw={status.yaw_rate_rps:+.2f} rad/s  "
         f"jump={status.jump_phase}  rl={status.rl_mode}  traction={status.traction_mode}  "
         f"safety={status.safety_mode}  state={status.state_estimation_mode} "
-        f"age={status.state_age_ms:.0f} ms"
+        f"age={status.state_age_ms:.0f} ms  comp={status.latency_compensation}"
     )
     ImageDraw.Draw(canvas).text((10, 10), label, fill="black")
     return canvas
@@ -429,6 +455,7 @@ def run_scripted_demo(
     *,
     baseline: str = "lqr",
     state_mode: str = "oracle",
+    latency_compensation: str = "none",
     state_delay_steps: int = 0,
     sensor_noise: float = 0.0,
     seed: int = 0,
@@ -440,6 +467,7 @@ def run_scripted_demo(
     simulation = D1InteractiveSimulation(
         baseline=baseline,
         state_mode=state_mode,
+        latency_compensation=latency_compensation,
         state_delay_steps=state_delay_steps,
         sensor_noise=sensor_noise,
         seed=seed,
@@ -476,6 +504,9 @@ def run_scripted_demo(
     maximum_pitch = 0.0
     saturation_sum = 0.0
     step_times_ms: list[float] = []
+    compensation_horizons_ms: list[float] = []
+    compensation_applied_steps = 0
+    compensation_rejected_steps = 0
     terminated = False
     status: D1TeleopStatus
     for step in range(total_steps):
@@ -492,6 +523,11 @@ def run_scripted_demo(
         maximum_roll = max(maximum_roll, abs(float(simulation.plant.base_rpy[0])))
         maximum_pitch = max(maximum_pitch, abs(float(simulation.plant.base_rpy[1])))
         saturation_sum += status.torque_saturation_fraction
+        compensation_horizons_ms.append(status.compensation_horizon_ms)
+        compensation_applied_steps += int(status.compensation_status == "applied")
+        compensation_rejected_steps += int(
+            status.compensation_status in {"horizon_exceeded", "kinematic_horizon_exceeded"}
+        )
         terminated = terminated or simulation.plant.has_fallen()
         if renderer is not None and step % 5 == 0:
             frames.append(_render_frame(simulation, renderer, status))
@@ -536,6 +572,7 @@ def run_scripted_demo(
         "zone": zone,
         "baseline": baseline,
         "state_estimation_mode": state_mode,
+        "latency_compensation": latency_compensation,
         "evaluation_seed": seed,
         "success": int(not terminated and distance >= minimum_progress and completed_required_jump),
         "distance_m": distance,
@@ -546,6 +583,9 @@ def run_scripted_demo(
         "max_abs_pitch_deg": float(np.rad2deg(maximum_pitch)),
         "torque_saturation_ratio": saturation_sum / total_steps,
         "step_time_p95_ms": float(np.percentile(step_times_ms, 95)),
+        "compensation_applied_ratio": compensation_applied_steps / total_steps,
+        "compensation_horizon_p95_ms": float(np.percentile(compensation_horizons_ms, 95)),
+        "compensation_rejected_steps": compensation_rejected_steps,
         "completed_jumps": status.completed_jumps,
         "cleared_hurdles": cleared_hurdles,
         "jump_height_gain_m": maximum_height - float(D1_COURSE_SPAWNS[zone].position_m[2]),
@@ -558,6 +598,7 @@ def write_course_audit(
     *,
     baseline: str = "lqr",
     state_mode: str = "oracle",
+    latency_compensation: str = "none",
     state_delay_steps: int = 0,
     sensor_noise: float = 0.0,
     seed: int = 0,
@@ -569,6 +610,7 @@ def write_course_audit(
             zone,
             baseline=baseline,
             state_mode=state_mode,
+            latency_compensation=latency_compensation,
             state_delay_steps=state_delay_steps,
             sensor_noise=sensor_noise,
             seed=seed,
@@ -585,8 +627,12 @@ def write_course_audit(
         "",
         "Scripted commands in the same MuJoCo course used by the keyboard demo.",
         "",
-        "| Zone | Pass | Progress [m] | Roll max [deg] | Pitch max [deg] | 4-wheel contact | Jumps | Hurdles | Step P95 [ms] |",
-        "|---|---:|---:|---:|---:|---:|---:|---:|---:|",
+        (
+            "| Zone | Pass | Progress [m] | Roll max [deg] | Pitch max [deg] | "
+            "4-wheel contact | Jumps | Hurdles | Compensation applied | Rejected | "
+            "Step P95 [ms] |"
+        ),
+        "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for record in records:
         lines.append(
@@ -594,6 +640,8 @@ def write_course_audit(
             f"{record['max_abs_roll_deg']:.2f} | {record['max_abs_pitch_deg']:.2f} | "
             f"{record['four_wheel_contact_ratio']:.3f} | "
             f"{record['completed_jumps']} | {record['cleared_hurdles']} | "
+            f"{record['compensation_applied_ratio']:.3f} | "
+            f"{record['compensation_rejected_steps']} | "
             f"{record['step_time_p95_ms']:.3f} |"
         )
     (output / "course_metrics.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
@@ -605,6 +653,7 @@ def run_viewer(
     residual_policy: Any | None = None,
     *,
     state_mode: str = "oracle",
+    latency_compensation: str = "none",
     state_delay_steps: int = 0,
     sensor_noise: float = 0.0,
     seed: int = 0,
@@ -615,6 +664,7 @@ def run_viewer(
         baseline=baseline,
         residual_policy=residual_policy,
         state_mode=state_mode,
+        latency_compensation=latency_compensation,
         state_delay_steps=state_delay_steps,
         sensor_noise=sensor_noise,
         seed=seed,
@@ -655,7 +705,8 @@ def run_viewer(
                         f"jump={status.jump_phase:<7}  "
                         f"rl={status.rl_mode:<11}  "
                         f"traction={status.traction_mode:<6}  safety={status.safety_mode}  "
-                        f"state={status.state_estimation_mode} age={status.state_age_ms:.0f}ms"
+                        f"state={status.state_estimation_mode} age={status.state_age_ms:.0f}ms  "
+                        f"comp={status.latency_compensation}"
                     )
                     next_status_time += 1.0
             viewer.sync()
@@ -693,6 +744,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--baseline", choices=("lqr", "mpc"), default="lqr")
     parser.add_argument("--state-mode", choices=("oracle", "estimated"), default="oracle")
+    parser.add_argument(
+        "--latency-compensation",
+        choices=("none", "constant_velocity"),
+        default="none",
+    )
     parser.add_argument("--state-delay-steps", type=int, default=0)
     parser.add_argument("--sensor-noise", type=float, default=0.0)
     parser.add_argument("--seed", type=int, default=0)
@@ -707,6 +763,8 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> None:
     args = build_parser().parse_args(argv)
+    if args.state_mode != "estimated" and args.latency_compensation != "none":
+        raise SystemExit("latency compensation requires --state-mode estimated")
     if args.record is not None and args.demo_zone is None:
         raise SystemExit("--record requires --demo-zone")
     if args.policy is not None and any(
@@ -722,6 +780,7 @@ def main(argv: list[str] | None = None) -> None:
             args.audit_output,
             baseline=args.baseline,
             state_mode=args.state_mode,
+            latency_compensation=args.latency_compensation,
             state_delay_steps=args.state_delay_steps,
             sensor_noise=args.sensor_noise,
             seed=args.seed,
@@ -737,6 +796,7 @@ def main(argv: list[str] | None = None) -> None:
                     args.policy,
                     expected_baseline=args.baseline,
                     expected_state_mode=args.state_mode,
+                    expected_latency_compensation=args.latency_compensation,
                 )
             except (FileNotFoundError, RuntimeError, ValueError) as error:
                 raise SystemExit(str(error)) from error
@@ -744,6 +804,7 @@ def main(argv: list[str] | None = None) -> None:
             args.baseline,
             residual_policy,
             state_mode=args.state_mode,
+            latency_compensation=args.latency_compensation,
             state_delay_steps=args.state_delay_steps,
             sensor_noise=args.sensor_noise,
             seed=args.seed,
@@ -754,6 +815,7 @@ def main(argv: list[str] | None = None) -> None:
         args.record,
         baseline=args.baseline,
         state_mode=args.state_mode,
+        latency_compensation=args.latency_compensation,
         state_delay_steps=args.state_delay_steps,
         sensor_noise=args.sensor_noise,
         seed=args.seed,

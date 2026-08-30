@@ -13,7 +13,13 @@ from dataclasses import dataclass, replace
 import mujoco
 import numpy as np
 
-from .model import D1_JOINT_NAMES, LEG_PREFIXES, D1Plant
+from .model import (
+    D1_JOINT_NAMES,
+    JOINT_POSITION_HIGH,
+    JOINT_POSITION_LOW,
+    LEG_PREFIXES,
+    D1Plant,
+)
 
 
 def _immutable_array(
@@ -351,6 +357,138 @@ def _rotation_from_vector(rotation_vector: np.ndarray) -> np.ndarray:
     x, y, z = rotation_vector / angle
     skew = np.asarray(((0.0, -z, y), (z, 0.0, -x), (-y, x, 0.0)))
     return np.eye(3) + np.sin(angle) * skew + (1.0 - np.cos(angle)) * (skew @ skew)
+
+
+@dataclass(frozen=True, slots=True)
+class D1LatencyCompensationResult:
+    """State plus provenance for one short-horizon latency compensation step."""
+
+    control_state: D1StateEstimate
+    method: str
+    source_age_s: float
+    applied_horizon_s: float
+    estimate_time_s: float
+    status: str
+
+
+def compensate_d1_state_constant_velocity(
+    measured: D1StateEstimate,
+    *,
+    max_horizon_s: float = 0.05,
+    max_leg_joint_delta_rad: float = 0.35,
+) -> D1LatencyCompensationResult:
+    """Extrapolate a delayed snapshot with constant body twist and joint velocity.
+
+    Contact flags and contact points remain measured values.  The function is a
+    short-horizon latency compensator, not a sensor observer or contact predictor.
+    """
+
+    if not np.isfinite(max_horizon_s) or max_horizon_s <= 0.0:
+        raise ValueError("max_horizon_s must be finite and positive")
+    if not np.isfinite(max_leg_joint_delta_rad) or max_leg_joint_delta_rad <= 0.0:
+        raise ValueError("max_leg_joint_delta_rad must be finite and positive")
+    age_s = measured.age_s
+    common = {
+        "method": "constant_body_twist_first_order",
+        "source_age_s": age_s,
+    }
+    if age_s <= 1e-12:
+        return D1LatencyCompensationResult(
+            control_state=measured,
+            applied_horizon_s=0.0,
+            estimate_time_s=measured.measurement_time_s,
+            status="bypassed",
+            **common,
+        )
+    if age_s > max_horizon_s + 1e-12:
+        return D1LatencyCompensationResult(
+            control_state=measured,
+            applied_horizon_s=0.0,
+            estimate_time_s=measured.measurement_time_s,
+            status="horizon_exceeded",
+            **common,
+        )
+
+    leg_indices = np.asarray(
+        [index for index in range(len(D1_JOINT_NAMES)) if index % 4 != 3],
+        dtype=np.int32,
+    )
+    joint_delta = measured.joint_velocity * age_s
+    predicted_joint_position = measured.joint_position + joint_delta
+    invalid_leg_prediction = bool(
+        np.any(np.abs(joint_delta[leg_indices]) > max_leg_joint_delta_rad)
+        or np.any(predicted_joint_position[leg_indices] < JOINT_POSITION_LOW[leg_indices])
+        or np.any(predicted_joint_position[leg_indices] > JOINT_POSITION_HIGH[leg_indices])
+    )
+    if invalid_leg_prediction:
+        return D1LatencyCompensationResult(
+            control_state=measured,
+            applied_horizon_s=0.0,
+            estimate_time_s=measured.measurement_time_s,
+            status="kinematic_horizon_exceeded",
+            **common,
+        )
+
+    rotation = measured.base_rotation
+    angular_step = measured.base_angular_velocity_body * age_s
+    predicted_rotation = rotation @ _rotation_from_vector(angular_step)
+    midpoint_rotation = rotation @ _rotation_from_vector(0.5 * angular_step)
+    predicted_position = (
+        measured.base_position + midpoint_rotation @ measured.base_linear_velocity_body * age_s
+    )
+
+    predicted_foot_position = np.empty_like(measured.foot_position)
+    predicted_foot_jacobian = np.empty_like(measured.foot_jacobian)
+    for leg_index in range(len(LEG_PREFIXES)):
+        joint_slice = slice(4 * leg_index, 4 * (leg_index + 1))
+        foot_offset_body = rotation.T @ (measured.foot_position[leg_index] - measured.base_position)
+        jacobian_body = rotation.T @ measured.foot_jacobian[leg_index]
+        predicted_offset_body = (
+            foot_offset_body + (jacobian_body @ measured.joint_velocity[joint_slice]) * age_s
+        )
+        predicted_foot_position[leg_index] = (
+            predicted_position + predicted_rotation @ predicted_offset_body
+        )
+        predicted_foot_jacobian[leg_index] = predicted_rotation @ jacobian_body
+
+    control_state = replace(
+        measured,
+        base_position=predicted_position,
+        base_rotation=predicted_rotation,
+        base_linear_velocity_world=(predicted_rotation @ measured.base_linear_velocity_body),
+        base_angular_velocity_world=(predicted_rotation @ measured.base_angular_velocity_body),
+        joint_position=predicted_joint_position,
+        foot_position=predicted_foot_position,
+        foot_jacobian=predicted_foot_jacobian,
+    )
+    return D1LatencyCompensationResult(
+        control_state=control_state,
+        applied_horizon_s=age_s,
+        estimate_time_s=measured.control_time_s,
+        status="applied",
+        **common,
+    )
+
+
+def prepare_d1_control_state(
+    measured: D1StateEstimate,
+    *,
+    latency_compensation: str = "none",
+) -> D1LatencyCompensationResult:
+    """Apply the configured latency treatment with one shared mode switch."""
+
+    if latency_compensation == "none":
+        return D1LatencyCompensationResult(
+            control_state=measured,
+            method="none",
+            source_age_s=measured.age_s,
+            applied_horizon_s=0.0,
+            estimate_time_s=measured.measurement_time_s,
+            status="disabled",
+        )
+    if latency_compensation == "constant_velocity":
+        return compensate_d1_state_constant_velocity(measured)
+    raise ValueError("latency_compensation must be 'none' or 'constant_velocity'")
 
 
 class D1NoisyDelayedStateSource:

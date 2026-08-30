@@ -6,7 +6,9 @@ import argparse
 import csv
 import hashlib
 import json
+import platform
 from dataclasses import dataclass, field
+from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 from typing import Any
 
@@ -24,6 +26,51 @@ from .policy import load_compatible_d1_policy
 plt.switch_backend("Agg")
 
 D1_SCENARIOS = ("nominal", "push", "mismatch_delay")
+D1_STATE_DELAY_SWEEP_STEPS = (0, 1, 2, 3, 5)
+D1_DEFAULT_POLICY_PATH = Path("results/d1_residual_ppo/model.zip")
+D1_SWEEP_ARTIFACTS = (
+    "delay_sweep_episodes.csv",
+    "delay_sweep_summary.csv",
+    "state_delay_sensitivity.md",
+    "state_delay_sensitivity.png",
+    "evaluation_config.json",
+    "delay_sweep_manifest.json",
+)
+
+# The Markdown report emits every item in this registry.  Keep the primary
+# survival outcomes first; the remaining values describe the trajectory prefix
+# observed before an episode either finishes or falls.
+D1_SWEEP_METRICS = {
+    "success": ("Success", "ratio"),
+    "episode_duration_s": ("Episode duration", "s"),
+    "mean_reward": ("Mean reward", "reward/step"),
+    "velocity_rmse_mps": ("Velocity RMSE", "m/s"),
+    "pitch_rmse_deg": ("Pitch RMSE", "deg"),
+    "max_abs_pitch_deg": ("Maximum absolute pitch", "deg"),
+    "height_rmse_mm": ("Height RMSE", "mm"),
+    "normalized_torque_rms": ("Normalized torque RMS", "ratio"),
+    "mean_abs_mechanical_power_w": ("Mean absolute mechanical power", "W"),
+    "torque_saturation_ratio": ("Torque saturation", "ratio"),
+    "four_wheel_contact_ratio": ("Four-wheel contact", "ratio"),
+    "undesired_contact_steps": ("Undesired-contact steps", "steps"),
+    "solve_p95_ms": ("Solve-time P95", "ms"),
+    "state_age_mean_ms": ("Measured state age mean", "ms"),
+    "state_age_p95_ms": ("Measured state age P95", "ms"),
+    "state_age_max_ms": ("Measured state age maximum", "ms"),
+    "compensation_horizon_p95_ms": ("Compensation horizon P95", "ms"),
+    "compensation_applied_ratio": ("Compensation applied", "ratio"),
+    "compensation_rejected_ratio": ("Compensation rejected", "ratio"),
+    "raw_position_estimation_rmse_m": ("Raw position-estimation RMSE", "m"),
+    "control_position_estimation_rmse_m": ("Control position-estimation RMSE", "m"),
+    "raw_pitch_estimation_rmse_deg": ("Raw pitch-estimation RMSE", "deg"),
+    "control_pitch_estimation_rmse_deg": ("Control pitch-estimation RMSE", "deg"),
+    "raw_velocity_estimation_rmse_mps": ("Raw velocity-estimation RMSE", "m/s"),
+    "control_velocity_estimation_rmse_mps": ("Control velocity-estimation RMSE", "m/s"),
+    "residual_action_rms": ("Residual-action RMS", "ratio"),
+    "residual_action_delta_rms": ("Residual-action delta RMS", "ratio"),
+    "mean_residual_longitudinal_force_n": ("Mean residual longitudinal force", "N"),
+    "mean_residual_vertical_force_n": ("Mean residual vertical force", "N"),
+}
 
 
 @dataclass
@@ -51,12 +98,30 @@ class D1Rollout:
     sensor_noise_scale: float = 0.0
     state_estimator_seed: int | None = None
     residual_actions: np.ndarray = field(default_factory=lambda: np.empty((0, 2), dtype=np.float64))
+    latency_compensation: str = "none"
+    compensation_horizons_ms: np.ndarray = field(
+        default_factory=lambda: np.empty(0, dtype=np.float64)
+    )
+    compensation_applied_flags: np.ndarray = field(
+        default_factory=lambda: np.empty(0, dtype=np.bool_)
+    )
+    compensation_rejected_flags: np.ndarray = field(
+        default_factory=lambda: np.empty(0, dtype=np.bool_)
+    )
     absolute_mechanical_power_w: np.ndarray = field(
         default_factory=lambda: np.empty(0, dtype=np.float64)
     )
     torque_saturation_fractions: np.ndarray = field(
         default_factory=lambda: np.empty(0, dtype=np.float64)
     )
+    raw_estimated_states: np.ndarray = field(
+        default_factory=lambda: np.empty((0, 6), dtype=np.float64)
+    )
+    control_states: np.ndarray = field(default_factory=lambda: np.empty((0, 6), dtype=np.float64))
+    initial_state_fingerprint: str = ""
+    initial_command_fingerprint: str = ""
+    push_schedule_fingerprint: str = ""
+    control_dt_s: float = 0.01
 
 
 def d1_scenario_options(name: str) -> dict[str, Any]:
@@ -87,6 +152,40 @@ def _render_frame(env: D1ResidualEnv, renderer: mujoco.Renderer) -> np.ndarray:
     return renderer.render().copy()
 
 
+def _numeric_fingerprint(values: np.ndarray) -> str:
+    """Hash numeric evidence with its dtype and shape, not its display format."""
+
+    array = np.ascontiguousarray(np.asarray(values))
+    digest = hashlib.sha256()
+    digest.update(array.dtype.str.encode("ascii"))
+    digest.update(np.asarray(array.shape, dtype=np.int64).tobytes())
+    digest.update(array.tobytes())
+    return digest.hexdigest()
+
+
+def _runtime_provenance() -> dict[str, Any]:
+    packages: dict[str, str | None] = {}
+    for distribution in (
+        "numpy",
+        "scipy",
+        "mujoco",
+        "matplotlib",
+        "gymnasium",
+        "stable-baselines3",
+    ):
+        try:
+            packages[distribution] = version(distribution)
+        except PackageNotFoundError:
+            packages[distribution] = None
+    return {
+        "python": platform.python_version(),
+        "python_implementation": platform.python_implementation(),
+        "platform": platform.platform(),
+        "machine": platform.machine(),
+        "packages": packages,
+    }
+
+
 def run_d1_rollout(
     baseline: str,
     scenario: str,
@@ -95,9 +194,19 @@ def run_d1_rollout(
     *,
     capture: bool = False,
     state_mode: str = "oracle",
+    latency_compensation: str = "none",
+    episode_options: dict[str, Any] | None = None,
 ) -> D1Rollout:
-    env = D1ResidualEnv(baseline=baseline, randomize=False, state_mode=state_mode)
-    observation, reset_info = env.reset(seed=seed, options=d1_scenario_options(scenario))
+    env = D1ResidualEnv(
+        baseline=baseline,
+        randomize=False,
+        state_mode=state_mode,
+        latency_compensation=latency_compensation,
+    )
+    options = d1_scenario_options(scenario)
+    if episode_options is not None:
+        options |= episode_options
+    observation, reset_info = env.reset(seed=seed, options=options)
     renderer = mujoco.Renderer(env.plant.model, height=300, width=400) if capture else None
     states: list[np.ndarray] = []
     forward_velocities: list[float] = []
@@ -112,6 +221,11 @@ def run_d1_rollout(
     absolute_mechanical_power_w: list[float] = []
     torque_saturation_fractions: list[float] = []
     residual_actions: list[np.ndarray] = []
+    compensation_horizons_ms: list[float] = []
+    compensation_applied_flags: list[bool] = []
+    compensation_rejected_flags: list[bool] = []
+    raw_estimated_states: list[np.ndarray] = []
+    control_states: list[np.ndarray] = []
     frames: list[np.ndarray] = []
     state_estimation_mode = str(reset_info.get("state_estimation_mode", state_mode))
     domain = {key: float(value) for key, value in reset_info.get("domain", {}).items()}
@@ -119,6 +233,26 @@ def run_d1_rollout(
     state_delay_steps = int(reset_info.get("state_delay_steps", 0))
     sensor_noise_scale = float(reset_info.get("sensor_noise_scale", 0.0))
     state_estimator_seed = reset_info.get("state_estimator_seed")
+    initial_truth_state = np.concatenate(
+        (
+            np.asarray(env.plant.data.qpos, dtype=np.float64),
+            np.asarray(env.plant.data.qvel, dtype=np.float64),
+        )
+    )
+    initial_command = np.asarray(
+        (
+            reset_info["command_velocity_mps"],
+            reset_info["command_height_m"],
+        ),
+        dtype=np.float64,
+    )
+    # The environment samples the complete push schedule during reset.  Storing
+    # its hash avoids falsely treating an early fall (before the push) as a
+    # matched input merely because both recorded force prefixes are all zero.
+    push_schedule = np.asarray(
+        (env._push_start, env._push_end, env._push_force_n),
+        dtype=np.float64,
+    )
     terminated = truncated = False
 
     while not (terminated or truncated):
@@ -144,6 +278,20 @@ def run_d1_rollout(
         undesired.append(info["undesired_contacts"])
         solve_times.append(info["solve_ms"])
         state_ages_ms.append(float(info.get("state_age_ms", 0.0)))
+        compensation_horizons_ms.append(float(info.get("latency_compensation_horizon_ms", 0.0)))
+        compensation_status = str(info.get("latency_compensation_status", "disabled"))
+        compensation_applied_flags.append(compensation_status == "applied")
+        compensation_rejected_flags.append(
+            compensation_status in {"horizon_exceeded", "kinematic_horizon_exceeded"}
+        )
+        control_state = np.asarray(
+            info.get("control_state", info["estimated_state"]), dtype=np.float64
+        )
+        raw_estimated_state = np.asarray(
+            info.get("raw_estimated_state", control_state), dtype=np.float64
+        )
+        control_states.append(control_state)
+        raw_estimated_states.append(raw_estimated_state)
         absolute_mechanical_power_w.append(
             float(np.sum(np.abs(applied_torque_nm * joint_velocity)))
         )
@@ -189,9 +337,32 @@ def run_d1_rollout(
         absolute_mechanical_power_w=np.asarray(absolute_mechanical_power_w),
         torque_saturation_fractions=np.asarray(torque_saturation_fractions),
         residual_actions=np.asarray(residual_actions),
+        latency_compensation=latency_compensation,
+        compensation_horizons_ms=np.asarray(compensation_horizons_ms),
+        compensation_applied_flags=np.asarray(compensation_applied_flags, dtype=np.bool_),
+        compensation_rejected_flags=np.asarray(compensation_rejected_flags, dtype=np.bool_),
+        raw_estimated_states=np.asarray(raw_estimated_states),
+        control_states=np.asarray(control_states),
+        initial_state_fingerprint=_numeric_fingerprint(initial_truth_state),
+        initial_command_fingerprint=_numeric_fingerprint(initial_command),
+        push_schedule_fingerprint=_numeric_fingerprint(push_schedule),
+        control_dt_s=env.plant.control_dt,
     )
     env.close()
     return rollout
+
+
+def _estimation_rmse(
+    estimates: np.ndarray,
+    truth: np.ndarray,
+    indices: tuple[int, ...],
+    *,
+    scale: float = 1.0,
+) -> float:
+    if estimates.shape != truth.shape or estimates.ndim != 2 or estimates.shape[1] < 6:
+        return float("nan")
+    error = estimates[:, indices] - truth[:, indices]
+    return float(scale * np.sqrt(np.mean(error**2)))
 
 
 def compute_d1_metrics(rollout: D1Rollout) -> dict[str, float | str | int]:
@@ -202,6 +373,8 @@ def compute_d1_metrics(rollout: D1Rollout) -> dict[str, float | str | int]:
     state_age_p95_ms = (
         float(np.percentile(rollout.state_ages_ms, 95)) if rollout.state_ages_ms.size else 0.0
     )
+    state_age_mean_ms = float(np.mean(rollout.state_ages_ms)) if rollout.state_ages_ms.size else 0.0
+    state_age_max_ms = float(np.max(rollout.state_ages_ms)) if rollout.state_ages_ms.size else 0.0
     mean_abs_mechanical_power_w = (
         float(np.mean(rollout.absolute_mechanical_power_w))
         if rollout.absolute_mechanical_power_w.size
@@ -232,7 +405,28 @@ def compute_d1_metrics(rollout: D1Rollout) -> dict[str, float | str | int]:
         "scenario": rollout.scenario,
         "evaluation_seed": rollout.evaluation_seed,
         "state_estimation_mode": rollout.state_estimation_mode,
+        "latency_compensation": rollout.latency_compensation,
+        "initial_state_fingerprint": rollout.initial_state_fingerprint,
+        "initial_command_fingerprint": rollout.initial_command_fingerprint,
+        "push_schedule_fingerprint": rollout.push_schedule_fingerprint,
+        "state_age_mean_ms": state_age_mean_ms,
         "state_age_p95_ms": state_age_p95_ms,
+        "state_age_max_ms": state_age_max_ms,
+        "compensation_horizon_p95_ms": (
+            float(np.percentile(rollout.compensation_horizons_ms, 95))
+            if rollout.compensation_horizons_ms.size
+            else 0.0
+        ),
+        "compensation_applied_ratio": (
+            float(np.mean(rollout.compensation_applied_flags))
+            if rollout.compensation_applied_flags.size
+            else 0.0
+        ),
+        "compensation_rejected_ratio": (
+            float(np.mean(rollout.compensation_rejected_flags))
+            if rollout.compensation_rejected_flags.size
+            else 0.0
+        ),
         "action_delay_steps": rollout.action_delay_steps,
         "state_delay_steps": rollout.state_delay_steps,
         "sensor_noise_scale": rollout.sensor_noise_scale,
@@ -244,6 +438,8 @@ def compute_d1_metrics(rollout: D1Rollout) -> dict[str, float | str | int]:
         "friction_scale": rollout.domain.get("friction_scale", 1.0),
         "actuator_strength_scale": rollout.domain.get("actuator_strength_scale", 1.0),
         "success": int(not rollout.terminated),
+        "episode_steps": len(rollout.time_s),
+        "episode_duration_s": float(len(rollout.time_s) * rollout.control_dt_s),
         "velocity_rmse_mps": float(np.sqrt(np.mean(velocity_error**2))),
         "pitch_rmse_deg": float(np.sqrt(np.mean(pitch_deg**2))),
         "max_abs_pitch_deg": float(np.max(np.abs(pitch_deg))),
@@ -259,6 +455,24 @@ def compute_d1_metrics(rollout: D1Rollout) -> dict[str, float | str | int]:
         "undesired_contact_steps": int(np.count_nonzero(rollout.undesired_contacts)),
         "mean_reward": float(np.mean(rollout.rewards)),
         "solve_p95_ms": float(np.percentile(rollout.solve_times_ms, 95)),
+        "raw_position_estimation_rmse_m": _estimation_rmse(
+            rollout.raw_estimated_states, rollout.states, (0, 2)
+        ),
+        "control_position_estimation_rmse_m": _estimation_rmse(
+            rollout.control_states, rollout.states, (0, 2)
+        ),
+        "raw_pitch_estimation_rmse_deg": _estimation_rmse(
+            rollout.raw_estimated_states, rollout.states, (1,), scale=180.0 / np.pi
+        ),
+        "control_pitch_estimation_rmse_deg": _estimation_rmse(
+            rollout.control_states, rollout.states, (1,), scale=180.0 / np.pi
+        ),
+        "raw_velocity_estimation_rmse_mps": _estimation_rmse(
+            rollout.raw_estimated_states, rollout.states, (3, 5)
+        ),
+        "control_velocity_estimation_rmse_mps": _estimation_rmse(
+            rollout.control_states, rollout.states, (3, 5)
+        ),
     }
 
 
@@ -271,16 +485,17 @@ def write_d1_metrics(records: list[dict[str, float | str | int]], output: Path) 
         "# D1 full-body control benchmark",
         "",
         (
-            "| Controller | Scenario | Seed | State | Success | Velocity RMSE [m/s] | "
+            "| Controller | Scenario | Seed | State | Compensation | Success | Velocity RMSE [m/s] | "
             "Pitch RMSE [deg] | Height RMSE [mm] | State age P95 [ms] | Power [W] | "
             "Torque saturation | Solve P95 [ms] |"
         ),
-        "|---|---|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|",
+        "|---|---|---:|---|---|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for record in records:
         lines.append(
             f"| {record['controller']} | {record['scenario']} | "
             f"{record['evaluation_seed']} | {record['state_estimation_mode']} | "
+            f"{record['latency_compensation']} | "
             f"{record['success']} | "
             f"{record['velocity_rmse_mps']:.3f} | {record['pitch_rmse_deg']:.3f} | "
             f"{record['height_rmse_mm']:.2f} | {record['state_age_p95_ms']:.3f} | "
@@ -297,13 +512,50 @@ def _mean_std(records: list[dict[str, float | str | int]], key: str) -> str:
 
 
 def _paired_ci(values: np.ndarray) -> tuple[float, float, float]:
+    """Return a mean and two-sided t interval; an interval needs at least two pairs."""
+
     mean = float(values.mean())
     if len(values) < 2:
-        return mean, mean, mean
+        return mean, float("nan"), float("nan")
     half_width = float(
         student_t.ppf(0.975, len(values) - 1) * values.std(ddof=1) / np.sqrt(len(values))
     )
     return mean, mean - half_width, mean + half_width
+
+
+def _paired_bootstrap_ci(
+    values: np.ndarray,
+    *,
+    resamples: int = 20_000,
+    random_seed: int = 20260830,
+) -> tuple[float, float, float]:
+    """Return a deterministic percentile CI for a mean paired difference."""
+
+    values = np.asarray(values, dtype=np.float64)
+    mean = float(values.mean())
+    if len(values) < 2:
+        return mean, float("nan"), float("nan")
+    if resamples <= 0:
+        raise ValueError("resamples must be positive")
+    rng = np.random.default_rng(random_seed)
+    sampled_indices = rng.integers(0, len(values), size=(resamples, len(values)))
+    sampled_means = values[sampled_indices].mean(axis=1)
+    lower, upper = np.quantile(sampled_means, (0.025, 0.975))
+    return mean, float(lower), float(upper)
+
+
+def _format_ci(
+    estimate: float,
+    lower: float,
+    upper: float,
+    *,
+    signed: bool = False,
+) -> str:
+    value_format = "+.3f" if signed else ".3f"
+    estimate_text = format(estimate, value_format)
+    if not np.isfinite((lower, upper)).all():
+        return f"{estimate_text} [unavailable]"
+    return f"{estimate_text} [{format(lower, value_format)}, {format(upper, value_format)}]"
 
 
 def _records_by_evaluation_seed(
@@ -359,6 +611,7 @@ def write_d1_randomized_audit(records: list[dict[str, float | str | int]], outpu
         matched_seeds = sorted(baseline_by_seed)
         condition_keys = (
             "state_estimation_mode",
+            "latency_compensation",
             "base_mass_scale",
             "damping_scale",
             "friction_scale",
@@ -397,7 +650,7 @@ def write_d1_randomized_audit(records: list[dict[str, float | str | int]], outpu
                 [float(residual_by_seed[seed][key]) for seed in matched_seeds]
             )
             mean, lower, upper = _paired_ci(residual_values - baseline_values)
-            lines.append(f"- {label}: {mean:+.3f} [{lower:+.3f}, {upper:+.3f}]")
+            lines.append(f"- {label}: {_format_ci(mean, lower, upper, signed=True)}")
     with (output / "randomized_audit.csv").open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=list(records[0]))
         writer.writeheader()
@@ -473,17 +726,383 @@ def create_d1_comparison_gif(rollouts: list[D1Rollout], output: Path) -> None:
     )
 
 
+def _wilson_interval(successes: int, episodes: int) -> tuple[float, float, float]:
+    if episodes <= 0:
+        raise ValueError("episodes must be positive")
+    estimate = successes / episodes
+    z = 1.959963984540054
+    denominator = 1.0 + z**2 / episodes
+    center = (estimate + z**2 / (2.0 * episodes)) / denominator
+    half_width = (
+        z
+        * np.sqrt(estimate * (1.0 - estimate) / episodes + z**2 / (4.0 * episodes**2))
+        / denominator
+    )
+    return estimate, center - half_width, center + half_width
+
+
+def _validate_delay_rollout(rollout: D1Rollout, expected_delay_steps: int) -> None:
+    if rollout.state_estimation_mode != "estimated":
+        raise ValueError("delay sweep rollout did not use estimated state")
+    if rollout.state_delay_steps != expected_delay_steps:
+        raise ValueError(
+            "delay sweep rollout reported state_delay_steps="
+            f"{rollout.state_delay_steps}, expected {expected_delay_steps}"
+        )
+    if len(rollout.time_s) == 0:
+        raise ValueError("delay sweep rollout contains no control steps")
+    if rollout.state_ages_ms.shape != rollout.time_s.shape:
+        raise ValueError("delay sweep must record one state age per control step")
+    if not np.isfinite(rollout.state_ages_ms).all():
+        raise ValueError("delay sweep state ages must be finite")
+    expected_ages_ms = (
+        np.minimum(np.arange(1, len(rollout.time_s) + 1), expected_delay_steps)
+        * rollout.control_dt_s
+        * 1e3
+    )
+    if not np.allclose(rollout.state_ages_ms, expected_ages_ms, atol=1e-7, rtol=0.0):
+        raise ValueError(
+            "measured state-age trace does not match the configured delay "
+            f"of {expected_delay_steps} steps"
+        )
+    for name, value in (
+        ("initial state", rollout.initial_state_fingerprint),
+        ("initial command", rollout.initial_command_fingerprint),
+        ("push schedule", rollout.push_schedule_fingerprint),
+    ):
+        if not value:
+            raise ValueError(f"delay sweep is missing the {name} fingerprint")
+
+
+def _file_sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def run_d1_state_delay_sweep(
+    *,
+    output: Path,
+    seed: int,
+    episodes: int,
+    policy: Any | None,
+    latency_compensation: str,
+    run_metadata: dict[str, Any] | None = None,
+) -> list[dict[str, float | str | int]]:
+    """Run the fixed, paired D1 state-delay sensitivity experiment."""
+
+    if episodes <= 0:
+        raise ValueError("delay sweep requires at least one episode")
+    if latency_compensation not in ("none", "constant_velocity"):
+        raise ValueError("unsupported latency compensation mode")
+
+    if run_metadata is None:
+        provenance = {
+            "source": capture_git_provenance(Path(__file__).resolve().parent),
+            "checkpoint": {
+                "included": policy is not None,
+                "path": None,
+                "sha256": None,
+            },
+            "runtime": _runtime_provenance(),
+        }
+    else:
+        # A JSON round trip gives the manifest and config independent, immutable
+        # copies of the exact same serializable run provenance.
+        provenance = json.loads(json.dumps(run_metadata))
+        provenance.setdefault("runtime", _runtime_provenance())
+
+    output.mkdir(parents=True, exist_ok=True)
+    for filename in D1_SWEEP_ARTIFACTS:
+        (output / filename).unlink(missing_ok=True)
+
+    checkpoint = provenance.get("checkpoint", {})
+    if bool(checkpoint.get("included", policy is not None)) != (policy is not None):
+        raise ValueError("checkpoint provenance does not match the supplied policy")
+
+    controllers: list[tuple[str, Any | None]] = [("lqr", None), ("mpc", None)]
+    if policy is not None:
+        controllers.append(("lqr", policy))
+    evaluation_seeds = list(range(seed + 100, seed + 100 + episodes))
+    records: list[dict[str, float | str | int]] = []
+    for delay_steps in D1_STATE_DELAY_SWEEP_STEPS:
+        options = {
+            "action_delay_steps": 0,
+            "state_delay_steps": delay_steps,
+            "sensor_noise": 0.0,
+        }
+        for evaluation_seed in evaluation_seeds:
+            for baseline, residual_policy in controllers:
+                rollout = run_d1_rollout(
+                    baseline,
+                    "randomized",
+                    evaluation_seed,
+                    residual_policy,
+                    state_mode="estimated",
+                    latency_compensation=latency_compensation,
+                    episode_options=options,
+                )
+                _validate_delay_rollout(rollout, delay_steps)
+                records.append(compute_d1_metrics(rollout))
+
+    controller_names = list(dict.fromkeys(str(record["controller"]) for record in records))
+    condition_keys = (
+        "state_estimation_mode",
+        "latency_compensation",
+        "base_mass_scale",
+        "damping_scale",
+        "friction_scale",
+        "actuator_strength_scale",
+        "action_delay_steps",
+        "sensor_noise_scale",
+        "state_estimator_seed",
+        "initial_state_fingerprint",
+        "initial_command_fingerprint",
+        "push_schedule_fingerprint",
+    )
+    for evaluation_seed in evaluation_seeds:
+        reference = next(
+            record
+            for record in records
+            if int(record["evaluation_seed"]) == evaluation_seed
+            and int(record["state_delay_steps"]) == 0
+        )
+        for record in records:
+            if int(record["evaluation_seed"]) != evaluation_seed:
+                continue
+            for key in condition_keys:
+                if record[key] != reference[key]:
+                    raise ValueError(
+                        f"delay sweep condition {key!r} differs at seed {evaluation_seed}"
+                    )
+
+    summary: list[dict[str, float | str | int]] = []
+    for controller in controller_names:
+        baseline_records = [
+            record
+            for record in records
+            if record["controller"] == controller and int(record["state_delay_steps"]) == 0
+        ]
+        baseline_by_seed = {int(record["evaluation_seed"]): record for record in baseline_records}
+        if len(baseline_records) != len(baseline_by_seed):
+            raise ValueError(f"duplicate zero-delay records for {controller}")
+        if set(baseline_by_seed) != set(evaluation_seeds):
+            raise ValueError(f"incomplete zero-delay records for {controller}")
+        for delay_steps in D1_STATE_DELAY_SWEEP_STEPS:
+            selected_records = [
+                record
+                for record in records
+                if record["controller"] == controller
+                and int(record["state_delay_steps"]) == delay_steps
+            ]
+            selected = {int(record["evaluation_seed"]): record for record in selected_records}
+            if len(selected_records) != len(selected):
+                raise ValueError(f"duplicate delay={delay_steps} records for {controller}")
+            if set(selected) != set(evaluation_seeds):
+                raise ValueError(f"incomplete delay={delay_steps} records for {controller}")
+            for metric, (_, unit) in D1_SWEEP_METRICS.items():
+                values = np.asarray([float(selected[item][metric]) for item in evaluation_seeds])
+                if not np.isfinite(values).all():
+                    raise ValueError(f"non-finite sweep metric {metric!r} for {controller}")
+                if metric == "success":
+                    estimate, lower, upper = _wilson_interval(int(np.sum(values)), len(values))
+                    ci_method = "Wilson score"
+                else:
+                    estimate, lower, upper = _paired_ci(values)
+                    ci_method = "mean t"
+                deltas = values - np.asarray(
+                    [float(baseline_by_seed[item][metric]) for item in evaluation_seeds]
+                )
+                if metric == "success":
+                    delta, delta_lower, delta_upper = _paired_bootstrap_ci(deltas)
+                    delta_ci_method = "paired bootstrap"
+                else:
+                    delta, delta_lower, delta_upper = _paired_ci(deltas)
+                    delta_ci_method = "paired t"
+                summary.append(
+                    {
+                        "controller": controller,
+                        "state_delay_ms": 10 * delay_steps,
+                        "metric": metric,
+                        "unit": unit,
+                        "episodes": len(values),
+                        "estimate": estimate,
+                        "ci95_low": lower,
+                        "ci95_high": upper,
+                        "delta_vs_0ms": delta,
+                        "delta_ci95_low": delta_lower,
+                        "delta_ci95_high": delta_upper,
+                        "ci_method": ci_method,
+                        "delta_ci_method": delta_ci_method,
+                    }
+                )
+
+    with (output / "delay_sweep_episodes.csv").open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=list(records[0]))
+        writer.writeheader()
+        writer.writerows(records)
+    with (output / "delay_sweep_summary.csv").open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=list(summary[0]))
+        writer.writeheader()
+        writer.writerows(summary)
+
+    lines = [
+        "# D1 state-delay sensitivity",
+        "",
+        (
+            "Fixed delay grid: 0/10/20/30/50 ms. Domain samples, initial state, initial "
+            "command, estimator seed, and planned push are paired and checked by evaluation seed."
+        ),
+        "",
+        (
+            "Success and episode duration are the primary robustness outcomes. Every other "
+            "continuous metric uses only the trajectory prefix observed before truncation or "
+            "a fall; a smaller error after an early fall is not evidence of better robustness."
+        ),
+        "",
+        (
+            "Absolute success intervals use Wilson scores. Absolute continuous intervals use "
+            "mean t intervals. Success differences versus 0 ms use a deterministic paired "
+            "bootstrap; other differences use paired t intervals. With fewer than two pairs, "
+            "the interval is unavailable and stored as NaN in CSV."
+        ),
+        "",
+        "| Controller | Delay [ms] | Metric | Unit | Estimate [95% CI] | Delta vs 0 ms [95% CI] |",
+        "|---|---:|---|---|---:|---:|",
+    ]
+    for item in summary:
+        metric = str(item["metric"])
+        metric_label, _ = D1_SWEEP_METRICS[metric]
+        lines.append(
+            f"| {item['controller']} | {item['state_delay_ms']} | {metric_label} | "
+            f"{item['unit']} | "
+            f"{_format_ci(float(item['estimate']), float(item['ci95_low']), float(item['ci95_high']))} | "
+            f"{_format_ci(float(item['delta_vs_0ms']), float(item['delta_ci95_low']), float(item['delta_ci95_high']), signed=True)} |"
+        )
+    if episodes < 20:
+        lines += ["", "Exploratory run: fewer than 20 paired episodes per condition."]
+    (output / "state_delay_sensitivity.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+    figure, axes = plt.subplots(2, 2, figsize=(9.0, 6.8), sharex=True)
+    panels = (
+        ("success", "success rate"),
+        ("episode_duration_s", "episode duration [s]"),
+        ("velocity_rmse_mps", "velocity RMSE [m/s]"),
+        ("max_abs_pitch_deg", "max pitch [deg]"),
+    )
+    for controller in controller_names:
+        for axis, (metric, label) in zip(axes.flat, panels, strict=True):
+            selected_summary = [
+                item
+                for item in summary
+                if item["controller"] == controller and item["metric"] == metric
+            ]
+            estimates = np.asarray(
+                [float(item["estimate"]) for item in selected_summary], dtype=np.float64
+            )
+            lower = np.asarray(
+                [float(item["ci95_low"]) for item in selected_summary], dtype=np.float64
+            )
+            upper = np.asarray(
+                [float(item["ci95_high"]) for item in selected_summary], dtype=np.float64
+            )
+            errors = np.nan_to_num(np.vstack((estimates - lower, upper - estimates)), nan=0.0)
+            axis.errorbar(
+                [float(item["state_delay_ms"]) for item in selected_summary],
+                estimates,
+                yerr=np.maximum(errors, 0.0),
+                marker="o",
+                capsize=2.5,
+                label=controller,
+            )
+            axis.set_ylabel(label)
+            axis.grid(alpha=0.25)
+    axes[0, 0].set_ylim(0.0, 1.0)
+    for axis in axes[-1]:
+        axis.set_xlabel("state delay [ms]")
+    axes[0, 0].legend(frameon=False, fontsize=8)
+    figure.tight_layout()
+    figure.savefig(output / "state_delay_sensitivity.png", dpi=180)
+    plt.close(figure)
+
+    protocol = {
+        "state_mode": "estimated",
+        "latency_compensation": latency_compensation,
+        "delay_steps": list(D1_STATE_DELAY_SWEEP_STEPS),
+        "delay_ms": [10 * item for item in D1_STATE_DELAY_SWEEP_STEPS],
+        "evaluation_seeds": evaluation_seeds,
+        "controllers": controller_names,
+        "action_delay_steps": 0,
+        "sensor_noise_scale": 0.0,
+        "episodes_per_condition": episodes,
+        "exploratory": episodes < 20,
+    }
+    run_identity = json.dumps(
+        {"protocol": protocol, "provenance": provenance}, sort_keys=True, separators=(",", ":")
+    ).encode("utf-8")
+    run_id = f"d1-delay-{hashlib.sha256(run_identity).hexdigest()[:16]}"
+    evaluation_config = {
+        "schema": "d1-state-delay-evaluation-config-v2",
+        "run_id": run_id,
+        "protocol": protocol,
+        "provenance": provenance,
+    }
+    (output / "evaluation_config.json").write_text(
+        json.dumps(evaluation_config, indent=2), encoding="utf-8"
+    )
+    artifact_names = D1_SWEEP_ARTIFACTS[:-1]
+    artifact_hashes = {filename: _file_sha256(output / filename) for filename in artifact_names}
+    manifest = {
+        "schema": "d1-state-delay-sweep-v2",
+        "run_id": run_id,
+        "status": "complete",
+        "completed": True,
+        "protocol": protocol,
+        "provenance": provenance,
+        "validation": {
+            "paired_input_fingerprints": True,
+            "measured_state_age_traces": True,
+            "record_count": len(records),
+            "summary_row_count": len(summary),
+        },
+        "artifacts": artifact_hashes,
+    }
+    (output / "delay_sweep_manifest.json").write_text(
+        json.dumps(manifest, indent=2), encoding="utf-8"
+    )
+    return records
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--policy", type=Path, default=Path("results/d1_residual_ppo/model.zip"))
-    parser.add_argument("--output", type=Path, default=Path("results/d1_benchmark"))
-    parser.add_argument("--seed", type=int, default=21)
-    parser.add_argument("--audit-episodes", type=int, default=0)
-    parser.add_argument("--state-mode", choices=("oracle", "estimated"), default="oracle")
-    parser.add_argument(
+    policy_options = parser.add_mutually_exclusive_group()
+    policy_options.add_argument(
+        "--policy",
+        type=Path,
+        default=None,
+        help=f"explicit checkpoint (default auto-detects {D1_DEFAULT_POLICY_PATH})",
+    )
+    policy_options.add_argument(
         "--no-policy",
         action="store_true",
         help="benchmark only LQR and MPC, even when the default checkpoint exists",
+    )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=None,
+        help="result directory (defaults depend on benchmark or delay-sweep mode)",
+    )
+    parser.add_argument("--seed", type=int, default=21)
+    parser.add_argument("--audit-episodes", type=int, default=0)
+    parser.add_argument(
+        "--state-delay-sweep",
+        action="store_true",
+        help="run the fixed 0/10/20/30/50 ms paired sensitivity experiment",
+    )
+    parser.add_argument("--state-mode", choices=("oracle", "estimated"), default="oracle")
+    parser.add_argument(
+        "--latency-compensation",
+        choices=("none", "constant_velocity"),
+        default="none",
     )
     parser.add_argument("--gif", action="store_true")
     return parser
@@ -491,42 +1110,114 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> None:
     args = build_parser().parse_args(argv)
-    args.output.mkdir(parents=True, exist_ok=True)
-    if args.audit_episodes == 0:
-        for filename in ("randomized_audit.csv", "randomized_audit.md"):
-            (args.output / filename).unlink(missing_ok=True)
-    if not args.gif:
-        (args.output / "d1_push_comparison.gif").unlink(missing_ok=True)
+    if args.state_mode != "estimated" and args.latency_compensation != "none":
+        raise SystemExit("latency compensation requires --state-mode estimated")
+    if args.state_delay_sweep and args.state_mode != "estimated":
+        raise SystemExit("--state-delay-sweep requires --state-mode estimated")
+    if args.state_delay_sweep and args.audit_episodes <= 0:
+        raise SystemExit("--state-delay-sweep requires --audit-episodes")
+    if args.state_delay_sweep and args.gif:
+        raise SystemExit("--state-delay-sweep cannot be combined with --gif")
+    if args.output is None:
+        if args.state_delay_sweep:
+            suffix = "compensated" if args.latency_compensation == "constant_velocity" else "raw"
+            args.output = Path(f"results/d1_state_delay_{suffix}")
+        else:
+            args.output = Path("results/d1_benchmark")
 
-    policy_path = None if args.no_policy or not args.policy.exists() else args.policy
-    evaluation_config = {
-        "seed": args.seed,
-        "audit_episodes": args.audit_episodes,
-        "state_mode": args.state_mode,
-        "policy": None if policy_path is None else str(policy_path),
-        "policy_sha256": (
-            None if policy_path is None else hashlib.sha256(policy_path.read_bytes()).hexdigest()
-        ),
-    } | capture_git_provenance(Path(__file__).resolve().parent)
-    (args.output / "evaluation_config.json").write_text(
-        json.dumps(evaluation_config, indent=2), encoding="utf-8"
-    )
+    if args.no_policy:
+        policy_path = None
+        policy_selection = "disabled"
+    elif args.policy is not None:
+        if not args.policy.is_file():
+            raise SystemExit(f"policy checkpoint not found: {args.policy}")
+        policy_path = args.policy
+        policy_selection = "explicit"
+    elif D1_DEFAULT_POLICY_PATH.is_file():
+        policy_path = D1_DEFAULT_POLICY_PATH
+        policy_selection = "default"
+    else:
+        policy_path = None
+        policy_selection = "default checkpoint absent"
+
+    source_provenance = capture_git_provenance(Path(__file__).resolve().parent)
+    policy_sha256 = None if policy_path is None else _file_sha256(policy_path)
     policy = None
     if policy_path is not None:
         try:
             policy = load_compatible_d1_policy(
                 policy_path,
                 expected_state_mode=args.state_mode,
+                expected_latency_compensation=args.latency_compensation,
             )
         except (FileNotFoundError, RuntimeError, ValueError) as error:
             raise SystemExit(str(error)) from error
+    run_metadata = {
+        "source": source_provenance,
+        "checkpoint": {
+            "included": policy is not None,
+            "selection": policy_selection,
+            "path": None if policy_path is None else str(policy_path),
+            "sha256": policy_sha256,
+        },
+        "runtime": _runtime_provenance(),
+    }
+
+    if args.state_delay_sweep:
+        run_d1_state_delay_sweep(
+            output=args.output,
+            seed=args.seed,
+            episodes=args.audit_episodes,
+            policy=policy,
+            latency_compensation=args.latency_compensation,
+            run_metadata=run_metadata,
+        )
+        print((args.output / "state_delay_sensitivity.md").read_text(encoding="utf-8"))
+        return
+
+    args.output.mkdir(parents=True, exist_ok=True)
+    for filename in D1_SWEEP_ARTIFACTS:
+        if filename != "evaluation_config.json":
+            (args.output / filename).unlink(missing_ok=True)
+    if args.audit_episodes == 0:
+        for filename in ("randomized_audit.csv", "randomized_audit.md"):
+            (args.output / filename).unlink(missing_ok=True)
+    if not args.gif:
+        (args.output / "d1_push_comparison.gif").unlink(missing_ok=True)
+    evaluation_config = {
+        "seed": args.seed,
+        "audit_episodes": args.audit_episodes,
+        "state_delay_sweep": args.state_delay_sweep,
+        "state_mode": args.state_mode,
+        "latency_compensation": args.latency_compensation,
+        "policy": None if policy_path is None else str(policy_path),
+        "policy_sha256": policy_sha256,
+        "provenance": run_metadata,
+    } | source_provenance
+    (args.output / "evaluation_config.json").write_text(
+        json.dumps(evaluation_config, indent=2), encoding="utf-8"
+    )
 
     all_rollouts: list[D1Rollout] = []
     for scenario in D1_SCENARIOS:
         capture = bool(args.gif and scenario == "push")
         scenario_rollouts = [
-            run_d1_rollout("lqr", scenario, args.seed, capture=capture, state_mode=args.state_mode),
-            run_d1_rollout("mpc", scenario, args.seed, capture=capture, state_mode=args.state_mode),
+            run_d1_rollout(
+                "lqr",
+                scenario,
+                args.seed,
+                capture=capture,
+                state_mode=args.state_mode,
+                latency_compensation=args.latency_compensation,
+            ),
+            run_d1_rollout(
+                "mpc",
+                scenario,
+                args.seed,
+                capture=capture,
+                state_mode=args.state_mode,
+                latency_compensation=args.latency_compensation,
+            ),
         ]
         if policy is not None:
             scenario_rollouts.append(
@@ -537,6 +1228,7 @@ def main(argv: list[str] | None = None) -> None:
                     policy,
                     capture=capture,
                     state_mode=args.state_mode,
+                    latency_compensation=args.latency_compensation,
                 )
             )
         all_rollouts.extend(scenario_rollouts)
@@ -551,8 +1243,20 @@ def main(argv: list[str] | None = None) -> None:
         for offset in range(args.audit_episodes):
             seed = args.seed + 100 + offset
             rollouts = [
-                run_d1_rollout("lqr", "randomized", seed, state_mode=args.state_mode),
-                run_d1_rollout("mpc", "randomized", seed, state_mode=args.state_mode),
+                run_d1_rollout(
+                    "lqr",
+                    "randomized",
+                    seed,
+                    state_mode=args.state_mode,
+                    latency_compensation=args.latency_compensation,
+                ),
+                run_d1_rollout(
+                    "mpc",
+                    "randomized",
+                    seed,
+                    state_mode=args.state_mode,
+                    latency_compensation=args.latency_compensation,
+                ),
             ]
             if policy is not None:
                 rollouts.append(
@@ -562,6 +1266,7 @@ def main(argv: list[str] | None = None) -> None:
                         seed,
                         policy,
                         state_mode=args.state_mode,
+                        latency_compensation=args.latency_compensation,
                     )
                 )
             audit_records.extend(compute_d1_metrics(rollout) for rollout in rollouts)

@@ -17,6 +17,7 @@ from .state_estimation import (
     D1StateEstimate,
     make_d1_state_source,
     make_default_d1_estimator_impairments,
+    prepare_d1_control_state,
 )
 
 D1_OBSERVATION_SIZE = 42
@@ -90,6 +91,7 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
         episode_seconds: float = 6.0,
         randomize: bool = True,
         state_mode: str = "oracle",
+        latency_compensation: str = "none",
     ) -> None:
         super().__init__()
         if baseline not in {"lqr", "mpc"}:
@@ -98,9 +100,14 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
             raise ValueError("episode_seconds must be positive")
         if state_mode not in {"oracle", "estimated"}:
             raise ValueError("state_mode must be 'oracle' or 'estimated'")
+        if latency_compensation not in {"none", "constant_velocity"}:
+            raise ValueError("latency_compensation must be 'none' or 'constant_velocity'")
+        if state_mode == "oracle" and latency_compensation != "none":
+            raise ValueError("latency compensation requires state_mode='estimated'")
         self.baseline_name = baseline
         self.randomize = randomize
         self.state_mode = state_mode
+        self.latency_compensation = latency_compensation
         self.plant = D1Plant(control_dt=0.01)
         self.controller = (
             D1LQRVMCController(self.plant) if baseline == "lqr" else D1MPCVMCController(self.plant)
@@ -136,7 +143,20 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
             "actuator_strength_scale": 1.0,
         }
         self._state_source = make_d1_state_source(self.plant)
-        self._state = self._state_source.reset()
+        self._raw_state = self._state_source.reset()
+        self._state = self._raw_state
+        self._compensation_status = "disabled"
+        self._compensation_horizon_s = 0.0
+
+    def _publish_control_state(self, raw_state: D1StateEstimate) -> None:
+        self._raw_state = raw_state
+        result = prepare_d1_control_state(
+            raw_state,
+            latency_compensation=self.latency_compensation,
+        )
+        self._state = result.control_state
+        self._compensation_status = result.status
+        self._compensation_horizon_s = result.applied_horizon_s
 
     def _sample_training_command(self) -> None:
         self._training_velocity = float(self.np_random.uniform(-0.75, 0.75))
@@ -270,7 +290,7 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
         else:
             self._estimator_seed = None
             self._state_source = make_d1_state_source(self.plant)
-        self._state = self._state_source.reset()
+        self._publish_control_state(self._state_source.reset())
 
     def _observation(self) -> np.ndarray:
         observation = encode_d1_observation(
@@ -305,6 +325,9 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
             # Legacy names remain truth-valued for reward/evaluation compatibility.
             "state": truth_state,
             "truth_state": truth_state,
+            "raw_estimated_state": self._raw_state.reduced_state(),
+            "control_state": self._state.reduced_state(),
+            # Backward-compatible alias: this is the state consumed by control.
             "estimated_state": self._state.reduced_state(),
             "forward_velocity_mps": truth_forward_velocity,
             "truth_forward_velocity_mps": truth_forward_velocity,
@@ -335,6 +358,9 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
             "state_estimator_seed": self._estimator_seed,
             "state_age_ms": 1e3 * self._state.age_s,
             "state_estimation_mode": self.state_mode,
+            "latency_compensation": self.latency_compensation,
+            "latency_compensation_status": self._compensation_status,
+            "latency_compensation_horizon_ms": 1e3 * self._compensation_horizon_s,
             "domain": dict(self._domain),
             "baseline": self.controller.baseline_name,
             "solve_ms": self.controller.last_solve_ms,
@@ -385,7 +411,7 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
             torque,
             push_force_world_n=np.asarray((push_force, 0.0, 0.0)),
         )
-        self._state = self._state_source.read()
+        self._publish_control_state(self._state_source.read())
         linear_velocity, _ = self.plant.base_velocity(local=True)
         roll, pitch, _ = self.plant.base_rpy
         terminated = self.plant.has_fallen()

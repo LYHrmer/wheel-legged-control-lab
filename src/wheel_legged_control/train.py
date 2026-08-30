@@ -36,6 +36,12 @@ def build_parser() -> argparse.ArgumentParser:
         default="oracle",
         help="D1 controller state source; estimated mode is unavailable for the planar model",
     )
+    parser.add_argument(
+        "--latency-compensation",
+        choices=("none", "constant_velocity"),
+        default="none",
+        help="short-horizon D1 state extrapolation; requires estimated state mode",
+    )
     parser.add_argument("--device", default="auto")
     parser.add_argument("--verbose", action="store_true")
     parser.add_argument("--output", type=Path)
@@ -92,6 +98,7 @@ def train_once(
     env_kwargs = {"baseline": args.baseline, "randomize": True}
     if args.robot == "d1":
         env_kwargs["state_mode"] = args.state_mode
+        env_kwargs["latency_compensation"] = args.latency_compensation
     vector_env = make_vec_env(
         environment,
         n_envs=args.envs,
@@ -154,6 +161,10 @@ def main(argv: list[str] | None = None) -> None:
         raise SystemExit("--steps, --envs, and --runs must be positive")
     if args.robot == "planar" and args.state_mode != "oracle":
         raise SystemExit("--state-mode estimated is only supported with --robot d1")
+    if args.robot == "planar" and args.latency_compensation != "none":
+        raise SystemExit("latency compensation is only supported with --robot d1")
+    if args.state_mode != "estimated" and args.latency_compensation != "none":
+        raise SystemExit("latency compensation requires --state-mode estimated")
 
     PPO, make_vec_env, DummyVecEnv, SubprocVecEnv = _load_rl_dependencies()
 
@@ -201,6 +212,7 @@ def main(argv: list[str] | None = None) -> None:
             "robot": args.robot,
             "baseline": args.baseline,
             "state_mode": args.state_mode,
+            "latency_compensation": args.latency_compensation,
             "environment_seed_stride": args.envs,
             "runs": completed_runs,
         }

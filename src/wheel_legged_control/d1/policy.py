@@ -16,6 +16,7 @@ def load_compatible_d1_policy(
     *,
     expected_baseline: str = "lqr",
     expected_state_mode: str = "oracle",
+    expected_latency_compensation: str = "none",
 ) -> Any:
     """Load a PPO checkpoint only when its recorded contracts match the code."""
 
@@ -42,6 +43,12 @@ def load_compatible_d1_policy(
         raise ValueError(
             f"policy was trained with {recorded_state_mode!r} state, "
             f"not {expected_state_mode!r} state"
+        )
+    recorded_compensation = training_config.get("latency_compensation", "none")
+    if recorded_compensation != expected_latency_compensation:
+        raise ValueError(
+            f"policy was trained with {recorded_compensation!r} latency compensation, "
+            f"not {expected_latency_compensation!r}"
         )
     recorded_digest = training_config.get("model_sha256")
     actual_digest = hashlib.sha256(policy_path.read_bytes()).hexdigest()

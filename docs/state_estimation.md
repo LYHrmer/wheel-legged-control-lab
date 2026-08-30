@@ -46,6 +46,28 @@ PPO 都会受到影响。
 这个 source 只模拟字段噪声和延迟，没有 IMU/编码器融合或 EKF。它能先检查控制器对状态
 误差和延迟是否敏感；后续的互补滤波或 EKF 可以替换 source，控制器接口不用再改。
 
+## 可选的短时延迟补偿
+
+`constant_velocity` 使用快照自身的机体系速度、角速度和关节速度，把连续量外推到当前控制
+时刻：
+
+\[
+\hat R=R\operatorname{Exp}(\omega_b\Delta t),\qquad
+\hat p=p+R\operatorname{Exp}(\tfrac12\omega_b\Delta t)v_b\Delta t,
+\qquad
+\hat q=q+\dot q\Delta t.
+\]
+
+足端位置用冻结 Jacobian 做一阶更新。接触标记、接触点和非轮接触数量保持原测量值，程序
+不会根据 MuJoCo 当前帧补齐它们。超过 `50 ms`、腿关节外推量超过 `0.35 rad`，或预测位置
+越过关节限位时，控制器退回原始快照并在日志中写明拒绝原因；轮关节位置保持无界。
+
+外推后的 `measurement_time_s` 仍是原测量时刻，所以 `state_age_ms` 不会变成零。日志另存
+`latency_compensation_horizon_ms` 和状态 `bypassed / applied / horizon_exceeded /
+kinematic_horizon_exceeded`。`raw_estimated_state` 与实际送入控制器的 `control_state` 会同时
+保留，以便直接计算补偿前后的估计误差。这个方法只检验“短时常速度假设能否抵消一部分
+延迟”，不估计 bias、协方差或接触切换。
+
 ## 延迟语义
 
 动作延迟和状态延迟现在是两个独立参数：
@@ -59,7 +81,8 @@ PPO 都会受到影响。
 commit/dirty 指纹和 policy SHA-256。
 
 训练奖励、摔倒判断和最终 RMSE 使用 MuJoCo 真值。这些量只负责监督和评测，不送回控制器。
-环境的 `info` 同时提供带 `truth_` 与 `estimated_` 前缀的字段，避免 callback 把两者混用。
+环境的 `info` 同时提供 `truth_state`、`raw_estimated_state` 和 `control_state`；旧字段
+`estimated_state` 暂时作为 `control_state` 的兼容别名。
 
 ## 运行对照
 
@@ -77,6 +100,31 @@ wheel-legged-d1-benchmark \
   --no-policy
 ```
 
+固定延迟集合的配对实验：
+
+```bash
+wheel-legged-d1-benchmark \
+  --state-delay-sweep \
+  --state-mode estimated \
+  --latency-compensation none \
+  --audit-episodes 30 \
+  --seed 21 \
+  --no-policy \
+  --output results/d1_state_delay_raw
+
+wheel-legged-d1-benchmark \
+  --state-delay-sweep \
+  --state-mode estimated \
+  --latency-compensation constant_velocity \
+  --audit-episodes 30 \
+  --seed 21 \
+  --no-policy \
+  --output results/d1_state_delay_compensated
+```
+
+延迟固定为 `0/10/20/30/50 ms`。动作延迟和噪声关掉；程序核对每个评测种子的域参数、
+估计器种子、初态、初始命令和计划推力指纹。每个条件少于 20 个回合时，报告标为探索性结果。
+
 交互课程也可以切换：
 
 ```bash
@@ -92,6 +140,7 @@ wheel-legged-d1-play \
 wheel-legged-train \
   --robot d1 \
   --state-mode estimated \
+  --latency-compensation none \
   --steps 400000 \
   --envs 8 \
   --seed 7 \

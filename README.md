@@ -3,12 +3,28 @@
 [![tests](https://github.com/LYHrmer/wheel-legged-control-lab/actions/workflows/tests.yml/badge.svg)](https://github.com/LYHrmer/wheel-legged-control-lab/actions/workflows/tests.yml)
 
 我用一台普通 Ubuntu 笔记本做的 D1 轮足控制练习。仓库从六状态教学模型开始，随后换成
-`23 nq / 22 nv / 16 actuators` 的 D1 MuJoCo 整机；目前包含 VMC、LQR、受限 MPC、残差
-PPO，以及一套可用键盘驾驶的多地形课程。v0.4 把控制反馈改成统一的不可变状态快照，支持
-MuJoCo 真值和带噪延迟两种 adapter。物理频率 `500 Hz`，整机控制频率 `100 Hz`。
+`23 nq / 22 nv / 16 actuators` 的 D1 MuJoCo 整机。项目主要回答三个问题：经典控制在这套
+模型和地形上能做到什么，残差 PPO 是否稳定优于 LQR，以及状态延迟怎样改变闭环裕量。
+物理频率为 `500 Hz`，整机控制频率为 `100 Hz`。
 
 项目与本末科技的官方代码无关。公开 D1 资产有明确的 Apache-2.0 来源，仿真结果也没有被
 包装成 sim-to-real 或数字孪生。
+
+| 边界 | 内容 |
+|---|---|
+| 复用 | 固定提交的 D1 URDF/STL、MuJoCo、SciPy、Gymnasium、Stable-Baselines3 |
+| 本项目实现 | MuJoCo 整机装配、VMC、闭环辨识、LQR/MPC、残差 PPO、状态快照与误差通道、地形课程和配对评测 |
+| 尚未实现 | IMU/编码器融合、ROS2 硬件链路、实机参数辨识与 sim-to-real |
+
+当前有三条可以由仓库结果核对的结论：
+
+- `oracle`/LQR 通过六个课程探针；MPC 通过五个，默认参数未达到台阶进度门槛；
+- 30 个随机域种子中，已提交 PPO 相对 LQR 的三个主要误差区间均跨过 0，不能写成稳定优于；
+- `estimated` 控制链和延迟补偿边界已有测试，`0/10/20/30/50 ms` 正式对照结果将在本轮扫描后回填。
+
+代码主线见[控制结构](#控制结构)，评测口径见
+[`docs/evaluation_protocol.md`](docs/evaluation_protocol.md)，状态时序见
+[`docs/state_estimation.md`](docs/state_estimation.md)。
 
 ![D1 skills course overview](results/d1_interactive/course_overview.png)
 
@@ -51,8 +67,10 @@ wheel-legged-d1-play --policy results/d1_residual_ppo/model.zip
 归零，终端状态显示为 `rl=gated`。checkpoint 加载前会核对基线、观察版本、奖励版本和
 状态模式及 SHA-256。
 
-仓库里的旧 checkpoint 没写 `state_mode`，加载器按 `oracle` 兼容。它不能装进
-`--state-mode estimated` 的控制回路；两种状态模式需要分别训练和评估。
+仓库提交的是 `oracle` 专用、旧元数据格式 checkpoint；它的
+[`training_config.json`](results/d1_residual_ppo/training_config.json) 记录了 `401408` 个实际训练
+步和模型 SHA-256 `53c3b0e9…a2b5f`。旧配置没有 `state_mode`，加载器只按 `oracle` 兼容，
+不能装进 `--state-mode estimated` 的控制回路；两种状态模式需要分别训练和评估。
 
 要让整条控制链承受状态噪声和 `20 ms` 延迟，可以直接运行：
 
@@ -66,10 +84,22 @@ wheel-legged-d1-play \
 当前 `estimated` adapter 是可复现的状态误差/延迟通道，不是 IMU+编码器 EKF。接口、时序和
 使用边界见 [`docs/state_estimation.md`](docs/state_estimation.md)。
 
+短延迟时，也可以按快照中的机身速度、角速度和关节速度做一阶外推：
+
+```bash
+wheel-legged-d1-play \
+  --state-mode estimated \
+  --state-delay-steps 2 \
+  --sensor-noise 1.0 \
+  --latency-compensation constant_velocity
+```
+
+外推不会改写测量时间。延迟队列填满后，界面中的状态年龄稳定在 `20 ms`。
+
 ## 地形课程的实测结果
 
-所有行都由默认 LQR 基线在 `wheel-legged-d1-play --state-mode oracle --audit-output ...`
-中重放。通过条件写在代码和测试里，不能靠手工挑视频帧修改。
+下表来自 `wheel-legged-d1-play --state-mode oracle --audit-output ...` 的 LQR 重放。通过阈值
+在 `run_scripted_demo()` 和对应 pytest 中；`estimated` 模式还没有生成同一组课程结果。
 
 | 区域 | 通过 | 前进距离 [m] | 最大 Roll [deg] | 最大 Pitch [deg] | 四轮接触比例 | 控制步 P95 [ms] |
 |---|---:|---:|---:|---:|---:|---:|
@@ -93,8 +123,10 @@ wheel-legged-d1-play \
 flowchart LR
     K[键盘速度/偏航/高度命令] --> G[跳跃时序与安全门控]
     M[MuJoCo D1 与物理地形] --> U{状态来源}
-    U -->|oracle| S[不可变 D1StateEstimate]
-    U -->|带噪声和延迟| S
+    U -->|oracle| S0[不可变原始快照]
+    U -->|带噪声和延迟| S0
+    S0 --> P[可选短时延迟补偿]
+    P --> S[本周期控制快照]
     S --> E[支撑平面估计]
     E --> G
     G --> O[LQR 或受限 MPC<br/>纵向合力]
@@ -119,7 +151,8 @@ VMC 根据四个轮地接触位置分配非负竖直支撑力，随后用 `JᵀF
 
 状态接口见 [`docs/state_estimation.md`](docs/state_estimation.md)。控制公式和课程入口见
 [`docs/interactive_course.md`](docs/interactive_course.md) 与
-[`docs/learning_guide.md`](docs/learning_guide.md)。
+[`docs/learning_guide.md`](docs/learning_guide.md)；场景、成功定义和统计方法统一放在
+[`docs/evaluation_protocol.md`](docs/evaluation_protocol.md)。
 
 ## 平地 LQR / MPC / PPO 对照
 
@@ -158,15 +191,46 @@ PPO−LQR 的配对差与 95% t 区间为速度 `-0.006 [-0.017, +0.005] m/s`、
 都跨过 0；当前 30 个样本不足以支持“统计显著优于 LQR”的说法。仓库保留这个结果以及
 MPC 的一次失败。
 
+## 状态延迟灵敏度
+
+代码当前固定测试 `0/10/20/30/50 ms`，汇总程序按这五个点生成配对结果。动作延迟和传感器
+噪声都设为零，只改变状态年龄。每个延迟点复用同一组评测种子；程序核对域参数、动作延迟、
+噪声、估计器种子以及初态、初始命令和计划推力的指纹。
+
+```bash
+wheel-legged-d1-benchmark \
+  --state-delay-sweep \
+  --state-mode estimated \
+  --latency-compensation none \
+  --audit-episodes 30 \
+  --seed 21 \
+  --no-policy \
+  --output results/d1_state_delay_raw
+
+wheel-legged-d1-benchmark \
+  --state-delay-sweep \
+  --state-mode estimated \
+  --latency-compensation constant_velocity \
+  --audit-episodes 30 \
+  --seed 21 \
+  --no-policy \
+  --output results/d1_state_delay_compensated
+```
+
+两个目录分别生成逐回合 CSV、成功与存活时长、相对 `0 ms` 的配对区间和四联图。常速度补偿
+只是一项短时假设；Pitch 变小但存活时长、能耗或速度误差变差时，两边都会写进结果。
+
 ## 重现实验
 
 ```bash
 pytest
 
-wheel-legged-d1-benchmark \
+MUJOCO_GL=egl wheel-legged-d1-benchmark \
   --state-mode oracle \
   --policy results/d1_residual_ppo/model.zip \
-  --audit-episodes 30
+  --audit-episodes 30 \
+  --gif \
+  --output results/d1_benchmark
 
 wheel-legged-d1-play \
   --state-mode oracle \
@@ -176,12 +240,6 @@ wheel-legged-d1-play \
 无桌面环境时用 EGL 生成图像：
 
 ```bash
-MUJOCO_GL=egl wheel-legged-d1-benchmark \
-  --state-mode oracle \
-  --policy results/d1_residual_ppo/model.zip \
-  --audit-episodes 30 \
-  --gif
-
 MUJOCO_GL=egl wheel-legged-d1-play \
   --demo-zone jump \
   --record results/d1_interactive/d1_jump_demo.gif
@@ -212,6 +270,7 @@ wheel-legged-train \
   --robot d1 \
   --baseline lqr \
   --state-mode estimated \
+  --latency-compensation none \
   --steps 400000 \
   --envs 8 \
   --seed 7 \
@@ -233,12 +292,12 @@ src/wheel_legged_control/
 └── d1/
     ├── assets/                            # D1 URDF、STL 与原许可证
     ├── model.py / terrain.py              # 整机装配、接触和多地形课程
-    ├── state_estimation.py                # 不可变状态快照、真值与带噪延迟来源
+    ├── state_estimation.py                # 状态快照、带噪延迟来源与短时外推
     ├── controllers.py                     # VMC、关节 PD、差速偏航
     ├── linear_model.py / hierarchical.py  # 数值辨识、LQR、MPC
     ├── env.py / rewards.py / policy.py    # 观察契约、奖励、checkpoint 校验
     ├── interactive.py                     # 键盘、跳跃、安全门控、录像与验收
-    └── experiments.py                     # 固定场景、随机域审计与图表
+    └── experiments.py                     # 固定场景、随机域审计、延迟曲线与图表
 tests/                                     # 动力学、状态接口、控制、评测元数据和 Gym 测试
 docs/                                      # 学习笔记、课程设计和模型审计
 results/                                   # 当前 checkpoint、CSV、曲线和动画
@@ -261,7 +320,7 @@ D1 资产来自 Apache-2.0 授权的
 [`DDTRobot`](https://github.com/DDTRobot) 仓库；未复制许可证不明确的代码。本地
 `d1h_wcd_description` 的检查记录在 [`docs/d1_model_card.md`](docs/d1_model_card.md)。
 
-当前 `estimated` 模式只有可复现的整状态噪声和延迟，没有 IMU/编码器融合、bias、丢包或
-真实传感器同步。模型也缺少电机电流环、热衰减、轮胎柔性和 ROS2 通信抖动。地形姿态在
+当前 `estimated` 模式只有可复现的整状态噪声、延迟和常速度外推，没有 IMU/编码器融合、
+bias、丢包或真实传感器同步。模型也缺少电机电流环、热衰减、轮胎柔性和 ROS2 通信抖动。地形姿态在
 `oracle` 模式下读取 MuJoCo 接触点；跳跃只验证了低矮横杆。实机前还要做参数辨识、真正的
 估计器、通信超时、电流/姿态限制和硬件急停。
