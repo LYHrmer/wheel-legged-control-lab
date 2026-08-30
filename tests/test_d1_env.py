@@ -1,4 +1,5 @@
 import numpy as np
+import pytest
 from gymnasium.utils.env_checker import check_env
 
 from wheel_legged_control.d1.env import D1_OBSERVATION_SIZE, D1ResidualEnv
@@ -59,3 +60,52 @@ def test_d1_reward_penalizes_vertical_residual_twice_as_much() -> None:
     )
     assert longitudinal.height_tracking == 1.0
     assert vertical.residual_effort == 2.0 * longitudinal.residual_effort
+
+
+def test_estimated_state_mode_delays_the_whole_control_stack() -> None:
+    env = D1ResidualEnv(
+        state_mode="estimated",
+        randomize=False,
+        episode_seconds=0.5,
+    )
+    observation, info = env.reset(
+        seed=9,
+        options={
+            "scenario": "nominal",
+            "randomize": False,
+            "action_delay_steps": 1,
+            "state_delay_steps": 2,
+            "sensor_noise": 1.0,
+        },
+    )
+    assert observation.shape == (D1_OBSERVATION_SIZE,)
+    assert info["state_estimation_mode"] == "estimated"
+    assert info["action_delay_steps"] == 1
+    assert info["state_delay_steps"] == 2
+
+    ages = []
+    for _ in range(50):
+        observation, _, terminated, _, info = env.step(np.zeros(2))
+        ages.append(info["state_age_ms"])
+        assert np.isfinite(observation).all()
+        assert not terminated
+    assert max(ages) == pytest.approx(20.0)
+    env.close()
+
+
+def test_oracle_reports_only_applied_delay_and_legacy_delay_is_action_only() -> None:
+    oracle = D1ResidualEnv(state_mode="oracle", randomize=False, episode_seconds=0.1)
+    _, oracle_info = oracle.reset(
+        seed=3,
+        options={"delay_steps": 2, "state_delay_steps": 3},
+    )
+    assert oracle_info["action_delay_steps"] == 2
+    assert oracle_info["state_delay_steps"] == 0
+    assert oracle_info["state_age_ms"] == 0.0
+    oracle.close()
+
+    estimated = D1ResidualEnv(state_mode="estimated", randomize=False, episode_seconds=0.1)
+    _, estimated_info = estimated.reset(seed=3, options={"delay_steps": 2})
+    assert estimated_info["action_delay_steps"] == 2
+    assert estimated_info["state_delay_steps"] == 0
+    estimated.close()

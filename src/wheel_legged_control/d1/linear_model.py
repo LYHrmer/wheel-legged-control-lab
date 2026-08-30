@@ -10,6 +10,7 @@ import numpy as np
 
 from .controllers import D1Command, D1VMCController
 from .model import D1Plant
+from .state_estimation import D1MujocoTruthStateSource
 
 SAGITTAL_STATE_SIZE = 4
 SAGITTAL_ACTION_SIZE = 1
@@ -48,12 +49,15 @@ def identify_sagittal_model(control_dt: float = 0.01) -> D1SagittalLinearModel:
 
     plant = D1Plant(control_dt=control_dt)
     low_level = D1VMCController(plant)
+    state_source = D1MujocoTruthStateSource(plant)
     low_level.wheel_velocity_gain = 0.0
     hold = D1Command(base_height_m=plant.nominal_base_height_m)
 
+    state = state_source.reset()
     settle_steps = round(5.0 / control_dt)
     for _ in range(settle_steps):
-        plant.step(low_level.compute(hold))
+        plant.step(low_level.compute(hold, state))
+        state = state_source.read()
     equilibrium_qpos, equilibrium_qvel = plant.simulation_state()
     equilibrium_qvel[:] = 0.0
     plant.set_simulation_state(equilibrium_qpos, equilibrium_qvel)
@@ -67,7 +71,12 @@ def identify_sagittal_model(control_dt: float = 0.01) -> D1SagittalLinearModel:
         qvel[0] += state_delta[2]
         qvel[4] += state_delta[3]
         plant.set_simulation_state(qpos, qvel)
-        torque = low_level.compute(hold, longitudinal_force_n=float(force_n))
+        state = state_source.reset()
+        torque = low_level.compute(
+            hold,
+            state,
+            longitudinal_force_n=float(force_n),
+        )
         plant.step(torque)
         return sagittal_state(plant)
 
@@ -77,9 +86,7 @@ def identify_sagittal_model(control_dt: float = 0.01) -> D1SagittalLinearModel:
     for index, epsilon in enumerate(state_epsilon):
         offset = np.zeros(SAGITTAL_STATE_SIZE, dtype=np.float64)
         offset[index] = epsilon
-        a[:, index] = (
-            transition(offset, 0.0) - transition(-offset, 0.0)
-        ) / (2.0 * epsilon)
+        a[:, index] = (transition(offset, 0.0) - transition(-offset, 0.0)) / (2.0 * epsilon)
     b = (
         transition(np.zeros(SAGITTAL_STATE_SIZE), input_epsilon)
         - transition(np.zeros(SAGITTAL_STATE_SIZE), -input_epsilon)

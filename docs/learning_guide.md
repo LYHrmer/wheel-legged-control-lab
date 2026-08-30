@@ -17,6 +17,7 @@ D1 上处理接触、力矩分配、延迟与残差学习。每个阶段都留�
 | B4 | D1 16-DOF | RL 应补偿什么、不能掩盖什么 | `d1/env.py`、`d1/rewards.py` |
 | B5 | D1 16-DOF | 如何证明收益不是偶然 | `d1/experiments.py` |
 | B6 | D1 16-DOF | 如何加入键盘、转向、跳跃和物理地形 | `d1/interactive.py`、`d1/terrain.py` |
+| B7 | D1 16-DOF | 状态延迟进入经典控制后会发生什么 | `d1/state_estimation.py` |
 
 模型来源、许可证和另一份本地 URDF 为什么没有上传，单独记录在
 [`d1_model_card.md`](d1_model_card.md)。
@@ -254,14 +255,19 @@ r_{\Delta a} &= -0.025(\Delta a_{x,t}^2+2\Delta a_{z,t}^2).
 | 地面摩擦比例 | `0.65–1.30` |
 | 执行器强度比例 | `0.85–1.05` |
 | 残差动作延迟 | `0–3` 个 `10 ms` 周期 |
+| 状态延迟（estimated） | `0–3` 个 `10 ms` 周期 |
 | 初始 Roll | `±0.035 rad` |
 | 初始 Pitch | `±0.045 rad` |
 | 速度命令 | `-0.75–0.75 m/s` |
 | 目标高度 | `0.445–0.475 m` |
 | 随机推力 | `90–170 N`，方向随机 |
 
-当前噪声只施加在策略观察上，LQR/VMC 仍使用仿真真值，相当于假设已有理想状态估计器。
-仓库没有模拟真实 IMU；后续 EKF 或延迟状态估计可从这个接口接入。
+`oracle` 模式保留旧实验：经典控制读取统一的真值快照，`sensor_noise` 只扰动 PPO 观察。
+`estimated` 模式会把带噪延迟快照同时交给 LQR/MPC、VMC、PPO、安全逻辑和地形估计。动作
+延迟与状态延迟分别采样，不再共用一个队列。
+
+这里仍没有模拟 IMU 或编码器融合。当前 source 只是确定性的误差通道，适合做灵敏度实验；
+详细字段和时间语义见 [`state_estimation.md`](state_estimation.md)。
 
 ### 11. 训练与评估
 
@@ -271,8 +277,11 @@ r_{\Delta a} &= -0.025(\Delta a_{x,t}^2+2\Delta a_{z,t}^2).
 wheel-legged-train \
   --robot d1 \
   --baseline lqr \
+  --state-mode oracle \
   --steps 400000 \
   --envs 8 \
+  --seed 7 \
+  --runs 1 \
   --device cpu \
   --output results/d1_residual_ppo
 ```
@@ -284,12 +293,13 @@ MuJoCo 是主要耗时，小型 MLP 放到 GPU 通常不会更快。
 
 ```bash
 MUJOCO_GL=egl wheel-legged-d1-benchmark \
+  --state-mode oracle \
   --policy results/d1_residual_ppo/model.zip \
   --audit-episodes 30 \
   --gif
 ```
 
-当前随机域结果：
+当前随机域结果来自 `oracle` 模式：
 
 | 控制器 | 失败 | 速度 RMSE | Pitch RMSE | 高度 RMSE |
 |---|---:|---:|---:|---:|
@@ -335,7 +345,8 @@ wheel-legged-d1-play --policy results/d1_residual_ppo/model.zip
 4. MPC horizon：比较 `5/20/40`，同时报告误差与求解 P95。
 5. 奖励消融：去掉动作平滑项或接触惩罚，检查策略是否抖动或用机身蹭地。
 6. 残差幅值消融：比较 `±20/45/80 N`，不要默认动作范围越大越好。
-7. 状态估计：让 LQR/VMC 也接收延迟噪声状态，再实现互补滤波或 EKF。
+7. 状态估计：在现有状态 source 后实现 IMU/编码器互补滤波或 EKF，再和 `oracle`、
+   `estimated` 误差通道做同 seed 对照。
 8. 参数辨识：若能接触实机日志，用自由衰减、阶跃和轮速实验估计阻尼、摩擦与延迟。
 9. sim-to-sim：把同一策略通过 ROS2 接到官方 sim2sim，先对齐关节顺序和符号。
 10. 实机前安全层：加入电流、速度、姿态、通信超时与急停状态机；未完成这些步骤前不要

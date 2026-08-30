@@ -13,19 +13,22 @@ from .controllers import D1Command
 from .hierarchical import D1LQRVMCController, D1MPCVMCController
 from .model import JOINT_VELOCITY_LIMIT, NOMINAL_JOINT_POSITION, D1Plant
 from .rewards import D1_REWARD_SCHEMA, calculate_d1_reward
+from .state_estimation import (
+    D1StateEstimate,
+    make_d1_state_source,
+    make_default_d1_estimator_impairments,
+)
 
 D1_OBSERVATION_SIZE = 42
 D1_OBSERVATION_SCHEMA = "d1-base-link-velocity-v2"
 D1_RESIDUAL_SCALE = np.asarray((45.0, 80.0), dtype=np.float64)
-D1_LEG_INDICES = np.asarray(
-    [index for index in range(16) if index % 4 != 3], dtype=np.int32
-)
+D1_LEG_INDICES = np.asarray([index for index in range(16) if index % 4 != 3], dtype=np.int32)
 D1_LEG_POSITION_SCALE = np.tile((0.8, 2.0, 1.0), 4)
 
 
 def encode_d1_observation(
     *,
-    plant: D1Plant,
+    state: D1StateEstimate,
     command: D1Command,
     baseline_longitudinal_force_n: float,
     previous_applied_action: np.ndarray,
@@ -35,24 +38,23 @@ def encode_d1_observation(
     previous = np.asarray(previous_applied_action, dtype=np.float64)
     if previous.shape != (2,):
         raise ValueError("previous_applied_action must have shape (2,)")
-    linear_velocity, angular_velocity = plant.base_velocity(local=True)
+    linear_velocity, angular_velocity = state.base_velocity(local=True)
     leg_position_error = (
-        plant.joint_position[D1_LEG_INDICES]
-        - NOMINAL_JOINT_POSITION[D1_LEG_INDICES]
+        state.joint_position[D1_LEG_INDICES] - NOMINAL_JOINT_POSITION[D1_LEG_INDICES]
     ) / D1_LEG_POSITION_SCALE
     observation = np.concatenate(
         (
             linear_velocity / np.asarray((2.0, 1.0, 1.0)),
             angular_velocity / 4.0,
-            plant.projected_gravity_body,
+            state.projected_gravity_body,
             np.asarray(
                 (
                     command.forward_velocity_mps,
-                    (plant.base_position[2] - command.base_height_m) / 0.08,
+                    (state.base_position[2] - command.base_height_m) / 0.08,
                 )
             ),
             leg_position_error,
-            plant.joint_velocity / JOINT_VELOCITY_LIMIT,
+            state.joint_velocity / JOINT_VELOCITY_LIMIT,
             np.asarray((baseline_longitudinal_force_n / 180.0,)),
             previous,
         )
@@ -87,19 +89,21 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
         baseline: str = "lqr",
         episode_seconds: float = 6.0,
         randomize: bool = True,
+        state_mode: str = "oracle",
     ) -> None:
         super().__init__()
         if baseline not in {"lqr", "mpc"}:
             raise ValueError("baseline must be 'lqr' or 'mpc'")
         if episode_seconds <= 0.0:
             raise ValueError("episode_seconds must be positive")
+        if state_mode not in {"oracle", "estimated"}:
+            raise ValueError("state_mode must be 'oracle' or 'estimated'")
         self.baseline_name = baseline
         self.randomize = randomize
+        self.state_mode = state_mode
         self.plant = D1Plant(control_dt=0.01)
         self.controller = (
-            D1LQRVMCController(self.plant)
-            if baseline == "lqr"
-            else D1MPCVMCController(self.plant)
+            D1LQRVMCController(self.plant) if baseline == "lqr" else D1MPCVMCController(self.plant)
         )
         self.max_steps = round(episode_seconds / self.plant.control_dt)
         self.action_space = spaces.Box(-1.0, 1.0, shape=(2,), dtype=np.float32)
@@ -117,7 +121,9 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
         self._training_velocity = 0.0
         self._training_height = self.plant.nominal_base_height_m
         self._delay_steps = 0
+        self._state_delay_steps = 0
         self._noise_scale = 0.0
+        self._estimator_seed: int | None = None
         self._delay_queue: deque[np.ndarray] = deque()
         self._previous_applied_action = np.zeros(2, dtype=np.float64)
         self._push_start = -1
@@ -129,6 +135,8 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
             "friction_scale": 1.0,
             "actuator_strength_scale": 1.0,
         }
+        self._state_source = make_d1_state_source(self.plant)
+        self._state = self._state_source.reset()
 
     def _sample_training_command(self) -> None:
         self._training_velocity = float(self.np_random.uniform(-0.75, 0.75))
@@ -163,26 +171,40 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
                     options.get("friction_scale", self.np_random.uniform(0.65, 1.30))
                 ),
                 "actuator_strength_scale": float(
-                    options.get(
-                        "actuator_strength_scale", self.np_random.uniform(0.85, 1.05)
-                    )
+                    options.get("actuator_strength_scale", self.np_random.uniform(0.85, 1.05))
                 ),
             }
-            self._delay_steps = int(options.get("delay_steps", self.np_random.integers(0, 4)))
-            self._noise_scale = float(
-                options.get("sensor_noise", self.np_random.uniform(0.0, 1.0))
+            sampled_action_delay = int(self.np_random.integers(0, 4))
+            sampled_state_delay = (
+                int(self.np_random.integers(0, 4)) if self.state_mode == "estimated" else 0
             )
+            self._delay_steps = int(
+                options.get("action_delay_steps", options.get("delay_steps", sampled_action_delay))
+            )
+            self._state_delay_steps = (
+                int(options.get("state_delay_steps", sampled_state_delay))
+                if self.state_mode == "estimated"
+                else 0
+            )
+            self._noise_scale = float(options.get("sensor_noise", self.np_random.uniform(0.0, 1.0)))
         else:
             self._domain = {
                 "base_mass_scale": float(options.get("base_mass_scale", 1.0)),
                 "damping_scale": float(options.get("damping_scale", 1.0)),
                 "friction_scale": float(options.get("friction_scale", 1.0)),
-                "actuator_strength_scale": float(
-                    options.get("actuator_strength_scale", 1.0)
-                ),
+                "actuator_strength_scale": float(options.get("actuator_strength_scale", 1.0)),
             }
-            self._delay_steps = int(options.get("delay_steps", 0))
+            self._delay_steps = int(
+                options.get("action_delay_steps", options.get("delay_steps", 0))
+            )
+            self._state_delay_steps = (
+                int(options.get("state_delay_steps", 0)) if self.state_mode == "estimated" else 0
+            )
             self._noise_scale = float(options.get("sensor_noise", 0.0))
+        if self._delay_steps < 0 or self._state_delay_steps < 0:
+            raise ValueError("action and state delays must be non-negative")
+        if not np.isfinite(self._noise_scale) or self._noise_scale < 0.0:
+            raise ValueError("sensor_noise must be finite and non-negative")
         self.plant.set_domain(**self._domain)
 
         if self._scenario == "training":
@@ -206,15 +228,20 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
             self._push_force_n = 0.0
 
         roll = float(
-            options.get("initial_roll", self.np_random.uniform(-0.035, 0.035) if use_randomization else 0.0)
+            options.get(
+                "initial_roll", self.np_random.uniform(-0.035, 0.035) if use_randomization else 0.0
+            )
         )
         pitch = float(
             options.get(
-                "initial_pitch", self.np_random.uniform(-0.045, 0.045) if use_randomization else 0.02
+                "initial_pitch",
+                self.np_random.uniform(-0.045, 0.045) if use_randomization else 0.02,
             )
         )
         yaw = float(
-            options.get("initial_yaw", self.np_random.uniform(-0.05, 0.05) if use_randomization else 0.0)
+            options.get(
+                "initial_yaw", self.np_random.uniform(-0.05, 0.05) if use_randomization else 0.0
+            )
         )
         joint_position = NOMINAL_JOINT_POSITION.copy()
         if use_randomization:
@@ -229,15 +256,30 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
             base_quaternion=_quaternion_from_rpy(roll, pitch, yaw),
             joint_position=joint_position,
         )
+        if self.state_mode == "estimated":
+            impairments = make_default_d1_estimator_impairments(
+                delay_steps=self._state_delay_steps,
+                noise_scale=self._noise_scale,
+            )
+            self._estimator_seed = int(self.np_random.integers(0, np.iinfo(np.int32).max))
+            self._state_source = make_d1_state_source(
+                self.plant,
+                impairments=impairments,
+                seed=self._estimator_seed,
+            )
+        else:
+            self._estimator_seed = None
+            self._state_source = make_d1_state_source(self.plant)
+        self._state = self._state_source.reset()
 
     def _observation(self) -> np.ndarray:
         observation = encode_d1_observation(
-            plant=self.plant,
+            state=self._state,
             command=self._command,
             baseline_longitudinal_force_n=self.controller.last_longitudinal_force_n,
             previous_applied_action=self._previous_applied_action,
         )
-        if self._noise_scale:
+        if self.state_mode == "oracle" and self._noise_scale:
             observation += self.np_random.normal(
                 0.0,
                 0.008 * self._noise_scale,
@@ -253,11 +295,26 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
         applied_action: np.ndarray,
         push_force_n: float,
     ) -> dict[str, Any]:
+        truth_state = self.plant.reduced_state()
+        truth_forward_velocity = float(self.plant.base_velocity(local=True)[0][0])
+        truth_joint_position = self.plant.joint_position
+        truth_joint_velocity = self.plant.joint_velocity
+        truth_wheel_contacts = self.plant.wheel_ground_contacts
+        truth_undesired_contacts = self.plant.undesired_ground_contacts
         return {
-            "state": self.plant.reduced_state(),
-            "forward_velocity_mps": float(self.plant.base_velocity(local=True)[0][0]),
-            "joint_position": self.plant.joint_position,
-            "joint_velocity": self.plant.joint_velocity,
+            # Legacy names remain truth-valued for reward/evaluation compatibility.
+            "state": truth_state,
+            "truth_state": truth_state,
+            "estimated_state": self._state.reduced_state(),
+            "forward_velocity_mps": truth_forward_velocity,
+            "truth_forward_velocity_mps": truth_forward_velocity,
+            "estimated_forward_velocity_mps": float(self._state.base_linear_velocity_body[0]),
+            "joint_position": truth_joint_position,
+            "truth_joint_position": truth_joint_position,
+            "estimated_joint_position": self._state.joint_position.copy(),
+            "joint_velocity": truth_joint_velocity,
+            "truth_joint_velocity": truth_joint_velocity,
+            "estimated_joint_velocity": self._state.joint_velocity.copy(),
             "torque_nm": np.asarray(torque_nm, dtype=np.float64).copy(),
             "command_velocity_mps": command.forward_velocity_mps,
             "command_height_m": command.base_height_m,
@@ -265,9 +322,19 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
             "longitudinal_force_n": self.controller.last_longitudinal_force_n,
             "vertical_residual_n": self.controller.last_vertical_residual_n,
             "push_force_n": push_force_n,
-            "wheel_contacts": self.plant.wheel_ground_contacts,
-            "undesired_contacts": self.plant.undesired_ground_contacts,
+            "wheel_contacts": truth_wheel_contacts,
+            "truth_wheel_contacts": truth_wheel_contacts,
+            "estimated_wheel_contacts": self._state.wheel_ground_contacts,
+            "undesired_contacts": truth_undesired_contacts,
+            "truth_undesired_contacts": truth_undesired_contacts,
+            "estimated_undesired_contacts": self._state.undesired_ground_contacts,
             "delay_steps": self._delay_steps,
+            "action_delay_steps": self._delay_steps,
+            "state_delay_steps": self._state_delay_steps,
+            "sensor_noise_scale": self._noise_scale,
+            "state_estimator_seed": self._estimator_seed,
+            "state_age_ms": 1e3 * self._state.age_s,
+            "state_estimation_mode": self.state_mode,
             "domain": dict(self._domain),
             "baseline": self.controller.baseline_name,
             "solve_ms": self.controller.last_solve_ms,
@@ -285,9 +352,7 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
         self.controller.reset()
         self._command = self._command_at_step()
         self._previous_applied_action[:] = 0.0
-        self._delay_queue = deque(
-            [np.zeros(2, dtype=np.float64) for _ in range(self._delay_steps)]
-        )
+        self._delay_queue = deque([np.zeros(2, dtype=np.float64) for _ in range(self._delay_steps)])
         zero_torque = np.zeros(16, dtype=np.float64)
         info = self._info(
             command=self._command,
@@ -310,17 +375,17 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
         transition_command = self._command
         torque = self.controller.compute(
             transition_command,
+            self._state,
             residual_force_n=applied_action * D1_RESIDUAL_SCALE,
         )
         push_force = (
-            self._push_force_n
-            if self._push_start <= self._step_count < self._push_end
-            else 0.0
+            self._push_force_n if self._push_start <= self._step_count < self._push_end else 0.0
         )
         self.plant.step(
             torque,
             push_force_world_n=np.asarray((push_force, 0.0, 0.0)),
         )
+        self._state = self._state_source.read()
         linear_velocity, _ = self.plant.base_velocity(local=True)
         roll, pitch, _ = self.plant.base_rpy
         terminated = self.plant.has_fallen()

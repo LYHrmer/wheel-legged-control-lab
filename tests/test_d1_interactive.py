@@ -74,6 +74,20 @@ def test_residual_policy_can_be_toggled_and_is_gated_during_jump() -> None:
     assert status.rl_mode == "gated"
 
 
+def test_estimated_interactive_state_is_sampled_after_each_physics_step() -> None:
+    simulation = D1InteractiveSimulation(
+        state_mode="estimated",
+        state_delay_steps=2,
+        sensor_noise=1.0,
+        seed=5,
+    )
+
+    ages = [simulation.step().state_age_ms for _ in range(30)]
+
+    assert max(ages) == pytest.approx(20.0)
+    assert not simulation.plant.has_fallen()
+
+
 @pytest.mark.parametrize("zone", ("rough", "ramp", "stairs", "bumps", "jump"))
 def test_scripted_course_zone_reaches_its_acceptance_target(zone: str) -> None:
     metrics = run_scripted_demo(zone)

@@ -224,6 +224,12 @@ class D1Plant:
         )
 
     @property
+    def nominal_total_mass_kg(self) -> float:
+        """Return URDF mass before per-episode domain randomization."""
+
+        return float(self._nominal_body_mass.sum())
+
+    @property
     def joint_position(self) -> np.ndarray:
         return self.data.qpos[self.qpos_addresses].copy()
 

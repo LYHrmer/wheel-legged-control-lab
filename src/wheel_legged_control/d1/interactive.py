@@ -19,6 +19,11 @@ from .env import D1_RESIDUAL_SCALE, encode_d1_observation
 from .hierarchical import D1LQRVMCController, D1MPCVMCController
 from .model import JOINT_TORQUE_LIMIT, D1Plant
 from .policy import load_compatible_d1_policy
+from .state_estimation import (
+    D1StateEstimate,
+    make_d1_state_source,
+    make_default_d1_estimator_impairments,
+)
 from .terrain import D1_COURSE_SPAWNS, D1TerrainAttitudeEstimator
 
 _SPAWN_KEYS = {
@@ -63,6 +68,8 @@ class D1TeleopStatus:
     safety_interventions: int
     completed_jumps: int
     torque_saturation_fraction: float
+    state_estimation_mode: str
+    state_age_ms: float
 
 
 def _yaw_quaternion(yaw_rad: float) -> np.ndarray:
@@ -88,15 +95,23 @@ class D1TeleopController:
         *,
         baseline: str = "lqr",
         residual_policy: Any | None = None,
+        state_mode: str = "oracle",
+        state_delay_steps: int = 0,
+        sensor_noise: float = 0.0,
+        seed: int = 0,
     ) -> None:
         if baseline not in {"lqr", "mpc"}:
             raise ValueError("baseline must be 'lqr' or 'mpc'")
+        if state_mode not in {"oracle", "estimated"}:
+            raise ValueError("state_mode must be 'oracle' or 'estimated'")
+        if state_delay_steps < 0 or sensor_noise < 0.0:
+            raise ValueError("state delay and sensor noise must be non-negative")
         self.plant = plant
+        self.state_mode = state_mode
+        self.seed = seed
         self.residual_policy = residual_policy
         self.controller = (
-            D1LQRVMCController(plant)
-            if baseline == "lqr"
-            else D1MPCVMCController(plant)
+            D1LQRVMCController(plant) if baseline == "lqr" else D1MPCVMCController(plant)
         )
         self._last_torque = np.zeros(16, dtype=np.float64)
         self._jump_step: int | None = None
@@ -111,6 +126,18 @@ class D1TeleopController:
         self.forward_velocity_mps = 0.0
         self.yaw_rate_rps = 0.0
         self.base_height_m = plant.nominal_base_height_m
+        impairments = None
+        if state_mode == "estimated":
+            impairments = make_default_d1_estimator_impairments(
+                delay_steps=state_delay_steps,
+                noise_scale=sensor_noise,
+            )
+        self.state_source = make_d1_state_source(
+            plant,
+            impairments=impairments,
+            seed=seed,
+        )
+        self._state: D1StateEstimate
         self.reset("start")
 
     def reset(self, spawn: str = "start") -> None:
@@ -121,6 +148,7 @@ class D1TeleopController:
             base_position=np.asarray(target.position_m, dtype=np.float64),
             base_quaternion=_yaw_quaternion(target.yaw_rad),
         )
+        self._state = self.state_source.reset(seed=self.seed)
         self.controller.reset()
         self.terrain_attitude.reset()
         self._last_torque[:] = 0.0
@@ -143,13 +171,9 @@ class D1TeleopController:
         except (TypeError, ValueError):
             return None
         if key == "w":
-            self.forward_velocity_mps = float(
-                np.clip(self.forward_velocity_mps + 0.10, -0.8, 0.8)
-            )
+            self.forward_velocity_mps = float(np.clip(self.forward_velocity_mps + 0.10, -0.8, 0.8))
         elif key == "s":
-            self.forward_velocity_mps = float(
-                np.clip(self.forward_velocity_mps - 0.10, -0.8, 0.8)
-            )
+            self.forward_velocity_mps = float(np.clip(self.forward_velocity_mps - 0.10, -0.8, 0.8))
         elif key == "a":
             self.yaw_rate_rps = float(np.clip(self.yaw_rate_rps + 0.10, -0.6, 0.6))
         elif key == "d":
@@ -182,6 +206,7 @@ class D1TeleopController:
     def _residual_action(
         self,
         command: D1Command,
+        state: D1StateEstimate,
         *,
         jump_phase: str,
         safety_mode: str,
@@ -203,7 +228,7 @@ class D1TeleopController:
             self._previous_residual_action[:] = 0.0
             return np.zeros(2, dtype=np.float64), "gated"
         observation = encode_d1_observation(
-            plant=self.plant,
+            state=state,
             command=command,
             baseline_longitudinal_force_n=self.controller.last_longitudinal_force_n,
             previous_applied_action=self._previous_residual_action,
@@ -215,13 +240,13 @@ class D1TeleopController:
         self._previous_residual_action = normalized.copy()
         return normalized, "on"
 
-    def _jump_command(self) -> tuple[str, float, float]:
-        roll, pitch, _ = self.plant.base_rpy
+    def _jump_command(self, state: D1StateEstimate) -> tuple[str, float, float]:
+        roll, pitch, _ = state.base_rpy
         can_jump = (
-            self.plant.wheel_ground_contacts >= 3
+            state.wheel_ground_contacts >= 3
             and abs(roll) < 0.18
             and abs(pitch) < 0.18
-            and not self.plant.has_fallen()
+            and not state.has_fallen()
         )
         if self._jump_step is None and self._jump_requested and can_jump:
             self._jump_step = 0
@@ -240,13 +265,14 @@ class D1TeleopController:
         return "ready", self.base_height_m, 0.0
 
     def compute(self) -> tuple[np.ndarray, D1TeleopStatus]:
-        jump_phase, height_command, vertical_force = self._jump_command()
-        roll, pitch, _ = self.plant.base_rpy
+        state = self._state
+        jump_phase, height_command, vertical_force = self._jump_command(state)
+        roll, pitch, _ = state.base_rpy
         attitude = max(abs(float(roll)), abs(float(pitch)))
         safety_mode = "normal"
         forward = self.forward_velocity_mps
         yaw_rate = self.yaw_rate_rps
-        if self.plant.has_fallen() or self.plant.base_position[2] < 0.28:
+        if state.has_fallen() or state.base_position[2] < 0.28:
             safety_mode = "recovery"
             forward = 0.0
             yaw_rate = 0.0
@@ -260,12 +286,12 @@ class D1TeleopController:
         if safety_mode != "normal":
             self._safety_interventions += 1
 
-        terrain_attitude = self.terrain_attitude.update(self.plant)
-        local_velocity = float(self.plant.base_velocity(local=True)[0][0])
+        terrain_attitude = self.terrain_attitude.update(state)
+        local_velocity = float(state.base_linear_velocity_body[0])
         appears_stuck = (
             abs(forward) > 0.12
             and abs(local_velocity) < 0.08
-            and self.plant.wheel_ground_contacts >= 3
+            and state.wheel_ground_contacts >= 3
             and abs(terrain_attitude.pitch_rad) < 0.08
             and jump_phase == "ready"
         )
@@ -277,9 +303,7 @@ class D1TeleopController:
             self._boost_steps_remaining = 0
         traction_mode = "boost" if self._boost_steps_remaining > 0 else "normal"
         self._boost_steps_remaining = max(0, self._boost_steps_remaining - 1)
-        self.controller.longitudinal_force_limit_n = (
-            500.0 if traction_mode == "boost" else 180.0
-        )
+        self.controller.longitudinal_force_limit_n = 500.0 if traction_mode == "boost" else 180.0
         command = D1Command(
             forward_velocity_mps=forward,
             yaw_rate_rps=yaw_rate,
@@ -289,6 +313,7 @@ class D1TeleopController:
         )
         residual_action, rl_mode = self._residual_action(
             command,
+            state,
             jump_phase=jump_phase,
             safety_mode=safety_mode,
             terrain_roll_rad=terrain_attitude.roll_rad,
@@ -297,6 +322,7 @@ class D1TeleopController:
         residual_force = residual_action * D1_RESIDUAL_SCALE
         torque = self.controller.compute(
             command,
+            state,
             residual_force_n=residual_force,
             vertical_feedforward_force_n=vertical_force,
         )
@@ -316,11 +342,16 @@ class D1TeleopController:
             residual_vertical_force_n=float(residual_force[1]),
             safety_interventions=self._safety_interventions,
             completed_jumps=self._completed_jumps,
-            torque_saturation_fraction=float(
-                np.mean(np.abs(torque) >= 0.98 * JOINT_TORQUE_LIMIT)
-            ),
+            torque_saturation_fraction=float(np.mean(np.abs(torque) >= 0.98 * JOINT_TORQUE_LIMIT)),
+            state_estimation_mode=self.state_mode,
+            state_age_ms=1e3 * state.age_s,
         )
         return torque, status
+
+    def update_state(self) -> None:
+        """Publish the measurement produced after the latest physics step."""
+
+        self._state = self.state_source.read()
 
 
 class D1InteractiveSimulation:
@@ -332,12 +363,20 @@ class D1InteractiveSimulation:
         baseline: str = "lqr",
         arena: str = "course",
         residual_policy: Any | None = None,
+        state_mode: str = "oracle",
+        state_delay_steps: int = 0,
+        sensor_noise: float = 0.0,
+        seed: int = 0,
     ) -> None:
         self.plant = D1Plant(arena=arena)
         self.teleop = D1TeleopController(
             self.plant,
             baseline=baseline,
             residual_policy=residual_policy,
+            state_mode=state_mode,
+            state_delay_steps=state_delay_steps,
+            sensor_noise=sensor_noise,
+            seed=seed,
         )
 
     def reset(self, spawn: str = "start") -> None:
@@ -346,6 +385,7 @@ class D1InteractiveSimulation:
     def step(self) -> D1TeleopStatus:
         torque, status = self.teleop.compute()
         self.plant.step(torque)
+        self.teleop.update_state()
         return status
 
 
@@ -376,7 +416,8 @@ def _render_frame(
         f"v={status.forward_velocity_mps:+.2f} m/s  "
         f"yaw={status.yaw_rate_rps:+.2f} rad/s  "
         f"jump={status.jump_phase}  rl={status.rl_mode}  traction={status.traction_mode}  "
-        f"safety={status.safety_mode}"
+        f"safety={status.safety_mode}  state={status.state_estimation_mode} "
+        f"age={status.state_age_ms:.0f} ms"
     )
     ImageDraw.Draw(canvas).text((10, 10), label, fill="black")
     return canvas
@@ -387,15 +428,39 @@ def run_scripted_demo(
     output: Path | None = None,
     *,
     baseline: str = "lqr",
+    state_mode: str = "oracle",
+    state_delay_steps: int = 0,
+    sensor_noise: float = 0.0,
+    seed: int = 0,
 ) -> dict[str, float | int | str]:
     """Run a deterministic skill demo and optionally save a real-physics GIF."""
 
     if zone not in D1_COURSE_SPAWNS:
         raise ValueError(f"unknown demo zone: {zone}")
-    simulation = D1InteractiveSimulation(baseline=baseline)
+    simulation = D1InteractiveSimulation(
+        baseline=baseline,
+        state_mode=state_mode,
+        state_delay_steps=state_delay_steps,
+        sensor_noise=sensor_noise,
+        seed=seed,
+    )
     simulation.reset(zone)
-    duration_s = {"start": 6.0, "rough": 8.0, "ramp": 13.0, "stairs": 12.0, "bumps": 14.0, "jump": 10.0}[zone]
-    target_speed = {"start": 0.35, "rough": 0.30, "ramp": 0.38, "stairs": 0.24, "bumps": 0.28, "jump": 0.28}[zone]
+    duration_s = {
+        "start": 6.0,
+        "rough": 8.0,
+        "ramp": 13.0,
+        "stairs": 13.0,
+        "bumps": 14.0,
+        "jump": 10.0,
+    }[zone]
+    target_speed = {
+        "start": 0.35,
+        "rough": 0.30,
+        "ramp": 0.38,
+        "stairs": 0.24,
+        "bumps": 0.28,
+        "jump": 0.28,
+    }[zone]
     settle_steps = round(1.0 / simulation.plant.control_dt)
     total_steps = round(duration_s / simulation.plant.control_dt)
     renderer = (
@@ -444,8 +509,7 @@ def run_scripted_demo(
         )
     distance = float(
         np.linalg.norm(
-            simulation.plant.base_position[:2]
-            - np.asarray(D1_COURSE_SPAWNS[zone].position_m[:2])
+            simulation.plant.base_position[:2] - np.asarray(D1_COURSE_SPAWNS[zone].position_m[:2])
         )
     )
     minimum_progress = {
@@ -459,19 +523,20 @@ def run_scripted_demo(
     cleared_hurdles = (
         int(
             sum(
-                simulation.plant.base_position[0] >= hurdle_x + 0.30
-                for hurdle_x in (1.8, 3.0, 4.3)
+                simulation.plant.base_position[0] >= hurdle_x + 0.30 for hurdle_x in (1.8, 3.0, 4.3)
             )
         )
         if zone == "jump"
         else 0
     )
-    completed_required_jump = (
-        zone != "jump" or (status.completed_jumps >= 1 and cleared_hurdles >= 1)
+    completed_required_jump = zone != "jump" or (
+        status.completed_jumps >= 1 and cleared_hurdles >= 1
     )
     return {
         "zone": zone,
         "baseline": baseline,
+        "state_estimation_mode": state_mode,
+        "evaluation_seed": seed,
         "success": int(not terminated and distance >= minimum_progress and completed_required_jump),
         "distance_m": distance,
         "maximum_height_m": maximum_height,
@@ -483,8 +548,7 @@ def run_scripted_demo(
         "step_time_p95_ms": float(np.percentile(step_times_ms, 95)),
         "completed_jumps": status.completed_jumps,
         "cleared_hurdles": cleared_hurdles,
-        "jump_height_gain_m": maximum_height
-        - float(D1_COURSE_SPAWNS[zone].position_m[2]),
+        "jump_height_gain_m": maximum_height - float(D1_COURSE_SPAWNS[zone].position_m[2]),
         "safety_interventions": status.safety_interventions,
     }
 
@@ -493,10 +557,24 @@ def write_course_audit(
     output: Path,
     *,
     baseline: str = "lqr",
+    state_mode: str = "oracle",
+    state_delay_steps: int = 0,
+    sensor_noise: float = 0.0,
+    seed: int = 0,
 ) -> list[dict[str, float | int | str]]:
     """Evaluate every course zone and write recruiter-readable raw and summary data."""
 
-    records = [run_scripted_demo(zone, baseline=baseline) for zone in D1_COURSE_SPAWNS]
+    records = [
+        run_scripted_demo(
+            zone,
+            baseline=baseline,
+            state_mode=state_mode,
+            state_delay_steps=state_delay_steps,
+            sensor_noise=sensor_noise,
+            seed=seed,
+        )
+        for zone in D1_COURSE_SPAWNS
+    ]
     output.mkdir(parents=True, exist_ok=True)
     with (output / "course_metrics.csv").open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=list(records[0]))
@@ -522,12 +600,24 @@ def write_course_audit(
     return records
 
 
-def run_viewer(baseline: str, residual_policy: Any | None = None) -> None:
+def run_viewer(
+    baseline: str,
+    residual_policy: Any | None = None,
+    *,
+    state_mode: str = "oracle",
+    state_delay_steps: int = 0,
+    sensor_noise: float = 0.0,
+    seed: int = 0,
+) -> None:
     import mujoco.viewer
 
     simulation = D1InteractiveSimulation(
         baseline=baseline,
         residual_policy=residual_policy,
+        state_mode=state_mode,
+        state_delay_steps=state_delay_steps,
+        sensor_noise=sensor_noise,
+        seed=seed,
     )
     events: SimpleQueue[int] = SimpleQueue()
     paused = False
@@ -564,7 +654,8 @@ def run_viewer(baseline: str, residual_policy: Any | None = None) -> None:
                         f"yaw={status.yaw_rate_rps:+.2f}  "
                         f"jump={status.jump_phase:<7}  "
                         f"rl={status.rl_mode:<11}  "
-                        f"traction={status.traction_mode:<6}  safety={status.safety_mode}"
+                        f"traction={status.traction_mode:<6}  safety={status.safety_mode}  "
+                        f"state={status.state_estimation_mode} age={status.state_age_ms:.0f}ms"
                     )
                     next_status_time += 1.0
             viewer.sync()
@@ -601,6 +692,10 @@ def render_course_overview(output: Path) -> None:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--baseline", choices=("lqr", "mpc"), default="lqr")
+    parser.add_argument("--state-mode", choices=("oracle", "estimated"), default="oracle")
+    parser.add_argument("--state-delay-steps", type=int, default=0)
+    parser.add_argument("--sensor-noise", type=float, default=0.0)
+    parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--policy", type=Path, help="load a compatible PPO residual for L toggle")
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--demo-zone", choices=tuple(D1_COURSE_SPAWNS))
@@ -623,7 +718,14 @@ def main(argv: list[str] | None = None) -> None:
         print(f"saved course overview to {args.overview}")
         return
     if args.audit_output is not None:
-        records = write_course_audit(args.audit_output, baseline=args.baseline)
+        records = write_course_audit(
+            args.audit_output,
+            baseline=args.baseline,
+            state_mode=args.state_mode,
+            state_delay_steps=args.state_delay_steps,
+            sensor_noise=args.sensor_noise,
+            seed=args.seed,
+        )
         for record in records:
             print(record)
         return
@@ -634,12 +736,28 @@ def main(argv: list[str] | None = None) -> None:
                 residual_policy = load_compatible_d1_policy(
                     args.policy,
                     expected_baseline=args.baseline,
+                    expected_state_mode=args.state_mode,
                 )
             except (FileNotFoundError, RuntimeError, ValueError) as error:
                 raise SystemExit(str(error)) from error
-        run_viewer(args.baseline, residual_policy)
+        run_viewer(
+            args.baseline,
+            residual_policy,
+            state_mode=args.state_mode,
+            state_delay_steps=args.state_delay_steps,
+            sensor_noise=args.sensor_noise,
+            seed=args.seed,
+        )
         return
-    metrics = run_scripted_demo(args.demo_zone, args.record, baseline=args.baseline)
+    metrics = run_scripted_demo(
+        args.demo_zone,
+        args.record,
+        baseline=args.baseline,
+        state_mode=args.state_mode,
+        state_delay_steps=args.state_delay_steps,
+        sensor_noise=args.sensor_noise,
+        seed=args.seed,
+    )
     for key, value in metrics.items():
         print(f"{key}: {value}")
 

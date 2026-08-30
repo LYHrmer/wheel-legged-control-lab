@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-import mujoco
 import numpy as np
 
 from .model import (
@@ -14,6 +13,18 @@ from .model import (
     NOMINAL_JOINT_POSITION,
     D1Plant,
 )
+from .state_estimation import D1StateEstimate
+
+
+def _heading_rotation(yaw_rad: float) -> np.ndarray:
+    """Map yaw-aligned horizontal-frame vectors into the world frame."""
+
+    cos_yaw = np.cos(yaw_rad)
+    sin_yaw = np.sin(yaw_rad)
+    return np.asarray(
+        ((cos_yaw, -sin_yaw, 0.0), (sin_yaw, cos_yaw, 0.0), (0.0, 0.0, 1.0)),
+        dtype=np.float64,
+    )
 
 
 @dataclass(frozen=True)
@@ -48,7 +59,11 @@ class D1VMCController:
     """
 
     def __init__(self, plant: D1Plant) -> None:
-        self.plant = plant
+        # Keep only nominal model constants.  Runtime feedback must arrive in a
+        # D1StateEstimate so randomized MuJoCo truth cannot leak into control.
+        self.total_mass_kg = plant.nominal_total_mass_kg
+        self.gravity_mps2 = abs(float(plant.model.opt.gravity[2]))
+        self.wheel_radius_m = float(plant.wheel_radius_m)
         self.leg_kp = np.tile((40.0, 40.0, 40.0, 0.0), len(LEG_PREFIXES))
         self.leg_kd = np.tile((1.5, 1.5, 1.5, 0.0), len(LEG_PREFIXES))
         self.wheel_velocity_gain = 0.55
@@ -89,40 +104,34 @@ class D1VMCController:
 
     def _support_torque(
         self,
+        state: D1StateEstimate,
         command: D1Command,
         vertical_force_offset_n: float,
     ) -> tuple[np.ndarray, np.ndarray]:
-        linear_velocity, angular_velocity = self.plant.base_velocity(local=False)
-        roll, pitch, _ = self.plant.base_rpy
-        mass = float(self.plant.model.body_mass.sum())
+        linear_velocity = state.base_linear_velocity_world
+        roll, pitch, yaw = state.base_rpy
+        heading_rotation = _heading_rotation(float(yaw))
+        angular_velocity_heading = heading_rotation.T @ state.base_angular_velocity_world
+        mass = self.total_mass_kg
         total_upward_force = (
-            mass * abs(float(self.plant.model.opt.gravity[2]))
-            + self.height_kp * (command.base_height_m - self.plant.base_position[2])
+            mass * self.gravity_mps2
+            + self.height_kp * (command.base_height_m - state.base_position[2])
             - self.height_kd * linear_velocity[2]
             + vertical_force_offset_n
         )
-        desired_roll_moment = (
-            self.roll_kp * (command.roll_rad - roll)
-            - self.roll_kd * angular_velocity[0]
+        desired_roll_moment_heading = (
+            self.roll_kp * (command.roll_rad - roll) - self.roll_kd * angular_velocity_heading[0]
         )
-        desired_pitch_moment = (
+        desired_pitch_moment_heading = (
             self.pitch_kp * (command.pitch_rad - pitch)
-            - self.pitch_kd * angular_velocity[1]
+            - self.pitch_kd * angular_velocity_heading[1]
+        )
+        desired_moment_world = heading_rotation @ np.asarray(
+            (desired_roll_moment_heading, desired_pitch_moment_heading, 0.0),
+            dtype=np.float64,
         )
 
-        wheel_positions = np.asarray(
-            [
-                self.plant.data.xpos[
-                    mujoco.mj_name2id(
-                        self.plant.model,
-                        mujoco.mjtObj.mjOBJ_BODY,
-                        f"{leg}_foot",
-                    )
-                ]
-                - self.plant.base_position
-                for leg in LEG_PREFIXES
-            ]
-        )
+        wheel_positions = state.foot_offset_world
         allocation = np.vstack(
             (
                 np.ones(len(LEG_PREFIXES)),
@@ -131,37 +140,24 @@ class D1VMCController:
             )
         )
         desired_wrench = np.asarray(
-            (total_upward_force, desired_roll_moment, desired_pitch_moment),
+            (total_upward_force, desired_moment_world[0], desired_moment_world[1]),
             dtype=np.float64,
         )
         upward_forces = np.linalg.lstsq(allocation, desired_wrench, rcond=None)[0]
         upward_forces = np.clip(upward_forces, 0.0, mass * 9.81 * 0.65)
 
         torque = np.zeros(len(D1_JOINT_NAMES), dtype=np.float64)
-        for leg, force_n in zip(LEG_PREFIXES, upward_forces, strict=True):
-            body_id = mujoco.mj_name2id(
-                self.plant.model, mujoco.mjtObj.mjOBJ_BODY, f"{leg}_foot"
-            )
-            jacobian = np.zeros((3, self.plant.model.nv), dtype=np.float64)
-            rotation_jacobian = np.zeros_like(jacobian)
-            mujoco.mj_jacBodyCom(
-                self.plant.model,
-                self.plant.data,
-                jacobian,
-                rotation_jacobian,
-                body_id,
-            )
+        for leg_index, (leg, force_n) in enumerate(zip(LEG_PREFIXES, upward_forces, strict=True)):
             indices = self._leg_indices[leg]
             foot_force = np.asarray((0.0, 0.0, -force_n), dtype=np.float64)
-            torque[indices] += (
-                jacobian[:, self.plant.dof_addresses[indices]].T @ foot_force
-            )
+            torque[indices] += state.foot_jacobian[leg_index].T @ foot_force
         torque[self._wheel_indices] = 0.0
         return torque, upward_forces
 
     def compute(
         self,
         command: D1Command,
+        state: D1StateEstimate,
         *,
         longitudinal_force_n: float = 0.0,
         vertical_force_offset_n: float = 0.0,
@@ -173,30 +169,34 @@ class D1VMCController:
         positive vertical correction asks the wheels to support more load.
         """
 
-        joint_position = self.plant.joint_position
-        joint_velocity = self.plant.joint_velocity
+        joint_position = state.joint_position
+        joint_velocity = state.joint_velocity
         leg_pd = self.leg_kp * (NOMINAL_JOINT_POSITION - joint_position)
         leg_pd -= self.leg_kd * joint_velocity
         leg_pd[self._wheel_indices] = 0.0
 
-        support, upward_forces = self._support_torque(command, vertical_force_offset_n)
+        support, upward_forces = self._support_torque(
+            state,
+            command,
+            vertical_force_offset_n,
+        )
 
         wheel_velocity = np.zeros(len(D1_JOINT_NAMES), dtype=np.float64)
-        for index in self._wheel_indices:
-            body_id = int(self.plant.model.jnt_bodyid[self.plant.joint_ids[index]])
-            lateral_position = self.plant.data.xpos[body_id, 1] - self.plant.base_position[1]
+        heading_rotation = _heading_rotation(float(state.base_rpy[2]))
+        wheel_positions_heading = state.foot_offset_world @ heading_rotation
+        for leg_index, index in enumerate(self._wheel_indices):
+            lateral_position = wheel_positions_heading[leg_index, 1]
             target_linear_velocity = (
                 command.forward_velocity_mps - command.yaw_rate_rps * lateral_position
             )
-            target_wheel_velocity = target_linear_velocity / self.plant.wheel_radius_m
+            target_wheel_velocity = target_linear_velocity / self.wheel_radius_m
             wheel_velocity[index] = self.wheel_velocity_gain * (
                 target_wheel_velocity - joint_velocity[index]
             )
-        _, local_angular_velocity = self.plant.base_velocity(local=True)
+        local_angular_velocity = state.base_angular_velocity_body
         yaw_torque = float(
             np.clip(
-                self.yaw_rate_gain
-                * (command.yaw_rate_rps - local_angular_velocity[2]),
+                self.yaw_rate_gain * (command.yaw_rate_rps - local_angular_velocity[2]),
                 -4.0,
                 4.0,
             )
@@ -206,7 +206,7 @@ class D1VMCController:
 
         high_level = np.zeros(len(D1_JOINT_NAMES), dtype=np.float64)
         high_level[self._wheel_indices] = (
-            longitudinal_force_n * self.plant.wheel_radius_m / len(LEG_PREFIXES)
+            longitudinal_force_n * self.wheel_radius_m / len(LEG_PREFIXES)
         )
         total = np.clip(
             leg_pd + support + wheel_velocity + high_level,

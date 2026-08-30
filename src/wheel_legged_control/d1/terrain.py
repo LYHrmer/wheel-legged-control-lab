@@ -9,7 +9,7 @@ import mujoco
 import numpy as np
 
 if TYPE_CHECKING:
-    from .model import D1Plant
+    from .state_estimation import D1StateEstimate
 
 SUPPORTED_D1_ARENAS = ("flat", "course")
 
@@ -59,28 +59,12 @@ class D1TerrainAttitudeEstimator:
         self._roll = 0.0
         self._pitch = 0.0
 
-    def update(self, plant: D1Plant) -> D1TerrainAttitude:
-        points_by_body: dict[int, list[np.ndarray]] = {}
-        for contact in plant.data.contact:
-            geom1 = int(contact.geom1)
-            geom2 = int(contact.geom2)
-            if geom1 in plant.terrain_geom_ids:
-                wheel_geom = geom2
-            elif geom2 in plant.terrain_geom_ids:
-                wheel_geom = geom1
-            else:
-                continue
-            body_id = int(plant.model.geom_bodyid[wheel_geom])
-            if body_id in plant.wheel_body_ids:
-                points_by_body.setdefault(body_id, []).append(np.asarray(contact.pos).copy())
-        points = np.asarray(
-            [np.mean(body_points, axis=0) for body_points in points_by_body.values()],
-            dtype=np.float64,
-        )
+    def update(self, state: D1StateEstimate) -> D1TerrainAttitude:
+        points = state.wheel_contact_point[state.wheel_contact]
         if len(points) >= 3:
             design = np.column_stack((points[:, 0], points[:, 1], np.ones(len(points))))
             slope_x, slope_y, _ = np.linalg.lstsq(design, points[:, 2], rcond=None)[0]
-            yaw = float(plant.base_rpy[2])
+            yaw = float(state.base_rpy[2])
             forward_slope = slope_x * np.cos(yaw) + slope_y * np.sin(yaw)
             lateral_slope = -slope_x * np.sin(yaw) + slope_y * np.cos(yaw)
             target_roll = float(np.arctan(lateral_slope))
@@ -89,7 +73,7 @@ class D1TerrainAttitudeEstimator:
             target_pitch = float(np.clip(target_pitch, -self.limit_rad, self.limit_rad))
             self._roll += self.filter_gain * (target_roll - self._roll)
             self._pitch += self.filter_gain * (target_pitch - self._pitch)
-        return D1TerrainAttitude(self._roll, self._pitch, len(points_by_body))
+        return D1TerrainAttitude(self._roll, self._pitch, state.wheel_ground_contacts)
 
 
 def _pitch_quaternion(angle_rad: float) -> tuple[float, float, float, float]:

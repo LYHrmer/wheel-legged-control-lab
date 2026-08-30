@@ -15,6 +15,7 @@ def load_compatible_d1_policy(
     path: Path,
     *,
     expected_baseline: str = "lqr",
+    expected_state_mode: str = "oracle",
 ) -> Any:
     """Load a PPO checkpoint only when its recorded contracts match the code."""
 
@@ -36,6 +37,12 @@ def load_compatible_d1_policy(
         raise ValueError("policy observation schema does not match this code")
     if training_config.get("reward_schema") != D1_REWARD_SCHEMA:
         raise ValueError("policy reward schema does not match this code")
+    recorded_state_mode = training_config.get("state_mode", "oracle")
+    if recorded_state_mode != expected_state_mode:
+        raise ValueError(
+            f"policy was trained with {recorded_state_mode!r} state, "
+            f"not {expected_state_mode!r} state"
+        )
     recorded_digest = training_config.get("model_sha256")
     actual_digest = hashlib.sha256(policy_path.read_bytes()).hexdigest()
     if recorded_digest != actual_digest:

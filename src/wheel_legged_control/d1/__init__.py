@@ -14,15 +14,27 @@ from .model import (
     D1_WHEEL_JOINT_NAMES,
     D1Plant,
 )
+from .state_estimation import (
+    D1EstimatorImpairments,
+    D1MujocoTruthStateSource,
+    D1NoisyDelayedStateSource,
+    D1StateEstimate,
+    make_default_d1_estimator_impairments,
+)
 
 __all__ = [
     "D1_JOINT_NAMES",
     "D1_LEG_JOINT_NAMES",
     "D1_WHEEL_JOINT_NAMES",
     "D1Command",
+    "D1EstimatorImpairments",
     "D1LQRVMCController",
     "D1MPCVMCController",
+    "D1MujocoTruthStateSource",
+    "D1NoisyDelayedStateSource",
     "D1Plant",
     "D1ResidualEnv",
+    "D1StateEstimate",
     "D1VMCController",
+    "make_default_d1_estimator_impairments",
 ]
