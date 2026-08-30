@@ -1,6 +1,8 @@
 {
-  "schema": "d1-benchmark-evaluation-config-v1",
+  "schema": "d1-benchmark-v1",
   "run_id": "d1-benchmark-0f26f1bbba7d9551",
+  "status": "complete",
+  "completed": true,
   "protocol": {
     "state_mode": "oracle",
     "latency_compensation": "none",
@@ -50,13 +52,6 @@
     "audit_episodes": 30,
     "capture_gif": true
   },
-  "seed": 21,
-  "audit_episodes": 30,
-  "state_delay_sweep": false,
-  "state_mode": "oracle",
-  "latency_compensation": "none",
-  "policy": "results/d1_residual_ppo/model.zip",
-  "policy_sha256": "53c3b0e9e6763cb113d45dfc422fd6ba157144b6179fbd89e809ff47c09a2b5f",
   "provenance": {
     "source": {
       "git_commit": "c6ef11b886ce6fb882762342930649971e1ad7c6",
@@ -84,7 +79,28 @@
       }
     }
   },
-  "git_commit": "c6ef11b886ce6fb882762342930649971e1ad7c6",
-  "git_dirty": false,
-  "git_worktree_sha256": null
+  "validation": {
+    "matched_input_fingerprints": true,
+    "row_counts": {
+      "metrics.csv": {
+        "expected": 9,
+        "actual": 9
+      },
+      "randomized_audit.csv": {
+        "expected": 90,
+        "actual": 90
+      }
+    }
+  },
+  "artifacts": {
+    "evaluation_config.json": "1f04fb99490c2a0415e47a7cfa639c70c7faae75cedba67ab471569667acb5c8",
+    "metrics.csv": "3a284bd9ba9a0878304a7eec04f0b85f61d1a9206b8c7028c71e89804c0f205a",
+    "metrics.md": "c9adc07245be58e0286c070a2312d3a542de77ea50fb45bfe24a727636bf27b5",
+    "nominal.png": "e2415cb87a3d272106e62842019ad95354ab48c925c17dfa26b25c63cdc1950e",
+    "push.png": "92565a783931397bb504c4e4f8d7bb3e76f21dbde5c49ffd0a9ad2200aa3b392",
+    "mismatch_delay.png": "a132f8108dd81943db39b229725ad58296078c450a192fb2ef040bb03cfa36b0",
+    "randomized_audit.csv": "578b07987d3adcf5371a2017cf0151977cbc8715aedc4f558990f812d3d3795b",
+    "randomized_audit.md": "259d61c86dfa01f8b14638be174c79428c8ec93c1c2e5e4444815b66ca4b01a0",
+    "d1_push_comparison.gif": "7164f088f2efae523f12c4b2553e9f79bd2afc9e649f2acd48ee3d183c3a7c51"
+  }
 }
