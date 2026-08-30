@@ -9,13 +9,14 @@ from scipy.linalg import block_diag, solve_discrete_are
 from scipy.optimize import minimize
 
 from .controllers import D1Command, D1VMCController
-from .linear_model import D1SagittalLinearModel, identify_sagittal_model, sagittal_state
+from .linear_model import D1SagittalLinearModel, identify_sagittal_model
 from .model import D1Plant
 
 D1_OUTER_Q = np.diag((0.2, 400.0, 20.0, 30.0))
 D1_OUTER_R = np.asarray(((1e-8,),), dtype=np.float64)
 D1_LONGITUDINAL_FORCE_LIMIT_N = 180.0
 D1_VERTICAL_RESIDUAL_LIMIT_N = 120.0
+D1_VERTICAL_FEEDFORWARD_LIMIT_N = 500.0
 
 
 class _D1HierarchicalController:
@@ -32,34 +33,51 @@ class _D1HierarchicalController:
         )
         self.low_level = D1VMCController(plant)
         self.low_level.wheel_velocity_gain = 0.0
-        self._x_reference = 0.0
+        self._distance_m = 0.0
+        self._distance_reference_m = 0.0
         self.last_longitudinal_force_n = 0.0
         self.last_vertical_residual_n = 0.0
         self.last_solve_ms = 0.0
+        self.longitudinal_force_limit_n = D1_LONGITUDINAL_FORCE_LIMIT_N
 
     def reset(self) -> None:
         self.low_level.reset()
-        self._x_reference = float(self.plant.base_position[0])
+        self._distance_m = 0.0
+        self._distance_reference_m = 0.0
         self.last_longitudinal_force_n = 0.0
         self.last_vertical_residual_n = 0.0
         self.last_solve_ms = 0.0
 
+    def _control_state(self) -> np.ndarray:
+        linear_velocity, angular_velocity = self.plant.base_velocity(local=True)
+        self._distance_m += float(linear_velocity[0]) * self.plant.control_dt
+        return np.asarray(
+            (
+                self._distance_m,
+                self.plant.base_rpy[1],
+                linear_velocity[0],
+                angular_velocity[1],
+            ),
+            dtype=np.float64,
+        )
+
     def _advance_position_reference(self, velocity_mps: float) -> float:
-        self._x_reference += velocity_mps * self.plant.control_dt
-        self._x_reference = float(
+        self._distance_reference_m += velocity_mps * self.plant.control_dt
+        self._distance_reference_m = float(
             np.clip(
-                self._x_reference,
-                self.plant.base_position[0] - 0.55,
-                self.plant.base_position[0] + 0.55,
+                self._distance_reference_m,
+                self._distance_m - 0.55,
+                self._distance_m + 0.55,
             )
         )
-        return self._x_reference
+        return self._distance_reference_m
 
     def _compose_torque(
         self,
         command: D1Command,
         baseline_force_n: float,
         residual_force_n: np.ndarray | None,
+        vertical_feedforward_force_n: float,
     ) -> np.ndarray:
         residual = (
             np.zeros(2, dtype=np.float64)
@@ -71,21 +89,27 @@ class _D1HierarchicalController:
         longitudinal = float(
             np.clip(
                 baseline_force_n + residual[0],
-                -D1_LONGITUDINAL_FORCE_LIMIT_N,
-                D1_LONGITUDINAL_FORCE_LIMIT_N,
+                -self.longitudinal_force_limit_n,
+                self.longitudinal_force_limit_n,
             )
         )
-        vertical = float(
+        residual_vertical = float(
+            np.clip(residual[1], -D1_VERTICAL_RESIDUAL_LIMIT_N, D1_VERTICAL_RESIDUAL_LIMIT_N)
+        )
+        feedforward_vertical = float(
             np.clip(
-                residual[1],
-                -D1_VERTICAL_RESIDUAL_LIMIT_N,
-                D1_VERTICAL_RESIDUAL_LIMIT_N,
+                vertical_feedforward_force_n,
+                -D1_VERTICAL_FEEDFORWARD_LIMIT_N,
+                D1_VERTICAL_FEEDFORWARD_LIMIT_N,
             )
         )
+        vertical = residual_vertical + feedforward_vertical
         inner_command = D1Command(
             forward_velocity_mps=0.0,
-            yaw_rate_rps=0.0,
+            yaw_rate_rps=command.yaw_rate_rps,
             base_height_m=command.base_height_m,
+            roll_rad=command.roll_rad,
+            pitch_rad=command.pitch_rad,
         )
         self.last_longitudinal_force_n = longitudinal
         self.last_vertical_residual_n = vertical
@@ -130,19 +154,27 @@ class D1LQRVMCController(_D1HierarchicalController):
         self,
         command: D1Command,
         residual_force_n: np.ndarray | None = None,
+        *,
+        vertical_feedforward_force_n: float = 0.0,
     ) -> np.ndarray:
+        state = self._control_state()
         position_reference = self._advance_position_reference(command.forward_velocity_mps)
         reference = np.asarray(
             (
                 position_reference,
-                self.linear_model.operating_state[1],
+                self.linear_model.operating_state[1] + command.pitch_rad,
                 command.forward_velocity_mps,
                 0.0,
             ),
             dtype=np.float64,
         )
-        force = -float((self.gain @ (sagittal_state(self.plant) - reference)).item())
-        return self._compose_torque(command, force, residual_force_n)
+        force = -float((self.gain @ (state - reference)).item())
+        return self._compose_torque(
+            command,
+            force,
+            residual_force_n,
+            vertical_feedforward_force_n,
+        )
 
 
 class D1MPCVMCController(_D1HierarchicalController):
@@ -204,7 +236,7 @@ class D1MPCVMCController(_D1HierarchicalController):
         return np.asarray(
             (
                 position_reference,
-                self.linear_model.operating_state[1],
+                self.linear_model.operating_state[1] + command.pitch_rad,
                 command.forward_velocity_mps,
                 0.0,
             ),
@@ -215,9 +247,12 @@ class D1MPCVMCController(_D1HierarchicalController):
         self,
         command: D1Command,
         residual_force_n: np.ndarray | None = None,
+        *,
+        vertical_feedforward_force_n: float = 0.0,
     ) -> np.ndarray:
+        state = self._control_state()
         reference = self._tracking_reference(command)
-        tracking_error = sagittal_state(self.plant) - reference
+        tracking_error = state - reference
         predicted_zero_input_error = self._sx @ tracking_error
         gradient = 2.0 * self._su.T @ self._qbar @ predicted_zero_input_error
 
@@ -233,7 +268,7 @@ class D1MPCVMCController(_D1HierarchicalController):
             method="L-BFGS-B",
             jac=True,
             bounds=[
-                (-D1_LONGITUDINAL_FORCE_LIMIT_N, D1_LONGITUDINAL_FORCE_LIMIT_N)
+                (-self.longitudinal_force_limit_n, self.longitudinal_force_limit_n)
             ]
             * self.horizon,
             options={"maxiter": 30, "ftol": 1e-8, "gtol": 1e-6},
@@ -245,4 +280,9 @@ class D1MPCVMCController(_D1HierarchicalController):
         baseline_force = float(self._solution[0])
         self._solution[:-1] = self._solution[1:]
         self._solution[-1] = self._solution[-2]
-        return self._compose_torque(command, baseline_force, residual_force_n)
+        return self._compose_torque(
+            command,
+            baseline_force,
+            residual_force_n,
+            vertical_feedforward_force_n,
+        )

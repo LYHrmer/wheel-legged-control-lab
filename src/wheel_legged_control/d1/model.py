@@ -8,6 +8,8 @@ from importlib.resources import files
 import mujoco
 import numpy as np
 
+from .terrain import SUPPORTED_D1_ARENAS, add_d1_terrain
+
 LEG_PREFIXES = ("FL", "FR", "RL", "RR")
 D1_JOINT_NAMES = tuple(
     f"{leg}_{joint}_joint"
@@ -61,6 +63,7 @@ def build_d1_model(
     *,
     timestep: float = 0.002,
     ground_friction: float = 0.9,
+    arena: str = "flat",
 ) -> mujoco.MjModel:
     """Build a floating-base D1 world from the redistributable URDF.
 
@@ -74,6 +77,8 @@ def build_d1_model(
         raise ValueError("timestep must be positive")
     if ground_friction <= 0.0:
         raise ValueError("ground_friction must be positive")
+    if arena not in SUPPORTED_D1_ARENAS:
+        raise ValueError(f"arena must be one of {SUPPORTED_D1_ARENAS}")
 
     spec = mujoco.MjSpec.from_file(_asset_urdf_path())
     spec.modelname = "d1_full_body_control_lab"
@@ -114,17 +119,20 @@ def build_d1_model(
             geom.condim = 3
             geom.margin = 0.001
             geom.friction = (ground_friction, 0.005, 0.0001)
+            geom.group = 3
+            geom.rgba = (0.5, 0.5, 0.5, 0.0)
+        else:
+            body_name = geom.parent.name
+            if body_name.endswith("_foot"):
+                geom.rgba = (0.06, 0.08, 0.10, 1.0)
+            elif body_name == "base_link":
+                geom.rgba = (0.82, 0.86, 0.90, 1.0)
+            elif body_name.endswith("_thigh"):
+                geom.rgba = (0.17, 0.45, 0.72, 1.0)
+            else:
+                geom.rgba = (0.72, 0.76, 0.80, 1.0)
 
-    spec.worldbody.add_geom(
-        name="floor",
-        type=mujoco.mjtGeom.mjGEOM_PLANE,
-        size=(20.0, 20.0, 0.05),
-        contype=1,
-        conaffinity=1,
-        condim=3,
-        friction=(ground_friction, 0.005, 0.0001),
-        rgba=(0.18, 0.22, 0.26, 1.0),
-    )
+    add_d1_terrain(spec, arena, ground_friction)
     spec.worldbody.add_light(
         name="key_light",
         pos=(0.0, -1.5, 3.0),
@@ -133,6 +141,11 @@ def build_d1_model(
         diffuse=(0.8, 0.8, 0.8),
         specular=(0.2, 0.2, 0.2),
     )
+    spec.visual.headlight.ambient = (0.35, 0.35, 0.35)
+    spec.visual.headlight.diffuse = (0.75, 0.75, 0.75)
+    spec.visual.headlight.specular = (0.15, 0.15, 0.15)
+    spec.visual.global_.offwidth = 960
+    spec.visual.global_.offheight = 540
     return spec.compile()
 
 
@@ -142,8 +155,14 @@ class D1Plant:
     nominal_base_height_m = 0.455
     wheel_radius_m = 0.087
 
-    def __init__(self, *, control_dt: float = 0.01, ground_friction: float = 0.9) -> None:
-        self.model = build_d1_model(ground_friction=ground_friction)
+    def __init__(
+        self,
+        *,
+        control_dt: float = 0.01,
+        ground_friction: float = 0.9,
+        arena: str = "flat",
+    ) -> None:
+        self.model = build_d1_model(ground_friction=ground_friction, arena=arena)
         self.data = mujoco.MjData(self.model)
         ratio = control_dt / self.model.opt.timestep
         if control_dt <= 0.0 or not np.isclose(ratio, round(ratio)):
@@ -173,6 +192,13 @@ class D1Plant:
         self.floor_geom_id = mujoco.mj_name2id(
             self.model, mujoco.mjtObj.mjOBJ_GEOM, "floor"
         )
+        self.terrain_geom_ids = frozenset(
+            geom_id
+            for geom_id in range(self.model.ngeom)
+            if (mujoco.mj_id2name(self.model, mujoco.mjtObj.mjOBJ_GEOM, geom_id) or "")
+            .startswith(("floor", "terrain_"))
+        )
+        self.arena = arena
         self.wheel_body_ids = frozenset(
             mujoco.mj_name2id(self.model, mujoco.mjtObj.mjOBJ_BODY, f"{leg}_foot")
             for leg in LEG_PREFIXES
@@ -227,6 +253,13 @@ class D1Plant:
         return rotation.T @ np.asarray((0.0, 0.0, -1.0), dtype=np.float64)
 
     def base_velocity(self, *, local: bool = False) -> tuple[np.ndarray, np.ndarray]:
+        """Return base-origin linear and angular velocity.
+
+        MuJoCo's local object velocity follows the body's inertial frame.  The
+        controller interface instead defines ``local=True`` in the visible
+        ``base_link`` frame, so the world-frame result is projected explicitly.
+        """
+
         velocity = np.empty(6, dtype=np.float64)
         mujoco.mj_objectVelocity(
             self.model,
@@ -234,9 +267,15 @@ class D1Plant:
             mujoco.mjtObj.mjOBJ_BODY,
             self.base_body_id,
             velocity,
-            int(local),
+            0,
         )
-        return velocity[3:].copy(), velocity[:3].copy()
+        linear = velocity[3:].copy()
+        angular = velocity[:3].copy()
+        if local:
+            rotation = self.data.xmat[self.base_body_id].reshape(3, 3)
+            linear = rotation.T @ linear
+            angular = rotation.T @ angular
+        return linear, angular
 
     def reduced_state(self) -> np.ndarray:
         """Return ``[x, pitch, z, vx, pitch_rate, vz]`` in world coordinates."""
@@ -276,9 +315,9 @@ class D1Plant:
         for contact in self.data.contact:
             geom1 = int(contact.geom1)
             geom2 = int(contact.geom2)
-            if self.floor_geom_id not in (geom1, geom2):
+            if geom1 not in self.terrain_geom_ids and geom2 not in self.terrain_geom_ids:
                 continue
-            other = geom2 if geom1 == self.floor_geom_id else geom1
+            other = geom2 if geom1 in self.terrain_geom_ids else geom1
             if int(self.model.geom_bodyid[other]) in self.wheel_body_ids:
                 contacting_bodies.add(int(self.model.geom_bodyid[other]))
         return len(contacting_bodies)
@@ -289,9 +328,9 @@ class D1Plant:
         for contact in self.data.contact:
             geom1 = int(contact.geom1)
             geom2 = int(contact.geom2)
-            if self.floor_geom_id not in (geom1, geom2):
+            if geom1 not in self.terrain_geom_ids and geom2 not in self.terrain_geom_ids:
                 continue
-            other = geom2 if geom1 == self.floor_geom_id else geom1
+            other = geom2 if geom1 in self.terrain_geom_ids else geom1
             body_id = int(self.model.geom_bodyid[other])
             if body_id not in self.wheel_body_ids and body_id != 0:
                 contacting_bodies.add(body_id)

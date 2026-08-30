@@ -16,6 +16,7 @@ from scipy.stats import t as student_t
 
 from .env import D1ResidualEnv
 from .model import JOINT_TORQUE_LIMIT
+from .policy import load_compatible_d1_policy
 
 plt.switch_backend("Agg")
 
@@ -28,6 +29,7 @@ class D1Rollout:
     scenario: str
     time_s: np.ndarray
     states: np.ndarray
+    forward_velocities_mps: np.ndarray
     torques: np.ndarray
     commands: np.ndarray
     pushes: np.ndarray
@@ -80,6 +82,7 @@ def run_d1_rollout(
         mujoco.Renderer(env.plant.model, height=300, width=400) if capture else None
     )
     states: list[np.ndarray] = []
+    forward_velocities: list[float] = []
     torques: list[np.ndarray] = []
     commands: list[tuple[float, float]] = []
     pushes: list[float] = []
@@ -97,6 +100,7 @@ def run_d1_rollout(
             action, _ = policy.predict(observation, deterministic=True)
         observation, reward, terminated, truncated, info = env.step(action)
         states.append(info["state"])
+        forward_velocities.append(info["forward_velocity_mps"])
         torques.append(info["torque_nm"])
         commands.append((info["command_velocity_mps"], info["command_height_m"]))
         pushes.append(info["push_force_n"])
@@ -119,6 +123,7 @@ def run_d1_rollout(
         scenario=scenario,
         time_s=np.arange(len(states)) * env.plant.control_dt,
         states=np.asarray(states),
+        forward_velocities_mps=np.asarray(forward_velocities),
         torques=np.asarray(torques),
         commands=np.asarray(commands),
         pushes=np.asarray(pushes),
@@ -134,7 +139,7 @@ def run_d1_rollout(
 
 
 def compute_d1_metrics(rollout: D1Rollout) -> dict[str, float | str | int]:
-    velocity_error = rollout.states[:, 3] - rollout.commands[:, 0]
+    velocity_error = rollout.forward_velocities_mps - rollout.commands[:, 0]
     pitch_deg = np.rad2deg(rollout.states[:, 1])
     height_error = rollout.states[:, 2] - rollout.commands[:, 1]
     normalized_torque = rollout.torques / JOINT_TORQUE_LIMIT
@@ -250,7 +255,11 @@ def write_d1_randomized_audit(
 def plot_d1_scenario(rollouts: list[D1Rollout], output: Path) -> None:
     figure, axes = plt.subplots(3, 1, figsize=(9.0, 7.2), sharex=True)
     for rollout in rollouts:
-        axes[0].plot(rollout.time_s, rollout.states[:, 3], label=rollout.controller)
+        axes[0].plot(
+            rollout.time_s,
+            rollout.forward_velocities_mps,
+            label=rollout.controller,
+        )
         axes[1].plot(rollout.time_s, np.rad2deg(rollout.states[:, 1]))
         axes[2].plot(rollout.time_s, 1e3 * rollout.states[:, 2])
     axes[0].plot(
@@ -326,9 +335,10 @@ def main(argv: list[str] | None = None) -> None:
     args.output.mkdir(parents=True, exist_ok=True)
     policy = None
     if args.policy.exists():
-        from stable_baselines3 import PPO
-
-        policy = PPO.load(args.policy, device="cpu")
+        try:
+            policy = load_compatible_d1_policy(args.policy)
+        except (FileNotFoundError, RuntimeError, ValueError) as error:
+            raise SystemExit(str(error)) from error
 
     all_rollouts: list[D1Rollout] = []
     for scenario in D1_SCENARIOS:

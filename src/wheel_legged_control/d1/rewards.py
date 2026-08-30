@@ -8,6 +8,9 @@ import numpy as np
 
 from .model import JOINT_POSITION_HIGH, JOINT_POSITION_LOW
 
+D1_REWARD_SCHEMA = "d1-height-balanced-v2"
+D1_ACTION_COST_WEIGHT = np.asarray((1.0, 2.0), dtype=np.float64)
+
 
 @dataclass(frozen=True)
 class D1RewardBreakdown:
@@ -62,16 +65,18 @@ def calculate_d1_reward(
     soft_high[finite_limits] = centers + half_ranges
     lower_violation = np.maximum(soft_low[finite_limits] - joints[finite_limits], 0.0)
     upper_violation = np.maximum(joints[finite_limits] - soft_high[finite_limits], 0.0)
+    action_delta = action - previous
 
     return D1RewardBreakdown(
         velocity_tracking=float(2.0 * np.exp(-((velocity_error / 0.35) ** 2))),
         upright=float(
             1.0 * np.exp(-((roll_rad / 0.22) ** 2) - ((pitch_rad / 0.22) ** 2))
         ),
-        height_tracking=float(0.7 * np.exp(-((height_error / 0.045) ** 2))),
+        height_tracking=float(1.0 * np.exp(-((height_error / 0.030) ** 2))),
         alive=0.2,
-        residual_effort=-0.04 * float(action @ action),
-        residual_smoothness=-0.025 * float((action - previous) @ (action - previous)),
+        residual_effort=-0.04 * float(np.sum(D1_ACTION_COST_WEIGHT * action**2)),
+        residual_smoothness=-0.025
+        * float(np.sum(D1_ACTION_COST_WEIGHT * action_delta**2)),
         joint_limit_penalty=-1.5
         * float(lower_violation @ lower_violation + upper_violation @ upper_violation),
         contact_penalty=-0.5 * float(undesired_contacts),

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 
@@ -70,9 +71,13 @@ def main(argv: list[str] | None = None) -> None:
     model.learn(total_timesteps=args.steps)
     model_path = args.output / "model"
     model.save(model_path)
+    model_archive = model_path.with_suffix(".zip")
     training_config = vars(args) | {
         "output": str(args.output),
         "actual_timesteps": model.num_timesteps,
+        "observation_schema": getattr(Environment, "observation_schema", None),
+        "reward_schema": getattr(Environment, "reward_schema", None),
+        "model_sha256": hashlib.sha256(model_archive.read_bytes()).hexdigest(),
     }
     (args.output / "training_config.json").write_text(
         json.dumps(training_config, indent=2), encoding="utf-8"

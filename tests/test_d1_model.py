@@ -47,4 +47,7 @@ def test_mpc_respects_outer_force_constraint() -> None:
     controller = D1MPCVMCController(plant, horizon=10)
     plant.step(controller.compute(D1Command(forward_velocity_mps=0.5)))
     assert abs(controller.last_longitudinal_force_n) <= D1_LONGITUDINAL_FORCE_LIMIT_N
+    controller.longitudinal_force_limit_n = 50.0
+    plant.step(controller.compute(D1Command(forward_velocity_mps=0.8)))
+    assert abs(controller.last_longitudinal_force_n) <= 50.0
     assert np.isfinite(plant.data.qpos).all()

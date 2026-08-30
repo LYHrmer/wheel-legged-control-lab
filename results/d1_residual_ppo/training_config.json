@@ -1,11 +1,14 @@
 {
   "robot": "d1",
   "baseline": "lqr",
-  "steps": 150000,
+  "steps": 400000,
   "envs": 8,
   "seed": 7,
   "device": "cpu",
-  "verbose": true,
+  "verbose": false,
   "output": "results/d1_residual_ppo",
-  "actual_timesteps": 151552
+  "actual_timesteps": 401408,
+  "observation_schema": "d1-base-link-velocity-v2",
+  "reward_schema": "d1-height-balanced-v2",
+  "model_sha256": "53c3b0e9e6763cb113d45dfc422fd6ba157144b6179fbd89e809ff47c09a2b5f"
 }

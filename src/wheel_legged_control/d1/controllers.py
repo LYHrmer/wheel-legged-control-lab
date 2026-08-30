@@ -23,6 +23,8 @@ class D1Command:
     forward_velocity_mps: float = 0.0
     yaw_rate_rps: float = 0.0
     base_height_m: float = 0.455
+    roll_rad: float = 0.0
+    pitch_rad: float = 0.0
 
 
 @dataclass(frozen=True)
@@ -50,6 +52,7 @@ class D1VMCController:
         self.leg_kp = np.tile((40.0, 40.0, 40.0, 0.0), len(LEG_PREFIXES))
         self.leg_kd = np.tile((1.5, 1.5, 1.5, 0.0), len(LEG_PREFIXES))
         self.wheel_velocity_gain = 0.55
+        self.yaw_rate_gain = 5.0
         self.height_kp = 900.0
         self.height_kd = 180.0
         self.roll_kp = 180.0
@@ -98,8 +101,14 @@ class D1VMCController:
             - self.height_kd * linear_velocity[2]
             + vertical_force_offset_n
         )
-        desired_roll_moment = -self.roll_kp * roll - self.roll_kd * angular_velocity[0]
-        desired_pitch_moment = -self.pitch_kp * pitch - self.pitch_kd * angular_velocity[1]
+        desired_roll_moment = (
+            self.roll_kp * (command.roll_rad - roll)
+            - self.roll_kd * angular_velocity[0]
+        )
+        desired_pitch_moment = (
+            self.pitch_kp * (command.pitch_rad - pitch)
+            - self.pitch_kd * angular_velocity[1]
+        )
 
         wheel_positions = np.asarray(
             [
@@ -183,6 +192,17 @@ class D1VMCController:
             wheel_velocity[index] = self.wheel_velocity_gain * (
                 target_wheel_velocity - joint_velocity[index]
             )
+        _, local_angular_velocity = self.plant.base_velocity(local=True)
+        yaw_torque = float(
+            np.clip(
+                self.yaw_rate_gain
+                * (command.yaw_rate_rps - local_angular_velocity[2]),
+                -4.0,
+                4.0,
+            )
+        )
+        wheel_velocity[np.asarray((0, 8)) + 3] -= yaw_torque
+        wheel_velocity[np.asarray((4, 12)) + 3] += yaw_torque
 
         high_level = np.zeros(len(D1_JOINT_NAMES), dtype=np.float64)
         high_level[self._wheel_indices] = (

@@ -1,0 +1,48 @@
+"""Checkpoint compatibility checks and lazy PPO loading for D1."""
+
+from __future__ import annotations
+
+import hashlib
+import json
+from pathlib import Path
+from typing import Any
+
+from .env import D1_OBSERVATION_SCHEMA
+from .rewards import D1_REWARD_SCHEMA
+
+
+def load_compatible_d1_policy(
+    path: Path,
+    *,
+    expected_baseline: str = "lqr",
+) -> Any:
+    """Load a PPO checkpoint only when its recorded contracts match the code."""
+
+    policy_path = Path(path)
+    if not policy_path.exists():
+        raise FileNotFoundError(policy_path)
+    config_path = policy_path.parent / "training_config.json"
+    if not config_path.exists():
+        raise ValueError(f"missing policy metadata: {config_path}")
+    training_config = json.loads(config_path.read_text(encoding="utf-8"))
+    if training_config.get("robot") != "d1":
+        raise ValueError("checkpoint metadata does not describe a D1 policy")
+    if training_config.get("baseline") != expected_baseline:
+        raise ValueError(
+            f"policy was trained over {training_config.get('baseline')!r}, "
+            f"not {expected_baseline!r}"
+        )
+    if training_config.get("observation_schema") != D1_OBSERVATION_SCHEMA:
+        raise ValueError("policy observation schema does not match this code")
+    if training_config.get("reward_schema") != D1_REWARD_SCHEMA:
+        raise ValueError("policy reward schema does not match this code")
+    recorded_digest = training_config.get("model_sha256")
+    actual_digest = hashlib.sha256(policy_path.read_bytes()).hexdigest()
+    if recorded_digest != actual_digest:
+        raise ValueError("policy checksum does not match training metadata")
+
+    try:
+        from stable_baselines3 import PPO
+    except ImportError as error:
+        raise RuntimeError('install RL dependencies with: pip install -e ".[rl]"') from error
+    return PPO.load(policy_path, device="cpu")

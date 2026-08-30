@@ -12,10 +12,52 @@ from gymnasium import spaces
 from .controllers import D1Command
 from .hierarchical import D1LQRVMCController, D1MPCVMCController
 from .model import JOINT_VELOCITY_LIMIT, NOMINAL_JOINT_POSITION, D1Plant
-from .rewards import calculate_d1_reward
+from .rewards import D1_REWARD_SCHEMA, calculate_d1_reward
 
 D1_OBSERVATION_SIZE = 42
+D1_OBSERVATION_SCHEMA = "d1-base-link-velocity-v2"
 D1_RESIDUAL_SCALE = np.asarray((45.0, 80.0), dtype=np.float64)
+D1_LEG_INDICES = np.asarray(
+    [index for index in range(16) if index % 4 != 3], dtype=np.int32
+)
+D1_LEG_POSITION_SCALE = np.tile((0.8, 2.0, 1.0), 4)
+
+
+def encode_d1_observation(
+    *,
+    plant: D1Plant,
+    command: D1Command,
+    baseline_longitudinal_force_n: float,
+    previous_applied_action: np.ndarray,
+) -> np.ndarray:
+    """Build the versioned 42-value policy observation without adding noise."""
+
+    previous = np.asarray(previous_applied_action, dtype=np.float64)
+    if previous.shape != (2,):
+        raise ValueError("previous_applied_action must have shape (2,)")
+    linear_velocity, angular_velocity = plant.base_velocity(local=True)
+    leg_position_error = (
+        plant.joint_position[D1_LEG_INDICES]
+        - NOMINAL_JOINT_POSITION[D1_LEG_INDICES]
+    ) / D1_LEG_POSITION_SCALE
+    observation = np.concatenate(
+        (
+            linear_velocity / np.asarray((2.0, 1.0, 1.0)),
+            angular_velocity / 4.0,
+            plant.projected_gravity_body,
+            np.asarray(
+                (
+                    command.forward_velocity_mps,
+                    (plant.base_position[2] - command.base_height_m) / 0.08,
+                )
+            ),
+            leg_position_error,
+            plant.joint_velocity / JOINT_VELOCITY_LIMIT,
+            np.asarray((baseline_longitudinal_force_n / 180.0,)),
+            previous,
+        )
+    ).astype(np.float32)
+    return np.clip(observation, -5.0, 5.0)
 
 
 def _quaternion_from_rpy(roll: float, pitch: float, yaw: float) -> np.ndarray:
@@ -37,6 +79,8 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
     """Residual force policy over a contact-aware D1 LQR/MPC+VMC baseline."""
 
     metadata: ClassVar[dict[str, list[str]]] = {"render_modes": []}
+    observation_schema = D1_OBSERVATION_SCHEMA
+    reward_schema = D1_REWARD_SCHEMA
 
     def __init__(
         self,
@@ -66,10 +110,7 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
             dtype=np.float32,
         )
 
-        self._leg_indices = np.asarray(
-            [index for index in range(16) if index % 4 != 3], dtype=np.int32
-        )
-        self._leg_position_scale = np.tile((0.8, 2.0, 1.0), 4)
+        self._leg_indices = D1_LEG_INDICES
         self._step_count = 0
         self._scenario = "training"
         self._command = D1Command()
@@ -190,33 +231,12 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
         )
 
     def _observation(self) -> np.ndarray:
-        linear_velocity, angular_velocity = self.plant.base_velocity(local=True)
-        leg_position_error = (
-            self.plant.joint_position[self._leg_indices]
-            - NOMINAL_JOINT_POSITION[self._leg_indices]
-        ) / self._leg_position_scale
-        observation = np.concatenate(
-            (
-                linear_velocity / np.asarray((2.0, 1.0, 1.0)),
-                angular_velocity / 4.0,
-                self.plant.projected_gravity_body,
-                np.asarray(
-                    (
-                        self._command.forward_velocity_mps,
-                        (self.plant.base_position[2] - self._command.base_height_m) / 0.08,
-                    )
-                ),
-                leg_position_error,
-                self.plant.joint_velocity / JOINT_VELOCITY_LIMIT,
-                np.asarray(
-                    (
-                        self.controller.last_longitudinal_force_n
-                        / 180.0,
-                    )
-                ),
-                self._previous_applied_action,
-            )
-        ).astype(np.float32)
+        observation = encode_d1_observation(
+            plant=self.plant,
+            command=self._command,
+            baseline_longitudinal_force_n=self.controller.last_longitudinal_force_n,
+            previous_applied_action=self._previous_applied_action,
+        )
         if self._noise_scale:
             observation += self.np_random.normal(
                 0.0,
@@ -235,6 +255,7 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
     ) -> dict[str, Any]:
         return {
             "state": self.plant.reduced_state(),
+            "forward_velocity_mps": float(self.plant.base_velocity(local=True)[0][0]),
             "joint_position": self.plant.joint_position,
             "joint_velocity": self.plant.joint_velocity,
             "torque_nm": np.asarray(torque_nm, dtype=np.float64).copy(),
@@ -300,7 +321,7 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
             torque,
             push_force_world_n=np.asarray((push_force, 0.0, 0.0)),
         )
-        linear_velocity, _ = self.plant.base_velocity(local=False)
+        linear_velocity, _ = self.plant.base_velocity(local=True)
         roll, pitch, _ = self.plant.base_rpy
         terminated = self.plant.has_fallen()
         reward_terms = calculate_d1_reward(
