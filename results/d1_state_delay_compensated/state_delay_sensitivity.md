@@ -1,5 +1,7 @@
 # D1 state-delay sensitivity
 
+Latency compensation: `constant_velocity`.
+
 Fixed delay grid: 0/10/20/30/50 ms. Domain samples, initial state, initial command, estimator seed, and planned push are paired and checked by evaluation seed.
 
 Success and episode duration are the primary robustness outcomes. Every other continuous metric uses only the trajectory prefix observed before truncation or a fall; a smaller error after an early fall is not evidence of better robustness.
@@ -165,7 +167,7 @@ Absolute success intervals use Wilson scores. Absolute continuous intervals use 
 | D1 MPC+VMC | 0 | Torque saturation | ratio | 0.000 [-0.000, 0.000] | +0.000 [+0.000, +0.000] |
 | D1 MPC+VMC | 0 | Four-wheel contact | ratio | 0.896 [0.851, 0.942] | +0.000 [+0.000, +0.000] |
 | D1 MPC+VMC | 0 | Undesired-contact steps | steps | 0.000 [0.000, 0.000] | +0.000 [+0.000, +0.000] |
-| D1 MPC+VMC | 0 | Solve-time P95 | ms | 0.399 [0.385, 0.413] | +0.000 [+0.000, +0.000] |
+| D1 MPC+VMC | 0 | Solve-time P95 | ms | 0.424 [0.390, 0.459] | +0.000 [+0.000, +0.000] |
 | D1 MPC+VMC | 0 | Measured state age mean | ms | 0.000 [0.000, 0.000] | +0.000 [+0.000, +0.000] |
 | D1 MPC+VMC | 0 | Measured state age P95 | ms | 0.000 [0.000, 0.000] | +0.000 [+0.000, +0.000] |
 | D1 MPC+VMC | 0 | Measured state age maximum | ms | 0.000 [0.000, 0.000] | +0.000 [+0.000, +0.000] |
@@ -194,7 +196,7 @@ Absolute success intervals use Wilson scores. Absolute continuous intervals use 
 | D1 MPC+VMC | 10 | Torque saturation | ratio | 0.001 [0.001, 0.002] | +0.001 [+0.001, +0.002] |
 | D1 MPC+VMC | 10 | Four-wheel contact | ratio | 0.514 [0.457, 0.571] | -0.382 [-0.429, -0.336] |
 | D1 MPC+VMC | 10 | Undesired-contact steps | steps | 0.000 [0.000, 0.000] | +0.000 [+0.000, +0.000] |
-| D1 MPC+VMC | 10 | Solve-time P95 | ms | 0.427 [0.397, 0.458] | +0.028 [-0.003, +0.060] |
+| D1 MPC+VMC | 10 | Solve-time P95 | ms | 0.427 [0.406, 0.448] | +0.002 [-0.041, +0.046] |
 | D1 MPC+VMC | 10 | Measured state age mean | ms | 10.000 [10.000, 10.000] | +10.000 [+10.000, +10.000] |
 | D1 MPC+VMC | 10 | Measured state age P95 | ms | 10.000 [10.000, 10.000] | +10.000 [+10.000, +10.000] |
 | D1 MPC+VMC | 10 | Measured state age maximum | ms | 10.000 [10.000, 10.000] | +10.000 [+10.000, +10.000] |
@@ -223,7 +225,7 @@ Absolute success intervals use Wilson scores. Absolute continuous intervals use 
 | D1 MPC+VMC | 20 | Torque saturation | ratio | 0.051 [0.047, 0.054] | +0.051 [+0.047, +0.054] |
 | D1 MPC+VMC | 20 | Four-wheel contact | ratio | 0.070 [0.056, 0.084] | -0.826 [-0.874, -0.779] |
 | D1 MPC+VMC | 20 | Undesired-contact steps | steps | 0.267 [-0.099, 0.633] | +0.267 [-0.099, +0.633] |
-| D1 MPC+VMC | 20 | Solve-time P95 | ms | 0.476 [0.439, 0.513] | +0.077 [+0.034, +0.120] |
+| D1 MPC+VMC | 20 | Solve-time P95 | ms | 0.455 [0.423, 0.487] | +0.031 [-0.012, +0.073] |
 | D1 MPC+VMC | 20 | Measured state age mean | ms | 19.971 [19.965, 19.978] | +19.971 [+19.965, +19.978] |
 | D1 MPC+VMC | 20 | Measured state age P95 | ms | 20.000 [20.000, 20.000] | +20.000 [+20.000, +20.000] |
 | D1 MPC+VMC | 20 | Measured state age maximum | ms | 20.000 [20.000, 20.000] | +20.000 [+20.000, +20.000] |
@@ -252,7 +254,7 @@ Absolute success intervals use Wilson scores. Absolute continuous intervals use 
 | D1 MPC+VMC | 30 | Torque saturation | ratio | 0.082 [0.073, 0.092] | +0.082 [+0.073, +0.092] |
 | D1 MPC+VMC | 30 | Four-wheel contact | ratio | 0.187 [0.151, 0.222] | -0.710 [-0.761, -0.658] |
 | D1 MPC+VMC | 30 | Undesired-contact steps | steps | 2.500 [0.917, 4.083] | +2.500 [+0.917, +4.083] |
-| D1 MPC+VMC | 30 | Solve-time P95 | ms | 0.564 [0.456, 0.673] | +0.166 [+0.059, +0.272] |
+| D1 MPC+VMC | 30 | Solve-time P95 | ms | 0.527 [0.484, 0.570] | +0.102 [+0.052, +0.153] |
 | D1 MPC+VMC | 30 | Measured state age mean | ms | 29.651 [29.595, 29.707] | +29.651 [+29.595, +29.707] |
 | D1 MPC+VMC | 30 | Measured state age P95 | ms | 30.000 [30.000, 30.000] | +30.000 [+30.000, +30.000] |
 | D1 MPC+VMC | 30 | Measured state age maximum | ms | 30.000 [30.000, 30.000] | +30.000 [+30.000, +30.000] |
@@ -281,7 +283,7 @@ Absolute success intervals use Wilson scores. Absolute continuous intervals use 
 | D1 MPC+VMC | 50 | Torque saturation | ratio | 0.090 [0.080, 0.101] | +0.090 [+0.080, +0.101] |
 | D1 MPC+VMC | 50 | Four-wheel contact | ratio | 0.179 [0.150, 0.209] | -0.717 [-0.765, -0.670] |
 | D1 MPC+VMC | 50 | Undesired-contact steps | steps | 3.067 [1.596, 4.537] | +3.067 [+1.596, +4.537] |
-| D1 MPC+VMC | 50 | Solve-time P95 | ms | 0.452 [0.425, 0.478] | +0.053 [+0.027, +0.079] |
+| D1 MPC+VMC | 50 | Solve-time P95 | ms | 0.502 [0.442, 0.562] | +0.077 [+0.006, +0.148] |
 | D1 MPC+VMC | 50 | Measured state age mean | ms | 48.596 [48.440, 48.752] | +48.596 [+48.440, +48.752] |
 | D1 MPC+VMC | 50 | Measured state age P95 | ms | 50.000 [50.000, 50.000] | +50.000 [+50.000, +50.000] |
 | D1 MPC+VMC | 50 | Measured state age maximum | ms | 50.000 [50.000, 50.000] | +50.000 [+50.000, +50.000] |
