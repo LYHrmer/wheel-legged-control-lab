@@ -947,6 +947,8 @@ def run_d1_state_delay_sweep(
     lines = [
         "# D1 state-delay sensitivity",
         "",
+        f"Latency compensation: `{latency_compensation}`.",
+        "",
         (
             "Fixed delay grid: 0/10/20/30/50 ms. Domain samples, initial state, initial "
             "command, estimator seed, and planned push are paired and checked by evaluation seed."
@@ -1019,7 +1021,8 @@ def run_d1_state_delay_sweep(
     for axis in axes[-1]:
         axis.set_xlabel("state delay [ms]")
     axes[0, 0].legend(frameon=False, fontsize=8)
-    figure.tight_layout()
+    figure.suptitle(f"D1 state-delay sensitivity — compensation: {latency_compensation}")
+    figure.tight_layout(rect=(0.0, 0.0, 1.0, 0.96))
     figure.savefig(output / "state_delay_sensitivity.png", dpi=180)
     plt.close(figure)
 

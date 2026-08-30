@@ -192,6 +192,6 @@ MuJoCo truth
 | LQR/MPC/PPO 能完成当前固定平地场景 | 单种子 nominal、push、mismatch 回放 | [`metrics.csv`](../results/d1_benchmark/metrics.csv)、[`metrics.md`](../results/d1_benchmark/metrics.md) | 当前提交的三种控制器通过固定回放；这是回归结果，不是域外鲁棒性证据 |
 | 已提交 PPO 稳定优于 LQR | 30 个匹配随机域 seed 的连续指标配对区间 | [`randomized_audit.csv`](../results/d1_benchmark/randomized_audit.csv)、[`randomized_audit.md`](../results/d1_benchmark/randomized_audit.md) | 三个主要误差区间均跨 0，当前证据不支持“稳定优于” |
 | LQR 能通过当前物理地形课程 | 六区域脚本探针与对应 pytest | [`course_metrics.csv`](../results/d1_interactive/course_metrics.csv)、[`test_d1_interactive.py`](../tests/test_d1_interactive.py) | oracle/LQR 当前为 6/6；只越过第一根 `20 mm` 横杆，未验证 estimated 或实机 |
-| 常速度外推改善状态延迟鲁棒性 | raw 与 compensated 的同 seed `0/10/20/30/50 ms` 扫描 | `results/d1_state_delay_raw/*`、`results/d1_state_delay_compensated/*`、[`test_d1_experiments.py`](../tests/test_d1_experiments.py) | 待正式结果回填；单次 smoke test 和个别 seed 不构成结论 |
+| 常速度外推改善状态延迟鲁棒性 | raw 与 compensated 的同 seed `0/10/20/30/50 ms` 扫描 | [`raw 结果`](../results/d1_state_delay_raw/state_delay_sensitivity.md)、[`补偿结果`](../results/d1_state_delay_compensated/state_delay_sensitivity.md)、[`test_d1_experiments.py`](../tests/test_d1_experiments.py) | `10 ms` 下减小部分误差；`20 ms` 成功数提高但配对区间跨 0，`30/50 ms` 均全部失败，不支持延迟裕量已改善 |
 | 常速度外推遵守短时运动学边界 | `0/50/>50 ms`、腿关节位移和限位边界测试 | [`test_d1_state_estimation.py`](../tests/test_d1_state_estimation.py) | 边界已有测试；方法仍不预测接触切换 |
 | 仓库已经实现可上实机的状态估计 | 无 | [`state_estimation.md`](state_estimation.md) | 未实现，不作该主张 |

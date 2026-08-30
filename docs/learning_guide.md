@@ -343,13 +343,16 @@ wheel-legged-d1-play --policy results/d1_residual_ppo/model.zip
 
 ## 13. 下一轮实验
 
-先跑固定的状态延迟曲线。原始延迟状态和 `constant_velocity` 要用相同评测种子分别运行，写入
-两个结果目录；当前 CLI 每次只汇总一种补偿配置。代码固定测试 `0/10/20/30/50 ms`，并生成
-逐回合 CSV 和配对统计。
+固定延迟曲线已经完成。`10 ms` 下，一阶外推保持全部回合成功并降低了部分跟踪误差；到
+`20 ms`，LQR/MPC 的成功数都增加，但配对区间跨过 0，且多数控制步因关节运动学边界而退回
+原始状态。`30/50 ms` 两种方法都没有成功回合。原始 CSV 在
+[`results/d1_state_delay_raw`](../results/d1_state_delay_raw/delay_sweep_episodes.csv) 与
+[`results/d1_state_delay_compensated`](../results/d1_state_delay_compensated/delay_sweep_episodes.csv)。
 
-接下来保留四个明确问题：VMC 去掉重力支撑后会怎样；MPC horizon 在误差和计算时间之间怎么
-变；残差动作范围是否诱发饱和；IMU/编码器估计器接入后能否重复当前结果。参数辨识和实机
-安全层要等到拿到真实日志再做，暂时不写成已开始。
+下一轮只替换预测器：用已施加力矩和局部线性模型从测量时刻滚动到控制时刻，仍复用这 30 个
+种子和五个延迟点。通过条件预先定为：`20 ms` 成功率配对差的 95% 区间下界高于 0，同时平均
+机械功率不增加超过 10%。未达到这两个条件，就保留为消融结果，不换掉当前默认配置。真正的
+IMU/编码器估计器、参数辨识和实机安全层要等到有传感器日志后再进入主线。
 
 每次实验保留 `training_config.json`、原始 CSV 和对应的失败视频。当前文档与结果目录直接
 覆盖，历史交给 Git 管理，避免出现 `final_v2_really_final` 一类副本。

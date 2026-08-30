@@ -20,7 +20,8 @@
 
 - `oracle`/LQR 通过六个课程探针；MPC 通过五个，默认参数未达到台阶进度门槛；
 - 30 个随机域种子中，已提交 PPO 相对 LQR 的三个主要误差区间均跨过 0，不能写成稳定优于；
-- `estimated` 控制链和延迟补偿边界已有测试，`0/10/20/30/50 ms` 正式对照结果将在本轮扫描后回填。
+- `estimated`/LQR 与 MPC 在 `10 ms` 延迟下均为 `30/30` 成功；到 `20 ms` 已明显失稳，常速度
+  外推提高了成功数，但配对区间仍跨过 0，不能算作延迟裕量已经改善。
 
 代码主线见[控制结构](#控制结构)，评测口径见
 [`docs/evaluation_protocol.md`](docs/evaluation_protocol.md)，状态时序见
@@ -197,6 +198,37 @@ MPC 的一次失败。
 噪声都设为零，只改变状态年龄。每个延迟点复用同一组评测种子；程序核对域参数、动作延迟、
 噪声、估计器种子以及初态、初始命令和计划推力的指纹。
 
+正式结果来自干净提交 `6dabb98`，每个条件使用同一组 30 个评测种子。连续误差只描述摔倒前
+片段，因此下表先列成功数和平均存活时长：
+
+| 控制器 | 延迟 [ms] | Raw 成功 | 补偿成功 | Raw / 补偿存活 [s] | 补偿实际应用比例 |
+|---|---:|---:|---:|---:|---:|
+| LQR+VMC | 0 | 30/30 | 30/30 | 6.000 / 6.000 | 0.000 |
+| LQR+VMC | 10 | 30/30 | 30/30 | 6.000 / 6.000 | 0.999 |
+| LQR+VMC | 20 | 7/30 | 11/30 | 4.283 / 3.931 | 0.329 |
+| LQR+VMC | 30 | 0/30 | 0/30 | 1.066 / 0.810 | 0.418 |
+| LQR+VMC | 50 | 0/30 | 0/30 | 0.800 / 0.723 | 0.390 |
+| MPC+VMC | 0 | 30/30 | 30/30 | 6.000 / 6.000 | 0.000 |
+| MPC+VMC | 10 | 30/30 | 30/30 | 6.000 / 6.000 | 0.999 |
+| MPC+VMC | 20 | 8/30 | 11/30 | 3.934 / 4.414 | 0.314 |
+| MPC+VMC | 30 | 0/30 | 0/30 | 1.180 / 1.036 | 0.351 |
+| MPC+VMC | 50 | 0/30 | 0/30 | 0.796 / 0.778 | 0.360 |
+
+`20 ms` 时，补偿相对 raw 的成功率配对差为 LQR `+0.133 [-0.100, +0.367]`、MPC
+`+0.100 [-0.167, +0.333]`，两个区间都跨过 0。`10 ms` 时，两种控制器保持全成功，速度
+RMSE 分别降低 `0.020` 和 `0.028 m/s`，平均机械功率降低约 `82` 和 `77 W`。到 `20 ms`，
+约三分之二的控制步因腿关节预测越界而拒绝外推，功率反而上升。当前证据只支持“短延迟下
+一阶外推能减小部分误差”；它没有把稳定工作范围可靠地推过 `20 ms`。
+
+| Raw delayed state | Constant-velocity compensation |
+|:---:|:---:|
+| ![Raw D1 state-delay sweep](results/d1_state_delay_raw/state_delay_sensitivity.png) | ![Compensated D1 state-delay sweep](results/d1_state_delay_compensated/state_delay_sensitivity.png) |
+
+完整逐回合记录、全部指标与区间在
+[`results/d1_state_delay_raw`](results/d1_state_delay_raw/state_delay_sensitivity.md) 和
+[`results/d1_state_delay_compensated`](results/d1_state_delay_compensated/state_delay_sensitivity.md)。
+复现命令如下：
+
 ```bash
 wheel-legged-d1-benchmark \
   --state-delay-sweep \
@@ -217,8 +249,7 @@ wheel-legged-d1-benchmark \
   --output results/d1_state_delay_compensated
 ```
 
-两个目录分别生成逐回合 CSV、成功与存活时长、相对 `0 ms` 的配对区间和四联图。常速度补偿
-只是一项短时假设；Pitch 变小但存活时长、能耗或速度误差变差时，两边都会写进结果。
+两个目录分别生成逐回合 CSV、成功与存活时长、相对 `0 ms` 的配对区间和四联图。
 
 ## 重现实验
 

@@ -124,6 +124,10 @@ wheel-legged-d1-benchmark \
 
 延迟固定为 `0/10/20/30/50 ms`。动作延迟和噪声关掉；程序核对每个评测种子的域参数、
 估计器种子、初态、初始命令和计划推力指纹。每个条件少于 20 个回合时，报告标为探索性结果。
+当前 30-seed 结果见 [`raw`](../results/d1_state_delay_raw/state_delay_sensitivity.md) 与
+[`constant_velocity`](../results/d1_state_delay_compensated/state_delay_sensitivity.md)。补偿在
+`10 ms` 下减小了部分误差；`20 ms` 的成功数变化还没有得到不跨 0 的配对区间，且约三分之二
+控制步触发运动学拒绝。
 
 交互课程也可以切换：
 
