@@ -77,7 +77,7 @@ def test_residual_policy_can_be_toggled_and_is_gated_during_jump() -> None:
 @pytest.mark.parametrize("zone", ("rough", "ramp", "stairs", "bumps", "jump"))
 def test_scripted_course_zone_reaches_its_acceptance_target(zone: str) -> None:
     metrics = run_scripted_demo(zone)
-    assert metrics["success"] == 1
+    assert metrics["success"] == 1, metrics
     assert metrics["step_time_p95_ms"] < 10.0
     if zone == "jump":
         assert metrics["cleared_hurdles"] >= 1

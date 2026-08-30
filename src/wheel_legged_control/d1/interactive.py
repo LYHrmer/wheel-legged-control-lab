@@ -394,7 +394,7 @@ def run_scripted_demo(
         raise ValueError(f"unknown demo zone: {zone}")
     simulation = D1InteractiveSimulation(baseline=baseline)
     simulation.reset(zone)
-    duration_s = {"start": 6.0, "rough": 8.0, "ramp": 13.0, "stairs": 12.0, "bumps": 12.0, "jump": 10.0}[zone]
+    duration_s = {"start": 6.0, "rough": 8.0, "ramp": 13.0, "stairs": 12.0, "bumps": 14.0, "jump": 10.0}[zone]
     target_speed = {"start": 0.35, "rough": 0.30, "ramp": 0.38, "stairs": 0.24, "bumps": 0.28, "jump": 0.28}[zone]
     settle_steps = round(1.0 / simulation.plant.control_dt)
     total_steps = round(duration_s / simulation.plant.control_dt)
