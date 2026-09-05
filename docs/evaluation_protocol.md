@@ -233,7 +233,7 @@ GIF 的 SHA-256。运行中断时目录里不会保留旧的 `complete` 标记�
 |---|---|---|---|
 | D1 模型能以 `23 nq / 22 nv / 16 nu` 运行，执行器与关节顺序一致 | 模型维度、关节、接触和静止闭环测试 | [`test_d1_model.py`](../tests/test_d1_model.py)、[`d1_model_card.md`](d1_model_card.md) | 只在 MuJoCo 整机仿真中验证；没有实机参数对照 |
 | 一次控制周期内所有控制模块读取同一份状态快照 | 快照不可变性、整回路状态延迟与环境 info 测试 | [`test_d1_state_estimation.py`](../tests/test_d1_state_estimation.py)、[`test_d1_env.py`](../tests/test_d1_env.py) | oracle 与带噪延迟状态源可切换；estimated 仍是人为误差通道 |
-| constrained 分配遵守接触、摩擦和执行器约束 | 理想接触、接触丢失、低摩擦、冲突力矩与 fallback 测试 | [`test_d1_contact_allocation.py`](../tests/test_d1_contact_allocation.py)、[`contact_allocation.md`](contact_allocation.md) | 约束语义已有测试；是否优于 legacy 由预注册多种子审计决定 |
+| constrained 分配遵守接触、摩擦和执行器约束 | 理想接触、接触丢失、低摩擦、冲突力矩与 fallback 测试 | [`test_d1_contact_allocation.py`](../tests/test_d1_contact_allocation.py)、[30 组留出审计](../results/d1_contact_allocation/contact_allocation_audit.md) | 正式最大违反比例 `1.41e-9`，但 9 回合可行未收敛比例超过 1%，晋级未通过；实际 wrench 跟踪改善伴随姿态误差增大 |
 | MuJoCo actual wrench 与分配器预测可以独立比较 | 静止重力、参考点平移、不可变性和五子步平均测试 | [`test_d1_model.py`](../tests/test_d1_model.py)、[`test_d1_env.py`](../tests/test_d1_env.py) | 只证明仿真内测量链路；平均单接触点模型仍会丢失接触偶矩 |
 | LQR/MPC/PPO 能完成当前固定平地场景 | 单种子 nominal、push、mismatch 回放 | [`metrics.csv`](../results/d1_benchmark/metrics.csv)、[`metrics.md`](../results/d1_benchmark/metrics.md)、[`benchmark_manifest.json`](../results/d1_benchmark/benchmark_manifest.json) | 当前提交的 legacy 三种控制器通过固定回放；这是回归结果，不是域外鲁棒性证据 |
 | 已提交 PPO 稳定优于 LQR | 30 个匹配随机域 seed 的连续指标配对区间 | [`randomized_audit.csv`](../results/d1_benchmark/randomized_audit.csv)、[`randomized_audit.md`](../results/d1_benchmark/randomized_audit.md) | 三个误差区间均跨 0，平均奖励还显著降低；当前证据不支持“稳定优于” |

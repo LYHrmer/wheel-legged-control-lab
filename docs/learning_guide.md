@@ -181,6 +181,57 @@ constrained 路径改为每个激活接触的局部三维力
 跟踪结果分别记录：`converged/feasible_nonconverged/fallback` 不等同于
 `tracked/limited`。后者使用 `1 N + 0.5%||F_d||` 和 `0.5 N·m + 0.5%||M_d||` 的工程容差。
 
+### 6.1 动手练习：改一次力矩跟踪权重
+
+在开发分支完成这段练习。先运行两个摩擦相关测试：
+
+```bash
+pytest tests/test_d1_contact_allocation.py -k "friction_pyramid"
+```
+
+选中的测试分别检查摩擦范围内的纵向力跟踪，以及摩擦棱锥是否落在 Coulomb 圆锥内。
+读一下断言中的 `contact_force_world_n`：为什么切向力要和当前法向力一起判断，不能只
+给切向力设一个固定上限？若测试失败，先查看违反的是跟踪误差还是摩擦约束。
+
+再保存三组开发种子的基线：
+
+```bash
+wheel-legged-d1-contact-audit \
+  --seed 21 --episodes 3 --output results/contact_dev_baseline
+```
+
+打开 `contact_allocation_summary.csv`，按 `metric` 找到以下行：
+
+| 字段 | 观察的问题 |
+|---|---|
+| `contact_force_tracking_error_rms_n` | MuJoCo 实际合力离请求还有多远 |
+| `contact_moment_tracking_error_rms_nm` | 实际合力矩的误差有没有同步下降 |
+| `allocation_constraint_violation_max` | 分配出的力是否违反约束 |
+| `allocation_fallback_ratio` | 是否依赖回退完成任务 |
+| `four_wheel_contact_ratio` | 跟踪改善是否伴随更频繁的离地 |
+| `pitch_rmse_deg` | 机身姿态有没有变差 |
+
+记录 `evaluation_config.json` 中的 `run_id`、`provenance.source` 和
+`protocol.constrained_allocator`。`protocol.seed_pool` 应为 `development`。
+
+只把 `contact_allocation.py` 中的 `D1_WRENCH_CHARACTERISTIC_LENGTH_M` 从 `0.25` 改为
+`0.35`。重新启动命令，输出目录换成 `results/contact_dev_length035`；新进程会重新
+辨识外层模型。先写下自己的预测：`L` 增大后，目标函数对力矩误差的相对惩罚是增大还是减小？
+
+将两次 CSV 对应行的 `constrained_mean` 并排记录，同时保留
+`paired_delta_ci95_low/high`。这里的配对区间比较同一次运行中的 constrained 与 legacy，
+不能直接当成两种 `L` 之间的区间。`legacy_mean` 的轨迹指标应保持一致，耗时会受系统
+负载影响；若轨迹也变了，先核对种子、依赖版本及其他代码改动。
+
+每次记录只需说明改了哪个值、预期什么、实际发生什么，并链接原始 CSV。若力矩误差降低
+但 Pitch 变差，就保留这条失败观察，不用改成功门槛来迁就它。求解状态还要看
+`allocation_feasible_nonconverged_ratio`，仅凭 fallback 为零不能判断每步都已收敛。
+
+这次改动会通过重新辨识影响整套控制配置。legacy/constrained 对照还同时切换分配器和
+外层 `R`，不能把其差异全算在单个分配算法上。练习结束后恢复 `L=0.25`；保留需要的两组
+原始结果，再清理多余输出。正式种子 `121–150` 不用于挑参数。已报告的权重比较见
+[`contact_allocation_development.md`](contact_allocation_development.md)。
+
 ### 7. 在“接触 + VMC”闭环上辨识模型
 
 D1 外层没有复用小车的 `(A,B)`。流程是：
@@ -349,6 +400,10 @@ wheel-legged-d1-contact-audit \
 
 审计配对比较 legacy 与 constrained 的模式匹配闭环配置，包括各自的分配器、辨识模型和固定
 `R`。它没有隔离单个分配器的因果贡献。
+
+已完成的[30 组留出结果](../results/d1_contact_allocation/contact_allocation_audit.md) 没有通过
+晋级门：9 个回合的可行未收敛比例超过 1%。实际 wrench 跟踪改善，但姿态与接触指标变差，
+默认仍是 legacy。做第 6.1 节练习时只用开发种子，不根据这批留出成绩重新挑参数。
 
 当前随机域结果来自 `oracle + legacy` 模式：
 

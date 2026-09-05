@@ -1,0 +1,558 @@
+{
+  "schema": "d1-contact-allocation-audit-v1",
+  "run_id": "d1-contact-allocation-de886af810d83db9",
+  "status": "complete",
+  "completed": true,
+  "protocol": {
+    "baseline": "lqr",
+    "scenario": "randomized",
+    "control_dt_s": 0.01,
+    "episode_seconds": 6.0,
+    "contact_allocation_modes": [
+      "legacy",
+      "constrained"
+    ],
+    "state_mode": "oracle",
+    "latency_compensation": "none",
+    "episode_options": {
+      "action_delay_steps": 0,
+      "state_delay_steps": 0,
+      "sensor_noise": 0.0
+    },
+    "first_seed": 121,
+    "evaluation_seeds": [
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134,
+      135,
+      136,
+      137,
+      138,
+      139,
+      140,
+      141,
+      142,
+      143,
+      144,
+      145,
+      146,
+      147,
+      148,
+      149,
+      150
+    ],
+    "episodes": 30,
+    "seed_pool": "held_out",
+    "preregistered_held_out_seeds": [
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134,
+      135,
+      136,
+      137,
+      138,
+      139,
+      140,
+      141,
+      142,
+      143,
+      144,
+      145,
+      146,
+      147,
+      148,
+      149,
+      150
+    ],
+    "exploratory": false,
+    "pairing": "same-process, same-seed replay",
+    "contact_wrench_measurement": "MuJoCo physics-substep mean",
+    "constrained_allocator": {
+      "friction_coefficient": 0.55,
+      "normal_force_limit_weight_fraction": 0.65,
+      "wrench_characteristic_length_m": 0.25,
+      "slsqp_max_iterations": 80,
+      "slsqp_ftol": 1e-10,
+      "candidate_constraint_violation_ratio_tolerance": 1e-07,
+      "force_tracking_absolute_tolerance_n": 1.0,
+      "moment_tracking_absolute_tolerance_nm": 0.5,
+      "wrench_tracking_relative_tolerance": 0.005
+    }
+  },
+  "provenance": {
+    "source": {
+      "git_commit": "e413a52b6d1dd15d056d6ac29d9354935a1f3b60",
+      "git_dirty": false,
+      "git_worktree_sha256": null
+    },
+    "runtime": {
+      "python": "3.10.12",
+      "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+      "machine": "x86_64",
+      "dependencies": {
+        "numpy": "2.2.6",
+        "scipy": "1.15.3",
+        "mujoco": "3.12.0",
+        "gymnasium": "1.3.0",
+        "matplotlib": "3.10.6"
+      }
+    }
+  },
+  "validation": {
+    "matched_input_fingerprints": true,
+    "matched_conditions": true,
+    "matched_pairs": 30,
+    "episode_rows": 60,
+    "pairs": [
+      {
+        "evaluation_seed": 121,
+        "initial_state_fingerprint": "7c2e92dfcaa715c655bc8077a117188283c609c4004d2c997e753c106bd05da0",
+        "initial_command_fingerprint": "b5debe969d1df6635d50c0383ced2b7758db1a66006d8efd3190a9a9c1c36602",
+        "push_schedule_fingerprint": "3c0b20d46b77d044bc2c012ed0e2b5b40ed5c67307b2b067e0da1963dd696938",
+        "domain": {
+          "base_mass_scale": 1.0392194779402963,
+          "damping_scale": 0.934056113211154,
+          "friction_scale": 1.1857691697504076,
+          "actuator_strength_scale": 0.9661443790880642
+        }
+      },
+      {
+        "evaluation_seed": 122,
+        "initial_state_fingerprint": "c29706cb396ed7cc6b20e70c4feb8d727c8ccb88d9c3ac1f5a6f9d2c7a8dafc9",
+        "initial_command_fingerprint": "a43e284a8bda7a9c6b9537304ee476b45e291d3a0f641aee8d330f83a4caf286",
+        "push_schedule_fingerprint": "02908c9b2d28b6c0bdcc0dbeb8aaf2aeeb616e0ceadd9fa26465aa48443790f9",
+        "domain": {
+          "base_mass_scale": 1.0815775669389267,
+          "damping_scale": 0.8790308005009635,
+          "friction_scale": 0.8954298945162347,
+          "actuator_strength_scale": 0.8918624637657828
+        }
+      },
+      {
+        "evaluation_seed": 123,
+        "initial_state_fingerprint": "73dfdbd5c0ab425dc1b07acfcd0f96887b1c1df66e5fdd7f7fdf9c8082c92375",
+        "initial_command_fingerprint": "ad1ef676cd7e09b56d4738ddf875ae6abd6c6381fbff77aa832cc7df0175445b",
+        "push_schedule_fingerprint": "469375b2dfe0336699f18db15a737f7a66f34020c133025cccdddb7d4ca8b301",
+        "domain": {
+          "base_mass_scale": 1.0501174099145916,
+          "damping_scale": 0.8242194584610002,
+          "friction_scale": 0.7932339173021974,
+          "actuator_strength_scale": 0.8868743621397339
+        }
+      },
+      {
+        "evaluation_seed": 124,
+        "initial_state_fingerprint": "9f92d54e327d4a75e4a2b3d01bc40fe062eac5664ed1738e182917c68d9d04da",
+        "initial_command_fingerprint": "56dcc03527552d4dd3b093e8f05fd103a605ca22ee3f8a654938347405d3380a",
+        "push_schedule_fingerprint": "09c8d449d73b1404b27eb7395d76d55061d83f415adb9f451a5a282749d83920",
+        "domain": {
+          "base_mass_scale": 1.072755685088562,
+          "damping_scale": 1.1536367108867953,
+          "friction_scale": 1.2799384113898542,
+          "actuator_strength_scale": 0.9996119545819131
+        }
+      },
+      {
+        "evaluation_seed": 125,
+        "initial_state_fingerprint": "e3d32ae351fe1e9e4cd0f6c37bc15f9ab5e4379303646bd4844c8d5acf55f8c4",
+        "initial_command_fingerprint": "bb4ef951ef18a309bcca5309ea323c4c8c1ecdbb3c39d1610cb072140f7e44e6",
+        "push_schedule_fingerprint": "ce563013b208516d32c203b8ae91ea1ab965c61544ef3ac2563d15ed89fbae5c",
+        "domain": {
+          "base_mass_scale": 1.0873848863921922,
+          "damping_scale": 1.0221424887299229,
+          "friction_scale": 0.9036051544398931,
+          "actuator_strength_scale": 0.8859215154175284
+        }
+      },
+      {
+        "evaluation_seed": 126,
+        "initial_state_fingerprint": "0ddc9f8491fec102ffc5c6392aacf4cc4958d0d3de3ca28740ab8305d3cad802",
+        "initial_command_fingerprint": "7e34e269b9e4c594bb8f35e9d4a3172a2706dc0dbf9e4a7f6646ccc74f04a7d2",
+        "push_schedule_fingerprint": "e5b0e9def2372e9365d987b6e39ff899cb45bb89455478363d7c590a22d1acdd",
+        "domain": {
+          "base_mass_scale": 0.9013587367131051,
+          "damping_scale": 1.2237911483370425,
+          "friction_scale": 0.6929830915399516,
+          "actuator_strength_scale": 1.0458088405818775
+        }
+      },
+      {
+        "evaluation_seed": 127,
+        "initial_state_fingerprint": "b345e7315aba751897fa9a531d28a3ec08f3a2400c220b7105790c2f469aeba6",
+        "initial_command_fingerprint": "a62c253f96362a1932f78e665abbdd76f1d8b14ac646a1581a89059be1307721",
+        "push_schedule_fingerprint": "b988dab50b02d7e9b38b02217d3abdb5b45c339eebd080920892ff7322910b76",
+        "domain": {
+          "base_mass_scale": 0.9137426449013422,
+          "damping_scale": 0.8943347555404323,
+          "friction_scale": 0.8445661120289889,
+          "actuator_strength_scale": 1.032011400718582
+        }
+      },
+      {
+        "evaluation_seed": 128,
+        "initial_state_fingerprint": "a83279295ee7f49c66301e3a877040d7050264cd6e103f0d82a33d112aee66e5",
+        "initial_command_fingerprint": "83afc90a16a7011b633737ed84c6fb0050114b95c3a0e43580bfe50e30db52d3",
+        "push_schedule_fingerprint": "8b6ec0dbcf67ecb8095c0de3c70db2633e7333e48b45dcfe1527a92742cb6c01",
+        "domain": {
+          "base_mass_scale": 1.045019446205385,
+          "damping_scale": 1.012452313136684,
+          "friction_scale": 0.9318185060008339,
+          "actuator_strength_scale": 0.9307867869801847
+        }
+      },
+      {
+        "evaluation_seed": 129,
+        "initial_state_fingerprint": "5702b570b1c0ed4e613de71f84569885aa8c5f4c94880c5cc684cc0fb91fcfd6",
+        "initial_command_fingerprint": "6496453d5a69277a86195d7bfdbbe46fbe2670ee348b85071fecbe32c5511a2c",
+        "push_schedule_fingerprint": "60a2e271b66c49d8028072c5092c3fb5128bb6c666596fc41527992f75efa757",
+        "domain": {
+          "base_mass_scale": 0.9845496018142563,
+          "damping_scale": 0.9052567452854112,
+          "friction_scale": 1.2337830868118964,
+          "actuator_strength_scale": 1.0285116701786272
+        }
+      },
+      {
+        "evaluation_seed": 130,
+        "initial_state_fingerprint": "40095e7bae0c177148218132cab8af901d2730f23c3b84147801c1bf84ac666a",
+        "initial_command_fingerprint": "f26470b0ae52d06a3a61c0b168230e39b8d37486347b1db9b1a210d0dcdc7dd7",
+        "push_schedule_fingerprint": "32cea20adea4fbe5391e26bb562c4a7479aff31814c5405179333f9f5077bde4",
+        "domain": {
+          "base_mass_scale": 0.9997216871705642,
+          "damping_scale": 0.8351152271187723,
+          "friction_scale": 0.8488619829931543,
+          "actuator_strength_scale": 0.9314115641439593
+        }
+      },
+      {
+        "evaluation_seed": 131,
+        "initial_state_fingerprint": "4b6d7d5264f0eaf46cd1362ce31dbc26cc5d48d0cdf31f202b38babc82a6f030",
+        "initial_command_fingerprint": "ff5ad5fec0545ac41879319246e8552be77ad07bff5dc7f83e087c1ca46f6150",
+        "push_schedule_fingerprint": "97b44b4ada33350e078ca8e793613adfbb4d9a471ec91aab6aae1720401e9fd7",
+        "domain": {
+          "base_mass_scale": 1.0422219766542375,
+          "damping_scale": 1.070517012206352,
+          "friction_scale": 0.9960171566159062,
+          "actuator_strength_scale": 0.8798084705107636
+        }
+      },
+      {
+        "evaluation_seed": 132,
+        "initial_state_fingerprint": "6f4a4364baec90156312c0b7c9b283ae90a7cb12a05eba457cff406a627139cd",
+        "initial_command_fingerprint": "a95af400eafe9bb70db4211a1b6cad8f95b86f8f7ee2152f9bdd03101eec6a00",
+        "push_schedule_fingerprint": "a36b91e99b28824d41acdda5157707ed14ee21e4d17d651b8c2af3e866cf621f",
+        "domain": {
+          "base_mass_scale": 0.9313722913777985,
+          "damping_scale": 1.1620996281206688,
+          "friction_scale": 1.1343696282482012,
+          "actuator_strength_scale": 1.0264743128609943
+        }
+      },
+      {
+        "evaluation_seed": 133,
+        "initial_state_fingerprint": "91626afdc925fd4c06119e4d576fb766f934c3eb454af0192214822e7a8cff35",
+        "initial_command_fingerprint": "88ee8ee7ed9c598c83e9212cf32484a798c61f0b2b386a02b301df25b9ea2174",
+        "push_schedule_fingerprint": "95a07559d2482661e15badf192867fbad9311eeae907de0887075b6672b62271",
+        "domain": {
+          "base_mass_scale": 1.1145332790015046,
+          "damping_scale": 1.030492392512524,
+          "friction_scale": 0.8845519031870943,
+          "actuator_strength_scale": 0.9652460868393753
+        }
+      },
+      {
+        "evaluation_seed": 134,
+        "initial_state_fingerprint": "2f3f88873b85c2751b2ac22a3910bf026d617086ba9b44fde85d029dae4cf514",
+        "initial_command_fingerprint": "e5aa3494343ca1e2e74a96e6584c51d67767c742dba2d2414bc3e277645502c2",
+        "push_schedule_fingerprint": "f03d89cac34314e61f5c270e426b71ade1f0844863ed84f254891163c941b6d3",
+        "domain": {
+          "base_mass_scale": 1.1130639464762684,
+          "damping_scale": 1.0269182989567793,
+          "friction_scale": 1.0037205315584476,
+          "actuator_strength_scale": 1.0060237377134706
+        }
+      },
+      {
+        "evaluation_seed": 135,
+        "initial_state_fingerprint": "9274bf88edb30a532d7df77b01d98641b4421ee00133e497b252da55a709f37c",
+        "initial_command_fingerprint": "fab0fc12d16737fe6eb716cd2a5f6c6fc87baa068da5b69d3acc7c61a7d47e9b",
+        "push_schedule_fingerprint": "7b1b420598fcad7dfdc9343bfdbaa71affa55955eba91962677657568b870a00",
+        "domain": {
+          "base_mass_scale": 1.0206111294275515,
+          "damping_scale": 0.9263370497375614,
+          "friction_scale": 1.235489406189609,
+          "actuator_strength_scale": 1.0474239035632644
+        }
+      },
+      {
+        "evaluation_seed": 136,
+        "initial_state_fingerprint": "0b6b040113c637c45260d746bee58cf4786056d8971589861f23f4c48f7afdd8",
+        "initial_command_fingerprint": "aa3c03f2dc321410810d0d3c01d85cd887d66914cbe53aeb68451c11b9feb39d",
+        "push_schedule_fingerprint": "9d8343864ff393c6b462aeca5f7bdf27063912f264cf7b77c22bdedae80afdb7",
+        "domain": {
+          "base_mass_scale": 0.9280372446023853,
+          "damping_scale": 0.8316009993033402,
+          "friction_scale": 0.7257125674497298,
+          "actuator_strength_scale": 0.9243368589466237
+        }
+      },
+      {
+        "evaluation_seed": 137,
+        "initial_state_fingerprint": "2a4f67a308a95fe4a03ab4b2f96a51ca60bd1a5ee8d23757a0cc05febe27da7d",
+        "initial_command_fingerprint": "06841b06f017018e694a03c665f528c6a3027297860f2640785ac8eab21d8721",
+        "push_schedule_fingerprint": "15051614010a2ae4b6a6f27d61cdddf53d0c43f3d7063c62c0349becbca3ec8c",
+        "domain": {
+          "base_mass_scale": 1.0888000513445704,
+          "damping_scale": 0.9237705849939278,
+          "friction_scale": 0.9275175429514981,
+          "actuator_strength_scale": 0.9750643930020666
+        }
+      },
+      {
+        "evaluation_seed": 138,
+        "initial_state_fingerprint": "a87196d591cd1b124fae75e15168ddbcee919ea14b4c8dd66ebe93aceddffb99",
+        "initial_command_fingerprint": "69fc3f8b5a24da730923cc3f9b8ed89d42e9bf1e571ebe5dfd998b4c85716a46",
+        "push_schedule_fingerprint": "729cd1b1287ed549be8fc6fb62294df13f57ba99a05fb347e17c746e74f86983",
+        "domain": {
+          "base_mass_scale": 1.0260864405663987,
+          "damping_scale": 1.1534392747267768,
+          "friction_scale": 1.014310206220799,
+          "actuator_strength_scale": 1.037683491019551
+        }
+      },
+      {
+        "evaluation_seed": 139,
+        "initial_state_fingerprint": "4b9ec66fd21703f032f7919791f719bdd8cad769b2c0ffb23f9e4c336830904e",
+        "initial_command_fingerprint": "cee5681ffa8f68cc5bc77403c32637cc51c3383a36191b1f9e5b3a09255b2f07",
+        "push_schedule_fingerprint": "99100d21a62e412c272d14402a60d3ff76f4e822f90d2c87d13edec41131a577",
+        "domain": {
+          "base_mass_scale": 0.9916877504478899,
+          "damping_scale": 1.0601320918636594,
+          "friction_scale": 0.7421981782903972,
+          "actuator_strength_scale": 0.8648196297883745
+        }
+      },
+      {
+        "evaluation_seed": 140,
+        "initial_state_fingerprint": "7f74dc97c251ce37e5b136b179604fb1dd6e68ab42d433bae40fd0f98cb78ec7",
+        "initial_command_fingerprint": "e97a194402d605c4f51a77c2b32c740b3d5ffbeb57c2eb9a787edc464822d293",
+        "push_schedule_fingerprint": "4e4390bfd2fd54eb18376807d7e6eb4ee461c11ab733b2815732cdfc43e7ad37",
+        "domain": {
+          "base_mass_scale": 1.0468764109858262,
+          "damping_scale": 1.0796083124508884,
+          "friction_scale": 1.1096043279598042,
+          "actuator_strength_scale": 0.8946372269760438
+        }
+      },
+      {
+        "evaluation_seed": 141,
+        "initial_state_fingerprint": "5cd8044e2d3f1a8b1454a26d2031d9f75a8f76c27a45e48245f35b99785682ee",
+        "initial_command_fingerprint": "695a926545c5c8724a3fe1f51f39a1eaac9d01192e9c20d09835be872f96ed8d",
+        "push_schedule_fingerprint": "8b42094b3a8b8a4215d000b4faa6c6953af747b32ad7ddb895a12d9f558392ec",
+        "domain": {
+          "base_mass_scale": 1.0619852316253795,
+          "damping_scale": 1.2488134642576083,
+          "friction_scale": 0.6512005159852253,
+          "actuator_strength_scale": 0.8862314635231168
+        }
+      },
+      {
+        "evaluation_seed": 142,
+        "initial_state_fingerprint": "f04f8d440efae5685de2555afca2ac1bf6e423c9a7be51b2af2cc9212a5d75ea",
+        "initial_command_fingerprint": "08111758dc0042e1b28b156e540ce96857b81190bec65f45933ec367c29d9ba5",
+        "push_schedule_fingerprint": "a8d5789a9cc4299e8a863129ac5c7e9442a8300812b9a97b64cb1fcb05356eda",
+        "domain": {
+          "base_mass_scale": 0.9049038144441932,
+          "damping_scale": 0.8483710141125314,
+          "friction_scale": 1.0710901939059994,
+          "actuator_strength_scale": 1.0421396301432335
+        }
+      },
+      {
+        "evaluation_seed": 143,
+        "initial_state_fingerprint": "79fa963c93a04ccf7842d00df394cb18aa9cd06b4a950428adbacce81db694ab",
+        "initial_command_fingerprint": "463c73fc00dae98d96320541191103fe95d178b75fd927f06e78e901cd12d6de",
+        "push_schedule_fingerprint": "60d304ae1bb1dcaaad3197f1ea53b263e4f7d24bb405f8c2b2e63b435c6d9a37",
+        "domain": {
+          "base_mass_scale": 0.9909304351460378,
+          "damping_scale": 1.2395564452287589,
+          "friction_scale": 0.9786749919453452,
+          "actuator_strength_scale": 0.9808594515412972
+        }
+      },
+      {
+        "evaluation_seed": 144,
+        "initial_state_fingerprint": "d45c2bf29164fbcb855e615061848724f956e6b1d25140aaa9ab3879f96c8d3c",
+        "initial_command_fingerprint": "ec7d02beb4eb163036262ce05b52c63b0441bebd5b941895e4c924d68220570e",
+        "push_schedule_fingerprint": "b02239e4e8563b51908a74158fe9913d348b71d7cf8ede5a346cba850a47cec4",
+        "domain": {
+          "base_mass_scale": 1.0744076047998323,
+          "damping_scale": 0.8268593149472696,
+          "friction_scale": 0.8447888207561627,
+          "actuator_strength_scale": 0.8684242825157816
+        }
+      },
+      {
+        "evaluation_seed": 145,
+        "initial_state_fingerprint": "fb7ce80d4627d5a68a06e355a7fddebe3b63c7cb1cdc1122a42c8084ce2a4de1",
+        "initial_command_fingerprint": "a928a4961e411582748ba78f0f3a471bfb7149c89891e66183931c146be67d66",
+        "push_schedule_fingerprint": "4fc753d0ff59cfb753a1d26ae549ddd6f6127b893f2d13af9b76971eec16c74f",
+        "domain": {
+          "base_mass_scale": 1.032138722449388,
+          "damping_scale": 0.9208704170368199,
+          "friction_scale": 1.2157391964787247,
+          "actuator_strength_scale": 0.8918780256418402
+        }
+      },
+      {
+        "evaluation_seed": 146,
+        "initial_state_fingerprint": "fe60999412439499e313326d7db7d1d7bf8017f0bebd866464547e7db0cd2bfb",
+        "initial_command_fingerprint": "f8a78618c5037e6fdabe4891163c0101f27eea2d7a5c9f32e2e5fa7865e773fa",
+        "push_schedule_fingerprint": "30bd223300312656bf1e1f2c108447c1e68e74eaef3ff7987d98c676b0d4cc64",
+        "domain": {
+          "base_mass_scale": 1.0761108894023355,
+          "damping_scale": 0.9705705341216071,
+          "friction_scale": 0.9262106578526572,
+          "actuator_strength_scale": 0.917880647232726
+        }
+      },
+      {
+        "evaluation_seed": 147,
+        "initial_state_fingerprint": "3a15e6d18f04a4d7695a649049e9fd39b4d68d6896986c47cb0ce2983bde40f6",
+        "initial_command_fingerprint": "b3e8d1cd4c6f8250ee9ad07e957ef1df79003e8fadcc56cc33749ba2f4ff969e",
+        "push_schedule_fingerprint": "d34ff5d0f531442aa63425bb7e6e1dd167a27e7378cae21d9e4dce8220a14e69",
+        "domain": {
+          "base_mass_scale": 1.11768706988836,
+          "damping_scale": 1.1519535828852017,
+          "friction_scale": 1.0614676383973065,
+          "actuator_strength_scale": 0.9600221712091143
+        }
+      },
+      {
+        "evaluation_seed": 148,
+        "initial_state_fingerprint": "1969e17f4cdf659c2e7642ae14c311c2c0934d9a484ae8076c2da89ac8186ad9",
+        "initial_command_fingerprint": "36ad57737e4ba00dce497eae4b2a44ad34aa7b4dfecd8a7e8a0dce18adefab21",
+        "push_schedule_fingerprint": "9602cabcb60ace23c8bdc0e2e58025062580c0a335d966d77800125e0917f1c7",
+        "domain": {
+          "base_mass_scale": 1.0402388344614464,
+          "damping_scale": 1.0474852137614152,
+          "friction_scale": 1.130122177440941,
+          "actuator_strength_scale": 0.9840954979980934
+        }
+      },
+      {
+        "evaluation_seed": 149,
+        "initial_state_fingerprint": "dcd3737413c1060651ade4b19d3faa71591e54f1ec9c252f3580da310352a02e",
+        "initial_command_fingerprint": "5890120f9c3a945fee0fc3d3c7df412320de7e8ad9405442262a6f7e9c68575f",
+        "push_schedule_fingerprint": "804fe5ba38a1e9fdef1784183dfaecaa8f0a6e3a9730ba1e0cb2d3a0b4dd5438",
+        "domain": {
+          "base_mass_scale": 0.9180456539681073,
+          "damping_scale": 0.9174989713286356,
+          "friction_scale": 0.7940223325506199,
+          "actuator_strength_scale": 0.9976903932111862
+        }
+      },
+      {
+        "evaluation_seed": 150,
+        "initial_state_fingerprint": "bc992c5a2a657b5aad63cffe71a4ed6a08d7ce99baf858b99e9a376956f08fec",
+        "initial_command_fingerprint": "7e56980219563b71e271c8c26d045d414b38c2796bf4350f693550f6eee0f00e",
+        "push_schedule_fingerprint": "7b4f1083faa4d8d36e184da139dc0b28a4fc37db1636db9b72245f28f1f32287",
+        "domain": {
+          "base_mass_scale": 0.9010608496924545,
+          "damping_scale": 1.2188541579664647,
+          "friction_scale": 1.1599784371381194,
+          "actuator_strength_scale": 0.9168649918548842
+        }
+      }
+    ]
+  },
+  "promotion": {
+    "passed": false,
+    "failed_checks": [
+      "solver_degraded_rate: per-episode feasible-nonconverged plus fallback ratio <= 0.01"
+    ],
+    "checks": {
+      "preregistered_seed_pool": {
+        "passed": true,
+        "observed": "held_out",
+        "criterion": "evaluation_seeds must equal the preregistered held-out seeds 121..150"
+      },
+      "formal_sample_size": {
+        "passed": true,
+        "observed": 30,
+        "criterion": ">= 30 matched episodes"
+      },
+      "success_noninferiority": {
+        "passed": true,
+        "observed": 0.0,
+        "criterion": "constrained minus legacy success >= 0"
+      },
+      "force_tracking_reduction": {
+        "passed": true,
+        "observed": 0.35771898329372886,
+        "criterion": ">= 10% reduction in physics-side force error"
+      },
+      "moment_tracking_reduction": {
+        "passed": true,
+        "observed": 0.4599220060135773,
+        "criterion": ">= 10% reduction in physics-side moment error"
+      },
+      "constraint_feasibility": {
+        "passed": true,
+        "observed": 1.4120772062653194e-09,
+        "criterion": "<= 1e-06"
+      },
+      "fallback_rate": {
+        "passed": true,
+        "observed": 0.0,
+        "criterion": "<= 0.01"
+      },
+      "solver_degraded_rate": {
+        "passed": false,
+        "observed": 0.023333333333333334,
+        "criterion": "per-episode feasible-nonconverged plus fallback ratio <= 0.01"
+      },
+      "real_time_budget": {
+        "passed": true,
+        "observed_ms": 5.864498150331201,
+        "control_period_ms": 10.0,
+        "criterion": "episode P99 allocation time <= one control period"
+      },
+      "physics_wrench_available": {
+        "passed": true,
+        "observed_min_samples_per_control_step": 5,
+        "observed_max_samples_per_control_step": 5,
+        "criterion": "exactly 5 MuJoCo physics contact-wrench samples per control step"
+      }
+    }
+  },
+  "artifact_sha256": {
+    "evaluation_config.json": "dea64e87d7db966943418923eb8e200a57825bee408a9ca6253d07b1acdd9f31",
+    "contact_allocation_episodes.csv": "30e9c3169323fcea0000d62674909feb7d3e2d7f25bfb000a38326813b40b8bc",
+    "contact_allocation_summary.csv": "3741352b3a8f845767e9119cb49be168f16dbf03342c32acc78e96696f0e5d58",
+    "contact_allocation_audit.md": "e027f53b89bf084cc31da6f93428c255937419731fc8146e6dbfcd9ab571cb5b",
+    "contact_allocation_audit.png": "00ee2d2ff82d470b0988a9178b09bf04b66860ad841acae9e130fd820b493be2"
+  }
+}

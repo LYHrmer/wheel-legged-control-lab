@@ -17,13 +17,15 @@
 | 本项目实现 | MuJoCo 整机装配、VMC、约束接触力分配、分配路径匹配的闭环辨识、LQR/MPC、残差 PPO、状态快照与误差通道、地形课程和配对评测 |
 | 尚未实现 | IMU/编码器融合、ROS2 硬件链路、实机参数辨识与 sim-to-real |
 
-当前有三条可以由仓库结果核对的结论：
+当前结果：
 
 - `oracle`/LQR 通过六个课程探针；MPC 通过五个，默认参数未达到台阶进度门槛；
 - 30 个随机域种子中，已提交 PPO 相对 LQR 的三个主要误差区间均跨过 0，平均奖励还低
   `0.047`，配对区间为 `[-0.071, -0.022]`；这个 checkpoint 没有通过晋级门；
 - `estimated`/LQR 与 MPC 在 `10 ms` 延迟下均为 `30/30` 成功；到 `20 ms` 已明显失稳，常速度
-  外推提高了成功数，但配对区间仍跨过 0，不能算作延迟裕量已经改善。
+  外推提高了成功数，但配对区间仍跨过 0，不能算作延迟裕量已经改善；
+- 接触约束配置在 30 组留出种子上降低了实际力/力矩跟踪误差，但姿态误差增大，且 9 个回合
+  的可行未收敛比例超过预设门槛。没有晋级，默认分配器仍是 legacy。
 
 代码主线见[控制结构](#控制结构)，评测口径见
 [`docs/evaluation_protocol.md`](docs/evaluation_protocol.md)，状态时序见
@@ -195,6 +197,31 @@ wheel-legged-d1-contact-audit --seed 21 --episodes 3 --output results/contact_de
 `wheel-legged-d1-contact-audit --seed 121 --episodes 30 --output results/d1_contact_allocation`。
 开发中遇到的失稳、求解器退出和权重选择记录在
 [`docs/contact_allocation_development.md`](docs/contact_allocation_development.md)。
+
+正式运行从干净提交 `e413a52` 开始，固定 `oracle / LQR / 无状态与动作延迟`，每回合 `6 s`。
+两种模式均为 `30/30` 完成。下表是回合指标的均值，区间为 constrained − legacy 的配对
+95% t 区间：
+
+| 指标 | Legacy | Constrained | 配对差 95% 区间 |
+|---|---:|---:|---:|
+| 实际合力跟踪 RMS [N] | 138.00 | 88.64 | `[-59.29, -39.44]` |
+| 实际合力矩跟踪 RMS [N·m] | 30.46 | 16.45 | `[-16.21, -11.81]` |
+| 速度 RMSE [m/s] | 0.316 | 0.240 | `[-0.104, -0.049]` |
+| Pitch RMSE [deg] | 1.430 | 2.429 | `[+0.747, +1.250]` |
+| 高度 RMSE [mm] | 9.967 | 12.112 | `[+0.751, +3.538]` |
+| 四轮接触比例 | 0.867 | 0.674 | `[-0.289, -0.097]` |
+| 平均绝对机械功率 [W] | 223.06 | 163.17 | `[-107.58, -12.19]` |
+
+实际合力、合力矩跟踪误差分别下降 `35.8%`、`46.0%`，姿态与接触指标却变差。
+constrained 的归一化约束违反最大值为 `1.41e-9`，fallback 为 `0`；但 9 个回合的
+`feasible_nonconverged` 超过 `1%`，最高 `2.33%`，没有通过冻结的求解器退化门槛。
+本机各回合分配耗时 P99 的均值为 `3.92 ms`、最大值 `5.86 ms`；这些是运行测量，不是硬实时
+保证，也不是整个控制循环的耗时。保留 legacy 默认，不把局部跟踪改善写成整体控制更优。
+
+完整[审计报告](results/d1_contact_allocation/contact_allocation_audit.md)、
+[逐回合 CSV](results/d1_contact_allocation/contact_allocation_episodes.csv) 和
+[来源及产物校验清单](results/d1_contact_allocation/contact_allocation_manifest.json) 均已提交。
+本轮结果不用于继续挑选参数。
 
 ## 平地 LQR / MPC / PPO 对照
 

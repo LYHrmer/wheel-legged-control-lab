@@ -1,0 +1,132 @@
+{
+  "schema": "d1-contact-allocation-audit-config-v1",
+  "run_id": "d1-contact-allocation-de886af810d83db9",
+  "protocol": {
+    "baseline": "lqr",
+    "scenario": "randomized",
+    "control_dt_s": 0.01,
+    "episode_seconds": 6.0,
+    "contact_allocation_modes": [
+      "legacy",
+      "constrained"
+    ],
+    "state_mode": "oracle",
+    "latency_compensation": "none",
+    "episode_options": {
+      "action_delay_steps": 0,
+      "state_delay_steps": 0,
+      "sensor_noise": 0.0
+    },
+    "first_seed": 121,
+    "evaluation_seeds": [
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134,
+      135,
+      136,
+      137,
+      138,
+      139,
+      140,
+      141,
+      142,
+      143,
+      144,
+      145,
+      146,
+      147,
+      148,
+      149,
+      150
+    ],
+    "episodes": 30,
+    "seed_pool": "held_out",
+    "preregistered_held_out_seeds": [
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134,
+      135,
+      136,
+      137,
+      138,
+      139,
+      140,
+      141,
+      142,
+      143,
+      144,
+      145,
+      146,
+      147,
+      148,
+      149,
+      150
+    ],
+    "exploratory": false,
+    "pairing": "same-process, same-seed replay",
+    "contact_wrench_measurement": "MuJoCo physics-substep mean",
+    "constrained_allocator": {
+      "friction_coefficient": 0.55,
+      "normal_force_limit_weight_fraction": 0.65,
+      "wrench_characteristic_length_m": 0.25,
+      "slsqp_max_iterations": 80,
+      "slsqp_ftol": 1e-10,
+      "candidate_constraint_violation_ratio_tolerance": 1e-07,
+      "force_tracking_absolute_tolerance_n": 1.0,
+      "moment_tracking_absolute_tolerance_nm": 0.5,
+      "wrench_tracking_relative_tolerance": 0.005
+    }
+  },
+  "promotion_gate": {
+    "formal_min_episodes": 30,
+    "success_noninferiority_margin": 0.0,
+    "min_force_tracking_reduction_ratio": 0.1,
+    "min_moment_tracking_reduction_ratio": 0.1,
+    "max_constraint_violation": 1e-06,
+    "max_solver_degraded_ratio": 0.01,
+    "max_fallback_ratio": 0.01,
+    "max_solve_time_fraction_of_control_period": 1.0,
+    "required_physics_samples_per_control_step": 5
+  },
+  "provenance": {
+    "source": {
+      "git_commit": "e413a52b6d1dd15d056d6ac29d9354935a1f3b60",
+      "git_dirty": false,
+      "git_worktree_sha256": null
+    },
+    "runtime": {
+      "python": "3.10.12",
+      "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+      "machine": "x86_64",
+      "dependencies": {
+        "numpy": "2.2.6",
+        "scipy": "1.15.3",
+        "mujoco": "3.12.0",
+        "gymnasium": "1.3.0",
+        "matplotlib": "3.10.6"
+      }
+    }
+  }
+}
