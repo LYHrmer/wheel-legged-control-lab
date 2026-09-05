@@ -1,0 +1,396 @@
+{
+  "development_only": true,
+  "heldout": false,
+  "promotion_evaluation": false,
+  "created_at_utc": "2026-09-05T13:46:26.205701+00:00",
+  "source": {
+    "git_commit": "99ad2368b66808bdea57e7a77b879925951c5213",
+    "git_dirty": false,
+    "git_worktree_sha256": null
+  },
+  "runtime": {
+    "python": "3.10.12",
+    "numpy": "2.2.6",
+    "scipy": "1.15.3",
+    "mujoco": "3.12.0",
+    "osqp": "1.1.3"
+  },
+  "protocol": {
+    "scenarios": [
+      "stand",
+      "drive_brake",
+      "push"
+    ],
+    "seeds": [
+      21,
+      22,
+      23
+    ],
+    "seconds": 6.0,
+    "control_dt_s": 0.01,
+    "arena": "flat",
+    "state_source": "oracle",
+    "domain_randomization": false,
+    "initial_roll_pitch_uniform_rad": [
+      -0.01,
+      0.01
+    ],
+    "drive_brake": {
+      "velocity_mps": 0.5,
+      "start_s": 1.0,
+      "brake_s": 3.0
+    },
+    "push": {
+      "force_world_n": [
+        120.0,
+        0.0,
+        0.0
+      ],
+      "start_s": 2.0,
+      "end_s": 2.12
+    },
+    "physics_contact_samples_per_step": 5,
+    "accepted_controller_status": "solved"
+  },
+  "notes": [
+    "Metrics cover applied steps only; incomplete episodes are not comparable to full runs.",
+    "Predicted-to-measured force discrepancy includes soft-contact and model mismatch.",
+    "Base linear velocity metrics refer to base_link origin, not inertial COM.",
+    "Forward displacement is along the initial horizontal heading, world +x.",
+    "Final velocity RMS uses up to the last one second of applied steps; see window length.",
+    "Four-contact ratio counts control endpoints; per-wheel fractions use physics samples.",
+    "No held-out claim or default-controller promotion follows from these runs."
+  ],
+  "episodes": [
+    {
+      "scenario": "stand",
+      "seed": 21,
+      "initial_rpy_rad": [
+        0.00562235177634942,
+        0.002116940591419361,
+        0.0
+      ],
+      "completed": true,
+      "stop_reason": "completed",
+      "elapsed_s": 6.0,
+      "applied_steps": 600,
+      "attempted_steps": 600,
+      "velocity_rms_mps": 0.008902944592893975,
+      "final_forward_velocity_mps": 0.0012294001021551022,
+      "forward_displacement_m": 0.011253966213678067,
+      "final_velocity_window_s": 1.0,
+      "final_one_second_velocity_rms_mps": 0.0010606649713508982,
+      "height_rms_mm": 3.2091138338432983,
+      "roll_rms_deg": 0.11729421008783585,
+      "pitch_rms_deg": 0.07076988863879288,
+      "allocated_to_physics_force_rms_n": 6.634170074989101,
+      "max_dynamics_residual": 3.490602011879673e-07,
+      "max_constraint_violation": 4.864691201091412e-07,
+      "max_torque_fraction": 0.42599248627083214,
+      "compute_wall_p99_ms": 7.3177024903998245,
+      "accepted_solved_steps": 600,
+      "rejected_steps": 0,
+      "four_contact_ratio": 0.9966666666666667,
+      "wheel_contact_active_fraction_mean": {
+        "FL": 0.9956666666666666,
+        "FR": 1.0,
+        "RL": 0.9956666666666666,
+        "RR": 0.9963333333333333
+      }
+    },
+    {
+      "scenario": "stand",
+      "seed": 22,
+      "initial_rpy_rad": [
+        -0.0026730616913584783,
+        -0.006014092412498342,
+        0.0
+      ],
+      "completed": true,
+      "stop_reason": "completed",
+      "elapsed_s": 6.0,
+      "applied_steps": 600,
+      "attempted_steps": 600,
+      "velocity_rms_mps": 0.014666960056176313,
+      "final_forward_velocity_mps": 0.0011571764313873666,
+      "forward_displacement_m": 0.017614791119473304,
+      "final_velocity_window_s": 1.0,
+      "final_one_second_velocity_rms_mps": 0.0018215064043463828,
+      "height_rms_mm": 5.216139817665853,
+      "roll_rms_deg": 0.057994979970118016,
+      "pitch_rms_deg": 0.26935535788852044,
+      "allocated_to_physics_force_rms_n": 6.63783332775519,
+      "max_dynamics_residual": 2.2005356257203713e-06,
+      "max_constraint_violation": 3.110522280176686e-06,
+      "max_torque_fraction": 1.0,
+      "compute_wall_p99_ms": 7.3715018806342405,
+      "accepted_solved_steps": 600,
+      "rejected_steps": 0,
+      "four_contact_ratio": 0.995,
+      "wheel_contact_active_fraction_mean": {
+        "FL": 0.995,
+        "FR": 0.9963333333333333,
+        "RL": 1.0,
+        "RR": 0.9976666666666667
+      }
+    },
+    {
+      "scenario": "stand",
+      "seed": 23,
+      "initial_rpy_rad": [
+        0.003878661613147285,
+        0.0028291644175646117,
+        0.0
+      ],
+      "completed": true,
+      "stop_reason": "completed",
+      "elapsed_s": 6.0,
+      "applied_steps": 600,
+      "attempted_steps": 600,
+      "velocity_rms_mps": 0.0038368704370422514,
+      "final_forward_velocity_mps": 0.0005295039856927855,
+      "forward_displacement_m": 0.008582512146728123,
+      "final_velocity_window_s": 1.0,
+      "final_one_second_velocity_rms_mps": 0.0005577235525994864,
+      "height_rms_mm": 3.5554990563513305,
+      "roll_rms_deg": 0.1101737359004577,
+      "pitch_rms_deg": 0.06312848341570998,
+      "allocated_to_physics_force_rms_n": 6.273685508745437,
+      "max_dynamics_residual": 2.856704668374732e-07,
+      "max_constraint_violation": 2.856704668374732e-07,
+      "max_torque_fraction": 0.5253722321698316,
+      "compute_wall_p99_ms": 7.784086580631992,
+      "accepted_solved_steps": 600,
+      "rejected_steps": 0,
+      "four_contact_ratio": 0.9966666666666667,
+      "wheel_contact_active_fraction_mean": {
+        "FL": 0.9966666666666667,
+        "FR": 0.999,
+        "RL": 0.996,
+        "RR": 0.9973333333333333
+      }
+    },
+    {
+      "scenario": "drive_brake",
+      "seed": 21,
+      "initial_rpy_rad": [
+        0.00562235177634942,
+        0.002116940591419361,
+        0.0
+      ],
+      "completed": true,
+      "stop_reason": "completed",
+      "elapsed_s": 6.0,
+      "applied_steps": 600,
+      "attempted_steps": 600,
+      "velocity_rms_mps": 0.07598052340955246,
+      "final_forward_velocity_mps": 0.0009350461653597151,
+      "forward_displacement_m": 0.88319492237073,
+      "final_velocity_window_s": 1.0,
+      "final_one_second_velocity_rms_mps": 0.0017458376043220471,
+      "height_rms_mm": 3.379617719240203,
+      "roll_rms_deg": 0.11088451353136669,
+      "pitch_rms_deg": 0.20602742467492013,
+      "allocated_to_physics_force_rms_n": 6.921065458185056,
+      "max_dynamics_residual": 1.9604892301662786e-05,
+      "max_constraint_violation": 1.9604892301662786e-05,
+      "max_torque_fraction": 0.4994689422407606,
+      "compute_wall_p99_ms": 9.453185279753596,
+      "accepted_solved_steps": 600,
+      "rejected_steps": 0,
+      "four_contact_ratio": 0.9966666666666667,
+      "wheel_contact_active_fraction_mean": {
+        "FL": 0.9956666666666666,
+        "FR": 1.0,
+        "RL": 0.9956666666666666,
+        "RR": 0.9963333333333333
+      }
+    },
+    {
+      "scenario": "drive_brake",
+      "seed": 22,
+      "initial_rpy_rad": [
+        -0.0026730616913584783,
+        -0.006014092412498342,
+        0.0
+      ],
+      "completed": true,
+      "stop_reason": "completed",
+      "elapsed_s": 6.0,
+      "applied_steps": 600,
+      "attempted_steps": 600,
+      "velocity_rms_mps": 0.07890649537879776,
+      "final_forward_velocity_mps": 0.0009073901825768208,
+      "forward_displacement_m": 0.8769489829635899,
+      "final_velocity_window_s": 1.0,
+      "final_one_second_velocity_rms_mps": 0.0010650997526098422,
+      "height_rms_mm": 3.0530488482339524,
+      "roll_rms_deg": 0.05831089830888869,
+      "pitch_rms_deg": 0.21319370317702674,
+      "allocated_to_physics_force_rms_n": 4.991354636972464,
+      "max_dynamics_residual": 1.617246224165994e-05,
+      "max_constraint_violation": 1.617246224165994e-05,
+      "max_torque_fraction": 1.0,
+      "compute_wall_p99_ms": 10.489266320228124,
+      "accepted_solved_steps": 600,
+      "rejected_steps": 0,
+      "four_contact_ratio": 0.995,
+      "wheel_contact_active_fraction_mean": {
+        "FL": 0.995,
+        "FR": 0.9963333333333333,
+        "RL": 1.0,
+        "RR": 0.9976666666666667
+      }
+    },
+    {
+      "scenario": "drive_brake",
+      "seed": 23,
+      "initial_rpy_rad": [
+        0.003878661613147285,
+        0.0028291644175646117,
+        0.0
+      ],
+      "completed": true,
+      "stop_reason": "completed",
+      "elapsed_s": 6.0,
+      "applied_steps": 600,
+      "attempted_steps": 600,
+      "velocity_rms_mps": 0.07621066295192702,
+      "final_forward_velocity_mps": 0.0008308232464014172,
+      "forward_displacement_m": 0.8775107461695559,
+      "final_velocity_window_s": 1.0,
+      "final_one_second_velocity_rms_mps": 0.00107597460922753,
+      "height_rms_mm": 3.243858887679036,
+      "roll_rms_deg": 0.09790761594748862,
+      "pitch_rms_deg": 0.2061266986987277,
+      "allocated_to_physics_force_rms_n": 6.1749333545479095,
+      "max_dynamics_residual": 1.9237135036901656e-05,
+      "max_constraint_violation": 1.9237135036901656e-05,
+      "max_torque_fraction": 0.5253722321698316,
+      "compute_wall_p99_ms": 10.204028430407561,
+      "accepted_solved_steps": 600,
+      "rejected_steps": 0,
+      "four_contact_ratio": 0.9966666666666667,
+      "wheel_contact_active_fraction_mean": {
+        "FL": 0.9966666666666667,
+        "FR": 0.999,
+        "RL": 0.996,
+        "RR": 0.9973333333333333
+      }
+    },
+    {
+      "scenario": "push",
+      "seed": 21,
+      "initial_rpy_rad": [
+        0.00562235177634942,
+        0.002116940591419361,
+        0.0
+      ],
+      "completed": true,
+      "stop_reason": "completed",
+      "elapsed_s": 6.0,
+      "applied_steps": 600,
+      "attempted_steps": 600,
+      "velocity_rms_mps": 0.045025006603524834,
+      "final_forward_velocity_mps": 0.001636115462478552,
+      "forward_displacement_m": 0.017046308305398924,
+      "final_velocity_window_s": 1.0,
+      "final_one_second_velocity_rms_mps": 0.002368366374112149,
+      "height_rms_mm": 3.703425463042692,
+      "roll_rms_deg": 0.11410273302151172,
+      "pitch_rms_deg": 0.10753112688200567,
+      "allocated_to_physics_force_rms_n": 6.811945986818801,
+      "max_dynamics_residual": 1.4896945382841809e-05,
+      "max_constraint_violation": 1.4896945382841809e-05,
+      "max_torque_fraction": 0.42599248627083214,
+      "compute_wall_p99_ms": 7.706330150203938,
+      "accepted_solved_steps": 600,
+      "rejected_steps": 0,
+      "four_contact_ratio": 0.9966666666666667,
+      "wheel_contact_active_fraction_mean": {
+        "FL": 0.9956666666666666,
+        "FR": 1.0,
+        "RL": 0.9956666666666666,
+        "RR": 0.9963333333333333
+      }
+    },
+    {
+      "scenario": "push",
+      "seed": 22,
+      "initial_rpy_rad": [
+        -0.0026730616913584783,
+        -0.006014092412498342,
+        0.0
+      ],
+      "completed": true,
+      "stop_reason": "completed",
+      "elapsed_s": 6.0,
+      "applied_steps": 600,
+      "attempted_steps": 600,
+      "velocity_rms_mps": 0.04608558092721741,
+      "final_forward_velocity_mps": 0.000711580795086281,
+      "forward_displacement_m": 0.011196714110599273,
+      "final_velocity_window_s": 1.0,
+      "final_one_second_velocity_rms_mps": 0.0007640325160247389,
+      "height_rms_mm": 3.451953739769063,
+      "roll_rms_deg": 0.05798690162799785,
+      "pitch_rms_deg": 0.14225643121816117,
+      "allocated_to_physics_force_rms_n": 4.941627412337677,
+      "max_dynamics_residual": 1.8056409317689787e-05,
+      "max_constraint_violation": 1.8056409317689787e-05,
+      "max_torque_fraction": 1.0,
+      "compute_wall_p99_ms": 7.319693920107966,
+      "accepted_solved_steps": 600,
+      "rejected_steps": 0,
+      "four_contact_ratio": 0.995,
+      "wheel_contact_active_fraction_mean": {
+        "FL": 0.995,
+        "FR": 0.9963333333333333,
+        "RL": 1.0,
+        "RR": 0.9976666666666667
+      }
+    },
+    {
+      "scenario": "push",
+      "seed": 23,
+      "initial_rpy_rad": [
+        0.003878661613147285,
+        0.0028291644175646117,
+        0.0
+      ],
+      "completed": true,
+      "stop_reason": "completed",
+      "elapsed_s": 6.0,
+      "applied_steps": 600,
+      "attempted_steps": 600,
+      "velocity_rms_mps": 0.04392134234951172,
+      "final_forward_velocity_mps": 0.0006964790743973437,
+      "forward_displacement_m": 0.009929675442554738,
+      "final_velocity_window_s": 1.0,
+      "final_one_second_velocity_rms_mps": 0.0007416389916865846,
+      "height_rms_mm": 3.2771986568068345,
+      "roll_rms_deg": 0.10617658207286762,
+      "pitch_rms_deg": 0.10275158365926473,
+      "allocated_to_physics_force_rms_n": 5.911892806145395,
+      "max_dynamics_residual": 1.5751466110878673e-05,
+      "max_constraint_violation": 1.5751466110878673e-05,
+      "max_torque_fraction": 0.5253722321698316,
+      "compute_wall_p99_ms": 7.277650130063193,
+      "accepted_solved_steps": 600,
+      "rejected_steps": 0,
+      "four_contact_ratio": 0.9966666666666667,
+      "wheel_contact_active_fraction_mean": {
+        "FL": 0.9966666666666667,
+        "FR": 0.999,
+        "RL": 0.996,
+        "RR": 0.9973333333333333
+      }
+    }
+  ],
+  "artifacts": {
+    "steps": {
+      "filename": "steps.csv.gz",
+      "sha256": "41d097a009d6144831e223ae7353117a0bcfbad5094f124de4839a3bdd4f7f38"
+    }
+  }
+}

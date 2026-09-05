@@ -32,6 +32,7 @@ python -m pytest tests/test_d1_inverse_dynamics.py
 
 这里的“完成”只表示回合没有跌倒或拒绝求解。需要同时看速度误差、制动后的末速和姿态。
 这些开发种子参与过排错，不能改称留出测试，也不能和旧的随机域审计直接比较。
+固定代码版本的 [9 回合结果](../results/d1_inverse_dynamics/README.md) 已保存，含逐步数据。
 
 ## 从任务到力矩
 
