@@ -32,6 +32,10 @@
 [`docs/state_estimation.md`](docs/state_estimation.md)，接触分配推导见
 [`docs/contact_allocation.md`](docs/contact_allocation.md)。
 
+另有独立的[任务空间逆动力学 QP 原型](docs/inverse_dynamics.md)：同时求 22 维加速度、
+四轮接触力和 16 路力矩，用平地站立、直线制动和推扰检查。它不接入现有 PPO 或键盘演示，
+也没有取代默认控制器。
+
 ![D1 skills course overview](results/d1_interactive/course_overview.png)
 
 | 8° 坡道 | 受保护跳跃与 2 cm 横杆 |

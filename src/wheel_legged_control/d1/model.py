@@ -305,7 +305,7 @@ class D1Plant:
         return rotation.T @ np.asarray((0.0, 0.0, -1.0), dtype=np.float64)
 
     def base_velocity(self, *, local: bool = False) -> tuple[np.ndarray, np.ndarray]:
-        """Return base-origin linear and angular velocity.
+        """Return base inertial-COM linear velocity and body angular velocity.
 
         MuJoCo's local object velocity follows the body's inertial frame.  The
         controller interface instead defines ``local=True`` in the visible

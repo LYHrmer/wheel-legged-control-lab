@@ -18,6 +18,7 @@ D1 上处理接触、力矩分配、延迟与残差学习。每个阶段都留�
 | B5 | D1 16 actuators | 如何证明收益不是偶然 | `d1/experiments.py`、`d1/contact_audit.py` |
 | B6 | D1 16 actuators | 如何加入键盘、转向、跳跃和物理地形 | `d1/interactive.py`、`d1/terrain.py` |
 | B7 | D1 16 actuators | 状态延迟进入经典控制后会发生什么 | `d1/state_estimation.py` |
+| B8 | D1 22 nv | 如何从机身任务同时求加速度、接触力和力矩 | [逆动力学 QP](inverse_dynamics.md) |
 
 模型来源、许可证和另一份本地 URDF 为什么没有上传，单独记录在
 [`d1_model_card.md`](d1_model_card.md)。

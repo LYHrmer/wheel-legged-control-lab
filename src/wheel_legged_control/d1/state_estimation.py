@@ -45,6 +45,8 @@ class D1StateEstimate:
 
     ``base_rotation`` maps body-frame vectors into the world frame.  Base
     velocities are stored in both the visible ``base_link`` and world frames.
+    Linear velocities refer to the base inertial COM, while ``base_position``
+    refers to the visible body origin (a legacy convention preserved for control).
     Foot positions and translational Jacobians are expressed in the world frame;
     each Jacobian contains the four columns for that leg in D1 joint order.
     Contact-point rows are zero when the corresponding contact flag is false.
