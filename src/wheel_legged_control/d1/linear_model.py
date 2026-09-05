@@ -8,6 +8,10 @@ from functools import lru_cache
 import mujoco
 import numpy as np
 
+from .contact_allocation import (
+    D1_CONTACT_ALLOCATION_MODES,
+    make_d1_contact_allocator,
+)
 from .controllers import D1Command, D1VMCController
 from .model import D1Plant
 from .state_estimation import D1MujocoTruthStateSource
@@ -43,12 +47,21 @@ def _pitch_perturbed_quaternion(quaternion: np.ndarray, pitch_delta: float) -> n
     return result
 
 
-@lru_cache(maxsize=4)
-def identify_sagittal_model(control_dt: float = 0.01) -> D1SagittalLinearModel:
-    """Numerically identify the D1/VMC one-step dynamics at four-wheel contact."""
+@lru_cache(maxsize=8)
+def identify_sagittal_model(
+    control_dt: float = 0.01,
+    contact_allocation: str = "legacy",
+) -> D1SagittalLinearModel:
+    """Identify one-step dynamics for the selected low-level allocation path."""
+
+    if contact_allocation not in D1_CONTACT_ALLOCATION_MODES:
+        raise ValueError(f"contact_allocation must be one of {D1_CONTACT_ALLOCATION_MODES}")
 
     plant = D1Plant(control_dt=control_dt)
-    low_level = D1VMCController(plant)
+    low_level = D1VMCController(
+        plant,
+        contact_allocator=make_d1_contact_allocator(plant, contact_allocation),
+    )
     state_source = D1MujocoTruthStateSource(plant)
     low_level.wheel_velocity_gain = 0.0
     hold = D1Command(base_height_m=plant.nominal_base_height_m)
@@ -71,6 +84,10 @@ def identify_sagittal_model(control_dt: float = 0.01) -> D1SagittalLinearModel:
         qvel[0] += state_delta[2]
         qvel[4] += state_delta[3]
         plant.set_simulation_state(qpos, qvel)
+        # Every finite-difference probe must start from the same controller
+        # memory.  The constrained allocator otherwise carries its previous
+        # force solution from one perturbation into the next.
+        low_level.reset()
         state = state_source.reset()
         torque = low_level.compute(
             hold,

@@ -6,6 +6,12 @@ from dataclasses import dataclass
 
 import numpy as np
 
+from .contact_allocation import (
+    D1AllocationStatus,
+    D1ContactAllocationRequest,
+    D1ContactAllocator,
+    D1WrenchTrackingStatus,
+)
 from .model import (
     D1_JOINT_NAMES,
     JOINT_TORQUE_LIMIT,
@@ -48,6 +54,15 @@ class D1ControlBreakdown:
     high_level_nm: np.ndarray
     total_nm: np.ndarray
     support_force_n: np.ndarray
+    contact_force_world_n: np.ndarray
+    wrench_reference_position_world_m: np.ndarray
+    desired_wrench_world: np.ndarray
+    achieved_wrench_world: np.ndarray
+    allocation_status: D1AllocationStatus | None
+    allocation_wrench_tracking_status: D1WrenchTrackingStatus | None
+    allocation_status_reason: str
+    allocation_solve_ms: float
+    allocation_constraint_violation: float
 
 
 class D1VMCController:
@@ -58,7 +73,12 @@ class D1VMCController:
     LQR, MPC, or a learned residual can share those same bounded channels.
     """
 
-    def __init__(self, plant: D1Plant) -> None:
+    def __init__(
+        self,
+        plant: D1Plant,
+        *,
+        contact_allocator: D1ContactAllocator | None = None,
+    ) -> None:
         # Keep only nominal model constants.  Runtime feedback must arrive in a
         # D1StateEstimate so randomized MuJoCo truth cannot leak into control.
         self.total_mass_kg = plant.nominal_total_mass_kg
@@ -68,6 +88,7 @@ class D1VMCController:
         self.leg_kd = np.tile((1.5, 1.5, 1.5, 0.0), len(LEG_PREFIXES))
         self.wheel_velocity_gain = 0.55
         self.yaw_rate_gain = 5.0
+        self.contact_allocator = contact_allocator
         self.height_kp = 900.0
         self.height_kd = 180.0
         self.roll_kp = 180.0
@@ -82,9 +103,23 @@ class D1VMCController:
             for leg in LEG_PREFIXES
         }
         self._wheel_indices = np.asarray((3, 7, 11, 15), dtype=np.int32)
+        zeros_torque = np.zeros(len(D1_JOINT_NAMES), dtype=np.float64)
         self._last = D1ControlBreakdown(
-            *(np.zeros(len(D1_JOINT_NAMES), dtype=np.float64) for _ in range(5)),
-            np.zeros(len(LEG_PREFIXES), dtype=np.float64),
+            leg_pd_nm=zeros_torque.copy(),
+            support_nm=zeros_torque.copy(),
+            wheel_velocity_nm=zeros_torque.copy(),
+            high_level_nm=zeros_torque.copy(),
+            total_nm=zeros_torque.copy(),
+            support_force_n=np.zeros(len(LEG_PREFIXES), dtype=np.float64),
+            contact_force_world_n=np.zeros((len(LEG_PREFIXES), 3), dtype=np.float64),
+            wrench_reference_position_world_m=np.zeros(3, dtype=np.float64),
+            desired_wrench_world=np.zeros(6, dtype=np.float64),
+            achieved_wrench_world=np.zeros(6, dtype=np.float64),
+            allocation_status=None,
+            allocation_wrench_tracking_status=None,
+            allocation_status_reason="legacy",
+            allocation_solve_ms=0.0,
+            allocation_constraint_violation=0.0,
         )
 
     @property
@@ -92,15 +127,54 @@ class D1VMCController:
         return self._last
 
     def reset(self) -> None:
+        if self.contact_allocator is not None:
+            self.contact_allocator.reset()
         zeros = np.zeros(len(D1_JOINT_NAMES), dtype=np.float64)
         self._last = D1ControlBreakdown(
-            zeros.copy(),
-            zeros.copy(),
-            zeros.copy(),
-            zeros.copy(),
-            zeros.copy(),
-            np.zeros(len(LEG_PREFIXES), dtype=np.float64),
+            leg_pd_nm=zeros.copy(),
+            support_nm=zeros.copy(),
+            wheel_velocity_nm=zeros.copy(),
+            high_level_nm=zeros.copy(),
+            total_nm=zeros.copy(),
+            support_force_n=np.zeros(len(LEG_PREFIXES), dtype=np.float64),
+            contact_force_world_n=np.zeros((len(LEG_PREFIXES), 3), dtype=np.float64),
+            wrench_reference_position_world_m=np.zeros(3, dtype=np.float64),
+            desired_wrench_world=np.zeros(6, dtype=np.float64),
+            achieved_wrench_world=np.zeros(6, dtype=np.float64),
+            allocation_status=None,
+            allocation_wrench_tracking_status=None,
+            allocation_status_reason="legacy",
+            allocation_solve_ms=0.0,
+            allocation_constraint_violation=0.0,
         )
+
+    def _desired_support_wrench(
+        self,
+        state: D1StateEstimate,
+        command: D1Command,
+        vertical_force_offset_n: float,
+    ) -> tuple[float, np.ndarray]:
+        linear_velocity = state.base_linear_velocity_world
+        roll, pitch, yaw = state.base_rpy
+        heading_rotation = _heading_rotation(float(yaw))
+        angular_velocity_heading = heading_rotation.T @ state.base_angular_velocity_world
+        total_upward_force = (
+            self.total_mass_kg * self.gravity_mps2
+            + self.height_kp * (command.base_height_m - state.base_position[2])
+            - self.height_kd * linear_velocity[2]
+            + vertical_force_offset_n
+        )
+        desired_moment_heading = np.asarray(
+            (
+                self.roll_kp * (command.roll_rad - roll)
+                - self.roll_kd * angular_velocity_heading[0],
+                self.pitch_kp * (command.pitch_rad - pitch)
+                - self.pitch_kd * angular_velocity_heading[1],
+                0.0,
+            ),
+            dtype=np.float64,
+        )
+        return total_upward_force, heading_rotation @ desired_moment_heading
 
     def _support_torque(
         self,
@@ -108,28 +182,12 @@ class D1VMCController:
         command: D1Command,
         vertical_force_offset_n: float,
     ) -> tuple[np.ndarray, np.ndarray]:
-        linear_velocity = state.base_linear_velocity_world
-        roll, pitch, yaw = state.base_rpy
-        heading_rotation = _heading_rotation(float(yaw))
-        angular_velocity_heading = heading_rotation.T @ state.base_angular_velocity_world
+        total_upward_force, desired_moment_world = self._desired_support_wrench(
+            state,
+            command,
+            vertical_force_offset_n,
+        )
         mass = self.total_mass_kg
-        total_upward_force = (
-            mass * self.gravity_mps2
-            + self.height_kp * (command.base_height_m - state.base_position[2])
-            - self.height_kd * linear_velocity[2]
-            + vertical_force_offset_n
-        )
-        desired_roll_moment_heading = (
-            self.roll_kp * (command.roll_rad - roll) - self.roll_kd * angular_velocity_heading[0]
-        )
-        desired_pitch_moment_heading = (
-            self.pitch_kp * (command.pitch_rad - pitch)
-            - self.pitch_kd * angular_velocity_heading[1]
-        )
-        desired_moment_world = heading_rotation @ np.asarray(
-            (desired_roll_moment_heading, desired_pitch_moment_heading, 0.0),
-            dtype=np.float64,
-        )
 
         wheel_positions = state.foot_offset_world
         allocation = np.vstack(
@@ -175,12 +233,6 @@ class D1VMCController:
         leg_pd -= self.leg_kd * joint_velocity
         leg_pd[self._wheel_indices] = 0.0
 
-        support, upward_forces = self._support_torque(
-            state,
-            command,
-            vertical_force_offset_n,
-        )
-
         wheel_velocity = np.zeros(len(D1_JOINT_NAMES), dtype=np.float64)
         heading_rotation = _heading_rotation(float(state.base_rpy[2]))
         wheel_positions_heading = state.foot_offset_world @ heading_rotation
@@ -204,21 +256,108 @@ class D1VMCController:
         wheel_velocity[np.asarray((0, 8)) + 3] -= yaw_torque
         wheel_velocity[np.asarray((4, 12)) + 3] += yaw_torque
 
-        high_level = np.zeros(len(D1_JOINT_NAMES), dtype=np.float64)
-        high_level[self._wheel_indices] = (
-            longitudinal_force_n * self.wheel_radius_m / len(LEG_PREFIXES)
-        )
-        total = np.clip(
-            leg_pd + support + wheel_velocity + high_level,
-            -JOINT_TORQUE_LIMIT,
-            JOINT_TORQUE_LIMIT,
-        )
+        if self.contact_allocator is None:
+            support, upward_forces = self._support_torque(
+                state,
+                command,
+                vertical_force_offset_n,
+            )
+            high_level = np.zeros(len(D1_JOINT_NAMES), dtype=np.float64)
+            high_level[self._wheel_indices] = (
+                longitudinal_force_n * self.wheel_radius_m / len(LEG_PREFIXES)
+            )
+            total = np.clip(
+                leg_pd + support + wheel_velocity + high_level,
+                -JOINT_TORQUE_LIMIT,
+                JOINT_TORQUE_LIMIT,
+            )
+            contact_force = np.zeros((len(LEG_PREFIXES), 3), dtype=np.float64)
+            heading_rotation = _heading_rotation(float(state.base_rpy[2]))
+            contact_force[:, 2] = upward_forces
+            contact_force += (
+                heading_rotation @ np.asarray((longitudinal_force_n, 0.0, 0.0))
+            ) / len(LEG_PREFIXES)
+            desired_upward, desired_moment = self._desired_support_wrench(
+                state,
+                command,
+                vertical_force_offset_n,
+            )
+            desired_force = (
+                heading_rotation @ np.asarray((longitudinal_force_n, 0.0, 0.0))
+                + np.asarray((0.0, 0.0, desired_upward))
+            )
+            desired_wrench = np.concatenate((desired_force, desired_moment))
+            achieved_wrench = np.concatenate(
+                (
+                    np.sum(contact_force, axis=0),
+                    np.sum(np.cross(state.foot_offset_world, contact_force), axis=0),
+                )
+            )
+            allocation_status = None
+            allocation_wrench_tracking_status = None
+            allocation_status_reason = "legacy"
+            allocation_solve_ms = 0.0
+            allocation_violation = 0.0
+            wrench_reference = state.base_position
+        else:
+            desired_upward, desired_moment = self._desired_support_wrench(
+                state,
+                command,
+                vertical_force_offset_n,
+            )
+            heading_rotation = _heading_rotation(float(state.base_rpy[2]))
+            desired_force = (
+                heading_rotation @ np.asarray((longitudinal_force_n, 0.0, 0.0))
+                + np.asarray((0.0, 0.0, desired_upward))
+            )
+            allocation = self.contact_allocator.solve(
+                D1ContactAllocationRequest(
+                    state=state,
+                    desired_force_world_n=desired_force,
+                    desired_moment_world_nm=desired_moment,
+                    committed_torque_nm=leg_pd + wheel_velocity,
+                )
+            )
+            contact_force = allocation.contact_force_world_n
+            normal_force = np.einsum(
+                "ij,ij->i",
+                contact_force,
+                state.wheel_contact_normal,
+            )
+            normal_component = normal_force[:, None] * state.wheel_contact_normal
+            support = np.zeros(len(D1_JOINT_NAMES), dtype=np.float64)
+            for leg_index in range(len(LEG_PREFIXES)):
+                joint_slice = slice(4 * leg_index, 4 * (leg_index + 1))
+                support[joint_slice] = (
+                    -state.wheel_contact_jacobian[leg_index].T
+                    @ normal_component[leg_index]
+                )
+            high_level = allocation.contact_torque_nm - support
+            upward_forces = normal_force
+            total = allocation.command_torque_nm
+            desired_wrench = allocation.desired_wrench_world
+            achieved_wrench = allocation.achieved_wrench_world
+            allocation_status = allocation.status
+            allocation_wrench_tracking_status = allocation.wrench_tracking_status
+            allocation_status_reason = allocation.status_reason
+            allocation_solve_ms = allocation.solve_ms
+            allocation_violation = allocation.max_constraint_violation
+            wrench_reference = allocation.wrench_reference_position_world_m
         self._last = D1ControlBreakdown(
-            leg_pd.copy(),
-            support.copy(),
-            wheel_velocity.copy(),
-            high_level.copy(),
-            total.copy(),
-            upward_forces.copy(),
+            leg_pd_nm=leg_pd.copy(),
+            support_nm=support.copy(),
+            wheel_velocity_nm=wheel_velocity.copy(),
+            high_level_nm=high_level.copy(),
+            total_nm=total.copy(),
+            support_force_n=upward_forces.copy(),
+            contact_force_world_n=contact_force.copy(),
+            wrench_reference_position_world_m=wrench_reference.copy(),
+            desired_wrench_world=desired_wrench.copy(),
+            achieved_wrench_world=achieved_wrench.copy(),
+            allocation_status=allocation_status,
+            allocation_wrench_tracking_status=allocation_wrench_tracking_status,
+            allocation_status_reason=allocation_status_reason,
+            allocation_solve_ms=allocation_solve_ms,
+            allocation_constraint_violation=allocation_violation,
         )
         return total

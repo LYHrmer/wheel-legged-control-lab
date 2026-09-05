@@ -1,4 +1,5 @@
 import numpy as np
+import pytest
 
 from wheel_legged_control.d1.controllers import D1Command, D1VMCController
 from wheel_legged_control.d1.hierarchical import (
@@ -6,7 +7,7 @@ from wheel_legged_control.d1.hierarchical import (
     D1LQRVMCController,
     D1MPCVMCController,
 )
-from wheel_legged_control.d1.model import D1Plant
+from wheel_legged_control.d1.model import JOINT_TORQUE_LIMIT, D1Plant
 from wheel_legged_control.d1.state_estimation import D1MujocoTruthStateSource
 
 
@@ -18,6 +19,17 @@ def test_d1_model_has_expected_full_body_dimensions() -> None:
     assert summary.joint_count == 17
     assert summary.geom_count >= 43
     assert np.isclose(summary.total_mass_kg, 48.14686526)
+
+
+def test_actuator_strength_updates_the_plant_and_allocator_visible_limit() -> None:
+    plant = D1Plant()
+
+    plant.set_domain(actuator_strength_scale=1.05)
+
+    expected = 1.05 * JOINT_TORQUE_LIMIT
+    np.testing.assert_allclose(plant.actuator_torque_limit_nm, expected)
+    np.testing.assert_allclose(plant.model.actuator_ctrlrange[:, 1], expected)
+    np.testing.assert_allclose(plant.model.actuator_forcerange[:, 1], expected)
 
 
 def test_vmc_holds_four_wheel_contact_pose() -> None:
@@ -33,6 +45,51 @@ def test_vmc_holds_four_wheel_contact_pose() -> None:
     assert plant.undesired_ground_contacts == 0
     assert plant.base_position[2] > 0.40
     assert abs(plant.base_rpy[1]) < np.deg2rad(2.0)
+
+
+def test_measured_wheel_contact_wrench_is_world_frame_ground_reaction() -> None:
+    plant = D1Plant()
+    controller = D1VMCController(plant)
+    states = D1MujocoTruthStateSource(plant)
+    state = states.reset()
+    for _ in range(100):
+        plant.step(
+            controller.compute(D1Command(), state),
+            measure_contact_wrench=True,
+            contact_wrench_reference_world_m=state.base_position,
+        )
+        state = states.read()
+
+    measurement = plant.measure_wheel_contact_wrench()
+    interval_measurement = plant.last_control_interval_contact_wrench
+
+    assert measurement.wheel_force_world_n.shape == (4, 3)
+    assert measurement.wrench_world.shape == (6,)
+    assert measurement.mean_contact_point_count_by_wheel.shape == (4,)
+    assert np.all(measurement.mean_contact_point_count_by_wheel > 0)
+    assert measurement.physics_sample_count == 1
+    assert interval_measurement.physics_sample_count == plant.physics_steps
+    assert np.all(interval_measurement.active_sample_fraction_by_wheel > 0.0)
+    assert interval_measurement.wrench_world[2] == pytest.approx(
+        plant.summary.total_mass_kg * 9.81,
+        rel=0.01,
+    )
+    assert measurement.wrench_world[2] > 0.8 * plant.summary.total_mass_kg * 9.81
+    np.testing.assert_allclose(
+        measurement.wrench_world[:3],
+        np.sum(measurement.wheel_force_world_n, axis=0),
+        atol=1e-10,
+    )
+    assert not measurement.wheel_force_world_n.flags.writeable
+    assert not measurement.wrench_world.flags.writeable
+
+    shifted_reference = measurement.reference_position_world_m + np.asarray((0.1, -0.2, 0.3))
+    shifted = plant.measure_wheel_contact_wrench(shifted_reference)
+    expected_moment = measurement.wrench_world[3:] + np.cross(
+        measurement.reference_position_world_m - shifted_reference,
+        measurement.wrench_world[:3],
+    )
+    np.testing.assert_allclose(shifted.wrench_world[3:], expected_moment, atol=1e-10)
 
 
 def test_identified_lqr_stabilizes_and_drives_forward() -> None:

@@ -19,6 +19,7 @@ from PIL import Image, ImageDraw
 from scipy.stats import t as student_t
 
 from ..provenance import capture_git_provenance
+from .contact_allocation import D1_CONTACT_ALLOCATION_MODES
 from .env import D1_RESIDUAL_SCALE, D1ResidualEnv
 from .model import JOINT_TORQUE_LIMIT
 from .policy import load_compatible_d1_policy
@@ -66,6 +67,33 @@ D1_SWEEP_METRICS = {
     "four_wheel_contact_ratio": ("Four-wheel contact", "ratio"),
     "undesired_contact_steps": ("Undesired-contact steps", "steps"),
     "solve_p95_ms": ("Solve-time P95", "ms"),
+    "allocation_solve_p95_ms": ("Allocation solve-time P95", "ms"),
+    "allocation_solve_p99_ms": ("Allocation solve-time P99", "ms"),
+    "allocation_constraint_violation_max": (
+        "Allocation maximum constraint violation",
+        "ratio",
+    ),
+    "allocation_force_error_rms_n": ("Allocation force-error RMS", "N"),
+    "allocation_moment_error_rms_nm": ("Allocation moment-error RMS", "Nm"),
+    "contact_force_model_error_rms_n": ("Allocated-to-physics force discrepancy RMS", "N"),
+    "contact_moment_model_error_rms_nm": (
+        "Allocated-to-physics moment discrepancy RMS", "Nm"
+    ),
+    "contact_force_tracking_error_rms_n": ("Measured force-tracking error RMS", "N"),
+    "contact_moment_tracking_error_rms_nm": (
+        "Measured moment-tracking error RMS",
+        "Nm",
+    ),
+    "allocation_converged_ratio": ("Allocation solver converged", "ratio"),
+    "allocation_feasible_nonconverged_ratio": (
+        "Allocation feasible but nonconverged",
+        "ratio",
+    ),
+    "allocation_fallback_ratio": ("Allocation fallback", "ratio"),
+    "allocation_wrench_limited_ratio": ("Allocation wrench limited", "ratio"),
+    "allocation_no_contact_ratio": ("Allocation no-contact", "ratio"),
+    "allocation_legacy_ratio": ("Allocation legacy", "ratio"),
+    "allocation_not_run_ratio": ("Allocation not run", "ratio"),
     "state_age_mean_ms": ("Measured state age mean", "ms"),
     "state_age_p95_ms": ("Measured state age P95", "ms"),
     "state_age_max_ms": ("Measured state age maximum", "ms"),
@@ -130,6 +158,40 @@ class D1Rollout:
         default_factory=lambda: np.empty((0, 6), dtype=np.float64)
     )
     control_states: np.ndarray = field(default_factory=lambda: np.empty((0, 6), dtype=np.float64))
+    contact_allocation: str = "legacy"
+    allocation_statuses: np.ndarray = field(
+        default_factory=lambda: np.empty(0, dtype="U32")
+    )
+    allocation_wrench_tracking_statuses: np.ndarray = field(
+        default_factory=lambda: np.empty(0, dtype="U16")
+    )
+    allocation_solve_times_ms: np.ndarray = field(
+        default_factory=lambda: np.empty(0, dtype=np.float64)
+    )
+    allocation_constraint_violations: np.ndarray = field(
+        default_factory=lambda: np.empty(0, dtype=np.float64)
+    )
+    allocation_force_error_norms_n: np.ndarray = field(
+        default_factory=lambda: np.empty(0, dtype=np.float64)
+    )
+    allocation_moment_error_norms_nm: np.ndarray = field(
+        default_factory=lambda: np.empty(0, dtype=np.float64)
+    )
+    contact_force_model_error_norms_n: np.ndarray = field(
+        default_factory=lambda: np.empty(0, dtype=np.float64)
+    )
+    contact_moment_model_error_norms_nm: np.ndarray = field(
+        default_factory=lambda: np.empty(0, dtype=np.float64)
+    )
+    contact_force_tracking_error_norms_n: np.ndarray = field(
+        default_factory=lambda: np.empty(0, dtype=np.float64)
+    )
+    contact_moment_tracking_error_norms_nm: np.ndarray = field(
+        default_factory=lambda: np.empty(0, dtype=np.float64)
+    )
+    contact_wrench_physics_samples: np.ndarray = field(
+        default_factory=lambda: np.empty(0, dtype=np.int32)
+    )
     initial_state_fingerprint: str = ""
     initial_command_fingerprint: str = ""
     push_schedule_fingerprint: str = ""
@@ -207,6 +269,7 @@ def run_d1_rollout(
     capture: bool = False,
     state_mode: str = "oracle",
     latency_compensation: str = "none",
+    contact_allocation: str = "legacy",
     episode_options: dict[str, Any] | None = None,
 ) -> D1Rollout:
     env = D1ResidualEnv(
@@ -214,6 +277,9 @@ def run_d1_rollout(
         randomize=False,
         state_mode=state_mode,
         latency_compensation=latency_compensation,
+        contact_allocation=contact_allocation,
+        measure_contact_wrench=True,
+        profile_allocation_timing=True,
     )
     options = d1_scenario_options(scenario)
     if episode_options is not None:
@@ -238,6 +304,17 @@ def run_d1_rollout(
     compensation_rejected_flags: list[bool] = []
     raw_estimated_states: list[np.ndarray] = []
     control_states: list[np.ndarray] = []
+    allocation_statuses: list[str] = []
+    allocation_wrench_tracking_statuses: list[str] = []
+    allocation_solve_times_ms: list[float] = []
+    allocation_constraint_violations: list[float] = []
+    allocation_force_error_norms_n: list[float] = []
+    allocation_moment_error_norms_nm: list[float] = []
+    contact_force_model_error_norms_n: list[float] = []
+    contact_moment_model_error_norms_nm: list[float] = []
+    contact_force_tracking_error_norms_n: list[float] = []
+    contact_moment_tracking_error_norms_nm: list[float] = []
+    contact_wrench_physics_samples: list[int] = []
     frames: list[np.ndarray] = []
     state_estimation_mode = str(reset_info.get("state_estimation_mode", state_mode))
     domain = {key: float(value) for key, value in reset_info.get("domain", {}).items()}
@@ -245,6 +322,7 @@ def run_d1_rollout(
     state_delay_steps = int(reset_info.get("state_delay_steps", 0))
     sensor_noise_scale = float(reset_info.get("sensor_noise_scale", 0.0))
     state_estimator_seed = reset_info.get("state_estimator_seed")
+    contact_allocation_mode = str(reset_info.get("contact_allocation", contact_allocation))
     initial_truth_state = np.concatenate(
         (
             np.asarray(env.plant.data.qpos, dtype=np.float64),
@@ -279,7 +357,7 @@ def run_d1_rollout(
         joint_velocity = np.asarray(info["joint_velocity"], dtype=np.float64)
         strength_scale = float(info["domain"]["actuator_strength_scale"])
         actuator_limit = JOINT_TORQUE_LIMIT * strength_scale
-        effective_command_limit = JOINT_TORQUE_LIMIT * min(1.0, strength_scale)
+        effective_command_limit = actuator_limit
         applied_torque_nm = np.clip(torque_nm, -actuator_limit, actuator_limit)
         torques.append(torque_nm)
         commands.append((info["command_velocity_mps"], info["command_height_m"]))
@@ -304,6 +382,35 @@ def run_d1_rollout(
         )
         control_states.append(control_state)
         raw_estimated_states.append(raw_estimated_state)
+        allocation_statuses.append(str(info.get("allocation_status", "not_run")))
+        allocation_wrench_tracking_statuses.append(
+            str(info.get("allocation_wrench_tracking_status", "not_run"))
+        )
+        allocation_solve_times_ms.append(float(info.get("allocation_solve_ms", 0.0)))
+        allocation_constraint_violations.append(
+            float(info.get("allocation_constraint_violation", 0.0))
+        )
+        allocation_force_error_norms_n.append(
+            float(info.get("allocation_force_error_norm_n", 0.0))
+        )
+        allocation_moment_error_norms_nm.append(
+            float(info.get("allocation_moment_error_norm_nm", 0.0))
+        )
+        contact_force_model_error_norms_n.append(
+            float(info.get("contact_force_model_error_norm_n", 0.0))
+        )
+        contact_moment_model_error_norms_nm.append(
+            float(info.get("contact_moment_model_error_norm_nm", 0.0))
+        )
+        contact_force_tracking_error_norms_n.append(
+            float(info.get("contact_force_tracking_error_norm_n", 0.0))
+        )
+        contact_moment_tracking_error_norms_nm.append(
+            float(info.get("contact_moment_tracking_error_norm_nm", 0.0))
+        )
+        contact_wrench_physics_samples.append(
+            int(info.get("contact_wrench_physics_samples", 0))
+        )
         absolute_mechanical_power_w.append(
             float(np.sum(np.abs(applied_torque_nm * joint_velocity)))
         )
@@ -355,6 +462,24 @@ def run_d1_rollout(
         compensation_rejected_flags=np.asarray(compensation_rejected_flags, dtype=np.bool_),
         raw_estimated_states=np.asarray(raw_estimated_states),
         control_states=np.asarray(control_states),
+        contact_allocation=contact_allocation_mode,
+        allocation_statuses=np.asarray(allocation_statuses),
+        allocation_wrench_tracking_statuses=np.asarray(
+            allocation_wrench_tracking_statuses
+        ),
+        allocation_solve_times_ms=np.asarray(allocation_solve_times_ms),
+        allocation_constraint_violations=np.asarray(allocation_constraint_violations),
+        allocation_force_error_norms_n=np.asarray(allocation_force_error_norms_n),
+        allocation_moment_error_norms_nm=np.asarray(allocation_moment_error_norms_nm),
+        contact_force_model_error_norms_n=np.asarray(contact_force_model_error_norms_n),
+        contact_moment_model_error_norms_nm=np.asarray(contact_moment_model_error_norms_nm),
+        contact_force_tracking_error_norms_n=np.asarray(contact_force_tracking_error_norms_n),
+        contact_moment_tracking_error_norms_nm=np.asarray(
+            contact_moment_tracking_error_norms_nm
+        ),
+        contact_wrench_physics_samples=np.asarray(
+            contact_wrench_physics_samples, dtype=np.int32
+        ),
         initial_state_fingerprint=_numeric_fingerprint(initial_truth_state),
         initial_command_fingerprint=_numeric_fingerprint(initial_command),
         push_schedule_fingerprint=_numeric_fingerprint(push_schedule),
@@ -397,6 +522,55 @@ def compute_d1_metrics(rollout: D1Rollout) -> dict[str, float | str | int]:
         if rollout.torque_saturation_fractions.size
         else float(np.mean(np.abs(normalized_torque) >= 0.98))
     )
+    allocation_solve_p95_ms = (
+        float(np.percentile(rollout.allocation_solve_times_ms, 95))
+        if rollout.allocation_solve_times_ms.size
+        else 0.0
+    )
+    allocation_solve_p99_ms = (
+        float(np.percentile(rollout.allocation_solve_times_ms, 99))
+        if rollout.allocation_solve_times_ms.size
+        else 0.0
+    )
+    allocation_constraint_violation_max = (
+        float(np.max(rollout.allocation_constraint_violations))
+        if rollout.allocation_constraint_violations.size
+        else 0.0
+    )
+    def root_mean_square(values: np.ndarray) -> float:
+        return float(np.sqrt(np.mean(values**2))) if values.size else 0.0
+
+    allocation_force_error_rms_n = root_mean_square(rollout.allocation_force_error_norms_n)
+    allocation_moment_error_rms_nm = root_mean_square(
+        rollout.allocation_moment_error_norms_nm
+    )
+    contact_force_model_error_rms_n = root_mean_square(
+        rollout.contact_force_model_error_norms_n
+    )
+    contact_moment_model_error_rms_nm = root_mean_square(
+        rollout.contact_moment_model_error_norms_nm
+    )
+    contact_force_tracking_error_rms_n = root_mean_square(
+        rollout.contact_force_tracking_error_norms_n
+    )
+    contact_moment_tracking_error_rms_nm = root_mean_square(
+        rollout.contact_moment_tracking_error_norms_nm
+    )
+    contact_wrench_physics_samples_min = (
+        int(np.min(rollout.contact_wrench_physics_samples))
+        if rollout.contact_wrench_physics_samples.size
+        else 0
+    )
+    contact_wrench_physics_samples_max = (
+        int(np.max(rollout.contact_wrench_physics_samples))
+        if rollout.contact_wrench_physics_samples.size
+        else 0
+    )
+    allocation_statuses = np.asarray(rollout.allocation_statuses, dtype=str)
+    allocation_wrench_tracking_statuses = np.asarray(
+        rollout.allocation_wrench_tracking_statuses,
+        dtype=str,
+    )
     if rollout.residual_actions.size:
         residual_forces = rollout.residual_actions * D1_RESIDUAL_SCALE
         residual_action_rms = float(np.sqrt(np.mean(rollout.residual_actions**2)))
@@ -418,6 +592,7 @@ def compute_d1_metrics(rollout: D1Rollout) -> dict[str, float | str | int]:
         "evaluation_seed": rollout.evaluation_seed,
         "state_estimation_mode": rollout.state_estimation_mode,
         "latency_compensation": rollout.latency_compensation,
+        "contact_allocation": rollout.contact_allocation,
         "initial_state_fingerprint": rollout.initial_state_fingerprint,
         "initial_command_fingerprint": rollout.initial_command_fingerprint,
         "push_schedule_fingerprint": rollout.push_schedule_fingerprint,
@@ -467,6 +642,52 @@ def compute_d1_metrics(rollout: D1Rollout) -> dict[str, float | str | int]:
         "undesired_contact_steps": int(np.count_nonzero(rollout.undesired_contacts)),
         "mean_reward": float(np.mean(rollout.rewards)),
         "solve_p95_ms": float(np.percentile(rollout.solve_times_ms, 95)),
+        "allocation_solve_p95_ms": allocation_solve_p95_ms,
+        "allocation_solve_p99_ms": allocation_solve_p99_ms,
+        "allocation_constraint_violation_max": allocation_constraint_violation_max,
+        "allocation_force_error_rms_n": allocation_force_error_rms_n,
+        "allocation_moment_error_rms_nm": allocation_moment_error_rms_nm,
+        "contact_force_model_error_rms_n": contact_force_model_error_rms_n,
+        "contact_moment_model_error_rms_nm": contact_moment_model_error_rms_nm,
+        "contact_force_tracking_error_rms_n": contact_force_tracking_error_rms_n,
+        "contact_moment_tracking_error_rms_nm": contact_moment_tracking_error_rms_nm,
+        "contact_wrench_physics_samples_min": contact_wrench_physics_samples_min,
+        "contact_wrench_physics_samples_max": contact_wrench_physics_samples_max,
+        "allocation_converged_ratio": (
+            float(np.mean(allocation_statuses == "converged"))
+            if allocation_statuses.size
+            else 0.0
+        ),
+        "allocation_feasible_nonconverged_ratio": (
+            float(np.mean(allocation_statuses == "feasible_nonconverged"))
+            if allocation_statuses.size
+            else 0.0
+        ),
+        "allocation_fallback_ratio": (
+            float(np.mean(allocation_statuses == "fallback"))
+            if allocation_statuses.size
+            else 0.0
+        ),
+        "allocation_wrench_limited_ratio": (
+            float(np.mean(allocation_wrench_tracking_statuses == "limited"))
+            if allocation_wrench_tracking_statuses.size
+            else 0.0
+        ),
+        "allocation_no_contact_ratio": (
+            float(np.mean(allocation_statuses == "no_contact"))
+            if allocation_statuses.size
+            else 0.0
+        ),
+        "allocation_legacy_ratio": (
+            float(np.mean(allocation_statuses == "legacy"))
+            if allocation_statuses.size
+            else 0.0
+        ),
+        "allocation_not_run_ratio": (
+            float(np.mean(allocation_statuses == "not_run"))
+            if allocation_statuses.size
+            else 0.0
+        ),
         "raw_position_estimation_rmse_m": _estimation_rmse(
             rollout.raw_estimated_states, rollout.states, (0, 2)
         ),
@@ -513,6 +734,51 @@ def write_d1_metrics(records: list[dict[str, float | str | int]], output: Path) 
             f"{record['height_rmse_mm']:.2f} | {record['state_age_p95_ms']:.3f} | "
             f"{record['mean_abs_mechanical_power_w']:.2f} | "
             f"{record['torque_saturation_ratio']:.3f} | {record['solve_p95_ms']:.3f} |"
+        )
+    lines += [
+        "",
+        "## Contact-allocation diagnostics",
+        "",
+        (
+            "| Controller | Scenario | Allocation | Converged | Feasible nonconverged | "
+            "Wrench limited | Fallback | No contact | Legacy | Not run | "
+            "Allocation P95/P99 [ms] | Max constraint violation |"
+        ),
+        "|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
+    ]
+    for record in records:
+        lines.append(
+            f"| {record['controller']} | {record['scenario']} | "
+            f"{record['contact_allocation']} | {record['allocation_converged_ratio']:.3f} | "
+            f"{record['allocation_feasible_nonconverged_ratio']:.3f} | "
+            f"{record['allocation_wrench_limited_ratio']:.3f} | "
+            f"{record['allocation_fallback_ratio']:.3f} | "
+            f"{record['allocation_no_contact_ratio']:.3f} | "
+            f"{record['allocation_legacy_ratio']:.3f} | "
+            f"{record['allocation_not_run_ratio']:.3f} | "
+            f"{record['allocation_solve_p95_ms']:.3f} / "
+            f"{record['allocation_solve_p99_ms']:.3f} | "
+            f"{record['allocation_constraint_violation_max']:.3e} |"
+        )
+    lines += [
+        "",
+        (
+            "| Controller | Scenario | Optimizer force RMS [N] | "
+            "Optimizer moment RMS [Nm] | "
+            "Measured force-model RMS [N] | Measured moment-model RMS [Nm] | "
+            "Measured force-tracking RMS [N] | Measured moment-tracking RMS [Nm] |"
+        ),
+        "|---|---|---:|---:|---:|---:|---:|---:|",
+    ]
+    for record in records:
+        lines.append(
+            f"| {record['controller']} | {record['scenario']} | "
+            f"{record['allocation_force_error_rms_n']:.3f} | "
+            f"{record['allocation_moment_error_rms_nm']:.3f} | "
+            f"{record['contact_force_model_error_rms_n']:.3f} | "
+            f"{record['contact_moment_model_error_rms_nm']:.3f} | "
+            f"{record['contact_force_tracking_error_rms_n']:.3f} | "
+            f"{record['contact_moment_tracking_error_rms_nm']:.3f} |"
         )
     (output / "metrics.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
@@ -817,6 +1083,7 @@ def _validate_benchmark_inputs(
     condition_keys = (
         "state_estimation_mode",
         "latency_compensation",
+        "contact_allocation",
         "base_mass_scale",
         "damping_scale",
         "friction_scale",
@@ -872,6 +1139,7 @@ def run_d1_state_delay_sweep(
     episodes: int,
     policy: Any | None,
     latency_compensation: str,
+    contact_allocation: str = "legacy",
     run_metadata: dict[str, Any] | None = None,
 ) -> list[dict[str, float | str | int]]:
     """Run the fixed, paired D1 state-delay sensitivity experiment."""
@@ -880,6 +1148,8 @@ def run_d1_state_delay_sweep(
         raise ValueError("delay sweep requires at least one episode")
     if latency_compensation not in ("none", "constant_velocity"):
         raise ValueError("unsupported latency compensation mode")
+    if contact_allocation not in D1_CONTACT_ALLOCATION_MODES:
+        raise ValueError("unsupported contact allocation mode")
 
     if run_metadata is None:
         provenance = {
@@ -926,6 +1196,7 @@ def run_d1_state_delay_sweep(
                     residual_policy,
                     state_mode="estimated",
                     latency_compensation=latency_compensation,
+                    contact_allocation=contact_allocation,
                     episode_options=options,
                 )
                 _validate_delay_rollout(rollout, delay_steps)
@@ -935,6 +1206,7 @@ def run_d1_state_delay_sweep(
     condition_keys = (
         "state_estimation_mode",
         "latency_compensation",
+        "contact_allocation",
         "base_mass_scale",
         "damping_scale",
         "friction_scale",
@@ -1117,6 +1389,8 @@ def run_d1_state_delay_sweep(
     protocol = {
         "state_mode": "estimated",
         "latency_compensation": latency_compensation,
+        "contact_allocation": contact_allocation,
+        "contact_wrench_measurement": "physics_substep_mean",
         "delay_steps": list(D1_STATE_DELAY_SWEEP_STEPS),
         "delay_ms": [10 * item for item in D1_STATE_DELAY_SWEEP_STEPS],
         "evaluation_seeds": evaluation_seeds,
@@ -1189,6 +1463,11 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--state-mode", choices=("oracle", "estimated"), default="oracle")
     parser.add_argument(
+        "--contact-allocation",
+        choices=D1_CONTACT_ALLOCATION_MODES,
+        default="legacy",
+    )
+    parser.add_argument(
         "--latency-compensation",
         choices=("none", "constant_velocity"),
         default="none",
@@ -1238,6 +1517,7 @@ def main(argv: list[str] | None = None) -> None:
                 policy_path,
                 expected_state_mode=args.state_mode,
                 expected_latency_compensation=args.latency_compensation,
+                expected_contact_allocation=args.contact_allocation,
             )
         except (FileNotFoundError, RuntimeError, ValueError) as error:
             raise SystemExit(str(error)) from error
@@ -1259,6 +1539,7 @@ def main(argv: list[str] | None = None) -> None:
             episodes=args.audit_episodes,
             policy=policy,
             latency_compensation=args.latency_compensation,
+            contact_allocation=args.contact_allocation,
             run_metadata=run_metadata,
         )
         print((args.output / "state_delay_sensitivity.md").read_text(encoding="utf-8"))
@@ -1278,6 +1559,8 @@ def main(argv: list[str] | None = None) -> None:
     protocol = {
         "state_mode": args.state_mode,
         "latency_compensation": args.latency_compensation,
+        "contact_allocation": args.contact_allocation,
+        "contact_wrench_measurement": "physics_substep_mean",
         "fixed_seed": args.seed,
         "fixed_scenarios": list(D1_SCENARIOS),
         "controllers": controller_names,
@@ -1300,6 +1583,8 @@ def main(argv: list[str] | None = None) -> None:
         "state_delay_sweep": args.state_delay_sweep,
         "state_mode": args.state_mode,
         "latency_compensation": args.latency_compensation,
+        "contact_allocation": args.contact_allocation,
+        "measure_contact_wrench": True,
         "policy": None if policy_path is None else str(policy_path),
         "policy_sha256": policy_sha256,
         "provenance": run_metadata,
@@ -1319,6 +1604,7 @@ def main(argv: list[str] | None = None) -> None:
                 capture=capture,
                 state_mode=args.state_mode,
                 latency_compensation=args.latency_compensation,
+                contact_allocation=args.contact_allocation,
             ),
             run_d1_rollout(
                 "mpc",
@@ -1327,6 +1613,7 @@ def main(argv: list[str] | None = None) -> None:
                 capture=capture,
                 state_mode=args.state_mode,
                 latency_compensation=args.latency_compensation,
+                contact_allocation=args.contact_allocation,
             ),
         ]
         if policy is not None:
@@ -1339,6 +1626,7 @@ def main(argv: list[str] | None = None) -> None:
                     capture=capture,
                     state_mode=args.state_mode,
                     latency_compensation=args.latency_compensation,
+                    contact_allocation=args.contact_allocation,
                 )
             )
         all_rollouts.extend(scenario_rollouts)
@@ -1359,6 +1647,7 @@ def main(argv: list[str] | None = None) -> None:
                     seed,
                     state_mode=args.state_mode,
                     latency_compensation=args.latency_compensation,
+                    contact_allocation=args.contact_allocation,
                 ),
                 run_d1_rollout(
                     "mpc",
@@ -1366,6 +1655,7 @@ def main(argv: list[str] | None = None) -> None:
                     seed,
                     state_mode=args.state_mode,
                     latency_compensation=args.latency_compensation,
+                    contact_allocation=args.contact_allocation,
                 ),
             ]
             if policy is not None:
@@ -1377,6 +1667,7 @@ def main(argv: list[str] | None = None) -> None:
                         policy,
                         state_mode=args.state_mode,
                         latency_compensation=args.latency_compensation,
+                        contact_allocation=args.contact_allocation,
                     )
                 )
             audit_records.extend(compute_d1_metrics(rollout) for rollout in rollouts)

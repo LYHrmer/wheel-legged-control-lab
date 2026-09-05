@@ -42,6 +42,12 @@ def build_parser() -> argparse.ArgumentParser:
         default="none",
         help="short-horizon D1 state extrapolation; requires estimated state mode",
     )
+    parser.add_argument(
+        "--contact-allocation",
+        choices=("legacy", "constrained"),
+        default="legacy",
+        help="D1 contact-force allocation path; unavailable for the planar model",
+    )
     parser.add_argument("--device", default="auto")
     parser.add_argument("--verbose", action="store_true")
     parser.add_argument("--output", type=Path)
@@ -99,6 +105,7 @@ def train_once(
     if args.robot == "d1":
         env_kwargs["state_mode"] = args.state_mode
         env_kwargs["latency_compensation"] = args.latency_compensation
+        env_kwargs["contact_allocation"] = args.contact_allocation
     vector_env = make_vec_env(
         environment,
         n_envs=args.envs,
@@ -163,6 +170,8 @@ def main(argv: list[str] | None = None) -> None:
         raise SystemExit("--state-mode estimated is only supported with --robot d1")
     if args.robot == "planar" and args.latency_compensation != "none":
         raise SystemExit("latency compensation is only supported with --robot d1")
+    if args.robot == "planar" and args.contact_allocation != "legacy":
+        raise SystemExit("contact allocation is only supported with --robot d1")
     if args.state_mode != "estimated" and args.latency_compensation != "none":
         raise SystemExit("latency compensation requires --state-mode estimated")
 

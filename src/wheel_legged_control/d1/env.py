@@ -9,6 +9,7 @@ import gymnasium as gym
 import numpy as np
 from gymnasium import spaces
 
+from .contact_allocation import D1_CONTACT_ALLOCATION_MODES, make_d1_contact_allocator
 from .controllers import D1Command
 from .hierarchical import D1LQRVMCController, D1MPCVMCController
 from .model import JOINT_VELOCITY_LIMIT, NOMINAL_JOINT_POSITION, D1Plant
@@ -92,6 +93,9 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
         randomize: bool = True,
         state_mode: str = "oracle",
         latency_compensation: str = "none",
+        contact_allocation: str = "legacy",
+        measure_contact_wrench: bool = False,
+        profile_allocation_timing: bool = False,
     ) -> None:
         super().__init__()
         if baseline not in {"lqr", "mpc"}:
@@ -104,13 +108,25 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
             raise ValueError("latency_compensation must be 'none' or 'constant_velocity'")
         if state_mode == "oracle" and latency_compensation != "none":
             raise ValueError("latency compensation requires state_mode='estimated'")
+        if contact_allocation not in D1_CONTACT_ALLOCATION_MODES:
+            raise ValueError(f"contact_allocation must be one of {D1_CONTACT_ALLOCATION_MODES}")
+        if not isinstance(measure_contact_wrench, bool):
+            raise TypeError("measure_contact_wrench must be a bool")
+        if not isinstance(profile_allocation_timing, bool):
+            raise TypeError("profile_allocation_timing must be a bool")
         self.baseline_name = baseline
         self.randomize = randomize
         self.state_mode = state_mode
         self.latency_compensation = latency_compensation
+        self.contact_allocation = contact_allocation
+        self.measure_contact_wrench = measure_contact_wrench
+        self.profile_allocation_timing = profile_allocation_timing
         self.plant = D1Plant(control_dt=0.01)
+        allocator = make_d1_contact_allocator(self.plant, contact_allocation)
         self.controller = (
-            D1LQRVMCController(self.plant) if baseline == "lqr" else D1MPCVMCController(self.plant)
+            D1LQRVMCController(self.plant, contact_allocator=allocator)
+            if baseline == "lqr"
+            else D1MPCVMCController(self.plant, contact_allocator=allocator)
         )
         self.max_steps = round(episode_seconds / self.plant.control_dt)
         self.action_space = spaces.Box(-1.0, 1.0, shape=(2,), dtype=np.float32)
@@ -226,6 +242,9 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
         if not np.isfinite(self._noise_scale) or self._noise_scale < 0.0:
             raise ValueError("sensor_noise must be finite and non-negative")
         self.plant.set_domain(**self._domain)
+        allocator = self.controller.low_level.contact_allocator
+        if allocator is not None:
+            allocator.set_torque_limits(self.plant.actuator_torque_limit_nm)
 
         if self._scenario == "training":
             self._sample_training_command()
@@ -321,6 +340,16 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
         truth_joint_velocity = self.plant.joint_velocity
         truth_wheel_contacts = self.plant.wheel_ground_contacts
         truth_undesired_contacts = self.plant.undesired_ground_contacts
+        allocation = self.controller.low_level.last_breakdown
+        allocation_status = (
+            "not_run" if allocation.allocation_status is None else allocation.allocation_status.value
+        )
+        allocation_wrench_tracking_status = (
+            "not_run"
+            if allocation.allocation_wrench_tracking_status is None
+            else allocation.allocation_wrench_tracking_status.value
+        )
+        measured_contact = self.plant.last_control_interval_contact_wrench
         return {
             # Legacy names remain truth-valued for reward/evaluation compatibility.
             "state": truth_state,
@@ -364,6 +393,66 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
             "domain": dict(self._domain),
             "baseline": self.controller.baseline_name,
             "solve_ms": self.controller.last_solve_ms,
+            "contact_allocation": self.contact_allocation,
+            "allocation_status": allocation_status,
+            "allocation_wrench_tracking_status": allocation_wrench_tracking_status,
+            "allocation_status_reason": allocation.allocation_status_reason,
+            "allocation_solve_ms": (
+                allocation.allocation_solve_ms
+                if self.profile_allocation_timing
+                else 0.0
+            ),
+            "allocation_timing_measured": self.profile_allocation_timing,
+            "allocation_constraint_violation": allocation.allocation_constraint_violation,
+            "allocation_desired_wrench_world": allocation.desired_wrench_world.copy(),
+            "allocation_achieved_wrench_world": allocation.achieved_wrench_world.copy(),
+            "measured_wheel_contact_force_world_n": (
+                measured_contact.wheel_force_world_n.copy()
+            ),
+            "measured_contact_wrench_world": measured_contact.wrench_world.copy(),
+            "contact_wrench_reference_position_world_m": (
+                measured_contact.reference_position_world_m.copy()
+            ),
+            "contact_wrench_physics_samples": measured_contact.physics_sample_count,
+            "wheel_contact_active_sample_fraction": (
+                measured_contact.active_sample_fraction_by_wheel.copy()
+            ),
+            "allocation_force_error_norm_n": float(
+                np.linalg.norm(
+                    allocation.achieved_wrench_world[:3]
+                    - allocation.desired_wrench_world[:3]
+                )
+            ),
+            "allocation_moment_error_norm_nm": float(
+                np.linalg.norm(
+                    allocation.achieved_wrench_world[3:]
+                    - allocation.desired_wrench_world[3:]
+                )
+            ),
+            "contact_force_model_error_norm_n": float(
+                np.linalg.norm(
+                    measured_contact.wrench_world[:3]
+                    - allocation.achieved_wrench_world[:3]
+                )
+            ),
+            "contact_moment_model_error_norm_nm": float(
+                np.linalg.norm(
+                    measured_contact.wrench_world[3:]
+                    - allocation.achieved_wrench_world[3:]
+                )
+            ),
+            "contact_force_tracking_error_norm_n": float(
+                np.linalg.norm(
+                    measured_contact.wrench_world[:3]
+                    - allocation.desired_wrench_world[:3]
+                )
+            ),
+            "contact_moment_tracking_error_norm_nm": float(
+                np.linalg.norm(
+                    measured_contact.wrench_world[3:]
+                    - allocation.desired_wrench_world[3:]
+                )
+            ),
         }
 
     def reset(
@@ -410,6 +499,10 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
         self.plant.step(
             torque,
             push_force_world_n=np.asarray((push_force, 0.0, 0.0)),
+            measure_contact_wrench=self.measure_contact_wrench,
+            contact_wrench_reference_world_m=(
+                self.controller.low_level.last_breakdown.wrench_reference_position_world_m
+            ),
         )
         self._publish_control_state(self._state_source.read())
         linear_velocity, _ = self.plant.base_velocity(local=True)

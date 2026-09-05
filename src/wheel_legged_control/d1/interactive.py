@@ -14,6 +14,10 @@ import mujoco
 import numpy as np
 from PIL import Image, ImageDraw
 
+from .contact_allocation import (
+    D1_CONTACT_ALLOCATION_MODES,
+    make_d1_contact_allocator,
+)
 from .controllers import D1Command
 from .env import D1_RESIDUAL_SCALE, encode_d1_observation
 from .hierarchical import D1LQRVMCController, D1MPCVMCController
@@ -74,6 +78,14 @@ class D1TeleopStatus:
     latency_compensation: str
     compensation_status: str
     compensation_horizon_ms: float
+    contact_allocation: str
+    allocation_status: str
+    allocation_wrench_tracking_status: str
+    allocation_status_reason: str
+    allocation_solve_ms: float
+    allocation_constraint_violation: float
+    allocation_force_error_norm_n: float
+    allocation_moment_error_norm_nm: float
 
 
 def _yaw_quaternion(yaw_rad: float) -> np.ndarray:
@@ -101,6 +113,7 @@ class D1TeleopController:
         residual_policy: Any | None = None,
         state_mode: str = "oracle",
         latency_compensation: str = "none",
+        contact_allocation: str = "legacy",
         state_delay_steps: int = 0,
         sensor_noise: float = 0.0,
         seed: int = 0,
@@ -118,10 +131,14 @@ class D1TeleopController:
         self.plant = plant
         self.state_mode = state_mode
         self.latency_compensation = latency_compensation
+        self.contact_allocation = contact_allocation
         self.seed = seed
         self.residual_policy = residual_policy
+        allocator = make_d1_contact_allocator(plant, contact_allocation)
         self.controller = (
-            D1LQRVMCController(plant) if baseline == "lqr" else D1MPCVMCController(plant)
+            D1LQRVMCController(plant, contact_allocator=allocator)
+            if baseline == "lqr"
+            else D1MPCVMCController(plant, contact_allocator=allocator)
         )
         self._last_torque = np.zeros(16, dtype=np.float64)
         self._jump_step: int | None = None
@@ -350,6 +367,15 @@ class D1TeleopController:
         max_delta = JOINT_TORQUE_LIMIT * self.plant.control_dt / 0.02
         torque = np.clip(torque, self._last_torque - max_delta, self._last_torque + max_delta)
         self._last_torque = torque.copy()
+        allocation = self.controller.low_level.last_breakdown
+        allocation_status = (
+            "not_run" if allocation.allocation_status is None else allocation.allocation_status.value
+        )
+        allocation_wrench_tracking_status = (
+            "not_run"
+            if allocation.allocation_wrench_tracking_status is None
+            else allocation.allocation_wrench_tracking_status.value
+        )
         status = D1TeleopStatus(
             forward_velocity_mps=forward,
             yaw_rate_rps=yaw_rate,
@@ -369,6 +395,24 @@ class D1TeleopController:
             latency_compensation=self.latency_compensation,
             compensation_status=self._compensation_status,
             compensation_horizon_ms=1e3 * self._compensation_horizon_s,
+            contact_allocation=self.contact_allocation,
+            allocation_status=allocation_status,
+            allocation_wrench_tracking_status=allocation_wrench_tracking_status,
+            allocation_status_reason=allocation.allocation_status_reason,
+            allocation_solve_ms=allocation.allocation_solve_ms,
+            allocation_constraint_violation=allocation.allocation_constraint_violation,
+            allocation_force_error_norm_n=float(
+                np.linalg.norm(
+                    allocation.achieved_wrench_world[:3]
+                    - allocation.desired_wrench_world[:3]
+                )
+            ),
+            allocation_moment_error_norm_nm=float(
+                np.linalg.norm(
+                    allocation.achieved_wrench_world[3:]
+                    - allocation.desired_wrench_world[3:]
+                )
+            ),
         )
         return torque, status
 
@@ -389,6 +433,7 @@ class D1InteractiveSimulation:
         residual_policy: Any | None = None,
         state_mode: str = "oracle",
         latency_compensation: str = "none",
+        contact_allocation: str = "legacy",
         state_delay_steps: int = 0,
         sensor_noise: float = 0.0,
         seed: int = 0,
@@ -400,6 +445,7 @@ class D1InteractiveSimulation:
             residual_policy=residual_policy,
             state_mode=state_mode,
             latency_compensation=latency_compensation,
+            contact_allocation=contact_allocation,
             state_delay_steps=state_delay_steps,
             sensor_noise=sensor_noise,
             seed=seed,
@@ -436,8 +482,8 @@ def _render_frame(
     camera.elevation = -18.0
     renderer.update_scene(simulation.plant.data, camera=camera)
     frame = Image.fromarray(renderer.render().copy())
-    canvas = Image.new("RGB", (frame.width, frame.height + 34), "white")
-    canvas.paste(frame, (0, 34))
+    canvas = Image.new("RGB", (frame.width, frame.height + 52), "white")
+    canvas.paste(frame, (0, 52))
     label = (
         f"v={status.forward_velocity_mps:+.2f} m/s  "
         f"yaw={status.yaw_rate_rps:+.2f} rad/s  "
@@ -445,7 +491,17 @@ def _render_frame(
         f"safety={status.safety_mode}  state={status.state_estimation_mode} "
         f"age={status.state_age_ms:.0f} ms  comp={status.latency_compensation}"
     )
-    ImageDraw.Draw(canvas).text((10, 10), label, fill="black")
+    allocation_label = (
+            f"alloc={status.contact_allocation}/{status.allocation_status}/"
+            f"{status.allocation_wrench_tracking_status}  "
+        f"alloc_ms={status.allocation_solve_ms:.3f}  "
+        f"viol={status.allocation_constraint_violation:.1e}  "
+        f"force_err={status.allocation_force_error_norm_n:.1f}N  "
+        f"moment_err={status.allocation_moment_error_norm_nm:.1f}Nm"
+    )
+    draw = ImageDraw.Draw(canvas)
+    draw.text((10, 7), label, fill="black")
+    draw.text((10, 27), allocation_label, fill="black")
     return canvas
 
 
@@ -456,6 +512,7 @@ def run_scripted_demo(
     baseline: str = "lqr",
     state_mode: str = "oracle",
     latency_compensation: str = "none",
+    contact_allocation: str = "legacy",
     state_delay_steps: int = 0,
     sensor_noise: float = 0.0,
     seed: int = 0,
@@ -468,6 +525,7 @@ def run_scripted_demo(
         baseline=baseline,
         state_mode=state_mode,
         latency_compensation=latency_compensation,
+        contact_allocation=contact_allocation,
         state_delay_steps=state_delay_steps,
         sensor_noise=sensor_noise,
         seed=seed,
@@ -507,6 +565,12 @@ def run_scripted_demo(
     compensation_horizons_ms: list[float] = []
     compensation_applied_steps = 0
     compensation_rejected_steps = 0
+    allocation_statuses: list[str] = []
+    allocation_wrench_tracking_statuses: list[str] = []
+    allocation_solve_times_ms: list[float] = []
+    allocation_constraint_violations: list[float] = []
+    allocation_force_error_norms_n: list[float] = []
+    allocation_moment_error_norms_nm: list[float] = []
     terminated = False
     status: D1TeleopStatus
     for step in range(total_steps):
@@ -528,6 +592,14 @@ def run_scripted_demo(
         compensation_rejected_steps += int(
             status.compensation_status in {"horizon_exceeded", "kinematic_horizon_exceeded"}
         )
+        allocation_statuses.append(status.allocation_status)
+        allocation_wrench_tracking_statuses.append(
+            status.allocation_wrench_tracking_status
+        )
+        allocation_solve_times_ms.append(status.allocation_solve_ms)
+        allocation_constraint_violations.append(status.allocation_constraint_violation)
+        allocation_force_error_norms_n.append(status.allocation_force_error_norm_n)
+        allocation_moment_error_norms_nm.append(status.allocation_moment_error_norm_nm)
         terminated = terminated or simulation.plant.has_fallen()
         if renderer is not None and step % 5 == 0:
             frames.append(_render_frame(simulation, renderer, status))
@@ -568,11 +640,22 @@ def run_scripted_demo(
     completed_required_jump = zone != "jump" or (
         status.completed_jumps >= 1 and cleared_hurdles >= 1
     )
+    allocation_status_array = np.asarray(allocation_statuses, dtype=str)
+    allocation_wrench_tracking_status_array = np.asarray(
+        allocation_wrench_tracking_statuses,
+        dtype=str,
+    )
+    allocation_solve_time_array = np.asarray(allocation_solve_times_ms, dtype=np.float64)
+    allocation_force_error_array = np.asarray(allocation_force_error_norms_n, dtype=np.float64)
+    allocation_moment_error_array = np.asarray(
+        allocation_moment_error_norms_nm, dtype=np.float64
+    )
     return {
         "zone": zone,
         "baseline": baseline,
         "state_estimation_mode": state_mode,
         "latency_compensation": latency_compensation,
+        "contact_allocation": contact_allocation,
         "evaluation_seed": seed,
         "success": int(not terminated and distance >= minimum_progress and completed_required_jump),
         "distance_m": distance,
@@ -586,6 +669,28 @@ def run_scripted_demo(
         "compensation_applied_ratio": compensation_applied_steps / total_steps,
         "compensation_horizon_p95_ms": float(np.percentile(compensation_horizons_ms, 95)),
         "compensation_rejected_steps": compensation_rejected_steps,
+        "allocation_solve_p95_ms": float(np.percentile(allocation_solve_time_array, 95)),
+        "allocation_solve_p99_ms": float(np.percentile(allocation_solve_time_array, 99)),
+        "allocation_constraint_violation_max": float(
+            np.max(allocation_constraint_violations)
+        ),
+        "allocation_force_error_rms_n": float(
+            np.sqrt(np.mean(allocation_force_error_array**2))
+        ),
+        "allocation_moment_error_rms_nm": float(
+            np.sqrt(np.mean(allocation_moment_error_array**2))
+        ),
+        "allocation_converged_ratio": float(
+            np.mean(allocation_status_array == "converged")
+        ),
+        "allocation_feasible_nonconverged_ratio": float(
+            np.mean(allocation_status_array == "feasible_nonconverged")
+        ),
+        "allocation_fallback_ratio": float(np.mean(allocation_status_array == "fallback")),
+        "allocation_wrench_limited_ratio": float(
+            np.mean(allocation_wrench_tracking_status_array == "limited")
+        ),
+        "allocation_no_contact_ratio": float(np.mean(allocation_status_array == "no_contact")),
         "completed_jumps": status.completed_jumps,
         "cleared_hurdles": cleared_hurdles,
         "jump_height_gain_m": maximum_height - float(D1_COURSE_SPAWNS[zone].position_m[2]),
@@ -599,6 +704,7 @@ def write_course_audit(
     baseline: str = "lqr",
     state_mode: str = "oracle",
     latency_compensation: str = "none",
+    contact_allocation: str = "legacy",
     state_delay_steps: int = 0,
     sensor_noise: float = 0.0,
     seed: int = 0,
@@ -611,6 +717,7 @@ def write_course_audit(
             baseline=baseline,
             state_mode=state_mode,
             latency_compensation=latency_compensation,
+            contact_allocation=contact_allocation,
             state_delay_steps=state_delay_steps,
             sensor_noise=sensor_noise,
             seed=seed,
@@ -627,12 +734,19 @@ def write_course_audit(
         "",
         "Scripted commands in the same MuJoCo course used by the keyboard demo.",
         "",
+        f"Contact allocation: `{contact_allocation}`.",
+        "",
         (
             "| Zone | Pass | Progress [m] | Roll max [deg] | Pitch max [deg] | "
             "4-wheel contact | Jumps | Hurdles | Compensation applied | Rejected | "
-            "Step P95 [ms] |"
+            "Step P95 [ms] | Allocation P95 [ms] | Converged | Feasible nonconverged | "
+            "Wrench limited | Fallback | No contact | Violation max | Force error RMS [N] | "
+            "Moment error RMS [Nm] |"
         ),
-        "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
+        (
+            "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|"
+            "---:|---:|---:|---:|---:|---:|---:|"
+        ),
     ]
     for record in records:
         lines.append(
@@ -642,7 +756,16 @@ def write_course_audit(
             f"{record['completed_jumps']} | {record['cleared_hurdles']} | "
             f"{record['compensation_applied_ratio']:.3f} | "
             f"{record['compensation_rejected_steps']} | "
-            f"{record['step_time_p95_ms']:.3f} |"
+            f"{record['step_time_p95_ms']:.3f} | "
+            f"{record['allocation_solve_p95_ms']:.3f} | "
+            f"{record['allocation_converged_ratio']:.3f} | "
+            f"{record['allocation_feasible_nonconverged_ratio']:.3f} | "
+            f"{record['allocation_wrench_limited_ratio']:.3f} | "
+            f"{record['allocation_fallback_ratio']:.3f} | "
+            f"{record['allocation_no_contact_ratio']:.3f} | "
+            f"{record['allocation_constraint_violation_max']:.3e} | "
+            f"{record['allocation_force_error_rms_n']:.3f} | "
+            f"{record['allocation_moment_error_rms_nm']:.3f} |"
         )
     (output / "course_metrics.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     return records
@@ -654,6 +777,7 @@ def run_viewer(
     *,
     state_mode: str = "oracle",
     latency_compensation: str = "none",
+    contact_allocation: str = "legacy",
     state_delay_steps: int = 0,
     sensor_noise: float = 0.0,
     seed: int = 0,
@@ -665,6 +789,7 @@ def run_viewer(
         residual_policy=residual_policy,
         state_mode=state_mode,
         latency_compensation=latency_compensation,
+        contact_allocation=contact_allocation,
         state_delay_steps=state_delay_steps,
         sensor_noise=sensor_noise,
         seed=seed,
@@ -706,7 +831,13 @@ def run_viewer(
                         f"rl={status.rl_mode:<11}  "
                         f"traction={status.traction_mode:<6}  safety={status.safety_mode}  "
                         f"state={status.state_estimation_mode} age={status.state_age_ms:.0f}ms  "
-                        f"comp={status.latency_compensation}"
+                        f"comp={status.latency_compensation}  "
+            f"alloc={status.contact_allocation}/{status.allocation_status}/"
+            f"{status.allocation_wrench_tracking_status}  "
+                        f"alloc_ms={status.allocation_solve_ms:.3f}  "
+                        f"viol={status.allocation_constraint_violation:.1e}  "
+                        f"force_err={status.allocation_force_error_norm_n:.1f}N  "
+                        f"moment_err={status.allocation_moment_error_norm_nm:.1f}Nm"
                     )
                     next_status_time += 1.0
             viewer.sync()
@@ -715,10 +846,14 @@ def run_viewer(
                 sleep(remaining)
 
 
-def render_course_overview(output: Path) -> None:
+def render_course_overview(
+    output: Path,
+    *,
+    contact_allocation: str = "legacy",
+) -> None:
     """Render a reproducible bird's-eye view of the complete skills course."""
 
-    simulation = D1InteractiveSimulation()
+    simulation = D1InteractiveSimulation(contact_allocation=contact_allocation)
     for _ in range(round(0.8 / simulation.plant.control_dt)):
         simulation.step()
     renderer = mujoco.Renderer(simulation.plant.model, height=540, width=960)
@@ -732,7 +867,10 @@ def render_course_overview(output: Path) -> None:
     frame = Image.fromarray(renderer.render().copy())
     renderer.close()
 
-    labels = "rough + ramp  |  stairs  |  wave bumps  |  2/4/6 cm jump lane"
+    labels = (
+        "rough + ramp  |  stairs  |  wave bumps  |  2/4/6 cm jump lane  |  "
+        f"allocation: {contact_allocation}"
+    )
     canvas = Image.new("RGB", (frame.width, frame.height + 42), "white")
     canvas.paste(frame, (0, 42))
     ImageDraw.Draw(canvas).text((14, 14), labels, fill="black")
@@ -744,6 +882,11 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--baseline", choices=("lqr", "mpc"), default="lqr")
     parser.add_argument("--state-mode", choices=("oracle", "estimated"), default="oracle")
+    parser.add_argument(
+        "--contact-allocation",
+        choices=D1_CONTACT_ALLOCATION_MODES,
+        default="legacy",
+    )
     parser.add_argument(
         "--latency-compensation",
         choices=("none", "constant_velocity"),
@@ -772,7 +915,10 @@ def main(argv: list[str] | None = None) -> None:
     ):
         raise SystemExit("--policy is available in the interactive viewer only")
     if args.overview is not None:
-        render_course_overview(args.overview)
+        render_course_overview(
+            args.overview,
+            contact_allocation=args.contact_allocation,
+        )
         print(f"saved course overview to {args.overview}")
         return
     if args.audit_output is not None:
@@ -781,6 +927,7 @@ def main(argv: list[str] | None = None) -> None:
             baseline=args.baseline,
             state_mode=args.state_mode,
             latency_compensation=args.latency_compensation,
+            contact_allocation=args.contact_allocation,
             state_delay_steps=args.state_delay_steps,
             sensor_noise=args.sensor_noise,
             seed=args.seed,
@@ -797,6 +944,7 @@ def main(argv: list[str] | None = None) -> None:
                     expected_baseline=args.baseline,
                     expected_state_mode=args.state_mode,
                     expected_latency_compensation=args.latency_compensation,
+                    expected_contact_allocation=args.contact_allocation,
                 )
             except (FileNotFoundError, RuntimeError, ValueError) as error:
                 raise SystemExit(str(error)) from error
@@ -805,6 +953,7 @@ def main(argv: list[str] | None = None) -> None:
             residual_policy,
             state_mode=args.state_mode,
             latency_compensation=args.latency_compensation,
+            contact_allocation=args.contact_allocation,
             state_delay_steps=args.state_delay_steps,
             sensor_noise=args.sensor_noise,
             seed=args.seed,
@@ -816,6 +965,7 @@ def main(argv: list[str] | None = None) -> None:
         baseline=args.baseline,
         state_mode=args.state_mode,
         latency_compensation=args.latency_compensation,
+        contact_allocation=args.contact_allocation,
         state_delay_steps=args.state_delay_steps,
         sensor_noise=args.sensor_noise,
         seed=args.seed,

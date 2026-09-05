@@ -54,6 +54,48 @@ class D1ModelSummary:
     total_mass_kg: float
 
 
+@dataclass(frozen=True)
+class D1MeasuredContactWrench:
+    """Wheel-ground reaction sampled from the latest MuJoCo physics step.
+
+    Forces act from the terrain on the robot and are expressed in world axes.
+    ``wrench_world`` is ordered ``[Fx, Fy, Fz, Mx, My, Mz]`` and its moment is
+    taken about ``reference_position_world_m``.
+    """
+
+    reference_position_world_m: np.ndarray
+    wheel_force_world_n: np.ndarray
+    mean_contact_point_count_by_wheel: np.ndarray
+    active_sample_fraction_by_wheel: np.ndarray
+    wrench_world: np.ndarray
+    physics_sample_count: int = 1
+
+    def __post_init__(self) -> None:
+        arrays = (
+            ("reference_position_world_m", (3,), np.float64),
+            ("wheel_force_world_n", (len(LEG_PREFIXES), 3), np.float64),
+            ("mean_contact_point_count_by_wheel", (len(LEG_PREFIXES),), np.float64),
+            ("active_sample_fraction_by_wheel", (len(LEG_PREFIXES),), np.float64),
+            ("wrench_world", (6,), np.float64),
+        )
+        for name, shape, dtype in arrays:
+            value = np.asarray(getattr(self, name), dtype=dtype).copy()
+            if value.shape != shape:
+                raise ValueError(f"{name} must have shape {shape}")
+            if not np.isfinite(value).all():
+                raise ValueError(f"{name} must contain only finite values")
+            value.setflags(write=False)
+            object.__setattr__(self, name, value)
+        if self.physics_sample_count < 1:
+            raise ValueError("physics_sample_count must be positive")
+        if np.any(self.mean_contact_point_count_by_wheel < 0.0):
+            raise ValueError("mean contact-point counts must be non-negative")
+        if np.any(self.active_sample_fraction_by_wheel < 0.0) or np.any(
+            self.active_sample_fraction_by_wheel > 1.0
+        ):
+            raise ValueError("active sample fractions must lie in [0, 1]")
+
+
 def _asset_urdf_path() -> str:
     path = files("wheel_legged_control.d1.assets").joinpath("urdf", "robot.urdf")
     return str(path)
@@ -199,10 +241,14 @@ class D1Plant:
             .startswith(("floor", "terrain_"))
         )
         self.arena = arena
-        self.wheel_body_ids = frozenset(
+        self.wheel_body_ids_by_leg = tuple(
             mujoco.mj_name2id(self.model, mujoco.mjtObj.mjOBJ_BODY, f"{leg}_foot")
             for leg in LEG_PREFIXES
         )
+        self.wheel_body_ids = frozenset(self.wheel_body_ids_by_leg)
+        self._wheel_index_by_body_id = {
+            body_id: index for index, body_id in enumerate(self.wheel_body_ids_by_leg)
+        }
 
         self._nominal_body_mass = self.model.body_mass.copy()
         self._nominal_body_inertia = self.model.body_inertia.copy()
@@ -319,6 +365,8 @@ class D1Plant:
     def wheel_ground_contacts(self) -> int:
         contacting_bodies: set[int] = set()
         for contact in self.data.contact:
+            if int(contact.efc_address) < 0:
+                continue
             geom1 = int(contact.geom1)
             geom2 = int(contact.geom2)
             if geom1 not in self.terrain_geom_ids and geom2 not in self.terrain_geom_ids:
@@ -328,10 +376,79 @@ class D1Plant:
                 contacting_bodies.add(int(self.model.geom_bodyid[other]))
         return len(contacting_bodies)
 
+    def measure_wheel_contact_wrench(
+        self,
+        reference_position_world_m: np.ndarray | None = None,
+    ) -> D1MeasuredContactWrench:
+        """Measure the latest wheel-ground wrench without using controller output.
+
+        MuJoCo reports each contact force in a transposed contact frame and with
+        the force acting on ``geom2``.  This method handles both geom orderings,
+        rotates the result into world axes, and sums moments at the actual
+        contact points.  The sample represents the final physics substep of the
+        latest control interval rather than a control-period average.
+        """
+
+        reference = (
+            self.base_position
+            if reference_position_world_m is None
+            else np.asarray(reference_position_world_m, dtype=np.float64)
+        )
+        if reference.shape != (3,) or not np.isfinite(reference).all():
+            raise ValueError("reference_position_world_m must be a finite shape-(3,) vector")
+
+        wheel_forces = np.zeros((len(LEG_PREFIXES), 3), dtype=np.float64)
+        contact_counts = np.zeros(len(LEG_PREFIXES), dtype=np.int32)
+        total_force = np.zeros(3, dtype=np.float64)
+        total_moment = np.zeros(3, dtype=np.float64)
+        local_wrench = np.empty(6, dtype=np.float64)
+        for contact_id, contact in enumerate(self.data.contact):
+            geom1 = int(contact.geom1)
+            geom2 = int(contact.geom2)
+            terrain1 = geom1 in self.terrain_geom_ids
+            terrain2 = geom2 in self.terrain_geom_ids
+            if terrain1 == terrain2 or int(contact.efc_address) < 0:
+                continue
+            robot_geom = geom2 if terrain1 else geom1
+            robot_body = int(self.model.geom_bodyid[robot_geom])
+            wheel_index = self._wheel_index_by_body_id.get(robot_body)
+            if wheel_index is None:
+                continue
+
+            mujoco.mj_contactForce(self.model, self.data, contact_id, local_wrench)
+            contact_frame = np.asarray(contact.frame, dtype=np.float64).reshape(3, 3)
+            force_world = contact_frame.T @ local_wrench[:3]
+            torque_world = contact_frame.T @ local_wrench[3:]
+            if robot_geom == geom1:
+                force_world = -force_world
+                torque_world = -torque_world
+
+            wheel_forces[wheel_index] += force_world
+            contact_counts[wheel_index] += 1
+            total_force += force_world
+            total_moment += np.cross(np.asarray(contact.pos) - reference, force_world)
+            total_moment += torque_world
+
+        return D1MeasuredContactWrench(
+            reference_position_world_m=reference,
+            wheel_force_world_n=wheel_forces,
+            mean_contact_point_count_by_wheel=contact_counts,
+            active_sample_fraction_by_wheel=contact_counts > 0,
+            wrench_world=np.concatenate((total_force, total_moment)),
+        )
+
+    @property
+    def last_control_interval_contact_wrench(self) -> D1MeasuredContactWrench:
+        """Return the latest sampled or physics-substep-averaged wheel wrench."""
+
+        return self._last_control_interval_contact_wrench
+
     @property
     def undesired_ground_contacts(self) -> int:
         contacting_bodies: set[int] = set()
         for contact in self.data.contact:
+            if int(contact.efc_address) < 0:
+                continue
             geom1 = int(contact.geom1)
             geom2 = int(contact.geom2)
             if geom1 not in self.terrain_geom_ids and geom2 not in self.terrain_geom_ids:
@@ -383,6 +500,7 @@ class D1Plant:
         self.data.qvel[self.dof_addresses] = velocities
         self.data.qacc_warmstart[:] = 0.0
         mujoco.mj_forward(self.model, self.data)
+        self._last_control_interval_contact_wrench = self.measure_wheel_contact_wrench()
 
     def set_domain(
         self,
@@ -404,7 +522,20 @@ class D1Plant:
         self.model.dof_damping[:] *= damping_scale
         self.model.geom_friction[:, 0] *= friction_scale
         self._actuator_strength_scale = float(actuator_strength_scale)
+        torque_limit = JOINT_TORQUE_LIMIT * self._actuator_strength_scale
+        self.model.actuator_ctrlrange[:, 0] = -torque_limit
+        self.model.actuator_ctrlrange[:, 1] = torque_limit
+        self.model.actuator_forcerange[:, 0] = -torque_limit
+        self.model.actuator_forcerange[:, 1] = torque_limit
         mujoco.mj_setConst(self.model, self.data)
+
+    @property
+    def actuator_torque_limit_nm(self) -> np.ndarray:
+        """Current per-joint torque limits after domain randomization."""
+
+        limits = JOINT_TORQUE_LIMIT * self._actuator_strength_scale
+        limits.setflags(write=False)
+        return limits
 
     def step(
         self,
@@ -412,14 +543,16 @@ class D1Plant:
         *,
         push_force_world_n: np.ndarray | None = None,
         push_torque_world_nm: np.ndarray | None = None,
+        measure_contact_wrench: bool = False,
+        contact_wrench_reference_world_m: np.ndarray | None = None,
     ) -> None:
         torque = np.asarray(torque_nm, dtype=np.float64)
         if torque.shape != (len(D1_JOINT_NAMES),):
             raise ValueError(f"torque must have shape ({len(D1_JOINT_NAMES)},)")
         applied = np.clip(
             torque,
-            -JOINT_TORQUE_LIMIT * self._actuator_strength_scale,
-            JOINT_TORQUE_LIMIT * self._actuator_strength_scale,
+            -self.actuator_torque_limit_nm,
+            self.actuator_torque_limit_nm,
         )
         force = (
             np.zeros(3, dtype=np.float64)
@@ -433,14 +566,43 @@ class D1Plant:
         )
         if force.shape != (3,) or moment.shape != (3,):
             raise ValueError("push force and torque must have shape (3,)")
+        reference = (
+            self.base_position
+            if contact_wrench_reference_world_m is None
+            else np.asarray(contact_wrench_reference_world_m, dtype=np.float64)
+        )
+        if reference.shape != (3,) or not np.isfinite(reference).all():
+            raise ValueError(
+                "contact_wrench_reference_world_m must be a finite shape-(3,) vector"
+            )
 
         self.data.ctrl[self.actuator_ids] = applied
+        contact_samples: list[D1MeasuredContactWrench] = []
         for _ in range(self.physics_steps):
             self.data.xfrc_applied[:] = 0.0
             self.data.xfrc_applied[self.base_body_id, :3] = force
             self.data.xfrc_applied[self.base_body_id, 3:] = moment
             mujoco.mj_step(self.model, self.data)
+            if measure_contact_wrench:
+                contact_samples.append(self.measure_wheel_contact_wrench(reference))
         self.data.xfrc_applied[:] = 0.0
+        if not contact_samples:
+            contact_samples.append(self.measure_wheel_contact_wrench(reference))
+        sample_count = len(contact_samples)
+        self._last_control_interval_contact_wrench = D1MeasuredContactWrench(
+            reference_position_world_m=reference,
+            wheel_force_world_n=np.mean(
+                [sample.wheel_force_world_n for sample in contact_samples], axis=0
+            ),
+            mean_contact_point_count_by_wheel=np.mean(
+                [sample.mean_contact_point_count_by_wheel for sample in contact_samples], axis=0
+            ),
+            active_sample_fraction_by_wheel=np.mean(
+                [sample.active_sample_fraction_by_wheel for sample in contact_samples], axis=0
+            ),
+            wrench_world=np.mean([sample.wrench_world for sample in contact_samples], axis=0),
+            physics_sample_count=sample_count,
+        )
 
     def has_fallen(self) -> bool:
         roll, pitch, _ = self.base_rpy

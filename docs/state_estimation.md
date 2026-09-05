@@ -24,7 +24,7 @@ noisy delayed source ┘
 - 机身位置和 `base_link -> world` 旋转矩阵；
 - 机体系与世界系基座线速度、角速度；
 - 16 个关节的位置和速度，顺序与 `D1_JOINT_NAMES` 一致；
-- `FL / FR / RL / RR` 四个轮端的位置、平移 Jacobian、接触标记和接触点；
+- `FL / FR / RL / RR` 四个轮端的位置、平移 Jacobian、接触标记、接触点、法向和接触点 Jacobian；
 - 当前控制时刻、测量时刻以及由两者得到的状态年龄。
 
 所有数组在构造时复制并设为只读。控制器拿到快照后，即使仿真继续推进，这份状态也不会
@@ -40,8 +40,8 @@ noisy delayed source ┘
 ### `estimated`
 
 `D1NoisyDelayedStateSource` 对完整真值快照按字段加入噪声，并用整数控制步队列模拟状态延迟。
-噪声作用于基座位置、姿态、速度、关节、足端运动学和接触点，LQR、MPC、VMC、安全逻辑和
-PPO 都会受到影响。
+噪声作用于基座位置、姿态、速度、关节、足端运动学、接触点、接触法向和接触点 Jacobian，
+LQR、MPC、VMC、安全逻辑和 PPO 都会受到影响。
 
 这个 source 只模拟字段噪声和延迟，没有 IMU/编码器融合或 EKF。它能先检查控制器对状态
 误差和延迟是否敏感；后续的互补滤波或 EKF 可以替换 source，控制器接口不用再改。
@@ -58,9 +58,10 @@ PPO 都会受到影响。
 \hat q=q+\dot q\Delta t.
 \]
 
-足端位置用冻结 Jacobian 做一阶更新。接触标记、接触点和非轮接触数量保持原测量值，程序
-不会根据 MuJoCo 当前帧补齐它们。超过 `50 ms`、腿关节外推量超过 `0.35 rad`，或预测位置
-越过关节限位时，控制器退回原始快照并在日志中写明拒绝原因；轮关节位置保持无界。
+足端位置用冻结 Jacobian 做一阶更新。接触标记、接触点、法向、接触点 Jacobian 和非轮接触
+数量保持原测量值，程序不会根据 MuJoCo 当前帧补齐它们。constrained 分配器仍会使用这组
+旧时刻几何。超过 `50 ms`、腿关节外推量超过 `0.35 rad`，或预测位置越过关节限位时，控制器
+退回原始快照并在日志中写明拒绝原因；轮关节位置保持无界。
 
 外推后的 `measurement_time_s` 仍是原测量时刻，所以 `state_age_ms` 不会变成零。日志另存
 `latency_compensation_horizon_ms` 和状态 `bypassed / applied / horizon_exceeded /
@@ -89,7 +90,7 @@ commit/dirty 指纹和 policy SHA-256。
 真值状态保留旧行为：
 
 ```bash
-wheel-legged-d1-benchmark --state-mode oracle
+wheel-legged-d1-benchmark --state-mode oracle --contact-allocation legacy
 ```
 
 让完整控制链承受状态噪声和延迟：
@@ -97,6 +98,7 @@ wheel-legged-d1-benchmark --state-mode oracle
 ```bash
 wheel-legged-d1-benchmark \
   --state-mode estimated \
+  --contact-allocation legacy \
   --no-policy
 ```
 
@@ -107,6 +109,7 @@ wheel-legged-d1-benchmark \
   --state-delay-sweep \
   --state-mode estimated \
   --latency-compensation none \
+  --contact-allocation legacy \
   --audit-episodes 30 \
   --seed 21 \
   --no-policy \
@@ -116,6 +119,7 @@ wheel-legged-d1-benchmark \
   --state-delay-sweep \
   --state-mode estimated \
   --latency-compensation constant_velocity \
+  --contact-allocation legacy \
   --audit-episodes 30 \
   --seed 21 \
   --no-policy \
@@ -134,6 +138,7 @@ wheel-legged-d1-benchmark \
 ```bash
 wheel-legged-d1-play \
   --state-mode estimated \
+  --contact-allocation legacy \
   --state-delay-steps 2 \
   --sensor-noise 1.0
 ```
@@ -145,6 +150,7 @@ wheel-legged-train \
   --robot d1 \
   --state-mode estimated \
   --latency-compensation none \
+  --contact-allocation legacy \
   --steps 400000 \
   --envs 8 \
   --seed 7 \

@@ -132,3 +132,51 @@ def test_estimated_env_reports_latency_compensation_without_hiding_state_age() -
     assert info["raw_estimated_state"].shape == info["control_state"].shape
     assert not np.shares_memory(info["raw_estimated_state"], info["control_state"])
     env.close()
+
+
+def test_environment_exposes_constrained_contact_allocation_diagnostics() -> None:
+    env = D1ResidualEnv(
+        contact_allocation="constrained",
+        randomize=False,
+        episode_seconds=0.2,
+        measure_contact_wrench=True,
+        profile_allocation_timing=True,
+    )
+    _, info = env.reset(seed=5, options={"scenario": "nominal"})
+    assert info["contact_allocation"] == "constrained"
+    assert info["allocation_status"] == "not_run"
+    assert info["allocation_wrench_tracking_status"] == "not_run"
+
+    for _ in range(20):
+        _, _, terminated, _, info = env.step(np.zeros(2))
+        assert not terminated
+
+    assert info["allocation_status"] in {"converged", "feasible_nonconverged"}
+    assert info["allocation_status_reason"].startswith("slsqp_")
+    assert info["allocation_wrench_tracking_status"] in {"tracked", "limited"}
+    assert info["allocation_timing_measured"] is True
+    assert info["allocation_solve_ms"] > 0.0
+    assert info["allocation_constraint_violation"] <= 1e-7
+    assert info["allocation_desired_wrench_world"].shape == (6,)
+    assert info["allocation_achieved_wrench_world"].shape == (6,)
+    assert info["measured_contact_wrench_world"].shape == (6,)
+    assert info["measured_wheel_contact_force_world_n"].shape == (4, 3)
+    assert info["contact_wrench_reference_position_world_m"].shape == (3,)
+    assert info["measured_contact_wrench_world"][2] > 0.0
+    assert info["contact_wrench_physics_samples"] == env.plant.physics_steps
+    assert info["wheel_contact_active_sample_fraction"].shape == (4,)
+    for metric in (
+        "allocation_force_error_norm_n",
+        "allocation_moment_error_norm_nm",
+        "contact_force_model_error_norm_n",
+        "contact_moment_model_error_norm_nm",
+        "contact_force_tracking_error_norm_n",
+        "contact_moment_tracking_error_norm_nm",
+    ):
+        assert info[metric] >= 0.0
+    env.close()
+
+
+def test_environment_rejects_an_unknown_contact_allocation_mode() -> None:
+    with pytest.raises(ValueError, match="contact_allocation"):
+        D1ResidualEnv(contact_allocation="magic")

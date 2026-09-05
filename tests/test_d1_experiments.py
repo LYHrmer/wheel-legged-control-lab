@@ -15,6 +15,7 @@ from wheel_legged_control.d1.experiments import (
     build_parser,
     compute_d1_metrics,
     main,
+    run_d1_rollout,
     run_d1_state_delay_sweep,
     write_d1_metrics,
     write_d1_randomized_audit,
@@ -64,6 +65,18 @@ def _rollout() -> D1Rollout:
         compensation_rejected_flags=np.asarray((False, True)),
         raw_estimated_states=raw_estimated_states,
         control_states=control_states,
+        contact_allocation="constrained",
+        allocation_statuses=np.asarray(("converged", "feasible_nonconverged")),
+        allocation_wrench_tracking_statuses=np.asarray(("tracked", "limited")),
+        allocation_solve_times_ms=np.asarray((0.1, 0.3)),
+        allocation_constraint_violations=np.asarray((0.0, 2e-9)),
+        allocation_force_error_norms_n=np.asarray((2.0, 4.0)),
+        allocation_moment_error_norms_nm=np.asarray((0.2, 0.4)),
+        contact_force_model_error_norms_n=np.asarray((1.0, 3.0)),
+        contact_moment_model_error_norms_nm=np.asarray((0.1, 0.3)),
+        contact_force_tracking_error_norms_n=np.asarray((2.0, 6.0)),
+        contact_moment_tracking_error_norms_nm=np.asarray((0.2, 0.6)),
+        contact_wrench_physics_samples=np.asarray((5, 5)),
         initial_state_fingerprint="initial-state",
         initial_command_fingerprint="initial-command",
         push_schedule_fingerprint="push-schedule",
@@ -104,6 +117,24 @@ def test_d1_metrics_record_reproducibility_and_effort_evidence() -> None:
     assert metrics["control_pitch_estimation_rmse_deg"] == pytest.approx(np.rad2deg(0.05))
     assert metrics["raw_velocity_estimation_rmse_mps"] == 0.5
     assert metrics["control_velocity_estimation_rmse_mps"] == 0.25
+    assert metrics["contact_allocation"] == "constrained"
+    assert metrics["allocation_solve_p95_ms"] == pytest.approx(0.29)
+    assert metrics["allocation_solve_p99_ms"] == pytest.approx(0.298)
+    assert metrics["allocation_constraint_violation_max"] == 2e-9
+    assert metrics["allocation_force_error_rms_n"] == pytest.approx(np.sqrt(10.0))
+    assert metrics["allocation_moment_error_rms_nm"] == pytest.approx(np.sqrt(0.1))
+    assert metrics["contact_force_model_error_rms_n"] == pytest.approx(np.sqrt(5.0))
+    assert metrics["contact_moment_model_error_rms_nm"] == pytest.approx(np.sqrt(0.05))
+    assert metrics["contact_force_tracking_error_rms_n"] == pytest.approx(np.sqrt(20.0))
+    assert metrics["contact_moment_tracking_error_rms_nm"] == pytest.approx(np.sqrt(0.2))
+    assert metrics["contact_wrench_physics_samples_min"] == 5
+    assert metrics["contact_wrench_physics_samples_max"] == 5
+    assert metrics["allocation_converged_ratio"] == 0.5
+    assert metrics["allocation_feasible_nonconverged_ratio"] == 0.5
+    assert metrics["allocation_fallback_ratio"] == 0.0
+    assert metrics["allocation_wrench_limited_ratio"] == 0.5
+    assert metrics["allocation_no_contact_ratio"] == 0.0
+    assert metrics["allocation_legacy_ratio"] == 0.0
 
 
 def test_d1_rollout_keeps_legacy_constructor_defaults() -> None:
@@ -131,12 +162,49 @@ def test_d1_rollout_keeps_legacy_constructor_defaults() -> None:
     assert np.isnan(metrics["raw_position_estimation_rmse_m"])
 
 
+def test_run_d1_rollout_records_constrained_allocation_diagnostics() -> None:
+    rollout = run_d1_rollout(
+        "lqr",
+        "nominal",
+        21,
+        contact_allocation="constrained",
+    )
+
+    assert rollout.contact_allocation == "constrained"
+    assert len(rollout.allocation_statuses) == len(rollout.time_s)
+    assert set(rollout.allocation_statuses) <= {
+        "converged",
+        "feasible_nonconverged",
+        "fallback",
+        "no_contact",
+    }
+    assert "not_run" not in rollout.allocation_statuses
+    assert len(rollout.allocation_wrench_tracking_statuses) == len(rollout.time_s)
+    assert set(rollout.allocation_wrench_tracking_statuses) <= {"tracked", "limited"}
+    assert len(rollout.allocation_solve_times_ms) == len(rollout.time_s)
+    assert np.all(rollout.allocation_solve_times_ms >= 0.0)
+    assert len(rollout.allocation_constraint_violations) == len(rollout.time_s)
+    assert np.all(np.isfinite(rollout.allocation_constraint_violations))
+    diagnostic_series = (
+        rollout.allocation_force_error_norms_n,
+        rollout.allocation_moment_error_norms_nm,
+        rollout.contact_force_model_error_norms_n,
+        rollout.contact_moment_model_error_norms_nm,
+        rollout.contact_force_tracking_error_norms_n,
+        rollout.contact_moment_tracking_error_norms_nm,
+    )
+    assert all(len(values) == len(rollout.time_s) for values in diagnostic_series)
+    assert all(np.all(values >= 0.0) for values in diagnostic_series)
+    assert np.all(rollout.contact_wrench_physics_samples == 5)
+
+
 def _sweep_rollout(
     baseline: str,
     seed: int,
     delay_steps: int,
     *,
     latency_compensation: str,
+    contact_allocation: str = "legacy",
     policy: object | None = None,
 ) -> D1Rollout:
     steps = 6
@@ -181,6 +249,7 @@ def _sweep_rollout(
         sensor_noise_scale=0.0,
         state_estimator_seed=seed + 1000,
         latency_compensation=latency_compensation,
+        contact_allocation=contact_allocation,
         raw_estimated_states=raw_states,
         control_states=control_states,
         initial_state_fingerprint=f"state-{seed}",
@@ -198,6 +267,7 @@ def _patch_sweep_rollout(monkeypatch) -> None:
         *,
         state_mode,
         latency_compensation,
+        contact_allocation,
         episode_options,
         **kwargs,
     ):
@@ -207,6 +277,7 @@ def _patch_sweep_rollout(monkeypatch) -> None:
             seed,
             int(episode_options["state_delay_steps"]),
             latency_compensation=latency_compensation,
+            contact_allocation=contact_allocation,
             policy=policy,
         )
 
@@ -264,6 +335,7 @@ def test_d1_cli_defaults_to_oracle_state_estimation() -> None:
 
     assert args.state_mode == "oracle"
     assert args.latency_compensation == "none"
+    assert args.contact_allocation == "legacy"
     assert not args.no_policy
     assert args.output is None
 
@@ -287,6 +359,12 @@ def test_d1_cli_accepts_latency_compensation() -> None:
     )
 
     assert args.latency_compensation == "constant_velocity"
+
+
+def test_d1_cli_accepts_constrained_contact_allocation() -> None:
+    args = build_parser().parse_args(["--contact-allocation", "constrained", "--no-policy"])
+
+    assert args.contact_allocation == "constrained"
 
 
 def test_wilson_interval_bounds_success_rate() -> None:
@@ -323,6 +401,7 @@ def test_state_delay_sweep_writes_complete_paired_evidence(tmp_path, monkeypatch
         episodes=2,
         policy=None,
         latency_compensation="constant_velocity",
+        contact_allocation="constrained",
         run_metadata=run_metadata,
     )
 
@@ -333,6 +412,9 @@ def test_state_delay_sweep_writes_complete_paired_evidence(tmp_path, monkeypatch
     assert manifest["status"] == "complete"
     assert manifest["run_id"] == config["run_id"]
     assert manifest["provenance"] == config["provenance"]
+    assert manifest["protocol"]["contact_allocation"] == "constrained"
+    assert config["protocol"]["contact_allocation"] == "constrained"
+    assert manifest["protocol"]["contact_wrench_measurement"] == "physics_substep_mean"
     assert manifest["validation"]["paired_input_fingerprints"] is True
     assert manifest["validation"]["measured_state_age_traces"] is True
     assert set(manifest["artifacts"]) == {
@@ -358,6 +440,7 @@ def test_state_delay_sweep_writes_complete_paired_evidence(tmp_path, monkeypatch
     assert "Episode duration" in markdown
     assert "trajectory prefix" in markdown
     assert "Raw position-estimation RMSE" in markdown
+    assert {record["contact_allocation"] for record in records} == {"constrained"}
 
 
 def test_one_pair_sweep_marks_difference_intervals_unavailable(tmp_path, monkeypatch) -> None:
@@ -434,7 +517,9 @@ def test_policy_flags_conflict_and_explicit_missing_checkpoint_fails_before_outp
     assert not output.exists()
 
 
-def _patch_fast_benchmark(monkeypatch) -> None:
+def _patch_fast_benchmark(monkeypatch) -> list[str]:
+    contact_allocation_calls: list[str] = []
+
     def fake_rollout(baseline, scenario, seed, policy=None, **kwargs):
         rollout = _rollout()
         suffix = "+PPO" if policy is not None else ""
@@ -443,6 +528,8 @@ def _patch_fast_benchmark(monkeypatch) -> None:
         rollout.evaluation_seed = seed
         rollout.state_estimation_mode = kwargs.get("state_mode", "oracle")
         rollout.latency_compensation = kwargs.get("latency_compensation", "none")
+        rollout.contact_allocation = kwargs.get("contact_allocation", "legacy")
+        contact_allocation_calls.append(rollout.contact_allocation)
         return rollout
 
     def fake_plot(rollouts, output):
@@ -468,12 +555,24 @@ def _patch_fast_benchmark(monkeypatch) -> None:
         "wheel_legged_control.d1.experiments.capture_git_provenance",
         lambda path: {"git_commit": "abc", "git_dirty": False},
     )
+    return contact_allocation_calls
 
 
 def test_main_writes_complete_benchmark_manifest_last(tmp_path, monkeypatch) -> None:
-    _patch_fast_benchmark(monkeypatch)
+    contact_allocation_calls = _patch_fast_benchmark(monkeypatch)
 
-    main(["--no-policy", "--audit-episodes", "1", "--gif", "--output", str(tmp_path)])
+    main(
+        [
+            "--no-policy",
+            "--contact-allocation",
+            "constrained",
+            "--audit-episodes",
+            "1",
+            "--gif",
+            "--output",
+            str(tmp_path),
+        ]
+    )
 
     manifest = json.loads((tmp_path / "benchmark_manifest.json").read_text())
     config = json.loads((tmp_path / "evaluation_config.json").read_text())
@@ -483,6 +582,16 @@ def test_main_writes_complete_benchmark_manifest_last(tmp_path, monkeypatch) -> 
     assert config["schema"] == "d1-benchmark-evaluation-config-v1"
     assert manifest["run_id"] == config["run_id"]
     assert manifest["provenance"] == config["provenance"]
+    assert manifest["protocol"]["contact_allocation"] == "constrained"
+    assert config["protocol"]["contact_allocation"] == "constrained"
+    assert manifest["protocol"]["contact_wrench_measurement"] == "physics_substep_mean"
+    assert config["contact_allocation"] == "constrained"
+    assert config["measure_contact_wrench"] is True
+    assert set(contact_allocation_calls) == {"constrained"}
+    metrics_markdown = (tmp_path / "metrics.md").read_text(encoding="utf-8")
+    assert "Contact-allocation diagnostics" in metrics_markdown
+    assert "Measured force-model RMS [N]" in metrics_markdown
+    assert "constrained" in metrics_markdown
     assert manifest["provenance"]["source"] == {"git_commit": "abc", "git_dirty": False}
     assert manifest["provenance"]["checkpoint"]["included"] is False
     assert manifest["validation"]["matched_input_fingerprints"] is True

@@ -2,10 +2,17 @@ from __future__ import annotations
 
 from dataclasses import FrozenInstanceError, replace
 
+import mujoco
 import numpy as np
 import pytest
 
-from wheel_legged_control.d1.model import JOINT_POSITION_HIGH, D1Plant
+from wheel_legged_control.d1.controllers import D1Command, D1VMCController
+from wheel_legged_control.d1.model import (
+    D1_JOINT_NAMES,
+    JOINT_POSITION_HIGH,
+    LEG_PREFIXES,
+    D1Plant,
+)
 from wheel_legged_control.d1.state_estimation import (
     D1EstimatorImpairments,
     D1MujocoTruthStateSource,
@@ -63,6 +70,79 @@ def test_truth_source_returns_control_ready_immutable_snapshot() -> None:
         state.sequence = 4  # type: ignore[misc]
 
 
+def test_truth_source_reports_contact_point_kinematics() -> None:
+    plant = D1Plant()
+    source = D1MujocoTruthStateSource(plant)
+    controller = D1VMCController(plant)
+    state = source.reset()
+    for _ in range(30):
+        plant.step(controller.compute(D1Command(), state))
+        state = source.read()
+
+    assert state.wheel_contact.all()
+    assert state.wheel_contact_normal.shape == (4, 3)
+    assert state.wheel_contact_jacobian.shape == (4, 3, 4)
+    for leg_index in range(4):
+        normal = state.wheel_contact_normal[leg_index]
+        np.testing.assert_allclose(np.linalg.norm(normal), 1.0, atol=1e-10)
+        assert np.dot(
+            normal,
+            state.foot_position[leg_index] - state.wheel_contact_point[leg_index],
+        ) > 0.0
+        assert np.linalg.norm(state.foot_jacobian[leg_index, :, 3]) < 1e-5
+        assert np.linalg.norm(state.wheel_contact_jacobian[leg_index, :, 3]) == pytest.approx(
+            plant.wheel_radius_m,
+            rel=0.02,
+        )
+
+
+def test_false_positive_contacts_keep_valid_contact_geometry() -> None:
+    plant = D1Plant()
+    source = D1NoisyDelayedStateSource(
+        plant,
+        impairments=D1EstimatorImpairments(contact_flip_probability=1.0),
+        seed=7,
+    )
+
+    state = source.reset()
+
+    assert state.wheel_contact.all()
+    separation = state.foot_position - state.wheel_contact_point
+    assert np.all(
+        np.einsum("ij,ij->i", state.wheel_contact_normal, separation) > 0.0
+    )
+    np.testing.assert_allclose(
+        np.linalg.norm(state.wheel_contact_normal, axis=1),
+        1.0,
+    )
+    for index, leg in enumerate(LEG_PREFIXES):
+        body_id = mujoco.mj_name2id(
+            plant.model,
+            mujoco.mjtObj.mjOBJ_BODY,
+            f"{leg}_foot",
+        )
+        dof_addresses = plant.dof_addresses[
+            np.asarray(
+                [joint for joint, name in enumerate(D1_JOINT_NAMES) if name.startswith(leg)]
+            )
+        ]
+        translation = np.zeros((3, plant.model.nv))
+        rotation = np.zeros_like(translation)
+        mujoco.mj_jac(
+            plant.model,
+            plant.data,
+            translation,
+            rotation,
+            state.wheel_contact_point[index],
+            body_id,
+        )
+        np.testing.assert_allclose(
+            state.wheel_contact_jacobian[index],
+            translation[:, dof_addresses],
+            atol=1e-12,
+        )
+
+
 def test_truth_source_requires_reset_and_advances_publication_sequence() -> None:
     plant = D1Plant()
     source = D1MujocoTruthStateSource(plant)
@@ -114,6 +194,9 @@ def test_noisy_source_is_reproducible_when_reset_with_the_same_seed() -> None:
         foot_position_std_m=0.003,
         foot_jacobian_std=0.002,
         contact_point_std_m=0.002,
+        contact_normal_std_rad=0.01,
+        contact_jacobian_std=0.002,
+        contact_flip_probability=1.0,
     )
     source = D1NoisyDelayedStateSource(plant, impairments=impairments)
 
@@ -134,8 +217,33 @@ def test_noisy_source_is_reproducible_when_reset_with_the_same_seed() -> None:
         "foot_position",
         "foot_jacobian",
         "wheel_contact_point",
+        "wheel_contact_normal",
+        "wheel_contact_jacobian",
     ):
         np.testing.assert_array_equal(getattr(first, field), getattr(second, field))
+
+
+def test_noisy_source_perturbs_active_contact_normals_and_jacobians() -> None:
+    plant = D1Plant()
+    exact = D1NoisyDelayedStateSource(
+        plant,
+        impairments=D1EstimatorImpairments(contact_flip_probability=1.0),
+        seed=19,
+    ).reset()
+    noisy = D1NoisyDelayedStateSource(
+        plant,
+        impairments=D1EstimatorImpairments(
+            contact_flip_probability=1.0,
+            contact_normal_std_rad=0.02,
+            contact_jacobian_std=0.003,
+        ),
+        seed=19,
+    ).reset()
+
+    assert noisy.wheel_contact.all()
+    np.testing.assert_allclose(np.linalg.norm(noisy.wheel_contact_normal, axis=1), 1.0)
+    assert not np.allclose(noisy.wheel_contact_normal, exact.wheel_contact_normal)
+    assert not np.allclose(noisy.wheel_contact_jacobian, exact.wheel_contact_jacobian)
 
 
 def test_factory_defaults_to_truth_and_switches_when_impairments_are_supplied() -> None:
@@ -323,7 +431,13 @@ def test_prepare_control_state_rejects_unknown_mode() -> None:
 
 @pytest.mark.parametrize(
     ("keyword", "value"),
-    (("delay_steps", -1), ("joint_position_std_rad", -0.1), ("contact_flip_probability", 1.1)),
+    (
+        ("delay_steps", -1),
+        ("joint_position_std_rad", -0.1),
+        ("contact_normal_std_rad", -0.1),
+        ("contact_jacobian_std", -0.1),
+        ("contact_flip_probability", 1.1),
+    ),
 )
 def test_impairments_reject_invalid_values(keyword: str, value: float) -> None:
     with pytest.raises(ValueError):

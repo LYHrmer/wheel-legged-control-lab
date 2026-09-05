@@ -53,3 +53,28 @@ def test_checkpoint_latency_compensation_must_match_runtime(tmp_path) -> None:
             expected_state_mode="estimated",
             expected_latency_compensation="constant_velocity",
         )
+
+
+def test_checkpoint_contact_allocation_must_match_runtime(tmp_path) -> None:
+    model = tmp_path / "model.zip"
+    model.write_bytes(b"checkpoint")
+    (tmp_path / "training_config.json").write_text(
+        json.dumps(
+            {
+                "robot": "d1",
+                "baseline": "lqr",
+                "state_mode": "oracle",
+                "contact_allocation": "legacy",
+                "observation_schema": D1_OBSERVATION_SCHEMA,
+                "reward_schema": D1_REWARD_SCHEMA,
+                "model_sha256": hashlib.sha256(model.read_bytes()).hexdigest(),
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="contact allocation"):
+        load_compatible_d1_policy(
+            model,
+            expected_contact_allocation="constrained",
+        )

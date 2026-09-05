@@ -51,6 +51,8 @@ def test_train_once_records_reproducibility_metadata(
             "d1",
             "--state-mode",
             "estimated",
+            "--contact-allocation",
+            "constrained",
             "--steps",
             "100",
             "--envs",
@@ -103,9 +105,11 @@ def test_train_once_records_reproducibility_metadata(
         "randomize": True,
         "state_mode": "estimated",
         "latency_compensation": "none",
+        "contact_allocation": "constrained",
     }
     assert config["seed"] == 13
     assert config["state_mode"] == "estimated"
+    assert config["contact_allocation"] == "constrained"
     assert config["actual_timesteps"] == 124
     assert config["git_commit"] == "a" * 40
     assert config["git_dirty"] is True

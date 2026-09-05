@@ -7,6 +7,9 @@
 当前控制周期为 `10 ms`，默认回合为 `6 s`。下文的状态年龄、动作延迟和回合时长均按实际
 控制步计算，不用配置值代替日志值。
 
+每条 D1 结果都要记录 `contact_allocation`。带 PPO 的运行还要核对 checkpoint 中的
+`baseline`、状态模式、延迟补偿和接触分配模式；任一字段不匹配时中止，不生成对比结果。
+
 ## 场景
 
 固定场景共用同一条速度和高度命令：前 `0.75 s` 静止，随后依次执行前进、后退和低速前进。
@@ -39,6 +42,11 @@ PPO 观察；`estimated` 下，状态延迟和字段噪声会进入 VMC、LQR/MP
 | 高度命令 | `0.445–0.475 m`，每 `1.5 s` 重采样 |
 | 随机推力 | `90–170 N`，正负方向随机，持续 `80–140 ms` |
 
+接触分配审计固定为 LQR、oracle、无补偿，并把动作延迟、状态延迟和传感器噪声设为零；质量、
+阻尼、摩擦、执行器强度、命令和推力仍按随机域采样。legacy 与 constrained 会同时切换分配器、
+匹配辨识模型和固定 `R`，因此比较对象是两套模式匹配闭环配置。constrained 的 `R=1e-6` 只用
+开发 seed 21 的 nominal/push 选择，预留 seed 121–150 不参与调参。
+
 状态延迟灵敏度实验仍使用随机域，但把动作延迟和字段噪声固定为 0，只扫描
 `0/10/20/30/50 ms` 状态延迟。`none` 与 `constant_velocity` 分开运行；两次运行必须使用相同
 起始种子和回合数。
@@ -65,6 +73,18 @@ PPO 观察；`estimated` 下，状态延迟和字段噪声会进入 VMC、LQR/MP
 饱和比例和接触比例只对实际记录到的轨迹计算。若机器人在 `2.1 s` 摔倒，这些连续指标只描述
 摔倒前 `2.1 s`，不会补齐为 `6 s`。早摔回合的 RMSE 可能反而更小，因此不能脱离成功率与回合
 时长解释。CSV 必须保留失败回合，不允许只汇总成功样本。
+
+接触分配把求解器结果和 wrench 跟踪结果分开记录。前者统计 `converged`、
+`feasible_nonconverged`、fallback 与无接触比例；后者按工程容差统计 `tracked/limited`。
+力容差是 `1 N + 0.5% × ||F_d||`，力矩容差是 `0.5 N·m + 0.5% × ||M_d||`。另外报告分配器
+端到端 P99 和归一化最大约束违反量。wrench 误差分为 requested→allocated、
+allocated→MuJoCo 和 requested→MuJoCo 三段；每段都把力与力矩拆开，分别使用 N 与 N·m，
+不能合成一个六维欧氏范数。
+
+MuJoCo actual wrench 从 `mj_contactForce` 汇总轮地约束力，统一换算为 ground-on-robot 的
+世界系 wrench，力矩参考点为本周期控制器记录的 `base_link` 原点。每个 `10 ms` 控制周期
+平均 `5` 个 `2 ms` 物理子步。它只进入离线评估，不包括非轮部位触地、外加推力或传感器
+噪声，也不反馈给控制器。
 
 ## truth、raw 与 control
 
@@ -104,10 +124,13 @@ MuJoCo truth
 | 足端位置 | `0.001 m` | 每个足端的世界系三轴 |
 | 足端平移 Jacobian | `0.001 m/rad` | 每个矩阵元素 |
 | 接触点 | `0.002 m` | 有接触时的世界系三轴 |
+| 接触法向 | `0.004 rad` | 对单位法向施加小旋转后重新归一化 |
+| 接触点 Jacobian | `0.001 m/rad` | 每个矩阵元素 |
 | 轮地接触翻转概率 | `0.005` | 每个轮、每次发布独立判断 |
 
 非轮部位触地计数当前不加噪。接触被翻为 false 时，对应接触点清零；被翻为 true 时，用该轮
-足端位置初始化接触点。这个通道用于可复现的灵敏度实验，不是 IMU 与编码器估计器。
+轮心沿合成法向下移一个轮半径生成接触点，并在该点重新计算 Jacobian。这个通道用于可复现
+的灵敏度实验，不是 IMU 与编码器估计器。
 
 ## 延迟队列和短时补偿
 
@@ -115,8 +138,9 @@ MuJoCo truth
 个控制步的年龄为 `min(k, delay_steps) × 10 ms`；经过 `delay_steps` 个控制步后才达到稳态年龄。
 延迟实验会逐步核对整条 `state_age_ms` 轨迹，而不只检查配置字段。
 
-`constant_velocity` 仅外推连续量，接触开关、接触点和非轮触地计数仍使用延迟测量。满足以下
-条件时才应用外推：
+`constant_velocity` 仅外推连续量。接触开关、接触点、法向、接触点 Jacobian 和非轮触地
+计数仍使用延迟测量。constrained 分配器会用这组旧时刻接触几何计算约束。满足以下条件时
+才应用外推：
 
 - 状态年龄不超过 `50 ms`；恰好 `50 ms` 仍允许；
 - 任一腿关节的 `|qdot × age|` 不超过 `0.35 rad`；
@@ -140,6 +164,10 @@ MuJoCo truth
 指纹检查包含计划中的推力，而不只比较摔倒前已经施加的力。这样可以避免两个早摔回合因为
 推力前缀都为 0 而被误判为输入匹配。
 
+接触分配审计使用单独的预注册种子规则。默认 `seed=21, episodes=3` 直接运行 21–23，只作
+开发检查。正式运行必须恰好使用 121–150，即 `seed=121, episodes=30`。其他起点即使运行
+30 回合也保持 exploratory，manifest 不会给出 promotion pass。
+
 `none` 和 `constant_velocity` 当前由两次 CLI 调用分别生成。程序只保证单次运行内部配对；
 跨目录对照还要核对两份 manifest 的种子列表、协议字段和逐回合输入指纹。缺少任一 seed、存在
 重复 seed 或配对条件不一致时，不生成差异结论。
@@ -154,6 +182,12 @@ MuJoCo truth
 - 连续指标的绝对均值使用双侧 Student t 区间；
 - 连续指标相对 `0 ms` 的差使用同 seed 配对 t 区间；
 - PPO 与 LQR 的连续指标差也按 evaluation seed 配对后使用 t 区间。
+
+接触分配审计同样报告配对 t 区间，但当前晋级门使用预先固定的点估计阈值：成功率不劣于
+legacy、物理侧力/力矩跟踪误差各降低至少 10%、fallback 平均比例不超过 1%、任一回合的
+`feasible_nonconverged + fallback` 不超过 1%、约束违反不超过 `1e-6`，且任一回合的分配器
+P99 不超过 `10 ms`。把可行候选继续用于控制不会抹掉求解器未收敛记录。这些门槛是工程选择，
+不应写成统计学非劣效证明。
 
 少于两个配对样本时区间写为不可用，CSV 中保存 `NaN`。每个条件少于 20 个回合时，报告标记
 为 exploratory。当前没有做多重比较校正；单个次要指标的区间不用于宣称控制器整体更优。
@@ -174,6 +208,11 @@ MuJoCo truth
 | `state_delay_sensitivity.md/.png` | 可读表格和带误差线的四联图 |
 | `delay_sweep_manifest.json` | 完成状态、输入配对检查、记录数和所有产物 SHA-256 |
 
+接触分配审计生成 `evaluation_config.json`、逐回合 CSV、汇总 CSV、Markdown 报告、PNG 图和
+`contact_allocation_manifest.json`。manifest 最后原子写入，并记录每对输入指纹、seed pool、
+晋级检查和其余五个产物的 SHA-256。晋级门还要求每个控制步恰好记录 `5` 个物理子步 wrench
+样本。
+
 普通固定场景与随机域基准使用同一规则。`benchmark_manifest.json` 在最后一步原子写入；程序会
 从最终 CSV 回读行数，核对控制器间的初态、命令和推力指纹，再记录配置、CSV、图像及可选
 GIF 的 SHA-256。运行中断时目录里不会保留旧的 `complete` 标记。
@@ -182,7 +221,7 @@ GIF 的 SHA-256。运行中断时目录里不会保留旧的 `complete` 标记�
 另存 checkpoint 路径、选择方式和模型 SHA-256。正式 README 数字应来自 clean commit；dirty
 运行可以用于调试，但要保留指纹并标成 exploratory。新训练必须把 Python、依赖版本、设备、
 实际步数和模型哈希写入同目录 `training_config.json`；仓库里的旧 oracle checkpoint 缺少其中
-一部分字段，只按加载器的兼容规则使用，不作为新实验的元数据范本。
+一部分字段，缺省按 `oracle / none / legacy` 兼容，不作为新实验的元数据范本。
 
 原始延迟与补偿结果使用固定目录 `results/d1_state_delay_raw` 和
 `results/d1_state_delay_compensated`。重新生成时覆盖这些当前产物，旧版本由 Git 历史保存，
@@ -194,7 +233,9 @@ GIF 的 SHA-256。运行中断时目录里不会保留旧的 `complete` 标记�
 |---|---|---|---|
 | D1 模型能以 `23 nq / 22 nv / 16 nu` 运行，执行器与关节顺序一致 | 模型维度、关节、接触和静止闭环测试 | [`test_d1_model.py`](../tests/test_d1_model.py)、[`d1_model_card.md`](d1_model_card.md) | 只在 MuJoCo 整机仿真中验证；没有实机参数对照 |
 | 一次控制周期内所有控制模块读取同一份状态快照 | 快照不可变性、整回路状态延迟与环境 info 测试 | [`test_d1_state_estimation.py`](../tests/test_d1_state_estimation.py)、[`test_d1_env.py`](../tests/test_d1_env.py) | oracle 与带噪延迟状态源可切换；estimated 仍是人为误差通道 |
-| LQR/MPC/PPO 能完成当前固定平地场景 | 单种子 nominal、push、mismatch 回放 | [`metrics.csv`](../results/d1_benchmark/metrics.csv)、[`metrics.md`](../results/d1_benchmark/metrics.md)、[`benchmark_manifest.json`](../results/d1_benchmark/benchmark_manifest.json) | 当前提交的三种控制器通过固定回放；这是回归结果，不是域外鲁棒性证据 |
+| constrained 分配遵守接触、摩擦和执行器约束 | 理想接触、接触丢失、低摩擦、冲突力矩与 fallback 测试 | [`test_d1_contact_allocation.py`](../tests/test_d1_contact_allocation.py)、[`contact_allocation.md`](contact_allocation.md) | 约束语义已有测试；是否优于 legacy 由预注册多种子审计决定 |
+| MuJoCo actual wrench 与分配器预测可以独立比较 | 静止重力、参考点平移、不可变性和五子步平均测试 | [`test_d1_model.py`](../tests/test_d1_model.py)、[`test_d1_env.py`](../tests/test_d1_env.py) | 只证明仿真内测量链路；平均单接触点模型仍会丢失接触偶矩 |
+| LQR/MPC/PPO 能完成当前固定平地场景 | 单种子 nominal、push、mismatch 回放 | [`metrics.csv`](../results/d1_benchmark/metrics.csv)、[`metrics.md`](../results/d1_benchmark/metrics.md)、[`benchmark_manifest.json`](../results/d1_benchmark/benchmark_manifest.json) | 当前提交的 legacy 三种控制器通过固定回放；这是回归结果，不是域外鲁棒性证据 |
 | 已提交 PPO 稳定优于 LQR | 30 个匹配随机域 seed 的连续指标配对区间 | [`randomized_audit.csv`](../results/d1_benchmark/randomized_audit.csv)、[`randomized_audit.md`](../results/d1_benchmark/randomized_audit.md) | 三个误差区间均跨 0，平均奖励还显著降低；当前证据不支持“稳定优于” |
 | LQR 能通过当前物理地形课程 | 六区域脚本探针与对应 pytest | [`course_metrics.csv`](../results/d1_interactive/course_metrics.csv)、[`test_d1_interactive.py`](../tests/test_d1_interactive.py) | oracle/LQR 当前为 6/6；验收要求第一根横杆，本次终点超过前两根，`60 mm` 横杆、estimated 与实机均未验证 |
 | 常速度外推改善状态延迟鲁棒性 | raw 与 compensated 的同 seed `0/10/20/30/50 ms` 扫描 | [`raw 结果`](../results/d1_state_delay_raw/state_delay_sensitivity.md)、[`补偿结果`](../results/d1_state_delay_compensated/state_delay_sensitivity.md)、[`test_d1_experiments.py`](../tests/test_d1_experiments.py) | `10 ms` 下减小部分误差；`20 ms` 成功数提高但配对区间跨 0，`30/50 ms` 均全部失败，不支持延迟裕量已改善 |

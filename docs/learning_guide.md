@@ -11,13 +11,13 @@ D1 上处理接触、力矩分配、延迟与残差学习。每个阶段都留�
 | A1 | 平面三自由度 | 为什么开环不稳定，线性化是什么 | `examples/controller_walkthrough.py` |
 | A2 | 平面三自由度 | LQR 与 MPC 的代价、约束有何区别 | `controllers.py` |
 | A3 | 平面三自由度 | 奖励各项如何影响策略 | `examples/reward_walkthrough.py` |
-| B1 | D1 16-DOF | URDF 如何变成能落地的整机动力学 | `d1/model.py` |
-| B2 | D1 16-DOF | 四个轮地支撑力如何分配到关节 | `d1/controllers.py` |
-| B3 | D1 16-DOF | 如何在接触闭环上辨识 LQR/MPC 模型 | `d1/linear_model.py` |
-| B4 | D1 16-DOF | RL 应补偿什么、不能掩盖什么 | `d1/env.py`、`d1/rewards.py` |
-| B5 | D1 16-DOF | 如何证明收益不是偶然 | `d1/experiments.py` |
-| B6 | D1 16-DOF | 如何加入键盘、转向、跳跃和物理地形 | `d1/interactive.py`、`d1/terrain.py` |
-| B7 | D1 16-DOF | 状态延迟进入经典控制后会发生什么 | `d1/state_estimation.py` |
+| B1 | D1 16 actuators | URDF 如何变成能落地的整机动力学 | `d1/model.py` |
+| B2 | D1 16 actuators | 接触力如何在约束下映射到关节 | `d1/contact_allocation.py` |
+| B3 | D1 16 actuators | 如何在接触闭环上辨识 LQR/MPC 模型 | `d1/linear_model.py` |
+| B4 | D1 16 actuators | RL 应补偿什么、不能掩盖什么 | `d1/env.py`、`d1/rewards.py` |
+| B5 | D1 16 actuators | 如何证明收益不是偶然 | `d1/experiments.py`、`d1/contact_audit.py` |
+| B6 | D1 16 actuators | 如何加入键盘、转向、跳跃和物理地形 | `d1/interactive.py`、`d1/terrain.py` |
+| B7 | D1 16 actuators | 状态延迟进入经典控制后会发生什么 | `d1/state_estimation.py` |
 
 模型来源、许可证和另一份本地 URDF 为什么没有上传，单独记录在
 [`d1_model_card.md`](d1_model_card.md)。
@@ -130,7 +130,7 @@ D1 层把整机动力学中的以下量带进了实验：
 MuJoCo 直接导入 URDF 时只有固定基座和零执行器。仓库通过 `MjSpec` 在一个入口里补齐
 浮动关节、执行器、地面与接触参数，避免控制器各自偷偷修改模型。
 
-### 6. 低层 VMC：先站住，再谈 LQR
+### 6. 低层 VMC 与两种接触分配
 
 仅靠关节 PD，模型会因重力下沉并产生明显 Pitch。低层控制器同时使用：
 
@@ -138,7 +138,7 @@ MuJoCo 直接导入 URDF 时只有固定基座和零执行器。仓库通过 `Mj
 2. 四轮速度反馈；
 3. 基于虚拟模型的高度、Roll、Pitch 支撑力分配。
 
-目标机身 wrench 写成：
+下面先写 legacy 路径。它的目标机身 wrench 为：
 
 \[
 w_d=\begin{bmatrix}F_z&M_x&M_y\end{bmatrix}^T.
@@ -163,8 +163,23 @@ y_{FL}&y_{FR}&y_{RL}&y_{RR}\\
 \tau_i=J_i^T[0,0,-f_i]^T.
 \]
 
-这一步位于 [`D1VMCController`](../src/wheel_legged_control/d1/controllers.py)。名义姿态下
-静止 5 秒，四轮持续接触，最终 Pitch 约 `0.22°`。
+constrained 路径改为每个激活接触的局部三维力
+`(f_roll, f_lateral, f_normal)`。它拟合六维机身 wrench，并加入以下约束：
+
+| 约束 | 代码中的含义 |
+|---|---|
+| 激活接触 | 离地轮的三维力固定为零 |
+| 单向法向力 | `0 <= f_normal <= f_normal,max` |
+| 摩擦棱锥 | `|f_roll| + |f_lateral| <= μ f_normal`，是摩擦圆的保守内逼近 |
+| 执行器余量 | 接触力矩与已经分给关节 PD 的力矩相加后不得越限 |
+| 求解器未收敛 | 候选仍满足硬约束时继续采用，并记为 `feasible_nonconverged` |
+| 候选不可用 | 非有限或违反硬约束时才进入法向 BVLS `fallback` |
+
+实现入口是 [`contact_allocation.py`](../src/wheel_legged_control/d1/contact_allocation.py)，
+详细的坐标系、目标函数和诊断量见 [`contact_allocation.md`](contact_allocation.md)。legacy
+用于复现原始基线；constrained 用于检查接触切换、摩擦和执行器余量。求解器结果与 wrench
+跟踪结果分别记录：`converged/feasible_nonconverged/fallback` 不等同于
+`tracked/limited`。后者使用 `1 N + 0.5%||F_d||` 和 `0.5 N·m + 0.5%||M_d||` 的工程容差。
 
 ### 7. 在“接触 + VMC”闭环上辨识模型
 
@@ -174,7 +189,8 @@ D1 外层没有复用小车的 `(A,B)`。流程是：
 2. 保存完整 `qpos/qvel` 接触平衡点；
 3. 对 `x、pitch、vx、pitch_rate` 分别做正负扰动；
 4. 对总纵向轮地力做正负扰动；
-5. 每次运行一个 `10 ms` 闭环控制步，中心差分得到离散模型。
+5. 每次探针前清空控制器和分配器记忆，再运行一个 `10 ms` 闭环控制步；
+6. 用中心差分得到所选接触分配路径的离散模型。
 
 外层状态和输入为：
 
@@ -183,19 +199,22 @@ x_r=[x,\theta,\dot x,\dot\theta]^T,
 \qquad u_r=F_x.
 \]
 
-识别结果由测试实时重算，当前闭环工作点约为 `pitch=0.00386 rad`。LQR 使用：
+legacy 和 constrained 分别辨识并缓存模型。默认 LQR/MPC 参数为：
 
 ```text
 Q = diag(0.2, 400, 20, 30)
-R = 1e-8
+R_legacy = 1e-8
+R_constrained = 1e-6
 |Fx| <= 180 N
 ```
 
-`R` 的数值很小，因为输入单位是牛顿，`B` 的量级约为 `10^-5`。判断权重时要连同状态、
-输入单位和离散模型的量级一起看。
+legacy 模型的纵向速度输入导数约为 `5.75e-6`，constrained 约为 `1.62e-4`，相差约 28 倍。
+早期实现把 legacy 模型直接接到 constrained 分配器，固定命令重放在约 4 秒时失稳。加入
+mode-matched 辨识后，同一回归能够跑完整段。这个记录说明低层映射改变后必须重新辨识；它
+本身不构成 constrained 性能更好的证据。
 
-MPC 使用相同模型、权重和终端 Riccati 代价，预测 20 个 `10 ms` 步长，并在优化内显式
-施加 `±180 N` 约束。两种控制器的差别集中在有限时域预测和约束求解。
+MPC 使用当前分配模式对应的模型、权重和终端 Riccati 代价，预测 20 个 `10 ms` 步长，并
+在优化内显式施加 `±180 N` 约束。LQR 与 MPC 的区别集中在有限时域预测和约束求解。
 
 ### 8. D1 残差 PPO 的动作与观察
 
@@ -222,6 +241,10 @@ MPC 使用相同模型、权重和终端 Riccati 代价，预测 20 个 `10 ms` 
 | 上一残差动作 | 2 | 抑制高频动作 |
 
 绝对世界位置没有输入策略，避免它记住某一段轨迹。
+
+训练配置会保存 `baseline`、`state_mode`、`latency_compensation` 和
+`contact_allocation`。加载 checkpoint 时四项必须与运行环境一致。仓库现有策略按 legacy
+分配训练，不能直接放进 constrained 控制路径作为主结果；constrained 策略需要重新训练。
 
 ### 9. 奖励函数
 
@@ -269,6 +292,10 @@ r_{\Delta a} &= -0.025(\Delta a_{x,t}^2+2\Delta a_{z,t}^2).
 这里仍没有模拟 IMU 或编码器融合。当前 source 只是确定性的误差通道，适合做灵敏度实验；
 详细字段和时间语义见 [`state_estimation.md`](state_estimation.md)。
 
+默认误差通道也会扰动接触点、接触法向和接触点 Jacobian。常速度补偿只外推基座、关节和
+轮心运动，接触标志、接触点、法向及接触 Jacobian 保留在测量时刻。使用 constrained 分配
+时，这些旧时刻几何仍会进入力矩约束，应作为延迟实验的一项已知近似。
+
 延迟补偿可选 `constant_velocity`。它用快照中的机身速度、角速度和关节速度做最多 `50 ms`
 的一阶外推，接触仍保持延迟测量。评估时要保留原始状态年龄，并和 `none` 使用完全相同的
 评测种子；只看外推成功的常速片段会高估效果。
@@ -283,6 +310,7 @@ wheel-legged-train \
   --baseline lqr \
   --state-mode oracle \
   --latency-compensation none \
+  --contact-allocation legacy \
   --steps 400000 \
   --envs 8 \
   --seed 7 \
@@ -299,12 +327,30 @@ MuJoCo 是主要耗时，小型 MLP 放到 GPU 通常不会更快。
 ```bash
 MUJOCO_GL=egl wheel-legged-d1-benchmark \
   --state-mode oracle \
+  --contact-allocation legacy \
   --policy results/d1_residual_ppo/model.zip \
   --audit-episodes 30 \
   --gif
 ```
 
-当前随机域结果来自 `oracle` 模式：
+接触分配先跑三组开发审计；只有固定的 121–150 共 30 组种子具备正式晋级资格：
+
+```bash
+wheel-legged-d1-contact-audit \
+  --seed 21 \
+  --episodes 3 \
+  --output results/contact_dev
+
+wheel-legged-d1-contact-audit \
+  --seed 121 \
+  --episodes 30 \
+  --output results/d1_contact_allocation
+```
+
+审计配对比较 legacy 与 constrained 的模式匹配闭环配置，包括各自的分配器、辨识模型和固定
+`R`。它没有隔离单个分配器的因果贡献。
+
+当前随机域结果来自 `oracle + legacy` 模式：
 
 | 控制器 | 失败 | 速度 RMSE | Pitch RMSE | 高度 RMSE |
 |---|---:|---:|---:|---:|
@@ -354,6 +400,10 @@ wheel-legged-d1-play --policy results/d1_residual_ppo/model.zip
 种子和五个延迟点。通过条件预先定为：`20 ms` 成功率配对差的 95% 区间下界高于 0，同时平均
 机械功率不增加超过 10%。未达到这两个条件，就保留为消融结果，不换掉当前默认配置。真正的
 IMU/编码器估计器、参数辨识和实机安全层要等到有传感器日志后再进入主线。
+
+接触分配仍采用每轮一个平均接触点，会丢失同一车轮多个接触点形成的偶矩；当前求解是逐步
+静力分配，没有接触力变化率约束。SLSQP 的端到端 P99 会写入审计，但它不是专用实时 QP
+求解器。MuJoCo constraint wrench 只作为仿真评估旁路，不能替代轮端力传感器数据。
 
 每次实验保留 `training_config.json`、原始 CSV 和对应的失败视频。当前文档与结果目录直接
 覆盖，历史交给 Git 管理，避免出现 `final_v2_really_final` 一类副本。

@@ -3,17 +3,18 @@
 [![tests](https://github.com/LYHrmer/wheel-legged-control-lab/actions/workflows/tests.yml/badge.svg)](https://github.com/LYHrmer/wheel-legged-control-lab/actions/workflows/tests.yml)
 
 我用一台普通 Ubuntu 笔记本做的 D1 轮足控制练习。仓库从六状态教学模型开始，随后换成
-`23 nq / 22 nv / 16 actuators` 的 D1 MuJoCo 整机。项目主要回答三个问题：经典控制在这套
-模型和地形上能做到什么，残差 PPO 是否稳定优于 LQR，以及状态延迟怎样改变闭环裕量。
+`23 nq / 22 nv / 16 actuators` 的 D1 MuJoCo 整机。项目主要回答四个问题：经典控制在这套
+模型和地形上能做到什么，接触约束是否改善力分配，残差 PPO 是否稳定优于 LQR，以及状态
+延迟怎样改变闭环裕量。
 物理频率为 `500 Hz`，整机控制频率为 `100 Hz`。
 
-项目与本末科技的官方代码无关。公开 D1 资产有明确的 Apache-2.0 来源，仿真结果也没有被
-包装成 sim-to-real 或数字孪生。
+项目与本末科技的官方代码无关。公开 D1 资产有明确的 Apache-2.0 来源。本文只报告 MuJoCo
+仿真结果，不主张 sim-to-real 或数字孪生。
 
 | 边界 | 内容 |
 |---|---|
 | 复用 | 固定提交的 D1 URDF/STL、MuJoCo、SciPy、Gymnasium、Stable-Baselines3 |
-| 本项目实现 | MuJoCo 整机装配、VMC、闭环辨识、LQR/MPC、残差 PPO、状态快照与误差通道、地形课程和配对评测 |
+| 本项目实现 | MuJoCo 整机装配、VMC、约束接触力分配、分配路径匹配的闭环辨识、LQR/MPC、残差 PPO、状态快照与误差通道、地形课程和配对评测 |
 | 尚未实现 | IMU/编码器融合、ROS2 硬件链路、实机参数辨识与 sim-to-real |
 
 当前有三条可以由仓库结果核对的结论：
@@ -26,7 +27,8 @@
 
 代码主线见[控制结构](#控制结构)，评测口径见
 [`docs/evaluation_protocol.md`](docs/evaluation_protocol.md)，状态时序见
-[`docs/state_estimation.md`](docs/state_estimation.md)。
+[`docs/state_estimation.md`](docs/state_estimation.md)，接触分配推导见
+[`docs/contact_allocation.md`](docs/contact_allocation.md)。
 
 ![D1 skills course overview](results/d1_interactive/course_overview.png)
 
@@ -42,6 +44,12 @@ source .venv/bin/activate
 pip install -e ".[rl,dev]"
 
 wheel-legged-d1-play
+```
+
+默认入口保留原来的 `legacy` 分配。下面的命令启用接触约束版本：
+
+```bash
+wheel-legged-d1-play --contact-allocation constrained
 ```
 
 窗口打开后，按键会改变速度、转向或高度目标：
@@ -66,13 +74,14 @@ wheel-legged-d1-play --policy results/d1_residual_ppo/model.zip
 ```
 
 策略在平地随机域中训练。跳跃、恢复、大偏航速度和明显斜坡超出训练范围，此时残差会自动
-归零，终端状态显示为 `rl=gated`。checkpoint 加载前会核对基线、观察版本、奖励版本和
-状态模式及 SHA-256。
+归零，终端状态显示为 `rl=gated`。checkpoint 加载前会核对基线、观察版本、奖励版本、
+状态模式、延迟补偿、接触分配模式和 SHA-256。
 
 仓库提交的是 `oracle` 专用、旧元数据格式 checkpoint；它的
 [`training_config.json`](results/d1_residual_ppo/training_config.json) 记录了 `401408` 个实际训练
-步和模型 SHA-256 `53c3b0e9…a2b5f`。旧配置没有 `state_mode`，加载器只按 `oracle` 兼容，
-不能装进 `--state-mode estimated` 的控制回路；两种状态模式需要分别训练和评估。
+步和模型 SHA-256 `53c3b0e9…a2b5f`。旧配置缺少的状态、延迟和分配字段按
+`oracle / none / legacy` 读取。因此它不能装进 `estimated` 或 `constrained` 控制回路；这些
+配置需要分别训练和评估。
 
 要让整条控制链承受状态噪声和 `20 ms` 延迟，可以直接运行：
 
@@ -100,8 +109,9 @@ wheel-legged-d1-play \
 
 ## 地形课程的实测结果
 
-下表来自 `wheel-legged-d1-play --state-mode oracle --audit-output ...` 的 LQR 重放。通过阈值
-在 `run_scripted_demo()` 和对应 pytest 中；`estimated` 模式还没有生成同一组课程结果。
+下表来自 `wheel-legged-d1-play --state-mode oracle --contact-allocation legacy --audit-output ...`
+的 LQR 重放。通过阈值在 `run_scripted_demo()` 和对应 pytest 中；`estimated` 与 constrained
+模式还没有生成同一组课程结果。
 
 | 区域 | 通过 | 前进距离 [m] | 最大 Roll [deg] | 最大 Pitch [deg] | 四轮接触比例 | 控制步 P95 [ms] |
 |---|---:|---:|---:|---:|---:|---:|
@@ -118,7 +128,7 @@ wheel-legged-d1-play \
 
 同一探针改用 `--baseline mpc` 时通过五个区域，台阶前进 `3.21 m`，低于 `3.5 m` 门槛；
 其余五区通过。结果保存在 [`results/d1_interactive_mpc`](results/d1_interactive_mpc/course_metrics.md)。
-MPC 求解正常，当前权重和 `0.2 s` 预测域对连续台阶偏保守。
+外层 MPC 没有出现求解失败；当前权重和 `0.2 s` 预测域对连续台阶偏保守。
 
 ## 控制结构
 
@@ -137,16 +147,28 @@ flowchart LR
     S --> R[PPO 两维残差<br/>可选]
     O --> A[残差限幅与相加]
     R --> A
-    A --> V[VMC 支撑力分配<br/>JᵀF 与关节 PD]
-    V --> T[16 路力矩限幅/斜率限制]
+    A --> V[姿态/高度 VMC<br/>期望机身 wrench]
+    V --> C{接触力分配}
+    C -->|legacy| L[竖直最小二乘<br/>纵向力等分]
+    C -->|constrained| Q[激活接触三维力<br/>摩擦与力矩约束]
+    L --> T[与关节 PD 合成<br/>16 路力矩限制]
+    Q --> T
     T --> M
+    M -. mj_contactForce<br/>仅评估 .-> B[配对审计]
 ```
 
-VMC 根据四个轮地接触位置分配非负竖直支撑力，随后用 `JᵀF` 求腿关节力矩。外层状态为
+`legacy` 路径保留原来的四轮竖直最小二乘和纵向力等分。`constrained` 路径只给激活接触
+分配三维力，并约束单向法向力、保守摩擦棱锥和 PD 力矩之外的剩余执行器余量。
+legacy 使用轮体质心 Jacobian 并单独叠加轮轴驱动力矩；constrained 使用接触点 Jacobian
+映射三维接触力。外层状态为
 `[distance, pitch, forward_speed, pitch_rate]`。距离由机身前向速度积分，转弯后不会继续
-错误地追踪世界坐标 `x`。LQR 和 MPC 共用一套在“D1 + 接触 + VMC”工作点附近数值辨识的
-离散模型。PPO 只修正纵向 `±45 N` 和竖直 `±80 N` 合力，接触分配和 16 路饱和仍由经典
-控制层处理。
+错误地追踪世界坐标 `x`。外层模型会经过所选低层分配路径重新辨识；legacy 和 constrained
+的默认 LQR 输入权重分别为 `1e-8` 和 `1e-6`。因此配对审计比较的是两套模式匹配的闭环配置，
+不把差异归因给单个分配器。PPO 只修正纵向 `±45 N` 和竖直 `±80 N` 合力，接触分配和 16 路
+饱和仍由经典控制层处理。
+
+benchmark 另从 MuJoCo `mj_contactForce` 汇总实际轮地 wrench，并在同一 `base_link` 参考点
+上平均每个 `10 ms` 控制周期内的 `5 × 2 ms` 物理子步。该数据只进入评估，不反馈给控制器。
 
 课程控制器还包含两项明确的保护：姿态过大时降低速度命令；机器人低速卡住且支撑面接近
 水平时，短时放宽纵向合力上限。跳跃由蹲伏、推蹬、腾空、落地四段时序完成，没有直接改
@@ -157,12 +179,29 @@ VMC 根据四个轮地接触位置分配非负竖直支撑力，随后用 `JᵀF
 [`docs/learning_guide.md`](docs/learning_guide.md)；场景、成功定义和统计方法统一放在
 [`docs/evaluation_protocol.md`](docs/evaluation_protocol.md)。
 
+## 接触力分配对照
+
+先用开发种子检查实验流程：
+
+```bash
+wheel-legged-d1-contact-audit --seed 21 --episodes 3 --output results/contact_dev
+```
+
+脚本对相同随机域分别运行 legacy 和 constrained，保存逐回合 CSV、配对差置信区间、
+验收门和运行清单。控制器请求、分配器解出的 wrench、MuJoCo 实际轮地 wrench 分开记录，
+力与力矩也分别统计。模式匹配的辨识模型和 LQR 权重一起切换，因此这是整套配置对照。
+
+正式评估预留种子 `121…150`，命令为
+`wheel-legged-d1-contact-audit --seed 121 --episodes 30 --output results/d1_contact_allocation`。
+开发中遇到的失稳、求解器退出和权重选择记录在
+[`docs/contact_allocation_development.md`](docs/contact_allocation_development.md)。
+
 ## 平地 LQR / MPC / PPO 对照
 
 这张表保留 `oracle` 模式的回归结果，评估种子为 `21`。`push` 施加
 `140 N × 0.12 s` 水平推力；`mismatch_delay` 同时改变质量、阻尼、摩擦和执行器强度，
 并加入 `30 ms` 残差动作延迟与 PPO 观察噪声。LQR、MPC 和 VMC 在这组旧实验中仍读取
-无延迟状态快照。
+无延迟状态快照。该批结果和所用 PPO checkpoint 都属于 `contact_allocation=legacy`。
 
 | 控制器 | 场景 | 速度 RMSE [m/s] | Pitch RMSE [deg] | 高度 RMSE [mm] | 四轮接触比例 |
 |---|---|---:|---:|---:|---:|
@@ -178,7 +217,7 @@ VMC 根据四个轮地接触位置分配非负竖直支撑力，随后用 `JᵀF
 
 ![D1 full-body push comparison](results/d1_benchmark/d1_push_comparison.gif)
 
-MPC 的 P95 求解时间为 `0.3–0.6 ms`，低于 `10 ms` 控制周期。完整 CSV、曲线和动画在
+外层 MPC 的 P95 求解时间为 `0.3–0.6 ms`，低于 `10 ms` 控制周期。完整 CSV、曲线和动画在
 [`results/d1_benchmark`](results/d1_benchmark/metrics.md)。同目录的
 [`benchmark_manifest.json`](results/d1_benchmark/benchmark_manifest.json) 是完成标记，记录
 最终 CSV 行数、运行 provenance 和每个产物的 SHA-256。
@@ -200,7 +239,7 @@ PPO−LQR 的配对差与 95% t 区间为速度 `+0.001 [-0.009, +0.011] m/s`、
 
 代码当前固定测试 `0/10/20/30/50 ms`，汇总程序按这五个点生成配对结果。动作延迟和传感器
 噪声都设为零，只改变状态年龄。每个延迟点复用同一组评测种子；程序核对域参数、动作延迟、
-噪声、估计器种子以及初态、初始命令和计划推力的指纹。
+噪声、估计器种子以及初态、初始命令和计划推力的指纹。下列已提交结果使用 legacy 分配。
 
 正式结果来自干净提交 `92b8785`，每个条件使用同一组 30 个评测种子。连续误差只描述摔倒前
 片段，因此下表先列成功数和平均存活时长：
@@ -238,6 +277,7 @@ wheel-legged-d1-benchmark \
   --state-delay-sweep \
   --state-mode estimated \
   --latency-compensation none \
+  --contact-allocation legacy \
   --audit-episodes 30 \
   --seed 21 \
   --no-policy \
@@ -247,6 +287,7 @@ wheel-legged-d1-benchmark \
   --state-delay-sweep \
   --state-mode estimated \
   --latency-compensation constant_velocity \
+  --contact-allocation legacy \
   --audit-episodes 30 \
   --seed 21 \
   --no-policy \
@@ -262,6 +303,7 @@ pytest
 
 MUJOCO_GL=egl wheel-legged-d1-benchmark \
   --state-mode oracle \
+  --contact-allocation legacy \
   --policy results/d1_residual_ppo/model.zip \
   --audit-episodes 30 \
   --gif \
@@ -269,6 +311,7 @@ MUJOCO_GL=egl wheel-legged-d1-benchmark \
 
 wheel-legged-d1-play \
   --state-mode oracle \
+  --contact-allocation legacy \
   --audit-output results/d1_interactive
 ```
 
@@ -287,6 +330,7 @@ wheel-legged-train \
   --robot d1 \
   --baseline lqr \
   --state-mode oracle \
+  --contact-allocation legacy \
   --steps 400000 \
   --envs 8 \
   --seed 7 \
@@ -306,6 +350,7 @@ wheel-legged-train \
   --baseline lqr \
   --state-mode estimated \
   --latency-compensation none \
+  --contact-allocation legacy \
   --steps 400000 \
   --envs 8 \
   --seed 7 \
@@ -328,11 +373,11 @@ src/wheel_legged_control/
     ├── assets/                            # D1 URDF、STL 与原许可证
     ├── model.py / terrain.py              # 整机装配、接触和多地形课程
     ├── state_estimation.py                # 状态快照、带噪延迟来源与短时外推
-    ├── controllers.py                     # VMC、关节 PD、差速偏航
+    ├── controllers.py / contact_allocation.py  # VMC、关节 PD 与接触力分配
     ├── linear_model.py / hierarchical.py  # 数值辨识、LQR、MPC
     ├── env.py / rewards.py / policy.py    # 观察契约、奖励、checkpoint 校验
     ├── interactive.py                     # 键盘、跳跃、安全门控、录像与验收
-    └── experiments.py                     # 固定场景、随机域审计、延迟曲线与图表
+    └── experiments.py / contact_audit.py  # 固定场景、配对审计、延迟曲线与图表
 tests/                                     # 动力学、状态接口、控制、评测元数据和 Gym 测试
 docs/                                      # 学习笔记、课程设计和模型审计
 results/                                   # 当前 checkpoint、CSV、曲线和动画
@@ -356,6 +401,8 @@ D1 资产来自 Apache-2.0 授权的
 `d1h_wcd_description` 的检查记录在 [`docs/d1_model_card.md`](docs/d1_model_card.md)。
 
 当前 `estimated` 模式只有可复现的整状态噪声、延迟和常速度外推，没有 IMU/编码器融合、
-bias、丢包或真实传感器同步。模型也缺少电机电流环、热衰减、轮胎柔性和 ROS2 通信抖动。地形姿态在
-`oracle` 模式下读取 MuJoCo 接触点；跳跃只验证了低矮横杆。实机前还要做参数辨识、真正的
-估计器、通信超时、电流/姿态限制和硬件急停。
+bias、丢包或真实传感器同步。每个车轮的多个接触点被近似成一个平均点；分配器逐步求解静力
+wrench，没有接触力变化率约束。SLSQP 也不是专用实时 QP 求解器。MuJoCo contact wrench 是
+仿真评估数据，不是传感器读数。模型还缺少电机电流环、热衰减、轮胎柔性和 ROS2 通信抖动。
+跳跃只验证了低矮横杆。实机前还要做参数辨识、真正的估计器、通信超时、电流/姿态限制和
+硬件急停。

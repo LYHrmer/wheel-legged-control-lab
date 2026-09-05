@@ -1,9 +1,16 @@
+from pathlib import Path
+from types import SimpleNamespace
+
 import numpy as np
 import pytest
 
+from wheel_legged_control.d1 import interactive
 from wheel_legged_control.d1.interactive import (
     D1InteractiveSimulation,
+    build_parser,
     run_scripted_demo,
+    run_viewer,
+    write_course_audit,
 )
 from wheel_legged_control.d1.model import D1Plant
 
@@ -103,6 +110,137 @@ def test_interactive_can_apply_short_horizon_latency_compensation() -> None:
     assert statuses[-1].compensation_status == "applied"
     assert statuses[-1].state_age_ms == pytest.approx(20.0)
     assert statuses[-1].compensation_horizon_ms == pytest.approx(20.0)
+
+
+def test_interactive_exposes_constrained_contact_allocation_diagnostics() -> None:
+    simulation = D1InteractiveSimulation(contact_allocation="constrained")
+
+    statuses = [simulation.step() for _ in range(30)]
+    status = statuses[-1]
+
+    assert status.contact_allocation == "constrained"
+    assert status.allocation_status in {"converged", "feasible_nonconverged"}
+    assert status.allocation_status_reason.startswith("slsqp_")
+    assert status.allocation_wrench_tracking_status in {"tracked", "limited"}
+    assert status.allocation_solve_ms > 0.0
+    assert status.allocation_constraint_violation <= 1e-7
+    assert status.allocation_force_error_norm_n >= 0.0
+    assert status.allocation_moment_error_norm_nm >= 0.0
+
+
+def test_scripted_demo_records_contact_allocation_diagnostics() -> None:
+    metrics = run_scripted_demo("start", contact_allocation="constrained")
+
+    assert metrics["contact_allocation"] == "constrained"
+    assert metrics["allocation_solve_p95_ms"] > 0.0
+    assert metrics["allocation_solve_p99_ms"] >= metrics["allocation_solve_p95_ms"]
+    assert metrics["allocation_constraint_violation_max"] >= 0.0
+    assert metrics["allocation_force_error_rms_n"] >= 0.0
+    assert metrics["allocation_moment_error_rms_nm"] >= 0.0
+    for name in (
+        "allocation_converged_ratio",
+        "allocation_feasible_nonconverged_ratio",
+        "allocation_fallback_ratio",
+        "allocation_wrench_limited_ratio",
+        "allocation_no_contact_ratio",
+    ):
+        assert 0.0 <= metrics[name] <= 1.0
+
+
+def test_course_audit_records_one_contact_allocation_mode(tmp_path) -> None:
+    records = write_course_audit(tmp_path, contact_allocation="constrained")
+
+    assert len(records) == 6
+    assert {record["contact_allocation"] for record in records} == {"constrained"}
+    csv_text = (tmp_path / "course_metrics.csv").read_text(encoding="utf-8")
+    markdown = (tmp_path / "course_metrics.md").read_text(encoding="utf-8")
+    assert "contact_allocation" in csv_text.splitlines()[0]
+    assert "allocation_solve_p95_ms" in csv_text.splitlines()[0]
+    assert "Contact allocation: `constrained`" in markdown
+    assert "Allocation P95 [ms]" in markdown
+
+
+def test_viewer_reports_the_selected_contact_allocation(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    import mujoco.viewer
+
+    class OneStepViewer:
+        def __init__(self) -> None:
+            self.cam = SimpleNamespace()
+            self._running = True
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args: object) -> None:
+            return None
+
+        def is_running(self) -> bool:
+            running = self._running
+            self._running = False
+            return running
+
+        def sync(self) -> None:
+            return None
+
+    monkeypatch.setattr(mujoco.viewer, "launch_passive", lambda *args, **kwargs: OneStepViewer())
+
+    run_viewer("lqr", contact_allocation="constrained")
+
+    output = capsys.readouterr().out
+    assert "alloc=constrained/" in output
+    assert "alloc_ms=" in output
+    assert "force_err=" in output
+    assert "moment_err=" in output
+
+
+def test_interactive_cli_accepts_constrained_contact_allocation() -> None:
+    args = build_parser().parse_args(["--contact-allocation", "constrained"])
+
+    assert args.contact_allocation == "constrained"
+
+
+def test_interactive_cli_forwards_one_contact_allocation_mode_to_every_run_path(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    calls: list[tuple[str, str]] = []
+
+    monkeypatch.setattr(
+        interactive,
+        "run_viewer",
+        lambda *args, **kwargs: calls.append(("viewer", kwargs["contact_allocation"])),
+    )
+    monkeypatch.setattr(
+        interactive,
+        "run_scripted_demo",
+        lambda *args, **kwargs: calls.append(("demo", kwargs["contact_allocation"])) or {},
+    )
+    monkeypatch.setattr(
+        interactive,
+        "write_course_audit",
+        lambda *args, **kwargs: calls.append(("audit", kwargs["contact_allocation"])) or [],
+    )
+    monkeypatch.setattr(
+        interactive,
+        "render_course_overview",
+        lambda *args, **kwargs: calls.append(("overview", kwargs["contact_allocation"])),
+    )
+
+    common = ["--contact-allocation", "constrained"]
+    interactive.main(common)
+    interactive.main(common + ["--demo-zone", "start"])
+    interactive.main(common + ["--audit-output", str(tmp_path / "audit")])
+    interactive.main(common + ["--overview", str(tmp_path / "overview.png")])
+
+    assert calls == [
+        ("viewer", "constrained"),
+        ("demo", "constrained"),
+        ("audit", "constrained"),
+        ("overview", "constrained"),
+    ]
 
 
 @pytest.mark.parametrize("zone", ("start", "rough", "ramp", "stairs", "bumps", "jump"))

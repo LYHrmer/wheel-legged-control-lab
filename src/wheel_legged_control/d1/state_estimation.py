@@ -65,6 +65,8 @@ class D1StateEstimate:
     foot_jacobian: np.ndarray
     wheel_contact: np.ndarray
     wheel_contact_point: np.ndarray
+    wheel_contact_normal: np.ndarray
+    wheel_contact_jacobian: np.ndarray
     undesired_ground_contacts: int
 
     def __post_init__(self) -> None:
@@ -91,6 +93,8 @@ class D1StateEstimate:
             "foot_jacobian": ((len(LEG_PREFIXES), 3, 4), np.float64),
             "wheel_contact": ((len(LEG_PREFIXES),), np.bool_),
             "wheel_contact_point": ((len(LEG_PREFIXES), 3), np.float64),
+            "wheel_contact_normal": ((len(LEG_PREFIXES), 3), np.float64),
+            "wheel_contact_jacobian": ((len(LEG_PREFIXES), 3, 4), np.float64),
         }
         for name, (shape, dtype) in specifications.items():
             object.__setattr__(
@@ -203,6 +207,19 @@ class D1MujocoTruthStateSource:
         self._sequence = -1
         self._was_reset = False
 
+    def _contact_point_jacobian(self, foot_index: int, point_world_m: np.ndarray) -> np.ndarray:
+        translation = np.zeros((3, self.plant.model.nv), dtype=np.float64)
+        rotation = np.zeros_like(translation)
+        mujoco.mj_jac(
+            self.plant.model,
+            self.plant.data,
+            translation,
+            rotation,
+            point_world_m,
+            self._foot_body_ids[foot_index],
+        )
+        return translation[:, self._leg_dof_addresses[foot_index]]
+
     def _capture(self) -> D1StateEstimate:
         plant = self.plant
         foot_position = np.asarray(
@@ -225,7 +242,10 @@ class D1MujocoTruthStateSource:
             foot_jacobian[index] = translation[:, dof_addresses]
 
         contact_points: list[list[np.ndarray]] = [[] for _ in range(len(LEG_PREFIXES))]
+        contact_normals: list[list[np.ndarray]] = [[] for _ in range(len(LEG_PREFIXES))]
         for contact in plant.data.contact:
+            if int(contact.efc_address) < 0:
+                continue
             geom1 = int(contact.geom1)
             geom2 = int(contact.geom2)
             if geom1 in plant.terrain_geom_ids:
@@ -236,16 +256,29 @@ class D1MujocoTruthStateSource:
                 continue
             foot_index = self._body_to_foot_index.get(int(plant.model.geom_bodyid[wheel_geom]))
             if foot_index is not None:
-                contact_points[foot_index].append(np.asarray(contact.pos).copy())
+                point = np.asarray(contact.pos).copy()
+                normal = np.asarray(contact.frame).reshape(3, 3)[0].copy()
+                if np.dot(normal, foot_position[foot_index] - point) < 0.0:
+                    normal *= -1.0
+                contact_points[foot_index].append(point)
+                contact_normals[foot_index].append(normal)
 
         wheel_contact = np.asarray(
             [bool(points) for points in contact_points],
             dtype=np.bool_,
         )
         wheel_contact_point = np.zeros((len(LEG_PREFIXES), 3), dtype=np.float64)
+        wheel_contact_normal = np.zeros((len(LEG_PREFIXES), 3), dtype=np.float64)
+        wheel_contact_jacobian = np.zeros((len(LEG_PREFIXES), 3, 4), dtype=np.float64)
         for index, points in enumerate(contact_points):
             if points:
                 wheel_contact_point[index] = np.mean(points, axis=0)
+                mean_normal = np.mean(contact_normals[index], axis=0)
+                wheel_contact_normal[index] = mean_normal / np.linalg.norm(mean_normal)
+                wheel_contact_jacobian[index] = self._contact_point_jacobian(
+                    index,
+                    wheel_contact_point[index],
+                )
 
         linear_body, angular_body = plant.base_velocity(local=True)
         linear_world, angular_world = plant.base_velocity(local=False)
@@ -266,6 +299,8 @@ class D1MujocoTruthStateSource:
             foot_jacobian=foot_jacobian,
             wheel_contact=wheel_contact,
             wheel_contact_point=wheel_contact_point,
+            wheel_contact_normal=wheel_contact_normal,
+            wheel_contact_jacobian=wheel_contact_jacobian,
             undesired_ground_contacts=plant.undesired_ground_contacts,
         )
 
@@ -298,6 +333,8 @@ class D1EstimatorImpairments:
     foot_position_std_m: float = 0.0
     foot_jacobian_std: float = 0.0
     contact_point_std_m: float = 0.0
+    contact_normal_std_rad: float = 0.0
+    contact_jacobian_std: float = 0.0
     contact_flip_probability: float = 0.0
 
     def __post_init__(self) -> None:
@@ -315,6 +352,8 @@ class D1EstimatorImpairments:
             self.foot_position_std_m,
             self.foot_jacobian_std,
             self.contact_point_std_m,
+            self.contact_normal_std_rad,
+            self.contact_jacobian_std,
         )
         if not np.isfinite(standard_deviations).all() or any(
             value < 0.0 for value in standard_deviations
@@ -346,6 +385,8 @@ def make_default_d1_estimator_impairments(
         foot_position_std_m=0.001 * scale,
         foot_jacobian_std=0.001 * scale,
         contact_point_std_m=0.002 * scale,
+        contact_normal_std_rad=0.004 * scale,
+        contact_jacobian_std=0.001 * scale,
         contact_flip_probability=min(0.005 * scale, 1.0),
     )
 
@@ -528,9 +569,37 @@ class D1NoisyDelayedStateSource:
 
         contact_point = state.wheel_contact_point.copy()
         contact_point += self._normal(contact_point.shape, config.contact_point_std_m)
+        contact_normal = state.wheel_contact_normal.copy()
+        contact_jacobian = state.wheel_contact_jacobian.copy()
         newly_contacting = wheel_contact & ~state.wheel_contact
-        contact_point[newly_contacting] = state.foot_position[newly_contacting]
+        contact_normal[newly_contacting] = np.asarray((0.0, 0.0, 1.0))
+        contact_point[newly_contacting] = (
+            state.foot_position[newly_contacting]
+            - self.truth_source.plant.wheel_radius_m * contact_normal[newly_contacting]
+        )
+        contact_jacobian[newly_contacting] = state.foot_jacobian[newly_contacting]
+        for index in np.flatnonzero(newly_contacting):
+            contact_jacobian[index] = self.truth_source._contact_point_jacobian(
+                int(index),
+                contact_point[index],
+            )
+        for index in np.flatnonzero(wheel_contact):
+            contact_normal[index] = _rotation_from_vector(
+                self._normal((3,), config.contact_normal_std_rad)
+            ) @ contact_normal[index]
+            contact_normal[index] /= np.linalg.norm(contact_normal[index])
+            if np.dot(
+                contact_normal[index],
+                state.foot_position[index] - contact_point[index],
+            ) < 0.0:
+                contact_normal[index] *= -1.0
+            contact_jacobian[index] += self._normal(
+                (3, 4),
+                config.contact_jacobian_std,
+            )
         contact_point[~wheel_contact] = 0.0
+        contact_normal[~wheel_contact] = 0.0
+        contact_jacobian[~wheel_contact] = 0.0
 
         base_rotation = state.base_rotation @ rotation_noise
         linear_body = state.base_linear_velocity_body + self._normal(
@@ -559,6 +628,8 @@ class D1NoisyDelayedStateSource:
             + self._normal(state.foot_jacobian.shape, config.foot_jacobian_std),
             wheel_contact=wheel_contact,
             wheel_contact_point=contact_point,
+            wheel_contact_normal=contact_normal,
+            wheel_contact_jacobian=contact_jacobian,
             undesired_ground_contacts=state.undesired_ground_contacts,
         )
 

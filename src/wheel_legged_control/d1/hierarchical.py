@@ -8,6 +8,7 @@ import numpy as np
 from scipy.linalg import block_diag, solve_discrete_are
 from scipy.optimize import minimize
 
+from .contact_allocation import D1ContactAllocator
 from .controllers import D1Command, D1VMCController
 from .linear_model import D1SagittalLinearModel, identify_sagittal_model
 from .model import D1Plant
@@ -15,9 +16,18 @@ from .state_estimation import D1StateEstimate
 
 D1_OUTER_Q = np.diag((0.2, 400.0, 20.0, 30.0))
 D1_OUTER_R = np.asarray(((1e-8,),), dtype=np.float64)
+D1_CONSTRAINED_OUTER_R = np.asarray(((1e-6,),), dtype=np.float64)
 D1_LONGITUDINAL_FORCE_LIMIT_N = 180.0
 D1_VERTICAL_RESIDUAL_LIMIT_N = 120.0
 D1_VERTICAL_FEEDFORWARD_LIMIT_N = 500.0
+
+
+def _default_outer_r(allocation_mode: str) -> np.ndarray:
+    if allocation_mode == "legacy":
+        return D1_OUTER_R.copy()
+    if allocation_mode == "constrained":
+        return D1_CONSTRAINED_OUTER_R.copy()
+    raise ValueError(f"unsupported contact-allocation mode: {allocation_mode!r}")
 
 
 class _D1HierarchicalController:
@@ -25,12 +35,22 @@ class _D1HierarchicalController:
 
     baseline_name = "abstract"
 
-    def __init__(self, plant: D1Plant, linear_model: D1SagittalLinearModel | None = None):
+    def __init__(
+        self,
+        plant: D1Plant,
+        linear_model: D1SagittalLinearModel | None = None,
+        *,
+        contact_allocator: D1ContactAllocator | None = None,
+    ):
         self.control_dt = plant.control_dt
+        allocation_mode = "legacy" if contact_allocator is None else contact_allocator.mode
+        self.allocation_mode = allocation_mode
         self.linear_model = (
-            identify_sagittal_model(plant.control_dt) if linear_model is None else linear_model
+            identify_sagittal_model(plant.control_dt, allocation_mode)
+            if linear_model is None
+            else linear_model
         )
-        self.low_level = D1VMCController(plant)
+        self.low_level = D1VMCController(plant, contact_allocator=contact_allocator)
         self.low_level.wheel_velocity_gain = 0.0
         self._distance_m = 0.0
         self._distance_reference_m = 0.0
@@ -132,10 +152,16 @@ class D1LQRVMCController(_D1HierarchicalController):
         linear_model: D1SagittalLinearModel | None = None,
         q: np.ndarray | None = None,
         r: np.ndarray | None = None,
+        *,
+        contact_allocator: D1ContactAllocator | None = None,
     ) -> None:
-        super().__init__(plant, linear_model)
+        super().__init__(plant, linear_model, contact_allocator=contact_allocator)
         self.q = D1_OUTER_Q.copy() if q is None else np.asarray(q, dtype=np.float64)
-        self.r = D1_OUTER_R.copy() if r is None else np.asarray(r, dtype=np.float64)
+        self.r = (
+            _default_outer_r(self.allocation_mode)
+            if r is None
+            else np.asarray(r, dtype=np.float64)
+        )
         riccati = solve_discrete_are(
             self.linear_model.a,
             self.linear_model.b,
@@ -192,13 +218,19 @@ class D1MPCVMCController(_D1HierarchicalController):
         horizon: int = 20,
         q: np.ndarray | None = None,
         r: np.ndarray | None = None,
+        *,
+        contact_allocator: D1ContactAllocator | None = None,
     ) -> None:
         if horizon < 2:
             raise ValueError("horizon must be at least 2")
-        super().__init__(plant, linear_model)
+        super().__init__(plant, linear_model, contact_allocator=contact_allocator)
         self.horizon = horizon
         self.q = D1_OUTER_Q.copy() if q is None else np.asarray(q, dtype=np.float64)
-        self.r = D1_OUTER_R.copy() if r is None else np.asarray(r, dtype=np.float64)
+        self.r = (
+            _default_outer_r(self.allocation_mode)
+            if r is None
+            else np.asarray(r, dtype=np.float64)
+        )
         self.terminal_q = solve_discrete_are(
             self.linear_model.a,
             self.linear_model.b,
