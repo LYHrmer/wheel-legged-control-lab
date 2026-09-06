@@ -32,6 +32,8 @@ from wheel_legged_control.provenance import capture_git_provenance
 
 CONTROL_DT_S = 0.01
 SCENARIOS = ("stand", "drive_brake", "push")
+VALIDATION_SEEDS = (21, 22, 23)
+VALIDATION_STEPS = 600
 VECTOR_FIELDS = {
     "input_base_position_m": ("x", "y", "z"),
     "input_base_rpy_rad": ("roll", "pitch", "yaw"),
@@ -54,10 +56,12 @@ VECTOR_FIELDS = {
     "output_base_rpy_rad": ("roll", "pitch", "yaw"),
 }
 SCALAR_FIELDS = (
-    "scenario", "seed", "step", "input_time_s", "output_time_s", "applied",
+    "scenario", "seed", "step", "input_time_s", "output_time_s", "applied", "warm_start",
     "command_forward_velocity_mps", "command_height_m", "push_x_n",
     "input_wheel_contacts", "output_wheel_contacts", "undesired_ground_contacts",
     "output_origin_forward_velocity_mps", "velocity_error_mps", "height_error_m",
+    "output_origin_horizontal_speed_mps", "attitude_peak_deg", "height_error_peak_m",
+    "horizontal_speed_peak_mps", "input_undesired_ground_contacts", "episode_validation_passed",
     "status", "solver_status", "stop_reason", "error", "solve_ms", "compute_wall_ms",
     "dynamics_residual_max", "constraint_violation_max", "torque_fraction_max",
     "allocated_to_physics_force_error_n", "physics_sample_count",
@@ -72,14 +76,16 @@ def _vector(row: dict, name: str, values: np.ndarray) -> None:
         row[f"{name}_{component}"] = float(value)
 
 
-def _episode(scenario: str, seed: int, steps: int) -> tuple[list[dict], dict]:
+def _episode(
+    scenario: str, seed: int, steps: int, *, warm_start: bool = False
+) -> tuple[list[dict], dict]:
     plant = D1Plant(control_dt=CONTROL_DT_S, arena="flat")
     initial_rpy = np.r_[np.random.default_rng(seed).uniform(-0.01, 0.01, 2), 0.0]
     xyzw = Rotation.from_euler("xyz", initial_rpy).as_quat()
     plant.reset(base_quaternion=xyzw[[3, 0, 1, 2]])
     states = D1MujocoTruthStateSource(plant)
     state = states.reset(seed=seed)
-    controller = D1InverseDynamicsController(control_dt=CONTROL_DT_S)
+    controller = D1InverseDynamicsController(control_dt=CONTROL_DT_S, warm_start=warm_start)
     controller.reset()
     rows: list[dict] = []
     stop_reason = "completed"
@@ -90,10 +96,15 @@ def _episode(scenario: str, seed: int, steps: int) -> tuple[list[dict], dict]:
         command = D1Command(forward_velocity_mps=forward)
         row = dict.fromkeys(CSV_FIELDS, "")
         row.update(
-            scenario=scenario, seed=seed, step=step, input_time_s=state.control_time_s,
+            scenario=scenario, seed=seed, step=step, warm_start=warm_start,
+            input_time_s=state.control_time_s,
             output_time_s=state.control_time_s, applied=False,
             command_forward_velocity_mps=forward, command_height_m=command.base_height_m,
             push_x_n=push_x, input_wheel_contacts=state.wheel_ground_contacts,
+            input_undesired_ground_contacts=state.undesired_ground_contacts,
+            attitude_peak_deg=float(np.rad2deg(np.max(np.abs(state.base_rpy[:2])))),
+            height_error_peak_m=float(abs(state.base_position[2] - command.base_height_m)),
+            horizontal_speed_peak_mps=float(np.linalg.norm(plant.data.qvel[:2])),
         )
         _vector(row, "input_base_position_m", state.base_position)
         _vector(row, "input_base_rpy_rad", state.base_rpy)
@@ -163,8 +174,18 @@ def _episode(scenario: str, seed: int, steps: int) -> tuple[list[dict], dict]:
         velocity = float(np.asarray((np.cos(yaw), np.sin(yaw), 0.0)) @ plant.data.qvel[:3])
         row.update(
             output_origin_forward_velocity_mps=velocity,
+            output_origin_horizontal_speed_mps=float(np.linalg.norm(plant.data.qvel[:2])),
             velocity_error_mps=velocity - forward,
             height_error_m=float(plant.base_position[2] - command.base_height_m),
+            attitude_peak_deg=max(
+                row["attitude_peak_deg"], float(np.rad2deg(np.max(np.abs(plant.base_rpy[:2]))))
+            ),
+            height_error_peak_m=max(
+                row["height_error_peak_m"], float(abs(plant.base_position[2] - command.base_height_m))
+            ),
+            horizontal_speed_peak_mps=max(
+                row["horizontal_speed_peak_mps"], float(np.linalg.norm(plant.data.qvel[:2]))
+            ),
         )
         if fallen:
             stop_reason = "fallen"
@@ -187,7 +208,8 @@ def _episode(scenario: str, seed: int, steps: int) -> tuple[list[dict], dict]:
     elapsed = len(applied) * CONTROL_DT_S
     final_window = applied[-round(1.0 / CONTROL_DT_S):]
     summary = {
-        "scenario": scenario, "seed": seed, "initial_rpy_rad": initial_rpy.tolist(),
+        "scenario": scenario, "seed": seed, "warm_start": warm_start,
+        "initial_rpy_rad": initial_rpy.tolist(),
         "completed": stop_reason == "completed", "stop_reason": stop_reason,
         "elapsed_s": elapsed, "applied_steps": len(applied), "attempted_steps": len(rows),
         "velocity_rms_mps": rms("velocity_error_mps"),
@@ -203,6 +225,18 @@ def _episode(scenario: str, seed: int, steps: int) -> tuple[list[dict], dict]:
         "final_one_second_velocity_rms_mps": (
             float(np.sqrt(np.mean([row["velocity_error_mps"] ** 2 for row in final_window])))
             if final_window else None
+        ),
+        "final_one_second_horizontal_speed_rms_mps": (
+            float(np.sqrt(np.mean([
+                row["output_origin_horizontal_speed_mps"] ** 2 for row in final_window
+            ]))) if final_window else None
+        ),
+        "attitude_peak_deg": maximum("attitude_peak_deg"),
+        "height_error_peak_m": maximum("height_error_peak_m"),
+        "max_horizontal_speed_mps": maximum("horizontal_speed_peak_mps"),
+        "max_undesired_ground_contacts": max(
+            [row["input_undesired_ground_contacts"] for row in rows]
+            + [row["undesired_ground_contacts"] for row in applied]
         ),
         "height_rms_mm": rms("height_error_m", 1000.0),
         "roll_rms_deg": rms("output_base_rpy_rad_roll", 180.0 / np.pi),
@@ -225,15 +259,50 @@ def _episode(scenario: str, seed: int, steps: int) -> tuple[list[dict], dict]:
             for leg in LEG_PREFIXES
         },
     }
+    def below(name: str, threshold: float, *, inclusive: bool = False) -> bool:
+        value = summary[name]
+        return bool(value is not None and np.isfinite(value)
+                    and (value <= threshold if inclusive else value < threshold))
+
+    gates = {
+        "six_second_protocol": steps == VALIDATION_STEPS,
+        "completed_six_seconds": summary["completed"] and len(applied) == VALIDATION_STEPS,
+        "no_rejected_steps": summary["rejected_steps"] == 0,
+        "attitude_peak_lt_5_deg": below("attitude_peak_deg", 5.0),
+        "height_error_peak_lt_0_04_m": below("height_error_peak_m", .04),
+        "no_undesired_contacts": summary["max_undesired_ground_contacts"] == 0,
+        "constraint_violation_le_1e_4": below("max_constraint_violation", 1e-4, inclusive=True),
+        "torque_fraction_le_1": below("max_torque_fraction", 1.0, inclusive=True),
+    }
+    if scenario == "stand":
+        gates["horizontal_speed_peak_lt_0_15_mps"] = below("max_horizontal_speed_mps", .15)
+    if scenario in {"drive_brake", "push"}:
+        gates["final_second_speed_rms_lt_0_02_mps"] = (
+            len(final_window) == 100 and below("final_one_second_horizontal_speed_rms_mps", .02)
+        )
+    if scenario == "drive_brake":
+        displacement = summary["forward_displacement_m"]
+        gates["displacement_between_0_70_and_1_10_m"] = (
+            displacement is not None and .70 <= displacement <= 1.10
+        )
+        gates["velocity_rms_lt_0_10_mps"] = below("velocity_rms_mps", .10)
+    if scenario == "push":
+        gates["velocity_rms_lt_0_07_mps"] = below("velocity_rms_mps", .07)
+    summary["validation_gates"] = gates
+    summary["validation_passed"] = all(gates.values())
+    for row in rows:
+        row["episode_validation_passed"] = summary["validation_passed"]
     return rows, summary
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--scenario", choices=("all", *SCENARIOS), default="all")
-    parser.add_argument("--seeds", type=int, nargs="+", default=[21, 22, 23])
-    parser.add_argument("--seconds", type=float, default=6.0)
+    parser.add_argument("--seeds", type=int, nargs="+", default=list(VALIDATION_SEEDS))
+    parser.add_argument("--seconds", type=float, default=6.0,
+                        help="diagnostics may use other durations, but validation requires 6 seconds")
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--warm-start", action="store_true", help="experimental solver configuration")
     args = parser.parse_args()
     if not np.isfinite(args.seconds) or args.seconds <= 0.0:
         parser.error("--seconds must be positive and finite")
@@ -249,6 +318,7 @@ def main() -> None:
     scenarios = SCENARIOS if args.scenario == "all" else (args.scenario,)
     metadata = {
         "development_only": True, "heldout": False, "promotion_evaluation": False,
+        "controller_configuration": {"warm_start": args.warm_start},
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
         "source": capture_git_provenance(Path(__file__).resolve().parent.parent),
         "runtime": {"python": platform.python_version(), **{
@@ -262,6 +332,8 @@ def main() -> None:
             "push": {"force_world_n": [120.0, 0.0, 0.0], "start_s": 2.0, "end_s": 2.12},
             "physics_contact_samples_per_step": 5,
             "accepted_controller_status": "solved",
+            "validation_requires": {"scenarios": list(SCENARIOS),
+                                    "seeds": list(VALIDATION_SEEDS), "seconds": 6.0},
         },
         "notes": [
             "Metrics cover applied steps only; incomplete episodes are not comparable to full runs.",
@@ -269,6 +341,9 @@ def main() -> None:
             "Base linear velocity metrics refer to base_link origin, not inertial COM.",
             "Forward displacement is along the initial horizontal heading, world +x.",
             "Final velocity RMS uses up to the last one second of applied steps; see window length.",
+            "Braking speed RMS uses horizontal speed magnitude; velocity RMS uses forward error.",
+            "Attitude peaks are max absolute roll/pitch, not yaw; heights use absolute world-z error.",
+            "Safety peaks and undesired contacts sample control inputs/endpoints, not all substeps.",
             "Four-contact ratio counts control endpoints; per-wheel fractions use physics samples.",
             "No held-out claim or default-controller promotion follows from these runs.",
         ],
@@ -280,11 +355,26 @@ def main() -> None:
         writer.writeheader()
         for scenario in scenarios:
             for seed in args.seeds:
-                rows, summary = _episode(scenario, seed, steps)
+                rows, summary = _episode(scenario, seed, steps, warm_start=args.warm_start)
                 writer.writerows(rows)
                 stream.flush()
                 metadata["episodes"].append(summary)
-                print(f"{scenario} seed={seed}: {summary['stop_reason']} at {summary['elapsed_s']:.2f}s")
+                print(f"{scenario} seed={seed}: {summary['stop_reason']} at {summary['elapsed_s']:.2f}s; "
+                      f"validation_passed={summary['validation_passed']}")
+    protocol_complete = (
+        args.seconds == 6.0 and steps == VALIDATION_STEPS and set(scenarios) == set(SCENARIOS)
+        and set(args.seeds) == set(VALIDATION_SEEDS)
+    )
+    metadata["protocol_complete"] = protocol_complete
+    metadata["validation_gates"] = {
+        "complete_nine_episode_protocol": protocol_complete and len(metadata["episodes"]) == 9,
+        "all_episodes_passed": all(item["validation_passed"] for item in metadata["episodes"]),
+    }
+    metadata["validation_passed"] = all(metadata["validation_gates"].values())
+    metadata["validation_status"] = (
+        "protocol_incomplete" if not protocol_complete
+        else "passed" if metadata["validation_passed"] else "failed"
+    )
     metadata["artifacts"] = {
         "steps": {
             "filename": "steps.csv.gz",
@@ -294,7 +384,9 @@ def main() -> None:
     with (args.output / "summary.json").open("w", encoding="utf-8") as stream:
         json.dump(metadata, stream, indent=2, allow_nan=False)
         stream.write("\n")
-    print(f"Development-only results: {args.output}")
+    print(f"Development-only results: {args.output}; validation={metadata['validation_status']}")
+    if not metadata["validation_passed"]:
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":

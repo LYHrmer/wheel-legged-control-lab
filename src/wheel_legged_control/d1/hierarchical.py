@@ -130,6 +130,7 @@ class _D1HierarchicalController:
             base_height_m=command.base_height_m,
             roll_rad=command.roll_rad,
             pitch_rad=command.pitch_rad,
+            base_vertical_velocity_mps=command.base_vertical_velocity_mps,
         )
         self.last_longitudinal_force_n = longitudinal
         self.last_vertical_residual_n = vertical

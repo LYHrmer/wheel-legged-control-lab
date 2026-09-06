@@ -33,9 +33,12 @@
 [`docs/contact_allocation.md`](docs/contact_allocation.md)。
 
 另有独立的[任务空间逆动力学 QP 原型](docs/inverse_dynamics.md)：同时求 22 维加速度、
-四轮接触力和 16 路力矩，用平地站立、直线制动和推扰检查。它不接入现有 PPO 或键盘演示，
-也没有取代默认控制器。[9 个开发回合](results/d1_inverse_dynamics/README.md) 全部完成，
-但部分回合的计算 P99 超过 10 ms，尚未达到硬实时要求。
+四轮接触力和 16 路力矩。新增热启动数值配置，并扩展低速转向与 8° 坡道实验。
+同输入耗时对照和实际控制回放分开检查，原始数据随结果保存；热启动会改变内部力分配，
+没有将它当作冷求解的等价替换。它尚未接入 PPO 或键盘演示，也没有取代默认控制器。
+[旧冷求解结果](results/d1_inverse_dynamics/README.md) 保留作历史基线。
+
+下面的课程全景及跳跃演示仍使用原有控制路径：
 
 ![D1 skills course overview](results/d1_interactive/course_overview.png)
 

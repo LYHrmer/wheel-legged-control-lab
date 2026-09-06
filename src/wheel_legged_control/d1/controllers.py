@@ -35,13 +35,18 @@ def _heading_rotation(yaw_rad: float) -> np.ndarray:
 
 @dataclass(frozen=True)
 class D1Command:
-    """Body-level command consumed by the low-level controller."""
+    """Body command; height and vertical velocity are world-z references.
+
+    Nonzero vertical-velocity feedforward is supported by inverse dynamics only.
+    Legacy VMC paths reject it rather than silently ignoring a requested motion.
+    """
 
     forward_velocity_mps: float = 0.0
     yaw_rate_rps: float = 0.0
     base_height_m: float = 0.455
     roll_rad: float = 0.0
     pitch_rad: float = 0.0
+    base_vertical_velocity_mps: float = 0.0
 
 
 @dataclass(frozen=True)
@@ -226,6 +231,9 @@ class D1VMCController:
         effort corrections.  Positive longitudinal force drives forward;
         positive vertical correction asks the wheels to support more load.
         """
+
+        if command.base_vertical_velocity_mps != 0.0:
+            raise ValueError("vertical velocity feedforward requires the inverse dynamics controller")
 
         joint_position = state.joint_position
         joint_velocity = state.joint_velocity
