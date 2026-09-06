@@ -1,0 +1,1008 @@
+{
+  "development_only": true,
+  "heldout": false,
+  "promotion_evaluation": false,
+  "created_at_utc": "2026-09-06T05:25:25.938010+00:00",
+  "source": {
+    "git_commit": "178267fb9b2e3682ba5edcc8152765f360591f31",
+    "git_dirty": false,
+    "git_worktree_sha256": null,
+    "runner_sha256": "0594207e1710cafae1284055d235164137c520025aacef1fcc71a4e9ae9ed6a0"
+  },
+  "runtime": {
+    "python": "3.10.12",
+    "numpy": "2.2.6",
+    "scipy": "1.15.3",
+    "mujoco": "3.12.0",
+    "osqp": "1.1.3"
+  },
+  "protocol": {
+    "scenarios": [
+      "turn_left",
+      "turn_right",
+      "ramp_stand",
+      "ramp_to_deck",
+      "ramp_from_flat"
+    ],
+    "seeds": [
+      21,
+      22,
+      23
+    ],
+    "seconds_by_scenario": {
+      "turn_left": 6.0,
+      "turn_right": 6.0,
+      "ramp_stand": 6.0,
+      "ramp_to_deck": 12.0,
+      "ramp_from_flat": 20.0
+    },
+    "control_dt_s": 0.01,
+    "state_source": "oracle",
+    "arena_by_scenario": {
+      "turn_left": "flat",
+      "turn_right": "flat",
+      "ramp_stand": "course",
+      "ramp_to_deck": "course",
+      "ramp_from_flat": "course"
+    },
+    "warm_start": true,
+    "domain_randomization": false,
+    "initial_roll_pitch_perturbation_uniform_rad": [
+      -0.01,
+      0.01
+    ],
+    "midramp_initialization": {
+      "scenarios": [
+        "ramp_stand",
+        "ramp_to_deck"
+      ],
+      "normal_clearance_m": 0.45,
+      "pose": "ramp center plus normal clearance; ramp attitude times tilt perturbation",
+      "require_initial_four_contacts": true
+    },
+    "flat_initialization": {
+      "turn_position_m": [
+        0.0,
+        0.0,
+        0.455
+      ],
+      "ramp_from_flat_position_m": [
+        2.86,
+        0.0,
+        0.455
+      ],
+      "flat_entry_fixture": "selected by static wheel/terrain clearance, not rollout success; legacy x=2.75 course spawn overlaps the rough-block tail",
+      "pose": "level attitude times tilt perturbation; initial contact count unrestricted"
+    },
+    "turn": {
+      "forward_mps": 0.3,
+      "yaw_rate_magnitude_rps": 0.2,
+      "start_s": 1.0,
+      "brake_s": 4.0
+    },
+    "ramp_traversal": {
+      "scenarios": [
+        "ramp_to_deck",
+        "ramp_from_flat"
+      ],
+      "forward_mps": 0.25,
+      "start_s": 1.0,
+      "brake_latch_base_x_m": 4.9
+    },
+    "terrain_reference": {
+      "source": "state.wheel_contact_point; no terrain labels or geometry",
+      "plane": "z=a*x+b*y+c, centered least squares, >=3 contacts and XY rank=2",
+      "filter_gain": 0.12,
+      "invalid_fit": "hold last valid plane; never revert to the initial prior",
+      "flat_initialization": "known z=0 prior only before the first observed support plane",
+      "midramp_initialization": "reject until a support plane is observed",
+      "vertical_clearance_m": 0.455,
+      "world_height_m": "a*base_x+b*base_y+c+vertical_clearance_m",
+      "vertical_velocity_mps": "forward_mps*(a*cos(yaw)+b*sin(yaw))"
+    }
+  },
+  "gates": {
+    "constraint_violation_max": 0.0001,
+    "torque_fraction_max": 1.0,
+    "attitude_error_peak_rad": 0.08726646259971647,
+    "clearance_error_peak_m": 0.04,
+    "turn_signed_yaw_change_rad": [
+      0.4,
+      0.8
+    ],
+    "turn_final_yaw_rate_abs_max_rps": 0.02,
+    "turn_final_horizontal_speed_rms_mps": 0.02,
+    "ramp_final_horizontal_speed_rms_mps": 0.03,
+    "final_window_s": 1.0,
+    "minimum_deck_braking_observation_s": 2.0,
+    "deck_contact_x_bounds_m": [
+      4.62,
+      5.38
+    ],
+    "deck_contact_abs_y_max_m": 0.63,
+    "deck_contact_height_tolerance_m": 0.005
+  },
+  "notes": [
+    "Course geometry initializes midramp poses and independently checks arrival only.",
+    "Flat-entry uses a geometry-checked spawn clear of rough blocks; its height prior is z=0.",
+    "Stairs, jumps, descents, and slope turning are not tested.",
+    "Turn attitude is absolute roll/pitch; slope attitude error uses commanded roll/pitch.",
+    "Clearance error uses an unfiltered output-contact plane, or the held reference if invalid.",
+    "Deck checks require four wheel bodies touching the deck and all four mean contact points inside.",
+    "Noisy contacts, domain randomization, and hardware deployment are outside this protocol.",
+    "qpos/qvel snapshots are saved for replay; controller inputs remain immutable state estimates.",
+    "Compute timing excludes terrain-reference fitting, physics stepping, and CSV logging.",
+    "Safety and arrival checks sample control endpoints, not every physics substep.",
+    "Yaw-rate metrics are world angular-velocity z, not exact Euler-yaw derivatives."
+  ],
+  "episodes": [
+    {
+      "scenario": "turn_left",
+      "seed": 21,
+      "initial_roll_pitch_perturbation_rad": [
+        0.00562235177634942,
+        0.002116940591419361
+      ],
+      "initial_base_position_m": [
+        0.0,
+        0.0,
+        0.455
+      ],
+      "initial_base_rpy_rad": [
+        0.005622351776349421,
+        0.0021169405914193617,
+        -8.470348452204373e-22
+      ],
+      "initial_wheel_contacts": 1,
+      "completed": true,
+      "stop_reason": "completed",
+      "elapsed_s": 6.0,
+      "applied_steps": 600,
+      "attempted_steps": 600,
+      "rejected_steps": 0,
+      "max_constraint_violation": 1.5340382645945283e-05,
+      "max_dynamics_residual": 8.904684328351915e-06,
+      "max_torque_fraction": 0.4259924862708324,
+      "attitude_error_peak_rad": 0.007774089785630089,
+      "clearance_error_peak_m": 0.008110589221804188,
+      "height_tracking_error_peak_m": 0.008047007753715918,
+      "final_window_s": 1.0,
+      "final_horizontal_speed_rms_mps": 0.004743903308764527,
+      "final_yaw_rate_abs_max_rps": 0.0061671879108671735,
+      "yaw_change_rad": 0.5427268627193156,
+      "braking_started_s": null,
+      "braking_observation_s": 0.0,
+      "final_one_second_all_wheels_on_deck": false,
+      "support_fit_valid_fraction": 0.995,
+      "support_plane_age_max_s": 0.0,
+      "compute_wall_p50_ms": 1.071850500011351,
+      "compute_wall_p99_ms": 2.0648212802007038,
+      "gate_checks": {
+        "completed": true,
+        "no_rejected_solves": true,
+        "no_fall": true,
+        "no_nonwheel_ground_contact": true,
+        "constraint_budget": true,
+        "torque_budget": true,
+        "attitude_error": true,
+        "clearance_error": true,
+        "complete_final_window": true,
+        "final_speed": true,
+        "height_tracking_error": true,
+        "signed_yaw_change": true,
+        "final_yaw_rate": true
+      },
+      "passed": true
+    },
+    {
+      "scenario": "turn_left",
+      "seed": 22,
+      "initial_roll_pitch_perturbation_rad": [
+        -0.0026730616913584783,
+        -0.006014092412498342
+      ],
+      "initial_base_position_m": [
+        0.0,
+        0.0,
+        0.455
+      ],
+      "initial_base_rpy_rad": [
+        -0.0026730616913584783,
+        -0.006014092412498343,
+        -1.6940965315654887e-21
+      ],
+      "initial_wheel_contacts": 1,
+      "completed": true,
+      "stop_reason": "completed",
+      "elapsed_s": 6.0,
+      "applied_steps": 600,
+      "attempted_steps": 600,
+      "rejected_steps": 0,
+      "max_constraint_violation": 2.0938181116036958e-05,
+      "max_dynamics_residual": 5.475129375036303e-06,
+      "max_torque_fraction": 1.0,
+      "attitude_error_peak_rad": 0.007336532825335714,
+      "clearance_error_peak_m": 0.007649920380652764,
+      "height_tracking_error_peak_m": 0.007649917104427084,
+      "final_window_s": 1.0,
+      "final_horizontal_speed_rms_mps": 0.004758829254588125,
+      "final_yaw_rate_abs_max_rps": 0.006207146059889555,
+      "yaw_change_rad": 0.5434419128262427,
+      "braking_started_s": null,
+      "braking_observation_s": 0.0,
+      "final_one_second_all_wheels_on_deck": false,
+      "support_fit_valid_fraction": 0.995,
+      "support_plane_age_max_s": 0.0,
+      "compute_wall_p50_ms": 1.1008554997715692,
+      "compute_wall_p99_ms": 3.2108880900432224,
+      "gate_checks": {
+        "completed": true,
+        "no_rejected_solves": true,
+        "no_fall": true,
+        "no_nonwheel_ground_contact": true,
+        "constraint_budget": true,
+        "torque_budget": true,
+        "attitude_error": true,
+        "clearance_error": true,
+        "complete_final_window": true,
+        "final_speed": true,
+        "height_tracking_error": true,
+        "signed_yaw_change": true,
+        "final_yaw_rate": true
+      },
+      "passed": true
+    },
+    {
+      "scenario": "turn_left",
+      "seed": 23,
+      "initial_roll_pitch_perturbation_rad": [
+        0.003878661613147285,
+        0.0028291644175646117
+      ],
+      "initial_base_position_m": [
+        0.0,
+        0.0,
+        0.455
+      ],
+      "initial_base_rpy_rad": [
+        0.0038786616131472854,
+        0.002829164417564612,
+        8.470363371640098e-22
+      ],
+      "initial_wheel_contacts": 0,
+      "completed": true,
+      "stop_reason": "completed",
+      "elapsed_s": 6.0,
+      "applied_steps": 600,
+      "attempted_steps": 600,
+      "rejected_steps": 0,
+      "max_constraint_violation": 4.1616406775801806e-05,
+      "max_dynamics_residual": 1.6888117924877388e-05,
+      "max_torque_fraction": 0.5253722321698316,
+      "attitude_error_peak_rad": 0.007296215772374546,
+      "clearance_error_peak_m": 0.008437474915471865,
+      "height_tracking_error_peak_m": 0.008344122192301684,
+      "final_window_s": 1.0,
+      "final_horizontal_speed_rms_mps": 0.004766458100103788,
+      "final_yaw_rate_abs_max_rps": 0.006220119597116975,
+      "yaw_change_rad": 0.5400451207688612,
+      "braking_started_s": null,
+      "braking_observation_s": 0.0,
+      "final_one_second_all_wheels_on_deck": false,
+      "support_fit_valid_fraction": 0.995,
+      "support_plane_age_max_s": 0.0,
+      "compute_wall_p50_ms": 1.1300930000288645,
+      "compute_wall_p99_ms": 2.6552882300438783,
+      "gate_checks": {
+        "completed": true,
+        "no_rejected_solves": true,
+        "no_fall": true,
+        "no_nonwheel_ground_contact": true,
+        "constraint_budget": true,
+        "torque_budget": true,
+        "attitude_error": true,
+        "clearance_error": true,
+        "complete_final_window": true,
+        "final_speed": true,
+        "height_tracking_error": true,
+        "signed_yaw_change": true,
+        "final_yaw_rate": true
+      },
+      "passed": true
+    },
+    {
+      "scenario": "turn_right",
+      "seed": 21,
+      "initial_roll_pitch_perturbation_rad": [
+        0.00562235177634942,
+        0.002116940591419361
+      ],
+      "initial_base_position_m": [
+        0.0,
+        0.0,
+        0.455
+      ],
+      "initial_base_rpy_rad": [
+        0.005622351776349421,
+        0.0021169405914193617,
+        -8.470348452204373e-22
+      ],
+      "initial_wheel_contacts": 1,
+      "completed": true,
+      "stop_reason": "completed",
+      "elapsed_s": 6.0,
+      "applied_steps": 600,
+      "attempted_steps": 600,
+      "rejected_steps": 0,
+      "max_constraint_violation": 4.500338986090924e-05,
+      "max_dynamics_residual": 8.904684328351915e-06,
+      "max_torque_fraction": 0.4259924862708324,
+      "attitude_error_peak_rad": 0.007774089785630089,
+      "clearance_error_peak_m": 0.008110589221804188,
+      "height_tracking_error_peak_m": 0.008047007753715918,
+      "final_window_s": 1.0,
+      "final_horizontal_speed_rms_mps": 0.00467978113190735,
+      "final_yaw_rate_abs_max_rps": 0.0058278078001434185,
+      "yaw_change_rad": -0.5358372818575792,
+      "braking_started_s": null,
+      "braking_observation_s": 0.0,
+      "final_one_second_all_wheels_on_deck": false,
+      "support_fit_valid_fraction": 0.995,
+      "support_plane_age_max_s": 0.0,
+      "compute_wall_p50_ms": 1.089892000436521,
+      "compute_wall_p99_ms": 2.1864307698342595,
+      "gate_checks": {
+        "completed": true,
+        "no_rejected_solves": true,
+        "no_fall": true,
+        "no_nonwheel_ground_contact": true,
+        "constraint_budget": true,
+        "torque_budget": true,
+        "attitude_error": true,
+        "clearance_error": true,
+        "complete_final_window": true,
+        "final_speed": true,
+        "height_tracking_error": true,
+        "signed_yaw_change": true,
+        "final_yaw_rate": true
+      },
+      "passed": true
+    },
+    {
+      "scenario": "turn_right",
+      "seed": 22,
+      "initial_roll_pitch_perturbation_rad": [
+        -0.0026730616913584783,
+        -0.006014092412498342
+      ],
+      "initial_base_position_m": [
+        0.0,
+        0.0,
+        0.455
+      ],
+      "initial_base_rpy_rad": [
+        -0.0026730616913584783,
+        -0.006014092412498343,
+        -1.6940965315654887e-21
+      ],
+      "initial_wheel_contacts": 1,
+      "completed": true,
+      "stop_reason": "completed",
+      "elapsed_s": 6.0,
+      "applied_steps": 600,
+      "attempted_steps": 600,
+      "rejected_steps": 0,
+      "max_constraint_violation": 1.7750568565233493e-05,
+      "max_dynamics_residual": 5.475129375036303e-06,
+      "max_torque_fraction": 1.0,
+      "attitude_error_peak_rad": 0.0074778429349312775,
+      "clearance_error_peak_m": 0.007833694902573629,
+      "height_tracking_error_peak_m": 0.00783368900465553,
+      "final_window_s": 1.0,
+      "final_horizontal_speed_rms_mps": 0.0047128366634387985,
+      "final_yaw_rate_abs_max_rps": 0.006211721256783971,
+      "yaw_change_rad": -0.5342505918116524,
+      "braking_started_s": null,
+      "braking_observation_s": 0.0,
+      "final_one_second_all_wheels_on_deck": false,
+      "support_fit_valid_fraction": 0.995,
+      "support_plane_age_max_s": 0.0,
+      "compute_wall_p50_ms": 1.0512420003578882,
+      "compute_wall_p99_ms": 1.944886130477232,
+      "gate_checks": {
+        "completed": true,
+        "no_rejected_solves": true,
+        "no_fall": true,
+        "no_nonwheel_ground_contact": true,
+        "constraint_budget": true,
+        "torque_budget": true,
+        "attitude_error": true,
+        "clearance_error": true,
+        "complete_final_window": true,
+        "final_speed": true,
+        "height_tracking_error": true,
+        "signed_yaw_change": true,
+        "final_yaw_rate": true
+      },
+      "passed": true
+    },
+    {
+      "scenario": "turn_right",
+      "seed": 23,
+      "initial_roll_pitch_perturbation_rad": [
+        0.003878661613147285,
+        0.0028291644175646117
+      ],
+      "initial_base_position_m": [
+        0.0,
+        0.0,
+        0.455
+      ],
+      "initial_base_rpy_rad": [
+        0.0038786616131472854,
+        0.002829164417564612,
+        8.470363371640098e-22
+      ],
+      "initial_wheel_contacts": 0,
+      "completed": true,
+      "stop_reason": "completed",
+      "elapsed_s": 6.0,
+      "applied_steps": 600,
+      "attempted_steps": 600,
+      "rejected_steps": 0,
+      "max_constraint_violation": 2.4952600448102658e-05,
+      "max_dynamics_residual": 1.6888117924877388e-05,
+      "max_torque_fraction": 0.5253722321698316,
+      "attitude_error_peak_rad": 0.007483162078644009,
+      "clearance_error_peak_m": 0.008437474915471865,
+      "height_tracking_error_peak_m": 0.008344122192301684,
+      "final_window_s": 1.0,
+      "final_horizontal_speed_rms_mps": 0.004756744343253689,
+      "final_yaw_rate_abs_max_rps": 0.006059150701810774,
+      "yaw_change_rad": -0.5376972547827891,
+      "braking_started_s": null,
+      "braking_observation_s": 0.0,
+      "final_one_second_all_wheels_on_deck": false,
+      "support_fit_valid_fraction": 0.995,
+      "support_plane_age_max_s": 0.0,
+      "compute_wall_p50_ms": 1.0848100000657723,
+      "compute_wall_p99_ms": 2.01410265002778,
+      "gate_checks": {
+        "completed": true,
+        "no_rejected_solves": true,
+        "no_fall": true,
+        "no_nonwheel_ground_contact": true,
+        "constraint_budget": true,
+        "torque_budget": true,
+        "attitude_error": true,
+        "clearance_error": true,
+        "complete_final_window": true,
+        "final_speed": true,
+        "height_tracking_error": true,
+        "signed_yaw_change": true,
+        "final_yaw_rate": true
+      },
+      "passed": true
+    },
+    {
+      "scenario": "ramp_stand",
+      "seed": 21,
+      "initial_roll_pitch_perturbation_rad": [
+        0.00562235177634942,
+        0.002116940591419361
+      ],
+      "initial_base_position_m": [
+        3.781805180529568,
+        0.0,
+        0.5500004566537556
+      ],
+      "initial_base_rpy_rad": [
+        0.00562235177634942,
+        -0.13750939956812705,
+        -5.472670293482401e-20
+      ],
+      "initial_wheel_contacts": 4,
+      "completed": true,
+      "stop_reason": "completed",
+      "elapsed_s": 6.0,
+      "applied_steps": 600,
+      "attempted_steps": 600,
+      "rejected_steps": 0,
+      "max_constraint_violation": 1.5149169274700051e-05,
+      "max_dynamics_residual": 1.5149169274700051e-05,
+      "max_torque_fraction": 0.30411861881062563,
+      "attitude_error_peak_rad": 0.003217154756660401,
+      "clearance_error_peak_m": 0.0021472613787159034,
+      "height_tracking_error_peak_m": 0.002148395810599002,
+      "final_window_s": 1.0,
+      "final_horizontal_speed_rms_mps": 0.0008693359318672362,
+      "final_yaw_rate_abs_max_rps": 0.0004252707765978326,
+      "yaw_change_rad": -0.0011576134011316117,
+      "braking_started_s": null,
+      "braking_observation_s": 0.0,
+      "final_one_second_all_wheels_on_deck": false,
+      "support_fit_valid_fraction": 1.0,
+      "support_plane_age_max_s": 0.0,
+      "compute_wall_p50_ms": 1.1354349999237456,
+      "compute_wall_p99_ms": 1.8843707799715046,
+      "gate_checks": {
+        "completed": true,
+        "no_rejected_solves": true,
+        "no_fall": true,
+        "no_nonwheel_ground_contact": true,
+        "constraint_budget": true,
+        "torque_budget": true,
+        "attitude_error": true,
+        "clearance_error": true,
+        "complete_final_window": true,
+        "final_speed": true,
+        "initial_four_wheel_contacts": true
+      },
+      "passed": true
+    },
+    {
+      "scenario": "ramp_stand",
+      "seed": 22,
+      "initial_roll_pitch_perturbation_rad": [
+        -0.0026730616913584783,
+        -0.006014092412498342
+      ],
+      "initial_base_position_m": [
+        3.781805180529568,
+        0.0,
+        0.5500004566537556
+      ],
+      "initial_base_rpy_rad": [
+        -0.0026730616913584783,
+        -0.14564043257204473,
+        2.7395081511819984e-20
+      ],
+      "initial_wheel_contacts": 4,
+      "completed": true,
+      "stop_reason": "completed",
+      "elapsed_s": 6.0,
+      "applied_steps": 600,
+      "attempted_steps": 600,
+      "rejected_steps": 0,
+      "max_constraint_violation": 1.27951008596916e-05,
+      "max_dynamics_residual": 1.27951008596916e-05,
+      "max_torque_fraction": 0.30630135141592885,
+      "attitude_error_peak_rad": 0.0033951136846893937,
+      "clearance_error_peak_m": 0.0021995988027168067,
+      "height_tracking_error_peak_m": 0.0022007819391388628,
+      "final_window_s": 1.0,
+      "final_horizontal_speed_rms_mps": 0.000918329986724679,
+      "final_yaw_rate_abs_max_rps": 3.7713609695414397e-06,
+      "yaw_change_rad": 0.00022726878292939735,
+      "braking_started_s": null,
+      "braking_observation_s": 0.0,
+      "final_one_second_all_wheels_on_deck": false,
+      "support_fit_valid_fraction": 1.0,
+      "support_plane_age_max_s": 0.0,
+      "compute_wall_p50_ms": 1.2192130002404156,
+      "compute_wall_p99_ms": 1.8271047807593277,
+      "gate_checks": {
+        "completed": true,
+        "no_rejected_solves": true,
+        "no_fall": true,
+        "no_nonwheel_ground_contact": true,
+        "constraint_budget": true,
+        "torque_budget": true,
+        "attitude_error": true,
+        "clearance_error": true,
+        "complete_final_window": true,
+        "final_speed": true,
+        "initial_four_wheel_contacts": true
+      },
+      "passed": true
+    },
+    {
+      "scenario": "ramp_stand",
+      "seed": 23,
+      "initial_roll_pitch_perturbation_rad": [
+        0.003878661613147285,
+        0.0028291644175646117
+      ],
+      "initial_base_position_m": [
+        3.781805180529568,
+        0.0,
+        0.5500004566537556
+      ],
+      "initial_base_rpy_rad": [
+        0.003878661613147285,
+        -0.13679717574198177,
+        0.0
+      ],
+      "initial_wheel_contacts": 4,
+      "completed": true,
+      "stop_reason": "completed",
+      "elapsed_s": 6.0,
+      "applied_steps": 600,
+      "attempted_steps": 600,
+      "rejected_steps": 0,
+      "max_constraint_violation": 2.9515142381894365e-05,
+      "max_dynamics_residual": 2.9515142381894365e-05,
+      "max_torque_fraction": 0.3008621220048764,
+      "attitude_error_peak_rad": 0.0035993024325193246,
+      "clearance_error_peak_m": 0.0021304268246848945,
+      "height_tracking_error_peak_m": 0.0021315561886731116,
+      "final_window_s": 1.0,
+      "final_horizontal_speed_rms_mps": 0.0008656981194707415,
+      "final_yaw_rate_abs_max_rps": 0.00043999299429708553,
+      "yaw_change_rad": -0.0006777864295647145,
+      "braking_started_s": null,
+      "braking_observation_s": 0.0,
+      "final_one_second_all_wheels_on_deck": false,
+      "support_fit_valid_fraction": 1.0,
+      "support_plane_age_max_s": 0.0,
+      "compute_wall_p50_ms": 1.1693895003190846,
+      "compute_wall_p99_ms": 1.7941464903196898,
+      "gate_checks": {
+        "completed": true,
+        "no_rejected_solves": true,
+        "no_fall": true,
+        "no_nonwheel_ground_contact": true,
+        "constraint_budget": true,
+        "torque_budget": true,
+        "attitude_error": true,
+        "clearance_error": true,
+        "complete_final_window": true,
+        "final_speed": true,
+        "initial_four_wheel_contacts": true
+      },
+      "passed": true
+    },
+    {
+      "scenario": "ramp_to_deck",
+      "seed": 21,
+      "initial_roll_pitch_perturbation_rad": [
+        0.00562235177634942,
+        0.002116940591419361
+      ],
+      "initial_base_position_m": [
+        3.781805180529568,
+        0.0,
+        0.5500004566537556
+      ],
+      "initial_base_rpy_rad": [
+        0.00562235177634942,
+        -0.13750939956812705,
+        -5.472670293482401e-20
+      ],
+      "initial_wheel_contacts": 4,
+      "completed": true,
+      "stop_reason": "completed",
+      "elapsed_s": 12.0,
+      "applied_steps": 1200,
+      "attempted_steps": 1200,
+      "rejected_steps": 0,
+      "max_constraint_violation": 3.416337769052147e-05,
+      "max_dynamics_residual": 1.5149169274700051e-05,
+      "max_torque_fraction": 0.47462392447583157,
+      "attitude_error_peak_rad": 0.011309497797599976,
+      "clearance_error_peak_m": 0.007122817114717572,
+      "height_tracking_error_peak_m": 0.007122814852907333,
+      "final_window_s": 1.0,
+      "final_horizontal_speed_rms_mps": 0.0013390189173948463,
+      "final_yaw_rate_abs_max_rps": 2.4792315924168373e-05,
+      "yaw_change_rad": -0.001028189327522113,
+      "braking_started_s": 6.72,
+      "braking_observation_s": 5.280000000000677,
+      "final_one_second_all_wheels_on_deck": true,
+      "support_fit_valid_fraction": 1.0,
+      "support_plane_age_max_s": 0.0,
+      "compute_wall_p50_ms": 1.1573320002753462,
+      "compute_wall_p99_ms": 2.3392656198939217,
+      "gate_checks": {
+        "completed": true,
+        "no_rejected_solves": true,
+        "no_fall": true,
+        "no_nonwheel_ground_contact": true,
+        "constraint_budget": true,
+        "torque_budget": true,
+        "attitude_error": true,
+        "clearance_error": true,
+        "complete_final_window": true,
+        "final_speed": true,
+        "initial_four_wheel_contacts": true,
+        "braking_observed": true,
+        "four_wheels_on_platform": true
+      },
+      "passed": true
+    },
+    {
+      "scenario": "ramp_to_deck",
+      "seed": 22,
+      "initial_roll_pitch_perturbation_rad": [
+        -0.0026730616913584783,
+        -0.006014092412498342
+      ],
+      "initial_base_position_m": [
+        3.781805180529568,
+        0.0,
+        0.5500004566537556
+      ],
+      "initial_base_rpy_rad": [
+        -0.0026730616913584783,
+        -0.14564043257204473,
+        2.7395081511819984e-20
+      ],
+      "initial_wheel_contacts": 4,
+      "completed": true,
+      "stop_reason": "completed",
+      "elapsed_s": 12.0,
+      "applied_steps": 1200,
+      "attempted_steps": 1200,
+      "rejected_steps": 0,
+      "max_constraint_violation": 3.3248584094369704e-05,
+      "max_dynamics_residual": 1.4798918849052932e-05,
+      "max_torque_fraction": 0.47788151959938946,
+      "attitude_error_peak_rad": 0.011197910057562842,
+      "clearance_error_peak_m": 0.007090839461784182,
+      "height_tracking_error_peak_m": 0.007090837187949783,
+      "final_window_s": 1.0,
+      "final_horizontal_speed_rms_mps": 0.0013201382867342533,
+      "final_yaw_rate_abs_max_rps": 0.0007158342438852408,
+      "yaw_change_rad": 0.0010361075683451878,
+      "braking_started_s": 6.7,
+      "braking_observation_s": 5.300000000000677,
+      "final_one_second_all_wheels_on_deck": true,
+      "support_fit_valid_fraction": 1.0,
+      "support_plane_age_max_s": 0.0,
+      "compute_wall_p50_ms": 1.0490350000509352,
+      "compute_wall_p99_ms": 1.6068922602880773,
+      "gate_checks": {
+        "completed": true,
+        "no_rejected_solves": true,
+        "no_fall": true,
+        "no_nonwheel_ground_contact": true,
+        "constraint_budget": true,
+        "torque_budget": true,
+        "attitude_error": true,
+        "clearance_error": true,
+        "complete_final_window": true,
+        "final_speed": true,
+        "initial_four_wheel_contacts": true,
+        "braking_observed": true,
+        "four_wheels_on_platform": true
+      },
+      "passed": true
+    },
+    {
+      "scenario": "ramp_to_deck",
+      "seed": 23,
+      "initial_roll_pitch_perturbation_rad": [
+        0.003878661613147285,
+        0.0028291644175646117
+      ],
+      "initial_base_position_m": [
+        3.781805180529568,
+        0.0,
+        0.5500004566537556
+      ],
+      "initial_base_rpy_rad": [
+        0.003878661613147285,
+        -0.13679717574198177,
+        0.0
+      ],
+      "initial_wheel_contacts": 4,
+      "completed": true,
+      "stop_reason": "completed",
+      "elapsed_s": 12.0,
+      "applied_steps": 1200,
+      "attempted_steps": 1200,
+      "rejected_steps": 0,
+      "max_constraint_violation": 4.062422452300041e-05,
+      "max_dynamics_residual": 2.9515142381894365e-05,
+      "max_torque_fraction": 0.4744636020067684,
+      "attitude_error_peak_rad": 0.01115246639954406,
+      "clearance_error_peak_m": 0.0071170308061436205,
+      "height_tracking_error_peak_m": 0.007117028573503825,
+      "final_window_s": 1.0,
+      "final_horizontal_speed_rms_mps": 0.0013408072773058335,
+      "final_yaw_rate_abs_max_rps": 4.948976005751537e-06,
+      "yaw_change_rad": -0.0004981208202922819,
+      "braking_started_s": 6.72,
+      "braking_observation_s": 5.280000000000677,
+      "final_one_second_all_wheels_on_deck": true,
+      "support_fit_valid_fraction": 1.0,
+      "support_plane_age_max_s": 0.0,
+      "compute_wall_p50_ms": 1.0497190000933188,
+      "compute_wall_p99_ms": 1.5930183700220368,
+      "gate_checks": {
+        "completed": true,
+        "no_rejected_solves": true,
+        "no_fall": true,
+        "no_nonwheel_ground_contact": true,
+        "constraint_budget": true,
+        "torque_budget": true,
+        "attitude_error": true,
+        "clearance_error": true,
+        "complete_final_window": true,
+        "final_speed": true,
+        "initial_four_wheel_contacts": true,
+        "braking_observed": true,
+        "four_wheels_on_platform": true
+      },
+      "passed": true
+    },
+    {
+      "scenario": "ramp_from_flat",
+      "seed": 21,
+      "initial_roll_pitch_perturbation_rad": [
+        0.00562235177634942,
+        0.002116940591419361
+      ],
+      "initial_base_position_m": [
+        2.86,
+        0.0,
+        0.455
+      ],
+      "initial_base_rpy_rad": [
+        0.005622351776349421,
+        0.0021169405914193617,
+        -8.470348452204373e-22
+      ],
+      "initial_wheel_contacts": 1,
+      "completed": true,
+      "stop_reason": "completed",
+      "elapsed_s": 20.0,
+      "applied_steps": 2000,
+      "attempted_steps": 2000,
+      "rejected_steps": 0,
+      "max_constraint_violation": 1.3261421414074298e-05,
+      "max_dynamics_residual": 9.501011435059228e-06,
+      "max_torque_fraction": 0.42599248627082975,
+      "attitude_error_peak_rad": 0.017498335484474756,
+      "clearance_error_peak_m": 0.012905464020341872,
+      "height_tracking_error_peak_m": 0.01290507621007797,
+      "final_window_s": 1.0,
+      "final_horizontal_speed_rms_mps": 0.00035177270259980687,
+      "final_yaw_rate_abs_max_rps": 0.0002873274689035596,
+      "yaw_change_rad": 0.005496001603041982,
+      "braking_started_s": 12.370000000000001,
+      "braking_observation_s": 7.629999999999793,
+      "final_one_second_all_wheels_on_deck": true,
+      "support_fit_valid_fraction": 0.9985,
+      "support_plane_age_max_s": 0.0,
+      "compute_wall_p50_ms": 1.0837570002877328,
+      "compute_wall_p99_ms": 1.8135275393706252,
+      "gate_checks": {
+        "completed": true,
+        "no_rejected_solves": true,
+        "no_fall": true,
+        "no_nonwheel_ground_contact": true,
+        "constraint_budget": true,
+        "torque_budget": true,
+        "attitude_error": true,
+        "clearance_error": true,
+        "complete_final_window": true,
+        "final_speed": true,
+        "braking_observed": true,
+        "four_wheels_on_platform": true
+      },
+      "passed": true
+    },
+    {
+      "scenario": "ramp_from_flat",
+      "seed": 22,
+      "initial_roll_pitch_perturbation_rad": [
+        -0.0026730616913584783,
+        -0.006014092412498342
+      ],
+      "initial_base_position_m": [
+        2.86,
+        0.0,
+        0.455
+      ],
+      "initial_base_rpy_rad": [
+        -0.0026730616913584783,
+        -0.006014092412498343,
+        -1.6940965315654887e-21
+      ],
+      "initial_wheel_contacts": 1,
+      "completed": true,
+      "stop_reason": "completed",
+      "elapsed_s": 20.0,
+      "applied_steps": 2000,
+      "attempted_steps": 2000,
+      "rejected_steps": 0,
+      "max_constraint_violation": 2.675668672758036e-05,
+      "max_dynamics_residual": 1.2314488832160383e-05,
+      "max_torque_fraction": 1.0,
+      "attitude_error_peak_rad": 0.016453069246442784,
+      "clearance_error_peak_m": 0.013117016814041482,
+      "height_tracking_error_peak_m": 0.013116977558096266,
+      "final_window_s": 1.0,
+      "final_horizontal_speed_rms_mps": 0.00034294185318960933,
+      "final_yaw_rate_abs_max_rps": 0.0001957610555191484,
+      "yaw_change_rad": 0.006696511105585339,
+      "braking_started_s": 12.48,
+      "braking_observation_s": 7.5199999999997935,
+      "final_one_second_all_wheels_on_deck": true,
+      "support_fit_valid_fraction": 0.9985,
+      "support_plane_age_max_s": 0.0,
+      "compute_wall_p50_ms": 1.0593790002531023,
+      "compute_wall_p99_ms": 1.5675667298273765,
+      "gate_checks": {
+        "completed": true,
+        "no_rejected_solves": true,
+        "no_fall": true,
+        "no_nonwheel_ground_contact": true,
+        "constraint_budget": true,
+        "torque_budget": true,
+        "attitude_error": true,
+        "clearance_error": true,
+        "complete_final_window": true,
+        "final_speed": true,
+        "braking_observed": true,
+        "four_wheels_on_platform": true
+      },
+      "passed": true
+    },
+    {
+      "scenario": "ramp_from_flat",
+      "seed": 23,
+      "initial_roll_pitch_perturbation_rad": [
+        0.003878661613147285,
+        0.0028291644175646117
+      ],
+      "initial_base_position_m": [
+        2.86,
+        0.0,
+        0.455
+      ],
+      "initial_base_rpy_rad": [
+        0.0038786616131472854,
+        0.002829164417564612,
+        8.470363371640098e-22
+      ],
+      "initial_wheel_contacts": 0,
+      "completed": true,
+      "stop_reason": "completed",
+      "elapsed_s": 20.0,
+      "applied_steps": 2000,
+      "attempted_steps": 2000,
+      "rejected_steps": 0,
+      "max_constraint_violation": 3.3902492234005877e-05,
+      "max_dynamics_residual": 1.6888117888720546e-05,
+      "max_torque_fraction": 0.5253722321698304,
+      "attitude_error_peak_rad": 0.01718442141187934,
+      "clearance_error_peak_m": 0.013106144293317634,
+      "height_tracking_error_peak_m": 0.0131061221664871,
+      "final_window_s": 1.0,
+      "final_horizontal_speed_rms_mps": 0.0003423886466179567,
+      "final_yaw_rate_abs_max_rps": 0.000320086532062671,
+      "yaw_change_rad": 0.002615093773247797,
+      "braking_started_s": 12.43,
+      "braking_observation_s": 7.569999999999794,
+      "final_one_second_all_wheels_on_deck": true,
+      "support_fit_valid_fraction": 0.9985,
+      "support_plane_age_max_s": 0.0,
+      "compute_wall_p50_ms": 1.1154095000165398,
+      "compute_wall_p99_ms": 1.765012040059446,
+      "gate_checks": {
+        "completed": true,
+        "no_rejected_solves": true,
+        "no_fall": true,
+        "no_nonwheel_ground_contact": true,
+        "constraint_budget": true,
+        "torque_budget": true,
+        "attitude_error": true,
+        "clearance_error": true,
+        "complete_final_window": true,
+        "final_speed": true,
+        "braking_observed": true,
+        "four_wheels_on_platform": true
+      },
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "artifacts": {
+    "steps": {
+      "filename": "steps.csv.gz",
+      "sha256": "62d8b72e57c59a53f6e3d8d5e34326c68401c4e75847c91da221d15c24b39831"
+    }
+  }
+}
