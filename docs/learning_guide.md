@@ -1,29 +1,52 @@
 # 从降阶 LQR/MPC 到 D1 整机残差强化学习
 
 这份说明把实验分成两个层次。先用六状态模型拆开线性化、LQR、MPC 和奖励，再到 16 执行器
-D1 上处理接触、力矩分配、延迟与残差学习。每个阶段都留有可运行的入口；先记录基线，再改
-一个参数并保存失败现象，PPO 放在经典控制验证之后。
+D1 上处理接触、力矩分配、延迟与残差学习。中间穿插单轮辨识与闭环对照、PPO 数值计算和
+一次小网络参数更新，方便把公式中的状态转移和梯度对应到代码。
+
+学习目标是能够自己修改一个控制或训练模块，并解释实验结果。运行已有演示只是开始。
+下面的验收问题可以用于准备技术面试，但做完这些实验不等于已经掌握整机部署，也不能保证
+求职结果。
 
 ## 0. 学习路线
 
-| 阶段 | 模型 | 先回答的问题 | 对应入口 |
-|---|---|---|---|
-| A1 | 平面三自由度 | 为什么开环不稳定，线性化是什么 | `examples/controller_walkthrough.py` |
-| A2 | 平面三自由度 | LQR 与 MPC 的代价、约束有何区别 | `controllers.py` |
-| A3 | 平面三自由度 | 奖励各项如何影响策略 | `examples/reward_walkthrough.py` |
-| B1 | D1 16 actuators | URDF 如何变成能落地的整机动力学 | `d1/model.py` |
-| B2 | D1 16 actuators | 接触力如何在约束下映射到关节 | `d1/contact_allocation.py` |
-| B3 | D1 16 actuators | 如何在接触闭环上辨识 LQR/MPC 模型 | `d1/linear_model.py` |
-| B4 | D1 16 actuators | RL 应补偿什么、不能掩盖什么 | `d1/env.py`、`d1/rewards.py` |
-| B5 | D1 16 actuators | 如何证明收益不是偶然 | `d1/experiments.py`、`d1/contact_audit.py` |
-| B6 | D1 16 actuators | 如何加入键盘、转向、跳跃和物理地形 | `d1/interactive.py`、`d1/terrain.py` |
-| B7 | D1 16 actuators | 状态延迟进入经典控制后会发生什么 | `d1/state_estimation.py` |
-| B8 | D1 22 nv | 如何从机身任务同时求加速度、接触力和力矩 | [逆动力学 QP](inverse_dynamics.md) |
+按顺序做完一次小实验，再决定要不要加大训练预算。表中的预期现象都需要测量；某项权重
+调大后性能变差，也可以是一份完成的实验。
 
-B8 可以按实验顺序学习：先用同一批状态比较冷求解与热启动，检查速度提升是否伴随输出
+| 实验 | 对应入口 | 一次只改什么 | 自己应能回答的问题 |
+|---|---|---|---|
+| 1. 线性化与 LQR | [`controller_walkthrough.py`](../examples/controller_walkthrough.py)、第 1–3 节 | 初始 Pitch，或 `DEFAULT_Q` 的 Pitch 权重 | `A−BK` 的特征值稳定，为什么加上限幅后仍可能摔倒？ |
+| 2. 约束 MPC | [`LinearMPCController`](../src/wheel_legged_control/controllers.py)、第 3 节 | `horizon`，先保留原 Q/R | 相同输入限幅下，预测长度改变了什么？误差改善是否伴随 P99 耗时增加？ |
+| 3. 奖励与任务 | [`reward_walkthrough.py`](../examples/reward_walkthrough.py)、第 9 节 | 一个跟踪尺度，或动作代价权重 | 总奖励提高时，速度误差是否也降低？动作平方为什么不能直接叫电耗？ |
+| 4. TD、GAE 与结束标记 | [`ppo_walkthrough.py`](../examples/ppo_walkthrough.py)、[PPO 数值实验](ppo_learning_lab.md) | `gae_lambda`，或末步 `terminated/truncated` | 时间上限截断时从哪个状态估值？新一局的奖励会不会传回上一局？ |
+| 5. PPO 裁剪与训练 | 同一个数值例程、[`train.py`](../src/wheel_legged_control/train.py) | 先改固定样本的概率比；小预算训练时再单独改 `clip_range` | 负优势且概率增大时，哪一支仍有梯度？clip 是否保证所有比率都留在区间内？ |
+| 5a. 一次真实梯度更新 | [`ppo_update_walkthrough.py`](../examples/ppo_update_walkthrough.py)、[更新实验](ppo_update_lab.md) | 先改学习率；另一轮只改价值损失系数 | 哪些张量必须冻结？如何用梯度重算 actor 和 critic 的参数变化？ |
+| 6. D1 接触与 QP | 第 6.1 节、[`d1_controller_walkthrough.py`](../examples/d1_controller_walkthrough.py)、[逆动力学 QP](inverse_dynamics.md) | 先改 wrench 特征长度；另一轮只切换 `warm_start` | 求解满足约束与实际力跟踪是同一件事吗？加速度接近时内力为何还能不同？ |
+| 7. 残差策略与观察 | [`d1/env.py`](../src/wheel_legged_control/d1/env.py)、第 8、11、12 节 | 先开关策略；另一次实验修改残差尺度并重新训练 | 当前策略是否优于零残差？门控覆盖了哪些训练外工况，又没有保证什么？ |
+| 8. 模型误差与延迟 | 第 10、13 节、[执行器辨识台架](actuator_identification.md) | 先单独改变状态延迟；台架实验只改一个未知执行器参数 | 外推在哪种运动下失效？标定在未参与拟合的输入上是否仍有效？ |
+| 8a. 单轮闭环补偿 | [PI 与前馈对照](wheel_control_lab.md) | 先只切换前馈参数；另一次只改积分增益 | 前馈收益来自结构还是参数？饱和时为何不能继续累积同向积分？ |
+
+每次实验按同一份记录验收：
+
+1. 运行前写下预测。比如增大 Pitch 权重后，恢复时间可能缩短，但峰值力矩也可能更大。
+2. 保存基线后只改一个参数。记录代码提交和具体改动；训练实验还要记录训练 seed 与实际步数。
+3. 图表链接到原始 CSV 或数值表。控制实验至少保留失败标志和跟踪误差；比较求解速度时另记
+   P99 与最大耗时。耗时不作为轨迹是否一致的判据。
+4. 关掉文档，用自己的话解释一处与预测不符的结果。把“测到了什么”和“猜测原因是什么”
+   分开；尚未验证的原因要留作下一次实验，不能写成结论。
+
+记录应能定位到修改的参数与对应输出。保留需要的原始结果；重复截图和过时说明可以清理，
+已经报告的失败数据不要因结果不好而删除。
+
+逆动力学 QP 可以按实验顺序学习：先用同一批状态比较冷求解与热启动，检查速度提升是否伴随输出
 变化；再跑实际前进制动，观察近似相同的预测加速度是否得到相近轨迹。最后看转向和坡道，
 检查轮速目标、支撑面估计与高度前馈。每次改一个参数，保留新的输出目录和失败日志。
 只展示求解器耗时不足以说明控制效果，能跑完一段录像也不足以说明约束一直满足。
+
+当前的热启动配置会改变接触内力分配，不能写成与冷求解数值等价。它仍是独立的实验路径，
+尚未接入 PPO 训练或旧键盘控制器。`ppo_walkthrough.py` 只演示公式，
+`ppo_update_walkthrough.py` 对小型教学网络执行一次更新；机器人训练继续使用 SB3。
+IMU/编码器融合估计器也尚未实现。
 
 模型来源、许可证和另一份本地 URDF 为什么没有上传，单独记录在
 [`d1_model_card.md`](d1_model_card.md)。
@@ -111,11 +134,34 @@ u=\operatorname{clip}\left(u_{LQR}+
 \quad a_{PPO}\in[-1,1]^2.
 \]
 
-LQR 负责局部稳定，策略只补偿参数失配、延迟与非线性。奖励逐项放在
-[`rewards.py`](../src/wheel_legged_control/rewards.py)，并通过 `info["reward_terms"]` 返回。
+LQR 提供基线反馈，策略被设计为补偿基线尚未充分处理的误差，例如质量失配造成的跟踪偏差。
+局部线性模型中的 LQR 稳定性并不自动覆盖加入残差和力矩限幅后的系统，需要重新做闭环评测。
+奖励逐项放在 [`rewards.py`](../src/wheel_legged_control/rewards.py)，并通过
+`info["reward_terms"]` 返回。
 运行 `python examples/reward_walkthrough.py` 可以看到每项贡献和奖励地形。
 
 ![Planar reward landscape](../results/learning/reward_landscape.png)
+
+### 4.1 在训练前算清 GAE 与 PPO 裁剪
+
+在仓库根目录运行：
+
+```bash
+PYTHONPATH=src:.local-deps python3 examples/ppo_walkthrough.py
+```
+
+这个例程只用 NumPy 处理固定数值，不启动 MuJoCo，也不训练策略。输出先比较同一条短轨迹
+在真实终止和超时截断时的 GAE，再列出正负优势对应的 PPO 裁剪分支。末尾计算 `20 ms` 与
+`10 ms` 控制周期下，相同 `gamma` 对应的折扣时间。
+
+先手算最后一步的 TD 误差，再核对输出。把一次时间上限截断当成摔倒，会错误地丢掉末状态
+的价值；把截断后的新回合接进优势递推，又会让新一局的数据影响上一局。例程用两个掩码
+分别处理 bootstrap 与递推边界。完整公式和练习见 [PPO 数值实验](ppo_learning_lab.md)。
+
+训练入口默认使用 `gamma=0.99`、`gae_lambda=0.95` 和 `clip_range=0.2`，现在可以通过
+CLI 单独调整。`--log-training-metrics` 会保存 SB3 的 KL、clip fraction 等诊断量，实际
+超参数也写入训练配置。等能解释负优势的裁剪分支后，再按 [PPO 实验说明](ppo_learning_lab.md)
+做小预算训练，并检查奖励外的跟踪指标。纯数值例程不生成网络训练曲线。
 
 ---
 
@@ -376,8 +422,9 @@ wheel-legged-train \
   --output results/d1_residual_ppo
 ```
 
-PPO rollout 批次使实际步数向上取整为 `401408`。本机 8 个 CPU 环境约用 3.5 分钟；全身
-MuJoCo 是主要耗时，小型 MLP 放到 GPU 通常不会更快。
+PPO rollout 批次使实际步数向上取整为 `401408`。仓库早期训练记录中，本机 8 个 CPU 环境
+约用 3.5 分钟；这是当时配置的测量，不是运行时限保证。切换分配器或状态模式后要重新
+计时，也不能从这条 CPU 记录推出 GPU 的性能。
 
 固定场景与 30-seed 配对审计：
 
@@ -449,7 +496,7 @@ wheel-legged-d1-play --policy results/d1_residual_ppo/model.zip
 结果扩写成全地形能力。场景参数、跳跃时序、验收表和调试记录见
 [`interactive_course.md`](interactive_course.md)。
 
-## 13. 下一轮实验
+## 13. 模型误差实验与 sim2real 准备
 
 固定延迟曲线已经完成。`10 ms` 下，一阶外推保持全部回合成功并降低了部分跟踪误差；到
 `20 ms`，LQR/MPC 的成功数都增加，但配对区间跨过 0，且多数控制步因关节运动学边界而退回
@@ -457,14 +504,54 @@ wheel-legged-d1-play --policy results/d1_residual_ppo/model.zip
 [`results/d1_state_delay_raw`](../results/d1_state_delay_raw/delay_sweep_episodes.csv) 与
 [`results/d1_state_delay_compensated`](../results/d1_state_delay_compensated/delay_sweep_episodes.csv)。
 
-下一轮只替换预测器：用已施加力矩和局部线性模型从测量时刻滚动到控制时刻，仍复用这 30 个
-种子和五个延迟点。通过条件预先定为：`20 ms` 成功率配对差的 95% 区间下界高于 0，同时平均
-机械功率不增加超过 10%。未达到这两个条件，就保留为消融结果，不换掉当前默认配置。真正的
-IMU/编码器估计器、参数辨识和实机安全层要等到有传感器日志后再进入主线。
+这批结果适合学习延迟失稳，也保留为旧配置的回归依据。使用它们分析过失败原因后，不能再
+把同一批数据当作下一种预测器的全新留出集。若继续研究基于已施加力矩的预测，应先确定
+开发条件，再另设未参与调参的评测条件；成功率与机械功率的判定门槛也要在正式评测前写下。
+该预测器目前尚未实现。
 
-接触分配仍采用每轮一个平均接触点，会丢失同一车轮多个接触点形成的偶矩；当前求解是逐步
-静力分配，没有接触力变化率约束。SLSQP 的端到端 P99 会写入审计，但它不是专用实时 QP
-求解器。MuJoCo constraint wrench 只作为仿真评估旁路，不能替代轮端力传感器数据。
+### 13.1 单转轴执行器辨识台架
 
-每次实验保留 `training_config.json`、原始 CSV 和对应的失败视频。当前文档与结果目录直接
-覆盖，历史交给 Git 管理，避免出现 `final_v2_really_final` 一类副本。
+只有电脑时，可以先用合成日志验证辨识流程。入口和数据定义见
+[执行器辨识台架](actuator_identification.md)，先查看脚本参数：
+
+```bash
+PYTHONPATH=src:.local-deps python3 scripts/run_actuator_identification.py --help
+```
+
+MuJoCo 台架包含 `wheel` 和 `pendulum` 两种固定基座单转轴负载。前者是无轮地接触的自由
+转子；后者用重力摆负载简化一处腿关节所承受的负载，不能称为完整 D1 单腿。两种台架都
+直接接受力矩指令，模型参数是教学设定，不是实际 D1 电机的标定结果。
+
+先读懂一条命令如何经过延迟到达执行器，再改变一个未知参数并观察响应。拟合程序能用的
+数据与被辨识对象的隐藏参数必须分开。用来评估的运动也要与拟合数据分开；只重现拟合
+轨迹不足以判断模型有没有预测能力。具体约束及输出含义以台架文档为准。
+
+相同模型结构上的参数恢复用于检查程序；被辨识对象包含额外摩擦效应时，还要检查简化
+模型在未见输入上的误差。后一类实验即使优化收敛，拟合参数也未必等于隐藏真值。当前台架
+不包含完整 PACE 的位置 PD 数据采集流程，也没有把参数自动写入 D1 IDQP。
+
+传感器方向可以从模拟 IMU 和编码器开始设计日志接口，无需等到拿到实机；融合估计器尚未
+实现。现有 `estimated` source 仍是真值误差通道。将来拿到真实日志后，需要重新确认关节
+顺序和时间戳等接口，并重新辨识参数。现在的结果只能说明合成数据上的程序行为，不能
+写成已完成实际 D1 辨识或 sim2real 迁移。
+
+### 13.2 从辨识到单轮闭环
+
+按[单轮闭环实验](wheel_control_lab.md)在同一个固定轴非理想对象上比较 PI、名义前馈和
+辨识前馈。三组使用相同反馈增益、限矩及测量噪声，并保留每个物理步的误差、P/I/前馈
+力矩与延迟后的实际命令。先用一行 CSV 手算控制输出，再比较整段 RMSE。
+
+辨识只看两条标定轨迹，三种闭环参考不参与拟合。含额外低速摩擦和力矩饱和的结果也全部
+保留；本轮没有反演延迟，也没有将参数写入整机 IDQP。能解释单轮误差为何变化后，再考虑
+整机补偿入口与约束重新验证。
+
+### 13.3 保留的模型边界
+
+第 6 节的 VMC 接触分配仍采用每轮一个平均接触点，会丢失同一车轮多个接触点形成的偶矩；
+它是逐步静力分配，没有接触力变化率约束。SLSQP 的端到端 P99 会写入审计，但它不是专用
+实时 QP 求解器。独立 IDQP 的动力学假设见[对应文档](inverse_dynamics.md)。MuJoCo
+constraint wrench 只作为仿真评估旁路，不能替代轮端力传感器数据。
+
+训练实验保留 `training_config.json`，原始 CSV 要能对应到那一次运行；失败视频按需要保留。
+学习说明只维护一份当前版本，历史交给 Git 管理。新的对照结果写入新目录，确认记录完整后
+再清理重复输出，避免覆盖已经报告的原始数据。

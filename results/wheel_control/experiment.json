@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "data_origin": "synthetic_only",
+  "created_utc": "2026-09-07T11:27:19.134139+00:00",
+  "arguments": {
+    "output": "/home/lyh/wheel-legged-control-lab/results/wheel_control",
+    "scenario": "both",
+    "duration": 6.0,
+    "calibration_duration": 3.0,
+    "noise_scale": 1.0,
+    "seed": 17,
+    "max_delay_steps": 4,
+    "max_nfev": 30
+  },
+  "source": {
+    "git_commit": "268c9b1202a8b90c26df680a49fed7ff565f3334",
+    "git_dirty": true,
+    "git_worktree_sha256": "c67203ac8c62577ed1615dd3994a5ae7f55dd9cf8e89c69b556bf71fd873331b"
+  },
+  "source_sha256": {
+    "scripts/evaluate_wheel_control.py": "3d788570f09739ac09d3f18f0b193366d4f8ac424fb5ffbe8f1402942544f32d",
+    "src/wheel_legged_control/wheel_control.py": "e46735a96a52a1617f2471cf9be4d357f40212025b835abd6528ea3f683c4129",
+    "src/wheel_legged_control/actuator_bench.py": "edb0e7c65076c9cd7dc108797cf695e9d8405b485a576c4a5ae712b420303625",
+    "src/wheel_legged_control/actuator_identification.py": "07af57632b5acfe8dd74a6f363879e072ff12393d4ebe7a2604216108a07c790",
+    "src/wheel_legged_control/provenance.py": "2da900d3bc84d4b236e4b1a39a23a931919e8c5497fc1d04f2433359a9706067",
+    "pyproject.toml": "d250d44b5b8d05b30b816f3eaa7530843c12e45ab6fd0dba780e8baa0c47ad01"
+  },
+  "versions": {
+    "numpy": "2.2.6",
+    "scipy": "1.15.3",
+    "mujoco": "3.12.0",
+    "matplotlib": "3.10.6"
+  },
+  "bench_config": {
+    "kind": "wheel",
+    "dt": 0.002,
+    "torque_limit_nm": 2.0
+  },
+  "controller_config_all_conditions": {
+    "kp": 0.12,
+    "ki": 0.6,
+    "dt": 0.002,
+    "torque_limit_nm": 2.0
+  },
+  "known_load_inertia_kg_m2": 0.0018922499999999998,
+  "nominal_parameters": {
+    "armature": 0.01,
+    "damping": 0.08,
+    "coulomb_friction": 0.025,
+    "delay_steps": 0
+  },
+  "generator_truth_not_available_to_fitter_or_controller": {
+    "armature": 0.017,
+    "damping": 0.105,
+    "coulomb_friction": 0.043,
+    "delay_steps": 2
+  },
+  "mismatch_extra_stribeck_friction_nm": 0.08,
+  "profiles": {
+    "tracking": "3*sin(2*pi*0.45*t) rad/s",
+    "reversal": "2.5*tanh(3*sin(2*pi*0.35*t)) rad/s",
+    "stress": "18*sin(2*pi*1*t) rad/s; deliberately exceeds available torque"
+  },
+  "protocol": {
+    "fit": "two calibration torque logs only; no closed-loop metrics in model selection",
+    "selection": "fixed PI gains, three prespecified references; no tuning on closed-loop results",
+    "pairing": "same truth, initial state, dt, torque limit, gains and measurement noise stream",
+    "calibration_noise_std": {
+      "position_rad": 0.0002,
+      "velocity_rad_s": 0.002
+    },
+    "feedback_noise_std_rad_s": 0.002,
+    "sampling": "state_k / reference_k -> controller -> plant step -> next_state; log every dt",
+    "metrics": "reference_k - true_velocity_k, not next_velocity; includes startup",
+    "delay_compensation": "none; estimated delay is recorded but not inverted or previewed",
+    "safety": {
+      "speed_guard_rad_s": 30.0,
+      "partial_runs_reported": true
+    },
+    "scope": "one synthetic parameter set, one noise seed; no population CI or D1 claim"
+  }
+}

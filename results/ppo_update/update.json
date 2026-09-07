@@ -1,0 +1,668 @@
+{
+  "schema": "ppo-single-sgd-update-v1",
+  "synthetic_only": true,
+  "config": {
+    "learning_rate": 0.01,
+    "clip_range": 0.2,
+    "vf_coef": 0.5,
+    "ent_coef": 0.0
+  },
+  "choices": {
+    "optimizer": "SGD without momentum or weight decay",
+    "device": "cpu",
+    "dtype": "float64",
+    "advantage_normalization": false,
+    "gradient_clipping": false,
+    "value_clipping": false,
+    "action_squashing": false,
+    "actor_critic_shared_parameters": false
+  },
+  "rollout": {
+    "seed": 7,
+    "gamma": 0.9,
+    "gae_lambda": 0.8,
+    "dynamics": "v_next=0.85*v+0.25*a; reference=0.8; dimensionless",
+    "reward_definition": "1-(v_next-reference)^2-0.05*a^2",
+    "rewards": [
+      -0.33911416033645697,
+      0.056455133293153395,
+      0.3885565756595242,
+      0.09359737583357025,
+      0.5427469756649238,
+      0.3840159113986605,
+      0.323774419951221,
+      0.6062783943277166
+    ],
+    "values": [
+      0.05,
+      0.0585800151748026,
+      0.09735582685549618,
+      0.13667002372531267,
+      0.1019879139780869,
+      0.1656579504787758,
+      0.13470965341087998,
+      0.12570181751080844
+    ],
+    "next_observations": [
+      [
+        -0.35709992412598707,
+        0.8
+      ],
+      [
+        -0.1632208657225192,
+        0.8
+      ],
+      [
+        0.03335011862656323,
+        0.8
+      ],
+      [
+        -0.14006043010956554,
+        0.8
+      ],
+      [
+        0.17828975239387887,
+        0.8
+      ],
+      [
+        0.023548267054399857,
+        0.8
+      ],
+      [
+        -0.021490912445957782,
+        0.8
+      ],
+      [
+        0.20521866896798663,
+        0.8
+      ]
+    ],
+    "next_values": [
+      0.0585800151748026,
+      0.09735582685549618,
+      0.13667002372531267,
+      0.1019879139780869,
+      0.1656579504787758,
+      0.13470965341087998,
+      0.12570181751080844,
+      0.17104373379359733
+    ],
+    "terminated": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "truncated": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true
+    ]
+  },
+  "batch": {
+    "observations": [
+      [
+        -0.4,
+        0.8
+      ],
+      [
+        -0.35709992412598707,
+        0.8
+      ],
+      [
+        -0.1632208657225192,
+        0.8
+      ],
+      [
+        0.03335011862656323,
+        0.8
+      ],
+      [
+        -0.14006043010956554,
+        0.8
+      ],
+      [
+        0.17828975239387887,
+        0.8
+      ],
+      [
+        0.023548267054399857,
+        0.8
+      ],
+      [
+        -0.021490912445957782,
+        0.8
+      ]
+    ],
+    "actions": [
+      [
+        -0.06839969650394816
+      ],
+      [
+        0.5612562791382791
+      ],
+      [
+        0.6883514179628182
+      ],
+      [
+        -0.6736321237685772
+      ],
+      [
+        1.1893644719480383
+      ],
+      [
+        -0.5119920899215887
+      ],
+      [
+        -0.16602775776879064
+      ],
+      [
+        0.893943778188203
+      ]
+    ],
+    "old_log_prob": [
+      -0.5297129335274873,
+      -0.8279476039840366,
+      -0.9671741128430931,
+      -1.1398198320647748,
+      -1.948324157946312,
+      -0.9192969998769739,
+      -0.5821731131212577,
+      -1.2783258456478586
+    ],
+    "advantages": [
+      0.28804204516264564,
+      0.8672697108913614,
+      1.0857977063931443,
+      0.9327693558837983,
+      1.227851223882309,
+      0.8861111205063523,
+      0.7590478771064937,
+      0.6345159372311457
+    ],
+    "returns": [
+      0.33804204516264563,
+      0.925849726066164,
+      1.1831535332486405,
+      1.0694393796091108,
+      1.3298391378603958,
+      1.0517690709851282,
+      0.8937575305173737,
+      0.7602177547419542
+    ]
+  },
+  "update": {
+    "optimizer_steps": 1,
+    "before": {
+      "log_prob": [
+        -0.5297129335274873,
+        -0.8279476039840366,
+        -0.9671741128430931,
+        -1.1398198320647748,
+        -1.948324157946312,
+        -0.9192969998769739,
+        -0.5821731131212577,
+        -1.2783258456478586
+      ],
+      "value": [
+        0.05,
+        0.0585800151748026,
+        0.09735582685549618,
+        0.13667002372531267,
+        0.1019879139780869,
+        0.1656579504787758,
+        0.13470965341087998,
+        0.12570181751080844
+      ],
+      "ratio": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "unclipped": [
+        0.28804204516264564,
+        0.8672697108913614,
+        1.0857977063931443,
+        0.9327693558837983,
+        1.227851223882309,
+        0.8861111205063523,
+        0.7590478771064937,
+        0.6345159372311457
+      ],
+      "clipped": [
+        0.28804204516264564,
+        0.8672697108913614,
+        1.0857977063931443,
+        0.9327693558837983,
+        1.227851223882309,
+        0.8861111205063523,
+        0.7590478771064937,
+        0.6345159372311457
+      ],
+      "minimum": [
+        0.28804204516264564,
+        0.8672697108913614,
+        1.0857977063931443,
+        0.9327693558837983,
+        1.227851223882309,
+        0.8861111205063523,
+        0.7590478771064937,
+        0.6345159372311457
+      ],
+      "actor_loss": -0.8351756221321562,
+      "value_loss": 0.769464500238757,
+      "entropy": 1.0189385332046728,
+      "total_loss": -0.45044337201277773
+    },
+    "after": {
+      "log_prob": [
+        -0.5331025436970835,
+        -0.8192750215703675,
+        -0.956592621462482,
+        -1.151688535648418,
+        -1.9262264588745528,
+        -0.9291425511044328,
+        -0.5875211790834017,
+        -1.2639195621886365
+      ],
+      "value": [
+        0.06398727347375867,
+        0.07253614391518563,
+        0.11117120266110991,
+        0.1503426923032069,
+        0.11578647569707415,
+        0.17922539532087756,
+        0.14838943796811888,
+        0.1394142997546695
+      ],
+      "ratio": [
+        0.9966161280736545,
+        1.0087102982087999,
+        1.0106376733486722,
+        0.9882014516538655,
+        1.0223436616181654,
+        0.9902027575398871,
+        0.9946662094826126,
+        1.014510554076432
+      ],
+      "unclipped": [
+        0.2870673477724126,
+        0.8748238887006848,
+        1.097348067716492,
+        0.9217640315426106,
+        1.2552859161461856,
+        0.8774296750121492,
+        0.7549992747373401,
+        0.6437231150506962
+      ],
+      "clipped": [
+        0.2870673477724126,
+        0.8748238887006848,
+        1.097348067716492,
+        0.9217640315426106,
+        1.2552859161461856,
+        0.8774296750121492,
+        0.7549992747373401,
+        0.6437231150506962
+      ],
+      "minimum": [
+        0.2870673477724126,
+        0.8748238887006848,
+        1.097348067716492,
+        0.9217640315426106,
+        1.2552859161461856,
+        0.8774296750121492,
+        0.7549992747373401,
+        0.6437231150506962
+      ],
+      "actor_loss": -0.8390551645848214,
+      "value_loss": 0.746670222579942,
+      "entropy": 1.0205282927470085,
+      "total_loss": -0.46572005329485044
+    },
+    "parameters": [
+      {
+        "parameter": "actor.weight",
+        "flat_index": 0,
+        "before": 0.1,
+        "gradient": 0.16490688131231848,
+        "after": 0.09835093118687682,
+        "delta": -0.0016490688131231834
+      },
+      {
+        "parameter": "actor.weight",
+        "flat_index": 1,
+        "before": 0.15,
+        "gradient": -0.36151356840821297,
+        "after": 0.15361513568408214,
+        "delta": 0.0036151356840821436
+      },
+      {
+        "parameter": "actor.bias",
+        "flat_index": 0,
+        "before": -0.05,
+        "gradient": -0.45189196051026626,
+        "after": -0.04548108039489734,
+        "delta": 0.004518919605102666
+      },
+      {
+        "parameter": "actor.log_std",
+        "flat_index": 0,
+        "before": -0.4,
+        "gradient": -0.15897595423358757,
+        "after": -0.39841024045766416,
+        "delta": 0.0015897595423358668
+      },
+      {
+        "parameter": "critic.weight",
+        "flat_index": 0,
+        "before": 0.2,
+        "gradient": 0.07259831769782375,
+        "after": 0.19927401682302176,
+        "delta": -0.000725983176978251
+      },
+      {
+        "parameter": "critic.weight",
+        "flat_index": 1,
+        "before": 0.1,
+        "gradient": -0.668140497705725,
+        "after": 0.10668140497705726,
+        "delta": 0.0066814049770572564
+      },
+      {
+        "parameter": "critic.bias",
+        "flat_index": 0,
+        "before": 0.05,
+        "gradient": -0.8351756221321562,
+        "after": 0.05835175622132156,
+        "delta": 0.00835175622132156
+      }
+    ],
+    "gradient_norms": {
+      "actor": 0.6223873694458192,
+      "critic": 1.0720077239511114
+    },
+    "numpy_actor_loss_before": -0.8351756221321563
+  },
+  "samples": [
+    {
+      "step": 0,
+      "observation_velocity": -0.4,
+      "observation_reference": 0.8,
+      "action_raw": -0.06839969650394816,
+      "reward": -0.33911416033645697,
+      "next_value": 0.0585800151748026,
+      "terminated": false,
+      "truncated": false,
+      "old_log_prob": -0.5297129335274873,
+      "advantage": 0.28804204516264564,
+      "return_target": 0.33804204516264563,
+      "log_prob_before": -0.5297129335274873,
+      "value_before": 0.05,
+      "ratio_before": 1.0,
+      "unclipped_before": 0.28804204516264564,
+      "clipped_before": 0.28804204516264564,
+      "minimum_before": 0.28804204516264564,
+      "branch_before": "tie",
+      "log_prob_after": -0.5331025436970835,
+      "value_after": 0.06398727347375867,
+      "ratio_after": 0.9966161280736545,
+      "unclipped_after": 0.2870673477724126,
+      "clipped_after": 0.2870673477724126,
+      "minimum_after": 0.2870673477724126,
+      "branch_after": "tie"
+    },
+    {
+      "step": 1,
+      "observation_velocity": -0.35709992412598707,
+      "observation_reference": 0.8,
+      "action_raw": 0.5612562791382791,
+      "reward": 0.056455133293153395,
+      "next_value": 0.09735582685549618,
+      "terminated": false,
+      "truncated": false,
+      "old_log_prob": -0.8279476039840366,
+      "advantage": 0.8672697108913614,
+      "return_target": 0.925849726066164,
+      "log_prob_before": -0.8279476039840366,
+      "value_before": 0.0585800151748026,
+      "ratio_before": 1.0,
+      "unclipped_before": 0.8672697108913614,
+      "clipped_before": 0.8672697108913614,
+      "minimum_before": 0.8672697108913614,
+      "branch_before": "tie",
+      "log_prob_after": -0.8192750215703675,
+      "value_after": 0.07253614391518563,
+      "ratio_after": 1.0087102982087999,
+      "unclipped_after": 0.8748238887006848,
+      "clipped_after": 0.8748238887006848,
+      "minimum_after": 0.8748238887006848,
+      "branch_after": "tie"
+    },
+    {
+      "step": 2,
+      "observation_velocity": -0.1632208657225192,
+      "observation_reference": 0.8,
+      "action_raw": 0.6883514179628182,
+      "reward": 0.3885565756595242,
+      "next_value": 0.13667002372531267,
+      "terminated": false,
+      "truncated": false,
+      "old_log_prob": -0.9671741128430931,
+      "advantage": 1.0857977063931443,
+      "return_target": 1.1831535332486405,
+      "log_prob_before": -0.9671741128430931,
+      "value_before": 0.09735582685549618,
+      "ratio_before": 1.0,
+      "unclipped_before": 1.0857977063931443,
+      "clipped_before": 1.0857977063931443,
+      "minimum_before": 1.0857977063931443,
+      "branch_before": "tie",
+      "log_prob_after": -0.956592621462482,
+      "value_after": 0.11117120266110991,
+      "ratio_after": 1.0106376733486722,
+      "unclipped_after": 1.097348067716492,
+      "clipped_after": 1.097348067716492,
+      "minimum_after": 1.097348067716492,
+      "branch_after": "tie"
+    },
+    {
+      "step": 3,
+      "observation_velocity": 0.03335011862656323,
+      "observation_reference": 0.8,
+      "action_raw": -0.6736321237685772,
+      "reward": 0.09359737583357025,
+      "next_value": 0.1019879139780869,
+      "terminated": false,
+      "truncated": false,
+      "old_log_prob": -1.1398198320647748,
+      "advantage": 0.9327693558837983,
+      "return_target": 1.0694393796091108,
+      "log_prob_before": -1.1398198320647748,
+      "value_before": 0.13667002372531267,
+      "ratio_before": 1.0,
+      "unclipped_before": 0.9327693558837983,
+      "clipped_before": 0.9327693558837983,
+      "minimum_before": 0.9327693558837983,
+      "branch_before": "tie",
+      "log_prob_after": -1.151688535648418,
+      "value_after": 0.1503426923032069,
+      "ratio_after": 0.9882014516538655,
+      "unclipped_after": 0.9217640315426106,
+      "clipped_after": 0.9217640315426106,
+      "minimum_after": 0.9217640315426106,
+      "branch_after": "tie"
+    },
+    {
+      "step": 4,
+      "observation_velocity": -0.14006043010956554,
+      "observation_reference": 0.8,
+      "action_raw": 1.1893644719480383,
+      "reward": 0.5427469756649238,
+      "next_value": 0.1656579504787758,
+      "terminated": false,
+      "truncated": false,
+      "old_log_prob": -1.948324157946312,
+      "advantage": 1.227851223882309,
+      "return_target": 1.3298391378603958,
+      "log_prob_before": -1.948324157946312,
+      "value_before": 0.1019879139780869,
+      "ratio_before": 1.0,
+      "unclipped_before": 1.227851223882309,
+      "clipped_before": 1.227851223882309,
+      "minimum_before": 1.227851223882309,
+      "branch_before": "tie",
+      "log_prob_after": -1.9262264588745528,
+      "value_after": 0.11578647569707415,
+      "ratio_after": 1.0223436616181654,
+      "unclipped_after": 1.2552859161461856,
+      "clipped_after": 1.2552859161461856,
+      "minimum_after": 1.2552859161461856,
+      "branch_after": "tie"
+    },
+    {
+      "step": 5,
+      "observation_velocity": 0.17828975239387887,
+      "observation_reference": 0.8,
+      "action_raw": -0.5119920899215887,
+      "reward": 0.3840159113986605,
+      "next_value": 0.13470965341087998,
+      "terminated": false,
+      "truncated": false,
+      "old_log_prob": -0.9192969998769739,
+      "advantage": 0.8861111205063523,
+      "return_target": 1.0517690709851282,
+      "log_prob_before": -0.9192969998769739,
+      "value_before": 0.1656579504787758,
+      "ratio_before": 1.0,
+      "unclipped_before": 0.8861111205063523,
+      "clipped_before": 0.8861111205063523,
+      "minimum_before": 0.8861111205063523,
+      "branch_before": "tie",
+      "log_prob_after": -0.9291425511044328,
+      "value_after": 0.17922539532087756,
+      "ratio_after": 0.9902027575398871,
+      "unclipped_after": 0.8774296750121492,
+      "clipped_after": 0.8774296750121492,
+      "minimum_after": 0.8774296750121492,
+      "branch_after": "tie"
+    },
+    {
+      "step": 6,
+      "observation_velocity": 0.023548267054399857,
+      "observation_reference": 0.8,
+      "action_raw": -0.16602775776879064,
+      "reward": 0.323774419951221,
+      "next_value": 0.12570181751080844,
+      "terminated": false,
+      "truncated": false,
+      "old_log_prob": -0.5821731131212577,
+      "advantage": 0.7590478771064937,
+      "return_target": 0.8937575305173737,
+      "log_prob_before": -0.5821731131212577,
+      "value_before": 0.13470965341087998,
+      "ratio_before": 1.0,
+      "unclipped_before": 0.7590478771064937,
+      "clipped_before": 0.7590478771064937,
+      "minimum_before": 0.7590478771064937,
+      "branch_before": "tie",
+      "log_prob_after": -0.5875211790834017,
+      "value_after": 0.14838943796811888,
+      "ratio_after": 0.9946662094826126,
+      "unclipped_after": 0.7549992747373401,
+      "clipped_after": 0.7549992747373401,
+      "minimum_after": 0.7549992747373401,
+      "branch_after": "tie"
+    },
+    {
+      "step": 7,
+      "observation_velocity": -0.021490912445957782,
+      "observation_reference": 0.8,
+      "action_raw": 0.893943778188203,
+      "reward": 0.6062783943277166,
+      "next_value": 0.17104373379359733,
+      "terminated": false,
+      "truncated": true,
+      "old_log_prob": -1.2783258456478586,
+      "advantage": 0.6345159372311457,
+      "return_target": 0.7602177547419542,
+      "log_prob_before": -1.2783258456478586,
+      "value_before": 0.12570181751080844,
+      "ratio_before": 1.0,
+      "unclipped_before": 0.6345159372311457,
+      "clipped_before": 0.6345159372311457,
+      "minimum_before": 0.6345159372311457,
+      "branch_before": "tie",
+      "log_prob_after": -1.2639195621886365,
+      "value_after": 0.1394142997546695,
+      "ratio_after": 1.014510554076432,
+      "unclipped_after": 0.6437231150506962,
+      "clipped_after": 0.6437231150506962,
+      "minimum_after": 0.6437231150506962,
+      "branch_after": "tie"
+    }
+  ],
+  "clipping_fixture": [
+    {
+      "ratio": 1.5,
+      "advantage": 2.0,
+      "unclipped": 3.0,
+      "clipped": 2.4,
+      "minimum": 2.4,
+      "objective_derivative_wrt_log_prob": 0.0
+    },
+    {
+      "ratio": 0.5,
+      "advantage": 2.0,
+      "unclipped": 1.0,
+      "clipped": 1.6,
+      "minimum": 1.0,
+      "objective_derivative_wrt_log_prob": 1.0
+    },
+    {
+      "ratio": 1.5,
+      "advantage": -2.0,
+      "unclipped": -3.0,
+      "clipped": -2.4,
+      "minimum": -3.0,
+      "objective_derivative_wrt_log_prob": -3.0
+    },
+    {
+      "ratio": 0.5,
+      "advantage": -2.0,
+      "unclipped": -1.0,
+      "clipped": -1.6,
+      "minimum": -1.6,
+      "objective_derivative_wrt_log_prob": 0.0
+    }
+  ],
+  "provenance": {
+    "python": "3.10.12",
+    "numpy": "2.2.6",
+    "torch": "2.13.0+cu130",
+    "source_sha256": {
+      "src/wheel_legged_control/ppo_update.py": "cac98e17d26ede082a517e842567ef07f1c1dffe27d3643c0f6a9c6f3ee77d50",
+      "src/wheel_legged_control/ppo_learning.py": "aa05abf6f392bb2dee199f2d09870e0be3f9fb84de290cfe6a457507440c70b5",
+      "src/wheel_legged_control/provenance.py": "2da900d3bc84d4b236e4b1a39a23a931919e8c5497fc1d04f2433359a9706067",
+      "examples/ppo_update_walkthrough.py": "ea5dbfb73397867fdbf24fa570cc563e6c0a2175d0bf3c656a0462695a2d1978",
+      "pyproject.toml": "d250d44b5b8d05b30b816f3eaa7530843c12e45ab6fd0dba780e8baa0c47ad01"
+    },
+    "git_head": "268c9b1202a8b90c26df680a49fed7ff565f3334",
+    "git_dirty": true,
+    "git_worktree_sha256": "2b1190835f283c115ceec8724fb2a568ecf8e2820c39512787b434b86748e4bf"
+  }
+}

@@ -5,8 +5,11 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 import platform
+from collections.abc import Callable
 from importlib.metadata import PackageNotFoundError, version
+from numbers import Integral, Real
 from pathlib import Path
 from typing import Any
 
@@ -30,6 +33,14 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--envs", type=int, default=8)
     parser.add_argument("--seed", type=int, default=7)
     parser.add_argument("--runs", type=int, default=1)
+    parser.add_argument("--learning-rate", type=float, default=3e-4)
+    parser.add_argument("--n-steps", type=int, default=256, help="rollout steps per environment")
+    parser.add_argument("--batch-size", type=int, default=256)
+    parser.add_argument("--n-epochs", type=int, default=10)
+    parser.add_argument("--gamma", type=float, default=0.99)
+    parser.add_argument("--gae-lambda", type=float, default=0.95)
+    parser.add_argument("--clip-range", type=float, default=0.2)
+    parser.add_argument("--ent-coef", type=float, default=0.0)
     parser.add_argument(
         "--state-mode",
         choices=("oracle", "estimated"),
@@ -50,8 +61,60 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--device", default="auto")
     parser.add_argument("--verbose", action="store_true")
+    parser.add_argument(
+        "--log-training-metrics",
+        action="store_true",
+        help="write SB3 training metrics to output/learning_metrics/progress.csv",
+    )
     parser.add_argument("--output", type=Path)
     return parser
+
+
+def build_ppo_hyperparameters(args: argparse.Namespace) -> dict[str, Any]:
+    """Validate run sizes and build the explicit PPO constructor settings.
+
+    Call before creating an output directory or environment. A minibatch need
+    not divide the rollout size; SB3 can use a smaller final minibatch.
+    """
+
+    for name in ("steps", "envs", "runs", "n_steps", "batch_size", "n_epochs"):
+        value = getattr(args, name)
+        if isinstance(value, bool) or not isinstance(value, Integral) or value <= 0:
+            if name in {"steps", "envs", "runs"}:
+                raise ValueError("--steps, --envs, and --runs must be positive integers")
+            raise ValueError(f"--{name.replace('_', '-')} must be a positive integer")
+    if args.batch_size <= 1 or args.batch_size > args.n_steps * args.envs:
+        raise ValueError("--batch-size must be > 1 and <= --n-steps * --envs")
+    for name in ("learning_rate", "gamma", "gae_lambda", "clip_range", "ent_coef"):
+        value = getattr(args, name)
+        if isinstance(value, bool) or not isinstance(value, Real) or not math.isfinite(value):
+            raise ValueError(f"--{name.replace('_', '-')} must be finite")
+    if args.learning_rate <= 0.0:
+        raise ValueError("--learning-rate must be positive")
+    if not 0.0 <= args.gamma <= 1.0 or not 0.0 <= args.gae_lambda <= 1.0:
+        raise ValueError("--gamma and --gae-lambda must be in [0, 1]")
+    if not 0.0 < args.clip_range < 1.0:
+        raise ValueError("--clip-range must be in (0, 1)")
+    if args.ent_coef < 0.0:
+        raise ValueError("--ent-coef must be nonnegative")
+    return {
+        "learning_rate": float(args.learning_rate),
+        "n_steps": int(args.n_steps),
+        "batch_size": int(args.batch_size),
+        "n_epochs": int(args.n_epochs),
+        "gamma": float(args.gamma),
+        "gae_lambda": float(args.gae_lambda),
+        "clip_range": float(args.clip_range),
+        "ent_coef": float(args.ent_coef),
+        "policy_kwargs": {"net_arch": [128, 128]},
+    }
+
+
+def _configure_training_logger(log_directory: Path, verbose: bool) -> Any:
+    from stable_baselines3.common.logger import configure
+
+    formats = ["stdout", "csv"] if verbose else ["csv"]
+    return configure(str(log_directory), format_strings=formats)
 
 
 def _git_provenance() -> dict[str, str | bool | None]:
@@ -90,6 +153,7 @@ def train_once(
     make_vec_env: Any,
     dummy_vec_env: type,
     subproc_vec_env: type,
+    logger_factory: Callable[[Path, bool], Any] | None = None,
 ) -> Path:
     """Train and persist one seeded run.
 
@@ -97,6 +161,7 @@ def train_once(
     tested without constructing a real PPO model.
     """
 
+    hyperparameters = build_ppo_hyperparameters(args)
     provenance = _git_provenance()
     output.mkdir(parents=True, exist_ok=True)
     vector_class = subproc_vec_env if args.envs > 1 else dummy_vec_env
@@ -114,23 +179,20 @@ def train_once(
         vec_env_kwargs=vector_kwargs,
         env_kwargs=env_kwargs,
     )
+    training_logger = None
     try:
         model = ppo_class(
             "MlpPolicy",
             vector_env,
-            learning_rate=3e-4,
-            n_steps=256,
-            batch_size=256,
-            n_epochs=10,
-            gamma=0.99,
-            gae_lambda=0.95,
-            clip_range=0.2,
-            ent_coef=0.0,
-            policy_kwargs={"net_arch": [128, 128]},
+            **hyperparameters,
             verbose=int(args.verbose),
             seed=seed,
             device=args.device,
         )
+        if args.log_training_metrics:
+            configure_logger = logger_factory or _configure_training_logger
+            training_logger = configure_logger(output / "learning_metrics", args.verbose)
+            model.set_logger(training_logger)
         model.learn(total_timesteps=args.steps)
         model_path = output / "model"
         model.save(model_path)
@@ -146,6 +208,10 @@ def train_once(
                 "python_version": platform.python_version(),
                 "dependency_versions": _dependency_versions(),
                 "actual_device": str(getattr(model, "device", args.device)),
+                "ppo_hyperparameters": hyperparameters,
+                "learning_metrics_csv": (
+                    "learning_metrics/progress.csv" if args.log_training_metrics else None
+                ),
                 "observation_schema": getattr(environment, "observation_schema", None),
                 "reward_schema": getattr(environment, "reward_schema", None),
                 "model_sha": model_sha,
@@ -157,15 +223,21 @@ def train_once(
             json.dumps(training_config, indent=2), encoding="utf-8"
         )
     finally:
-        vector_env.close()
+        try:
+            if training_logger is not None:
+                training_logger.close()
+        finally:
+            vector_env.close()
     print(f"saved policy to {model_path}.zip")
     return model_archive
 
 
 def main(argv: list[str] | None = None) -> None:
     args = build_parser().parse_args(argv)
-    if args.steps <= 0 or args.envs <= 0 or args.runs <= 0:
-        raise SystemExit("--steps, --envs, and --runs must be positive")
+    try:
+        build_ppo_hyperparameters(args)
+    except ValueError as error:
+        raise SystemExit(str(error)) from error
     if args.robot == "planar" and args.state_mode != "oracle":
         raise SystemExit("--state-mode estimated is only supported with --robot d1")
     if args.robot == "planar" and args.latency_compensation != "none":

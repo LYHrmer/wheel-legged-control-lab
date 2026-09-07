@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "data_origin": "synthetic_only",
+  "created_utc": "2026-09-06T13:46:32.644016+00:00",
+  "source": {
+    "git_commit": "268c9b1202a8b90c26df680a49fed7ff565f3334",
+    "git_dirty": true,
+    "git_worktree_sha256": "f4f57ce93502da1e5e6243891c6ef64bb67a6f8747f8dfce01f2a04943282e4b"
+  },
+  "source_sha256": {
+    "scripts/run_actuator_identification.py": "96e87b0fdfc00f22c9ec6f0a65152621f70ab399c233a0c5d265416fa29d5727",
+    "src/wheel_legged_control/actuator_identification.py": "07af57632b5acfe8dd74a6f363879e072ff12393d4ebe7a2604216108a07c790",
+    "src/wheel_legged_control/actuator_bench.py": "edb0e7c65076c9cd7dc108797cf695e9d8405b485a576c4a5ae712b420303625",
+    "pyproject.toml": "d250d44b5b8d05b30b816f3eaa7530843c12e45ab6fd0dba780e8baa0c47ad01"
+  },
+  "versions": {
+    "numpy": "2.2.6",
+    "scipy": "1.15.3",
+    "mujoco": "3.12.0"
+  },
+  "arguments": {
+    "output": "/home/lyh/wheel-legged-control-lab/results/actuator_identification",
+    "bench": "both",
+    "scenario": "both",
+    "duration": 3.0,
+    "noise_scale": 1.0,
+    "seed": 7,
+    "max_delay_steps": 4,
+    "max_nfev": 30
+  },
+  "nominal_parameters": {
+    "armature": 0.01,
+    "damping": 0.08,
+    "coulomb_friction": 0.025,
+    "delay_steps": 0
+  },
+  "generator_truth_not_available_to_fitter": {
+    "armature": 0.017,
+    "damping": 0.105,
+    "coulomb_friction": 0.043,
+    "delay_steps": 2
+  },
+  "mismatch_stribeck_friction_nm": 0.08,
+  "position_noise_std_rad": 0.0002,
+  "velocity_noise_std_rad_s": 0.002,
+  "parameter_bounds": {
+    "armature": [
+      0.002,
+      0.06
+    ],
+    "damping": [
+      0.001,
+      0.35
+    ],
+    "coulomb_friction": [
+      0.0,
+      0.2
+    ]
+  },
+  "loss_scales": {
+    "position_rad": 0.05,
+    "velocity_rad_s": 0.5
+  },
+  "protocol": {
+    "selection": "two calibration motions only; fixed budget and residual scales",
+    "validation": "different chirp; reported, not used to select parameters",
+    "holdout": "steps and reversals; never used to select parameters",
+    "prediction": "initial measured state, zero command history, then free-running",
+    "scope": "offline prediction only; no IDQP/RL benefit or hardware claim"
+  }
+}

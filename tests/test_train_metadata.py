@@ -25,6 +25,8 @@ class _SubprocVecEnv:
 class _FakeVectorEnvironment:
     def __init__(self) -> None:
         self.closed = False
+        self.ppo_kwargs: dict[str, Any] = {}
+        self.logger: Any = None
 
     def close(self) -> None:
         self.closed = True
@@ -33,7 +35,11 @@ class _FakeVectorEnvironment:
 class _FakePPO:
     def __init__(self, policy: str, vector_env: Any, **kwargs: Any) -> None:
         self.vector_env = vector_env
+        vector_env.ppo_kwargs = kwargs
         self.num_timesteps = 0
+
+    def set_logger(self, logger: Any) -> None:
+        self.vector_env.logger = logger
 
     def learn(self, *, total_timesteps: int) -> None:
         self.num_timesteps = total_timesteps + 24
@@ -120,6 +126,22 @@ def test_train_once_records_reproducibility_metadata(
     assert config["reward_schema"] == "test-reward-v1"
     assert config["model_sha"] == expected_sha
     assert config["model_sha256"] == expected_sha
+    expected_hyperparameters = {
+        "learning_rate": 3e-4,
+        "n_steps": 256,
+        "batch_size": 256,
+        "n_epochs": 10,
+        "gamma": 0.99,
+        "gae_lambda": 0.95,
+        "clip_range": 0.2,
+        "ent_coef": 0.0,
+        "policy_kwargs": {"net_arch": [128, 128]},
+    }
+    assert config["ppo_hyperparameters"] == expected_hyperparameters
+    for key, expected in expected_hyperparameters.items():
+        assert vector_environment.ppo_kwargs[key] == expected
+    assert config["learning_metrics_csv"] is None
+    assert vector_environment.logger is None
 
 
 def test_main_expands_multiple_runs_into_seed_directories(
@@ -198,3 +220,227 @@ def test_runs_must_be_positive(runs: str) -> None:
 def test_latency_compensation_requires_estimated_d1_state() -> None:
     with pytest.raises(SystemExit, match="requires --state-mode estimated"):
         train.main(["--robot", "d1", "--latency-compensation", "constant_velocity"])
+
+
+class _FakeLogger:
+    def __init__(self) -> None:
+        self.closed = False
+
+    def close(self) -> None:
+        self.closed = True
+
+
+def test_custom_hyperparameters_reach_ppo_metadata_and_optional_logger(tmp_path: Path) -> None:
+    args = train.build_parser().parse_args(
+        [
+            "--learning-rate",
+            "0.001",
+            "--n-steps",
+            "64",
+            "--batch-size",
+            "32",
+            "--n-epochs",
+            "2",
+            "--gamma",
+            "0.97",
+            "--gae-lambda",
+            "0.8",
+            "--clip-range",
+            "0.1",
+            "--ent-coef",
+            "0.01",
+            "--envs",
+            "1",
+            "--steps",
+            "128",
+            "--log-training-metrics",
+            "--verbose",
+        ]
+    )
+    vector_environment = _FakeVectorEnvironment()
+    logger = _FakeLogger()
+    logger_calls = []
+
+    def configure_logger(path: Path, verbose: bool) -> _FakeLogger:
+        logger_calls.append((path, verbose))
+        return logger
+
+    train.train_once(
+        args,
+        output=tmp_path,
+        seed=7,
+        environment=_FakeEnvironment,
+        ppo_class=_FakePPO,
+        make_vec_env=lambda *args, **kwargs: vector_environment,
+        dummy_vec_env=_DummyVecEnv,
+        subproc_vec_env=_SubprocVecEnv,
+        logger_factory=configure_logger,
+    )
+    expected = {
+        "learning_rate": 0.001,
+        "n_steps": 64,
+        "batch_size": 32,
+        "n_epochs": 2,
+        "gamma": 0.97,
+        "gae_lambda": 0.8,
+        "clip_range": 0.1,
+        "ent_coef": 0.01,
+        "policy_kwargs": {"net_arch": [128, 128]},
+    }
+    config = json.loads((tmp_path / "training_config.json").read_text(encoding="utf-8"))
+    assert config["ppo_hyperparameters"] == expected
+    for key, value in expected.items():
+        assert vector_environment.ppo_kwargs[key] == value
+    assert logger_calls == [(tmp_path / "learning_metrics", True)]
+    assert vector_environment.logger is logger
+    assert logger.closed and vector_environment.closed
+    assert config["learning_metrics_csv"] == "learning_metrics/progress.csv"
+
+
+def test_logger_factory_is_not_called_by_default(tmp_path: Path) -> None:
+    args = train.build_parser().parse_args([])
+    vector_environment = _FakeVectorEnvironment()
+
+    def forbidden_logger(*args: Any) -> Any:
+        raise AssertionError("default training must keep the framework logger")
+
+    train.train_once(
+        args,
+        output=tmp_path,
+        seed=7,
+        environment=_FakeEnvironment,
+        ppo_class=_FakePPO,
+        make_vec_env=lambda *args, **kwargs: vector_environment,
+        dummy_vec_env=_DummyVecEnv,
+        subproc_vec_env=_SubprocVecEnv,
+        logger_factory=forbidden_logger,
+    )
+    assert vector_environment.logger is None
+    assert not (tmp_path / "learning_metrics").exists()
+
+
+@pytest.mark.parametrize("failure_phase", ["construction", "logger", "set_logger", "learn"])
+def test_failed_training_closes_vector_environment_and_created_logger(
+    tmp_path: Path, failure_phase: str
+) -> None:
+    args = train.build_parser().parse_args(["--log-training-metrics"])
+    vector_environment = _FakeVectorEnvironment()
+    logger = _FakeLogger()
+
+    class FailingPPO(_FakePPO):
+        def __init__(self, *args: Any, **kwargs: Any) -> None:
+            if failure_phase == "construction":
+                raise RuntimeError("construction failed")
+            super().__init__(*args, **kwargs)
+
+        def set_logger(self, configured_logger: Any) -> None:
+            if failure_phase == "set_logger":
+                raise RuntimeError("set_logger failed")
+            super().set_logger(configured_logger)
+
+        def learn(self, **kwargs: Any) -> None:
+            raise RuntimeError("learn failed")
+
+    def configure_logger(*args: Any) -> _FakeLogger:
+        if failure_phase == "logger":
+            raise RuntimeError("logger failed")
+        return logger
+
+    with pytest.raises(RuntimeError, match=failure_phase):
+        train.train_once(
+            args,
+            output=tmp_path,
+            seed=7,
+            environment=_FakeEnvironment,
+            ppo_class=FailingPPO,
+            make_vec_env=lambda *args, **kwargs: vector_environment,
+            dummy_vec_env=_DummyVecEnv,
+            subproc_vec_env=_SubprocVecEnv,
+            logger_factory=configure_logger,
+        )
+    assert vector_environment.closed
+    assert logger.closed is (failure_phase in {"set_logger", "learn"})
+    assert not (tmp_path / "training_config.json").exists()
+
+
+@pytest.mark.parametrize(
+    ("flag", "value"),
+    [
+        ("--learning-rate", "nan"),
+        ("--learning-rate", "inf"),
+        ("--learning-rate", "0"),
+        ("--gamma", "nan"),
+        ("--gamma", "1.01"),
+        ("--gamma", "-0.01"),
+        ("--gae-lambda", "inf"),
+        ("--gae-lambda", "1.1"),
+        ("--gae-lambda", "-1"),
+        ("--clip-range", "0"),
+        ("--clip-range", "1"),
+        ("--clip-range", "nan"),
+        ("--ent-coef", "-1"),
+        ("--ent-coef", "nan"),
+        ("--n-steps", "0"),
+        ("--batch-size", "1"),
+        ("--batch-size", "257"),
+        ("--n-epochs", "0"),
+        ("--steps", "0"),
+        ("--envs", "0"),
+        ("--runs", "0"),
+    ],
+)
+def test_invalid_parameters_fail_before_dependencies_or_output_creation(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, flag: str, value: str
+) -> None:
+    def forbidden_dependency_load() -> Any:
+        raise AssertionError("invalid parameters reached RL dependency loading")
+
+    monkeypatch.setattr(train, "_load_rl_dependencies", forbidden_dependency_load)
+    output = tmp_path / "must-not-exist"
+    with pytest.raises(SystemExit):
+        train.main(["--envs", "1", "--output", str(output), flag, value])
+    assert not output.exists()
+
+
+def test_direct_train_once_rejects_invalid_parameters_before_creating_environment(
+    tmp_path: Path,
+) -> None:
+    args = train.build_parser().parse_args(["--gamma", "nan"])
+
+    def forbidden_environment(*args: Any, **kwargs: Any) -> Any:
+        raise AssertionError("invalid parameters reached environment creation")
+
+    output = tmp_path / "must-not-exist"
+    with pytest.raises(ValueError, match="finite"):
+        train.train_once(
+            args,
+            output=output,
+            seed=7,
+            environment=_FakeEnvironment,
+            ppo_class=_FakePPO,
+            make_vec_env=forbidden_environment,
+            dummy_vec_env=_DummyVecEnv,
+            subproc_vec_env=_SubprocVecEnv,
+        )
+    assert not output.exists()
+
+
+def test_non_dividing_minibatch_and_endpoint_discounts_are_allowed() -> None:
+    args = train.build_parser().parse_args(
+        [
+            "--envs",
+            "1",
+            "--n-steps",
+            "64",
+            "--batch-size",
+            "40",
+            "--gamma",
+            "0",
+            "--gae-lambda",
+            "1",
+        ]
+    )
+    config = train.build_ppo_hyperparameters(args)
+    assert config["batch_size"] == 40
+    assert config["gamma"] == 0.0
+    assert config["gae_lambda"] == 1.0

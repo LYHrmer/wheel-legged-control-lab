@@ -14,7 +14,7 @@
 | 边界 | 内容 |
 |---|---|
 | 复用 | 固定提交的 D1 URDF/STL、MuJoCo、SciPy、Gymnasium、Stable-Baselines3 |
-| 本项目实现 | MuJoCo 整机装配、VMC、约束接触力分配、分配路径匹配的闭环辨识、LQR/MPC、残差 PPO、状态快照与误差通道、地形课程和配对评测 |
+| 本项目实现 | MuJoCo 整机装配、VMC、约束接触力分配、分配路径匹配的闭环辨识、LQR/MPC、残差 PPO、状态快照与误差通道、地形课程和配对评测；另有独立单转轴辨识与 PPO 数值学习实验 |
 | 尚未实现 | IMU/编码器融合、ROS2 硬件链路、实机参数辨识与 sim-to-real |
 
 当前结果：
@@ -40,6 +40,34 @@
 但最慢一次仍为 10.08 ms。[固定版本结果与录像](results/d1_inverse_dynamics_warm/README.md)
 包含通过的 9 个平地回合和 15 个转向/坡道回合；[旧冷求解结果](results/d1_inverse_dynamics/README.md)
 保留作历史基线。
+
+## 边做实验边学
+
+[学习指南](docs/learning_guide.md) 按实际代码安排了 LQR/MPC、PPO 和整机 QP 的动手任务。
+每项都需要先预测改动的影响，再用原始数据检验；已运行的代码不等于自己已经掌握。
+
+下面的学习实验不需要 GPU，在已安装项目依赖的环境中运行：
+
+```bash
+python examples/ppo_walkthrough.py
+python scripts/run_actuator_identification.py --output results/my_actuator_experiment
+python scripts/evaluate_wheel_control.py --output results/my_wheel_control
+# 下面这项需要可选的 [rl] 依赖中的 Torch，使用 CPU
+python examples/ppo_update_walkthrough.py --output results/my_ppo_update
+```
+
+[PPO 数值实验](docs/ppo_learning_lab.md) 可以手算核对 TD/GAE，区分摔倒终止与时间上限，
+检查正负优势下的概率比裁剪。它不替代 SB3，也不是一份新策略的训练结果。
+真实训练入口支持 `--gamma`、`--clip-range` 等超参数，开启 `--log-training-metrics` 后会
+保存 SB3 训练指标 CSV；默认参数保持原样，小预算对照命令也在该实验说明中。
+[单轴辨识台架](docs/actuator_identification.md) 用 MuJoCo 的悬空轮和单摆负载验证参数拟合，
+包含缺失低速摩擦的对照与未见运动预测。台架参数为教学假设，单摆不代表完整 D1 单腿。
+[合成结果及原始日志](results/actuator_identification/README.md) 单独保存，未接入整机控制器。
+
+[单轮闭环对照](docs/wheel_control_lab.md)进一步比较 PI、PI＋名义前馈、PI＋辨识前馈，
+三组共用反馈增益、限矩与被控对象，记录正常跟踪、换向和饱和工况。
+[一次 PPO 更新](docs/ppo_update_lab.md)用小型 actor/critic 执行一次 SGD，导出逐样本目标、
+每个参数的梯度和更新前后数值。两项都有可复算记录，不代表整机性能或策略回报已经改善。
 
 下面的课程全景及跳跃演示仍使用原有控制路径：
 
