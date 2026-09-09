@@ -5,18 +5,19 @@
 
 ## 代码仓库和原始数据各放什么
 
-Git 保存源码、学习文档、协议与小体积结果，也包含本次的策略 checkpoint 和演示视频。
+Git 保存源码、学习文档、协议与摘要，也包含策略 checkpoint、演示视频和回归测试必需的原始文件。
 新的逐步 CSV、NPZ、编译模型 MJB、源码快照放在同仓库的
 [v0.6.0 Release 附件](https://github.com/LYHrmer/wheel-legged-control-lab/releases/tag/v0.6.0)。
 历史已跟踪的数据仍保留，不改写 Git 历史。
 
-Release 的三个附件一起下载：
+整包上传两次因连接中断失败，Release 改用 128 MiB 分片。下载以下几类附件：
 
 | 文件 | 用途 |
 |---|---|
-| `result_artifacts.tar.gz` | 指定实验目录的完整非缓存文件，包括失败记录 |
+| `result_artifacts.tar.gz.partNNNN` | 原压缩包的有序字节分片，最后一片可能较小 |
+| `parts_manifest.json` | 每片大小与 SHA-256，绑定原压缩包和下面两份元数据 |
 | `archive_manifest.json` | 每个成员的路径、字节数、SHA-256，以及打包时的 Git HEAD |
-| `SHA256SUMS` | 前两个附件的 SHA-256 |
+| `SHA256SUMS` | 重组后的完整压缩包与 archive_manifest 的 SHA-256 |
 
 清单里的 `packaging_git_head` 是发布打包版本，不是每次训练时的源码版本。
 每个实验自己的 `source.json` / `source.tar.gz` 才记录当时的源码。
@@ -29,19 +30,25 @@ Release 的三个附件一起下载：
 
 ## 下载后先校验
 
-以下在仓库根目录运行，需要 GitHub CLI；也可以从 Release 网页手动下载同样三个文件。
+以下在仓库根目录运行，需要 GitHub CLI；也可以从 Release 网页手动下载全部分片与三份元数据。
 目录必须新建，避免混入上一次下载。
 
 ```bash
 mkdir downloaded-artifacts
 gh release download v0.6.0 --repo LYHrmer/wheel-legged-control-lab \
-  --dir downloaded-artifacts --pattern result_artifacts.tar.gz \
+  --dir downloaded-artifacts --pattern 'result_artifacts.tar.gz.part*' \
+  --pattern parts_manifest.json \
   --pattern archive_manifest.json --pattern SHA256SUMS
 
-python scripts/verify_result_artifacts.py --directory downloaded-artifacts
+python scripts/transfer_result_artifacts.py join \
+  --directory downloaded-artifacts --output joined-artifacts
+
+python scripts/verify_result_artifacts.py --directory joined-artifacts
 ```
 
-校验器只读文件，不解包、不加载模型。它检查压缩包和逐成员的哈希、大小、路径与重复项；
+重组器检查分片及整包哈希，只写新的输出目录，不解包、不加载模型。完成后得到原来的
+`result_artifacts.tar.gz`、`archive_manifest.json`、`SHA256SUMS`，压缩包字节没有变化。
+随后校验器只读这三个文件，检查压缩包和逐成员的哈希、大小、路径与重复项；
 不接受符号链接、路径越界或不在清单中的成员。SHA 文件与附件来自同一发布渠道，
 这不是独立签名认证。
 
@@ -49,12 +56,14 @@ python scripts/verify_result_artifacts.py --directory downloaded-artifacts
 
 ```bash
 mkdir restored-artifacts
-tar --extract --gzip --file downloaded-artifacts/result_artifacts.tar.gz \
+tar --extract --gzip --file joined-artifacts/result_artifacts.tar.gz \
   --directory restored-artifacts --keep-old-files --no-same-owner --no-same-permissions
 ```
 
 得到 `restored-artifacts/results/...`。不要直接解到正在运行实验的 `results/` 中。
-压缩包解开后需要数 GB 磁盘空间；准确大小由清单的 `total_input_bytes` 给出。
+同时保留分片、重组包和解包目录约需 7 GB，建议至少留 8 GB 空间。
+准确解包大小由清单的 `total_input_bytes` 给出。下载中断时可只补缺失或损坏的分片，
+不要修改清单里的校验值。
 
 ## 从日志复算
 
