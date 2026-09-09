@@ -9,7 +9,7 @@
 在仓库根目录、已安装项目依赖的环境运行：
 
 ```bash
-PYTHONPATH=src:.local-deps python3 scripts/evaluate_wheel_control.py \
+PYTHONPATH=src python3 scripts/evaluate_wheel_control.py \
   --output results/my_wheel_control
 ```
 
@@ -17,7 +17,7 @@ PYTHONPATH=src:.local-deps python3 scripts/evaluate_wheel_control.py \
 已有输出目录会报错，避免覆盖原始数据。缩短运行只用于检查接口：
 
 ```bash
-PYTHONPATH=src:.local-deps python3 scripts/evaluate_wheel_control.py \
+PYTHONPATH=src python3 scripts/evaluate_wheel_control.py \
   --output /tmp/wheel-control-check --scenario matched \
   --duration 1 --calibration-duration 0.5 --max-delay-steps 0 --max-nfev 1
 ```

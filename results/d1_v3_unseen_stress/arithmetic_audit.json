@@ -1,0 +1,1062 @@
+{
+  "audit_implementation": {
+    "arithmetic_module": "scripts/audit_d1_locomotion.py",
+    "arithmetic_module_sha256": "34e4fe8ba5e91fe8b24b38e6020c492a284e79dc390bb32082f34e0af56254dd",
+    "shared_contract_module": "scripts/analyze_d1_delay_ablation.py",
+    "shared_contract_module_sha256": "4675459440dfe7524c42af3db6c4aa480eef2e77e232c8198a9c697114a70ed2",
+    "stress_adapter_script": "scripts/evaluate_d1_unseen_stress.py",
+    "stress_adapter_sha256": "3eef0e50a18f2ee1ab6f37279687e4769ffb72f13ee7696442c6c828557afe19"
+  },
+  "audit_scope": [
+    "Strict parent/child 16-case matrix and completed-run checks.",
+    "Per-case CSV/NPZ arithmetic through audit_d1_locomotion.audit_case; special child protocols are not passed off as legacy audit_evaluation.",
+    "Parent runtime source archive audited by audit_source, including the stress adapter; current runtime bytes match the manifest.",
+    "All seven predeclared inputs for each of three fixed h4+DR checkpoints match current archived bytes; training checkpoint, budget and source checks repeated.",
+    "Episode metadata matches five gains, 30 ms delay, four noise standard deviations x2 with unchanged biases, sliding-friction scale 0.6, other domain scales 1 and ideal actuator response.",
+    "Same-road/episode-seed schedule and actual measurement_seed match across all controllers."
+  ],
+  "by_controller": {
+    "h4_dr_seed27000": {
+      "case_count": 4,
+      "completed_cases": 0,
+      "failed_cases": [
+        {
+          "case": "road0_seed17",
+          "duration_s": 1.9200000000000015,
+          "terminal_reason": "fall_or_body_contact"
+        },
+        {
+          "case": "road0_seed29",
+          "duration_s": 0.9400000000000007,
+          "terminal_reason": "fall_or_body_contact"
+        },
+        {
+          "case": "road1_seed17",
+          "duration_s": 2.2599999999999727,
+          "terminal_reason": "fall_or_body_contact"
+        },
+        {
+          "case": "road1_seed29",
+          "duration_s": 0.9200000000000007,
+          "terminal_reason": "fall_or_body_contact"
+        }
+      ],
+      "failure_duration_max_s": 2.2599999999999727,
+      "failure_duration_mean_s": 1.5099999999999938,
+      "failure_duration_min_s": 0.9200000000000007,
+      "full_horizon_metrics": null,
+      "quality_passes": 0,
+      "recorded_nonflat_steps": 0,
+      "terminal_reason_counts": {
+        "fall_or_body_contact": 4
+      },
+      "training_seed": 27000
+    },
+    "h4_dr_seed28000": {
+      "case_count": 4,
+      "completed_cases": 0,
+      "failed_cases": [
+        {
+          "case": "road0_seed17",
+          "duration_s": 1.5500000000000012,
+          "terminal_reason": "fall_or_body_contact"
+        },
+        {
+          "case": "road0_seed29",
+          "duration_s": 1.290000000000001,
+          "terminal_reason": "fall_or_body_contact"
+        },
+        {
+          "case": "road1_seed17",
+          "duration_s": 1.5400000000000011,
+          "terminal_reason": "fall_or_body_contact"
+        },
+        {
+          "case": "road1_seed29",
+          "duration_s": 2.049999999999996,
+          "terminal_reason": "fall_or_body_contact"
+        }
+      ],
+      "failure_duration_max_s": 2.049999999999996,
+      "failure_duration_mean_s": 1.6075,
+      "failure_duration_min_s": 1.290000000000001,
+      "full_horizon_metrics": null,
+      "quality_passes": 0,
+      "recorded_nonflat_steps": 0,
+      "terminal_reason_counts": {
+        "fall_or_body_contact": 4
+      },
+      "training_seed": 28000
+    },
+    "h4_dr_seed29000": {
+      "case_count": 4,
+      "completed_cases": 0,
+      "failed_cases": [
+        {
+          "case": "road0_seed17",
+          "duration_s": 1.350000000000001,
+          "terminal_reason": "fall_or_body_contact"
+        },
+        {
+          "case": "road0_seed29",
+          "duration_s": 3.1599999999998736,
+          "terminal_reason": "fall_or_body_contact"
+        },
+        {
+          "case": "road1_seed17",
+          "duration_s": 1.410000000000001,
+          "terminal_reason": "fall_or_body_contact"
+        },
+        {
+          "case": "road1_seed29",
+          "duration_s": 1.5900000000000012,
+          "terminal_reason": "fall_or_body_contact"
+        }
+      ],
+      "failure_duration_max_s": 3.1599999999998736,
+      "failure_duration_mean_s": 1.8774999999999693,
+      "failure_duration_min_s": 1.350000000000001,
+      "full_horizon_metrics": null,
+      "quality_passes": 0,
+      "recorded_nonflat_steps": 0,
+      "terminal_reason_counts": {
+        "fall_or_body_contact": 4
+      },
+      "training_seed": 29000
+    },
+    "zero_residual": {
+      "case_count": 4,
+      "completed_cases": 0,
+      "failed_cases": [
+        {
+          "case": "road0_seed17",
+          "duration_s": 1.5900000000000012,
+          "terminal_reason": "fall_or_body_contact"
+        },
+        {
+          "case": "road0_seed29",
+          "duration_s": 1.7600000000000013,
+          "terminal_reason": "fall_or_body_contact"
+        },
+        {
+          "case": "road1_seed17",
+          "duration_s": 1.5700000000000012,
+          "terminal_reason": "fall_or_body_contact"
+        },
+        {
+          "case": "road1_seed29",
+          "duration_s": 1.320000000000001,
+          "terminal_reason": "fall_or_body_contact"
+        }
+      ],
+      "failure_duration_max_s": 1.7600000000000013,
+      "failure_duration_mean_s": 1.5600000000000012,
+      "failure_duration_min_s": 1.320000000000001,
+      "full_horizon_metrics": null,
+      "quality_passes": 0,
+      "recorded_nonflat_steps": 0,
+      "terminal_reason_counts": {
+        "fall_or_body_contact": 4
+      },
+      "training_seed": null
+    }
+  },
+  "cases": [
+    {
+      "action_rms": 0.0,
+      "attitude_rmse_rad": 0.21577928563712523,
+      "case": "road0_seed17",
+      "completed": false,
+      "controller": "zero_residual",
+      "controller_parameters": {
+        "attitude_feedback_scale": 0.25,
+        "leg_feedback_scale": 1.0,
+        "wheel_ki": 1.5,
+        "wheel_kp": 0.55,
+        "yaw_feedback_gain": 4.0
+      },
+      "csv_sha256": "134b843138a6cff57857bca20a6cb3715ca044262203a6362c4a94ea586db2a7",
+      "duration_s": 1.5900000000000012,
+      "episode_metadata_sha256": "b5fb651fb2f189cce29f77401667ca10035543497d3cfce3eb39232f8f283588",
+      "episode_seed": 17,
+      "executed_steps": 159,
+      "height_rmse_m": 0.02267069395116956,
+      "mean_mechanical_power_w": 1139.9478771482081,
+      "measurement_seed": 1814784298,
+      "npz_sha256": "d531c4c3c14379b60c1aa19ca6f88e82ac393499adab92862061a327b475e083",
+      "quality_pass": false,
+      "road_index": 0,
+      "schedule_sha256": "05f7df9503192663e87f085cacfea8d92b6364baae31d36b86c7136f1dc7453a",
+      "terminal_reason": "fall_or_body_contact",
+      "terrain": {
+        "cross_slope_deg": -0.75,
+        "layout": "right_offset",
+        "phase_x_rad": 0.3,
+        "phase_y_rad": 0.5,
+        "ripple_amplitude_m": 0.006,
+        "schema": "d1-fixed-2d-road-v1",
+        "slope_deg": 1.25,
+        "step_height_m": 0.006,
+        "wavelength_x_m": 0.75,
+        "wavelength_y_m": 1.05
+      },
+      "terrain_exposure": {
+        "nonflat_fraction": 0.0,
+        "nonflat_now": false,
+        "nonflat_path_m": 0.0,
+        "nonflat_steps": 0,
+        "path_m": 0.15005442545342124,
+        "unique_nonflat_0p25m_cells": 0
+      },
+      "velocity_rmse_mps": 0.11738380139796226,
+      "yaw_rmse_rps": 1.0517572478336545
+    },
+    {
+      "action_rms": 0.0,
+      "attitude_rmse_rad": 0.21852280520445433,
+      "case": "road0_seed29",
+      "completed": false,
+      "controller": "zero_residual",
+      "controller_parameters": {
+        "attitude_feedback_scale": 0.25,
+        "leg_feedback_scale": 1.0,
+        "wheel_ki": 1.5,
+        "wheel_kp": 0.55,
+        "yaw_feedback_gain": 4.0
+      },
+      "csv_sha256": "6d8edd14541950eec379422a6dd30b3a71196cf3740d0a27463085b1f9b0e6f9",
+      "duration_s": 1.7600000000000013,
+      "episode_metadata_sha256": "10b964ea54ff74bd87583fb953f75a8afbabc36fcb7d0d4cdc7b076f7d79a3e4",
+      "episode_seed": 29,
+      "executed_steps": 176,
+      "height_rmse_m": 0.012651672519061179,
+      "mean_mechanical_power_w": 1283.6329823182004,
+      "measurement_seed": 107475050,
+      "npz_sha256": "f797a0c414c989039e8926e5896921dafdffe41c608b341d582df17b8234c1d9",
+      "quality_pass": false,
+      "road_index": 0,
+      "schedule_sha256": "05f7df9503192663e87f085cacfea8d92b6364baae31d36b86c7136f1dc7453a",
+      "terminal_reason": "fall_or_body_contact",
+      "terrain": {
+        "cross_slope_deg": -0.75,
+        "layout": "right_offset",
+        "phase_x_rad": 0.3,
+        "phase_y_rad": 0.5,
+        "ripple_amplitude_m": 0.006,
+        "schema": "d1-fixed-2d-road-v1",
+        "slope_deg": 1.25,
+        "step_height_m": 0.006,
+        "wavelength_x_m": 0.75,
+        "wavelength_y_m": 1.05
+      },
+      "terrain_exposure": {
+        "nonflat_fraction": 0.0,
+        "nonflat_now": false,
+        "nonflat_path_m": 0.0,
+        "nonflat_steps": 0,
+        "path_m": 0.1645949321048031,
+        "unique_nonflat_0p25m_cells": 0
+      },
+      "velocity_rmse_mps": 0.16587085710838903,
+      "yaw_rmse_rps": 0.7233369196017245
+    },
+    {
+      "action_rms": 0.0,
+      "attitude_rmse_rad": 0.22078891616027663,
+      "case": "road1_seed17",
+      "completed": false,
+      "controller": "zero_residual",
+      "controller_parameters": {
+        "attitude_feedback_scale": 0.25,
+        "leg_feedback_scale": 1.0,
+        "wheel_ki": 1.5,
+        "wheel_kp": 0.55,
+        "yaw_feedback_gain": 4.0
+      },
+      "csv_sha256": "06dd37c2b7f80303821674afa6a90cf138b4fc1f7df751d97b3807fa3986f4ad",
+      "duration_s": 1.5700000000000012,
+      "episode_metadata_sha256": "267d50d7c908016be33a60243a482e8fa146be4609945ea4fcdd4a40d5cc1f77",
+      "episode_seed": 17,
+      "executed_steps": 157,
+      "height_rmse_m": 0.023297541236136338,
+      "mean_mechanical_power_w": 1328.5369605752755,
+      "measurement_seed": 1814784298,
+      "npz_sha256": "de3f318b5403e06e1d4db041225593e346040afade10d1093a6684ec7cd8f51d",
+      "quality_pass": false,
+      "road_index": 1,
+      "schedule_sha256": "05f7df9503192663e87f085cacfea8d92b6364baae31d36b86c7136f1dc7453a",
+      "terminal_reason": "fall_or_body_contact",
+      "terrain": {
+        "cross_slope_deg": 0.75,
+        "layout": "right_offset",
+        "phase_x_rad": 0.9,
+        "phase_y_rad": 1.1,
+        "ripple_amplitude_m": 0.008,
+        "schema": "d1-fixed-2d-road-v1",
+        "slope_deg": -1.25,
+        "step_height_m": 0.008,
+        "wavelength_x_m": 0.85,
+        "wavelength_y_m": 1.15
+      },
+      "terrain_exposure": {
+        "nonflat_fraction": 0.0,
+        "nonflat_now": false,
+        "nonflat_path_m": 0.0,
+        "nonflat_steps": 0,
+        "path_m": 0.15759012891367205,
+        "unique_nonflat_0p25m_cells": 0
+      },
+      "velocity_rmse_mps": 0.15153226107882234,
+      "yaw_rmse_rps": 0.6232787171672534
+    },
+    {
+      "action_rms": 0.0,
+      "attitude_rmse_rad": 0.27643509803601657,
+      "case": "road1_seed29",
+      "completed": false,
+      "controller": "zero_residual",
+      "controller_parameters": {
+        "attitude_feedback_scale": 0.25,
+        "leg_feedback_scale": 1.0,
+        "wheel_ki": 1.5,
+        "wheel_kp": 0.55,
+        "yaw_feedback_gain": 4.0
+      },
+      "csv_sha256": "b3fe05ed0f7e9c98d6e0e03504737ae842716b93257b8a6cd4b04aa4bfaf1914",
+      "duration_s": 1.320000000000001,
+      "episode_metadata_sha256": "96ce7d3e2f9d209fa38b95a4aa9968cc9f894b278c66e9c0d6092ded4af0c2e8",
+      "episode_seed": 29,
+      "executed_steps": 132,
+      "height_rmse_m": 0.03632771083519501,
+      "mean_mechanical_power_w": 2023.6219314928992,
+      "measurement_seed": 107475050,
+      "npz_sha256": "1da07760eac8239ebc501f68c107c0724cabb8909d071537bb2f0548e9ceff15",
+      "quality_pass": false,
+      "road_index": 1,
+      "schedule_sha256": "05f7df9503192663e87f085cacfea8d92b6364baae31d36b86c7136f1dc7453a",
+      "terminal_reason": "fall_or_body_contact",
+      "terrain": {
+        "cross_slope_deg": 0.75,
+        "layout": "right_offset",
+        "phase_x_rad": 0.9,
+        "phase_y_rad": 1.1,
+        "ripple_amplitude_m": 0.008,
+        "schema": "d1-fixed-2d-road-v1",
+        "slope_deg": -1.25,
+        "step_height_m": 0.008,
+        "wavelength_x_m": 0.85,
+        "wavelength_y_m": 1.15
+      },
+      "terrain_exposure": {
+        "nonflat_fraction": 0.0,
+        "nonflat_now": false,
+        "nonflat_path_m": 0.0,
+        "nonflat_steps": 0,
+        "path_m": 0.15231675454227078,
+        "unique_nonflat_0p25m_cells": 0
+      },
+      "velocity_rmse_mps": 0.16549547872282608,
+      "yaw_rmse_rps": 1.0492220113306259
+    },
+    {
+      "action_rms": 0.07694296654246462,
+      "attitude_rmse_rad": 0.1717230710988129,
+      "case": "road0_seed17",
+      "completed": false,
+      "controller": "h4_dr_seed27000",
+      "controller_parameters": {
+        "attitude_feedback_scale": 0.25,
+        "leg_feedback_scale": 1.0,
+        "wheel_ki": 1.5,
+        "wheel_kp": 0.55,
+        "yaw_feedback_gain": 4.0
+      },
+      "csv_sha256": "01b9ed2d8a4b3f9ebed8d5eace00ededbc823a907cae8a0bd3936f5ec2227129",
+      "duration_s": 1.9200000000000015,
+      "episode_metadata_sha256": "b5fb651fb2f189cce29f77401667ca10035543497d3cfce3eb39232f8f283588",
+      "episode_seed": 17,
+      "executed_steps": 192,
+      "height_rmse_m": 0.028136550883595676,
+      "mean_mechanical_power_w": 2235.8739836228197,
+      "measurement_seed": 1814784298,
+      "npz_sha256": "2d4feddae1a4d3940458f4729e90ccc0ac16a40c714b99bbf01ea6d2f5b92604",
+      "quality_pass": false,
+      "road_index": 0,
+      "schedule_sha256": "05f7df9503192663e87f085cacfea8d92b6364baae31d36b86c7136f1dc7453a",
+      "terminal_reason": "fall_or_body_contact",
+      "terrain": {
+        "cross_slope_deg": -0.75,
+        "layout": "right_offset",
+        "phase_x_rad": 0.3,
+        "phase_y_rad": 0.5,
+        "ripple_amplitude_m": 0.006,
+        "schema": "d1-fixed-2d-road-v1",
+        "slope_deg": 1.25,
+        "step_height_m": 0.006,
+        "wavelength_x_m": 0.75,
+        "wavelength_y_m": 1.05
+      },
+      "terrain_exposure": {
+        "nonflat_fraction": 0.0,
+        "nonflat_now": false,
+        "nonflat_path_m": 0.0,
+        "nonflat_steps": 0,
+        "path_m": 0.41025597400066,
+        "unique_nonflat_0p25m_cells": 0
+      },
+      "velocity_rmse_mps": 0.21086548627692273,
+      "yaw_rmse_rps": 1.2934025075400204
+    },
+    {
+      "action_rms": 0.08542337467379434,
+      "attitude_rmse_rad": 0.25997201024649896,
+      "case": "road0_seed29",
+      "completed": false,
+      "controller": "h4_dr_seed27000",
+      "controller_parameters": {
+        "attitude_feedback_scale": 0.25,
+        "leg_feedback_scale": 1.0,
+        "wheel_ki": 1.5,
+        "wheel_kp": 0.55,
+        "yaw_feedback_gain": 4.0
+      },
+      "csv_sha256": "cdd223caa44be5fd3210ad147fbb3d6d82b67b68f5e9323a4a45b62bf4e95b9f",
+      "duration_s": 0.9400000000000007,
+      "episode_metadata_sha256": "10b964ea54ff74bd87583fb953f75a8afbabc36fcb7d0d4cdc7b076f7d79a3e4",
+      "episode_seed": 29,
+      "executed_steps": 94,
+      "height_rmse_m": 0.028144617062028834,
+      "mean_mechanical_power_w": 2105.4011060968355,
+      "measurement_seed": 107475050,
+      "npz_sha256": "71e3bca50eb0555228474edb6500fbee6218754887bbd6afe09f8f611d42eb6c",
+      "quality_pass": false,
+      "road_index": 0,
+      "schedule_sha256": "05f7df9503192663e87f085cacfea8d92b6364baae31d36b86c7136f1dc7453a",
+      "terminal_reason": "fall_or_body_contact",
+      "terrain": {
+        "cross_slope_deg": -0.75,
+        "layout": "right_offset",
+        "phase_x_rad": 0.3,
+        "phase_y_rad": 0.5,
+        "ripple_amplitude_m": 0.006,
+        "schema": "d1-fixed-2d-road-v1",
+        "slope_deg": 1.25,
+        "step_height_m": 0.006,
+        "wavelength_x_m": 0.75,
+        "wavelength_y_m": 1.05
+      },
+      "terrain_exposure": {
+        "nonflat_fraction": 0.0,
+        "nonflat_now": false,
+        "nonflat_path_m": 0.0,
+        "nonflat_steps": 0,
+        "path_m": 0.10984943296744773,
+        "unique_nonflat_0p25m_cells": 0
+      },
+      "velocity_rmse_mps": 0.16032438106391486,
+      "yaw_rmse_rps": 0.8168720860403889
+    },
+    {
+      "action_rms": 0.08419161099449653,
+      "attitude_rmse_rad": 0.2317642728105118,
+      "case": "road1_seed17",
+      "completed": false,
+      "controller": "h4_dr_seed27000",
+      "controller_parameters": {
+        "attitude_feedback_scale": 0.25,
+        "leg_feedback_scale": 1.0,
+        "wheel_ki": 1.5,
+        "wheel_kp": 0.55,
+        "yaw_feedback_gain": 4.0
+      },
+      "csv_sha256": "d2f6728b6134827c1f3e433fbbaba2fd8a9c523ebe2baeb3a41d21600383362a",
+      "duration_s": 2.2599999999999727,
+      "episode_metadata_sha256": "267d50d7c908016be33a60243a482e8fa146be4609945ea4fcdd4a40d5cc1f77",
+      "episode_seed": 17,
+      "executed_steps": 226,
+      "height_rmse_m": 0.024699815577948304,
+      "mean_mechanical_power_w": 2577.3464855665793,
+      "measurement_seed": 1814784298,
+      "npz_sha256": "392609838ea89d0d647ce864d1ad31fb13020d8ac29a4c64a2440ea405dd0c2e",
+      "quality_pass": false,
+      "road_index": 1,
+      "schedule_sha256": "05f7df9503192663e87f085cacfea8d92b6364baae31d36b86c7136f1dc7453a",
+      "terminal_reason": "fall_or_body_contact",
+      "terrain": {
+        "cross_slope_deg": 0.75,
+        "layout": "right_offset",
+        "phase_x_rad": 0.9,
+        "phase_y_rad": 1.1,
+        "ripple_amplitude_m": 0.008,
+        "schema": "d1-fixed-2d-road-v1",
+        "slope_deg": -1.25,
+        "step_height_m": 0.008,
+        "wavelength_x_m": 0.85,
+        "wavelength_y_m": 1.15
+      },
+      "terrain_exposure": {
+        "nonflat_fraction": 0.0,
+        "nonflat_now": false,
+        "nonflat_path_m": 0.0,
+        "nonflat_steps": 0,
+        "path_m": 0.383503442222498,
+        "unique_nonflat_0p25m_cells": 0
+      },
+      "velocity_rmse_mps": 0.22015233955607633,
+      "yaw_rmse_rps": 1.1463546130600555
+    },
+    {
+      "action_rms": 0.083323326812019,
+      "attitude_rmse_rad": 0.25993081542173746,
+      "case": "road1_seed29",
+      "completed": false,
+      "controller": "h4_dr_seed27000",
+      "controller_parameters": {
+        "attitude_feedback_scale": 0.25,
+        "leg_feedback_scale": 1.0,
+        "wheel_ki": 1.5,
+        "wheel_kp": 0.55,
+        "yaw_feedback_gain": 4.0
+      },
+      "csv_sha256": "39b8b3f70c7e477c8db6d9b50e4b7df8adfdb215aab7a424c2e39a9e26bc3698",
+      "duration_s": 0.9200000000000007,
+      "episode_metadata_sha256": "96ce7d3e2f9d209fa38b95a4aa9968cc9f894b278c66e9c0d6092ded4af0c2e8",
+      "episode_seed": 29,
+      "executed_steps": 92,
+      "height_rmse_m": 0.013784694207381923,
+      "mean_mechanical_power_w": 1710.605772045683,
+      "measurement_seed": 107475050,
+      "npz_sha256": "79808459c58f77b62e42e6c2d9d5667b74acc94ecbad6038e950e23e20df07ab",
+      "quality_pass": false,
+      "road_index": 1,
+      "schedule_sha256": "05f7df9503192663e87f085cacfea8d92b6364baae31d36b86c7136f1dc7453a",
+      "terminal_reason": "fall_or_body_contact",
+      "terrain": {
+        "cross_slope_deg": 0.75,
+        "layout": "right_offset",
+        "phase_x_rad": 0.9,
+        "phase_y_rad": 1.1,
+        "ripple_amplitude_m": 0.008,
+        "schema": "d1-fixed-2d-road-v1",
+        "slope_deg": -1.25,
+        "step_height_m": 0.008,
+        "wavelength_x_m": 0.85,
+        "wavelength_y_m": 1.15
+      },
+      "terrain_exposure": {
+        "nonflat_fraction": 0.0,
+        "nonflat_now": false,
+        "nonflat_path_m": 0.0,
+        "nonflat_steps": 0,
+        "path_m": 0.10485629326074256,
+        "unique_nonflat_0p25m_cells": 0
+      },
+      "velocity_rmse_mps": 0.1193542323677489,
+      "yaw_rmse_rps": 0.6071834075785804
+    },
+    {
+      "action_rms": 0.09254458530676023,
+      "attitude_rmse_rad": 0.324135148968667,
+      "case": "road0_seed17",
+      "completed": false,
+      "controller": "h4_dr_seed28000",
+      "controller_parameters": {
+        "attitude_feedback_scale": 0.25,
+        "leg_feedback_scale": 1.0,
+        "wheel_ki": 1.5,
+        "wheel_kp": 0.55,
+        "yaw_feedback_gain": 4.0
+      },
+      "csv_sha256": "064017a28353122b0a42c7eabbd3270f8460255f992682a345ef8df0deac1dd1",
+      "duration_s": 1.5500000000000012,
+      "episode_metadata_sha256": "b5fb651fb2f189cce29f77401667ca10035543497d3cfce3eb39232f8f283588",
+      "episode_seed": 17,
+      "executed_steps": 155,
+      "height_rmse_m": 0.04825671647048654,
+      "mean_mechanical_power_w": 4761.459358526967,
+      "measurement_seed": 1814784298,
+      "npz_sha256": "870c5edc28a3ec91cd19094d4dfa7643e0af37d5d6c70978b0c5ca1310f0c583",
+      "quality_pass": false,
+      "road_index": 0,
+      "schedule_sha256": "05f7df9503192663e87f085cacfea8d92b6364baae31d36b86c7136f1dc7453a",
+      "terminal_reason": "fall_or_body_contact",
+      "terrain": {
+        "cross_slope_deg": -0.75,
+        "layout": "right_offset",
+        "phase_x_rad": 0.3,
+        "phase_y_rad": 0.5,
+        "ripple_amplitude_m": 0.006,
+        "schema": "d1-fixed-2d-road-v1",
+        "slope_deg": 1.25,
+        "step_height_m": 0.006,
+        "wavelength_x_m": 0.75,
+        "wavelength_y_m": 1.05
+      },
+      "terrain_exposure": {
+        "nonflat_fraction": 0.0,
+        "nonflat_now": false,
+        "nonflat_path_m": 0.0,
+        "nonflat_steps": 0,
+        "path_m": 0.6553274086785633,
+        "unique_nonflat_0p25m_cells": 0
+      },
+      "velocity_rmse_mps": 0.32346098192832345,
+      "yaw_rmse_rps": 2.1296166864654222
+    },
+    {
+      "action_rms": 0.0870193706602792,
+      "attitude_rmse_rad": 0.2089251056941286,
+      "case": "road0_seed29",
+      "completed": false,
+      "controller": "h4_dr_seed28000",
+      "controller_parameters": {
+        "attitude_feedback_scale": 0.25,
+        "leg_feedback_scale": 1.0,
+        "wheel_ki": 1.5,
+        "wheel_kp": 0.55,
+        "yaw_feedback_gain": 4.0
+      },
+      "csv_sha256": "20896866398b9d5f28999e15fb61c5e4715899cac24cd386a531be7ecd676f26",
+      "duration_s": 1.290000000000001,
+      "episode_metadata_sha256": "10b964ea54ff74bd87583fb953f75a8afbabc36fcb7d0d4cdc7b076f7d79a3e4",
+      "episode_seed": 29,
+      "executed_steps": 129,
+      "height_rmse_m": 0.007358203043186219,
+      "mean_mechanical_power_w": 1399.1038462093547,
+      "measurement_seed": 107475050,
+      "npz_sha256": "b8484b9abc314feda12e7b1e9465e9fa70df1498d8795eb303edf5b60973b68f",
+      "quality_pass": false,
+      "road_index": 0,
+      "schedule_sha256": "05f7df9503192663e87f085cacfea8d92b6364baae31d36b86c7136f1dc7453a",
+      "terminal_reason": "fall_or_body_contact",
+      "terrain": {
+        "cross_slope_deg": -0.75,
+        "layout": "right_offset",
+        "phase_x_rad": 0.3,
+        "phase_y_rad": 0.5,
+        "ripple_amplitude_m": 0.006,
+        "schema": "d1-fixed-2d-road-v1",
+        "slope_deg": 1.25,
+        "step_height_m": 0.006,
+        "wavelength_x_m": 0.75,
+        "wavelength_y_m": 1.05
+      },
+      "terrain_exposure": {
+        "nonflat_fraction": 0.0,
+        "nonflat_now": false,
+        "nonflat_path_m": 0.0,
+        "nonflat_steps": 0,
+        "path_m": 0.0702804615990603,
+        "unique_nonflat_0p25m_cells": 0
+      },
+      "velocity_rmse_mps": 0.09592693192153073,
+      "yaw_rmse_rps": 0.8056620624600106
+    },
+    {
+      "action_rms": 0.08441192025882271,
+      "attitude_rmse_rad": 0.16423698644541684,
+      "case": "road1_seed17",
+      "completed": false,
+      "controller": "h4_dr_seed28000",
+      "controller_parameters": {
+        "attitude_feedback_scale": 0.25,
+        "leg_feedback_scale": 1.0,
+        "wheel_ki": 1.5,
+        "wheel_kp": 0.55,
+        "yaw_feedback_gain": 4.0
+      },
+      "csv_sha256": "75a253d641c355a588c053a033cb49ac54d79f20a547d0f533cf82236076218b",
+      "duration_s": 1.5400000000000011,
+      "episode_metadata_sha256": "267d50d7c908016be33a60243a482e8fa146be4609945ea4fcdd4a40d5cc1f77",
+      "episode_seed": 17,
+      "executed_steps": 154,
+      "height_rmse_m": 0.011219890682630273,
+      "mean_mechanical_power_w": 1215.2472146605203,
+      "measurement_seed": 1814784298,
+      "npz_sha256": "55892eec4f0fba68380414bcdfc170012e6ae7a0ca184f390535fe2e37bf1e24",
+      "quality_pass": false,
+      "road_index": 1,
+      "schedule_sha256": "05f7df9503192663e87f085cacfea8d92b6364baae31d36b86c7136f1dc7453a",
+      "terminal_reason": "fall_or_body_contact",
+      "terrain": {
+        "cross_slope_deg": 0.75,
+        "layout": "right_offset",
+        "phase_x_rad": 0.9,
+        "phase_y_rad": 1.1,
+        "ripple_amplitude_m": 0.008,
+        "schema": "d1-fixed-2d-road-v1",
+        "slope_deg": -1.25,
+        "step_height_m": 0.008,
+        "wavelength_x_m": 0.85,
+        "wavelength_y_m": 1.15
+      },
+      "terrain_exposure": {
+        "nonflat_fraction": 0.0,
+        "nonflat_now": false,
+        "nonflat_path_m": 0.0,
+        "nonflat_steps": 0,
+        "path_m": 0.07380446481724733,
+        "unique_nonflat_0p25m_cells": 0
+      },
+      "velocity_rmse_mps": 0.06414870971795786,
+      "yaw_rmse_rps": 0.4583892681323283
+    },
+    {
+      "action_rms": 0.08888652715555974,
+      "attitude_rmse_rad": 0.39326220325372596,
+      "case": "road1_seed29",
+      "completed": false,
+      "controller": "h4_dr_seed28000",
+      "controller_parameters": {
+        "attitude_feedback_scale": 0.25,
+        "leg_feedback_scale": 1.0,
+        "wheel_ki": 1.5,
+        "wheel_kp": 0.55,
+        "yaw_feedback_gain": 4.0
+      },
+      "csv_sha256": "a46a882de4eda3dde284ad2108e5c5d137868cfe80c477c2521e478ad9f9e2f2",
+      "duration_s": 2.049999999999996,
+      "episode_metadata_sha256": "96ce7d3e2f9d209fa38b95a4aa9968cc9f894b278c66e9c0d6092ded4af0c2e8",
+      "episode_seed": 29,
+      "executed_steps": 205,
+      "height_rmse_m": 0.06031906177339048,
+      "mean_mechanical_power_w": 3901.84642919747,
+      "measurement_seed": 107475050,
+      "npz_sha256": "17a853cb915c0cc05a8e866df51c2ee9cc1a2620ebdd26f0ef0211120eb57713",
+      "quality_pass": false,
+      "road_index": 1,
+      "schedule_sha256": "05f7df9503192663e87f085cacfea8d92b6364baae31d36b86c7136f1dc7453a",
+      "terminal_reason": "fall_or_body_contact",
+      "terrain": {
+        "cross_slope_deg": 0.75,
+        "layout": "right_offset",
+        "phase_x_rad": 0.9,
+        "phase_y_rad": 1.1,
+        "ripple_amplitude_m": 0.008,
+        "schema": "d1-fixed-2d-road-v1",
+        "slope_deg": -1.25,
+        "step_height_m": 0.008,
+        "wavelength_x_m": 0.85,
+        "wavelength_y_m": 1.15
+      },
+      "terrain_exposure": {
+        "nonflat_fraction": 0.0,
+        "nonflat_now": false,
+        "nonflat_path_m": 0.0,
+        "nonflat_steps": 0,
+        "path_m": 0.72877808407831,
+        "unique_nonflat_0p25m_cells": 0
+      },
+      "velocity_rmse_mps": 0.21515414598982194,
+      "yaw_rmse_rps": 1.6375079176280853
+    },
+    {
+      "action_rms": 0.07594221051390473,
+      "attitude_rmse_rad": 0.24598424296041504,
+      "case": "road0_seed17",
+      "completed": false,
+      "controller": "h4_dr_seed29000",
+      "controller_parameters": {
+        "attitude_feedback_scale": 0.25,
+        "leg_feedback_scale": 1.0,
+        "wheel_ki": 1.5,
+        "wheel_kp": 0.55,
+        "yaw_feedback_gain": 4.0
+      },
+      "csv_sha256": "9e4befd0db87216513d2f4451843418c8ca2f22145352af981a5babc736e1d2f",
+      "duration_s": 1.350000000000001,
+      "episode_metadata_sha256": "b5fb651fb2f189cce29f77401667ca10035543497d3cfce3eb39232f8f283588",
+      "episode_seed": 17,
+      "executed_steps": 135,
+      "height_rmse_m": 0.020188225099285608,
+      "mean_mechanical_power_w": 1855.294336887822,
+      "measurement_seed": 1814784298,
+      "npz_sha256": "fed7805969397707bde04b3313fdc95157abe9422589c4d7a5652af8c0a0a0e1",
+      "quality_pass": false,
+      "road_index": 0,
+      "schedule_sha256": "05f7df9503192663e87f085cacfea8d92b6364baae31d36b86c7136f1dc7453a",
+      "terminal_reason": "fall_or_body_contact",
+      "terrain": {
+        "cross_slope_deg": -0.75,
+        "layout": "right_offset",
+        "phase_x_rad": 0.3,
+        "phase_y_rad": 0.5,
+        "ripple_amplitude_m": 0.006,
+        "schema": "d1-fixed-2d-road-v1",
+        "slope_deg": 1.25,
+        "step_height_m": 0.006,
+        "wavelength_x_m": 0.75,
+        "wavelength_y_m": 1.05
+      },
+      "terrain_exposure": {
+        "nonflat_fraction": 0.0,
+        "nonflat_now": false,
+        "nonflat_path_m": 0.0,
+        "nonflat_steps": 0,
+        "path_m": 0.13160389851586768,
+        "unique_nonflat_0p25m_cells": 0
+      },
+      "velocity_rmse_mps": 0.12631929628125899,
+      "yaw_rmse_rps": 1.082828130580348
+    },
+    {
+      "action_rms": 0.06739018377315135,
+      "attitude_rmse_rad": 0.22678006867270145,
+      "case": "road0_seed29",
+      "completed": false,
+      "controller": "h4_dr_seed29000",
+      "controller_parameters": {
+        "attitude_feedback_scale": 0.25,
+        "leg_feedback_scale": 1.0,
+        "wheel_ki": 1.5,
+        "wheel_kp": 0.55,
+        "yaw_feedback_gain": 4.0
+      },
+      "csv_sha256": "1137cd9ba5e05f71c6c027639e8766d60dd73da804f04e7500de3576c69bcb2c",
+      "duration_s": 3.1599999999998736,
+      "episode_metadata_sha256": "10b964ea54ff74bd87583fb953f75a8afbabc36fcb7d0d4cdc7b076f7d79a3e4",
+      "episode_seed": 29,
+      "executed_steps": 316,
+      "height_rmse_m": 0.018414023641028652,
+      "mean_mechanical_power_w": 1360.7969999755544,
+      "measurement_seed": 107475050,
+      "npz_sha256": "d5f9904789ddce74b5366cf85fe8a01897f1a4f55262418d926c678e1613fd16",
+      "quality_pass": false,
+      "road_index": 0,
+      "schedule_sha256": "05f7df9503192663e87f085cacfea8d92b6364baae31d36b86c7136f1dc7453a",
+      "terminal_reason": "fall_or_body_contact",
+      "terrain": {
+        "cross_slope_deg": -0.75,
+        "layout": "right_offset",
+        "phase_x_rad": 0.3,
+        "phase_y_rad": 0.5,
+        "ripple_amplitude_m": 0.006,
+        "schema": "d1-fixed-2d-road-v1",
+        "slope_deg": 1.25,
+        "step_height_m": 0.006,
+        "wavelength_x_m": 0.75,
+        "wavelength_y_m": 1.05
+      },
+      "terrain_exposure": {
+        "nonflat_fraction": 0.0,
+        "nonflat_now": false,
+        "nonflat_path_m": 0.0,
+        "nonflat_steps": 0,
+        "path_m": 0.25888918764777125,
+        "unique_nonflat_0p25m_cells": 0
+      },
+      "velocity_rmse_mps": 0.15856333881310375,
+      "yaw_rmse_rps": 1.413039073395795
+    },
+    {
+      "action_rms": 0.07651346996064416,
+      "attitude_rmse_rad": 0.25071337944672856,
+      "case": "road1_seed17",
+      "completed": false,
+      "controller": "h4_dr_seed29000",
+      "controller_parameters": {
+        "attitude_feedback_scale": 0.25,
+        "leg_feedback_scale": 1.0,
+        "wheel_ki": 1.5,
+        "wheel_kp": 0.55,
+        "yaw_feedback_gain": 4.0
+      },
+      "csv_sha256": "9500d3f8ef8e9c880a45b442246d0f30aa8ce7790b64b20ac1e9ae250a577bef",
+      "duration_s": 1.410000000000001,
+      "episode_metadata_sha256": "267d50d7c908016be33a60243a482e8fa146be4609945ea4fcdd4a40d5cc1f77",
+      "episode_seed": 17,
+      "executed_steps": 141,
+      "height_rmse_m": 0.023249882582086802,
+      "mean_mechanical_power_w": 1754.3232591262858,
+      "measurement_seed": 1814784298,
+      "npz_sha256": "10e1fb8b6c28bf2d7e78a9807a395e50cebe8fa07b5a53df53822c87e2be4041",
+      "quality_pass": false,
+      "road_index": 1,
+      "schedule_sha256": "05f7df9503192663e87f085cacfea8d92b6364baae31d36b86c7136f1dc7453a",
+      "terminal_reason": "fall_or_body_contact",
+      "terrain": {
+        "cross_slope_deg": 0.75,
+        "layout": "right_offset",
+        "phase_x_rad": 0.9,
+        "phase_y_rad": 1.1,
+        "ripple_amplitude_m": 0.008,
+        "schema": "d1-fixed-2d-road-v1",
+        "slope_deg": -1.25,
+        "step_height_m": 0.008,
+        "wavelength_x_m": 0.85,
+        "wavelength_y_m": 1.15
+      },
+      "terrain_exposure": {
+        "nonflat_fraction": 0.0,
+        "nonflat_now": false,
+        "nonflat_path_m": 0.0,
+        "nonflat_steps": 0,
+        "path_m": 0.09815159502367851,
+        "unique_nonflat_0p25m_cells": 0
+      },
+      "velocity_rmse_mps": 0.17747580633373203,
+      "yaw_rmse_rps": 0.9762059295981549
+    },
+    {
+      "action_rms": 0.07179333065228398,
+      "attitude_rmse_rad": 0.24585570973663176,
+      "case": "road1_seed29",
+      "completed": false,
+      "controller": "h4_dr_seed29000",
+      "controller_parameters": {
+        "attitude_feedback_scale": 0.25,
+        "leg_feedback_scale": 1.0,
+        "wheel_ki": 1.5,
+        "wheel_kp": 0.55,
+        "yaw_feedback_gain": 4.0
+      },
+      "csv_sha256": "c4887d0fec1037c92aa28e011a418946c94f40029260847d0118da32fc6b8f1d",
+      "duration_s": 1.5900000000000012,
+      "episode_metadata_sha256": "96ce7d3e2f9d209fa38b95a4aa9968cc9f894b278c66e9c0d6092ded4af0c2e8",
+      "episode_seed": 29,
+      "executed_steps": 159,
+      "height_rmse_m": 0.024716284504270884,
+      "mean_mechanical_power_w": 1318.9308998698664,
+      "measurement_seed": 107475050,
+      "npz_sha256": "187a58428937ded763b2d2978fa604b59b3f52ace1db8a934df2aa9185c15222",
+      "quality_pass": false,
+      "road_index": 1,
+      "schedule_sha256": "05f7df9503192663e87f085cacfea8d92b6364baae31d36b86c7136f1dc7453a",
+      "terminal_reason": "fall_or_body_contact",
+      "terrain": {
+        "cross_slope_deg": 0.75,
+        "layout": "right_offset",
+        "phase_x_rad": 0.9,
+        "phase_y_rad": 1.1,
+        "ripple_amplitude_m": 0.008,
+        "schema": "d1-fixed-2d-road-v1",
+        "slope_deg": -1.25,
+        "step_height_m": 0.008,
+        "wavelength_x_m": 0.85,
+        "wavelength_y_m": 1.15
+      },
+      "terrain_exposure": {
+        "nonflat_fraction": 0.0,
+        "nonflat_now": false,
+        "nonflat_path_m": 0.0,
+        "nonflat_steps": 0,
+        "path_m": 0.264618595109682,
+        "unique_nonflat_0p25m_cells": 0
+      },
+      "velocity_rmse_mps": 0.20478834265617762,
+      "yaw_rmse_rps": 0.9818476386695396
+    }
+  ],
+  "checkpoint_inputs": [
+    {
+      "all_current_input_bytes_match": true,
+      "checkpoint_sha256": "780d99d8352f757a999cfb257900ed489225e7ce31db25ba0def5d82d86ba2f8",
+      "controller": "h4_dr_seed27000",
+      "input_sha256": {
+        "checkpoint.json": "6d70f0ba29adc1eb85ac41543eb4b9de7763c6cbb97673c830c4c4cf7fa1a4d3",
+        "checkpoint.zip": "780d99d8352f757a999cfb257900ed489225e7ce31db25ba0def5d82d86ba2f8",
+        "protocol.json": "8d942e08d5438eb10689282d851e1b1d5dcc8594c10884f3ce965d285d6f7bd3",
+        "source.json": "8dafb2b72c0c49131a739a7ea1a9a3bf02fe809f55eb2cf4afe3c723e8d11cf5",
+        "source.tar.gz": "f993ea1a2c814b7d164aef5dadeceea228eab98e7e8b808f2149b28278727b64",
+        "source_consistency.json": "99a03f68c4dbe50de2116c150e8a67e8490c0d5f6c666d30ed39b2f9e37ebcab",
+        "training.json": "63d310e0fbb23873da411b54cfb91f14b3665f1219f2b9ac6fe4677218ab4ef0"
+      },
+      "num_timesteps": 32768,
+      "source": {
+        "archive_sha256": "f993ea1a2c814b7d164aef5dadeceea228eab98e7e8b808f2149b28278727b64",
+        "file_count": 65
+      },
+      "training_seed": 27000
+    },
+    {
+      "all_current_input_bytes_match": true,
+      "checkpoint_sha256": "c52de1a123cf1076240b20b59455c5f6750a3e948ecc83dd74ecb10720c862bb",
+      "controller": "h4_dr_seed28000",
+      "input_sha256": {
+        "checkpoint.json": "5567dcebbf80c85b9d3d20e9f470498538b5b94fba8f6eab34f97f43656d9d08",
+        "checkpoint.zip": "c52de1a123cf1076240b20b59455c5f6750a3e948ecc83dd74ecb10720c862bb",
+        "protocol.json": "1b1b26449fd793dd282c16658b633d5c1dfc53688f6c3a72e42354b603951612",
+        "source.json": "51e9e85c0741d05aed6aaa91d26011bbeed71807fca46458cbe9747cc34ebfed",
+        "source.tar.gz": "e3a9d0bbd1b58480c22235d00a9dc51b563a1565a22263b3bd64225a0e675aaf",
+        "source_consistency.json": "99a03f68c4dbe50de2116c150e8a67e8490c0d5f6c666d30ed39b2f9e37ebcab",
+        "training.json": "4fbdde120bcc40cdbf7008d3f164b4c367ec75b958b6860752e12989d084b913"
+      },
+      "num_timesteps": 32768,
+      "source": {
+        "archive_sha256": "e3a9d0bbd1b58480c22235d00a9dc51b563a1565a22263b3bd64225a0e675aaf",
+        "file_count": 65
+      },
+      "training_seed": 28000
+    },
+    {
+      "all_current_input_bytes_match": true,
+      "checkpoint_sha256": "1129873fe5953e7a4dd6911ed99224d4e17c01f333ca21e343e9bd91129d8bd9",
+      "controller": "h4_dr_seed29000",
+      "input_sha256": {
+        "checkpoint.json": "138758d643d9043edc806aa014bdc8a89ff10c31538306f392bcf9ee9dc886b2",
+        "checkpoint.zip": "1129873fe5953e7a4dd6911ed99224d4e17c01f333ca21e343e9bd91129d8bd9",
+        "protocol.json": "e28132d3d22fe634e3612cfbfbcd2858976250ff0ae577ed17305545eda2be75",
+        "source.json": "4f97566fd242b3c37f605e6a225758156439404ad3ddd3a7f1967c5ab47a891b",
+        "source.tar.gz": "b71586ff46142ac80c215f8968b48f9179ff55cbd6004d726972b962e9612a86",
+        "source_consistency.json": "99a03f68c4dbe50de2116c150e8a67e8490c0d5f6c666d30ed39b2f9e37ebcab",
+        "training.json": "69e8b8d01e5a5f7c39caed27e3855015db51bf81e52a6d1a5912fd54189e4c36"
+      },
+      "num_timesteps": 32768,
+      "source": {
+        "archive_sha256": "b71586ff46142ac80c215f8968b48f9179ff55cbd6004d726972b962e9612a86",
+        "file_count": 65
+      },
+      "training_seed": 29000
+    }
+  ],
+  "child_inputs": {
+    "h4_dr_seed27000": {
+      "evaluation_sha256": "f73101a5ad1e170222da305d94ed4c6210cda1756d651679f84c295c8f7ee043",
+      "protocol_sha256": "21c31cce7c2255f455bc0f6b0946d49439431bb4c60020bf4cfad3962e868e38"
+    },
+    "h4_dr_seed28000": {
+      "evaluation_sha256": "70fc7e2aa5a4f7128a0e2dae681a35427c54be9516ab6d4caae2128430b420a2",
+      "protocol_sha256": "88660b7d38054f4b895593d5e043f7d3b2bd330f85341d9713dbb1e06c834d46"
+    },
+    "h4_dr_seed29000": {
+      "evaluation_sha256": "96ca5fa1b760eded134d473ef8321c3e5dd2faada62311b5d6223f3c324c9e7a",
+      "protocol_sha256": "2b0f99c9967a83b2c9d24ba3485c687d4f5d49cabf3ccb5729e2c4d80d4f6224"
+    },
+    "zero_residual": {
+      "evaluation_sha256": "777997aebdf2bc196b96cf4747e3a43a0e5e2efac2e841198d74e4036711f0d5",
+      "protocol_sha256": "f71cf14eb656e050fbcfb7b1c88992eff565edc5d73eeba4ad2a8fc266f9f982"
+    }
+  },
+  "completed": {
+    "case_count": 16,
+    "completed_episodes": 0,
+    "quality_passes": 0,
+    "status": "complete"
+  },
+  "input_protocol_schema": "d1-joint-unseen-stress-v1",
+  "input_sha256": {
+    "completion.json": "1387b86a24af8b69aabcb0b7b0cf1d9a41b8619b4565d5cb1b54b688420a3691",
+    "evaluation.json": "509ec5bac5cd915178516b584fee91704c287ee718ef23215954d2a6fde5d801",
+    "protocol.json": "17972ae7d835e3eb1a7db6df2459ac91e9ae8c3fd25bb43ef355406a334db25d",
+    "source.json": "9246cf1bdf6dc14577ad5e446f9aa95385a2c2173b33d10bd959113558ee9bbd",
+    "source.tar.gz": "72568c1b19ac3bfe9b3d31c3f9118716d7b0d811a4e8d3674a1081279f01b799",
+    "source_consistency.json": "99a03f68c4dbe50de2116c150e8a67e8490c0d5f6c666d30ed39b2f9e37ebcab"
+  },
+  "limitations": [
+    "Arithmetic and byte consistency do not authenticate provenance or independently replay dynamics, estimator noise, friction, contact or actuator physics.",
+    "Friction semantics come from the frozen model.set_domain implementation: geom_friction[:,0] only. Metadata verifies the configured value, not independently measured contact friction.",
+    "Mechanical activity is not battery power. Terrain exposure is a recorded geometric label, not proof of successful contact traversal.",
+    "Three independently trained policies plus one shared zero controller; the sixteen episodes are not sixteen independent policy replications.",
+    "Joint 30 ms/noise/friction extrapolation on existing development roads is neither new terrain holdout nor single-factor attribution.",
+    "Early failures are retained; their short-horizon RMSE values are not full-horizon gains, and no confidence interval or performance improvement is inferred."
+  ],
+  "parent_source": {
+    "archive_sha256": "72568c1b19ac3bfe9b3d31c3f9118716d7b0d811a4e8d3674a1081279f01b799",
+    "file_count": 66
+  },
+  "passed": true,
+  "schema": "d1-joint-unseen-stress-independent-arithmetic-v1",
+  "terminal_reason_counts": {
+    "fall_or_body_contact": 16
+  }
+}

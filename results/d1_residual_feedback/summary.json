@@ -1,0 +1,196 @@
+{
+  "episodes": 148,
+  "wall_time_s": 264.6778359250002,
+  "source_unchanged_during_run": true,
+  "nominal_replay_checks": [
+    {
+      "case_id": "tracking_v2_development_01_flat",
+      "training_seed": 0,
+      "steps": 400,
+      "max_transition_difference": 0.0
+    },
+    {
+      "case_id": "tracking_v2_development_01_flat",
+      "training_seed": 1000,
+      "steps": 400,
+      "max_transition_difference": 0.0
+    },
+    {
+      "case_id": "tracking_v2_development_01_flat",
+      "training_seed": 2000,
+      "steps": 400,
+      "max_transition_difference": 0.0
+    },
+    {
+      "case_id": "tracking_v2_development_04_bumps",
+      "training_seed": 0,
+      "steps": 400,
+      "max_transition_difference": 0.0
+    },
+    {
+      "case_id": "tracking_v2_development_04_bumps",
+      "training_seed": 1000,
+      "steps": 400,
+      "max_transition_difference": 0.0
+    },
+    {
+      "case_id": "tracking_v2_development_04_bumps",
+      "training_seed": 2000,
+      "steps": 400,
+      "max_transition_difference": 0.0
+    },
+    {
+      "case_id": "tracking_v2_development_05_bumps",
+      "training_seed": 0,
+      "steps": 400,
+      "max_transition_difference": 0.0
+    },
+    {
+      "case_id": "tracking_v2_development_05_bumps",
+      "training_seed": 1000,
+      "steps": 400,
+      "max_transition_difference": 0.0
+    },
+    {
+      "case_id": "tracking_v2_development_05_bumps",
+      "training_seed": 2000,
+      "steps": 400,
+      "max_transition_difference": 0.0
+    },
+    {
+      "case_id": "tracking_v2_development_10_bumps",
+      "training_seed": 0,
+      "steps": 400,
+      "max_transition_difference": 0.0
+    },
+    {
+      "case_id": "tracking_v2_development_10_bumps",
+      "training_seed": 1000,
+      "steps": 400,
+      "max_transition_difference": 0.0
+    },
+    {
+      "case_id": "tracking_v2_development_10_bumps",
+      "training_seed": 2000,
+      "steps": 400,
+      "max_transition_difference": 0.0
+    },
+    {
+      "case_id": "tracking_v2_development_11_bumps",
+      "training_seed": 0,
+      "steps": 400,
+      "max_transition_difference": 0.0
+    },
+    {
+      "case_id": "tracking_v2_development_11_bumps",
+      "training_seed": 1000,
+      "steps": 400,
+      "max_transition_difference": 0.0
+    },
+    {
+      "case_id": "tracking_v2_development_11_bumps",
+      "training_seed": 2000,
+      "steps": 400,
+      "max_transition_difference": 0.0
+    },
+    {
+      "case_id": "tracking_v2_development_22_ramp",
+      "training_seed": 0,
+      "steps": 400,
+      "max_transition_difference": 0.0
+    },
+    {
+      "case_id": "tracking_v2_development_22_ramp",
+      "training_seed": 1000,
+      "steps": 400,
+      "max_transition_difference": 0.0
+    },
+    {
+      "case_id": "tracking_v2_development_22_ramp",
+      "training_seed": 2000,
+      "steps": 400,
+      "max_transition_difference": 0.0
+    }
+  ],
+  "paired_comparisons": [
+    {
+      "comparison": "remove_fz",
+      "training_seed": 0,
+      "paired_episodes": 6,
+      "left_minus_right": {
+        "tail_velocity_rmse_mps": 0.0004972703128058477,
+        "velocity_rmse_mps": -0.0007115520631638048,
+        "clearance_rmse_m": -0.002728262543916022,
+        "episode_return": 59.56599756735204
+      },
+      "quality_pass_count_delta": 0,
+      "predeclared_threshold_met": true
+    },
+    {
+      "comparison": "live_vs_replay",
+      "training_seed": 0,
+      "paired_episodes": 8,
+      "left_minus_right": {
+        "tail_velocity_rmse_mps": 0.002360659707553279,
+        "velocity_rmse_mps": -0.0002784675329751442,
+        "clearance_rmse_m": -4.4309211293063096e-05,
+        "episode_return": 1.0411137210316213
+      },
+      "quality_pass_count_delta": 2,
+      "predeclared_threshold_met": false
+    },
+    {
+      "comparison": "remove_fz",
+      "training_seed": 1000,
+      "paired_episodes": 6,
+      "left_minus_right": {
+        "tail_velocity_rmse_mps": -0.0020579157307812897,
+        "velocity_rmse_mps": -0.00042165842176716817,
+        "clearance_rmse_m": -0.002658976202030875,
+        "episode_return": 57.96508236269392
+      },
+      "quality_pass_count_delta": 0,
+      "predeclared_threshold_met": true
+    },
+    {
+      "comparison": "live_vs_replay",
+      "training_seed": 1000,
+      "paired_episodes": 8,
+      "left_minus_right": {
+        "tail_velocity_rmse_mps": -0.0017030036295084053,
+        "velocity_rmse_mps": 0.0003960307843384001,
+        "clearance_rmse_m": -1.532583729442743e-05,
+        "episode_return": -0.5103875293503108
+      },
+      "quality_pass_count_delta": 0,
+      "predeclared_threshold_met": false
+    },
+    {
+      "comparison": "remove_fz",
+      "training_seed": 2000,
+      "paired_episodes": 6,
+      "left_minus_right": {
+        "tail_velocity_rmse_mps": -0.012656434501429758,
+        "velocity_rmse_mps": -0.0024571015645900468,
+        "clearance_rmse_m": -0.002736932474348206,
+        "episode_return": 60.69609605033497
+      },
+      "quality_pass_count_delta": 0,
+      "predeclared_threshold_met": true
+    },
+    {
+      "comparison": "live_vs_replay",
+      "training_seed": 2000,
+      "paired_episodes": 8,
+      "left_minus_right": {
+        "tail_velocity_rmse_mps": -9.024210577945196e-05,
+        "velocity_rmse_mps": -0.0013873419326809293,
+        "clearance_rmse_m": -8.91327740453916e-06,
+        "episode_return": 1.579856641955928
+      },
+      "quality_pass_count_delta": 1,
+      "predeclared_threshold_met": false
+    }
+  ],
+  "interpretation": "controlled diagnostic, not a new holdout or proof of RL benefit; seeds/cases, not control steps, are comparison units"
+}

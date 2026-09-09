@@ -1,0 +1,23 @@
+{"case": "road0_seed17", "seed": 17, "terrain": {"layout": "right_offset", "slope_deg": 1.25, "cross_slope_deg": -0.75, "ripple_amplitude_m": 0.006, "wavelength_x_m": 0.75, "wavelength_y_m": 1.05, "phase_x_rad": 0.3, "phase_y_rad": 0.5, "step_height_m": 0.006, "schema": "d1-fixed-2d-road-v1"}, "executed_steps": 4471, "duration_s": 44.71000000000868, "completed": false, "terminal_reason": "fall_or_body_contact", "velocity_rmse_mps": 0.09333407007003904, "yaw_rmse_rps": 0.3196346387712534, "height_rmse_m": 0.013543704181269, "attitude_rmse_rad": 0.09193795942044104, "mean_mechanical_power_w": 224.39113649936783, "action_rms": 0.07561787890303685, "terrain_exposure": {"nonflat_now": true, "nonflat_steps": 3292, "nonflat_fraction": 0.7363006038917468, "path_m": 5.939494258036969, "nonflat_path_m": 4.314031560017452, "unique_nonflat_0p25m_cells": 12, "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof"}, "quality_pass": false}
+Traceback (most recent call last):
+  File "/home/lyh/wheel-legged-control-lab/scripts/run_d1_locomotion_experiment.py", line 583, in <module>
+    main()
+  File "/home/lyh/wheel-legged-control-lab/scripts/run_d1_locomotion_experiment.py", line 575, in main
+    {"benchmark": benchmark, "train": train, "evaluate": evaluate}[args.mode](args, args.output)
+  File "/home/lyh/wheel-legged-control-lab/scripts/run_d1_locomotion_experiment.py", line 441, in evaluate
+    obs, reward, terminated, truncated, info = env.step(action)
+  File "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/observation_history.py", line 153, in step
+    observation, reward, terminated, truncated, info = self.env.step(action)
+  File "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/locomotion_env.py", line 460, in step
+    observation = self._prepare()
+  File "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/locomotion_env.py", line 290, in _prepare
+    self.decision = self.loop.prepare(command)
+  File "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/control_loop.py", line 267, in prepare
+    proposal = self.controller.preview(world, state, ground)
+  File "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/control_loop.py", line 148, in preview
+    nominal = self.controller.nominal_targets(command, state, ground_height_m=ground.height_m)
+  File "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/wheel_leg_controller.py", line 327, in nominal_targets
+    self._extension(command, ground_height_m), self._grid[0], self._grid[-1]
+  File "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/wheel_leg_controller.py", line 303, in _extension
+    raise ValueError(
+ValueError: nominal clearance must be .32-.56 m and attitude commands within .3 rad

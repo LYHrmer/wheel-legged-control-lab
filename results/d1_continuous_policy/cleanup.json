@@ -1,0 +1,29 @@
+{
+  "schema": "d1-continuous-superseded-artifact-cleanup-v1",
+  "operation": "recoverable move outside the repository; no formal data deleted",
+  "archive_directory": "/tmp/d1-continuous-superseded-bcL4cC",
+  "moved_directories": [
+    {
+      "name": "spawn_smoke",
+      "reason": "superseded short pipeline test before the final training/RNG fixes"
+    },
+    {
+      "name": "spawn_smoke_v2",
+      "reason": "machine restart interrupted this run; it is not a successful experiment"
+    },
+    {
+      "name": "spawn_smoke_v3",
+      "reason": "successful 1024-sample smoke, superseded by the complete 393216-sample formal experiment"
+    },
+    {
+      "name": "replay_sensor45_v1",
+      "reason": "successful inline replay, superseded by the independently runnable and successfully verified CLI replay"
+    }
+  ],
+  "retained": [
+    "sensor45_v1",
+    "analysis_sensor45_v1",
+    "replay_sensor45_cli",
+    "videos"
+  ]
+}

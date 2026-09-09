@@ -1,0 +1,2005 @@
+{
+  "limitations": [
+    "Two fixed roads per split; oracle noise-seed duplicates collapsed by byte checks.",
+    "Only three independent training seeds, 32768 samples each; no confidence interval.",
+    "LQR versus wheel_leg changes low-level structure too, not a pure action-dimension ablation.",
+    "Report per-controller zero residual first; controller gains are not RL gains.",
+    "Mechanical activity is not battery power. Exposure is not contact/traversal proof.",
+    "Hashes establish current/archive byte consistency, not independent provenance."
+  ],
+  "schema": "d1-phase4-independent-arithmetic-v1",
+  "splits": {
+    "development": {
+      "lqr": {
+        "full_horizon_pairs": 6,
+        "mean_over_full_horizon_pairs": {
+          "policy": {
+            "action_rms": 0.0928501667528309,
+            "attitude_rmse_rad": 0.019209568068285953,
+            "height_rmse_m": 0.019152442673947168,
+            "mean_mechanical_power_w": 34.59407344895635,
+            "velocity_rmse_mps": 0.06245487932306474,
+            "yaw_rmse_rps": 0.06214173725268491
+          },
+          "zero": {
+            "action_rms": 0.0,
+            "attitude_rmse_rad": 0.02330740436927603,
+            "height_rmse_m": 0.017101530872301457,
+            "mean_mechanical_power_w": 49.38430910118742,
+            "velocity_rmse_mps": 0.0875733577183938,
+            "yaw_rmse_rps": 0.14550029875499787
+          }
+        },
+        "models": [
+          {
+            "comparison": {
+              "bootstrap_ci": null,
+              "note": "No resampling interval at three training seeds. Terrain labels are not independent training replicas; actual paths/exposure may differ.",
+              "pairs": [
+                {
+                  "comparable_full_horizon": true,
+                  "delta_policy_minus_zero": {
+                    "action_rms": 0.1026501398947175,
+                    "attitude_rmse_rad": -0.0011553353281984861,
+                    "height_rmse_m": 0.002227454174505806,
+                    "mean_mechanical_power_w": 3.1518281764422262,
+                    "velocity_rmse_mps": -0.007665931398541839,
+                    "yaw_rmse_rps": -0.00020946930950384302
+                  },
+                  "paired_case_labels": [
+                    "road0_seed17",
+                    "road0_seed29"
+                  ],
+                  "policy_completed": true,
+                  "policy_duration_s": 60.00000000002736,
+                  "policy_exposure": {
+                    "nonflat_fraction": 0.855,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.910714827451479,
+                    "nonflat_steps": 5130,
+                    "path_m": 6.362379015643228,
+                    "unique_nonflat_0p25m_cells": 18
+                  },
+                  "policy_metrics": {
+                    "action_rms": 0.1026501398947175,
+                    "attitude_rmse_rad": 0.016921185220676132,
+                    "height_rmse_m": 0.01981782420232084,
+                    "mean_mechanical_power_w": 34.60979455081284,
+                    "velocity_rmse_mps": 0.04833030219302901,
+                    "yaw_rmse_rps": 0.05190405991778047
+                  },
+                  "policy_quality_pass": true,
+                  "policy_terminal_reason": "time_limit",
+                  "terrain": {
+                    "cross_slope_deg": -0.75,
+                    "layout": "right_offset",
+                    "phase_x_rad": 0.3,
+                    "phase_y_rad": 0.5,
+                    "ripple_amplitude_m": 0.006,
+                    "schema": "d1-fixed-2d-road-v1",
+                    "slope_deg": 1.25,
+                    "step_height_m": 0.006,
+                    "wavelength_x_m": 0.75,
+                    "wavelength_y_m": 1.05
+                  },
+                  "zero_completed": true,
+                  "zero_duration_s": 60.00000000002736,
+                  "zero_exposure": {
+                    "nonflat_fraction": 0.8256666666666667,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 5.428523021529518,
+                    "nonflat_steps": 4954,
+                    "path_m": 6.889638559582304,
+                    "unique_nonflat_0p25m_cells": 25
+                  },
+                  "zero_metrics": {
+                    "action_rms": 0.0,
+                    "attitude_rmse_rad": 0.018076520548874618,
+                    "height_rmse_m": 0.017590370027815033,
+                    "mean_mechanical_power_w": 31.457966374370617,
+                    "velocity_rmse_mps": 0.05599623359157085,
+                    "yaw_rmse_rps": 0.052113529227284315
+                  },
+                  "zero_quality_pass": true,
+                  "zero_terminal_reason": "time_limit"
+                },
+                {
+                  "comparable_full_horizon": true,
+                  "delta_policy_minus_zero": {
+                    "action_rms": 0.10060499807048238,
+                    "attitude_rmse_rad": -0.010109950467971994,
+                    "height_rmse_m": 0.0030952174507525403,
+                    "mean_mechanical_power_w": -34.81337759376501,
+                    "velocity_rmse_mps": -0.0641303488347011,
+                    "yaw_rmse_rps": -0.18543170046002336
+                  },
+                  "paired_case_labels": [
+                    "road1_seed17",
+                    "road1_seed29"
+                  ],
+                  "policy_completed": true,
+                  "policy_duration_s": 60.00000000002736,
+                  "policy_exposure": {
+                    "nonflat_fraction": 0.8348333333333333,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.587305165260185,
+                    "nonflat_steps": 5009,
+                    "path_m": 6.047306975573255,
+                    "unique_nonflat_0p25m_cells": 22
+                  },
+                  "policy_metrics": {
+                    "action_rms": 0.10060499807048238,
+                    "attitude_rmse_rad": 0.01842833772170545,
+                    "height_rmse_m": 0.019707909167540418,
+                    "mean_mechanical_power_w": 32.4972742342392,
+                    "velocity_rmse_mps": 0.05502013301051564,
+                    "yaw_rmse_rps": 0.05345536782268807
+                  },
+                  "policy_quality_pass": true,
+                  "policy_terminal_reason": "time_limit",
+                  "terrain": {
+                    "cross_slope_deg": 0.75,
+                    "layout": "right_offset",
+                    "phase_x_rad": 0.9,
+                    "phase_y_rad": 1.1,
+                    "ripple_amplitude_m": 0.008,
+                    "schema": "d1-fixed-2d-road-v1",
+                    "slope_deg": -1.25,
+                    "step_height_m": 0.008,
+                    "wavelength_x_m": 0.85,
+                    "wavelength_y_m": 1.15
+                  },
+                  "zero_completed": true,
+                  "zero_duration_s": 60.00000000002736,
+                  "zero_exposure": {
+                    "nonflat_fraction": 0.8023333333333333,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 5.027846544605189,
+                    "nonflat_steps": 4814,
+                    "path_m": 6.5217458669517185,
+                    "unique_nonflat_0p25m_cells": 14
+                  },
+                  "zero_metrics": {
+                    "action_rms": 0.0,
+                    "attitude_rmse_rad": 0.028538288189677442,
+                    "height_rmse_m": 0.016612691716787878,
+                    "mean_mechanical_power_w": 67.31065182800421,
+                    "velocity_rmse_mps": 0.11915048184521675,
+                    "yaw_rmse_rps": 0.23888706828271142
+                  },
+                  "zero_quality_pass": false,
+                  "zero_terminal_reason": "time_limit"
+                }
+              ]
+            },
+            "source": {
+              "archive_sha256": "c578ec5042d4c97e6a173d8e244e9a4e9b1f6aa00df1000c319522bf050cb071",
+              "file_count": 65
+            },
+            "training_seed": 24000
+          },
+          {
+            "comparison": {
+              "bootstrap_ci": null,
+              "note": "No resampling interval at three training seeds. Terrain labels are not independent training replicas; actual paths/exposure may differ.",
+              "pairs": [
+                {
+                  "comparable_full_horizon": true,
+                  "delta_policy_minus_zero": {
+                    "action_rms": 0.08708323674378989,
+                    "attitude_rmse_rad": -0.0009982302395964808,
+                    "height_rmse_m": 0.0018036669640515458,
+                    "mean_mechanical_power_w": -1.1650463160094802,
+                    "velocity_rmse_mps": -0.006762682299056043,
+                    "yaw_rmse_rps": -0.000869886699199178
+                  },
+                  "paired_case_labels": [
+                    "road0_seed17",
+                    "road0_seed29"
+                  ],
+                  "policy_completed": true,
+                  "policy_duration_s": 60.00000000002736,
+                  "policy_exposure": {
+                    "nonflat_fraction": 0.8556666666666667,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.962332433720731,
+                    "nonflat_steps": 5134,
+                    "path_m": 6.4019693017638115,
+                    "unique_nonflat_0p25m_cells": 20
+                  },
+                  "policy_metrics": {
+                    "action_rms": 0.08708323674378989,
+                    "attitude_rmse_rad": 0.017078290309278137,
+                    "height_rmse_m": 0.01939403699186658,
+                    "mean_mechanical_power_w": 30.292920058361137,
+                    "velocity_rmse_mps": 0.049233551292514804,
+                    "yaw_rmse_rps": 0.05124364252808514
+                  },
+                  "policy_quality_pass": true,
+                  "policy_terminal_reason": "time_limit",
+                  "terrain": {
+                    "cross_slope_deg": -0.75,
+                    "layout": "right_offset",
+                    "phase_x_rad": 0.3,
+                    "phase_y_rad": 0.5,
+                    "ripple_amplitude_m": 0.006,
+                    "schema": "d1-fixed-2d-road-v1",
+                    "slope_deg": 1.25,
+                    "step_height_m": 0.006,
+                    "wavelength_x_m": 0.75,
+                    "wavelength_y_m": 1.05
+                  },
+                  "zero_completed": true,
+                  "zero_duration_s": 60.00000000002736,
+                  "zero_exposure": {
+                    "nonflat_fraction": 0.8256666666666667,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 5.428523021529518,
+                    "nonflat_steps": 4954,
+                    "path_m": 6.889638559582304,
+                    "unique_nonflat_0p25m_cells": 25
+                  },
+                  "zero_metrics": {
+                    "action_rms": 0.0,
+                    "attitude_rmse_rad": 0.018076520548874618,
+                    "height_rmse_m": 0.017590370027815033,
+                    "mean_mechanical_power_w": 31.457966374370617,
+                    "velocity_rmse_mps": 0.05599623359157085,
+                    "yaw_rmse_rps": 0.052113529227284315
+                  },
+                  "zero_quality_pass": true,
+                  "zero_terminal_reason": "time_limit"
+                },
+                {
+                  "comparable_full_horizon": true,
+                  "delta_policy_minus_zero": {
+                    "action_rms": 0.08242275015951551,
+                    "attitude_rmse_rad": -0.010439825531578014,
+                    "height_rmse_m": 0.0031043011797610917,
+                    "mean_mechanical_power_w": -39.1315056253604,
+                    "velocity_rmse_mps": -0.06294930579706523,
+                    "yaw_rmse_rps": -0.18873440006268746
+                  },
+                  "paired_case_labels": [
+                    "road1_seed17",
+                    "road1_seed29"
+                  ],
+                  "policy_completed": true,
+                  "policy_duration_s": 60.00000000002736,
+                  "policy_exposure": {
+                    "nonflat_fraction": 0.8555,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.564355735971059,
+                    "nonflat_steps": 5133,
+                    "path_m": 6.003875130292665,
+                    "unique_nonflat_0p25m_cells": 22
+                  },
+                  "policy_metrics": {
+                    "action_rms": 0.08242275015951551,
+                    "attitude_rmse_rad": 0.01809846265809943,
+                    "height_rmse_m": 0.01971699289654897,
+                    "mean_mechanical_power_w": 28.179146202643814,
+                    "velocity_rmse_mps": 0.05620117604815151,
+                    "yaw_rmse_rps": 0.05015266822002396
+                  },
+                  "policy_quality_pass": true,
+                  "policy_terminal_reason": "time_limit",
+                  "terrain": {
+                    "cross_slope_deg": 0.75,
+                    "layout": "right_offset",
+                    "phase_x_rad": 0.9,
+                    "phase_y_rad": 1.1,
+                    "ripple_amplitude_m": 0.008,
+                    "schema": "d1-fixed-2d-road-v1",
+                    "slope_deg": -1.25,
+                    "step_height_m": 0.008,
+                    "wavelength_x_m": 0.85,
+                    "wavelength_y_m": 1.15
+                  },
+                  "zero_completed": true,
+                  "zero_duration_s": 60.00000000002736,
+                  "zero_exposure": {
+                    "nonflat_fraction": 0.8023333333333333,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 5.027846544605189,
+                    "nonflat_steps": 4814,
+                    "path_m": 6.5217458669517185,
+                    "unique_nonflat_0p25m_cells": 14
+                  },
+                  "zero_metrics": {
+                    "action_rms": 0.0,
+                    "attitude_rmse_rad": 0.028538288189677442,
+                    "height_rmse_m": 0.016612691716787878,
+                    "mean_mechanical_power_w": 67.31065182800421,
+                    "velocity_rmse_mps": 0.11915048184521675,
+                    "yaw_rmse_rps": 0.23888706828271142
+                  },
+                  "zero_quality_pass": false,
+                  "zero_terminal_reason": "time_limit"
+                }
+              ]
+            },
+            "source": {
+              "archive_sha256": "cc3f9993598ec83642ca7fe44b6f5a1906de52247c9dd3273d9397077da73659",
+              "file_count": 65
+            },
+            "training_seed": 25000
+          },
+          {
+            "comparison": {
+              "bootstrap_ci": null,
+              "note": "No resampling interval at three training seeds. Terrain labels are not independent training replicas; actual paths/exposure may differ.",
+              "pairs": [
+                {
+                  "comparable_full_horizon": true,
+                  "delta_policy_minus_zero": {
+                    "action_rms": 0.08846586391941554,
+                    "attitude_rmse_rad": -0.0010633231943555956,
+                    "height_rmse_m": 0.0017333837636832397,
+                    "mean_mechanical_power_w": 3.5395194573042623,
+                    "velocity_rmse_mps": -0.00966789168091843,
+                    "yaw_rmse_rps": 0.0004696577396849158
+                  },
+                  "paired_case_labels": [
+                    "road0_seed17",
+                    "road0_seed29"
+                  ],
+                  "policy_completed": true,
+                  "policy_duration_s": 60.00000000002736,
+                  "policy_exposure": {
+                    "nonflat_fraction": 0.8511666666666666,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.995136273151841,
+                    "nonflat_steps": 5107,
+                    "path_m": 6.447256455539146,
+                    "unique_nonflat_0p25m_cells": 20
+                  },
+                  "policy_metrics": {
+                    "action_rms": 0.08846586391941554,
+                    "attitude_rmse_rad": 0.017013197354519023,
+                    "height_rmse_m": 0.019323753791498272,
+                    "mean_mechanical_power_w": 34.99748583167488,
+                    "velocity_rmse_mps": 0.04632834191065242,
+                    "yaw_rmse_rps": 0.05258318696696923
+                  },
+                  "policy_quality_pass": true,
+                  "policy_terminal_reason": "time_limit",
+                  "terrain": {
+                    "cross_slope_deg": -0.75,
+                    "layout": "right_offset",
+                    "phase_x_rad": 0.3,
+                    "phase_y_rad": 0.5,
+                    "ripple_amplitude_m": 0.006,
+                    "schema": "d1-fixed-2d-road-v1",
+                    "slope_deg": 1.25,
+                    "step_height_m": 0.006,
+                    "wavelength_x_m": 0.75,
+                    "wavelength_y_m": 1.05
+                  },
+                  "zero_completed": true,
+                  "zero_duration_s": 60.00000000002736,
+                  "zero_exposure": {
+                    "nonflat_fraction": 0.8256666666666667,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 5.428523021529518,
+                    "nonflat_steps": 4954,
+                    "path_m": 6.889638559582304,
+                    "unique_nonflat_0p25m_cells": 25
+                  },
+                  "zero_metrics": {
+                    "action_rms": 0.0,
+                    "attitude_rmse_rad": 0.018076520548874618,
+                    "height_rmse_m": 0.017590370027815033,
+                    "mean_mechanical_power_w": 31.457966374370617,
+                    "velocity_rmse_mps": 0.05599623359157085,
+                    "yaw_rmse_rps": 0.052113529227284315
+                  },
+                  "zero_quality_pass": true,
+                  "zero_terminal_reason": "time_limit"
+                },
+                {
+                  "comparable_full_horizon": true,
+                  "delta_policy_minus_zero": {
+                    "action_rms": 0.09587401172906461,
+                    "attitude_rmse_rad": -0.0008203530442398889,
+                    "height_rmse_m": 0.0003414472771200369,
+                    "mean_mechanical_power_w": -20.32283201199798,
+                    "velocity_rmse_mps": 0.0004652896383083166,
+                    "yaw_rmse_rps": -0.1253755702221488
+                  },
+                  "paired_case_labels": [
+                    "road1_seed17",
+                    "road1_seed29"
+                  ],
+                  "policy_completed": true,
+                  "policy_duration_s": 60.00000000002736,
+                  "policy_exposure": {
+                    "nonflat_fraction": 0.7226666666666667,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.05319491601117,
+                    "nonflat_steps": 4336,
+                    "path_m": 5.584954512575804,
+                    "unique_nonflat_0p25m_cells": 9
+                  },
+                  "policy_metrics": {
+                    "action_rms": 0.09587401172906461,
+                    "attitude_rmse_rad": 0.027717935145437553,
+                    "height_rmse_m": 0.016954138993907915,
+                    "mean_mechanical_power_w": 46.98781981600623,
+                    "velocity_rmse_mps": 0.11961577148352506,
+                    "yaw_rmse_rps": 0.11351149806056261
+                  },
+                  "policy_quality_pass": false,
+                  "policy_terminal_reason": "time_limit",
+                  "terrain": {
+                    "cross_slope_deg": 0.75,
+                    "layout": "right_offset",
+                    "phase_x_rad": 0.9,
+                    "phase_y_rad": 1.1,
+                    "ripple_amplitude_m": 0.008,
+                    "schema": "d1-fixed-2d-road-v1",
+                    "slope_deg": -1.25,
+                    "step_height_m": 0.008,
+                    "wavelength_x_m": 0.85,
+                    "wavelength_y_m": 1.15
+                  },
+                  "zero_completed": true,
+                  "zero_duration_s": 60.00000000002736,
+                  "zero_exposure": {
+                    "nonflat_fraction": 0.8023333333333333,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 5.027846544605189,
+                    "nonflat_steps": 4814,
+                    "path_m": 6.5217458669517185,
+                    "unique_nonflat_0p25m_cells": 14
+                  },
+                  "zero_metrics": {
+                    "action_rms": 0.0,
+                    "attitude_rmse_rad": 0.028538288189677442,
+                    "height_rmse_m": 0.016612691716787878,
+                    "mean_mechanical_power_w": 67.31065182800421,
+                    "velocity_rmse_mps": 0.11915048184521675,
+                    "yaw_rmse_rps": 0.23888706828271142
+                  },
+                  "zero_quality_pass": false,
+                  "zero_terminal_reason": "time_limit"
+                }
+              ]
+            },
+            "source": {
+              "archive_sha256": "3ef97aa35427344245f1f74006458f08726836c8a88cb97e8ac0e43d64be1dca",
+              "file_count": 65
+            },
+            "training_seed": 26000
+          }
+        ],
+        "policy_quality_passes": 5,
+        "training_seeds": [
+          24000,
+          25000,
+          26000
+        ],
+        "unique_roads": 2,
+        "velocity_error_reduced_pairs": 5,
+        "zero_quality_passes_distinct_roads": 1,
+        "zero_source": {
+          "archive_sha256": "0b7e060346e9ecd29be9cb7dea5068b50fd962d735a3f0299594ddb82502a74f",
+          "file_count": 65
+        }
+      },
+      "wheel_leg": {
+        "full_horizon_pairs": 6,
+        "mean_over_full_horizon_pairs": {
+          "policy": {
+            "action_rms": 0.06833615273061769,
+            "attitude_rmse_rad": 0.03470498853890784,
+            "height_rmse_m": 0.011301040018289443,
+            "mean_mechanical_power_w": 21.06128866654637,
+            "velocity_rmse_mps": 0.03526415446521355,
+            "yaw_rmse_rps": 0.030098875358563832
+          },
+          "zero": {
+            "action_rms": 0.0,
+            "attitude_rmse_rad": 0.02476162344263802,
+            "height_rmse_m": 0.011943835668849913,
+            "mean_mechanical_power_w": 16.59516038898967,
+            "velocity_rmse_mps": 0.03900011603136294,
+            "yaw_rmse_rps": 0.02747455679536823
+          }
+        },
+        "models": [
+          {
+            "comparison": {
+              "bootstrap_ci": null,
+              "note": "No resampling interval at three training seeds. Terrain labels are not independent training replicas; actual paths/exposure may differ.",
+              "pairs": [
+                {
+                  "comparable_full_horizon": true,
+                  "delta_policy_minus_zero": {
+                    "action_rms": 0.07317112571749139,
+                    "attitude_rmse_rad": 0.015741946742181462,
+                    "height_rmse_m": -0.0024756180227375763,
+                    "mean_mechanical_power_w": 5.855582733889513,
+                    "velocity_rmse_mps": -0.0035349743381684583,
+                    "yaw_rmse_rps": 0.004560756694750583
+                  },
+                  "paired_case_labels": [
+                    "road0_seed17",
+                    "road0_seed29"
+                  ],
+                  "policy_completed": true,
+                  "policy_duration_s": 60.00000000002736,
+                  "policy_exposure": {
+                    "nonflat_fraction": 0.8326666666666667,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 5.142990821297925,
+                    "nonflat_steps": 4996,
+                    "path_m": 6.532198280632741,
+                    "unique_nonflat_0p25m_cells": 21
+                  },
+                  "policy_metrics": {
+                    "action_rms": 0.07317112571749139,
+                    "attitude_rmse_rad": 0.038054245088479294,
+                    "height_rmse_m": 0.00972228952742994,
+                    "mean_mechanical_power_w": 22.491751748065802,
+                    "velocity_rmse_mps": 0.031040344172723482,
+                    "yaw_rmse_rps": 0.033373110487886076
+                  },
+                  "policy_quality_pass": true,
+                  "policy_terminal_reason": "time_limit",
+                  "terrain": {
+                    "cross_slope_deg": -0.75,
+                    "layout": "right_offset",
+                    "phase_x_rad": 0.3,
+                    "phase_y_rad": 0.5,
+                    "ripple_amplitude_m": 0.006,
+                    "schema": "d1-fixed-2d-road-v1",
+                    "slope_deg": 1.25,
+                    "step_height_m": 0.006,
+                    "wavelength_x_m": 0.75,
+                    "wavelength_y_m": 1.05
+                  },
+                  "zero_completed": true,
+                  "zero_duration_s": 60.00000000002736,
+                  "zero_exposure": {
+                    "nonflat_fraction": 0.8176666666666667,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.646811531192634,
+                    "nonflat_steps": 4906,
+                    "path_m": 6.158068220797941,
+                    "unique_nonflat_0p25m_cells": 24
+                  },
+                  "zero_metrics": {
+                    "action_rms": 0.0,
+                    "attitude_rmse_rad": 0.022312298346297832,
+                    "height_rmse_m": 0.012197907550167517,
+                    "mean_mechanical_power_w": 16.63616901417629,
+                    "velocity_rmse_mps": 0.03457531851089194,
+                    "yaw_rmse_rps": 0.028812353793135494
+                  },
+                  "zero_quality_pass": true,
+                  "zero_terminal_reason": "time_limit"
+                },
+                {
+                  "comparable_full_horizon": true,
+                  "delta_policy_minus_zero": {
+                    "action_rms": 0.07460687487535313,
+                    "attitude_rmse_rad": 0.012027039835450691,
+                    "height_rmse_m": -0.0003234389482697931,
+                    "mean_mechanical_power_w": 5.7143924635546455,
+                    "velocity_rmse_mps": -0.008256511671173576,
+                    "yaw_rmse_rps": 0.004416882216256215
+                  },
+                  "paired_case_labels": [
+                    "road1_seed17",
+                    "road1_seed29"
+                  ],
+                  "policy_completed": true,
+                  "policy_duration_s": 60.00000000002736,
+                  "policy_exposure": {
+                    "nonflat_fraction": 0.8326666666666667,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 5.043994336120962,
+                    "nonflat_steps": 4996,
+                    "path_m": 6.43469929085626,
+                    "unique_nonflat_0p25m_cells": 21
+                  },
+                  "policy_metrics": {
+                    "action_rms": 0.07460687487535313,
+                    "attitude_rmse_rad": 0.0392379883744289,
+                    "height_rmse_m": 0.011366324839262516,
+                    "mean_mechanical_power_w": 22.26854422735769,
+                    "velocity_rmse_mps": 0.035168401880660366,
+                    "yaw_rmse_rps": 0.030553642013857185
+                  },
+                  "policy_quality_pass": true,
+                  "policy_terminal_reason": "time_limit",
+                  "terrain": {
+                    "cross_slope_deg": 0.75,
+                    "layout": "right_offset",
+                    "phase_x_rad": 0.9,
+                    "phase_y_rad": 1.1,
+                    "ripple_amplitude_m": 0.008,
+                    "schema": "d1-fixed-2d-road-v1",
+                    "slope_deg": -1.25,
+                    "step_height_m": 0.008,
+                    "wavelength_x_m": 0.85,
+                    "wavelength_y_m": 1.15
+                  },
+                  "zero_completed": true,
+                  "zero_duration_s": 60.00000000002736,
+                  "zero_exposure": {
+                    "nonflat_fraction": 0.8173333333333334,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.721254073451725,
+                    "nonflat_steps": 4904,
+                    "path_m": 6.224450824814708,
+                    "unique_nonflat_0p25m_cells": 21
+                  },
+                  "zero_metrics": {
+                    "action_rms": 0.0,
+                    "attitude_rmse_rad": 0.027210948538978208,
+                    "height_rmse_m": 0.011689763787532309,
+                    "mean_mechanical_power_w": 16.554151763803045,
+                    "velocity_rmse_mps": 0.04342491355183394,
+                    "yaw_rmse_rps": 0.02613675979760097
+                  },
+                  "zero_quality_pass": true,
+                  "zero_terminal_reason": "time_limit"
+                }
+              ]
+            },
+            "source": {
+              "archive_sha256": "2c78779ad3afcfef2b6948ad33bec70d7b7c1c4ead8b10bdc95f56bb56d71c20",
+              "file_count": 65
+            },
+            "training_seed": 24000
+          },
+          {
+            "comparison": {
+              "bootstrap_ci": null,
+              "note": "No resampling interval at three training seeds. Terrain labels are not independent training replicas; actual paths/exposure may differ.",
+              "pairs": [
+                {
+                  "comparable_full_horizon": true,
+                  "delta_policy_minus_zero": {
+                    "action_rms": 0.060738062241918085,
+                    "attitude_rmse_rad": 0.00037624487498073497,
+                    "height_rmse_m": -0.0018211840000379852,
+                    "mean_mechanical_power_w": 3.982884614823302,
+                    "velocity_rmse_mps": -0.0023600520467125727,
+                    "yaw_rmse_rps": -0.002801854869200173
+                  },
+                  "paired_case_labels": [
+                    "road0_seed17",
+                    "road0_seed29"
+                  ],
+                  "policy_completed": true,
+                  "policy_duration_s": 60.00000000002736,
+                  "policy_exposure": {
+                    "nonflat_fraction": 0.8261666666666667,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.963065073457747,
+                    "nonflat_steps": 4957,
+                    "path_m": 6.406176190773716,
+                    "unique_nonflat_0p25m_cells": 22
+                  },
+                  "policy_metrics": {
+                    "action_rms": 0.060738062241918085,
+                    "attitude_rmse_rad": 0.022688543221278567,
+                    "height_rmse_m": 0.010376723550129531,
+                    "mean_mechanical_power_w": 20.61905362899959,
+                    "velocity_rmse_mps": 0.03221526646417937,
+                    "yaw_rmse_rps": 0.02601049892393532
+                  },
+                  "policy_quality_pass": true,
+                  "policy_terminal_reason": "time_limit",
+                  "terrain": {
+                    "cross_slope_deg": -0.75,
+                    "layout": "right_offset",
+                    "phase_x_rad": 0.3,
+                    "phase_y_rad": 0.5,
+                    "ripple_amplitude_m": 0.006,
+                    "schema": "d1-fixed-2d-road-v1",
+                    "slope_deg": 1.25,
+                    "step_height_m": 0.006,
+                    "wavelength_x_m": 0.75,
+                    "wavelength_y_m": 1.05
+                  },
+                  "zero_completed": true,
+                  "zero_duration_s": 60.00000000002736,
+                  "zero_exposure": {
+                    "nonflat_fraction": 0.8176666666666667,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.646811531192634,
+                    "nonflat_steps": 4906,
+                    "path_m": 6.158068220797941,
+                    "unique_nonflat_0p25m_cells": 24
+                  },
+                  "zero_metrics": {
+                    "action_rms": 0.0,
+                    "attitude_rmse_rad": 0.022312298346297832,
+                    "height_rmse_m": 0.012197907550167517,
+                    "mean_mechanical_power_w": 16.63616901417629,
+                    "velocity_rmse_mps": 0.03457531851089194,
+                    "yaw_rmse_rps": 0.028812353793135494
+                  },
+                  "zero_quality_pass": true,
+                  "zero_terminal_reason": "time_limit"
+                },
+                {
+                  "comparable_full_horizon": true,
+                  "delta_policy_minus_zero": {
+                    "action_rms": 0.06085733713886817,
+                    "attitude_rmse_rad": 0.004431382371466466,
+                    "height_rmse_m": -0.00016316949480842634,
+                    "mean_mechanical_power_w": 3.727085132190325,
+                    "velocity_rmse_mps": -0.004832141061009633,
+                    "yaw_rmse_rps": 0.0010832507521882292
+                  },
+                  "paired_case_labels": [
+                    "road1_seed17",
+                    "road1_seed29"
+                  ],
+                  "policy_completed": true,
+                  "policy_duration_s": 60.00000000002736,
+                  "policy_exposure": {
+                    "nonflat_fraction": 0.826,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.907713268959798,
+                    "nonflat_steps": 4956,
+                    "path_m": 6.353499418168875,
+                    "unique_nonflat_0p25m_cells": 22
+                  },
+                  "policy_metrics": {
+                    "action_rms": 0.06085733713886817,
+                    "attitude_rmse_rad": 0.031642330910444674,
+                    "height_rmse_m": 0.011526594292723883,
+                    "mean_mechanical_power_w": 20.28123689599337,
+                    "velocity_rmse_mps": 0.03859277249082431,
+                    "yaw_rmse_rps": 0.0272200105497892
+                  },
+                  "policy_quality_pass": true,
+                  "policy_terminal_reason": "time_limit",
+                  "terrain": {
+                    "cross_slope_deg": 0.75,
+                    "layout": "right_offset",
+                    "phase_x_rad": 0.9,
+                    "phase_y_rad": 1.1,
+                    "ripple_amplitude_m": 0.008,
+                    "schema": "d1-fixed-2d-road-v1",
+                    "slope_deg": -1.25,
+                    "step_height_m": 0.008,
+                    "wavelength_x_m": 0.85,
+                    "wavelength_y_m": 1.15
+                  },
+                  "zero_completed": true,
+                  "zero_duration_s": 60.00000000002736,
+                  "zero_exposure": {
+                    "nonflat_fraction": 0.8173333333333334,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.721254073451725,
+                    "nonflat_steps": 4904,
+                    "path_m": 6.224450824814708,
+                    "unique_nonflat_0p25m_cells": 21
+                  },
+                  "zero_metrics": {
+                    "action_rms": 0.0,
+                    "attitude_rmse_rad": 0.027210948538978208,
+                    "height_rmse_m": 0.011689763787532309,
+                    "mean_mechanical_power_w": 16.554151763803045,
+                    "velocity_rmse_mps": 0.04342491355183394,
+                    "yaw_rmse_rps": 0.02613675979760097
+                  },
+                  "zero_quality_pass": true,
+                  "zero_terminal_reason": "time_limit"
+                }
+              ]
+            },
+            "source": {
+              "archive_sha256": "778db36bdd4d4b61b4ef90eb23a2818b29f9e757e16cae00731f762d89553a99",
+              "file_count": 65
+            },
+            "training_seed": 25000
+          },
+          {
+            "comparison": {
+              "bootstrap_ci": null,
+              "note": "No resampling interval at three training seeds. Terrain labels are not independent training replicas; actual paths/exposure may differ.",
+              "pairs": [
+                {
+                  "comparable_full_horizon": true,
+                  "delta_policy_minus_zero": {
+                    "action_rms": 0.07041878169429745,
+                    "attitude_rmse_rad": 0.012916721387909731,
+                    "height_rmse_m": -0.0009147471600033843,
+                    "mean_mechanical_power_w": 3.7895800900194025,
+                    "velocity_rmse_mps": -0.0003684671680187976,
+                    "yaw_rmse_rps": 0.0031508757556739098
+                  },
+                  "paired_case_labels": [
+                    "road0_seed17",
+                    "road0_seed29"
+                  ],
+                  "policy_completed": true,
+                  "policy_duration_s": 60.00000000002736,
+                  "policy_exposure": {
+                    "nonflat_fraction": 0.8278333333333333,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.986539906563318,
+                    "nonflat_steps": 4967,
+                    "path_m": 6.401217586293387,
+                    "unique_nonflat_0p25m_cells": 19
+                  },
+                  "policy_metrics": {
+                    "action_rms": 0.07041878169429745,
+                    "attitude_rmse_rad": 0.03522901973420756,
+                    "height_rmse_m": 0.011283160390164132,
+                    "mean_mechanical_power_w": 20.425749104195692,
+                    "velocity_rmse_mps": 0.03420685134287314,
+                    "yaw_rmse_rps": 0.0319632295488094
+                  },
+                  "policy_quality_pass": true,
+                  "policy_terminal_reason": "time_limit",
+                  "terrain": {
+                    "cross_slope_deg": -0.75,
+                    "layout": "right_offset",
+                    "phase_x_rad": 0.3,
+                    "phase_y_rad": 0.5,
+                    "ripple_amplitude_m": 0.006,
+                    "schema": "d1-fixed-2d-road-v1",
+                    "slope_deg": 1.25,
+                    "step_height_m": 0.006,
+                    "wavelength_x_m": 0.75,
+                    "wavelength_y_m": 1.05
+                  },
+                  "zero_completed": true,
+                  "zero_duration_s": 60.00000000002736,
+                  "zero_exposure": {
+                    "nonflat_fraction": 0.8176666666666667,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.646811531192634,
+                    "nonflat_steps": 4906,
+                    "path_m": 6.158068220797941,
+                    "unique_nonflat_0p25m_cells": 24
+                  },
+                  "zero_metrics": {
+                    "action_rms": 0.0,
+                    "attitude_rmse_rad": 0.022312298346297832,
+                    "height_rmse_m": 0.012197907550167517,
+                    "mean_mechanical_power_w": 16.63616901417629,
+                    "velocity_rmse_mps": 0.03457531851089194,
+                    "yaw_rmse_rps": 0.028812353793135494
+                  },
+                  "zero_quality_pass": true,
+                  "zero_terminal_reason": "time_limit"
+                },
+                {
+                  "comparable_full_horizon": true,
+                  "delta_policy_minus_zero": {
+                    "action_rms": 0.07022473471577793,
+                    "attitude_rmse_rad": 0.014166855365629845,
+                    "height_rmse_m": 0.0018413837224943424,
+                    "mean_mechanical_power_w": 3.727244630863023,
+                    "velocity_rmse_mps": -0.0030636231118133517,
+                    "yaw_rmse_rps": 0.005336000829504844
+                  },
+                  "paired_case_labels": [
+                    "road1_seed17",
+                    "road1_seed29"
+                  ],
+                  "policy_completed": true,
+                  "policy_duration_s": 60.00000000002736,
+                  "policy_exposure": {
+                    "nonflat_fraction": 0.8278333333333333,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.894527321528787,
+                    "nonflat_steps": 4967,
+                    "path_m": 6.308732059948483,
+                    "unique_nonflat_0p25m_cells": 20
+                  },
+                  "policy_metrics": {
+                    "action_rms": 0.07022473471577793,
+                    "attitude_rmse_rad": 0.04137780390460805,
+                    "height_rmse_m": 0.013531147510026651,
+                    "mean_mechanical_power_w": 20.281396394666068,
+                    "velocity_rmse_mps": 0.04036129044002059,
+                    "yaw_rmse_rps": 0.031472760627105814
+                  },
+                  "policy_quality_pass": true,
+                  "policy_terminal_reason": "time_limit",
+                  "terrain": {
+                    "cross_slope_deg": 0.75,
+                    "layout": "right_offset",
+                    "phase_x_rad": 0.9,
+                    "phase_y_rad": 1.1,
+                    "ripple_amplitude_m": 0.008,
+                    "schema": "d1-fixed-2d-road-v1",
+                    "slope_deg": -1.25,
+                    "step_height_m": 0.008,
+                    "wavelength_x_m": 0.85,
+                    "wavelength_y_m": 1.15
+                  },
+                  "zero_completed": true,
+                  "zero_duration_s": 60.00000000002736,
+                  "zero_exposure": {
+                    "nonflat_fraction": 0.8173333333333334,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.721254073451725,
+                    "nonflat_steps": 4904,
+                    "path_m": 6.224450824814708,
+                    "unique_nonflat_0p25m_cells": 21
+                  },
+                  "zero_metrics": {
+                    "action_rms": 0.0,
+                    "attitude_rmse_rad": 0.027210948538978208,
+                    "height_rmse_m": 0.011689763787532309,
+                    "mean_mechanical_power_w": 16.554151763803045,
+                    "velocity_rmse_mps": 0.04342491355183394,
+                    "yaw_rmse_rps": 0.02613675979760097
+                  },
+                  "zero_quality_pass": true,
+                  "zero_terminal_reason": "time_limit"
+                }
+              ]
+            },
+            "source": {
+              "archive_sha256": "d93e56cbf2765f5f58cef939312de6699d0d49b398bff95466c42c4e0576ca01",
+              "file_count": 65
+            },
+            "training_seed": 26000
+          }
+        ],
+        "policy_quality_passes": 6,
+        "training_seeds": [
+          24000,
+          25000,
+          26000
+        ],
+        "unique_roads": 2,
+        "velocity_error_reduced_pairs": 6,
+        "zero_quality_passes_distinct_roads": 2,
+        "zero_source": {
+          "archive_sha256": "9cca819968eea8f72ad9d58618e12087b8fda25b2adbd12ab751cd6d7dd42921",
+          "file_count": 65
+        }
+      }
+    },
+    "holdout": {
+      "lqr": {
+        "full_horizon_pairs": 6,
+        "mean_over_full_horizon_pairs": {
+          "policy": {
+            "action_rms": 0.10714481155876227,
+            "attitude_rmse_rad": 0.016138164445303964,
+            "height_rmse_m": 0.015985202930747042,
+            "mean_mechanical_power_w": 44.63063885449611,
+            "velocity_rmse_mps": 0.08481653375130856,
+            "yaw_rmse_rps": 0.053715171848495814
+          },
+          "zero": {
+            "action_rms": 0.0,
+            "attitude_rmse_rad": 0.014683831558588706,
+            "height_rmse_m": 0.01530420517236538,
+            "mean_mechanical_power_w": 47.44253681048869,
+            "velocity_rmse_mps": 0.07968934937157517,
+            "yaw_rmse_rps": 0.056837045856292734
+          }
+        },
+        "models": [
+          {
+            "comparison": {
+              "bootstrap_ci": null,
+              "note": "No resampling interval at three training seeds. Terrain labels are not independent training replicas; actual paths/exposure may differ.",
+              "pairs": [
+                {
+                  "comparable_full_horizon": true,
+                  "delta_policy_minus_zero": {
+                    "action_rms": 0.110261654850215,
+                    "attitude_rmse_rad": 0.001964841188312364,
+                    "height_rmse_m": -0.0003835662729761227,
+                    "mean_mechanical_power_w": -4.616203525492907,
+                    "velocity_rmse_mps": -0.001851999501553972,
+                    "yaw_rmse_rps": -0.003149616021119496
+                  },
+                  "paired_case_labels": [
+                    "road0_seed617",
+                    "road0_seed629"
+                  ],
+                  "policy_completed": true,
+                  "policy_duration_s": 60.00000000002736,
+                  "policy_exposure": {
+                    "nonflat_fraction": 0.7276666666666667,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.037948315892992,
+                    "nonflat_steps": 4366,
+                    "path_m": 6.014574047477067,
+                    "unique_nonflat_0p25m_cells": 15
+                  },
+                  "policy_metrics": {
+                    "action_rms": 0.110261654850215,
+                    "attitude_rmse_rad": 0.018537758460462125,
+                    "height_rmse_m": 0.015754914542998728,
+                    "mean_mechanical_power_w": 48.90740241205031,
+                    "velocity_rmse_mps": 0.079182174387505,
+                    "yaw_rmse_rps": 0.05751870485157924
+                  },
+                  "policy_quality_pass": true,
+                  "policy_terminal_reason": "time_limit",
+                  "terrain": {
+                    "cross_slope_deg": 0.65,
+                    "layout": "s_bend",
+                    "phase_x_rad": 1.4,
+                    "phase_y_rad": 1.6,
+                    "ripple_amplitude_m": 0.009,
+                    "schema": "d1-fixed-2d-road-v1",
+                    "slope_deg": 1.4,
+                    "step_height_m": 0.009,
+                    "wavelength_x_m": 0.7,
+                    "wavelength_y_m": 1.0
+                  },
+                  "zero_completed": true,
+                  "zero_duration_s": 60.00000000002736,
+                  "zero_exposure": {
+                    "nonflat_fraction": 0.7085,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.289015734438426,
+                    "nonflat_steps": 4251,
+                    "path_m": 6.303943828969729,
+                    "unique_nonflat_0p25m_cells": 15
+                  },
+                  "zero_metrics": {
+                    "action_rms": 0.0,
+                    "attitude_rmse_rad": 0.01657291727214976,
+                    "height_rmse_m": 0.01613848081597485,
+                    "mean_mechanical_power_w": 53.523605937543216,
+                    "velocity_rmse_mps": 0.08103417388905897,
+                    "yaw_rmse_rps": 0.06066832087269874
+                  },
+                  "zero_quality_pass": false,
+                  "zero_terminal_reason": "time_limit"
+                },
+                {
+                  "comparable_full_horizon": true,
+                  "delta_policy_minus_zero": {
+                    "action_rms": 0.1074403729383693,
+                    "attitude_rmse_rad": 0.0018363695634453815,
+                    "height_rmse_m": 0.0025676753226408135,
+                    "mean_mechanical_power_w": 0.0941591061128193,
+                    "velocity_rmse_mps": 0.008848447560232453,
+                    "yaw_rmse_rps": -0.0018191444278886915
+                  },
+                  "paired_case_labels": [
+                    "road1_seed617",
+                    "road1_seed629"
+                  ],
+                  "policy_completed": true,
+                  "policy_duration_s": 60.00000000002736,
+                  "policy_exposure": {
+                    "nonflat_fraction": 0.736,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 2.5966046587421374,
+                    "nonflat_steps": 4416,
+                    "path_m": 4.4475404132745435,
+                    "unique_nonflat_0p25m_cells": 13
+                  },
+                  "policy_metrics": {
+                    "action_rms": 0.1074403729383693,
+                    "attitude_rmse_rad": 0.014631115408473038,
+                    "height_rmse_m": 0.017037604851396722,
+                    "mean_mechanical_power_w": 41.455626789546976,
+                    "velocity_rmse_mps": 0.0871929724143238,
+                    "yaw_rmse_rps": 0.05118662641199805
+                  },
+                  "policy_quality_pass": false,
+                  "policy_terminal_reason": "time_limit",
+                  "terrain": {
+                    "cross_slope_deg": -0.65,
+                    "layout": "diagonal",
+                    "phase_x_rad": 2.0,
+                    "phase_y_rad": 2.2,
+                    "ripple_amplitude_m": 0.0065,
+                    "schema": "d1-fixed-2d-road-v1",
+                    "slope_deg": -1.4,
+                    "step_height_m": 0.0065,
+                    "wavelength_x_m": 0.8,
+                    "wavelength_y_m": 1.1
+                  },
+                  "zero_completed": true,
+                  "zero_duration_s": 60.00000000002736,
+                  "zero_exposure": {
+                    "nonflat_fraction": 0.6851666666666667,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 2.3559200981201323,
+                    "nonflat_steps": 4111,
+                    "path_m": 4.968809697797641,
+                    "unique_nonflat_0p25m_cells": 10
+                  },
+                  "zero_metrics": {
+                    "action_rms": 0.0,
+                    "attitude_rmse_rad": 0.012794745845027657,
+                    "height_rmse_m": 0.014469929528755908,
+                    "mean_mechanical_power_w": 41.36146768343416,
+                    "velocity_rmse_mps": 0.07834452485409135,
+                    "yaw_rmse_rps": 0.053005770839886744
+                  },
+                  "zero_quality_pass": true,
+                  "zero_terminal_reason": "time_limit"
+                }
+              ]
+            },
+            "source": {
+              "archive_sha256": "927df2d6b6c709e7e59929f421e4db1b4a7697525a9d9f8d7831685a911c6587",
+              "file_count": 65
+            },
+            "training_seed": 24000
+          },
+          {
+            "comparison": {
+              "bootstrap_ci": null,
+              "note": "No resampling interval at three training seeds. Terrain labels are not independent training replicas; actual paths/exposure may differ.",
+              "pairs": [
+                {
+                  "comparable_full_horizon": true,
+                  "delta_policy_minus_zero": {
+                    "action_rms": 0.12833240757332096,
+                    "attitude_rmse_rad": -0.0004547871772515692,
+                    "height_rmse_m": -0.0010868394977544063,
+                    "mean_mechanical_power_w": -3.024479952469555,
+                    "velocity_rmse_mps": 0.0052058724611987045,
+                    "yaw_rmse_rps": -0.003883736049559383
+                  },
+                  "paired_case_labels": [
+                    "road0_seed617",
+                    "road0_seed629"
+                  ],
+                  "policy_completed": true,
+                  "policy_duration_s": 60.00000000002736,
+                  "policy_exposure": {
+                    "nonflat_fraction": 0.7035,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.179727917619088,
+                    "nonflat_steps": 4221,
+                    "path_m": 6.8753345630499485,
+                    "unique_nonflat_0p25m_cells": 15
+                  },
+                  "policy_metrics": {
+                    "action_rms": 0.12833240757332096,
+                    "attitude_rmse_rad": 0.01611813009489819,
+                    "height_rmse_m": 0.015051641318220444,
+                    "mean_mechanical_power_w": 50.49912598507366,
+                    "velocity_rmse_mps": 0.08624004635025767,
+                    "yaw_rmse_rps": 0.056784584823139354
+                  },
+                  "policy_quality_pass": false,
+                  "policy_terminal_reason": "time_limit",
+                  "terrain": {
+                    "cross_slope_deg": 0.65,
+                    "layout": "s_bend",
+                    "phase_x_rad": 1.4,
+                    "phase_y_rad": 1.6,
+                    "ripple_amplitude_m": 0.009,
+                    "schema": "d1-fixed-2d-road-v1",
+                    "slope_deg": 1.4,
+                    "step_height_m": 0.009,
+                    "wavelength_x_m": 0.7,
+                    "wavelength_y_m": 1.0
+                  },
+                  "zero_completed": true,
+                  "zero_duration_s": 60.00000000002736,
+                  "zero_exposure": {
+                    "nonflat_fraction": 0.7085,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.289015734438426,
+                    "nonflat_steps": 4251,
+                    "path_m": 6.303943828969729,
+                    "unique_nonflat_0p25m_cells": 15
+                  },
+                  "zero_metrics": {
+                    "action_rms": 0.0,
+                    "attitude_rmse_rad": 0.01657291727214976,
+                    "height_rmse_m": 0.01613848081597485,
+                    "mean_mechanical_power_w": 53.523605937543216,
+                    "velocity_rmse_mps": 0.08103417388905897,
+                    "yaw_rmse_rps": 0.06066832087269874
+                  },
+                  "zero_quality_pass": false,
+                  "zero_terminal_reason": "time_limit"
+                },
+                {
+                  "comparable_full_horizon": true,
+                  "delta_policy_minus_zero": {
+                    "action_rms": 0.11179165742186793,
+                    "attitude_rmse_rad": -0.00031113696866533896,
+                    "height_rmse_m": -7.181476669016439e-05,
+                    "mean_mechanical_power_w": -4.097116043936246,
+                    "velocity_rmse_mps": -0.0003708058651951257,
+                    "yaw_rmse_rps": -0.0013845944397065865
+                  },
+                  "paired_case_labels": [
+                    "road1_seed617",
+                    "road1_seed629"
+                  ],
+                  "policy_completed": true,
+                  "policy_duration_s": 60.00000000002736,
+                  "policy_exposure": {
+                    "nonflat_fraction": 0.6868333333333333,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 2.3518292899146545,
+                    "nonflat_steps": 4121,
+                    "path_m": 4.9445764431429025,
+                    "unique_nonflat_0p25m_cells": 11
+                  },
+                  "policy_metrics": {
+                    "action_rms": 0.11179165742186793,
+                    "attitude_rmse_rad": 0.012483608876362318,
+                    "height_rmse_m": 0.014398114762065744,
+                    "mean_mechanical_power_w": 37.26435163949791,
+                    "velocity_rmse_mps": 0.07797371898889623,
+                    "yaw_rmse_rps": 0.05162117640018016
+                  },
+                  "policy_quality_pass": true,
+                  "policy_terminal_reason": "time_limit",
+                  "terrain": {
+                    "cross_slope_deg": -0.65,
+                    "layout": "diagonal",
+                    "phase_x_rad": 2.0,
+                    "phase_y_rad": 2.2,
+                    "ripple_amplitude_m": 0.0065,
+                    "schema": "d1-fixed-2d-road-v1",
+                    "slope_deg": -1.4,
+                    "step_height_m": 0.0065,
+                    "wavelength_x_m": 0.8,
+                    "wavelength_y_m": 1.1
+                  },
+                  "zero_completed": true,
+                  "zero_duration_s": 60.00000000002736,
+                  "zero_exposure": {
+                    "nonflat_fraction": 0.6851666666666667,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 2.3559200981201323,
+                    "nonflat_steps": 4111,
+                    "path_m": 4.968809697797641,
+                    "unique_nonflat_0p25m_cells": 10
+                  },
+                  "zero_metrics": {
+                    "action_rms": 0.0,
+                    "attitude_rmse_rad": 0.012794745845027657,
+                    "height_rmse_m": 0.014469929528755908,
+                    "mean_mechanical_power_w": 41.36146768343416,
+                    "velocity_rmse_mps": 0.07834452485409135,
+                    "yaw_rmse_rps": 0.053005770839886744
+                  },
+                  "zero_quality_pass": true,
+                  "zero_terminal_reason": "time_limit"
+                }
+              ]
+            },
+            "source": {
+              "archive_sha256": "984fae217d5aaf863df9d01f1af0e8304cff247334ec6ad4028f6e489ac107ef",
+              "file_count": 65
+            },
+            "training_seed": 25000
+          },
+          {
+            "comparison": {
+              "bootstrap_ci": null,
+              "note": "No resampling interval at three training seeds. Terrain labels are not independent training replicas; actual paths/exposure may differ.",
+              "pairs": [
+                {
+                  "comparable_full_horizon": true,
+                  "delta_policy_minus_zero": {
+                    "action_rms": 0.08923470953196899,
+                    "attitude_rmse_rad": 0.002883831427656327,
+                    "height_rmse_m": 0.00038346568042604487,
+                    "mean_mechanical_power_w": -5.642892192680193,
+                    "velocity_rmse_mps": 0.0052328241892903304,
+                    "yaw_rmse_rps": -0.008210267148196927
+                  },
+                  "paired_case_labels": [
+                    "road0_seed617",
+                    "road0_seed629"
+                  ],
+                  "policy_completed": true,
+                  "policy_duration_s": 60.00000000002736,
+                  "policy_exposure": {
+                    "nonflat_fraction": 0.7455,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.019452383966955,
+                    "nonflat_steps": 4473,
+                    "path_m": 5.621718129372215,
+                    "unique_nonflat_0p25m_cells": 17
+                  },
+                  "policy_metrics": {
+                    "action_rms": 0.08923470953196899,
+                    "attitude_rmse_rad": 0.019456748699806087,
+                    "height_rmse_m": 0.016521946496400895,
+                    "mean_mechanical_power_w": 47.88071374486302,
+                    "velocity_rmse_mps": 0.0862669980783493,
+                    "yaw_rmse_rps": 0.05245805372450181
+                  },
+                  "policy_quality_pass": false,
+                  "policy_terminal_reason": "time_limit",
+                  "terrain": {
+                    "cross_slope_deg": 0.65,
+                    "layout": "s_bend",
+                    "phase_x_rad": 1.4,
+                    "phase_y_rad": 1.6,
+                    "ripple_amplitude_m": 0.009,
+                    "schema": "d1-fixed-2d-road-v1",
+                    "slope_deg": 1.4,
+                    "step_height_m": 0.009,
+                    "wavelength_x_m": 0.7,
+                    "wavelength_y_m": 1.0
+                  },
+                  "zero_completed": true,
+                  "zero_duration_s": 60.00000000002736,
+                  "zero_exposure": {
+                    "nonflat_fraction": 0.7085,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.289015734438426,
+                    "nonflat_steps": 4251,
+                    "path_m": 6.303943828969729,
+                    "unique_nonflat_0p25m_cells": 15
+                  },
+                  "zero_metrics": {
+                    "action_rms": 0.0,
+                    "attitude_rmse_rad": 0.01657291727214976,
+                    "height_rmse_m": 0.01613848081597485,
+                    "mean_mechanical_power_w": 53.523605937543216,
+                    "velocity_rmse_mps": 0.08103417388905897,
+                    "yaw_rmse_rps": 0.06066832087269874
+                  },
+                  "zero_quality_pass": false,
+                  "zero_terminal_reason": "time_limit"
+                },
+                {
+                  "comparable_full_horizon": true,
+                  "delta_policy_minus_zero": {
+                    "action_rms": 0.0958080670368314,
+                    "attitude_rmse_rad": 0.002806879286794361,
+                    "height_rmse_m": 0.002677066084643796,
+                    "mean_mechanical_power_w": 0.4151448725106519,
+                    "velocity_rmse_mps": 0.013698767434428064,
+                    "yaw_rmse_rps": -0.00028388596031046764
+                  },
+                  "paired_case_labels": [
+                    "road1_seed617",
+                    "road1_seed629"
+                  ],
+                  "policy_completed": true,
+                  "policy_duration_s": 60.00000000002736,
+                  "policy_exposure": {
+                    "nonflat_fraction": 0.7508333333333334,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 2.7358869123210887,
+                    "nonflat_steps": 4505,
+                    "path_m": 4.2649384147809,
+                    "unique_nonflat_0p25m_cells": 13
+                  },
+                  "policy_metrics": {
+                    "action_rms": 0.0958080670368314,
+                    "attitude_rmse_rad": 0.015601625131822018,
+                    "height_rmse_m": 0.017146995613399704,
+                    "mean_mechanical_power_w": 41.77661255594481,
+                    "velocity_rmse_mps": 0.09204329228851942,
+                    "yaw_rmse_rps": 0.052721884879576277
+                  },
+                  "policy_quality_pass": false,
+                  "policy_terminal_reason": "time_limit",
+                  "terrain": {
+                    "cross_slope_deg": -0.65,
+                    "layout": "diagonal",
+                    "phase_x_rad": 2.0,
+                    "phase_y_rad": 2.2,
+                    "ripple_amplitude_m": 0.0065,
+                    "schema": "d1-fixed-2d-road-v1",
+                    "slope_deg": -1.4,
+                    "step_height_m": 0.0065,
+                    "wavelength_x_m": 0.8,
+                    "wavelength_y_m": 1.1
+                  },
+                  "zero_completed": true,
+                  "zero_duration_s": 60.00000000002736,
+                  "zero_exposure": {
+                    "nonflat_fraction": 0.6851666666666667,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 2.3559200981201323,
+                    "nonflat_steps": 4111,
+                    "path_m": 4.968809697797641,
+                    "unique_nonflat_0p25m_cells": 10
+                  },
+                  "zero_metrics": {
+                    "action_rms": 0.0,
+                    "attitude_rmse_rad": 0.012794745845027657,
+                    "height_rmse_m": 0.014469929528755908,
+                    "mean_mechanical_power_w": 41.36146768343416,
+                    "velocity_rmse_mps": 0.07834452485409135,
+                    "yaw_rmse_rps": 0.053005770839886744
+                  },
+                  "zero_quality_pass": true,
+                  "zero_terminal_reason": "time_limit"
+                }
+              ]
+            },
+            "source": {
+              "archive_sha256": "6d617ac006578f8fcf8d652662bbee4c33a5bb2782db5c576b5c1118e58d76ea",
+              "file_count": 65
+            },
+            "training_seed": 26000
+          }
+        ],
+        "policy_quality_passes": 2,
+        "training_seeds": [
+          24000,
+          25000,
+          26000
+        ],
+        "unique_roads": 2,
+        "velocity_error_reduced_pairs": 2,
+        "zero_quality_passes_distinct_roads": 1,
+        "zero_source": {
+          "archive_sha256": "6662835da9d8a430d5b165ba6c29a1a276eeefcbac59d325001c45a609343aec",
+          "file_count": 65
+        }
+      },
+      "wheel_leg": {
+        "full_horizon_pairs": 6,
+        "mean_over_full_horizon_pairs": {
+          "policy": {
+            "action_rms": 0.06799834901860825,
+            "attitude_rmse_rad": 0.02399852671272945,
+            "height_rmse_m": 0.011758117014775908,
+            "mean_mechanical_power_w": 20.497710761646683,
+            "velocity_rmse_mps": 0.03328256116350314,
+            "yaw_rmse_rps": 0.030547965876768987
+          },
+          "zero": {
+            "action_rms": 0.0,
+            "attitude_rmse_rad": 0.018023282157051186,
+            "height_rmse_m": 0.009840316020747608,
+            "mean_mechanical_power_w": 16.025107862342516,
+            "velocity_rmse_mps": 0.04015720986306996,
+            "yaw_rmse_rps": 0.03265142554771126
+          }
+        },
+        "models": [
+          {
+            "comparison": {
+              "bootstrap_ci": null,
+              "note": "No resampling interval at three training seeds. Terrain labels are not independent training replicas; actual paths/exposure may differ.",
+              "pairs": [
+                {
+                  "comparable_full_horizon": true,
+                  "delta_policy_minus_zero": {
+                    "action_rms": 0.07254887818903319,
+                    "attitude_rmse_rad": 0.008180058770931722,
+                    "height_rmse_m": 0.0012376880600742796,
+                    "mean_mechanical_power_w": 5.396840376697835,
+                    "velocity_rmse_mps": -0.011116626416351267,
+                    "yaw_rmse_rps": -0.00047416431644529966
+                  },
+                  "paired_case_labels": [
+                    "road0_seed617",
+                    "road0_seed629"
+                  ],
+                  "policy_completed": true,
+                  "policy_duration_s": 60.00000000002736,
+                  "policy_exposure": {
+                    "nonflat_fraction": 0.5108333333333334,
+                    "nonflat_now": false,
+                    "nonflat_path_m": 3.6299638393984766,
+                    "nonflat_steps": 3065,
+                    "path_m": 7.022988666372172,
+                    "unique_nonflat_0p25m_cells": 21
+                  },
+                  "policy_metrics": {
+                    "action_rms": 0.07254887818903319,
+                    "attitude_rmse_rad": 0.027568037180930673,
+                    "height_rmse_m": 0.011066975632416324,
+                    "mean_mechanical_power_w": 21.493409696476096,
+                    "velocity_rmse_mps": 0.0266910061244864,
+                    "yaw_rmse_rps": 0.031996862331249244
+                  },
+                  "policy_quality_pass": true,
+                  "policy_terminal_reason": "time_limit",
+                  "terrain": {
+                    "cross_slope_deg": 0.65,
+                    "layout": "s_bend",
+                    "phase_x_rad": 1.4,
+                    "phase_y_rad": 1.6,
+                    "ripple_amplitude_m": 0.009,
+                    "schema": "d1-fixed-2d-road-v1",
+                    "slope_deg": 1.4,
+                    "step_height_m": 0.009,
+                    "wavelength_x_m": 0.7,
+                    "wavelength_y_m": 1.0
+                  },
+                  "zero_completed": true,
+                  "zero_duration_s": 60.00000000002736,
+                  "zero_exposure": {
+                    "nonflat_fraction": 0.673,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.131225896249945,
+                    "nonflat_steps": 4038,
+                    "path_m": 7.034264563840326,
+                    "unique_nonflat_0p25m_cells": 18
+                  },
+                  "zero_metrics": {
+                    "action_rms": 0.0,
+                    "attitude_rmse_rad": 0.01938797840999895,
+                    "height_rmse_m": 0.009829287572342044,
+                    "mean_mechanical_power_w": 16.09656931977826,
+                    "velocity_rmse_mps": 0.03780763254083767,
+                    "yaw_rmse_rps": 0.032471026647694544
+                  },
+                  "zero_quality_pass": true,
+                  "zero_terminal_reason": "time_limit"
+                },
+                {
+                  "comparable_full_horizon": true,
+                  "delta_policy_minus_zero": {
+                    "action_rms": 0.07274109912963433,
+                    "attitude_rmse_rad": 0.009300946097688046,
+                    "height_rmse_m": 0.00016174417370789368,
+                    "mean_mechanical_power_w": 6.085862038105676,
+                    "velocity_rmse_mps": -0.01143323304456062,
+                    "yaw_rmse_rps": 5.291781739272944e-05
+                  },
+                  "paired_case_labels": [
+                    "road1_seed617",
+                    "road1_seed629"
+                  ],
+                  "policy_completed": true,
+                  "policy_duration_s": 60.00000000002736,
+                  "policy_exposure": {
+                    "nonflat_fraction": 0.6093333333333333,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.016186921139891,
+                    "nonflat_steps": 3656,
+                    "path_m": 7.048346304427155,
+                    "unique_nonflat_0p25m_cells": 20
+                  },
+                  "policy_metrics": {
+                    "action_rms": 0.07274109912963433,
+                    "attitude_rmse_rad": 0.025959532001791463,
+                    "height_rmse_m": 0.01001308864286107,
+                    "mean_mechanical_power_w": 22.039508443012444,
+                    "velocity_rmse_mps": 0.031073554140741637,
+                    "yaw_rmse_rps": 0.03288474226512071
+                  },
+                  "policy_quality_pass": true,
+                  "policy_terminal_reason": "time_limit",
+                  "terrain": {
+                    "cross_slope_deg": -0.65,
+                    "layout": "diagonal",
+                    "phase_x_rad": 2.0,
+                    "phase_y_rad": 2.2,
+                    "ripple_amplitude_m": 0.0065,
+                    "schema": "d1-fixed-2d-road-v1",
+                    "slope_deg": -1.4,
+                    "step_height_m": 0.0065,
+                    "wavelength_x_m": 0.8,
+                    "wavelength_y_m": 1.1
+                  },
+                  "zero_completed": true,
+                  "zero_duration_s": 60.00000000002736,
+                  "zero_exposure": {
+                    "nonflat_fraction": 0.6805,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.204052208767024,
+                    "nonflat_steps": 4083,
+                    "path_m": 7.012753625503494,
+                    "unique_nonflat_0p25m_cells": 19
+                  },
+                  "zero_metrics": {
+                    "action_rms": 0.0,
+                    "attitude_rmse_rad": 0.016658585904103417,
+                    "height_rmse_m": 0.009851344469153176,
+                    "mean_mechanical_power_w": 15.953646404906769,
+                    "velocity_rmse_mps": 0.04250678718530226,
+                    "yaw_rmse_rps": 0.03283182444772798
+                  },
+                  "zero_quality_pass": true,
+                  "zero_terminal_reason": "time_limit"
+                }
+              ]
+            },
+            "source": {
+              "archive_sha256": "00544a5c4db73302a23b0c46174cccc2db01513d55e3eb5ff123263da99b14b7",
+              "file_count": 65
+            },
+            "training_seed": 24000
+          },
+          {
+            "comparison": {
+              "bootstrap_ci": null,
+              "note": "No resampling interval at three training seeds. Terrain labels are not independent training replicas; actual paths/exposure may differ.",
+              "pairs": [
+                {
+                  "comparable_full_horizon": true,
+                  "delta_policy_minus_zero": {
+                    "action_rms": 0.06089052043090511,
+                    "attitude_rmse_rad": 0.0018180807060497808,
+                    "height_rmse_m": 0.003173358806608845,
+                    "mean_mechanical_power_w": 4.334315745399216,
+                    "velocity_rmse_mps": -0.005496438529953039,
+                    "yaw_rmse_rps": -0.00415456274205352
+                  },
+                  "paired_case_labels": [
+                    "road0_seed617",
+                    "road0_seed629"
+                  ],
+                  "policy_completed": true,
+                  "policy_duration_s": 60.00000000002736,
+                  "policy_exposure": {
+                    "nonflat_fraction": 0.6858333333333333,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.386501974547716,
+                    "nonflat_steps": 4115,
+                    "path_m": 7.126589860781251,
+                    "unique_nonflat_0p25m_cells": 18
+                  },
+                  "policy_metrics": {
+                    "action_rms": 0.06089052043090511,
+                    "attitude_rmse_rad": 0.021206059116048732,
+                    "height_rmse_m": 0.01300264637895089,
+                    "mean_mechanical_power_w": 20.430885065177478,
+                    "velocity_rmse_mps": 0.03231119401088463,
+                    "yaw_rmse_rps": 0.028316463905641024
+                  },
+                  "policy_quality_pass": true,
+                  "policy_terminal_reason": "time_limit",
+                  "terrain": {
+                    "cross_slope_deg": 0.65,
+                    "layout": "s_bend",
+                    "phase_x_rad": 1.4,
+                    "phase_y_rad": 1.6,
+                    "ripple_amplitude_m": 0.009,
+                    "schema": "d1-fixed-2d-road-v1",
+                    "slope_deg": 1.4,
+                    "step_height_m": 0.009,
+                    "wavelength_x_m": 0.7,
+                    "wavelength_y_m": 1.0
+                  },
+                  "zero_completed": true,
+                  "zero_duration_s": 60.00000000002736,
+                  "zero_exposure": {
+                    "nonflat_fraction": 0.673,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.131225896249945,
+                    "nonflat_steps": 4038,
+                    "path_m": 7.034264563840326,
+                    "unique_nonflat_0p25m_cells": 18
+                  },
+                  "zero_metrics": {
+                    "action_rms": 0.0,
+                    "attitude_rmse_rad": 0.01938797840999895,
+                    "height_rmse_m": 0.009829287572342044,
+                    "mean_mechanical_power_w": 16.09656931977826,
+                    "velocity_rmse_mps": 0.03780763254083767,
+                    "yaw_rmse_rps": 0.032471026647694544
+                  },
+                  "zero_quality_pass": true,
+                  "zero_terminal_reason": "time_limit"
+                },
+                {
+                  "comparable_full_horizon": true,
+                  "delta_policy_minus_zero": {
+                    "action_rms": 0.06061053136322401,
+                    "attitude_rmse_rad": 0.0030783580076206886,
+                    "height_rmse_m": 0.0031844138475405123,
+                    "mean_mechanical_power_w": 4.56915586866924,
+                    "velocity_rmse_mps": 0.00012820365817183682,
+                    "yaw_rmse_rps": -0.003952298300844401
+                  },
+                  "paired_case_labels": [
+                    "road1_seed617",
+                    "road1_seed629"
+                  ],
+                  "policy_completed": true,
+                  "policy_duration_s": 60.00000000002736,
+                  "policy_exposure": {
+                    "nonflat_fraction": 0.693,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.502081043560619,
+                    "nonflat_steps": 4158,
+                    "path_m": 7.13761459784552,
+                    "unique_nonflat_0p25m_cells": 17
+                  },
+                  "policy_metrics": {
+                    "action_rms": 0.06061053136322401,
+                    "attitude_rmse_rad": 0.019736943911724106,
+                    "height_rmse_m": 0.013035758316693688,
+                    "mean_mechanical_power_w": 20.52280227357601,
+                    "velocity_rmse_mps": 0.042634990843474094,
+                    "yaw_rmse_rps": 0.02887952614688358
+                  },
+                  "policy_quality_pass": true,
+                  "policy_terminal_reason": "time_limit",
+                  "terrain": {
+                    "cross_slope_deg": -0.65,
+                    "layout": "diagonal",
+                    "phase_x_rad": 2.0,
+                    "phase_y_rad": 2.2,
+                    "ripple_amplitude_m": 0.0065,
+                    "schema": "d1-fixed-2d-road-v1",
+                    "slope_deg": -1.4,
+                    "step_height_m": 0.0065,
+                    "wavelength_x_m": 0.8,
+                    "wavelength_y_m": 1.1
+                  },
+                  "zero_completed": true,
+                  "zero_duration_s": 60.00000000002736,
+                  "zero_exposure": {
+                    "nonflat_fraction": 0.6805,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.204052208767024,
+                    "nonflat_steps": 4083,
+                    "path_m": 7.012753625503494,
+                    "unique_nonflat_0p25m_cells": 19
+                  },
+                  "zero_metrics": {
+                    "action_rms": 0.0,
+                    "attitude_rmse_rad": 0.016658585904103417,
+                    "height_rmse_m": 0.009851344469153176,
+                    "mean_mechanical_power_w": 15.953646404906769,
+                    "velocity_rmse_mps": 0.04250678718530226,
+                    "yaw_rmse_rps": 0.03283182444772798
+                  },
+                  "zero_quality_pass": true,
+                  "zero_terminal_reason": "time_limit"
+                }
+              ]
+            },
+            "source": {
+              "archive_sha256": "e19e458b72e47af21e758e2453d4434f197fbab3f5dbf81525f4ac0ac75f7e90",
+              "file_count": 65
+            },
+            "training_seed": 25000
+          },
+          {
+            "comparison": {
+              "bootstrap_ci": null,
+              "note": "No resampling interval at three training seeds. Terrain labels are not independent training replicas; actual paths/exposure may differ.",
+              "pairs": [
+                {
+                  "comparable_full_horizon": true,
+                  "delta_policy_minus_zero": {
+                    "action_rms": 0.07040934963029931,
+                    "attitude_rmse_rad": 0.005094878088849595,
+                    "height_rmse_m": 0.0016525771329624853,
+                    "mean_mechanical_power_w": 2.5994255412490332,
+                    "velocity_rmse_mps": -0.007819355238655342,
+                    "yaw_rmse_rps": -0.002548492246803487
+                  },
+                  "paired_case_labels": [
+                    "road0_seed617",
+                    "road0_seed629"
+                  ],
+                  "policy_completed": true,
+                  "policy_duration_s": 60.00000000002736,
+                  "policy_exposure": {
+                    "nonflat_fraction": 0.6871666666666667,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.333276986336942,
+                    "nonflat_steps": 4123,
+                    "path_m": 7.044169043128553,
+                    "unique_nonflat_0p25m_cells": 21
+                  },
+                  "policy_metrics": {
+                    "action_rms": 0.07040934963029931,
+                    "attitude_rmse_rad": 0.024482856498848547,
+                    "height_rmse_m": 0.01148186470530453,
+                    "mean_mechanical_power_w": 18.695994861027295,
+                    "velocity_rmse_mps": 0.029988277302182325,
+                    "yaw_rmse_rps": 0.029922534400891057
+                  },
+                  "policy_quality_pass": true,
+                  "policy_terminal_reason": "time_limit",
+                  "terrain": {
+                    "cross_slope_deg": 0.65,
+                    "layout": "s_bend",
+                    "phase_x_rad": 1.4,
+                    "phase_y_rad": 1.6,
+                    "ripple_amplitude_m": 0.009,
+                    "schema": "d1-fixed-2d-road-v1",
+                    "slope_deg": 1.4,
+                    "step_height_m": 0.009,
+                    "wavelength_x_m": 0.7,
+                    "wavelength_y_m": 1.0
+                  },
+                  "zero_completed": true,
+                  "zero_duration_s": 60.00000000002736,
+                  "zero_exposure": {
+                    "nonflat_fraction": 0.673,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.131225896249945,
+                    "nonflat_steps": 4038,
+                    "path_m": 7.034264563840326,
+                    "unique_nonflat_0p25m_cells": 18
+                  },
+                  "zero_metrics": {
+                    "action_rms": 0.0,
+                    "attitude_rmse_rad": 0.01938797840999895,
+                    "height_rmse_m": 0.009829287572342044,
+                    "mean_mechanical_power_w": 16.09656931977826,
+                    "velocity_rmse_mps": 0.03780763254083767,
+                    "yaw_rmse_rps": 0.032471026647694544
+                  },
+                  "zero_quality_pass": true,
+                  "zero_terminal_reason": "time_limit"
+                },
+                {
+                  "comparable_full_horizon": true,
+                  "delta_policy_minus_zero": {
+                    "action_rms": 0.07078971536855351,
+                    "attitude_rmse_rad": 0.008379145662929775,
+                    "height_rmse_m": 0.0020970239432757665,
+                    "mean_mechanical_power_w": 3.850017825704013,
+                    "velocity_rmse_mps": -0.005510442626052499,
+                    "yaw_rmse_rps": -0.0015441582368996634
+                  },
+                  "paired_case_labels": [
+                    "road1_seed617",
+                    "road1_seed629"
+                  ],
+                  "policy_completed": true,
+                  "policy_duration_s": 60.00000000002736,
+                  "policy_exposure": {
+                    "nonflat_fraction": 0.6943333333333334,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.417690838825077,
+                    "nonflat_steps": 4166,
+                    "path_m": 7.029035133896833,
+                    "unique_nonflat_0p25m_cells": 19
+                  },
+                  "policy_metrics": {
+                    "action_rms": 0.07078971536855351,
+                    "attitude_rmse_rad": 0.025037731567033192,
+                    "height_rmse_m": 0.011948368412428943,
+                    "mean_mechanical_power_w": 19.80366423061078,
+                    "velocity_rmse_mps": 0.03699634455924976,
+                    "yaw_rmse_rps": 0.03128766621082832
+                  },
+                  "policy_quality_pass": true,
+                  "policy_terminal_reason": "time_limit",
+                  "terrain": {
+                    "cross_slope_deg": -0.65,
+                    "layout": "diagonal",
+                    "phase_x_rad": 2.0,
+                    "phase_y_rad": 2.2,
+                    "ripple_amplitude_m": 0.0065,
+                    "schema": "d1-fixed-2d-road-v1",
+                    "slope_deg": -1.4,
+                    "step_height_m": 0.0065,
+                    "wavelength_x_m": 0.8,
+                    "wavelength_y_m": 1.1
+                  },
+                  "zero_completed": true,
+                  "zero_duration_s": 60.00000000002736,
+                  "zero_exposure": {
+                    "nonflat_fraction": 0.6805,
+                    "nonflat_now": true,
+                    "nonflat_path_m": 4.204052208767024,
+                    "nonflat_steps": 4083,
+                    "path_m": 7.012753625503494,
+                    "unique_nonflat_0p25m_cells": 19
+                  },
+                  "zero_metrics": {
+                    "action_rms": 0.0,
+                    "attitude_rmse_rad": 0.016658585904103417,
+                    "height_rmse_m": 0.009851344469153176,
+                    "mean_mechanical_power_w": 15.953646404906769,
+                    "velocity_rmse_mps": 0.04250678718530226,
+                    "yaw_rmse_rps": 0.03283182444772798
+                  },
+                  "zero_quality_pass": true,
+                  "zero_terminal_reason": "time_limit"
+                }
+              ]
+            },
+            "source": {
+              "archive_sha256": "fab97b0f276003a1ba10ce1500a444fbefac5b356735bf3bb495fc11608bb287",
+              "file_count": 65
+            },
+            "training_seed": 26000
+          }
+        ],
+        "policy_quality_passes": 6,
+        "training_seeds": [
+          24000,
+          25000,
+          26000
+        ],
+        "unique_roads": 2,
+        "velocity_error_reduced_pairs": 5,
+        "zero_quality_passes_distinct_roads": 2,
+        "zero_source": {
+          "archive_sha256": "b314886e21e72e29c5ff0297579bc6fb8dd6069a90f4b411d08dcb6f4c0b526a",
+          "file_count": 65
+        }
+      }
+    }
+  },
+  "training": [
+    {
+      "baseline": "lqr",
+      "checkpoint_sha256": "8b5f669f5e2a9379a2845161187afa3edcd7555ccceabc4129c4451d9a776c78",
+      "num_timesteps": 32768,
+      "samples_per_second": 467.976184651995,
+      "seed": 24000,
+      "source": {
+        "archive_sha256": "60e5b767ae8b9a5eb69c62483839bb9f6da5e1bd23d556c492b2ad96ae261a69",
+        "file_count": 65
+      },
+      "updates": 256,
+      "wall_s": 70.02065719298844
+    },
+    {
+      "baseline": "lqr",
+      "checkpoint_sha256": "69fcaa5fb52c53e4eca5b315fe664e71f581abb2a41f9587f627b084e9348fa3",
+      "num_timesteps": 32768,
+      "samples_per_second": 472.5756196762542,
+      "seed": 25000,
+      "source": {
+        "archive_sha256": "fbab91bb0aa51cf427fb24f2c3b3e7122dc853f6a61d4ae98420356b8a34dfd3",
+        "file_count": 65
+      },
+      "updates": 256,
+      "wall_s": 69.33916739599954
+    },
+    {
+      "baseline": "lqr",
+      "checkpoint_sha256": "ffa25134325ef0c530b1125492b41002cb7cfc5ca9946fb36118ba401c4ff6df",
+      "num_timesteps": 32768,
+      "samples_per_second": 493.76131800924503,
+      "seed": 26000,
+      "source": {
+        "archive_sha256": "b80d4277062549a55c8d56ce08a2d9380ce137e8e3b28a1cf32c69bacd986308",
+        "file_count": 65
+      },
+      "updates": 256,
+      "wall_s": 66.36404838701128
+    },
+    {
+      "baseline": "wheel_leg",
+      "checkpoint_sha256": "afc465e6cf7e709d15d65fea3669b97b270be0158ca99eabc8f2054b8afcdeb6",
+      "num_timesteps": 32768,
+      "samples_per_second": 495.0125449352522,
+      "seed": 24000,
+      "source": {
+        "archive_sha256": "f0ca7fa83410c2a15285e7df4e042754c19e1ad5193480a40375767898f9d875",
+        "file_count": 65
+      },
+      "updates": 256,
+      "wall_s": 66.19630216500082
+    },
+    {
+      "baseline": "wheel_leg",
+      "checkpoint_sha256": "6605414828d261dfa7b084bd7eb9acccaffde2bd09d74de01210b059e8165c20",
+      "num_timesteps": 32768,
+      "samples_per_second": 526.5831088485353,
+      "seed": 25000,
+      "source": {
+        "archive_sha256": "374103b710fde8e6c4099c7eb91144d2692f14ba2f46a303549f6f0b4ba37d3e",
+        "file_count": 65
+      },
+      "updates": 256,
+      "wall_s": 62.22759418100759
+    },
+    {
+      "baseline": "wheel_leg",
+      "checkpoint_sha256": "c3022ad4595e651989ae2f46d060d698dd6c72294d5545fff834be48250c83b7",
+      "num_timesteps": 32768,
+      "samples_per_second": 509.48337379850915,
+      "seed": 26000,
+      "source": {
+        "archive_sha256": "db6114f51b40e5aa5bc334a26c4859426f6e2e13e34ad20304cccc2ea7e40c24",
+        "file_count": 65
+      },
+      "updates": 256,
+      "wall_s": 64.31613215499965
+    }
+  ]
+}

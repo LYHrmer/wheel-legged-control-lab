@@ -1,0 +1,359 @@
+{
+  "training_runs": 3,
+  "source_unchanged_during_run": true,
+  "models": [
+    {
+      "variant": "full_gaussian",
+      "training_seed": 9000,
+      "actual_timesteps": 131072,
+      "ppo_epochs_completed": 1024,
+      "ppo": {
+        "learning_rate": 0.0003,
+        "n_steps": 128,
+        "batch_size": 128,
+        "n_epochs": 4,
+        "gamma": 0.9950124791926823,
+        "gae_lambda": 0.95,
+        "clip_range": 0.2,
+        "ent_coef": 0.0,
+        "policy_kwargs": {
+          "net_arch": [
+            64,
+            64
+          ]
+        }
+      },
+      "observation_schema": "d1-terrain-tracking-oracle-v2",
+      "action_schema": "d1-terrain-residual-quarter-v1",
+      "reward_schema": "d1-terrain-tracking-v2",
+      "control_schema": "d1-lqr-vmc-local-tangent-v2",
+      "residual_force_scale_n": [
+        11.25,
+        20.0
+      ],
+      "physical_action_mapping": "[ax,az]",
+      "distribution": "Normal(logits, std), samples clipped",
+      "training_reward_scale": 0.01,
+      "checkpoint_selection": "final fixed budget; no holdout used",
+      "initialization": {
+        "common_two_action_parameter_sha256": "5029050b87f63e4279c3faa09c997c4a1fcc319bdf1006ec9e6e7a6aa4a0f5e4",
+        "initialized_parameter_sha256": "5029050b87f63e4279c3faa09c997c4a1fcc319bdf1006ec9e6e7a6aa4a0f5e4",
+        "projection": "identity"
+      },
+      "model_sha256": "d33c0cf40120bfa999ab3baf204414984cb5782a9e1f0e61505c50456452548b",
+      "source_sha256": {
+        "pyproject.toml": "d250d44b5b8d05b30b816f3eaa7530843c12e45ab6fd0dba780e8baa0c47ad01",
+        "scripts/run_d1_terrain_curriculum.py": "363451d9870918568e68b04aa9edbf35f5ce46ee99915876cb60ae673131031d",
+        "src/wheel_legged_control/__init__.py": "27776a51c8ab97c39e51a26dea9db93f0feb566187e1c14d9fd86f5df540da1b",
+        "src/wheel_legged_control/assets/wheel_legged_planar.xml": "a0153542f4d7211b2adc9894fc0123306d8f4d77c88d14951e7d9163dec46ef3",
+        "src/wheel_legged_control/controllers.py": "9a83b860fad2c27ab017828948ceb7fd925d26f417b8d2379bb6bf5309f1c5b6",
+        "src/wheel_legged_control/d1/__init__.py": "43ccb447aeff86023e04360cc7c2d1129d2c2fcd4bca5e3a1bb88589bd455a92",
+        "src/wheel_legged_control/d1/assets/meshes/L_calf.STL": "e3389a611c0869b002c9ad6c92e5967367e585f31ce67887b47d95f85210599b",
+        "src/wheel_legged_control/d1/assets/meshes/L_foot.STL": "afc74ac83c9286f9d201d43dfc682195895a678464e5f8564763b071368d9eeb",
+        "src/wheel_legged_control/d1/assets/meshes/L_hip.STL": "6bd4d237b585fce86dc97d0d6f52b10811588f9b9fe2b2de8a74763c33f41d90",
+        "src/wheel_legged_control/d1/assets/meshes/L_thigh.STL": "c804473b99df48fe293a7d37e89096313c5421ffbeb1b0141130bfb0ceb4b2ee",
+        "src/wheel_legged_control/d1/assets/meshes/R_calf.STL": "71c9d33c49b3fcf0ce6aecee4f8407dc9872a1d6f8340705ac43df7154f7966b",
+        "src/wheel_legged_control/d1/assets/meshes/R_foot.STL": "11f49126b3fec371ce1277556828a1517309347d777907b57567a50e807dba1f",
+        "src/wheel_legged_control/d1/assets/meshes/R_hip.STL": "91751fa14272761ce4176cfb50cefde6397e43cd639ed5a5dc94d64d3b6f69d1",
+        "src/wheel_legged_control/d1/assets/meshes/R_thigh.STL": "8d5e6772757f64cb691e8f595f914c5b3acf36295d59e3c1c72543f86302ce4b",
+        "src/wheel_legged_control/d1/assets/meshes/base_link.STL": "d13fd7d3a7924e988b957008617744c44de73fbb39b43f3483fbcda989efd92a",
+        "src/wheel_legged_control/d1/assets/meshes/docking_Link.STL": "afe9cfe3f8896ff3d53c8bb3b61e12727973705b21751b94c2e5148743072f2c",
+        "src/wheel_legged_control/d1/assets/meshes/funtion_Link.STL": "ff81ab5dda97f86c083e0410b0a836cfe438df045d25177cc7ac0215fe76fc9b",
+        "src/wheel_legged_control/d1/assets/urdf/robot.urdf": "3ef048898f351134a4e30d21be8918f9fef48c7b508320a8c9a3f21a25391742",
+        "src/wheel_legged_control/d1/contact_allocation.py": "e5606d693c9bce185ff8cc824e882bed235bdb099649088481b534bc6108c6d1",
+        "src/wheel_legged_control/d1/controllers.py": "15ec4b88826fa9091ec6a9a934659a51e3f3115400be387d805380b5f6b3702c",
+        "src/wheel_legged_control/d1/env.py": "7063e8a70cfaffa130a66359d6d189ff8617ea5526ec4ef1c95db8ab4c7fe194",
+        "src/wheel_legged_control/d1/hierarchical.py": "8924f6ab544a52684bc9ee8360b012da1ef4efd111ea3b7f2abcb6dc5f2d1aaa",
+        "src/wheel_legged_control/d1/linear_model.py": "f51d4ed60ab626f243de603a1b51c6d186553b0fd57b2eb127db9ec0034c5a01",
+        "src/wheel_legged_control/d1/model.py": "5b629c6535a5f2be5ba7d00636e410ba728d9d35039956ece9878d8d8792837f",
+        "src/wheel_legged_control/d1/ppo_action_policies.py": "64bf8e3f70446f5589b0cf608c9f51a7734ba3546026e16e9c5eec1e09da3b32",
+        "src/wheel_legged_control/d1/residual_action_env.py": "4f42d80fa2232b2c460860b2dcc864d19a049cf69868ba25bd7720146ce51fad",
+        "src/wheel_legged_control/d1/rewards.py": "26ad04cac0aff610d2e2a8fdc8acd1d5110ab0858cda82ac563eaf58bff2d692",
+        "src/wheel_legged_control/d1/state_estimation.py": "a1bf8e529242d17aed1224268d275503f7fced002f46eecc029772abc15d2145",
+        "src/wheel_legged_control/d1/terrain.py": "a72ad8d9c599e87d5587f253b2ade893d26629b55f755a0ca60e55d87c18e6fd",
+        "src/wheel_legged_control/d1/terrain_env.py": "0c90ece3a6d4607fe0c0b977a602a26a2b60e93fde9381882a507ea53d4b355d",
+        "src/wheel_legged_control/d1/terrain_tracking_env.py": "0e3cd6bada1d2d384a9baad4faa7b84568e9eb59e690c4c3c1a1163b3e33e551",
+        "src/wheel_legged_control/d1/training_terrain.py": "25bf4490be6ea1c6aba0799ac042a1d177ff4343ceb07bc7608432ba0c97dc05",
+        "src/wheel_legged_control/model.py": "92b909eaf5e425a2df29036c7a2053e4ae80695a0a8d1c1964a2554dfdefc91e",
+        "src/wheel_legged_control/provenance.py": "2da900d3bc84d4b236e4b1a39a23a931919e8c5497fc1d04f2433359a9706067",
+        "src/wheel_legged_control/rewards.py": "cfecf7b726a08d65d03fc913066059cec5422a3fbf735389360960599130c4da",
+        "scripts/run_d1_action_ablation.py": "216e07f2963adcc3718ef6843d25bd1fe9a18c7ecab88b5331772873f0f8be83"
+      },
+      "wall_training_and_development_s": 2204.048393434,
+      "max_unchanged_log_prob_error": 0.0,
+      "exposure": {
+        "stage_steps": {
+          "0": 0,
+          "1": 0,
+          "2": 0,
+          "3": 131072
+        },
+        "stage_episodes_started": {
+          "0": 0,
+          "1": 0,
+          "2": 0,
+          "3": 328
+        },
+        "stage_episodes_completed": {
+          "0": 0,
+          "1": 0,
+          "2": 0,
+          "3": 324
+        },
+        "terrain_steps": {
+          "flat": 27936,
+          "ramp": 71600,
+          "bumps": 31536
+        },
+        "stage_kind_steps": {
+          "3:flat": 27936,
+          "3:ramp": 71600,
+          "3:bumps": 31536
+        },
+        "ramp_slope_steps": {
+          "4": 16800,
+          "2": 15200,
+          "-2": 19600,
+          "-4": 20000
+        },
+        "final_stage_sampled": null
+      },
+      "episode_starts_sha256": "34aad106e1df97dfcb662d8baf6c65ee54dd85ff698c103d8b74a495db3109c5"
+    },
+    {
+      "variant": "bounded_mean",
+      "training_seed": 9000,
+      "actual_timesteps": 131072,
+      "ppo_epochs_completed": 1024,
+      "ppo": {
+        "learning_rate": 0.0003,
+        "n_steps": 128,
+        "batch_size": 128,
+        "n_epochs": 4,
+        "gamma": 0.9950124791926823,
+        "gae_lambda": 0.95,
+        "clip_range": 0.2,
+        "ent_coef": 0.0,
+        "policy_kwargs": {
+          "net_arch": [
+            64,
+            64
+          ]
+        }
+      },
+      "observation_schema": "d1-terrain-tracking-oracle-v2",
+      "action_schema": "d1-terrain-residual-quarter-v1",
+      "reward_schema": "d1-terrain-tracking-v2",
+      "control_schema": "d1-lqr-vmc-local-tangent-v2",
+      "residual_force_scale_n": [
+        11.25,
+        20.0
+      ],
+      "physical_action_mapping": "[ax,az]",
+      "distribution": "Normal(tanh(logits), std), samples still clipped",
+      "training_reward_scale": 0.01,
+      "checkpoint_selection": "final fixed budget; no holdout used",
+      "initialization": {
+        "common_two_action_parameter_sha256": "5029050b87f63e4279c3faa09c997c4a1fcc319bdf1006ec9e6e7a6aa4a0f5e4",
+        "initialized_parameter_sha256": "5029050b87f63e4279c3faa09c997c4a1fcc319bdf1006ec9e6e7a6aa4a0f5e4",
+        "projection": "identity"
+      },
+      "model_sha256": "e8e50ea9dd614dbfc04c28f29d70c54a34896183fec3a8ee44c97fa047290c3f",
+      "source_sha256": {
+        "pyproject.toml": "d250d44b5b8d05b30b816f3eaa7530843c12e45ab6fd0dba780e8baa0c47ad01",
+        "scripts/run_d1_terrain_curriculum.py": "363451d9870918568e68b04aa9edbf35f5ce46ee99915876cb60ae673131031d",
+        "src/wheel_legged_control/__init__.py": "27776a51c8ab97c39e51a26dea9db93f0feb566187e1c14d9fd86f5df540da1b",
+        "src/wheel_legged_control/assets/wheel_legged_planar.xml": "a0153542f4d7211b2adc9894fc0123306d8f4d77c88d14951e7d9163dec46ef3",
+        "src/wheel_legged_control/controllers.py": "9a83b860fad2c27ab017828948ceb7fd925d26f417b8d2379bb6bf5309f1c5b6",
+        "src/wheel_legged_control/d1/__init__.py": "43ccb447aeff86023e04360cc7c2d1129d2c2fcd4bca5e3a1bb88589bd455a92",
+        "src/wheel_legged_control/d1/assets/meshes/L_calf.STL": "e3389a611c0869b002c9ad6c92e5967367e585f31ce67887b47d95f85210599b",
+        "src/wheel_legged_control/d1/assets/meshes/L_foot.STL": "afc74ac83c9286f9d201d43dfc682195895a678464e5f8564763b071368d9eeb",
+        "src/wheel_legged_control/d1/assets/meshes/L_hip.STL": "6bd4d237b585fce86dc97d0d6f52b10811588f9b9fe2b2de8a74763c33f41d90",
+        "src/wheel_legged_control/d1/assets/meshes/L_thigh.STL": "c804473b99df48fe293a7d37e89096313c5421ffbeb1b0141130bfb0ceb4b2ee",
+        "src/wheel_legged_control/d1/assets/meshes/R_calf.STL": "71c9d33c49b3fcf0ce6aecee4f8407dc9872a1d6f8340705ac43df7154f7966b",
+        "src/wheel_legged_control/d1/assets/meshes/R_foot.STL": "11f49126b3fec371ce1277556828a1517309347d777907b57567a50e807dba1f",
+        "src/wheel_legged_control/d1/assets/meshes/R_hip.STL": "91751fa14272761ce4176cfb50cefde6397e43cd639ed5a5dc94d64d3b6f69d1",
+        "src/wheel_legged_control/d1/assets/meshes/R_thigh.STL": "8d5e6772757f64cb691e8f595f914c5b3acf36295d59e3c1c72543f86302ce4b",
+        "src/wheel_legged_control/d1/assets/meshes/base_link.STL": "d13fd7d3a7924e988b957008617744c44de73fbb39b43f3483fbcda989efd92a",
+        "src/wheel_legged_control/d1/assets/meshes/docking_Link.STL": "afe9cfe3f8896ff3d53c8bb3b61e12727973705b21751b94c2e5148743072f2c",
+        "src/wheel_legged_control/d1/assets/meshes/funtion_Link.STL": "ff81ab5dda97f86c083e0410b0a836cfe438df045d25177cc7ac0215fe76fc9b",
+        "src/wheel_legged_control/d1/assets/urdf/robot.urdf": "3ef048898f351134a4e30d21be8918f9fef48c7b508320a8c9a3f21a25391742",
+        "src/wheel_legged_control/d1/contact_allocation.py": "e5606d693c9bce185ff8cc824e882bed235bdb099649088481b534bc6108c6d1",
+        "src/wheel_legged_control/d1/controllers.py": "15ec4b88826fa9091ec6a9a934659a51e3f3115400be387d805380b5f6b3702c",
+        "src/wheel_legged_control/d1/env.py": "7063e8a70cfaffa130a66359d6d189ff8617ea5526ec4ef1c95db8ab4c7fe194",
+        "src/wheel_legged_control/d1/hierarchical.py": "8924f6ab544a52684bc9ee8360b012da1ef4efd111ea3b7f2abcb6dc5f2d1aaa",
+        "src/wheel_legged_control/d1/linear_model.py": "f51d4ed60ab626f243de603a1b51c6d186553b0fd57b2eb127db9ec0034c5a01",
+        "src/wheel_legged_control/d1/model.py": "5b629c6535a5f2be5ba7d00636e410ba728d9d35039956ece9878d8d8792837f",
+        "src/wheel_legged_control/d1/ppo_action_policies.py": "64bf8e3f70446f5589b0cf608c9f51a7734ba3546026e16e9c5eec1e09da3b32",
+        "src/wheel_legged_control/d1/residual_action_env.py": "4f42d80fa2232b2c460860b2dcc864d19a049cf69868ba25bd7720146ce51fad",
+        "src/wheel_legged_control/d1/rewards.py": "26ad04cac0aff610d2e2a8fdc8acd1d5110ab0858cda82ac563eaf58bff2d692",
+        "src/wheel_legged_control/d1/state_estimation.py": "a1bf8e529242d17aed1224268d275503f7fced002f46eecc029772abc15d2145",
+        "src/wheel_legged_control/d1/terrain.py": "a72ad8d9c599e87d5587f253b2ade893d26629b55f755a0ca60e55d87c18e6fd",
+        "src/wheel_legged_control/d1/terrain_env.py": "0c90ece3a6d4607fe0c0b977a602a26a2b60e93fde9381882a507ea53d4b355d",
+        "src/wheel_legged_control/d1/terrain_tracking_env.py": "0e3cd6bada1d2d384a9baad4faa7b84568e9eb59e690c4c3c1a1163b3e33e551",
+        "src/wheel_legged_control/d1/training_terrain.py": "25bf4490be6ea1c6aba0799ac042a1d177ff4343ceb07bc7608432ba0c97dc05",
+        "src/wheel_legged_control/model.py": "92b909eaf5e425a2df29036c7a2053e4ae80695a0a8d1c1964a2554dfdefc91e",
+        "src/wheel_legged_control/provenance.py": "2da900d3bc84d4b236e4b1a39a23a931919e8c5497fc1d04f2433359a9706067",
+        "src/wheel_legged_control/rewards.py": "cfecf7b726a08d65d03fc913066059cec5422a3fbf735389360960599130c4da",
+        "scripts/run_d1_action_ablation.py": "216e07f2963adcc3718ef6843d25bd1fe9a18c7ecab88b5331772873f0f8be83"
+      },
+      "wall_training_and_development_s": 389.26002518700034,
+      "max_unchanged_log_prob_error": 0.0,
+      "exposure": {
+        "stage_steps": {
+          "0": 0,
+          "1": 0,
+          "2": 0,
+          "3": 131072
+        },
+        "stage_episodes_started": {
+          "0": 0,
+          "1": 0,
+          "2": 0,
+          "3": 328
+        },
+        "stage_episodes_completed": {
+          "0": 0,
+          "1": 0,
+          "2": 0,
+          "3": 324
+        },
+        "terrain_steps": {
+          "flat": 27936,
+          "ramp": 71600,
+          "bumps": 31536
+        },
+        "stage_kind_steps": {
+          "3:flat": 27936,
+          "3:ramp": 71600,
+          "3:bumps": 31536
+        },
+        "ramp_slope_steps": {
+          "4": 16800,
+          "2": 15200,
+          "-2": 19600,
+          "-4": 20000
+        },
+        "final_stage_sampled": null
+      },
+      "episode_starts_sha256": "34aad106e1df97dfcb662d8baf6c65ee54dd85ff698c103d8b74a495db3109c5"
+    },
+    {
+      "variant": "fx_only",
+      "training_seed": 9000,
+      "actual_timesteps": 131072,
+      "ppo_epochs_completed": 1024,
+      "ppo": {
+        "learning_rate": 0.0003,
+        "n_steps": 128,
+        "batch_size": 128,
+        "n_epochs": 4,
+        "gamma": 0.9950124791926823,
+        "gae_lambda": 0.95,
+        "clip_range": 0.2,
+        "ent_coef": 0.0,
+        "policy_kwargs": {
+          "net_arch": [
+            64,
+            64
+          ]
+        }
+      },
+      "observation_schema": "d1-terrain-tracking-oracle-v2",
+      "action_schema": "d1-terrain-residual-longitudinal-only-v1",
+      "reward_schema": "d1-terrain-tracking-v2",
+      "control_schema": "d1-lqr-vmc-local-tangent-v2",
+      "residual_force_scale_n": [
+        11.25
+      ],
+      "physical_action_mapping": "[ax,0]",
+      "distribution": "Normal(logits, std), samples clipped",
+      "training_reward_scale": 0.01,
+      "checkpoint_selection": "final fixed budget; no holdout used",
+      "initialization": {
+        "common_two_action_parameter_sha256": "5029050b87f63e4279c3faa09c997c4a1fcc319bdf1006ec9e6e7a6aa4a0f5e4",
+        "initialized_parameter_sha256": "34ccb74bbdfd88ccc9f12a6cc4e735b1db94d835fc8f5195eb2d9276153c4277",
+        "projection": "copy all shared tensors; first action-head row and log_std only"
+      },
+      "model_sha256": "83bba6111de536c04dfefb4d4ece708985d9bd654fd6f1f405aa9e1ba01f4672",
+      "source_sha256": {
+        "pyproject.toml": "d250d44b5b8d05b30b816f3eaa7530843c12e45ab6fd0dba780e8baa0c47ad01",
+        "scripts/run_d1_terrain_curriculum.py": "363451d9870918568e68b04aa9edbf35f5ce46ee99915876cb60ae673131031d",
+        "src/wheel_legged_control/__init__.py": "27776a51c8ab97c39e51a26dea9db93f0feb566187e1c14d9fd86f5df540da1b",
+        "src/wheel_legged_control/assets/wheel_legged_planar.xml": "a0153542f4d7211b2adc9894fc0123306d8f4d77c88d14951e7d9163dec46ef3",
+        "src/wheel_legged_control/controllers.py": "9a83b860fad2c27ab017828948ceb7fd925d26f417b8d2379bb6bf5309f1c5b6",
+        "src/wheel_legged_control/d1/__init__.py": "43ccb447aeff86023e04360cc7c2d1129d2c2fcd4bca5e3a1bb88589bd455a92",
+        "src/wheel_legged_control/d1/assets/meshes/L_calf.STL": "e3389a611c0869b002c9ad6c92e5967367e585f31ce67887b47d95f85210599b",
+        "src/wheel_legged_control/d1/assets/meshes/L_foot.STL": "afc74ac83c9286f9d201d43dfc682195895a678464e5f8564763b071368d9eeb",
+        "src/wheel_legged_control/d1/assets/meshes/L_hip.STL": "6bd4d237b585fce86dc97d0d6f52b10811588f9b9fe2b2de8a74763c33f41d90",
+        "src/wheel_legged_control/d1/assets/meshes/L_thigh.STL": "c804473b99df48fe293a7d37e89096313c5421ffbeb1b0141130bfb0ceb4b2ee",
+        "src/wheel_legged_control/d1/assets/meshes/R_calf.STL": "71c9d33c49b3fcf0ce6aecee4f8407dc9872a1d6f8340705ac43df7154f7966b",
+        "src/wheel_legged_control/d1/assets/meshes/R_foot.STL": "11f49126b3fec371ce1277556828a1517309347d777907b57567a50e807dba1f",
+        "src/wheel_legged_control/d1/assets/meshes/R_hip.STL": "91751fa14272761ce4176cfb50cefde6397e43cd639ed5a5dc94d64d3b6f69d1",
+        "src/wheel_legged_control/d1/assets/meshes/R_thigh.STL": "8d5e6772757f64cb691e8f595f914c5b3acf36295d59e3c1c72543f86302ce4b",
+        "src/wheel_legged_control/d1/assets/meshes/base_link.STL": "d13fd7d3a7924e988b957008617744c44de73fbb39b43f3483fbcda989efd92a",
+        "src/wheel_legged_control/d1/assets/meshes/docking_Link.STL": "afe9cfe3f8896ff3d53c8bb3b61e12727973705b21751b94c2e5148743072f2c",
+        "src/wheel_legged_control/d1/assets/meshes/funtion_Link.STL": "ff81ab5dda97f86c083e0410b0a836cfe438df045d25177cc7ac0215fe76fc9b",
+        "src/wheel_legged_control/d1/assets/urdf/robot.urdf": "3ef048898f351134a4e30d21be8918f9fef48c7b508320a8c9a3f21a25391742",
+        "src/wheel_legged_control/d1/contact_allocation.py": "e5606d693c9bce185ff8cc824e882bed235bdb099649088481b534bc6108c6d1",
+        "src/wheel_legged_control/d1/controllers.py": "15ec4b88826fa9091ec6a9a934659a51e3f3115400be387d805380b5f6b3702c",
+        "src/wheel_legged_control/d1/env.py": "7063e8a70cfaffa130a66359d6d189ff8617ea5526ec4ef1c95db8ab4c7fe194",
+        "src/wheel_legged_control/d1/hierarchical.py": "8924f6ab544a52684bc9ee8360b012da1ef4efd111ea3b7f2abcb6dc5f2d1aaa",
+        "src/wheel_legged_control/d1/linear_model.py": "f51d4ed60ab626f243de603a1b51c6d186553b0fd57b2eb127db9ec0034c5a01",
+        "src/wheel_legged_control/d1/model.py": "5b629c6535a5f2be5ba7d00636e410ba728d9d35039956ece9878d8d8792837f",
+        "src/wheel_legged_control/d1/ppo_action_policies.py": "64bf8e3f70446f5589b0cf608c9f51a7734ba3546026e16e9c5eec1e09da3b32",
+        "src/wheel_legged_control/d1/residual_action_env.py": "4f42d80fa2232b2c460860b2dcc864d19a049cf69868ba25bd7720146ce51fad",
+        "src/wheel_legged_control/d1/rewards.py": "26ad04cac0aff610d2e2a8fdc8acd1d5110ab0858cda82ac563eaf58bff2d692",
+        "src/wheel_legged_control/d1/state_estimation.py": "a1bf8e529242d17aed1224268d275503f7fced002f46eecc029772abc15d2145",
+        "src/wheel_legged_control/d1/terrain.py": "a72ad8d9c599e87d5587f253b2ade893d26629b55f755a0ca60e55d87c18e6fd",
+        "src/wheel_legged_control/d1/terrain_env.py": "0c90ece3a6d4607fe0c0b977a602a26a2b60e93fde9381882a507ea53d4b355d",
+        "src/wheel_legged_control/d1/terrain_tracking_env.py": "0e3cd6bada1d2d384a9baad4faa7b84568e9eb59e690c4c3c1a1163b3e33e551",
+        "src/wheel_legged_control/d1/training_terrain.py": "25bf4490be6ea1c6aba0799ac042a1d177ff4343ceb07bc7608432ba0c97dc05",
+        "src/wheel_legged_control/model.py": "92b909eaf5e425a2df29036c7a2053e4ae80695a0a8d1c1964a2554dfdefc91e",
+        "src/wheel_legged_control/provenance.py": "2da900d3bc84d4b236e4b1a39a23a931919e8c5497fc1d04f2433359a9706067",
+        "src/wheel_legged_control/rewards.py": "cfecf7b726a08d65d03fc913066059cec5422a3fbf735389360960599130c4da",
+        "scripts/run_d1_action_ablation.py": "216e07f2963adcc3718ef6843d25bd1fe9a18c7ecab88b5331772873f0f8be83"
+      },
+      "wall_training_and_development_s": 333.2204463359999,
+      "max_unchanged_log_prob_error": 0.0,
+      "exposure": {
+        "stage_steps": {
+          "0": 0,
+          "1": 0,
+          "2": 0,
+          "3": 131072
+        },
+        "stage_episodes_started": {
+          "0": 0,
+          "1": 0,
+          "2": 0,
+          "3": 328
+        },
+        "stage_episodes_completed": {
+          "0": 0,
+          "1": 0,
+          "2": 0,
+          "3": 324
+        },
+        "terrain_steps": {
+          "flat": 27936,
+          "ramp": 71600,
+          "bumps": 31536
+        },
+        "stage_kind_steps": {
+          "3:flat": 27936,
+          "3:ramp": 71600,
+          "3:bumps": 31536
+        },
+        "ramp_slope_steps": {
+          "4": 16800,
+          "2": 15200,
+          "-2": 19600,
+          "-4": 20000
+        },
+        "final_stage_sampled": null
+      },
+      "episode_starts_sha256": "34aad106e1df97dfcb662d8baf6c65ee54dd85ff698c103d8b74a495db3109c5"
+    }
+  ]
+}

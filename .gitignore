@@ -8,3 +8,31 @@ __pycache__/
 build/
 dist/
 results/residual_ppo/*.pth
+
+# Local working notes; published learning material lives in docs/.
+/task_plan.md
+/findings.md
+/progress.md
+
+# Raw experiment payloads are distributed with checksums as release artifacts.
+# Existing tracked historical evidence is retained in Git.
+/results/**/*.csv
+/results/**/*.csv.gz
+/results/**/*.jsonl
+/results/**/*.npz
+/results/**/*.mjb
+/results/**/*.mjb.gz
+/results/**/*.tar.gz
+/results/d1_terrain_reference_diagnosis/telemetry.json
+
+# These small inputs keep links in checksum-frozen historical reports usable.
+!/results/d1_action_ablation_analysis/checkpoint_audit.csv
+!/results/d1_action_ablation_analysis/holdout_controller_means.csv
+!/results/d1_action_ablation_analysis/holdout_episode_metrics.csv
+!/results/d1_action_ablation_analysis/training_action_statistics.csv
+!/results/d1_action_ablation_analysis/development_fixed_six.csv
+!/results/d1_action_ablation_analysis/development_final_24.csv
+!/results/d1_action_ablation_analysis/analysis_source.tar.gz
+!/results/d1_residual_feedback/historical_failure_types.csv
+!/results/d1_residual_feedback/metrics_corrected.csv
+!/results/d1_residual_feedback/metrics.csv

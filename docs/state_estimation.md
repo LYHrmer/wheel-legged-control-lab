@@ -113,7 +113,7 @@ wheel-legged-d1-benchmark \
   --audit-episodes 30 \
   --seed 21 \
   --no-policy \
-  --output results/d1_state_delay_raw
+  --output results/my_state_delay_raw
 
 wheel-legged-d1-benchmark \
   --state-delay-sweep \
@@ -123,7 +123,7 @@ wheel-legged-d1-benchmark \
   --audit-episodes 30 \
   --seed 21 \
   --no-policy \
-  --output results/d1_state_delay_compensated
+  --output results/my_state_delay_compensated
 ```
 
 延迟固定为 `0/10/20/30/50 ms`。动作延迟和噪声关掉；程序核对每个评测种子的域参数、
@@ -156,7 +156,7 @@ wheel-legged-train \
   --seed 7 \
   --runs 5 \
   --device cpu \
-  --output results/d1_estimated_ppo
+  --output results/my_estimated_ppo
 ```
 
 使用 8 个环境时，多次训练写入 `seed_0007`、`seed_0015` 等目录，避免相邻 run 复用七条

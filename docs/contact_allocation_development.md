@@ -58,7 +58,7 @@ limited，其中 698 步已满足当前工程容差。现在把求解器退出�
 每次启动新的 Python 进程，再运行：
 
 ```bash
-wheel-legged-d1-contact-audit --seed 21 --episodes 3 --output results/contact_dev
+wheel-legged-d1-contact-audit --seed 21 --episodes 3 --output results/my_contact_dev
 ```
 
 每次输出会替换该目录内同名的六个审计产物，配置记录当前特征长度、SLSQP 参数、跟踪

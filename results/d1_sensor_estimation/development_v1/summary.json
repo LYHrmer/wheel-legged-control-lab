@@ -1,0 +1,1083 @@
+{
+  "schema": "d1-imu-encoder-complementary-v1",
+  "purpose": "development; not held-out evaluation",
+  "initial_position_prior_m": [
+    0.0,
+    0.0,
+    0.48
+  ],
+  "initial_rpy_prior_rad": [
+    0,
+    0,
+    0
+  ],
+  "initial_velocity_prior_mps": [
+    0,
+    0,
+    0
+  ],
+  "contact_sensor_assumption": "four ideal summed normal-load >1N binary switches; no normal or force given to observer",
+  "noise_parameters_status": "illustrative per-sample perturbations, not identified hardware sensor specs",
+  "source_sha256": {
+    "/home/lyh/wheel-legged-control-lab/scripts/evaluate_d1_sensor_estimation.py": "f90a952977d8ca577f17fa903bbe7e9e7cb1e6983429a5f4bb9e79c28f080674",
+    "src/wheel_legged_control/d1/sensor_estimation.py": "5ce186468343723e8a63ef7f3ab026996a70d00bbb794925630d3749f383b34b"
+  },
+  "cases": [
+    {
+      "mode": "offline",
+      "noise": "ideal",
+      "noise_config": {
+        "gyro_std_rad_s": 0.0,
+        "accelerometer_std_m_s2": 0.0,
+        "encoder_position_std_rad": 0.0,
+        "encoder_velocity_std_rad_s": 0.0,
+        "gyro_bias_rad_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "accelerometer_bias_m_s2": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "terrain": "flat",
+      "terrain_config": {
+        "kind": "flat",
+        "amplitude_m": 0.0,
+        "slope_deg": 0.0,
+        "wavelength_m": 0.8,
+        "phase_rad": 0.0
+      },
+      "seed": 17,
+      "steps": 400,
+      "duration_s": 4.0,
+      "termination_reason": "time_limit",
+      "position_x_final_error_m": 0.07647061992920168,
+      "height_final_error_m": -0.02382225372555652,
+      "pitch_rmse_rad": 0.005044705365906311,
+      "yaw_final_error_rad": -2.3165775204780914e-06,
+      "velocity_estimation_rmse_mps": 0.02383593015242779,
+      "clearance_estimation_rmse_m": 0.001808733113637177,
+      "ground_pitch_rmse_rad": 0.005118655336293916,
+      "tracking_rmse_mps": 0.1138776542535694,
+      "forward_displacement_m": 0.8777285982442825,
+      "replay_bitwise_equal": true,
+      "support_plane_observable_fraction": 0.9225,
+      "wall_time_s": 1.8206458740000926
+    },
+    {
+      "mode": "offline",
+      "noise": "noise",
+      "noise_config": {
+        "gyro_std_rad_s": 0.002,
+        "accelerometer_std_m_s2": 0.05,
+        "encoder_position_std_rad": 0.0001,
+        "encoder_velocity_std_rad_s": 0.005,
+        "gyro_bias_rad_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "accelerometer_bias_m_s2": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "terrain": "flat",
+      "terrain_config": {
+        "kind": "flat",
+        "amplitude_m": 0.0,
+        "slope_deg": 0.0,
+        "wavelength_m": 0.8,
+        "phase_rad": 0.0
+      },
+      "seed": 17,
+      "steps": 400,
+      "duration_s": 4.0,
+      "termination_reason": "time_limit",
+      "position_x_final_error_m": 0.07715652160240527,
+      "height_final_error_m": -0.02397640743215329,
+      "pitch_rmse_rad": 0.004792540763687639,
+      "yaw_final_error_rad": -0.0005589897501652175,
+      "velocity_estimation_rmse_mps": 0.024009951381711882,
+      "clearance_estimation_rmse_m": 0.0018093112387511903,
+      "ground_pitch_rmse_rad": 0.004876032563901002,
+      "tracking_rmse_mps": 0.1138776542535694,
+      "forward_displacement_m": 0.8777285982442825,
+      "replay_bitwise_equal": true,
+      "support_plane_observable_fraction": 0.9225,
+      "wall_time_s": 1.9800909040000079
+    },
+    {
+      "mode": "offline",
+      "noise": "bias",
+      "noise_config": {
+        "gyro_std_rad_s": 0.002,
+        "accelerometer_std_m_s2": 0.05,
+        "encoder_position_std_rad": 0.0001,
+        "encoder_velocity_std_rad_s": 0.005,
+        "gyro_bias_rad_s": [
+          0.002,
+          -0.003,
+          0.005
+        ],
+        "accelerometer_bias_m_s2": [
+          0.05,
+          -0.03,
+          0.08
+        ]
+      },
+      "terrain": "flat",
+      "terrain_config": {
+        "kind": "flat",
+        "amplitude_m": 0.0,
+        "slope_deg": 0.0,
+        "wavelength_m": 0.8,
+        "phase_rad": 0.0
+      },
+      "seed": 17,
+      "steps": 400,
+      "duration_s": 4.0,
+      "termination_reason": "time_limit",
+      "position_x_final_error_m": 0.07260716550612067,
+      "height_final_error_m": -0.01307906341474252,
+      "pitch_rmse_rad": 0.006945661306197722,
+      "yaw_final_error_rad": 0.019514479035027676,
+      "velocity_estimation_rmse_mps": 0.02304703041162663,
+      "clearance_estimation_rmse_m": 0.0018036504862733416,
+      "ground_pitch_rmse_rad": 0.006994353032839577,
+      "tracking_rmse_mps": 0.1138776542535694,
+      "forward_displacement_m": 0.8777285982442825,
+      "replay_bitwise_equal": true,
+      "support_plane_observable_fraction": 0.9225,
+      "wall_time_s": 1.8276637660001143
+    },
+    {
+      "mode": "offline",
+      "noise": "ideal",
+      "noise_config": {
+        "gyro_std_rad_s": 0.0,
+        "accelerometer_std_m_s2": 0.0,
+        "encoder_position_std_rad": 0.0,
+        "encoder_velocity_std_rad_s": 0.0,
+        "gyro_bias_rad_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "accelerometer_bias_m_s2": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "terrain": "ramp_up_4",
+      "terrain_config": {
+        "kind": "ramp",
+        "amplitude_m": 0.0,
+        "slope_deg": 4.0,
+        "wavelength_m": 0.8,
+        "phase_rad": 0.0
+      },
+      "seed": 17,
+      "steps": 400,
+      "duration_s": 4.0,
+      "termination_reason": "time_limit",
+      "position_x_final_error_m": 0.06931670843822613,
+      "height_final_error_m": -0.009417920879915886,
+      "pitch_rmse_rad": 0.008635512171546957,
+      "yaw_final_error_rad": 4.472293512680636e-05,
+      "velocity_estimation_rmse_mps": 0.022367009456401812,
+      "clearance_estimation_rmse_m": 0.0021056044235848483,
+      "ground_pitch_rmse_rad": 0.01154766140490868,
+      "tracking_rmse_mps": 0.11345644239490855,
+      "forward_displacement_m": 0.9808585879150499,
+      "replay_bitwise_equal": true,
+      "support_plane_observable_fraction": 0.9625,
+      "wall_time_s": 1.7815859600000294
+    },
+    {
+      "mode": "offline",
+      "noise": "noise",
+      "noise_config": {
+        "gyro_std_rad_s": 0.002,
+        "accelerometer_std_m_s2": 0.05,
+        "encoder_position_std_rad": 0.0001,
+        "encoder_velocity_std_rad_s": 0.005,
+        "gyro_bias_rad_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "accelerometer_bias_m_s2": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "terrain": "ramp_up_4",
+      "terrain_config": {
+        "kind": "ramp",
+        "amplitude_m": 0.0,
+        "slope_deg": 4.0,
+        "wavelength_m": 0.8,
+        "phase_rad": 0.0
+      },
+      "seed": 17,
+      "steps": 400,
+      "duration_s": 4.0,
+      "termination_reason": "time_limit",
+      "position_x_final_error_m": 0.06946953677777079,
+      "height_final_error_m": -0.009318114464065497,
+      "pitch_rmse_rad": 0.009017134997195411,
+      "yaw_final_error_rad": -0.0005336103692661354,
+      "velocity_estimation_rmse_mps": 0.022399987690061643,
+      "clearance_estimation_rmse_m": 0.0021081490697773255,
+      "ground_pitch_rmse_rad": 0.011834521000522024,
+      "tracking_rmse_mps": 0.11345644239490855,
+      "forward_displacement_m": 0.9808585879150499,
+      "replay_bitwise_equal": true,
+      "support_plane_observable_fraction": 0.9625,
+      "wall_time_s": 1.226383946000169
+    },
+    {
+      "mode": "offline",
+      "noise": "bias",
+      "noise_config": {
+        "gyro_std_rad_s": 0.002,
+        "accelerometer_std_m_s2": 0.05,
+        "encoder_position_std_rad": 0.0001,
+        "encoder_velocity_std_rad_s": 0.005,
+        "gyro_bias_rad_s": [
+          0.002,
+          -0.003,
+          0.005
+        ],
+        "accelerometer_bias_m_s2": [
+          0.05,
+          -0.03,
+          0.08
+        ]
+      },
+      "terrain": "ramp_up_4",
+      "terrain_config": {
+        "kind": "ramp",
+        "amplitude_m": 0.0,
+        "slope_deg": 4.0,
+        "wavelength_m": 0.8,
+        "phase_rad": 0.0
+      },
+      "seed": 17,
+      "steps": 400,
+      "duration_s": 4.0,
+      "termination_reason": "time_limit",
+      "position_x_final_error_m": 0.064302989789773,
+      "height_final_error_m": 0.0019140411217341002,
+      "pitch_rmse_rad": 0.010747528565931638,
+      "yaw_final_error_rad": 0.020094164550952698,
+      "velocity_estimation_rmse_mps": 0.021677124376524838,
+      "clearance_estimation_rmse_m": 0.0019860726177375596,
+      "ground_pitch_rmse_rad": 0.013036382442579191,
+      "tracking_rmse_mps": 0.11345644239490855,
+      "forward_displacement_m": 0.9808585879150499,
+      "replay_bitwise_equal": true,
+      "support_plane_observable_fraction": 0.9625,
+      "wall_time_s": 1.3966762199997902
+    },
+    {
+      "mode": "offline",
+      "noise": "ideal",
+      "noise_config": {
+        "gyro_std_rad_s": 0.0,
+        "accelerometer_std_m_s2": 0.0,
+        "encoder_position_std_rad": 0.0,
+        "encoder_velocity_std_rad_s": 0.0,
+        "gyro_bias_rad_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "accelerometer_bias_m_s2": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "terrain": "ramp_down_4",
+      "terrain_config": {
+        "kind": "ramp",
+        "amplitude_m": 0.0,
+        "slope_deg": -4.0,
+        "wavelength_m": 0.8,
+        "phase_rad": 0.0
+      },
+      "seed": 17,
+      "steps": 400,
+      "duration_s": 4.0,
+      "termination_reason": "time_limit",
+      "position_x_final_error_m": 0.00021850593021821574,
+      "height_final_error_m": -0.018763765652133002,
+      "pitch_rmse_rad": 0.0045845607691424916,
+      "yaw_final_error_rad": -8.834427249837518e-05,
+      "velocity_estimation_rmse_mps": 0.008388360382976993,
+      "clearance_estimation_rmse_m": 0.002222203824141534,
+      "ground_pitch_rmse_rad": 0.008547145966209008,
+      "tracking_rmse_mps": 0.07193548067428075,
+      "forward_displacement_m": 1.1517875345526067,
+      "replay_bitwise_equal": true,
+      "support_plane_observable_fraction": 0.9675,
+      "wall_time_s": 1.8095705680002538
+    },
+    {
+      "mode": "offline",
+      "noise": "noise",
+      "noise_config": {
+        "gyro_std_rad_s": 0.002,
+        "accelerometer_std_m_s2": 0.05,
+        "encoder_position_std_rad": 0.0001,
+        "encoder_velocity_std_rad_s": 0.005,
+        "gyro_bias_rad_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "accelerometer_bias_m_s2": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "terrain": "ramp_down_4",
+      "terrain_config": {
+        "kind": "ramp",
+        "amplitude_m": 0.0,
+        "slope_deg": -4.0,
+        "wavelength_m": 0.8,
+        "phase_rad": 0.0
+      },
+      "seed": 17,
+      "steps": 400,
+      "duration_s": 4.0,
+      "termination_reason": "time_limit",
+      "position_x_final_error_m": 0.00015436352992326263,
+      "height_final_error_m": -0.01825301719482203,
+      "pitch_rmse_rad": 0.004711913844126494,
+      "yaw_final_error_rad": -0.0006118596322441938,
+      "velocity_estimation_rmse_mps": 0.00855502740290562,
+      "clearance_estimation_rmse_m": 0.0022304735976477214,
+      "ground_pitch_rmse_rad": 0.008634225964854102,
+      "tracking_rmse_mps": 0.07193548067428075,
+      "forward_displacement_m": 1.1517875345526067,
+      "replay_bitwise_equal": true,
+      "support_plane_observable_fraction": 0.9675,
+      "wall_time_s": 1.5433648050002375
+    },
+    {
+      "mode": "offline",
+      "noise": "bias",
+      "noise_config": {
+        "gyro_std_rad_s": 0.002,
+        "accelerometer_std_m_s2": 0.05,
+        "encoder_position_std_rad": 0.0001,
+        "encoder_velocity_std_rad_s": 0.005,
+        "gyro_bias_rad_s": [
+          0.002,
+          -0.003,
+          0.005
+        ],
+        "accelerometer_bias_m_s2": [
+          0.05,
+          -0.03,
+          0.08
+        ]
+      },
+      "terrain": "ramp_down_4",
+      "terrain_config": {
+        "kind": "ramp",
+        "amplitude_m": 0.0,
+        "slope_deg": -4.0,
+        "wavelength_m": 0.8,
+        "phase_rad": 0.0
+      },
+      "seed": 17,
+      "steps": 400,
+      "duration_s": 4.0,
+      "termination_reason": "time_limit",
+      "position_x_final_error_m": -0.00504005198263946,
+      "height_final_error_m": -0.003981767378648637,
+      "pitch_rmse_rad": 0.009525928751328482,
+      "yaw_final_error_rad": 0.018826179830442324,
+      "velocity_estimation_rmse_mps": 0.008669708046751361,
+      "clearance_estimation_rmse_m": 0.002398927005526707,
+      "ground_pitch_rmse_rad": 0.012078578118501314,
+      "tracking_rmse_mps": 0.07193548067428075,
+      "forward_displacement_m": 1.1517875345526067,
+      "replay_bitwise_equal": true,
+      "support_plane_observable_fraction": 0.9675,
+      "wall_time_s": 1.5259209979999468
+    },
+    {
+      "mode": "offline",
+      "noise": "ideal",
+      "noise_config": {
+        "gyro_std_rad_s": 0.0,
+        "accelerometer_std_m_s2": 0.0,
+        "encoder_position_std_rad": 0.0,
+        "encoder_velocity_std_rad_s": 0.0,
+        "gyro_bias_rad_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "accelerometer_bias_m_s2": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "terrain": "bumps_5mm",
+      "terrain_config": {
+        "kind": "bumps",
+        "amplitude_m": 0.005,
+        "slope_deg": 0.0,
+        "wavelength_m": 0.8,
+        "phase_rad": 0.0
+      },
+      "seed": 17,
+      "steps": 400,
+      "duration_s": 4.0,
+      "termination_reason": "time_limit",
+      "position_x_final_error_m": 0.057559039655486144,
+      "height_final_error_m": -0.013008964856452254,
+      "pitch_rmse_rad": 0.011673081608347199,
+      "yaw_final_error_rad": -0.00041353601167504195,
+      "velocity_estimation_rmse_mps": 0.021321773062517372,
+      "clearance_estimation_rmse_m": 0.0031788030019305343,
+      "ground_pitch_rmse_rad": 0.016311310557473473,
+      "tracking_rmse_mps": 0.10660720976594121,
+      "forward_displacement_m": 1.0809912532252457,
+      "replay_bitwise_equal": true,
+      "support_plane_observable_fraction": 0.9475,
+      "wall_time_s": 1.507160200999806
+    },
+    {
+      "mode": "offline",
+      "noise": "noise",
+      "noise_config": {
+        "gyro_std_rad_s": 0.002,
+        "accelerometer_std_m_s2": 0.05,
+        "encoder_position_std_rad": 0.0001,
+        "encoder_velocity_std_rad_s": 0.005,
+        "gyro_bias_rad_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "accelerometer_bias_m_s2": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "terrain": "bumps_5mm",
+      "terrain_config": {
+        "kind": "bumps",
+        "amplitude_m": 0.005,
+        "slope_deg": 0.0,
+        "wavelength_m": 0.8,
+        "phase_rad": 0.0
+      },
+      "seed": 17,
+      "steps": 400,
+      "duration_s": 4.0,
+      "termination_reason": "time_limit",
+      "position_x_final_error_m": 0.05739155934643536,
+      "height_final_error_m": -0.01239698016717572,
+      "pitch_rmse_rad": 0.011867494120493425,
+      "yaw_final_error_rad": -0.0010179030707386794,
+      "velocity_estimation_rmse_mps": 0.021309961601822493,
+      "clearance_estimation_rmse_m": 0.003182126786916206,
+      "ground_pitch_rmse_rad": 0.016500037434302416,
+      "tracking_rmse_mps": 0.10660720976594121,
+      "forward_displacement_m": 1.0809912532252457,
+      "replay_bitwise_equal": true,
+      "support_plane_observable_fraction": 0.9475,
+      "wall_time_s": 1.5945755689999714
+    },
+    {
+      "mode": "offline",
+      "noise": "bias",
+      "noise_config": {
+        "gyro_std_rad_s": 0.002,
+        "accelerometer_std_m_s2": 0.05,
+        "encoder_position_std_rad": 0.0001,
+        "encoder_velocity_std_rad_s": 0.005,
+        "gyro_bias_rad_s": [
+          0.002,
+          -0.003,
+          0.005
+        ],
+        "accelerometer_bias_m_s2": [
+          0.05,
+          -0.03,
+          0.08
+        ]
+      },
+      "terrain": "bumps_5mm",
+      "terrain_config": {
+        "kind": "bumps",
+        "amplitude_m": 0.005,
+        "slope_deg": 0.0,
+        "wavelength_m": 0.8,
+        "phase_rad": 0.0
+      },
+      "seed": 17,
+      "steps": 400,
+      "duration_s": 4.0,
+      "termination_reason": "time_limit",
+      "position_x_final_error_m": 0.052368491793687966,
+      "height_final_error_m": -0.00014258555062429679,
+      "pitch_rmse_rad": 0.013725050115599435,
+      "yaw_final_error_rad": 0.019169264747525894,
+      "velocity_estimation_rmse_mps": 0.020677396764939182,
+      "clearance_estimation_rmse_m": 0.0031921151053838615,
+      "ground_pitch_rmse_rad": 0.017076012333364064,
+      "tracking_rmse_mps": 0.10660720976594121,
+      "forward_displacement_m": 1.0809912532252457,
+      "replay_bitwise_equal": true,
+      "support_plane_observable_fraction": 0.9475,
+      "wall_time_s": 1.5778371119999974
+    },
+    {
+      "mode": "closed_loop",
+      "noise": "ideal",
+      "noise_config": {
+        "gyro_std_rad_s": 0.0,
+        "accelerometer_std_m_s2": 0.0,
+        "encoder_position_std_rad": 0.0,
+        "encoder_velocity_std_rad_s": 0.0,
+        "gyro_bias_rad_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "accelerometer_bias_m_s2": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "terrain": "flat",
+      "terrain_config": {
+        "kind": "flat",
+        "amplitude_m": 0.0,
+        "slope_deg": 0.0,
+        "wavelength_m": 0.8,
+        "phase_rad": 0.0
+      },
+      "seed": 17,
+      "steps": 400,
+      "duration_s": 4.0,
+      "termination_reason": "time_limit",
+      "position_x_final_error_m": 0.07271990666091266,
+      "height_final_error_m": -0.017358640411455406,
+      "pitch_rmse_rad": 0.008537263699872113,
+      "yaw_final_error_rad": -0.0002832105548913333,
+      "velocity_estimation_rmse_mps": 0.02104495809132874,
+      "clearance_estimation_rmse_m": 0.0017843045633721042,
+      "ground_pitch_rmse_rad": 0.008556649615071372,
+      "tracking_rmse_mps": 0.1044708820382979,
+      "forward_displacement_m": 0.9269750333796024,
+      "replay_bitwise_equal": true,
+      "support_plane_observable_fraction": 0.91,
+      "wall_time_s": 1.642394639000031
+    },
+    {
+      "mode": "closed_loop",
+      "noise": "noise",
+      "noise_config": {
+        "gyro_std_rad_s": 0.002,
+        "accelerometer_std_m_s2": 0.05,
+        "encoder_position_std_rad": 0.0001,
+        "encoder_velocity_std_rad_s": 0.005,
+        "gyro_bias_rad_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "accelerometer_bias_m_s2": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "terrain": "flat",
+      "terrain_config": {
+        "kind": "flat",
+        "amplitude_m": 0.0,
+        "slope_deg": 0.0,
+        "wavelength_m": 0.8,
+        "phase_rad": 0.0
+      },
+      "seed": 17,
+      "steps": 400,
+      "duration_s": 4.0,
+      "termination_reason": "time_limit",
+      "position_x_final_error_m": 0.07416564207997511,
+      "height_final_error_m": -0.018169043780049854,
+      "pitch_rmse_rad": 0.006877897623241042,
+      "yaw_final_error_rad": -0.0003504772280789048,
+      "velocity_estimation_rmse_mps": 0.021757967428638836,
+      "clearance_estimation_rmse_m": 0.001792281844456847,
+      "ground_pitch_rmse_rad": 0.0069129802216546885,
+      "tracking_rmse_mps": 0.10937673975463734,
+      "forward_displacement_m": 0.8982206019280625,
+      "replay_bitwise_equal": true,
+      "support_plane_observable_fraction": 0.9325,
+      "wall_time_s": 1.5941664599999967
+    },
+    {
+      "mode": "closed_loop",
+      "noise": "bias",
+      "noise_config": {
+        "gyro_std_rad_s": 0.002,
+        "accelerometer_std_m_s2": 0.05,
+        "encoder_position_std_rad": 0.0001,
+        "encoder_velocity_std_rad_s": 0.005,
+        "gyro_bias_rad_s": [
+          0.002,
+          -0.003,
+          0.005
+        ],
+        "accelerometer_bias_m_s2": [
+          0.05,
+          -0.03,
+          0.08
+        ]
+      },
+      "terrain": "flat",
+      "terrain_config": {
+        "kind": "flat",
+        "amplitude_m": 0.0,
+        "slope_deg": 0.0,
+        "wavelength_m": 0.8,
+        "phase_rad": 0.0
+      },
+      "seed": 17,
+      "steps": 400,
+      "duration_s": 4.0,
+      "termination_reason": "time_limit",
+      "position_x_final_error_m": 0.06674246622170354,
+      "height_final_error_m": -0.006413240071153348,
+      "pitch_rmse_rad": 0.014548437624103308,
+      "yaw_final_error_rad": 0.019527427663925234,
+      "velocity_estimation_rmse_mps": 0.019913147170364416,
+      "clearance_estimation_rmse_m": 0.0017531283607569487,
+      "ground_pitch_rmse_rad": 0.014494809330619363,
+      "tracking_rmse_mps": 0.09314132344374536,
+      "forward_displacement_m": 1.0036205267084124,
+      "replay_bitwise_equal": true,
+      "support_plane_observable_fraction": 0.9075,
+      "wall_time_s": 1.6580610760001946
+    },
+    {
+      "mode": "closed_loop",
+      "noise": "ideal",
+      "noise_config": {
+        "gyro_std_rad_s": 0.0,
+        "accelerometer_std_m_s2": 0.0,
+        "encoder_position_std_rad": 0.0,
+        "encoder_velocity_std_rad_s": 0.0,
+        "gyro_bias_rad_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "accelerometer_bias_m_s2": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "terrain": "ramp_up_4",
+      "terrain_config": {
+        "kind": "ramp",
+        "amplitude_m": 0.0,
+        "slope_deg": 4.0,
+        "wavelength_m": 0.8,
+        "phase_rad": 0.0
+      },
+      "seed": 17,
+      "steps": 400,
+      "duration_s": 4.0,
+      "termination_reason": "time_limit",
+      "position_x_final_error_m": 0.05642625682284241,
+      "height_final_error_m": 5.403102765200174e-06,
+      "pitch_rmse_rad": 0.012045318062762702,
+      "yaw_final_error_rad": 2.5619992465308883e-06,
+      "velocity_estimation_rmse_mps": 0.016546305452473736,
+      "clearance_estimation_rmse_m": 0.0019514512237717332,
+      "ground_pitch_rmse_rad": 0.013806222820893707,
+      "tracking_rmse_mps": 0.12988289766489286,
+      "forward_displacement_m": 1.0600743053116963,
+      "replay_bitwise_equal": true,
+      "support_plane_observable_fraction": 0.975,
+      "wall_time_s": 1.4724515319999227
+    },
+    {
+      "mode": "closed_loop",
+      "noise": "noise",
+      "noise_config": {
+        "gyro_std_rad_s": 0.002,
+        "accelerometer_std_m_s2": 0.05,
+        "encoder_position_std_rad": 0.0001,
+        "encoder_velocity_std_rad_s": 0.005,
+        "gyro_bias_rad_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "accelerometer_bias_m_s2": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "terrain": "ramp_up_4",
+      "terrain_config": {
+        "kind": "ramp",
+        "amplitude_m": 0.0,
+        "slope_deg": 4.0,
+        "wavelength_m": 0.8,
+        "phase_rad": 0.0
+      },
+      "seed": 17,
+      "steps": 400,
+      "duration_s": 4.0,
+      "termination_reason": "time_limit",
+      "position_x_final_error_m": 0.05898603871080521,
+      "height_final_error_m": -0.0025754577781202936,
+      "pitch_rmse_rad": 0.011788979709969208,
+      "yaw_final_error_rad": -8.264813207059518e-05,
+      "velocity_estimation_rmse_mps": 0.017475729295796785,
+      "clearance_estimation_rmse_m": 0.0019519878577899054,
+      "ground_pitch_rmse_rad": 0.013602376665474827,
+      "tracking_rmse_mps": 0.12991758945271797,
+      "forward_displacement_m": 1.022028718370466,
+      "replay_bitwise_equal": true,
+      "support_plane_observable_fraction": 0.955,
+      "wall_time_s": 1.380892388999655
+    },
+    {
+      "mode": "closed_loop",
+      "noise": "bias",
+      "noise_config": {
+        "gyro_std_rad_s": 0.002,
+        "accelerometer_std_m_s2": 0.05,
+        "encoder_position_std_rad": 0.0001,
+        "encoder_velocity_std_rad_s": 0.005,
+        "gyro_bias_rad_s": [
+          0.002,
+          -0.003,
+          0.005
+        ],
+        "accelerometer_bias_m_s2": [
+          0.05,
+          -0.03,
+          0.08
+        ]
+      },
+      "terrain": "ramp_up_4",
+      "terrain_config": {
+        "kind": "ramp",
+        "amplitude_m": 0.0,
+        "slope_deg": 4.0,
+        "wavelength_m": 0.8,
+        "phase_rad": 0.0
+      },
+      "seed": 17,
+      "steps": 400,
+      "duration_s": 4.0,
+      "termination_reason": "time_limit",
+      "position_x_final_error_m": 0.0505272362633431,
+      "height_final_error_m": 0.012395733707834422,
+      "pitch_rmse_rad": 0.016638556819558708,
+      "yaw_final_error_rad": 0.020082655006794514,
+      "velocity_estimation_rmse_mps": 0.015417853493026512,
+      "clearance_estimation_rmse_m": 0.0017201944178280419,
+      "ground_pitch_rmse_rad": 0.01772730782614551,
+      "tracking_rmse_mps": 0.12513518536486748,
+      "forward_displacement_m": 1.1380429917367658,
+      "replay_bitwise_equal": true,
+      "support_plane_observable_fraction": 0.955,
+      "wall_time_s": 1.4211415889999444
+    },
+    {
+      "mode": "closed_loop",
+      "noise": "ideal",
+      "noise_config": {
+        "gyro_std_rad_s": 0.0,
+        "accelerometer_std_m_s2": 0.0,
+        "encoder_position_std_rad": 0.0,
+        "encoder_velocity_std_rad_s": 0.0,
+        "gyro_bias_rad_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "accelerometer_bias_m_s2": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "terrain": "ramp_down_4",
+      "terrain_config": {
+        "kind": "ramp",
+        "amplitude_m": 0.0,
+        "slope_deg": -4.0,
+        "wavelength_m": 0.8,
+        "phase_rad": 0.0
+      },
+      "seed": 17,
+      "steps": 400,
+      "duration_s": 4.0,
+      "termination_reason": "time_limit",
+      "position_x_final_error_m": 0.00013608356820515866,
+      "height_final_error_m": -0.016604619065802628,
+      "pitch_rmse_rad": 0.006119767875697858,
+      "yaw_final_error_rad": 0.00012743639273704588,
+      "velocity_estimation_rmse_mps": 0.007295544946372538,
+      "clearance_estimation_rmse_m": 0.002295281104897434,
+      "ground_pitch_rmse_rad": 0.009594345557357305,
+      "tracking_rmse_mps": 0.07135463319603143,
+      "forward_displacement_m": 1.1537401407836125,
+      "replay_bitwise_equal": true,
+      "support_plane_observable_fraction": 0.95,
+      "wall_time_s": 1.2831627199998366
+    },
+    {
+      "mode": "closed_loop",
+      "noise": "noise",
+      "noise_config": {
+        "gyro_std_rad_s": 0.002,
+        "accelerometer_std_m_s2": 0.05,
+        "encoder_position_std_rad": 0.0001,
+        "encoder_velocity_std_rad_s": 0.005,
+        "gyro_bias_rad_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "accelerometer_bias_m_s2": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "terrain": "ramp_down_4",
+      "terrain_config": {
+        "kind": "ramp",
+        "amplitude_m": 0.0,
+        "slope_deg": -4.0,
+        "wavelength_m": 0.8,
+        "phase_rad": 0.0
+      },
+      "seed": 17,
+      "steps": 400,
+      "duration_s": 4.0,
+      "termination_reason": "time_limit",
+      "position_x_final_error_m": -0.0012111833014105677,
+      "height_final_error_m": -0.016058577048682243,
+      "pitch_rmse_rad": 0.005904331729966904,
+      "yaw_final_error_rad": -0.00027395543095121155,
+      "velocity_estimation_rmse_mps": 0.007398540339731699,
+      "clearance_estimation_rmse_m": 0.002295421221416199,
+      "ground_pitch_rmse_rad": 0.009467671252045519,
+      "tracking_rmse_mps": 0.0689435963469158,
+      "forward_displacement_m": 1.150908791194799,
+      "replay_bitwise_equal": true,
+      "support_plane_observable_fraction": 0.98,
+      "wall_time_s": 1.531318476999786
+    },
+    {
+      "mode": "closed_loop",
+      "noise": "bias",
+      "noise_config": {
+        "gyro_std_rad_s": 0.002,
+        "accelerometer_std_m_s2": 0.05,
+        "encoder_position_std_rad": 0.0001,
+        "encoder_velocity_std_rad_s": 0.005,
+        "gyro_bias_rad_s": [
+          0.002,
+          -0.003,
+          0.005
+        ],
+        "accelerometer_bias_m_s2": [
+          0.05,
+          -0.03,
+          0.08
+        ]
+      },
+      "terrain": "ramp_down_4",
+      "terrain_config": {
+        "kind": "ramp",
+        "amplitude_m": 0.0,
+        "slope_deg": -4.0,
+        "wavelength_m": 0.8,
+        "phase_rad": 0.0
+      },
+      "seed": 17,
+      "steps": 400,
+      "duration_s": 4.0,
+      "termination_reason": "time_limit",
+      "position_x_final_error_m": -0.005428074896504542,
+      "height_final_error_m": 0.0020581214774882395,
+      "pitch_rmse_rad": 0.010210925788924897,
+      "yaw_final_error_rad": 0.019079106665260692,
+      "velocity_estimation_rmse_mps": 0.007649619163420982,
+      "clearance_estimation_rmse_m": 0.002455640712664292,
+      "ground_pitch_rmse_rad": 0.012672327894788175,
+      "tracking_rmse_mps": 0.07082972394301718,
+      "forward_displacement_m": 1.2141948731859633,
+      "replay_bitwise_equal": true,
+      "support_plane_observable_fraction": 0.98,
+      "wall_time_s": 1.4637215770003422
+    },
+    {
+      "mode": "closed_loop",
+      "noise": "ideal",
+      "noise_config": {
+        "gyro_std_rad_s": 0.0,
+        "accelerometer_std_m_s2": 0.0,
+        "encoder_position_std_rad": 0.0,
+        "encoder_velocity_std_rad_s": 0.0,
+        "gyro_bias_rad_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "accelerometer_bias_m_s2": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "terrain": "bumps_5mm",
+      "terrain_config": {
+        "kind": "bumps",
+        "amplitude_m": 0.005,
+        "slope_deg": 0.0,
+        "wavelength_m": 0.8,
+        "phase_rad": 0.0
+      },
+      "seed": 17,
+      "steps": 400,
+      "duration_s": 4.0,
+      "termination_reason": "time_limit",
+      "position_x_final_error_m": 0.04697571450440563,
+      "height_final_error_m": -0.009330006123844437,
+      "pitch_rmse_rad": 0.01595318410763809,
+      "yaw_final_error_rad": -2.481561826250811e-06,
+      "velocity_estimation_rmse_mps": 0.015902147920258042,
+      "clearance_estimation_rmse_m": 0.0028413237428611617,
+      "ground_pitch_rmse_rad": 0.02223929758278854,
+      "tracking_rmse_mps": 0.1474407421390212,
+      "forward_displacement_m": 1.0767784932715043,
+      "replay_bitwise_equal": true,
+      "support_plane_observable_fraction": 0.9425,
+      "wall_time_s": 1.3880641549999382
+    },
+    {
+      "mode": "closed_loop",
+      "noise": "noise",
+      "noise_config": {
+        "gyro_std_rad_s": 0.002,
+        "accelerometer_std_m_s2": 0.05,
+        "encoder_position_std_rad": 0.0001,
+        "encoder_velocity_std_rad_s": 0.005,
+        "gyro_bias_rad_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "accelerometer_bias_m_s2": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "terrain": "bumps_5mm",
+      "terrain_config": {
+        "kind": "bumps",
+        "amplitude_m": 0.005,
+        "slope_deg": 0.0,
+        "wavelength_m": 0.8,
+        "phase_rad": 0.0
+      },
+      "seed": 17,
+      "steps": 400,
+      "duration_s": 4.0,
+      "termination_reason": "time_limit",
+      "position_x_final_error_m": 0.044756333875529464,
+      "height_final_error_m": -0.008751990060203663,
+      "pitch_rmse_rad": 0.015928569663676364,
+      "yaw_final_error_rad": -0.0007817872285822425,
+      "velocity_estimation_rmse_mps": 0.015014596625147042,
+      "clearance_estimation_rmse_m": 0.0028136168851971757,
+      "ground_pitch_rmse_rad": 0.022447372798202303,
+      "tracking_rmse_mps": 0.14781406718494608,
+      "forward_displacement_m": 1.099510489335525,
+      "replay_bitwise_equal": true,
+      "support_plane_observable_fraction": 0.955,
+      "wall_time_s": 1.3649105849999614
+    },
+    {
+      "mode": "closed_loop",
+      "noise": "bias",
+      "noise_config": {
+        "gyro_std_rad_s": 0.002,
+        "accelerometer_std_m_s2": 0.05,
+        "encoder_position_std_rad": 0.0001,
+        "encoder_velocity_std_rad_s": 0.005,
+        "gyro_bias_rad_s": [
+          0.002,
+          -0.003,
+          0.005
+        ],
+        "accelerometer_bias_m_s2": [
+          0.05,
+          -0.03,
+          0.08
+        ]
+      },
+      "terrain": "bumps_5mm",
+      "terrain_config": {
+        "kind": "bumps",
+        "amplitude_m": 0.005,
+        "slope_deg": 0.0,
+        "wavelength_m": 0.8,
+        "phase_rad": 0.0
+      },
+      "seed": 17,
+      "steps": 400,
+      "duration_s": 4.0,
+      "termination_reason": "time_limit",
+      "position_x_final_error_m": 0.041858927375065136,
+      "height_final_error_m": 0.0037676412320754027,
+      "pitch_rmse_rad": 0.018502007591935987,
+      "yaw_final_error_rad": 0.01944009664537072,
+      "velocity_estimation_rmse_mps": 0.015102857868508993,
+      "clearance_estimation_rmse_m": 0.002761103796670638,
+      "ground_pitch_rmse_rad": 0.023575418810065706,
+      "tracking_rmse_mps": 0.14357322945264456,
+      "forward_displacement_m": 1.1683904817791722,
+      "replay_bitwise_equal": true,
+      "support_plane_observable_fraction": 0.9325,
+      "wall_time_s": 1.4040077139998175
+    }
+  ]
+}

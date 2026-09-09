@@ -9,9 +9,9 @@
 在仓库根目录运行。需要项目的可选 `rl` 依赖；本机已有 `.local-deps`，CPU 即可。
 
 ```bash
-PYTHONPATH=src:.local-deps python3 examples/ppo_update_walkthrough.py
-PYTHONPATH=src:.local-deps python3 examples/ppo_update_walkthrough.py --output results/my_ppo_update
-PYTHONPATH=src:.local-deps python3 -m pytest tests/test_ppo_update.py
+PYTHONPATH=src python3 examples/ppo_update_walkthrough.py
+PYTHONPATH=src python3 examples/ppo_update_walkthrough.py --output results/my_ppo_update
+PYTHONPATH=src python3 -m pytest tests/test_ppo_update.py
 ```
 
 第一条只打印。`--output` 只能写新目录；已有记录不会被覆盖。默认配置的完整记录见

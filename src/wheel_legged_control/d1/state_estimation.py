@@ -176,6 +176,21 @@ class D1StateEstimate:
             dtype=np.float64,
         )
 
+    def base_origin_velocity(
+        self, com_offset_body_m: np.ndarray, *, local: bool = False
+    ) -> np.ndarray:
+        """Convert measured COM velocity to the visible origin's derivative.
+
+        The offset is an explicit nominal model parameter, not live truth.
+        Pass it in base_link axes; rotational motion contributes omega cross r.
+        """
+
+        offset = _immutable_array(com_offset_body_m, shape=(3,))
+        world = self.base_linear_velocity_world - np.cross(
+            self.base_angular_velocity_world, self.base_rotation @ offset
+        )
+        return self.base_rotation.T @ world if local else world
+
     def has_fallen(self) -> bool:
         roll, pitch, _ = self.base_rpy
         return bool(self.base_position[2] < 0.22 or abs(roll) > 0.85 or abs(pitch) > 0.85)
@@ -214,7 +229,7 @@ class D1MujocoTruthStateSource:
         rotation = np.zeros_like(translation)
         mujoco.mj_jac(
             self.plant.model,
-            self.plant.data,
+            self.plant.measurement_data,
             translation,
             rotation,
             point_world_m,
@@ -225,7 +240,7 @@ class D1MujocoTruthStateSource:
     def _capture(self) -> D1StateEstimate:
         plant = self.plant
         foot_position = np.asarray(
-            [plant.data.xpos[body_id] for body_id in self._foot_body_ids],
+            [plant.measurement_data.xpos[body_id] for body_id in self._foot_body_ids],
             dtype=np.float64,
         )
         foot_jacobian = np.empty((len(LEG_PREFIXES), 3, 4), dtype=np.float64)
@@ -234,9 +249,14 @@ class D1MujocoTruthStateSource:
         ):
             translation = np.zeros((3, plant.model.nv), dtype=np.float64)
             rotation = np.zeros_like(translation)
-            mujoco.mj_jacBodyCom(
+            jacobian_function = (
+                mujoco.mj_jacBody
+                if plant.sampling_mode == "synchronized"
+                else mujoco.mj_jacBodyCom
+            )
+            jacobian_function(
                 plant.model,
-                plant.data,
+                plant.measurement_data,
                 translation,
                 rotation,
                 body_id,
@@ -245,7 +265,7 @@ class D1MujocoTruthStateSource:
 
         contact_points: list[list[np.ndarray]] = [[] for _ in range(len(LEG_PREFIXES))]
         contact_normals: list[list[np.ndarray]] = [[] for _ in range(len(LEG_PREFIXES))]
-        for contact in plant.data.contact:
+        for contact in plant.measurement_data.contact:
             if int(contact.efc_address) < 0:
                 continue
             geom1 = int(contact.geom1)
@@ -284,13 +304,13 @@ class D1MujocoTruthStateSource:
 
         linear_body, angular_body = plant.base_velocity(local=True)
         linear_world, angular_world = plant.base_velocity(local=False)
-        time_s = float(plant.data.time)
+        time_s = float(plant.measurement_data.time)
         return D1StateEstimate(
             sequence=self._sequence,
             control_time_s=time_s,
             measurement_time_s=time_s,
             base_position=plant.base_position,
-            base_rotation=plant.data.xmat[plant.base_body_id].reshape(3, 3),
+            base_rotation=plant.measurement_data.xmat[plant.base_body_id].reshape(3, 3),
             base_linear_velocity_body=linear_body,
             base_angular_velocity_body=angular_body,
             base_linear_velocity_world=linear_world,

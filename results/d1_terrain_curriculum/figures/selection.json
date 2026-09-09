@@ -1,0 +1,83 @@
+{
+  "training_seed": 0,
+  "rule": "first flat, first bumps, first positive-slope ramp in protocol order; never selected by score",
+  "case_ids": {
+    "flat": "holdout_00_flat",
+    "bumps": "holdout_04_bumps",
+    "uphill": "holdout_14_ramp"
+  },
+  "scene_replays": [
+    {
+      "case_id": "holdout_00_flat",
+      "file": "baseline_scene_flat.png",
+      "replayed_time_s": 1.0000000000000007,
+      "terminated": false,
+      "truncated": false,
+      "termination_reason": "ongoing",
+      "scope": "new zero-residual baseline simulation; not trained-policy footage",
+      "terrain_description": "flat: h(x) = 0",
+      "camera": {
+        "distance_m": 2.2,
+        "azimuth_deg": 95.0,
+        "elevation_deg": -12.0
+      },
+      "profile_x_limits_m": [
+        -1.0,
+        1.0
+      ],
+      "profile_relative_height_limits_mm": [
+        -60.0,
+        60.0
+      ],
+      "presentation": "lighter floor and lighting applied after simulation; collision geometry unchanged"
+    },
+    {
+      "case_id": "holdout_04_bumps",
+      "file": "baseline_scene_bumps.png",
+      "replayed_time_s": 1.0000000000000007,
+      "terminated": false,
+      "truncated": false,
+      "termination_reason": "ongoing",
+      "scope": "new zero-residual baseline simulation; not trained-policy footage",
+      "terrain_description": "bumps: A = 5.0 mm, wavelength = 0.70 m",
+      "camera": {
+        "distance_m": 2.2,
+        "azimuth_deg": 95.0,
+        "elevation_deg": -12.0
+      },
+      "profile_x_limits_m": [
+        -1.0,
+        1.0
+      ],
+      "profile_relative_height_limits_mm": [
+        -60.0,
+        60.0
+      ],
+      "presentation": "lighter floor and lighting applied after simulation; collision geometry unchanged"
+    },
+    {
+      "case_id": "holdout_14_ramp",
+      "file": "baseline_scene_uphill.png",
+      "replayed_time_s": 1.0000000000000007,
+      "terminated": false,
+      "truncated": false,
+      "termination_reason": "ongoing",
+      "scope": "new zero-residual baseline simulation; not trained-policy footage",
+      "terrain_description": "ramp +3.0 deg (+x uphill for positive angles)",
+      "camera": {
+        "distance_m": 2.2,
+        "azimuth_deg": 95.0,
+        "elevation_deg": -12.0
+      },
+      "profile_x_limits_m": [
+        -1.0,
+        1.0
+      ],
+      "profile_relative_height_limits_mm": [
+        -60.0,
+        60.0
+      ],
+      "presentation": "lighter floor and lighting applied after simulation; collision geometry unchanged"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "raw_artifact_hashes_verified": 123,
+  "original_manifest_sha256": "474342c37eb069dfca22585b281bcd7d1827b42b30ffb812ee6e0a007d57a00e",
+  "episodes_recomputed": 120,
+  "control_samples_recomputed": 48000,
+  "metric_max_absolute_difference": 2.0463630789890885e-12,
+  "decomposition_max_absolute_error_m2ps2": 1.0354130747236567e-17,
+  "probe_checks_max_absolute_errors": {
+    "roll_recurrence_max_error_rad": 0.0,
+    "pitch_recurrence_max_error_rad": 0.0,
+    "feedforward_request_max_error_n": 0.0,
+    "feedforward_clip_max_error_n": 0.0
+  },
+  "feedforward_max_abs_request_n": 8.20302397903647,
+  "feedforward_clipped_steps": 0,
+  "source_hashes_checked_now": 34,
+  "current_source_mismatches": [],
+  "original_runner_reported_source_unchanged_during_run": true,
+  "limits": [
+    "Development cases, one deterministic repeat each; no confidence intervals or held-out generalization claim.",
+    "Current source hashes and the runner's historical start/end check do not independently prove every intermediate runtime instruction.",
+    "Filter recurrence is checked from sample 2 using the previous post-step raw target; first reset target is not independently logged.",
+    "No pre-step world-x COM velocity is logged: hdot=-tan(pitch)*vx_world cannot be completely recomputed from the CSV.",
+    "Ground height is sampled at the body origin, but feedforward uses COM velocity. Exact origin-height differentiation needs v_origin=v_COM-omega_world cross (R*r_origin_COM). The existing probe preserves this legacy approximation.",
+    "Applied feedforward is a logger-side clip calculation, not an independent measured actuator-force channel.",
+    "body_vertical_velocity_mps is post-step WORLD-z inertial-COM velocity because base_velocity() defaults to local=False.",
+    "The 180 Ns/m derivative gain and +/-500 N clip were checked against hashed source, not inferred from telemetry."
+  ]
+}

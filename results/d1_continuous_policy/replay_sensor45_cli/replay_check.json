@@ -1,0 +1,31 @@
+{
+  "model_sha256": "94450ea3337b68d595015d3caa66e7479405f5b3e09d3d9c86659c8825d57b5e",
+  "original_manifest_sha256": "da1179fc38c9e5d85ac8dd2aaebc99dd6ed615a3ba3fe5b8a332c252b5a8425d",
+  "same_saved_checkpoint_reloaded": true,
+  "replay_script_sha256": "1bc8c2cf6eded834c75e3264902b99cc1d2400d57fe1c8e4697ebb64ddd446f5",
+  "source_verification": "all frozen simulation/training dependencies; unused renderer excluded",
+  "checks": [
+    {
+      "rollout": "dev_train19000_step131072_seed17_45s",
+      "state_fields_byte_identical": {
+        "qpos": true,
+        "qvel": true,
+        "time_s": true
+      },
+      "telemetry_byte_identical": true,
+      "completed": true,
+      "quality_pass": false
+    },
+    {
+      "rollout": "zero_seed17_45s",
+      "state_fields_byte_identical": {
+        "qpos": true,
+        "qvel": true,
+        "time_s": true
+      },
+      "telemetry_byte_identical": true,
+      "completed": true,
+      "quality_pass": false
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "schema": "d1-v3-paired-learning-plan-v1",
+  "status": "frozen before non-smoke training",
+  "training_seeds": [24000, 25000, 26000],
+  "final_samples_per_model": 32768,
+  "workers": 4,
+  "episode_seconds": 60,
+  "phase4_arms": [
+    {"baseline": "lqr", "source": "oracle", "history": 1, "delay_randomization": false},
+    {"baseline": "wheel_leg", "source": "oracle", "history": 1, "delay_randomization": false}
+  ],
+  "phase4_zero_baselines": ["lqr", "wheel_leg"],
+  "phase5_planned_arms": [
+    {"baseline": "wheel_leg", "source": "imu_encoder_fusion", "history": 1, "delay_randomization": false},
+    {"baseline": "wheel_leg", "source": "imu_encoder_fusion", "history": 4, "delay_randomization": false},
+    {"baseline": "wheel_leg", "source": "imu_encoder_fusion", "history": 4, "delay_randomization": true}
+  ],
+  "phase5_status": "not started; low-level delayed feedback may need a separately recorded change before training",
+  "selection": "only fixed final-budget checkpoints; no best-of-holdout selection",
+  "replication": "training seeds are replicas; oracle fixed-road duplicate evaluation seeds are paired labels and produce deterministic duplicate trajectories",
+  "primary_metrics": ["velocity_rmse_mps", "yaw_rmse_rps", "height_rmse_m", "attitude_rmse_rad"],
+  "additional_metrics": ["completed", "quality_pass", "mean_mechanical_power_w", "action_rms", "terrain_exposure"],
+  "quality_limits": {"velocity_rmse_mps": 0.08, "yaw_rmse_rps": 0.08, "height_rmse_m": 0.025, "attitude_rmse_rad": 0.15},
+  "scope": "small-budget simulation learning comparison; no guaranteed RL improvement or real-robot validation"
+}

@@ -1,0 +1,184 @@
+{
+  "cases": 144,
+  "control_steps": 56575,
+  "bitwise_replay_cases": 144,
+  "max_summary_recomputation_error": 2.7755575615628914e-16,
+  "source_hash_matches": {
+    "scripts/evaluate_d1_sensor_estimation.py": true,
+    "src/wheel_legged_control/d1/sensor_estimation.py": true
+  },
+  "delay_zero_matches_pre_delay_csv_cases": 24,
+  "delay_zero_compatibility_comparisons": 24,
+  "disk_measurement_replay_matches_csv_cases": [
+    "closed_loop_flat_bias_delay0_seed17",
+    "closed_loop_flat_bias_delay2_seed17",
+    "closed_loop_ramp_up_4_bias_delay0_seed17",
+    "closed_loop_ramp_up_4_bias_delay2_seed17",
+    "closed_loop_ramp_down_4_bias_delay0_seed17",
+    "closed_loop_ramp_down_4_bias_delay2_seed17",
+    "closed_loop_bumps_5mm_bias_delay0_seed17",
+    "closed_loop_bumps_5mm_bias_delay2_seed17"
+  ],
+  "groups": {
+    "offline/flat/delay0": {
+      "count": 9,
+      "completed": 9,
+      "minimum_duration_s": 4.0,
+      "velocity_estimation_rmse_mps": 0.023546631754696234,
+      "pitch_rmse_rad": 0.005756869142577914,
+      "ground_pitch_rmse_rad": 0.005819990496588639,
+      "clearance_estimation_rmse_m": 0.001806945131353348,
+      "tracking_rmse_mps": 0.1138776542535694
+    },
+    "offline/flat/delay2": {
+      "count": 9,
+      "completed": 9,
+      "minimum_duration_s": 4.0,
+      "velocity_estimation_rmse_mps": 0.02144453604584568,
+      "pitch_rmse_rad": 0.006276616718532501,
+      "ground_pitch_rmse_rad": 0.0058149416116848535,
+      "clearance_estimation_rmse_m": 0.001964049174056672,
+      "tracking_rmse_mps": 0.1138776542535694
+    },
+    "offline/ramp_up_4/delay0": {
+      "count": 9,
+      "completed": 9,
+      "minimum_duration_s": 4.0,
+      "velocity_estimation_rmse_mps": 0.022081811177886625,
+      "pitch_rmse_rad": 0.00953777300140497,
+      "ground_pitch_rmse_rad": 0.012189226854700877,
+      "clearance_estimation_rmse_m": 0.00205932659188288,
+      "tracking_rmse_mps": 0.11345644239490855
+    },
+    "offline/ramp_up_4/delay2": {
+      "count": 9,
+      "completed": 9,
+      "minimum_duration_s": 4.0,
+      "velocity_estimation_rmse_mps": 0.02222546359294744,
+      "pitch_rmse_rad": 0.010118456509240302,
+      "ground_pitch_rmse_rad": 0.013151840885940411,
+      "clearance_estimation_rmse_m": 0.002054572340405812,
+      "tracking_rmse_mps": 0.11345644239490855
+    },
+    "offline/ramp_down_4/delay0": {
+      "count": 9,
+      "completed": 9,
+      "minimum_duration_s": 4.0,
+      "velocity_estimation_rmse_mps": 0.008451433617337481,
+      "pitch_rmse_rad": 0.006354943811629251,
+      "ground_pitch_rmse_rad": 0.00981341814065957,
+      "clearance_estimation_rmse_m": 0.0022848610953848858,
+      "tracking_rmse_mps": 0.07193548067428075
+    },
+    "offline/ramp_down_4/delay2": {
+      "count": 9,
+      "completed": 9,
+      "minimum_duration_s": 4.0,
+      "velocity_estimation_rmse_mps": 0.01384122730233319,
+      "pitch_rmse_rad": 0.00712596127638527,
+      "ground_pitch_rmse_rad": 0.01100502365145097,
+      "clearance_estimation_rmse_m": 0.002373354014162588,
+      "tracking_rmse_mps": 0.07193548067428075
+    },
+    "offline/bumps_5mm/delay0": {
+      "count": 9,
+      "completed": 9,
+      "minimum_duration_s": 4.0,
+      "velocity_estimation_rmse_mps": 0.02107195371753627,
+      "pitch_rmse_rad": 0.012571682245951179,
+      "ground_pitch_rmse_rad": 0.016678110189269166,
+      "clearance_estimation_rmse_m": 0.003184016376895415,
+      "tracking_rmse_mps": 0.1066072097659412
+    },
+    "offline/bumps_5mm/delay2": {
+      "count": 9,
+      "completed": 9,
+      "minimum_duration_s": 4.0,
+      "velocity_estimation_rmse_mps": 0.020362298819031007,
+      "pitch_rmse_rad": 0.013916702617736556,
+      "ground_pitch_rmse_rad": 0.017696574246789068,
+      "clearance_estimation_rmse_m": 0.0032076797266710378,
+      "tracking_rmse_mps": 0.1066072097659412
+    },
+    "closed_loop/flat/delay0": {
+      "count": 9,
+      "completed": 9,
+      "minimum_duration_s": 4.0,
+      "velocity_estimation_rmse_mps": 0.020663448601699448,
+      "pitch_rmse_rad": 0.009880818848122204,
+      "ground_pitch_rmse_rad": 0.009886247829041739,
+      "clearance_estimation_rmse_m": 0.0017798642715391364,
+      "tracking_rmse_mps": 0.10267415702327491
+    },
+    "closed_loop/flat/delay2": {
+      "count": 9,
+      "completed": 4,
+      "minimum_duration_s": 3.37,
+      "velocity_estimation_rmse_mps": 0.3269961469471392,
+      "pitch_rmse_rad": 0.03461996824964456,
+      "ground_pitch_rmse_rad": 0.02795136934066381,
+      "clearance_estimation_rmse_m": 0.01459388425552439,
+      "tracking_rmse_mps": 0.26617121433365615
+    },
+    "closed_loop/ramp_up_4/delay0": {
+      "count": 9,
+      "completed": 9,
+      "minimum_duration_s": 4.0,
+      "velocity_estimation_rmse_mps": 0.016343615817147585,
+      "pitch_rmse_rad": 0.013419310695156292,
+      "ground_pitch_rmse_rad": 0.014963904225198174,
+      "clearance_estimation_rmse_m": 0.0018851748499264282,
+      "tracking_rmse_mps": 0.12766595403746164
+    },
+    "closed_loop/ramp_up_4/delay2": {
+      "count": 9,
+      "completed": 3,
+      "minimum_duration_s": 3.29,
+      "velocity_estimation_rmse_mps": 0.2829172642398888,
+      "pitch_rmse_rad": 0.03276679120036733,
+      "ground_pitch_rmse_rad": 0.03962549737745962,
+      "clearance_estimation_rmse_m": 0.013300499914911251,
+      "tracking_rmse_mps": 0.3715418563515886
+    },
+    "closed_loop/ramp_down_4/delay0": {
+      "count": 9,
+      "completed": 9,
+      "minimum_duration_s": 4.0,
+      "velocity_estimation_rmse_mps": 0.007530371726282564,
+      "pitch_rmse_rad": 0.007511179445002463,
+      "ground_pitch_rmse_rad": 0.010655116369640493,
+      "clearance_estimation_rmse_m": 0.0023501113363612273,
+      "tracking_rmse_mps": 0.07063618657265701
+    },
+    "closed_loop/ramp_down_4/delay2": {
+      "count": 9,
+      "completed": 4,
+      "minimum_duration_s": 2.98,
+      "velocity_estimation_rmse_mps": 0.24264226831064428,
+      "pitch_rmse_rad": 0.029614684637501252,
+      "ground_pitch_rmse_rad": 0.03305677552225413,
+      "clearance_estimation_rmse_m": 0.011883003232797305,
+      "tracking_rmse_mps": 0.2113299508045698
+    },
+    "closed_loop/bumps_5mm/delay0": {
+      "count": 9,
+      "completed": 9,
+      "minimum_duration_s": 4.0,
+      "velocity_estimation_rmse_mps": 0.015204276466162086,
+      "pitch_rmse_rad": 0.016635329758419116,
+      "ground_pitch_rmse_rad": 0.022586356173546762,
+      "clearance_estimation_rmse_m": 0.0028093545278344654,
+      "tracking_rmse_mps": 0.14544842395208388
+    },
+    "closed_loop/bumps_5mm/delay2": {
+      "count": 9,
+      "completed": 8,
+      "minimum_duration_s": 3.22,
+      "velocity_estimation_rmse_mps": 0.32239250995363616,
+      "pitch_rmse_rad": 0.03645644798773718,
+      "ground_pitch_rmse_rad": 0.042615067528077664,
+      "clearance_estimation_rmse_m": 0.017457079200569797,
+      "tracking_rmse_mps": 0.2955097165188898
+    }
+  }
+}

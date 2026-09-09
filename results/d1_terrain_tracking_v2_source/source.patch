@@ -1,0 +1,3369 @@
+diff --git a/src/wheel_legged_control/d1/env.py b/src/wheel_legged_control/d1/env.py
+index 9f4f73c..d4e9df3 100644
+--- a/src/wheel_legged_control/d1/env.py
++++ b/src/wheel_legged_control/d1/env.py
+@@ -13,7 +13,7 @@ from .contact_allocation import D1_CONTACT_ALLOCATION_MODES, make_d1_contact_all
+ from .controllers import D1Command
+ from .hierarchical import D1LQRVMCController, D1MPCVMCController
+ from .model import JOINT_VELOCITY_LIMIT, NOMINAL_JOINT_POSITION, D1Plant
+-from .rewards import D1_REWARD_SCHEMA, calculate_d1_reward
++from .rewards import D1_REWARD_SCHEMA, D1RewardBreakdown, calculate_d1_reward
+ from .state_estimation import (
+     D1StateEstimate,
+     make_d1_state_source,
+@@ -96,6 +96,8 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
+         contact_allocation: str = "legacy",
+         measure_contact_wrench: bool = False,
+         profile_allocation_timing: bool = False,
++        *,
++        plant: D1Plant | None = None,
+     ) -> None:
+         super().__init__()
+         if baseline not in {"lqr", "mpc"}:
+@@ -121,7 +123,7 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
+         self.contact_allocation = contact_allocation
+         self.measure_contact_wrench = measure_contact_wrench
+         self.profile_allocation_timing = profile_allocation_timing
+-        self.plant = D1Plant(control_dt=0.01)
++        self.plant = D1Plant(control_dt=0.01) if plant is None else plant
+         allocator = make_d1_contact_allocator(self.plant, contact_allocation)
+         self.controller = (
+             D1LQRVMCController(self.plant, contact_allocator=allocator)
+@@ -178,6 +180,9 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
+         self._training_velocity = float(self.np_random.uniform(-0.75, 0.75))
+         self._training_height = float(self.np_random.uniform(0.445, 0.475))
+ 
++    def _reset_base_height_m(self) -> float:
++        return self.plant.nominal_base_height_m
++
+     def _command_at_step(self) -> D1Command:
+         time_s = self._step_count * self.plant.control_dt
+         if self._scenario == "training":
+@@ -287,7 +292,7 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
+             joint_position[self._leg_indices] += self.np_random.uniform(
+                 -0.025, 0.025, size=len(self._leg_indices)
+             )
+-        base_height = self.plant.nominal_base_height_m + (
++        base_height = self._reset_base_height_m() + (
+             float(self.np_random.uniform(-0.008, 0.012)) if use_randomization else 0.0
+         )
+         self.plant.reset(
+@@ -491,7 +496,7 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
+         torque = self.controller.compute(
+             transition_command,
+             self._state,
+-            residual_force_n=applied_action * D1_RESIDUAL_SCALE,
++            residual_force_n=self._residual_force(applied_action),
+         )
+         push_force = (
+             self._push_force_n if self._push_start <= self._step_count < self._push_end else 0.0
+@@ -505,20 +510,10 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
+             ),
+         )
+         self._publish_control_state(self._state_source.read())
+-        linear_velocity, _ = self.plant.base_velocity(local=True)
+-        roll, pitch, _ = self.plant.base_rpy
+-        terminated = self.plant.has_fallen()
+-        reward_terms = calculate_d1_reward(
+-            forward_velocity_mps=float(linear_velocity[0]),
+-            roll_rad=float(roll),
+-            pitch_rad=float(pitch),
+-            base_height_m=float(self.plant.base_position[2]),
+-            joint_position=self.plant.joint_position,
+-            command_velocity_mps=transition_command.forward_velocity_mps,
+-            command_height_m=transition_command.base_height_m,
+-            normalized_action=applied_action,
+-            previous_normalized_action=self._previous_applied_action,
+-            undesired_contacts=self.plant.undesired_ground_contacts,
++        terminated = self._has_fallen()
++        reward_terms = self._reward_terms(
++            command=transition_command,
++            applied_action=applied_action,
+             terminated=terminated,
+         )
+         info = self._info(
+@@ -536,5 +531,34 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
+         self._command = self._command_at_step()
+         return self._observation(), reward_terms.total, terminated, truncated, info
+ 
++    def _residual_force(self, applied_action: np.ndarray) -> np.ndarray:
++        return applied_action * D1_RESIDUAL_SCALE
++
++    def _has_fallen(self) -> bool:
++        return self.plant.has_fallen()
++
++    def _reward_terms(
++        self,
++        *,
++        command: D1Command,
++        applied_action: np.ndarray,
++        terminated: bool,
++    ) -> D1RewardBreakdown:
++        linear_velocity, _ = self.plant.base_velocity(local=True)
++        roll, pitch, _ = self.plant.base_rpy
++        return calculate_d1_reward(
++            forward_velocity_mps=float(linear_velocity[0]),
++            roll_rad=float(roll),
++            pitch_rad=float(pitch),
++            base_height_m=float(self.plant.base_position[2]),
++            joint_position=self.plant.joint_position,
++            command_velocity_mps=command.forward_velocity_mps,
++            command_height_m=command.base_height_m,
++            normalized_action=applied_action,
++            previous_normalized_action=self._previous_applied_action,
++            undesired_contacts=self.plant.undesired_ground_contacts,
++            terminated=terminated,
++        )
++
+     def close(self) -> None:
+         self._delay_queue.clear()
+diff --git a/src/wheel_legged_control/d1/model.py b/src/wheel_legged_control/d1/model.py
+index 6f49102..eef805a 100644
+--- a/src/wheel_legged_control/d1/model.py
++++ b/src/wheel_legged_control/d1/model.py
+@@ -9,6 +9,13 @@ import mujoco
+ import numpy as np
+ 
+ from .terrain import SUPPORTED_D1_ARENAS, add_d1_terrain
++from .training_terrain import (
++    TrainingGroundReference,
++    TrainingTerrainConfig,
++    add_training_heightfield,
++    training_ground_reference,
++    update_training_heightfield,
++)
+ 
+ LEG_PREFIXES = ("FL", "FR", "RL", "RR")
+ D1_JOINT_NAMES = tuple(
+@@ -106,6 +113,7 @@ def build_d1_model(
+     timestep: float = 0.002,
+     ground_friction: float = 0.9,
+     arena: str = "flat",
++    training_terrain: TrainingTerrainConfig | None = None,
+ ) -> mujoco.MjModel:
+     """Build a floating-base D1 world from the redistributable URDF.
+ 
+@@ -121,6 +129,11 @@ def build_d1_model(
+         raise ValueError("ground_friction must be positive")
+     if arena not in SUPPORTED_D1_ARENAS:
+         raise ValueError(f"arena must be one of {SUPPORTED_D1_ARENAS}")
++    if training_terrain is not None:
++        if not isinstance(training_terrain, TrainingTerrainConfig):
++            raise ValueError("training_terrain must be a TrainingTerrainConfig")
++        if arena != "flat":
++            raise ValueError("training_terrain requires arena='flat'")
+ 
+     spec = mujoco.MjSpec.from_file(_asset_urdf_path())
+     spec.modelname = "d1_full_body_control_lab"
+@@ -175,6 +188,8 @@ def build_d1_model(
+                 geom.rgba = (0.72, 0.76, 0.80, 1.0)
+ 
+     add_d1_terrain(spec, arena, ground_friction)
++    if training_terrain is not None:
++        add_training_heightfield(spec)
+     spec.worldbody.add_light(
+         name="key_light",
+         pos=(0.0, -1.5, 3.0),
+@@ -188,7 +203,10 @@ def build_d1_model(
+     spec.visual.headlight.specular = (0.15, 0.15, 0.15)
+     spec.visual.global_.offwidth = 960
+     spec.visual.global_.offheight = 540
+-    return spec.compile()
++    model = spec.compile()
++    if training_terrain is not None:
++        update_training_heightfield(model, training_terrain)
++    return model
+ 
+ 
+ class D1Plant:
+@@ -203,8 +221,12 @@ class D1Plant:
+         control_dt: float = 0.01,
+         ground_friction: float = 0.9,
+         arena: str = "flat",
++        training_terrain: TrainingTerrainConfig | None = None,
+     ) -> None:
+-        self.model = build_d1_model(ground_friction=ground_friction, arena=arena)
++        self.model = build_d1_model(
++            ground_friction=ground_friction, arena=arena, training_terrain=training_terrain
++        )
++        self.training_terrain = training_terrain
+         self.data = mujoco.MjData(self.model)
+         ratio = control_dt / self.model.opt.timestep
+         if control_dt <= 0.0 or not np.isclose(ratio, round(ratio)):
+@@ -257,6 +279,23 @@ class D1Plant:
+         self._actuator_strength_scale = 1.0
+         self.reset()
+ 
++    def set_training_terrain(self, config: TrainingTerrainConfig) -> None:
++        """Change elevations without recompiling; call reset before stepping.
++
++        Only plants constructed with ``training_terrain`` support this operation.
++        Existing renderer contexts require a heightfield upload after changes.
++        """
++
++        if self.training_terrain is None:
++            raise ValueError("plant was not constructed with a training terrain")
++        update_training_heightfield(self.model, config)
++        self.training_terrain = config
++
++    def training_ground_reference(self, x: float, y: float) -> TrainingGroundReference:
++        """Return oracle height/pitch/roll from the finite training collision map."""
++
++        return training_ground_reference(self.model, x, y)
++
+     @property
+     def summary(self) -> D1ModelSummary:
+         return D1ModelSummary(
+diff --git a/src/wheel_legged_control/d1/training_terrain.py b/src/wheel_legged_control/d1/training_terrain.py
+new file mode 100644
+index 0000000..4f13912
+--- /dev/null
++++ b/src/wheel_legged_control/d1/training_terrain.py
+@@ -0,0 +1,161 @@
++"""Small, mutable heightfields for straight-line D1 training experiments.
++
++The reference is an oracle read from the actual collision heightfield, not a
++terrain estimate or a deployable sensor. Profiles are constant across y. Their
++piecewise-linear x interpolation is therefore also the height of both collision
++triangles in each grid cell.
++"""
++
++from __future__ import annotations
++
++from dataclasses import dataclass
++from numbers import Real
++
++import mujoco
++import numpy as np
++
++TRAINING_TERRAIN_X_HALF_SIZE_M = 6.0
++TRAINING_TERRAIN_Y_HALF_SIZE_M = 3.0
++TRAINING_TERRAIN_GRID_SPACING_M = 0.01
++_HEIGHTFIELD_NAME = "training_ground"
++_HEIGHTFIELD_NCOL = 1201
++_HEIGHTFIELD_NROW = 2
++_HEIGHTFIELD_Z_SPAN_M = 1.4
++_HEIGHTFIELD_Z_OFFSET_M = -0.7
++
++
++def _finite_real(value: object, name: str) -> float:
++    if isinstance(value, (bool, np.bool_)) or not isinstance(value, Real) or not np.isfinite(value):
++        raise ValueError(f"{name} must be a finite real number")
++    return float(value)
++
++
++@dataclass(frozen=True)
++class TrainingTerrainConfig:
++    """Physical profile parameters, in metres and degrees.
++
++    ``amplitude_m`` is the sine amplitude, not its peak-to-peak height. Positive
++    ``slope_deg`` rises towards world +x. The ramp-angle limit does not constrain
++    the local slope of bumps. Unused amplitude/slope parameters must be zero so
++    recorded configurations cannot silently describe a different surface.
++    """
++
++    kind: str = "flat"
++    amplitude_m: float = 0.0
++    slope_deg: float = 0.0
++    wavelength_m: float = 0.8
++    phase_rad: float = 0.0
++
++    def __post_init__(self) -> None:
++        if self.kind not in ("flat", "bumps", "ramp"):
++            raise ValueError("kind must be flat, bumps, or ramp")
++        for name in ("amplitude_m", "slope_deg", "wavelength_m", "phase_rad"):
++            object.__setattr__(self, name, _finite_real(getattr(self, name), name))
++        if not 0.0 <= self.amplitude_m <= 0.03:
++            raise ValueError("amplitude_m must lie in [0, 0.03]")
++        if abs(self.slope_deg) > 6.0:
++            raise ValueError("slope_deg must lie in [-6, 6]")
++        if self.wavelength_m < 0.3:
++            raise ValueError("wavelength_m must be at least 0.3")
++        if self.kind != "bumps" and self.amplitude_m != 0.0:
++            raise ValueError("amplitude_m must be zero unless kind is bumps")
++        if self.kind != "ramp" and self.slope_deg != 0.0:
++            raise ValueError("slope_deg must be zero unless kind is ramp")
++
++
++@dataclass(frozen=True)
++class TrainingGroundReference:
++    """Oracle collision height and world-axis tangent orientation.
++
++    ``pitch_rad`` follows D1's RPY convention: an uphill +x tangent has negative
++    pitch. ``roll_rad`` is zero because these profiles do not vary across y.
++    At a grid knot the right-hand x segment is selected, except at the last knot.
++    """
++
++    height_m: float
++    pitch_rad: float
++    roll_rad: float
++
++
++def add_training_heightfield(spec: mujoco.MjSpec) -> None:
++    """Replace the existing flat floor before compiling; preserve its identity."""
++
++    # Two equal rows suffice for an extruded 1-D surface and avoid unnecessary
++    # collision cells across the wheel width. Size/geom position stay fixed for
++    # every episode, including flat ones; only normalized elevations change.
++    spec.add_hfield(
++        name=_HEIGHTFIELD_NAME,
++        size=(
++            TRAINING_TERRAIN_X_HALF_SIZE_M,
++            TRAINING_TERRAIN_Y_HALF_SIZE_M,
++            _HEIGHTFIELD_Z_SPAN_M,
++            0.1,
++        ),
++        nrow=_HEIGHTFIELD_NROW,
++        ncol=_HEIGHTFIELD_NCOL,
++        userdata=[0.0] * (_HEIGHTFIELD_NROW * _HEIGHTFIELD_NCOL),
++    )
++    floor = spec.geom("floor")
++    floor.type = mujoco.mjtGeom.mjGEOM_HFIELD
++    floor.hfieldname = _HEIGHTFIELD_NAME
++    floor.pos = (0.0, 0.0, _HEIGHTFIELD_Z_OFFSET_M)
++
++
++def _heightfield_data(model: mujoco.MjModel) -> np.ndarray:
++    hfield_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_HFIELD, _HEIGHTFIELD_NAME)
++    if hfield_id < 0:
++        raise ValueError("plant was not constructed with a training terrain")
++    address = int(model.hfield_adr[hfield_id])
++    count = _HEIGHTFIELD_NROW * _HEIGHTFIELD_NCOL
++    return model.hfield_data[address : address + count].reshape(
++        _HEIGHTFIELD_NROW, _HEIGHTFIELD_NCOL
++    )
++
++
++def update_training_heightfield(model: mujoco.MjModel, config: TrainingTerrainConfig) -> None:
++    """Write a compiled collision surface; caller must reset before stepping.
++
++    Compile-time normalization is deliberately not used: it would turn a 5 mm
++    and a 10 mm sine wave into the same height. A renderer created before this
++    update additionally needs ``mjr_uploadHField`` to refresh its GPU copy.
++    """
++
++    if not isinstance(config, TrainingTerrainConfig):
++        raise TypeError("config must be a TrainingTerrainConfig")
++    data = _heightfield_data(model)
++    x = np.linspace(
++        -TRAINING_TERRAIN_X_HALF_SIZE_M,
++        TRAINING_TERRAIN_X_HALF_SIZE_M,
++        _HEIGHTFIELD_NCOL,
++    )
++    if config.kind == "ramp":
++        height = np.tan(np.deg2rad(config.slope_deg)) * x
++    elif config.kind == "bumps":
++        height = config.amplitude_m * np.sin(
++            (2.0 * np.pi / config.wavelength_m) * x + config.phase_rad
++        )
++    else:
++        height = np.zeros_like(x)
++    # Fixed bounds contain the full allowed profile family. MuJoCo stores the
++    # data as float32; oracle queries below read that same rounded data.
++    data[:] = (height - _HEIGHTFIELD_Z_OFFSET_M) / _HEIGHTFIELD_Z_SPAN_M
++
++
++def training_ground_reference(model: mujoco.MjModel, x: float, y: float) -> TrainingGroundReference:
++    """Query the collision triangles in O(1), refusing points outside the map."""
++
++    x = _finite_real(x, "x")
++    y = _finite_real(y, "y")
++    if abs(x) > TRAINING_TERRAIN_X_HALF_SIZE_M or abs(y) > TRAINING_TERRAIN_Y_HALF_SIZE_M:
++        raise ValueError("reference point lies outside the finite training terrain")
++    data = _heightfield_data(model)
++    coordinate = (x + TRAINING_TERRAIN_X_HALF_SIZE_M) / TRAINING_TERRAIN_GRID_SPACING_M
++    index = min(int(np.floor(coordinate)), _HEIGHTFIELD_NCOL - 2)
++    fraction = coordinate - index
++    left = float(data[0, index])
++    right = float(data[0, index + 1])
++    height = _HEIGHTFIELD_Z_OFFSET_M + _HEIGHTFIELD_Z_SPAN_M * (left + fraction * (right - left))
++    slope = _HEIGHTFIELD_Z_SPAN_M * (right - left) / TRAINING_TERRAIN_GRID_SPACING_M
++    return TrainingGroundReference(
++        height_m=height, pitch_rad=-float(np.arctan(slope)), roll_rad=0.0
++    )
+diff --git a/src/wheel_legged_control/d1/terrain_env.py b/src/wheel_legged_control/d1/terrain_env.py
+new file mode 100644
+index 0000000..ef5932f
+--- /dev/null
++++ b/src/wheel_legged_control/d1/terrain_env.py
+@@ -0,0 +1,375 @@
++"""Oracle-terrain residual learning, separate from legacy 42-value policies.
++
++The controller tracks world-upright attitude and ground-relative clearance.
++Terrain height and angles are simulator measurements, not a real estimator.
++The first 0.3 s are stationary; a 0.3 s smoothstep then raises forward speed.
++Curriculum stages are externally scheduled and change only on reset.
++"""
++
++from __future__ import annotations
++
++from dataclasses import asdict
++from numbers import Integral, Real
++from typing import Any
++
++import numpy as np
++from gymnasium import spaces
++
++from .controllers import D1Command
++from .env import D1ResidualEnv, encode_d1_observation
++from .model import D1Plant
++from .rewards import D1RewardBreakdown, calculate_d1_reward
++from .training_terrain import (
++    TRAINING_TERRAIN_X_HALF_SIZE_M,
++    TRAINING_TERRAIN_Y_HALF_SIZE_M,
++    TrainingGroundReference,
++    TrainingTerrainConfig,
++)
++
++D1_TERRAIN_OBSERVATION_SIZE = 44
++D1_TERRAIN_OBSERVATION_SCHEMA = "d1-terrain-oracle-v1"
++D1_TERRAIN_REWARD_SCHEMA = "d1-terrain-clearance-v1"
++D1_TERRAIN_ACTION_SCHEMA = "d1-terrain-residual-quarter-v1"
++D1_TERRAIN_RESIDUAL_SCALE = np.asarray((11.25, 20.0), dtype=np.float64)
++TRAINING_WAVELENGTHS_M = (0.8, 1.0, 1.2)
++
++
++def _finite_scalar(value: Any, name: str) -> float:
++    if isinstance(value, bool) or not isinstance(value, Real) or not np.isfinite(value):
++        raise ValueError(f"{name} must be a finite number")
++    return float(value)
++
++
++def _validate_stage(stage: int) -> int:
++    if isinstance(stage, bool) or not isinstance(stage, Integral) or stage not in range(4):
++        raise ValueError("curriculum stage must be an integer from 0 through 3")
++    return int(stage)
++
++
++def sample_training_terrain(
++    rng: np.random.Generator,
++    stage: int,
++) -> TrainingTerrainConfig:
++    """Sample a fixed stage distribution; this function never sees test scores."""
++
++    stage = _validate_stage(stage)
++    probabilities = (
++        (1.0, 0.0, 0.0),
++        (0.5, 0.5, 0.0),
++        (0.3, 0.35, 0.35),
++        (0.25, 0.25, 0.5),
++    )[stage]
++    kind = str(rng.choice(("flat", "bumps", "ramp"), p=probabilities))
++    if kind == "bumps":
++        return TrainingTerrainConfig(
++            kind=kind,
++            amplitude_m=0.005 if stage == 1 else float(rng.uniform(0.005, 0.010)),
++            wavelength_m=float(rng.choice(TRAINING_WAVELENGTHS_M)),
++            phase_rad=float(rng.uniform(-np.pi, np.pi)),
++        )
++    if kind == "ramp":
++        slopes = (-2.0, 2.0) if stage == 2 else (-4.0, -2.0, 2.0, 4.0)
++        return TrainingTerrainConfig(kind=kind, slope_deg=float(rng.choice(slopes)))
++    return TrainingTerrainConfig()
++
++
++def calculate_d1_terrain_reward(
++    *,
++    ground_height_m: float,
++    command_clearance_m: float,
++    base_height_m: float,
++    **kwargs: Any,
++) -> D1RewardBreakdown:
++    """Use the existing transparent weights with a relative-height target.
++
++    Attitude remains world-upright, as in the controller. The terrain pitch and
++    roll are observations only; they do not redefine the upright reward.
++    """
++
++    return calculate_d1_reward(
++        base_height_m=base_height_m - ground_height_m,
++        command_height_m=command_clearance_m,
++        **kwargs,
++    )
++
++
++class D1TerrainResidualEnv(D1ResidualEnv):
++    """Small-bump/ramp curriculum with a distinct observation/action contract.
++
++    ``height_m`` in reset options means clearance above local ground, whereas
++    the inherited D1Command height is world-z. Old 42-value policies cannot be
++    loaded into this 44-value environment. Neither training nor evaluation
++    uses the interactive demo's policy gate.
++    """
++
++    observation_schema = D1_TERRAIN_OBSERVATION_SCHEMA
++    reward_schema = D1_TERRAIN_REWARD_SCHEMA
++    action_schema = D1_TERRAIN_ACTION_SCHEMA
++
++    def __init__(
++        self,
++        baseline: str = "lqr",
++        episode_seconds: float = 4.0,
++        training_mode: str = "curriculum",
++        randomize: bool = False,
++        stage: int = 0,
++    ) -> None:
++        if training_mode not in {"flat", "curriculum"}:
++            raise ValueError("training_mode must be 'flat' or 'curriculum'")
++        if not isinstance(randomize, bool):
++            raise TypeError("randomize must be a bool")
++        duration = _finite_scalar(episode_seconds, "episode_seconds")
++        if duration < 0.01:
++            raise ValueError("episode_seconds must be at least one control step (0.01 s)")
++        self.training_mode = training_mode
++        self.curriculum_stage = _validate_stage(stage)
++        self._episode_stage = self.curriculum_stage
++        self._terrain = TrainingTerrainConfig()
++        self._command_clearance_m = 0.455
++        self._termination_reason = "ongoing"
++        self._initial_height_lift_m = 0.0
++        super().__init__(
++            baseline=baseline,
++            episode_seconds=duration,
++            randomize=randomize,
++            plant=D1Plant(control_dt=0.01, training_terrain=self._terrain),
++        )
++        self.observation_space = spaces.Box(
++            -5.0, 5.0, shape=(D1_TERRAIN_OBSERVATION_SIZE,), dtype=np.float32
++        )
++
++    def set_curriculum_stage(self, stage: int) -> None:
++        """Set the next episode's stage without changing the current terrain."""
++
++        self.curriculum_stage = _validate_stage(stage)
++
++    def _ground_reference(self) -> TrainingGroundReference:
++        # A final state may lie beyond the safe interior. Clamp only the query
++        # for reporting that terminal transition; _has_fallen rejects it.
++        x, y = self.plant.base_position[:2]
++        if not np.isfinite((x, y)).all():
++            x = y = 0.0
++        return self.plant.training_ground_reference(
++            float(np.clip(x, -TRAINING_TERRAIN_X_HALF_SIZE_M, TRAINING_TERRAIN_X_HALF_SIZE_M)),
++            float(np.clip(y, -TRAINING_TERRAIN_Y_HALF_SIZE_M, TRAINING_TERRAIN_Y_HALF_SIZE_M)),
++        )
++
++    def _reset_base_height_m(self) -> float:
++        ground = self.plant.training_ground_reference(0.0, 0.0)
++        return ground.height_m + self.plant.nominal_base_height_m
++
++    def _configure_episode(self, options: dict[str, Any]) -> None:
++        allowed = {
++            "terrain",
++            "velocity_mps",
++            "height_m",
++            "randomize",
++            "base_mass_scale",
++            "damping_scale",
++            "friction_scale",
++            "actuator_strength_scale",
++            "action_delay_steps",
++            "sensor_noise",
++            "initial_roll",
++            "initial_pitch",
++            "initial_yaw",
++        }
++        unknown = set(options) - allowed
++        if unknown:
++            raise ValueError(f"unsupported terrain reset options: {sorted(unknown)}")
++        if "randomize" in options and not isinstance(options["randomize"], bool):
++            raise TypeError("randomize must be a bool")
++        if "action_delay_steps" in options:
++            delay = options["action_delay_steps"]
++            if isinstance(delay, bool) or not isinstance(delay, Integral) or delay < 0:
++                raise ValueError("action_delay_steps must be a non-negative integer")
++        self._episode_stage = self.curriculum_stage
++        if "terrain" in options:
++            terrain = options["terrain"]
++            if isinstance(terrain, dict):
++                terrain = TrainingTerrainConfig(**terrain)
++            if not isinstance(terrain, TrainingTerrainConfig):
++                raise TypeError("terrain must be TrainingTerrainConfig or a dictionary")
++        else:
++            terrain = (
++                TrainingTerrainConfig()
++                if self.training_mode == "flat"
++                else sample_training_terrain(self.np_random, self._episode_stage)
++            )
++        velocity = _finite_scalar(
++            options.get("velocity_mps", self.np_random.uniform(0.20, 0.45)), "velocity_mps"
++        )
++        clearance = _finite_scalar(options.get("height_m", 0.455), "height_m")
++        if not 0.0 <= velocity <= 0.6:
++            raise ValueError("velocity_mps must be in [0, 0.6] for this forward-only curriculum")
++        if not 0.35 <= clearance <= 0.55:
++            raise ValueError("height_m clearance must be in [0.35, 0.55]")
++        for key in ("initial_roll", "initial_pitch", "initial_yaw"):
++            if key in options:
++                _finite_scalar(options[key], key)
++        self._terrain = terrain
++        self.plant.set_training_terrain(terrain)
++        self._training_velocity = velocity
++        self._command_clearance_m = clearance
++        self._termination_reason = "ongoing"
++        inherited_options = {
++            key: value
++            for key, value in options.items()
++            if key not in {"terrain", "velocity_mps", "height_m"}
++        }
++        # The legacy "training" scenario injects 90--170 N pushes regardless
++        # of randomize. A separate scenario deliberately excludes those pushes.
++        inherited_options["scenario"] = "terrain"
++        inherited_options.setdefault("initial_pitch", 0.0)
++        super()._configure_episode(inherited_options)
++        self._lift_initial_penetration()
++        self._publish_control_state(self._state_source.reset())
++
++    def _lift_initial_penetration(self) -> None:
++        """Lift an intersecting initial pose, without stepping the simulation."""
++
++        self._initial_height_lift_m = 0.0
++        for _ in range(4):
++            lifts = [
++                (-float(contact.dist) + 0.002) / max(abs(float(contact.frame[2])), 0.2)
++                for contact in self.plant.data.contact
++                if contact.dist < 0.0
++                and (
++                    int(contact.geom1) in self.plant.terrain_geom_ids
++                    or int(contact.geom2) in self.plant.terrain_geom_ids
++                )
++            ]
++            if not lifts:
++                return
++            lift = max(lifts)
++            qpos, qvel = self.plant.simulation_state()
++            qpos[2] += lift
++            self.plant.set_simulation_state(qpos, qvel)
++            self._initial_height_lift_m += lift
++        raise RuntimeError("terrain reset still intersects the ground after lifting")
++
++    def _command_at_step(self) -> D1Command:
++        time_s = self._step_count * self.plant.control_dt
++        progress = float(np.clip((time_s - 0.3) / 0.3, 0.0, 1.0))
++        velocity = self._training_velocity * progress**2 * (3.0 - 2.0 * progress)
++        return D1Command(
++            forward_velocity_mps=velocity,
++            base_height_m=self._ground_reference().height_m + self._command_clearance_m,
++        )
++
++    def _residual_force(self, applied_action: np.ndarray) -> np.ndarray:
++        return applied_action * D1_TERRAIN_RESIDUAL_SCALE
++
++    def _observation(self) -> np.ndarray:
++        ground = self._ground_reference()
++        # self._command belongs to the observed state, not the prior transition.
++        observation = encode_d1_observation(
++            state=self._state,
++            command=self._command,
++            baseline_longitudinal_force_n=self.controller.last_longitudinal_force_n,
++            previous_applied_action=self._previous_applied_action,
++        )
++        if self._noise_scale:
++            observation += self.np_random.normal(0.0, 0.008 * self._noise_scale, size=42).astype(
++                np.float32
++            )
++        return np.clip(
++            np.concatenate((observation, (ground.pitch_rad, ground.roll_rad))), -5.0, 5.0
++        ).astype(np.float32)
++
++    def _has_fallen(self) -> bool:
++        x, y, z = self.plant.base_position
++        roll, pitch, _ = self.plant.base_rpy
++        if (
++            not np.isfinite(self.plant.data.qpos).all()
++            or not np.isfinite(self.plant.data.qvel).all()
++        ):
++            reason = "nonfinite"
++        elif (
++            abs(x) > TRAINING_TERRAIN_X_HALF_SIZE_M - 0.5
++            or abs(y) > TRAINING_TERRAIN_Y_HALF_SIZE_M - 0.5
++        ):
++            reason = "out_of_terrain"
++        elif z - self._ground_reference().height_m < 0.22:
++            reason = "low_clearance"
++        elif abs(roll) > 0.85:
++            reason = "excess_roll"
++        elif abs(pitch) > 0.85:
++            reason = "excess_pitch"
++        else:
++            reason = "ongoing"
++        self._termination_reason = reason
++        return reason != "ongoing"
++
++    def _reward_terms(
++        self,
++        *,
++        command: D1Command,
++        applied_action: np.ndarray,
++        terminated: bool,
++    ) -> D1RewardBreakdown:
++        roll, pitch, _ = self.plant.base_rpy
++        return calculate_d1_terrain_reward(
++            ground_height_m=self._ground_reference().height_m,
++            command_clearance_m=self._command_clearance_m,
++            base_height_m=float(self.plant.base_position[2]),
++            forward_velocity_mps=float(self.plant.base_velocity(local=True)[0][0]),
++            roll_rad=float(roll),
++            pitch_rad=float(pitch),
++            joint_position=self.plant.joint_position,
++            command_velocity_mps=command.forward_velocity_mps,
++            normalized_action=applied_action,
++            previous_normalized_action=self._previous_applied_action,
++            undesired_contacts=self.plant.undesired_ground_contacts,
++            terminated=terminated,
++        )
++
++    def _info(self, **kwargs: Any) -> dict[str, Any]:
++        info = super()._info(**kwargs)
++        ground = self._ground_reference()
++        clearance = float(self.plant.base_position[2] - ground.height_m)
++        torque = np.asarray(kwargs["torque_nm"])
++        info.update(
++            terrain_config=asdict(self._terrain),
++            curriculum_stage=self._episode_stage,
++            training_mode=self.training_mode,
++            ground_height_m=ground.height_m,
++            ground_pitch_rad=ground.pitch_rad,
++            ground_roll_rad=ground.roll_rad,
++            clearance_m=clearance,
++            command_clearance_m=self._command_clearance_m,
++            clearance_error_m=clearance - self._command_clearance_m,
++            world_height_target_m=info["command_height_m"],
++            reward_world_height_target_m=ground.height_m + self._command_clearance_m,
++            velocity_error_mps=info["forward_velocity_mps"] - info["command_velocity_mps"],
++            target_velocity_mps=self._training_velocity,
++            episode_step=self._step_count,
++            initial_height_lift_m=self._initial_height_lift_m,
++            position_x_m=float(self.plant.base_position[0]),
++            position_y_m=float(self.plant.base_position[1]),
++            yaw_rad=float(self.plant.base_rpy[2]),
++            termination_reason=self._termination_reason,
++            torque_saturation_fraction=float(
++                np.mean(np.abs(torque) >= self.plant.actuator_torque_limit_nm - 1e-8)
++            ),
++            policy_applied=False,
++            policy_gated=False,
++            observation_schema=self.observation_schema,
++            reward_schema=self.reward_schema,
++            action_schema=self.action_schema,
++            residual_scale_n=D1_TERRAIN_RESIDUAL_SCALE.copy(),
++            attitude_target="world_upright",
++            ground_reference_source="simulation_oracle",
++        )
++        return info
++
++    def step(self, action: np.ndarray) -> tuple[np.ndarray, float, bool, bool, dict[str, Any]]:
++        checked = np.asarray(action, dtype=np.float64)
++        if checked.shape != (2,) or not np.isfinite(checked).all():
++            raise ValueError("D1 terrain residual action must contain two finite values")
++        observation, reward, terminated, truncated, info = super().step(checked)
++        info["episode_step"] = self._step_count
++        info["policy_applied"] = True
++        if truncated and not terminated:
++            info["termination_reason"] = "time_limit"
++        return observation, reward, terminated, truncated, info
+diff --git a/src/wheel_legged_control/d1/terrain_tracking_env.py b/src/wheel_legged_control/d1/terrain_tracking_env.py
+new file mode 100644
+index 0000000..43a6d36
+--- /dev/null
++++ b/src/wheel_legged_control/d1/terrain_tracking_env.py
+@@ -0,0 +1,126 @@
++"""D1 local-tangent tracking with explicit oracle observation and reward schemas."""
++
++from __future__ import annotations
++
++import math
++from dataclasses import replace
++from typing import Any
++
++import numpy as np
++
++from .controllers import D1Command
++from .rewards import D1RewardBreakdown
++from .terrain_env import D1TerrainResidualEnv, _validate_stage
++
++
++def terrain_normal_to_rpy(slope_x: float, slope_y: float, yaw_rad: float) -> tuple[float, float]:
++    """Align body z to the world normal [-slope_x, -slope_y, 1].
++
++    Return roll, pitch in radians, using Rz(yaw) Ry(pitch) Rx(roll).
++    Slopes are dh/dx and dh/dy. The lateral expression includes the forward
++    slope coupling; independent atan calls do not reconstruct the same normal.
++    """
++
++    forward = slope_x * math.cos(yaw_rad) + slope_y * math.sin(yaw_rad)
++    lateral = -slope_x * math.sin(yaw_rad) + slope_y * math.cos(yaw_rad)
++    return math.atan2(lateral, math.sqrt(1.0 + forward * forward)), -math.atan(forward)
++
++
++class D1TerrainTrackingEnv(D1TerrainResidualEnv):
++    """Track the local collision-cell tangent with unchanged LQR/VMC gains.
++
++    Height, spawn, action scale, terrain geometry, and command timing remain
++    those of v1. Terrain information is a simulation oracle, not an estimator.
++    """
++
++    observation_schema = "d1-terrain-tracking-oracle-v2"
++    reward_schema = "d1-terrain-tracking-v2"
++    control_schema = "d1-lqr-vmc-local-tangent-v2"
++
++    def __init__(
++        self,
++        baseline: str = "lqr",
++        episode_seconds: float = 4.0,
++        training_mode: str = "curriculum",
++        randomize: bool = False,
++        stage: int = 0,
++    ) -> None:
++        if baseline != "lqr":
++            raise ValueError("the tracking-v2 control schema supports baseline='lqr' only")
++        if training_mode not in {"flat", "mixed", "curriculum"}:
++            raise ValueError("training_mode must be 'flat', 'mixed', or 'curriculum'")
++        stage = _validate_stage(stage)
++        super().__init__(
++            baseline=baseline,
++            episode_seconds=episode_seconds,
++            training_mode="curriculum" if training_mode == "mixed" else training_mode,
++            randomize=randomize,
++            stage=3 if training_mode == "mixed" else stage,
++        )
++        self.training_mode = training_mode
++
++    def set_curriculum_stage(self, stage: int) -> None:
++        """Mixed sampling always stays at stage 3; curriculum changes on reset."""
++
++        stage = _validate_stage(stage)
++        if self.training_mode == "mixed" and stage != 3:
++            raise ValueError("mixed mode is fixed at curriculum stage 3")
++        super().set_curriculum_stage(stage)
++
++    def _terrain_attitude_target(self) -> tuple[float, float]:
++        ground = self._ground_reference()
++        # The supported heightfields are extruded along y: dh/dy is zero.
++        return terrain_normal_to_rpy(
++            -math.tan(ground.pitch_rad), 0.0, float(self.plant.base_rpy[2])
++        )
++
++    def _command_at_step(self) -> D1Command:
++        command = super()._command_at_step()
++        roll, pitch = self._terrain_attitude_target()
++        return replace(command, roll_rad=roll, pitch_rad=pitch)
++
++    def _observation(self) -> np.ndarray:
++        observation = super()._observation()
++        roll, pitch = self._terrain_attitude_target()
++        observation[-2:] = (pitch, roll)
++        return observation
++
++    def _reward_terms(
++        self,
++        *,
++        command: D1Command,
++        applied_action: np.ndarray,
++        terminated: bool,
++    ) -> D1RewardBreakdown:
++        terms = super()._reward_terms(
++            command=command, applied_action=applied_action, terminated=terminated
++        )
++        target_roll, target_pitch = self._terrain_attitude_target()
++        roll, pitch, _ = self.plant.base_rpy
++        # Replace only the attitude error. Every coefficient and other term is
++        # inherited verbatim; a training-only reward scale belongs in a wrapper.
++        upright = float(
++            np.exp(-(((roll - target_roll) / 0.22) ** 2) - (((pitch - target_pitch) / 0.22) ** 2))
++        )
++        return replace(terms, upright=upright)
++
++    def _info(self, **kwargs: Any) -> dict[str, Any]:
++        info = super()._info(**kwargs)
++        transition_command = kwargs["command"]
++        target_roll, target_pitch = self._terrain_attitude_target()
++        roll, pitch, _ = self.plant.base_rpy
++        info.update(
++            command_roll_rad=transition_command.roll_rad,
++            command_pitch_rad=transition_command.pitch_rad,
++            reward_roll_target_rad=target_roll,
++            reward_pitch_target_rad=target_pitch,
++            observation_roll_target_rad=target_roll,
++            observation_pitch_target_rad=target_pitch,
++            measured_roll_rad=float(roll),
++            measured_pitch_rad=float(pitch),
++            roll_error_rad=float(roll - target_roll),
++            pitch_error_rad=float(pitch - target_pitch),
++            control_schema=self.control_schema,
++            attitude_target="local_collision_tangent",
++        )
++        return info
+diff --git a/scripts/run_d1_terrain_curriculum.py b/scripts/run_d1_terrain_curriculum.py
+new file mode 100644
+index 0000000..d9e34db
+--- /dev/null
++++ b/scripts/run_d1_terrain_curriculum.py
+@@ -0,0 +1,808 @@
++"""Train paired flat/terrain PPO policies and evaluate frozen final checkpoints.
++
++The baseline mode needs only core dependencies. Training uses optional CPU
++PyTorch/SB3 dependencies; it never loads a legacy 42-value D1 policy.
++"""
++
++from __future__ import annotations
++
++import argparse
++import csv
++import hashlib
++import json
++import math
++import platform
++import resource
++import time
++from collections import Counter
++from functools import partial
++from importlib.metadata import PackageNotFoundError, version
++from numbers import Real
++from pathlib import Path
++from typing import Any
++
++import gymnasium as gym
++import numpy as np
++
++from wheel_legged_control.provenance import capture_git_provenance
++
++ROOT = Path(__file__).resolve().parents[1]
++CONTROL_DT_S = 0.01
++OBSERVATION_SCHEMA = "d1-terrain-oracle-v1"
++ACTION_SCHEMA = "d1-terrain-residual-quarter-v1"
++PROFILE_SCHEMAS = {
++    "legacy-v1": {
++        "observation_schema": OBSERVATION_SCHEMA,
++        "reward_schema": "d1-terrain-clearance-v1",
++        "control_schema": None,
++    },
++    "tracking-v2": {
++        "observation_schema": "d1-terrain-tracking-oracle-v2",
++        "reward_schema": "d1-terrain-tracking-v2",
++        "control_schema": "d1-lqr-vmc-local-tangent-v2",
++    },
++}
++TRACKING_QUALITY_CRITERIA = {
++    "minimum_episode_seconds": 4.0,
++    "progress_fraction_min": 0.65,
++    "progress_fraction_max": 1.35,
++    "tail_window_seconds": 1.0,
++    "tail_velocity_rmse_absolute_mps": 0.06,
++    "tail_velocity_rmse_target_fraction": 0.25,
++    "clearance_rmse_max_m": 0.030,
++    "max_abs_yaw_rad": 0.15,
++    "mean_torque_saturation_fraction_max": 0.05,
++}
++TRACKING_INFO_FIELDS = (
++    "command_roll_rad",
++    "command_pitch_rad",
++    "reward_roll_target_rad",
++    "reward_pitch_target_rad",
++    "observation_roll_target_rad",
++    "observation_pitch_target_rad",
++    "measured_roll_rad",
++    "measured_pitch_rad",
++    "roll_error_rad",
++    "pitch_error_rad",
++)
++PPO_SETTINGS = {
++    "learning_rate": 3e-4,
++    "n_steps": 128,
++    "batch_size": 128,
++    "n_epochs": 4,
++    "gamma": math.exp(-CONTROL_DT_S / 2.0),
++    "gae_lambda": 0.95,
++    "clip_range": 0.2,
++    "ent_coef": 0.0,
++    "policy_kwargs": {"net_arch": [64, 64]},
++}
++INFO_FIELDS = (
++    "position_x_m",
++    "position_y_m",
++    "yaw_rad",
++    "forward_velocity_mps",
++    "command_velocity_mps",
++    "velocity_error_mps",
++    "clearance_m",
++    "command_clearance_m",
++    "clearance_error_m",
++    "ground_height_m",
++    "ground_pitch_rad",
++    "ground_roll_rad",
++    "torque_saturation_fraction",
++    "initial_height_lift_m",
++)
++TELEMETRY_FIELDS = (
++    "step",
++    "time_s",
++    *INFO_FIELDS,
++    "initial_position_x_m",
++    "action_longitudinal",
++    "action_vertical",
++    "policy_enabled",
++    "policy_gated",
++    "reward",
++    "terminated",
++    "truncated",
++    "termination_reason",
++)
++
++
++class TrainingRewardScale(gym.RewardWrapper):
++    """Change training reward units without altering info or physical transitions.
++
++    Applied outside SB3's Monitor: episode monitoring and reward_terms retain
++    raw physical-task rewards, while PPO receives the scaled scalar.
++    """
++
++    def __init__(self, env: gym.Env, scale: float):
++        if isinstance(scale, bool) or not isinstance(scale, Real) or not math.isfinite(scale):
++            raise ValueError("reward scale must be a finite positive number")
++        if scale <= 0.0:
++            raise ValueError("reward scale must be a finite positive number")
++        super().__init__(env)
++        self.scale = float(scale)
++
++    def reward(self, reward: float) -> float:
++        return float(reward) * self.scale
++
++
++def reward_scale(args: argparse.Namespace) -> float:
++    return (
++        float(args.reward_scale)
++        if args.reward_scale is not None
++        else (0.01 if args.profile == "tracking-v2" else 1.0)
++    )
++
++
++def training_conditions(args: argparse.Namespace) -> list[str]:
++    if args.conditions is not None:
++        return list(args.conditions)
++    return (
++        ["flat", "mixed", "curriculum"] if args.profile == "tracking-v2" else ["flat", "curriculum"]
++    )
++
++
++def profile_environment(profile: str) -> type:
++    if profile == "tracking-v2":
++        from wheel_legged_control.d1.terrain_tracking_env import D1TerrainTrackingEnv
++
++        return D1TerrainTrackingEnv
++    if profile != "legacy-v1":
++        raise ValueError("unknown experiment profile")
++    from wheel_legged_control.d1.terrain_env import D1TerrainResidualEnv
++
++    return D1TerrainResidualEnv
++
++
++def build_parser() -> argparse.ArgumentParser:
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--output", type=Path, required=True, help="new experiment directory")
++    parser.add_argument("--mode", choices=("baseline", "train"), default="train")
++    parser.add_argument("--profile", choices=tuple(PROFILE_SCHEMAS), default="legacy-v1")
++    parser.add_argument(
++        "--reward-scale", type=float, help="training only; v1 default 1, v2 default .01"
++    )
++    parser.add_argument("--conditions", choices=("flat", "mixed", "curriculum"), nargs="+")
++    parser.add_argument("--steps", type=int, default=8192, help="per seed and training condition")
++    parser.add_argument("--seeds", type=int, nargs="+", default=[0, 1, 2])
++    parser.add_argument("--envs", type=int, choices=(1, 2, 4), default=4)
++    parser.add_argument("--episode-seconds", type=float, default=4.0)
++    parser.add_argument(
++        "--evaluation-split", choices=("development", "holdout"), default="development"
++    )
++    parser.add_argument("--verbose", action="store_true")
++    return parser
++
++
++def actual_budget(requested_steps: int, n_envs: int) -> int:
++    """SB3 finishes whole rollouts, so freeze the rounded budget before training."""
++
++    if requested_steps <= 0 or n_envs not in (1, 2, 4):
++        raise ValueError("steps must be positive and envs must be 1, 2, or 4")
++    rollout = PPO_SETTINGS["n_steps"] * n_envs
++    return math.ceil(requested_steps / rollout) * rollout
++
++
++def curriculum_stage(num_timesteps: int, total_timesteps: int) -> int:
++    if num_timesteps < 0 or total_timesteps <= 0:
++        raise ValueError("timesteps must be nonnegative and total_timesteps positive")
++    return min(3, 4 * num_timesteps // total_timesteps)
++
++
++def evaluation_cases(split: str, profile: str = "legacy-v1") -> list[dict[str, Any]]:
++    """Sixteen fixed cases; no model scores enter their construction.
++
++    Holdout bumps use wavelengths absent from training, and ramps use +/-3
++    degrees rather than the training +/-2 and +/-4 degrees. Flat cases remain
++    an in-distribution retention check, not unseen terrain.
++    """
++
++    if split not in {"development", "holdout"}:
++        raise ValueError("unknown evaluation split")
++    if profile not in PROFILE_SCHEMAS:
++        raise ValueError("unknown experiment profile")
++    tracking = profile == "tracking-v2"
++    wavelengths = (0.7, 0.9, 1.1) if split == "holdout" else (0.8, 1.0, 1.2)
++    phases = (0.37, 1.41) if split == "holdout" else (0.0, math.pi / 2.0)
++    ramp_angle = 3.0 if split == "holdout" else 2.0
++    if tracking and split == "holdout":
++        wavelengths, phases = (0.75, 0.95, 1.15), (0.53, 2.17)
++    cases: list[dict[str, Any]] = []
++
++    def add(terrain: dict[str, Any], velocity: float, label: str) -> None:
++        index = len(cases)
++        cases.append(
++            {
++                "case_id": f"{'tracking_v2_' if tracking else ''}{split}_{index:02d}_{label}",
++                "terrain": terrain,
++                "velocity_mps": velocity,
++                "height_m": 0.455,
++                "environment_seed": (
++                    (44000 if split == "holdout" else 33000)
++                    if tracking
++                    else (24000 if split == "holdout" else 13000)
++                )
++                + index,
++            }
++        )
++
++    for velocity in (0.20, 0.35, 0.45, 0.30):
++        add({"kind": "flat"}, velocity, "flat")
++    for amplitude in (0.005, 0.010):
++        for index in range(6 if tracking else 4):
++            add(
++                {
++                    "kind": "bumps",
++                    "amplitude_m": amplitude,
++                    "wavelength_m": wavelengths[
++                        index // 2 if tracking else index % len(wavelengths)
++                    ],
++                    "phase_rad": phases[index % len(phases)],
++                },
++                (0.25, 0.40, 0.35, 0.30, 0.40, 0.25)[index],
++                "bumps",
++            )
++    slopes = (-ramp_angle, ramp_angle)
++    if tracking:
++        slopes = (-3.5, -2.5, 2.5, 3.5) if split == "holdout" else (-4.0, -2.0, 2.0, 4.0)
++    for slope in slopes:
++        for velocity in (0.25, 0.40):
++            add({"kind": "ramp", "slope_deg": slope}, velocity, "ramp")
++    return cases
++
++
++def validate_args(args: argparse.Namespace) -> None:
++    budget = actual_budget(args.steps, args.envs)
++    if args.mode == "train" and budget < 2 * PPO_SETTINGS["n_steps"] * args.envs:
++        raise ValueError("training requires at least two complete PPO rollouts")
++    if not math.isfinite(args.episode_seconds) or args.episode_seconds < 0.1:
++        raise ValueError("episode-seconds must be finite and at least 0.1")
++    if not args.seeds or any(seed < 0 for seed in args.seeds):
++        raise ValueError("seeds must be nonnegative")
++    if len(set(args.seeds)) != len(args.seeds):
++        raise ValueError("duplicate training seeds do not provide independent runs")
++    scale = reward_scale(args)
++    if not math.isfinite(scale) or scale <= 0.0:
++        raise ValueError("reward-scale must be finite and positive")
++    conditions = training_conditions(args)
++    if len(set(conditions)) != len(conditions):
++        raise ValueError("duplicate training conditions are not independent experiments")
++    if args.profile == "legacy-v1" and "mixed" in conditions:
++        raise ValueError("mixed training requires the tracking-v2 profile")
++    if args.output.exists():
++        raise FileExistsError(f"refusing to overwrite existing output: {args.output}")
++
++
++def _sha256(path: Path) -> str:
++    return hashlib.sha256(path.read_bytes()).hexdigest()
++
++
++def _write_json(path: Path, value: Any) -> None:
++    with path.open("x", encoding="utf-8") as stream:
++        json.dump(value, stream, ensure_ascii=False, indent=2, allow_nan=False)
++        stream.write("\n")
++
++
++def _write_csv(path: Path, rows: list[dict[str, Any]], fields: tuple[str, ...]) -> None:
++    with path.open("x", newline="", encoding="utf-8") as stream:
++        writer = csv.DictWriter(stream, fieldnames=fields)
++        writer.writeheader()
++        writer.writerows(rows)
++
++
++def _source_hashes() -> dict[str, str]:
++    paths = [Path(__file__), ROOT / "pyproject.toml"]
++    # Include indirectly used controller/model modules and local robot assets.
++    paths.extend(
++        path
++        for path in (ROOT / "src" / "wheel_legged_control").rglob("*")
++        if path.is_file() and path.suffix.lower() in {".py", ".xml", ".urdf", ".stl"}
++    )
++    return {str(path.relative_to(ROOT)): _sha256(path) for path in sorted(set(paths))}
++
++
++def build_protocol(args: argparse.Namespace) -> dict[str, Any]:
++    return {
++        "schema_version": 2 if args.profile == "tracking-v2" else 1,
++        "profile": args.profile,
++        "question": "Does terrain curriculum PPO improve a fixed LQR+VMC residual baseline?",
++        "mode": args.mode,
++        "evaluation_split": args.evaluation_split,
++        "training_conditions": training_conditions(args) if args.mode == "train" else [],
++        "training_reward_scale": reward_scale(args),
++        "reward_logging": "PPO sees scaled rewards; Monitor, info reward_terms and evaluation retain raw rewards",
++        "quality_criteria": TRACKING_QUALITY_CRITERIA if args.profile == "tracking-v2" else None,
++        "training_seeds": args.seeds if args.mode == "train" else [],
++        "requested_steps_per_condition_seed": args.steps,
++        "actual_budget_per_condition_seed": actual_budget(args.steps, args.envs),
++        "n_envs": args.envs,
++        "episode_seconds": args.episode_seconds,
++        "control_dt_s": CONTROL_DT_S,
++        "ppo": PPO_SETTINGS,
++        "device": "cpu",
++        "torch_num_threads": 1,
++        "vector_start_method": "spawn" if args.envs > 1 else "in_process",
++        "baseline": "lqr",
++        "domain_randomization": False,
++        "velocity_command": "forward only; stand for 0.3 s, smoothstep ramp during 0.3-0.6 s, then hold",
++        **PROFILE_SCHEMAS[args.profile],
++        "observation_size": 44,
++        "action_schema": ACTION_SCHEMA,
++        "residual_scale_n": [11.25, 20.0],
++        "state_and_terrain_reference": "oracle_simulator_state_and_collision_geometry",
++        "curriculum": {
++            "schedule": "four equal timestep ranges; changes apply at the next reset",
++            "stage_0": "flat",
++            "stage_1": "flat and 5 mm bumps",
++            "stage_2": "flat, 5-10 mm bumps, +/-2 degree ramps",
++            "stage_3": "retain easy terrain; add +/-4 degree ramps",
++            "training_bump_wavelengths_m": [0.8, 1.0, 1.2],
++        },
++        "checkpoint_selection": "final fixed-budget checkpoint, never selected by evaluation",
++        "pairing": "identical case geometry, command and environment seed for every condition",
++        "baseline_replication": "one zero-residual episode per case, not one per training seed",
++        "metric_semantics": {
++            "completed": "time limit reached without task termination; not quality success",
++            "errors": "post-transition state versus the command used for that transition",
++            "policy_enabled": "RL action path enabled, even when its action happens to be zero",
++            "torque_saturation": "mean fraction of the 16 commanded joints at their limits",
++            "progress_fraction": "world-x displacement divided by integral of logged velocity command over observed steps; null for zero integral",
++            "slip": "not measured; no unvalidated contact/slip proxy is reported",
++        },
++        "cases": evaluation_cases(args.evaluation_split, args.profile),
++    }
++
++
++def _load_rl_dependencies() -> tuple[Any, ...]:
++    try:
++        import torch
++        from stable_baselines3 import PPO
++        from stable_baselines3.common.callbacks import BaseCallback
++        from stable_baselines3.common.env_util import make_vec_env
++        from stable_baselines3.common.logger import configure
++        from stable_baselines3.common.vec_env import DummyVecEnv, SubprocVecEnv
++    except ImportError as error:
++        raise RuntimeError(
++            'training requires optional dependencies: pip install -e ".[rl]"'
++        ) from error
++    torch.set_num_threads(1)
++    return PPO, BaseCallback, make_vec_env, configure, DummyVecEnv, SubprocVecEnv
++
++
++def _curriculum_callback(base: type, condition: str, budget: int) -> Any:
++    class ExposureCallback(base):
++        def __init__(self) -> None:
++            super().__init__()
++            self.pending_stage = 0
++            if condition == "mixed":
++                self.pending_stage = 3
++            self.steps: Counter[int] = Counter()
++            self.episodes_started: Counter[int] = Counter()
++            self.episodes_completed: Counter[int] = Counter()
++            self.terrain_steps: Counter[str] = Counter()
++            self.stage_kind_steps: Counter[str] = Counter()
++            self.ramp_slope_steps: Counter[str] = Counter()
++            self.episode_starts: list[dict[str, Any]] = []
++
++        def _on_step(self) -> bool:
++            transitions = zip(self.locals["infos"], self.locals["dones"], strict=True)
++            for env_index, (info, done) in enumerate(transitions):
++                stage = int(info["curriculum_stage"])
++                terrain = info["terrain_config"]
++                kind = str(terrain["kind"])
++                self.steps[stage] += 1
++                self.terrain_steps[kind] += 1
++                self.stage_kind_steps[f"{stage}:{kind}"] += 1
++                if kind == "ramp":
++                    self.ramp_slope_steps[f"{float(terrain['slope_deg']):g}"] += 1
++                if info["episode_step"] == 1:
++                    self.episodes_started[stage] += 1
++                    self.episode_starts.append(
++                        {
++                            "global_timesteps_after_vector_step": self.num_timesteps,
++                            "env_index": env_index,
++                            "curriculum_stage": stage,
++                            "terrain_config": dict(terrain),
++                            "target_velocity_mps": float(info["target_velocity_mps"]),
++                        }
++                    )
++                if done:
++                    self.episodes_completed[stage] += 1
++            next_stage = (
++                curriculum_stage(self.num_timesteps, budget)
++                if condition == "curriculum"
++                else (3 if condition == "mixed" else 0)
++            )
++            if next_stage != self.pending_stage:
++                self.training_env.env_method("set_curriculum_stage", next_stage)
++                self.pending_stage = next_stage
++            return True
++
++        def statistics(self) -> dict[str, Any]:
++            return {
++                "stage_steps": {str(stage): self.steps[stage] for stage in range(4)},
++                "stage_episodes_started": {
++                    str(stage): self.episodes_started[stage] for stage in range(4)
++                },
++                "stage_episodes_completed": {
++                    str(stage): self.episodes_completed[stage] for stage in range(4)
++                },
++                "terrain_steps": dict(self.terrain_steps),
++                "stage_kind_steps": dict(self.stage_kind_steps),
++                "ramp_slope_steps": dict(self.ramp_slope_steps),
++                "final_stage_sampled": self.steps[3] > 0 if condition == "curriculum" else None,
++            }
++
++    return ExposureCallback()
++
++
++def validate_checkpoint(
++    metadata: dict[str, Any], model: Any, environment: type | None = None
++) -> None:
++    """Schema and shape are both mandatory; a legacy policy cannot be reused."""
++
++    expected = {
++        "observation_schema": OBSERVATION_SCHEMA,
++        "action_schema": ACTION_SCHEMA,
++    }
++    if environment is not None:
++        expected = {
++            name: getattr(environment, name)
++            for name in ("observation_schema", "reward_schema", "action_schema")
++        }
++        if getattr(environment, "control_schema", None) is not None:
++            expected["control_schema"] = environment.control_schema
++    for name, value in expected.items():
++        if metadata.get(name) != value:
++            raise ValueError(f"checkpoint {name} is incompatible; expected {value}")
++    if model.observation_space.shape != (44,) or model.action_space.shape != (2,):
++        raise ValueError("checkpoint must have 44 observations and 2 residual actions")
++
++
++def train_policy(
++    args: argparse.Namespace,
++    *,
++    condition: str,
++    seed: int,
++    output: Path,
++    environment: type,
++    dependencies: tuple[Any, ...],
++    source_hashes: dict[str, str],
++) -> tuple[Any, dict[str, Any]]:
++    ppo, base_callback, make_vec_env, configure, dummy_vec, subproc_vec = dependencies
++    output.mkdir(parents=True, exist_ok=False)
++    budget = actual_budget(args.steps, args.envs)
++    callback = _curriculum_callback(base_callback, condition, budget)
++    scale = reward_scale(args)
++    vector_env = make_vec_env(
++        environment,
++        n_envs=args.envs,
++        seed=seed,
++        vec_env_cls=subproc_vec if args.envs > 1 else dummy_vec,
++        vec_env_kwargs={"start_method": "spawn"} if args.envs > 1 else None,
++        env_kwargs={
++            "baseline": "lqr",
++            "episode_seconds": args.episode_seconds,
++            "training_mode": condition,
++            "randomize": False,
++            "stage": 3 if condition == "mixed" else 0,
++        },
++        monitor_dir=str(output / "episodes"),
++        wrapper_class=partial(TrainingRewardScale, scale=scale) if scale != 1.0 else None,
++    )
++    logger = None
++    started = time.perf_counter()
++    try:
++        model = ppo("MlpPolicy", vector_env, **PPO_SETTINGS, seed=seed, device="cpu", verbose=0)
++        logger = configure(
++            str(output / "learning_metrics"), ["stdout", "csv"] if args.verbose else ["csv"]
++        )
++        model.set_logger(logger)
++        model.learn(total_timesteps=budget, callback=callback)
++        # SB3 usually dumps before its PPO update; explicitly flush the final
++        # update as another row, rather than silently losing its diagnostics.
++        logger.dump(step=model.num_timesteps)
++        elapsed = time.perf_counter() - started
++        if int(model.num_timesteps) != budget:
++            raise RuntimeError("training did not complete the predeclared rollout budget")
++        model_path = output / "model.zip"
++        model.save(model_path)
++        _write_json(output / "episode_starts.json", callback.episode_starts)
++        metadata = {
++            "condition": condition,
++            "profile": args.profile,
++            "training_reward_scale": scale,
++            "training_seed": seed,
++            "requested_timesteps": args.steps,
++            "actual_timesteps": int(model.num_timesteps),
++            "completed_rollouts": budget // (PPO_SETTINGS["n_steps"] * args.envs),
++            "ppo_epochs_completed": int(getattr(model, "_n_updates", 0)),
++            "ppo": PPO_SETTINGS,
++            "observation_schema": environment.observation_schema,
++            "reward_schema": environment.reward_schema,
++            "action_schema": environment.action_schema,
++            "control_schema": getattr(environment, "control_schema", None),
++            "model_sha256": _sha256(model_path),
++            "source_sha256": source_hashes,
++            "wall_time_s": elapsed,
++            "training_transitions_per_wall_second": budget / elapsed,
++            "parent_process_peak_rss_kib": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
++            "memory_scope": "process lifetime high-water mark; excludes worker-process RSS",
++            "exposure": callback.statistics(),
++            "episode_starts_json": "episode_starts.json",
++            "episode_starts_sha256": _sha256(output / "episode_starts.json"),
++            "checkpoint_selection": "final",
++        }
++        _write_json(output / "metadata.json", metadata)
++        # Evaluate the serialized model, not just the still-live trainer.
++        loaded = ppo.load(model_path, device="cpu")
++        validate_checkpoint(metadata, loaded, environment)
++        return loaded, metadata
++    finally:
++        vector_env.close()
++        if logger is not None:
++            logger.close()
++
++
++def evaluate_case(
++    environment: type,
++    case: dict[str, Any],
++    episode_seconds: float,
++    *,
++    model: Any = None,
++    quality_criteria: dict[str, float] | None = None,
++) -> tuple[list[dict[str, Any]], dict[str, Any]]:
++    """Log each complete control transition with no policy gating or reset reuse."""
++
++    env = environment(
++        baseline="lqr", episode_seconds=episode_seconds, training_mode="flat", randomize=False
++    )
++    rows: list[dict[str, Any]] = []
++    started = time.perf_counter()
++    try:
++        observation, reset_info = env.reset(
++            seed=case["environment_seed"],
++            options={key: case[key] for key in ("terrain", "velocity_mps", "height_m")},
++        )
++        initial_x_m = float(reset_info["position_x_m"])
++        for step in range(round(episode_seconds / CONTROL_DT_S)):
++            action = (
++                np.zeros(2, dtype=np.float32)
++                if model is None
++                else np.asarray(model.predict(observation, deterministic=True)[0], dtype=np.float32)
++            )
++            if action.shape != (2,) or not np.isfinite(action).all():
++                raise ValueError("policy returned an invalid action")
++            observation, reward, terminated, truncated, info = env.step(action)
++            row = {
++                "step": step + 1,
++                "time_s": (step + 1) * CONTROL_DT_S,
++                **{field: info[field] for field in INFO_FIELDS},
++                "initial_position_x_m": initial_x_m,
++                "action_longitudinal": float(action[0]),
++                "action_vertical": float(action[1]),
++                "policy_enabled": int(model is not None and info["policy_applied"]),
++                "policy_gated": int(model is not None and not info["policy_applied"]),
++                "reward": float(reward),
++                "terminated": int(terminated),
++                "truncated": int(truncated),
++                "termination_reason": info["termination_reason"],
++            }
++            if (
++                getattr(environment, "control_schema", None)
++                == PROFILE_SCHEMAS["tracking-v2"]["control_schema"]
++            ):
++                row.update({field: info[field] for field in TRACKING_INFO_FIELDS})
++            rows.append(row)
++            if terminated or truncated:
++                break
++    finally:
++        env.close()
++    metrics = summarize_episode(
++        rows,
++        quality_criteria=quality_criteria,
++        requested_duration_s=episode_seconds,
++        target_velocity_mps=case["velocity_mps"],
++    )
++    metrics["evaluation_wall_time_s"] = time.perf_counter() - started
++    return rows, metrics
++
++
++def summarize_episode(
++    rows: list[dict[str, Any]],
++    *,
++    quality_criteria: dict[str, float] | None = None,
++    requested_duration_s: float | None = None,
++    target_velocity_mps: float | None = None,
++) -> dict[str, Any]:
++    if not rows:
++        raise ValueError("cannot summarize an empty episode")
++
++    def mean(field: str) -> float:
++        return float(np.mean([row[field] for row in rows]))
++
++    def rmse(field: str) -> float:
++        return float(np.sqrt(np.mean(np.square([row[field] for row in rows]))))
++
++    last = rows[-1]
++    progress_m = last["position_x_m"] - rows[0]["initial_position_x_m"]
++    commanded_displacement_m = sum(row["command_velocity_mps"] for row in rows) * CONTROL_DT_S
++    metrics = {
++        "control_steps": len(rows),
++        "simulated_duration_s": len(rows) * CONTROL_DT_S,
++        "completed": int(bool(last["truncated"]) and not bool(last["terminated"])),
++        "terminated": int(last["terminated"]),
++        "termination_reason": last["termination_reason"],
++        "velocity_rmse_mps": rmse("velocity_error_mps"),
++        "clearance_rmse_m": rmse("clearance_error_m"),
++        "max_abs_yaw_rad": max(abs(row["yaw_rad"]) for row in rows),
++        "final_position_x_m": last["position_x_m"],
++        "progress_m": progress_m,
++        "commanded_displacement_m": commanded_displacement_m,
++        "progress_fraction": (
++            progress_m / commanded_displacement_m if abs(commanded_displacement_m) > 1e-12 else None
++        ),
++        "mean_torque_saturation_fraction": mean("torque_saturation_fraction"),
++        "policy_enabled_fraction": mean("policy_enabled"),
++        "policy_gated_fraction": mean("policy_gated"),
++        "episode_return": float(sum(row["reward"] for row in rows)),
++    }
++    if quality_criteria is not None:
++        criteria = quality_criteria
++        tail = rows[-round(criteria["tail_window_seconds"] / CONTROL_DT_S) :]
++        tail_rmse = float(np.sqrt(np.mean([row["velocity_error_mps"] ** 2 for row in tail])))
++        metrics.update(
++            tail_velocity_rmse_mps=tail_rmse,
++            tail_velocity_mean_mps=float(np.mean([row["forward_velocity_mps"] for row in tail])),
++            tail_command_velocity_mean_mps=float(
++                np.mean([row["command_velocity_mps"] for row in tail])
++            ),
++            tail_observed_seconds=len(tail) * CONTROL_DT_S,
++            quality_success=None,
++            quality_failure_reasons="not_defined_for_short_or_nonpositive_command",
++        )
++        if (
++            requested_duration_s is not None
++            and requested_duration_s >= criteria["minimum_episode_seconds"]
++            and target_velocity_mps is not None
++            and target_velocity_mps > 0
++        ):
++            checks = {
++                "incomplete_episode": bool(metrics["completed"])
++                and len(rows) == round(requested_duration_s / CONTROL_DT_S),
++                "progress": metrics["progress_fraction"] is not None
++                and criteria["progress_fraction_min"]
++                <= metrics["progress_fraction"]
++                <= criteria["progress_fraction_max"],
++                "tail_velocity": tail_rmse
++                <= max(
++                    criteria["tail_velocity_rmse_absolute_mps"],
++                    criteria["tail_velocity_rmse_target_fraction"] * target_velocity_mps,
++                ),
++                "clearance": metrics["clearance_rmse_m"] <= criteria["clearance_rmse_max_m"],
++                "yaw": metrics["max_abs_yaw_rad"] <= criteria["max_abs_yaw_rad"],
++                "torque_saturation": metrics["mean_torque_saturation_fraction"]
++                <= criteria["mean_torque_saturation_fraction_max"],
++            }
++            failures = [name for name, passed in checks.items() if not passed]
++            metrics["quality_success"] = int(not failures)
++            metrics["quality_failure_reasons"] = "|".join(failures)
++    return metrics
++
++
++def _dependency_versions() -> dict[str, str | None]:
++    result = {}
++    for name in ("numpy", "scipy", "mujoco", "gymnasium", "torch", "stable-baselines3"):
++        try:
++            result[name] = version(name)
++        except PackageNotFoundError:
++            result[name] = None
++    return result
++
++
++def run(args: argparse.Namespace) -> Path:
++    validate_args(args)
++    environment = profile_environment(args.profile)
++
++    dependencies = _load_rl_dependencies() if args.mode == "train" else None
++    protocol = build_protocol(args)
++    source_hashes = _source_hashes()
++    provenance = capture_git_provenance(ROOT)
++    args.output.mkdir(parents=True, exist_ok=False)
++    _write_json(args.output / "protocol.json", protocol)
++    _write_json(
++        args.output / "provenance.json",
++        {
++            **provenance,
++            "source_sha256": source_hashes,
++            "python_version": platform.python_version(),
++            "dependency_versions": _dependency_versions(),
++            "protocol_sha256": _sha256(args.output / "protocol.json"),
++        },
++    )
++    policies: list[tuple[str, int | None, Any]] = [("zero_residual", None, None)]
++    if dependencies is not None:
++        for seed in args.seeds:
++            for condition in training_conditions(args):
++                print(f"Training {condition}, seed {seed}", flush=True)
++                model, _ = train_policy(
++                    args,
++                    condition=condition,
++                    seed=seed,
++                    output=args.output / "training" / f"{condition}_seed_{seed}",
++                    environment=environment,
++                    dependencies=dependencies,
++                    source_hashes=source_hashes,
++                )
++                policies.append((f"{condition}_rl", seed, model))
++    evaluations = args.output / "evaluation"
++    evaluations.mkdir()
++    metrics = []
++    for condition, seed, model in policies:
++        label = condition if seed is None else f"{condition}_seed_{seed}"
++        destination = evaluations / label
++        destination.mkdir()
++        print(f"Evaluating {label} ({args.evaluation_split})", flush=True)
++        for case in protocol["cases"]:
++            rows, result = evaluate_case(
++                environment,
++                case,
++                args.episode_seconds,
++                model=model,
++                quality_criteria=protocol["quality_criteria"],
++            )
++            telemetry_path = destination / f"{case['case_id']}.csv"
++            _write_csv(telemetry_path, rows, tuple(rows[0]))
++            metrics.append(
++                {
++                    "condition": condition,
++                    "training_seed": seed,
++                    "case_id": case["case_id"],
++                    "terrain_kind": case["terrain"]["kind"],
++                    "environment_seed": case["environment_seed"],
++                    "telemetry_csv": str(telemetry_path.relative_to(args.output)),
++                    **result,
++                }
++            )
++    _write_csv(args.output / "metrics.csv", metrics, tuple(metrics[0]))
++    source_unchanged = _source_hashes() == source_hashes
++    _write_json(
++        args.output / "summary.json",
++        {
++            "episodes": len(metrics),
++            "source_unchanged_during_run": source_unchanged,
++            "baseline_episodes": sum(item["condition"] == "zero_residual" for item in metrics),
++            "training_runs": len(policies) - 1,
++            "interpretation": "fixed-budget simulation experiment; no convergence or hardware claim",
++        },
++    )
++    _write_json(
++        args.output / "manifest.json",
++        {
++            "sha256": {
++                str(path.relative_to(args.output)): _sha256(path)
++                for path in sorted(args.output.rglob("*"))
++                if path.is_file()
++            },
++            "excludes": ["manifest.json", "files added after the run"],
++        },
++    )
++    if not source_unchanged:
++        raise RuntimeError(
++            "source changed during this run; artifacts retained but run is not frozen"
++        )
++    return args.output
++
++
++def main(argv: list[str] | None = None) -> None:
++    args = build_parser().parse_args(argv)
++    try:
++        result = run(args)
++    except (ValueError, FileExistsError, RuntimeError) as error:
++        raise SystemExit(str(error)) from error
++    print(f"Results: {result}")
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/scripts/visualize_d1_terrain_curriculum.py b/scripts/visualize_d1_terrain_curriculum.py
+new file mode 100644
+index 0000000..b7591dd
+--- /dev/null
++++ b/scripts/visualize_d1_terrain_curriculum.py
+@@ -0,0 +1,671 @@
++"""Plot a completed, paired terrain experiment without loading its policies.
++
++Use --render-scenes only when a working MuJoCo OpenGL backend is available
++(for example MUJOCO_GL=egl). Those images are zero-residual re-simulations,
++not recordings of the trained policies. Default plots need only NumPy/Matplotlib.
++"""
++
++from __future__ import annotations
++
++import argparse
++import csv
++import hashlib
++import json
++from pathlib import Path
++from typing import Any
++
++import numpy as np
++
++ROOT = Path(__file__).resolve().parents[1]
++LABELS = {
++    "zero_residual": "LQR + VMC (zero residual)",
++    "flat_rl": "Flat PPO",
++    "mixed_rl": "Mixed-terrain PPO",
++    "curriculum_rl": "Curriculum PPO",
++}
++COLORS = {
++    "zero_residual": "#59636e",
++    "flat_rl": "#2366a0",
++    "mixed_rl": "#32866b",
++    "curriculum_rl": "#d27828",
++}
++TRACE_FIELDS = (
++    "time_s",
++    "forward_velocity_mps",
++    "command_velocity_mps",
++    "velocity_error_mps",
++    "clearance_m",
++    "command_clearance_m",
++    "action_longitudinal",
++    "action_vertical",
++)
++
++
++def _sha256(path: Path) -> str:
++    return hashlib.sha256(path.read_bytes()).hexdigest()
++
++
++def _write_json(path: Path, value: Any) -> None:
++    with path.open("x", encoding="utf-8") as stream:
++        json.dump(value, stream, indent=2, ensure_ascii=False, allow_nan=False)
++        stream.write("\n")
++
++
++def _read_csv(path: Path, required: tuple[str, ...]) -> list[dict[str, str]]:
++    with path.open(newline="", encoding="utf-8") as stream:
++        reader = csv.DictReader(stream)
++        fields = reader.fieldnames or []
++        if len(set(fields)) != len(fields) or not set(required).issubset(fields):
++            raise ValueError(f"missing or duplicate CSV columns: {path}")
++        rows = list(reader)
++    if not rows or any(None in row or any(value is None for value in row.values()) for row in rows):
++        raise ValueError(f"empty or malformed CSV: {path}")
++    return rows
++
++
++def _finite_float(value: Any, name: str) -> float:
++    number = float(value)
++    if not np.isfinite(number):
++        raise ValueError(f"nonfinite {name}")
++    return number
++
++
++def protocol_profile(protocol: dict[str, Any]) -> str:
++    """Reject an incompatible controller/observation interpretation before plotting."""
++
++    version = protocol.get("schema_version")
++    if version == 1:
++        if protocol.get("profile", "legacy-v1") != "legacy-v1":
++            raise ValueError("schema 1 requires the legacy-v1 profile")
++        if protocol.get("observation_schema", "d1-terrain-oracle-v1") != "d1-terrain-oracle-v1":
++            raise ValueError("legacy protocol has an incompatible observation schema")
++        return "legacy-v1"
++    if version != 2:
++        raise ValueError("unsupported terrain experiment schema")
++    expected = {
++        "profile": "tracking-v2",
++        "observation_schema": "d1-terrain-tracking-oracle-v2",
++        "reward_schema": "d1-terrain-tracking-v2",
++        "control_schema": "d1-lqr-vmc-local-tangent-v2",
++    }
++    if any(protocol.get(name) != value for name, value in expected.items()):
++        raise ValueError("tracking-v2 protocol has incompatible control/observation/reward schemas")
++    return "tracking-v2"
++
++
++def protocol_conditions(protocol: dict[str, Any]) -> tuple[str, ...]:
++    """Use declared training conditions, including strict missing-mixed checks."""
++
++    profile = protocol_profile(protocol)
++    conditions = protocol.get("training_conditions", [])
++    allowed = ("flat", "curriculum") if profile == "legacy-v1" else ("flat", "mixed", "curriculum")
++    if (
++        not isinstance(conditions, list)
++        or not conditions
++        or any(condition not in allowed for condition in conditions)
++        or len(set(conditions)) != len(conditions)
++    ):
++        raise ValueError(
++            "training conditions must be unique supported names for the protocol profile"
++        )
++    return tuple(f"{condition}_rl" for condition in conditions)
++
++
++def replay_environment(protocol: dict[str, Any]) -> type:
++    """Lazy selection prevents a v1 world-upright replay being labelled as v2."""
++
++    if protocol_profile(protocol) == "tracking-v2":
++        from wheel_legged_control.d1.terrain_tracking_env import D1TerrainTrackingEnv
++
++        return D1TerrainTrackingEnv
++    from wheel_legged_control.d1.terrain_env import D1TerrainResidualEnv
++
++    return D1TerrainResidualEnv
++
++
++def representative_cases(protocol: dict[str, Any]) -> dict[str, dict[str, Any]]:
++    """Select the first flat, first bumps and first uphill case in protocol order.
++
++    This function accepts no metrics. Scores, failures and plot appearance
++    cannot affect selection. Traces always use training seed 0.
++    """
++
++    selected: dict[str, dict[str, Any]] = {}
++    for case in protocol["cases"]:
++        kind = case["terrain"]["kind"]
++        key = "uphill" if kind == "ramp" and case["terrain"]["slope_deg"] > 0 else kind
++        if key in ("flat", "bumps", "uphill") and key not in selected:
++            selected[key] = case
++    if set(selected) != {"flat", "bumps", "uphill"}:
++        raise ValueError("protocol needs flat, bumps, and positive-slope representative cases")
++    return selected
++
++
++def load_experiment(run: Path) -> tuple[dict[str, Any], dict[tuple, dict], dict[str, str]]:
++    """Validate complete pairing and recompute every RMSE from its telemetry."""
++
++    run = run.resolve()
++    protocol_path = run / "protocol.json"
++    metrics_path = run / "metrics.csv"
++    protocol = json.loads(protocol_path.read_text(encoding="utf-8"))
++    conditions = protocol_conditions(protocol)
++    seeds = protocol.get("training_seeds", [])
++    if (
++        not seeds
++        or len(set(seeds)) != len(seeds)
++        or any(isinstance(seed, bool) or not isinstance(seed, int) or seed < 0 for seed in seeds)
++    ):
++        raise ValueError("plots require a paired training protocol with unique seeds")
++    if 0 not in seeds:
++        raise ValueError("fixed representative traces require training seed 0")
++    cases = protocol.get("cases", [])
++    case_by_id = {case["case_id"]: case for case in cases}
++    if not cases or len(case_by_id) != len(cases):
++        raise ValueError("protocol case IDs must be nonempty and unique")
++    representative_cases(protocol)
++    scale = np.asarray(protocol["residual_scale_n"], dtype=float)
++    if scale.shape != (2,) or not np.isfinite(scale).all() or np.any(scale <= 0):
++        raise ValueError("protocol residual_scale_n must contain two finite positive forces")
++
++    rows = _read_csv(
++        metrics_path,
++        (
++            "condition",
++            "training_seed",
++            "case_id",
++            "terrain_kind",
++            "environment_seed",
++            "telemetry_csv",
++            "velocity_rmse_mps",
++            "control_steps",
++            "completed",
++        ),
++    )
++    indexed: dict[tuple, dict] = {}
++    inputs = {"protocol.json": _sha256(protocol_path), "metrics.csv": _sha256(metrics_path)}
++    paths_seen: set[Path] = set()
++    for row in rows:
++        condition = row["condition"]
++        seed = None if row["training_seed"] == "" else int(row["training_seed"])
++        key = (condition, seed, row["case_id"])
++        if key in indexed:
++            raise ValueError(f"duplicate paired metric: {key}")
++        case = case_by_id.get(row["case_id"])
++        if (
++            case is None
++            or row["terrain_kind"] != case["terrain"]["kind"]
++            or int(row["environment_seed"]) != case["environment_seed"]
++        ):
++            raise ValueError(f"case geometry/seed does not match protocol: {key}")
++        telemetry_path = (run / row["telemetry_csv"]).resolve()
++        if not telemetry_path.is_relative_to(run) or telemetry_path in paths_seen:
++            raise ValueError("telemetry paths must be unique files inside the run directory")
++        paths_seen.add(telemetry_path)
++        telemetry = _read_csv(telemetry_path, TRACE_FIELDS)
++        trace = {
++            field: np.asarray([_finite_float(step[field], field) for step in telemetry])
++            for field in TRACE_FIELDS
++        }
++        if condition == "zero_residual" and (
++            np.any(trace["action_longitudinal"] != 0.0) or np.any(trace["action_vertical"] != 0.0)
++        ):
++            raise ValueError("zero-residual baseline log contains a nonzero residual action")
++        if int(row["control_steps"]) != len(telemetry) or np.any(np.diff(trace["time_s"]) <= 0):
++            raise ValueError(f"invalid telemetry length/time: {key}")
++        if not np.allclose(
++            trace["velocity_error_mps"],
++            trace["forward_velocity_mps"] - trace["command_velocity_mps"],
++            rtol=1e-10,
++            atol=1e-12,
++        ):
++            raise ValueError(f"logged velocity error disagrees with command/state: {key}")
++        rmse = float(np.sqrt(np.mean(np.square(trace["velocity_error_mps"]))))
++        if not np.isclose(
++            rmse, _finite_float(row["velocity_rmse_mps"], "RMSE"), rtol=1e-10, atol=1e-12
++        ):
++            raise ValueError(f"metrics RMSE disagrees with telemetry: {key}")
++        if row["completed"] not in ("0", "1"):
++            raise ValueError(f"completed must be 0 or 1: {key}")
++        indexed[key] = {"rmse": rmse, "completed": row["completed"] == "1", "trace": trace}
++        inputs[str(telemetry_path.relative_to(run))] = _sha256(telemetry_path)
++    expected = {("zero_residual", None, case_id) for case_id in case_by_id}
++    expected.update(
++        (condition, seed, case_id)
++        for condition in conditions
++        for seed in seeds
++        for case_id in case_by_id
++    )
++    if set(indexed) != expected:
++        raise ValueError(
++            f"incomplete pairing: missing {len(expected - set(indexed))}, "
++            f"unexpected {len(set(indexed) - expected)} episodes"
++        )
++    return protocol, indexed, inputs
++
++
++def paired_differences(protocol: dict, indexed: dict) -> list[dict[str, Any]]:
++    rows = []
++    for condition in protocol_conditions(protocol):
++        for seed in protocol["training_seeds"]:
++            for case in protocol["cases"]:
++                baseline = indexed[("zero_residual", None, case["case_id"])]
++                policy = indexed[(condition, seed, case["case_id"])]
++                rows.append(
++                    {
++                        "condition": condition,
++                        "training_seed": seed,
++                        "case_id": case["case_id"],
++                        "terrain_kind": case["terrain"]["kind"],
++                        "baseline_rmse_mps": baseline["rmse"],
++                        "policy_rmse_mps": policy["rmse"],
++                        "rmse_difference_mps": policy["rmse"] - baseline["rmse"],
++                        "both_completed": int(baseline["completed"] and policy["completed"]),
++                    }
++                )
++    return rows
++
++
++def _plot_differences(plt: Any, output: Path, protocol: dict, rows: list[dict]) -> list[dict]:
++    conditions = protocol_conditions(protocol)
++    seeds = protocol["training_seeds"]
++    case_ids = [case["case_id"] for case in protocol["cases"]]
++    fig, axes = plt.subplots(
++        1,
++        len(conditions),
++        figsize=(6 * len(conditions), max(5, len(case_ids) * 0.30)),
++        sharex=True,
++        sharey=True,
++        squeeze=False,
++    )
++    axes = axes[0]
++    for axis, condition in zip(axes, conditions, strict=True):
++        for index, seed in enumerate(seeds):
++            selected = [
++                row
++                for row in rows
++                if row["condition"] == condition and row["training_seed"] == seed
++            ]
++            offsets = np.arange(len(case_ids)) + (index - (len(seeds) - 1) / 2) * 0.13
++            color = f"C{index % 10}"
++            axis.scatter(
++                [row["rmse_difference_mps"] for row in selected],
++                offsets,
++                color=color,
++                s=28,
++                label=f"seed {seed}",
++            )
++            for row, offset in zip(selected, offsets, strict=True):
++                if not row["both_completed"]:
++                    axis.scatter(
++                        row["rmse_difference_mps"], offset, marker="x", color="black", s=50
++                    )
++        axis.axvline(0, color="#777777", lw=1)
++        axis.set(title=LABELS[condition], xlabel="Velocity RMSE minus zero residual [m/s]")
++        axis.set_yticks(np.arange(len(case_ids)), case_ids)
++        axis.grid(axis="x", alpha=0.2)
++        axis.legend(fontsize=8)
++    axes[0].invert_yaxis()
++    fig.suptitle("Paired cases: negative differences mean lower tracking error")
++    fig.text(
++        0.5,
++        0.01,
++        "Each episode uses its recorded duration. Black crosses: either paired episode did not complete.",
++        ha="center",
++        fontsize=8,
++    )
++    fig.tight_layout(rect=(0, 0.035, 1, 0.95))
++    fig.savefig(output / "paired_case_differences.png", dpi=160)
++    plt.close(fig)
++
++    summaries = []
++    kinds = [
++        kind
++        for kind in ("flat", "bumps", "ramp")
++        if any(row["terrain_kind"] == kind for row in rows)
++    ]
++    fig, axis = plt.subplots(figsize=(8, 4.6))
++    for condition_index, condition in enumerate(conditions):
++        for kind_index, kind in enumerate(kinds):
++            for seed_index, seed in enumerate(seeds):
++                selected = [
++                    row
++                    for row in rows
++                    if row["condition"] == condition
++                    and row["training_seed"] == seed
++                    and row["terrain_kind"] == kind
++                ]
++                mean_difference = float(np.mean([row["rmse_difference_mps"] for row in selected]))
++                summaries.append(
++                    {
++                        "condition": condition,
++                        "training_seed": seed,
++                        "terrain_kind": kind,
++                        "case_count": len(selected),
++                        "mean_rmse_difference_mps": mean_difference,
++                        "both_completed_case_count": sum(row["both_completed"] for row in selected),
++                    }
++                )
++                offset = (condition_index - (len(conditions) - 1) / 2) * 0.22 + (
++                    seed_index - (len(seeds) - 1) / 2
++                ) * 0.035
++                axis.scatter(
++                    kind_index + offset,
++                    mean_difference,
++                    color=COLORS[condition],
++                    s=45,
++                    marker="o" if all(row["both_completed"] for row in selected) else "x",
++                    label=LABELS[condition] if kind_index == 0 and seed_index == 0 else None,
++                )
++                axis.annotate(
++                    str(seed),
++                    (kind_index + offset, mean_difference),
++                    xytext=(3, 3),
++                    textcoords="offset points",
++                    fontsize=8,
++                )
++    axis.axhline(0, color="#777777", lw=1)
++    axis.set(
++        xticks=np.arange(len(kinds)),
++        xticklabels=kinds,
++        ylabel="Mean paired velocity RMSE difference [m/s]",
++        title="One point per training seed and terrain family",
++    )
++    axis.grid(axis="y", alpha=0.2)
++    axis.legend()
++    fig.text(
++        0.5,
++        0.01,
++        "Equal-weight cases within each seed; labels are training seeds. No confidence interval. Cross: incomplete pair(s).",
++        ha="center",
++        fontsize=8,
++    )
++    fig.tight_layout(rect=(0, 0.04, 1, 1))
++    fig.savefig(output / "terrain_seed_differences.png", dpi=160)
++    plt.close(fig)
++    return summaries
++
++
++def _plot_traces(plt: Any, output: Path, protocol: dict, indexed: dict, selected: dict) -> None:
++    scales = protocol["residual_scale_n"]
++    for key in ("bumps", "uphill"):
++        case = selected[key]
++        fig, axes = plt.subplots(4, 1, figsize=(9, 8), sharex=True)
++        baseline_trace = indexed[("zero_residual", None, case["case_id"])]["trace"]
++        for axis, target in zip(
++            axes[:2], ("command_velocity_mps", "command_clearance_m"), strict=True
++        ):
++            axis.plot(
++                baseline_trace["time_s"],
++                baseline_trace[target],
++                "--",
++                color="black",
++                lw=1,
++                label="command",
++            )
++        for condition in ("zero_residual", *protocol_conditions(protocol)):
++            episode = indexed[
++                (condition, None if condition == "zero_residual" else 0, case["case_id"])
++            ]
++            trace = episode["trace"]
++            values = (
++                trace["forward_velocity_mps"],
++                trace["clearance_m"],
++                scales[0] * np.clip(trace["action_longitudinal"], -1, 1),
++                scales[1] * np.clip(trace["action_vertical"], -1, 1),
++            )
++            for axis, value in zip(axes, values, strict=True):
++                label = LABELS[condition] + (" (incomplete)" if not episode["completed"] else "")
++                axis.plot(trace["time_s"], value, color=COLORS[condition], label=label, lw=1.3)
++        for axis, label in zip(
++            axes,
++            (
++                "Velocity [m/s]",
++                "Clearance [m]",
++                "Longitudinal residual [N]",
++                "Vertical residual [N]",
++            ),
++            strict=True,
++        ):
++            axis.set_ylabel(label)
++            axis.grid(alpha=0.2)
++        axes[0].legend(fontsize=8, loc="best")
++        axes[-1].set_xlabel("Simulation time [s]")
++        fig.suptitle(f"{case['case_id']} | fixed training seed 0")
++        fig.text(
++            0.5,
++            0.01,
++            "Residuals are clipped action × declared force scale, not measured contact forces. Lines stop at episode end.",
++            ha="center",
++            fontsize=8,
++        )
++        fig.tight_layout(rect=(0, 0.035, 1, 0.97))
++        fig.savefig(output / f"representative_{key}.png", dpi=160)
++        plt.close(fig)
++
++
++def _scene_profile(plant: Any, terrain: dict) -> tuple[np.ndarray, np.ndarray, str]:
++    """Read a metre-wide section on either side of the base from collision data."""
++
++    relative_x = np.linspace(-1.0, 1.0, 401)
++    base_x, base_y = plant.base_position[:2]
++    center_height = plant.training_ground_reference(float(base_x), float(base_y)).height_m
++    height_mm = np.asarray(
++        [
++            1000.0
++            * (
++                plant.training_ground_reference(float(base_x + x), float(base_y)).height_m
++                - center_height
++            )
++            for x in relative_x
++        ]
++    )
++    if terrain["kind"] == "ramp":
++        description = f"ramp {terrain['slope_deg']:+.1f} deg (+x uphill for positive angles)"
++    elif terrain["kind"] == "bumps":
++        description = (
++            f"bumps: A = {1000 * terrain['amplitude_m']:.1f} mm, "
++            f"wavelength = {terrain.get('wavelength_m', 0.8):.2f} m"
++        )
++    else:
++        description = "flat: h(x) = 0"
++    return relative_x, height_mm, description
++
++
++def _scene_profile_limit_mm(selected: dict) -> float:
++    """Use one common vertical scale, determined only by declared geometry."""
++
++    limits = [10.0]
++    for case in selected.values():
++        terrain = case["terrain"]
++        limits.extend(
++            (
++                2000.0 * terrain.get("amplitude_m", 0.0),
++                1000.0 * abs(np.tan(np.deg2rad(terrain.get("slope_deg", 0.0)))),
++            )
++        )
++    return float(10.0 * np.ceil(max(limits) / 10.0))
++
++
++def _render_scenes(plt: Any, output: Path, protocol: dict, selected: dict) -> list[dict]:
++    import mujoco
++
++    environment = replay_environment(protocol)
++    profile = protocol_profile(protocol)
++    records = []
++    profile_limit_mm = _scene_profile_limit_mm(selected)
++    for key in ("flat", "bumps", "uphill"):
++        case = selected[key]
++        env = environment(
++            baseline="lqr",
++            episode_seconds=protocol["episode_seconds"],
++            training_mode="flat",
++            randomize=False,
++        )
++        renderer = None
++        try:
++            _, info = env.reset(
++                seed=case["environment_seed"],
++                options={name: case[name] for name in ("terrain", "velocity_mps", "height_m")},
++            )
++            # Fixed one-second endpoint, or the actual earlier episode ending.
++            count = min(100, round(protocol["episode_seconds"] / protocol["control_dt_s"]))
++            terminated = truncated = False
++            for _ in range(count):
++                _, _, terminated, truncated, info = env.step(np.zeros(2, dtype=np.float32))
++                if terminated or truncated:
++                    break
++            # Presentation-only changes happen after the final physics step.
++            # Remove the dark floor material; no collision, inertia or pose data
++            # changes. A fixed side camera and common profile scales make these
++            # small surfaces comparable without magnifying their geometry.
++            floor_id = env.plant.floor_geom_id
++            env.plant.model.geom_matid[floor_id] = -1
++            env.plant.model.geom_rgba[floor_id] = (0.69, 0.73, 0.76, 1.0)
++            env.plant.model.light_ambient[:] = (0.25, 0.25, 0.25)
++            env.plant.model.light_diffuse[:] = (0.55, 0.55, 0.55)
++            env.plant.model.vis.headlight.ambient[:] = (0.45, 0.45, 0.45)
++            env.plant.model.vis.headlight.diffuse[:] = (0.45, 0.45, 0.45)
++            env.plant.model.vis.headlight.specular[:] = (0.05, 0.05, 0.05)
++            relative_x, height_mm, description = _scene_profile(env.plant, case["terrain"])
++            # Create only after this case's heightfield update: its GPU copy is fresh.
++            renderer = mujoco.Renderer(env.plant.model, width=960, height=540)
++            camera = mujoco.MjvCamera()
++            camera.type = mujoco.mjtCamera.mjCAMERA_FREE
++            camera.distance, camera.azimuth, camera.elevation = 2.2, 95.0, -12.0
++            camera.lookat[:] = env.plant.base_position + np.asarray((0.12, 0.0, -0.15))
++            renderer.update_scene(env.plant.data, camera=camera)
++            pixels = renderer.render()
++            fig, (axis, profile_axis) = plt.subplots(
++                2, 1, figsize=(10, 8), gridspec_kw={"height_ratios": [3, 1]}
++            )
++            axis.imshow(pixels)
++            axis.axis("off")
++            axis.set_title(
++                f"Zero-residual baseline replay | {case['case_id']}\n"
++                f"{description}\nt = {env.plant.data.time:.2f} s; {profile}; no trained policy loaded"
++            )
++            profile_axis.plot(relative_x, height_mm, color="#2366a0", lw=1.8)
++            profile_axis.axhline(0, color="#8c959d", lw=0.8)
++            profile_axis.axvline(0, color="#8c959d", lw=0.8, linestyle="--")
++            profile_axis.set(
++                xlim=(-1.0, 1.0),
++                ylim=(-profile_limit_mm, profile_limit_mm),
++                xticks=np.arange(-1.0, 1.01, 0.25),
++                xlabel="World-x offset from base [m]",
++                ylabel="h(x) - h(base) [mm]",
++                title="Actual collision profile; shared scales across the three scenes",
++            )
++            profile_axis.grid(alpha=0.25)
++            fig.tight_layout()
++            filename = f"baseline_scene_{key}.png"
++            fig.savefig(output / filename, dpi=140)
++            plt.close(fig)
++            records.append(
++                {
++                    "case_id": case["case_id"],
++                    "file": filename,
++                    "replayed_time_s": float(env.plant.data.time),
++                    "terminated": bool(terminated),
++                    "truncated": bool(truncated),
++                    "termination_reason": info["termination_reason"],
++                    "scope": "new zero-residual baseline simulation; not trained-policy footage",
++                    "profile": profile,
++                    "control_schema": getattr(env, "control_schema", None),
++                    "observation_schema": env.observation_schema,
++                    "reward_schema": env.reward_schema,
++                    "terrain_description": description,
++                    "camera": {"distance_m": 2.2, "azimuth_deg": 95.0, "elevation_deg": -12.0},
++                    "profile_x_limits_m": [-1.0, 1.0],
++                    "profile_relative_height_limits_mm": [-profile_limit_mm, profile_limit_mm],
++                    "presentation": "lighter floor and lighting applied after simulation; collision geometry unchanged",
++                }
++            )
++        finally:
++            if renderer is not None:
++                renderer.close()
++            env.close()
++    return records
++
++
++def run_visualization(run: Path, output: Path, *, render_scenes: bool = False) -> Path:
++    if output.exists():
++        raise FileExistsError(f"refusing to overwrite existing output: {output}")
++    protocol, indexed, input_hashes = load_experiment(run)
++    selected = representative_cases(protocol)
++    rows = paired_differences(protocol, indexed)
++    import matplotlib
++
++    matplotlib.use("Agg")
++    import matplotlib.pyplot as plt
++
++    output.mkdir(parents=True, exist_ok=False)
++    with (output / "paired_differences.csv").open("x", newline="", encoding="utf-8") as stream:
++        writer = csv.DictWriter(stream, fieldnames=tuple(rows[0]))
++        writer.writeheader()
++        writer.writerows(rows)
++    summaries = _plot_differences(plt, output, protocol, rows)
++    _plot_traces(plt, output, protocol, indexed, selected)
++    scenes = _render_scenes(plt, output, protocol, selected) if render_scenes else []
++    _write_json(
++        output / "selection.json",
++        {
++            "training_seed": 0,
++            "profile": protocol_profile(protocol),
++            "training_conditions": list(protocol["training_conditions"]),
++            "rule": "first flat, first bumps, first positive-slope ramp in protocol order; never selected by score",
++            "case_ids": {key: case["case_id"] for key, case in selected.items()},
++            "scene_replays": scenes,
++        },
++    )
++    _write_json(
++        output / "terrain_seed_summary.json",
++        {
++            "replication_unit": "training seed; equal-weight evaluation cases within terrain family",
++            "baseline_replication": "one shared deterministic baseline per case, not new seed replicates",
++            "uncertainty": "individual seed points only; no confidence intervals",
++            "rows": summaries,
++        },
++    )
++    source_paths = [Path(__file__)]
++    if render_scenes:
++        source_paths.extend(
++            path
++            for path in (ROOT / "src" / "wheel_legged_control").rglob("*")
++            if path.is_file() and path.suffix.lower() in {".py", ".xml", ".urdf", ".stl"}
++        )
++    _write_json(
++        output / "manifest.json",
++        {
++            "schema_version": 1,
++            "input_sha256": input_hashes,
++            "source_sha256": {
++                str(path.relative_to(ROOT)): _sha256(path) for path in sorted(source_paths)
++            },
++            "sha256": {
++                str(path.relative_to(output)): _sha256(path)
++                for path in sorted(output.rglob("*"))
++                if path.is_file()
++            },
++            "excludes": ["manifest.json", "files added after visualization"],
++        },
++    )
++    return output
++
++
++def main(argv: list[str] | None = None) -> None:
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--run", type=Path, required=True)
++    parser.add_argument("--output", type=Path, required=True, help="new visualization directory")
++    parser.add_argument(
++        "--render-scenes", action="store_true", help="render fixed zero-residual baseline replays"
++    )
++    args = parser.parse_args(argv)
++    try:
++        destination = run_visualization(args.run, args.output, render_scenes=args.render_scenes)
++    except (ValueError, FileExistsError) as error:
++        raise SystemExit(str(error)) from error
++    print(f"Plots: {destination}")
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/scripts/diagnose_d1_terrain_tracking.py b/scripts/diagnose_d1_terrain_tracking.py
+new file mode 100644
+index 0000000..5861e51
+--- /dev/null
++++ b/scripts/diagnose_d1_terrain_tracking.py
+@@ -0,0 +1,130 @@
++"""Development-only probes for slope tracking; never edits trained artifacts.
++
++Run from the project root. Counterfactual controller patches live only in this
++process. This script reports their effects; it does not select a policy/model.
++"""
++
++from __future__ import annotations
++
++import argparse
++import hashlib
++import json
++from dataclasses import replace
++from pathlib import Path
++
++import numpy as np
++
++from wheel_legged_control.d1.terrain_env import D1TerrainResidualEnv
++
++
++def probe(variant: str, slope_deg: float, duration: float) -> dict:
++    env = D1TerrainResidualEnv(randomize=False, episode_seconds=duration)
++    try:
++        options = {"terrain": {"kind": "ramp", "slope_deg": slope_deg}, "velocity_mps": 0.35}
++        if variant == "spawn_aligned":
++            options["initial_pitch"] = -float(np.deg2rad(slope_deg))
++        env.reset(seed=31, options=options)
++        original_compute = env.controller.compute
++        mass = env.plant.nominal_total_mass_kg
++        rows = []
++
++        def compute(command, state, residual_force_n=None):
++            ground = env._ground_reference()
++            residual = np.array(residual_force_n, dtype=float, copy=True)
++            if variant in ("gravity", "aligned_gravity"):
++                residual[0] += -mass * 9.81 * np.sin(ground.pitch_rad)
++            if variant in ("aligned", "aligned_gravity"):
++                command = replace(command, pitch_rad=ground.pitch_rad)
++            return original_compute(command, state, residual_force_n=residual)
++
++        env.controller.compute = compute
++        if variant == "unclamped_position":
++
++            def advance(velocity_mps):
++                env.controller._distance_reference_m += velocity_mps * env.plant.control_dt
++                return env.controller._distance_reference_m
++
++            env.controller._advance_position_reference = advance
++        for _ in range(round(duration / env.plant.control_dt)):
++            _, _, terminated, truncated, info = env.step(np.zeros(2))
++            rows.append(
++                (
++                    info["forward_velocity_mps"],
++                    info["velocity_error_mps"],
++                    info["longitudinal_force_n"],
++                    float(env.plant.base_rpy[1]),
++                    info["torque_saturation_fraction"],
++                    info["clearance_error_m"],
++                )
++            )
++            if terminated or truncated:
++                break
++        values = np.asarray(rows)
++        tail = values[-min(100, len(values)) :]
++        return {
++            "variant": variant,
++            "slope_deg": slope_deg,
++            "duration_s": len(rows) * env.plant.control_dt,
++            "progress_m": float(env.plant.base_position[0]),
++            "velocity_rmse_mps": float(np.sqrt(np.mean(values[:, 1] ** 2))),
++            "tail_velocity_mps": float(tail[:, 0].mean()),
++            "tail_force_n": float(tail[:, 2].mean()),
++            "tail_pitch_rad": float(tail[:, 3].mean()),
++            "clearance_rmse_m": float(np.sqrt(np.mean(values[:, 5] ** 2))),
++            "torque_saturation": float(values[:, 4].mean()),
++            "termination_reason": info["termination_reason"],
++            "reference_gap_m": env.controller._distance_reference_m - env.controller._distance_m,
++        }
++    finally:
++        env.close()
++
++
++def main():
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument(
++        "--variants",
++        nargs="+",
++        default=["original"],
++        choices=(
++            "original",
++            "gravity",
++            "aligned",
++            "aligned_gravity",
++            "unclamped_position",
++            "spawn_aligned",
++        ),
++    )
++    parser.add_argument("--slopes", type=float, nargs="+", default=[4.0])
++    parser.add_argument("--seconds", type=float, default=4.0)
++    parser.add_argument("--require-forward", action="store_true")
++    parser.add_argument("--output", type=Path, help="new directory for diagnostic evidence")
++    args = parser.parse_args()
++    if args.output is not None and args.output.exists():
++        raise SystemExit(f"refusing to overwrite {args.output}")
++    results = [
++        probe(variant, slope, args.seconds) for variant in args.variants for slope in args.slopes
++    ]
++    print(json.dumps(results, indent=2, allow_nan=False))
++    if args.output is not None:
++        args.output.mkdir(parents=True, exist_ok=False)
++        root = Path(__file__).resolve().parents[1]
++        sources = [Path(__file__), *(root / "src/wheel_legged_control").rglob("*.py")]
++        payload = {
++            "scope": "development-only counterfactual probes, not policy evaluation",
++            "seed": 31,
++            "target_velocity_mps": 0.35,
++            "source_sha256": {
++                str(path.relative_to(root)): hashlib.sha256(path.read_bytes()).hexdigest()
++                for path in sorted(sources)
++            },
++            "results": results,
++        }
++        with (args.output / "probes.json").open("x", encoding="utf-8") as stream:
++            json.dump(payload, stream, indent=2, allow_nan=False)
++            stream.write("\n")
++    if args.require_forward and not all(r["progress_m"] > 0 for r in results):
++        raise SystemExit("forward tracking failed: final progress is not positive")
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/scripts/diagnose_d1_terrain_reference.py b/scripts/diagnose_d1_terrain_reference.py
+new file mode 100644
+index 0000000..ba012d6
+--- /dev/null
++++ b/scripts/diagnose_d1_terrain_reference.py
+@@ -0,0 +1,336 @@
++"""Development-only, single-variable attitude-reference probes on D1 bumps.
++
++Changes live inside each process's controller wrapper. No production source,
++reward, observation, reset pose, residual, gain or height target is modified.
++This is a diagnosis, not a new trained policy or a production environment.
++"""
++
++from __future__ import annotations
++
++import argparse
++import hashlib
++import json
++import math
++from concurrent.futures import ProcessPoolExecutor
++from dataclasses import replace
++from pathlib import Path
++from typing import Any
++
++import numpy as np
++
++from wheel_legged_control.d1.terrain_env import D1TerrainResidualEnv
++
++ROOT = Path(__file__).resolve().parents[1]
++VARIANTS = ("world_upright", "local_tangent", "support_plane")
++
++
++def normal_to_rpy(slope_x: float, slope_y: float, yaw: float) -> tuple[float, float]:
++    """Align the body z axis to [-dh/dx, -dh/dy, 1] with the current yaw.
++
++    R = Rz(yaw) Ry(pitch) Rx(roll). A positive world-x slope therefore gives
++    negative pitch at yaw=0. The coupled roll expression is exact, not atan(b).
++    """
++
++    forward = slope_x * math.cos(yaw) + slope_y * math.sin(yaw)
++    lateral = -slope_x * math.sin(yaw) + slope_y * math.cos(yaw)
++    pitch = -math.atan(forward)
++    roll = math.atan2(lateral, math.sqrt(1.0 + forward * forward))
++    return roll, pitch
++
++
++def references(plant: Any, state: Any) -> tuple[tuple[float, float], tuple[float, float], float]:
++    """Return local and four-wheel projected-ground RPY, plus plane fit error.
++
++    All four wheel-centre XY projections are used, regardless of whether a
++    wheel is touching. Actual contacts/forces/contact-point flags are not read.
++    """
++
++    x, y = state.base_position[:2]
++    ground = plant.training_ground_reference(float(x), float(y))
++    local_slope_x = -math.tan(ground.pitch_rad)
++    local = normal_to_rpy(local_slope_x, 0.0, float(state.base_rpy[2]))
++    xy = np.asarray(state.foot_position[:, :2])
++    heights = np.asarray(
++        [plant.training_ground_reference(float(point[0]), float(point[1])).height_m for point in xy]
++    )
++    centered = xy - xy.mean(axis=0)
++    design = np.column_stack((centered, np.ones(4)))
++    coefficients, _, rank, _ = np.linalg.lstsq(design, heights, rcond=None)
++    if rank != 3:
++        raise ValueError("four wheel projections do not determine a support plane")
++    support = normal_to_rpy(
++        float(coefficients[0]), float(coefficients[1]), float(state.base_rpy[2])
++    )
++    fit_rmse = float(np.sqrt(np.mean(np.square(design @ coefficients - heights))))
++    return local, support, fit_rmse
++
++
++def development_cases() -> list[dict[str, Any]]:
++    return [
++        {
++            "case_id": f"a{round(amplitude * 1000):02d}_w{round(wavelength * 10):02d}_p{phase_index}",
++            "terrain": {
++                "kind": "bumps",
++                "amplitude_m": amplitude,
++                "wavelength_m": wavelength,
++                "phase_rad": phase,
++            },
++        }
++        for amplitude in (0.005, 0.010)
++        for wavelength in (0.8, 1.0, 1.2)
++        for phase_index, phase in enumerate((0.0, math.pi / 2))
++    ]
++
++
++def _rms(values: np.ndarray) -> float:
++    return float(np.sqrt(np.mean(np.square(values))))
++
++
++def _rate_metrics(values: np.ndarray, dt: float, prefix: str) -> dict[str, float]:
++    # Do not count an artificial jump from zero to the first requested pitch.
++    # Initial target offset is reported separately.
++    rate = np.diff(values) / dt
++    return {
++        f"{prefix}_initial_rad": float(values[0]),
++        f"{prefix}_rms_rad": _rms(values),
++        f"{prefix}_rate_rms_rps": _rms(rate) if len(rate) else 0.0,
++        f"{prefix}_rate_max_abs_rps": float(np.max(np.abs(rate))) if len(rate) else 0.0,
++    }
++
++
++def run_case(job: tuple[dict, float, int, int]) -> list[dict]:
++    case, seconds, seed, repeats = job
++    env = D1TerrainResidualEnv(
++        baseline="lqr", randomize=False, episode_seconds=seconds, training_mode="flat"
++    )
++    original_compute = env.controller.compute
++    results = []
++    try:
++        for repeat in range(repeats):
++            for variant in VARIANTS:
++                env.controller.compute = original_compute
++                env.reset(
++                    seed=seed,
++                    options={
++                        "terrain": case["terrain"],
++                        "velocity_mps": 0.35,
++                        "height_m": 0.455,
++                    },
++                )
++                start_x = float(env.plant.base_position[0])
++                rows = []
++                reference_row: dict[str, float] = {}
++
++                def compute(
++                    command,
++                    state,
++                    residual_force_n=None,
++                    *,
++                    _variant=variant,
++                    _reference_row=reference_row,
++                    **kwargs,
++                ):
++                    local, support, plane_error = references(env.plant, state)
++                    target = (command.roll_rad, command.pitch_rad)
++                    if _variant == "local_tangent":
++                        target = local
++                    elif _variant == "support_plane":
++                        target = support
++                    _reference_row.update(
++                        requested_roll_rad=float(target[0]),
++                        requested_pitch_rad=float(target[1]),
++                        local_pitch_rad=float(local[1]),
++                        support_pitch_rad=float(support[1]),
++                        support_roll_rad=float(support[0]),
++                        plane_fit_rmse_m=plane_error,
++                    )
++                    # The attitude target is the sole intervention. Pass every
++                    # remaining argument to the untouched original controller.
++                    return original_compute(
++                        replace(command, roll_rad=target[0], pitch_rad=target[1]),
++                        state,
++                        residual_force_n=residual_force_n,
++                        **kwargs,
++                    )
++
++                env.controller.compute = compute
++                for step in range(round(seconds / env.plant.control_dt)):
++                    _, _, terminated, truncated, info = env.step(np.zeros(2, dtype=np.float32))
++                    rows.append(
++                        {
++                            "time_s": (step + 1) * env.plant.control_dt,
++                            **reference_row,
++                            "velocity_error_mps": float(info["velocity_error_mps"]),
++                            "forward_velocity_mps": float(info["forward_velocity_mps"]),
++                            "clearance_error_m": float(info["clearance_error_m"]),
++                            "clearance_m": float(info["clearance_m"]),
++                            "measured_pitch_rad": float(env.plant.base_rpy[1]),
++                            "longitudinal_force_n": float(info["longitudinal_force_n"]),
++                            "torque_saturation_fraction": float(info["torque_saturation_fraction"]),
++                        }
++                    )
++                    if terminated or truncated:
++                        break
++                columns = {name: np.asarray([row[name] for row in rows]) for name in rows[0]}
++                metrics = {
++                    "case_id": case["case_id"],
++                    "variant": variant,
++                    "repeat": repeat,
++                    "terrain": case["terrain"],
++                    "duration_s": len(rows) * env.plant.control_dt,
++                    "velocity_rmse_mps": _rms(columns["velocity_error_mps"]),
++                    "clearance_rmse_m": _rms(columns["clearance_error_m"]),
++                    "minimum_clearance_m": float(columns["clearance_m"].min()),
++                    "progress_m": float(env.plant.base_position[0]) - start_x,
++                    "tail_velocity_mps": float(columns["forward_velocity_mps"][-100:].mean()),
++                    "mean_torque_saturation_fraction": float(
++                        columns["torque_saturation_fraction"].mean()
++                    ),
++                    "max_plane_fit_rmse_m": float(columns["plane_fit_rmse_m"].max()),
++                    "terminated": bool(terminated),
++                    "truncated": bool(truncated),
++                    "termination_reason": info["termination_reason"],
++                }
++                for field in ("requested_pitch", "local_pitch", "support_pitch"):
++                    metrics.update(
++                        _rate_metrics(columns[f"{field}_rad"], env.plant.control_dt, field)
++                    )
++                results.append({"metrics": metrics, "telemetry": rows})
++    finally:
++        env.controller.compute = original_compute
++        env.close()
++    return results
++
++
++def _source_hashes() -> dict[str, str]:
++    paths = [Path(__file__)]
++    paths.extend(
++        path
++        for path in (ROOT / "src" / "wheel_legged_control").rglob("*")
++        if path.is_file() and path.suffix.lower() in {".py", ".xml", ".urdf", ".stl"}
++    )
++    return {
++        str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
++        for path in sorted(paths)
++    }
++
++
++def _check_geometry() -> None:
++    for slope_x, slope_y, yaw in ((0.1, 0.0, 0.0), (-0.1, 0.0, 0.0), (0.1, 0.05, 0.4)):
++        roll, pitch = normal_to_rpy(slope_x, slope_y, yaw)
++        heading_normal = np.asarray(
++            (math.sin(pitch) * math.cos(roll), -math.sin(roll), math.cos(pitch) * math.cos(roll))
++        )
++        rotation = np.asarray(
++            ((math.cos(yaw), -math.sin(yaw), 0), (math.sin(yaw), math.cos(yaw), 0), (0, 0, 1))
++        )
++        expected = np.asarray((-slope_x, -slope_y, 1.0))
++        expected /= np.linalg.norm(expected)
++        np.testing.assert_allclose(rotation @ heading_normal, expected, atol=1e-12)
++
++
++def main(argv: list[str] | None = None) -> None:
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--output", type=Path, required=True, help="new diagnostic directory")
++    parser.add_argument("--seconds", type=float, default=4.0, choices=(4.0, 6.0))
++    parser.add_argument("--seed", type=int, default=31)
++    parser.add_argument("--repeats", type=int, default=2, choices=(1, 2))
++    parser.add_argument("--workers", type=int, default=2, choices=(1, 2))
++    args = parser.parse_args(argv)
++    if args.seed < 0 or args.output.exists():
++        raise SystemExit("seed must be nonnegative and output must not exist")
++    _check_geometry()
++    cases = development_cases()
++    before = _source_hashes()
++    args.output.mkdir(parents=True, exist_ok=False)
++    protocol = {
++        "scope": "development-only diagnostic; not policy selection or a production change",
++        "intervention": "only controller command roll/pitch target is replaced in process",
++        "variants": list(VARIANTS),
++        "cases": cases,
++        "episode_seconds": args.seconds,
++        "seed": args.seed,
++        "repeats": args.repeats,
++        "command_velocity_mps": 0.35,
++        "invariants": "same seed, spawn, height target, gains, zero residual, reward and observation",
++        "support_reference": "least-squares oracle heights under all four wheel-centre XY projections; no contacts or filtering",
++        "local_reference": "base collision-cell tangent; both nonzero variants convert world normal using current yaw",
++        "pitch_rate": "difference of consecutive requested pitch divided by control_dt; first offset recorded separately",
++        "source_sha256": before,
++    }
++    with (args.output / "protocol.json").open("x") as stream:
++        json.dump(protocol, stream, indent=2, allow_nan=False)
++    jobs = [(case, args.seconds, args.seed, args.repeats) for case in cases]
++    if args.workers == 1:
++        batches = list(map(run_case, jobs))
++    else:
++        with ProcessPoolExecutor(max_workers=args.workers) as pool:
++            batches = list(pool.map(run_case, jobs))
++    results = [result for batch in batches for result in batch]
++    metrics = [result["metrics"] for result in results]
++    unchanged = before == _source_hashes()
++    repeat_checks = []
++    if args.repeats == 2:
++        for case in cases:
++            for variant in VARIANTS:
++                pair = [
++                    result
++                    for result in results
++                    if result["metrics"]["case_id"] == case["case_id"]
++                    and result["metrics"]["variant"] == variant
++                ]
++                repeat_checks.append(
++                    {
++                        "case_id": case["case_id"],
++                        "variant": variant,
++                        "telemetry_identical": pair[0]["telemetry"] == pair[1]["telemetry"],
++                    }
++                )
++    with (args.output / "summary.json").open("x") as stream:
++        json.dump(
++            {"source_unchanged": unchanged, "repeat_checks": repeat_checks, "metrics": metrics},
++            stream,
++            indent=2,
++            allow_nan=False,
++        )
++    with (args.output / "telemetry.json").open("x") as stream:
++        json.dump(results, stream, allow_nan=False)
++    with (args.output / "manifest.json").open("x") as stream:
++        json.dump(
++            {
++                "sha256": {
++                    path.name: hashlib.sha256(path.read_bytes()).hexdigest()
++                    for path in sorted(args.output.iterdir())
++                    if path.name != "manifest.json"
++                }
++            },
++            stream,
++            indent=2,
++        )
++    for variant in VARIANTS:
++        rows = [row for row in metrics if row["variant"] == variant and row["repeat"] == 0]
++        print(
++            json.dumps(
++                {
++                    "variant": variant,
++                    "mean_case_velocity_rmse_mps": float(
++                        np.mean([row["velocity_rmse_mps"] for row in rows])
++                    ),
++                    "mean_case_progress_m": float(np.mean([row["progress_m"] for row in rows])),
++                    "terminated_cases": sum(row["terminated"] for row in rows),
++                },
++                allow_nan=False,
++            ),
++            flush=True,
++        )
++    print(
++        f"Results: {args.output}; source unchanged: {unchanged}; repeated telemetry identical: "
++        f"{all(row['telemetry_identical'] for row in repeat_checks)}",
++        flush=True,
++    )
++    if not unchanged or any(not row["telemetry_identical"] for row in repeat_checks):
++        raise SystemExit("diagnostic source freeze or repeatability check failed")
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/scripts/diagnose_d1_terrain_ppo.py b/scripts/diagnose_d1_terrain_ppo.py
+new file mode 100644
+index 0000000..226bcd7
+--- /dev/null
++++ b/scripts/diagnose_d1_terrain_ppo.py
+@@ -0,0 +1,498 @@
++"""Read a frozen D1 PPO checkpoint and probe its critic on one real rollout.
++
++Only in-memory copies are updated. Fixed-batch fitting diagnoses optimization;
++it does not retrain the controller or measure policy performance.
++"""
++
++from __future__ import annotations
++
++import argparse
++import copy
++import csv
++import hashlib
++import inspect
++import json
++from importlib.metadata import version
++from pathlib import Path
++from typing import Any
++
++import numpy as np
++
++
++def lambda_returns(
++    rewards: np.ndarray,
++    values: np.ndarray,
++    episode_starts: np.ndarray,
++    last_values: np.ndarray,
++    dones: np.ndarray,
++    gamma: float,
++    gae_lambda: float,
++) -> np.ndarray:
++    """Independent NumPy transcription of SB3's bootstrapped rollout targets.
++
++    Rewards must already contain SB3's timeout bootstrap correction. This
++    function must not add that correction a second time.
++    """
++
++    rewards, values = np.asarray(rewards), np.asarray(values)
++    if rewards.shape != values.shape or rewards.ndim != 2:
++        raise ValueError("rewards and values must have identical (time, env) shape")
++    if episode_starts.shape != values.shape:
++        raise ValueError("episode_starts must match values")
++    if last_values.shape != (values.shape[1],) or dones.shape != last_values.shape:
++        raise ValueError("bootstrap arrays must have shape (env,)")
++    advantages = np.zeros_like(values)
++    carry = np.zeros(values.shape[1])
++    for step in reversed(range(len(values))):
++        next_values = last_values if step == len(values) - 1 else values[step + 1]
++        mask = 1.0 - (dones if step == len(values) - 1 else episode_starts[step + 1])
++        delta = rewards[step] + gamma * next_values * mask - values[step]
++        carry = delta + gamma * gae_lambda * mask * carry
++        advantages[step] = carry
++    return values + advantages
++
++
++def explained_variance(values: np.ndarray, targets: np.ndarray) -> float | None:
++    variance = float(np.var(targets))
++    return None if variance <= 1e-12 else 1.0 - float(np.var(targets - values)) / variance
++
++
++def value_statistics(values: np.ndarray, targets: np.ndarray) -> dict[str, float | None]:
++    return {
++        "value_mean": float(values.mean()),
++        "value_std": float(values.std()),
++        "return_mean": float(targets.mean()),
++        "return_std": float(targets.std()),
++        "mse": float(np.mean(np.square(targets - values))),
++        "explained_variance": explained_variance(values, targets),
++    }
++
++
++def collect_rollout(checkpoint: Path, seed: int, steps: int, n_envs: int) -> tuple[Any, dict]:
++    import torch
++    from stable_baselines3 import PPO
++    from stable_baselines3.common.buffers import RolloutBuffer
++    from stable_baselines3.common.callbacks import BaseCallback
++    from stable_baselines3.common.vec_env import DummyVecEnv
++
++    from wheel_legged_control.d1.terrain_env import D1TerrainResidualEnv
++
++    class CaptureCallback(BaseCallback):
++        def __init__(self):
++            super().__init__()
++            self.raw_rewards = []
++
++        def _on_step(self):
++            self.raw_rewards.append(self.locals["rewards"].copy())
++            return True
++
++    env = DummyVecEnv(
++        [lambda: D1TerrainResidualEnv(training_mode="flat", randomize=False) for _ in range(n_envs)]
++    )
++    try:
++        model = PPO.load(checkpoint, env=env, device="cpu")
++        if model.observation_space.shape != (44,) or model.action_space.shape != (2,):
++            raise ValueError("probe requires the new 44-observation/2-action terrain checkpoint")
++        metadata = json.loads(checkpoint.with_name("metadata.json").read_text())
++        if metadata["observation_schema"] != "d1-terrain-oracle-v1":
++            raise ValueError("incompatible checkpoint observation schema")
++        if metadata["model_sha256"] != hashlib.sha256(checkpoint.read_bytes()).hexdigest():
++            raise ValueError("checkpoint SHA differs from its metadata")
++        model.rollout_buffer = RolloutBuffer(
++            steps,
++            model.observation_space,
++            model.action_space,
++            n_envs=n_envs,
++            gamma=model.gamma,
++            gae_lambda=model.gae_lambda,
++        )
++        model.set_random_seed(seed)
++        capture = CaptureCallback()
++        _, callback = model._setup_learn(steps * n_envs, callback=capture)
++        model.collect_rollouts(env, callback, model.rollout_buffer, n_rollout_steps=steps)
++        buffer = model.rollout_buffer
++        data = {
++            name: getattr(buffer, name).copy()
++            for name in (
++                "observations",
++                "actions",
++                "rewards",
++                "values",
++                "returns",
++                "advantages",
++                "episode_starts",
++                "log_probs",
++            )
++        }
++        with torch.no_grad():
++            data["last_values"] = (
++                model.policy.predict_values(torch.as_tensor(model._last_obs)).numpy().flatten()
++            )
++        data["dones"] = model._last_episode_starts.copy()
++        data["raw_rewards"] = np.asarray(capture.raw_rewards)
++        return model, data
++    finally:
++        env.close()
++
++
++def _tensors(data: dict) -> dict:
++    import torch
++
++    return {
++        name: torch.as_tensor(value.reshape((-1, *value.shape[2:])), dtype=torch.float32)
++        for name, value in data.items()
++        if name in {"observations", "actions", "values", "returns", "advantages", "log_probs"}
++    }
++
++
++def _probe_minibatch(data: dict) -> dict:
++    tensors = _tensors(data)
++    return {name: values[data["probe_indices"]] for name, values in tensors.items()}
++
++
++def _losses(policy: Any, batch: dict, scale: float, model: Any) -> tuple[Any, Any]:
++    import torch
++
++    values, log_prob, entropy = policy.evaluate_actions(batch["observations"], batch["actions"])
++    advantages = batch["advantages"] * scale
++    advantages = (advantages - advantages.mean()) / (advantages.std() + 1e-8)
++    ratio = torch.exp(log_prob - batch["log_probs"])
++    epsilon = float(model.clip_range(1.0))
++    actor = (
++        -torch.minimum(
++            ratio * advantages, torch.clamp(ratio, 1 - epsilon, 1 + epsilon) * advantages
++        ).mean()
++        - model.ent_coef * entropy.mean()
++    )
++    critic = model.vf_coef * torch.mean((values.flatten() - batch["returns"] * scale) ** 2)
++    return actor, critic
++
++
++def _norm(tensors: list[Any]) -> float:
++    import torch
++
++    return float(torch.sqrt(sum(torch.sum(tensor.detach() ** 2) for tensor in tensors)))
++
++
++def gradient_probe(model: Any, data: dict, scale: float) -> dict:
++    import torch
++
++    policy = copy.deepcopy(model.policy)
++    with torch.no_grad():
++        policy.value_net.weight.mul_(scale)
++        policy.value_net.bias.mul_(scale)
++    actor_loss, critic_loss = _losses(policy, _probe_minibatch(data), scale, model)
++    parameters = list(policy.parameters())
++    actor_grads = torch.autograd.grad(actor_loss, parameters, allow_unused=True, retain_graph=True)
++    critic_grads = torch.autograd.grad(critic_loss, parameters, allow_unused=True)
++    actor_norm = _norm([gradient for gradient in actor_grads if gradient is not None])
++    critic_norm = _norm([gradient for gradient in critic_grads if gradient is not None])
++    shared = sum(
++        a is not None and c is not None for a, c in zip(actor_grads, critic_grads, strict=True)
++    )
++    total = np.sqrt(actor_norm**2 + critic_norm**2)
++    factor = min(1.0, model.max_grad_norm / (total + 1e-6))
++    return {
++        "consistent_value_reward_scale": scale,
++        "actor_gradient_norm": actor_norm,
++        "weighted_critic_gradient_norm": critic_norm,
++        "shared_parameter_tensors": shared,
++        "global_clip_factor": factor,
++        "actor_gradient_norm_after_global_clip": actor_norm * factor,
++    }
++
++
++def optimizer_probe(model: Any, data: dict, clip_mode: str) -> dict:
++    import torch
++
++    policy = copy.deepcopy(model.policy)
++    batch = _probe_minibatch(data)
++    actor_parameters = [
++        parameter
++        for name, parameter in policy.named_parameters()
++        if "policy_net" in name or "action_net" in name or name == "log_std"
++    ]
++    critic_parameters = [
++        parameter for name, parameter in policy.named_parameters() if "value_net" in name
++    ]
++    actor_before = [parameter.detach().clone() for parameter in actor_parameters]
++    with torch.no_grad():
++        before_mean = policy.get_distribution(batch["observations"]).distribution.mean.clone()
++    actor, critic = _losses(policy, batch, 1.0, model)
++    policy.optimizer.zero_grad()
++    (actor + critic).backward()
++    if clip_mode == "global":
++        torch.nn.utils.clip_grad_norm_(policy.parameters(), model.max_grad_norm)
++    elif clip_mode == "separate":
++        torch.nn.utils.clip_grad_norm_(actor_parameters, model.max_grad_norm)
++        torch.nn.utils.clip_grad_norm_(critic_parameters, model.max_grad_norm)
++    elif clip_mode != "none":
++        raise ValueError("clip_mode must be global, separate, or none")
++    policy.optimizer.step()
++    with torch.no_grad():
++        after_mean = policy.get_distribution(batch["observations"]).distribution.mean
++    return {
++        "clip_mode": clip_mode,
++        "actor_parameter_step_norm": _norm(
++            [
++                parameter - before
++                for parameter, before in zip(actor_parameters, actor_before, strict=True)
++            ]
++        ),
++        "mean_absolute_action_mean_change": float(torch.mean(torch.abs(after_mean - before_mean))),
++        "optimizer": "checkpoint Adam state; exactly one frozen-minibatch step",
++    }
++
++
++def fit_critic(
++    model: Any,
++    data: dict,
++    *,
++    scale: float,
++    fresh: bool,
++    steps: int,
++    seed: int,
++    scale_initial_output: bool = True,
++) -> tuple[dict, list]:
++    import torch
++
++    torch.manual_seed(seed)
++    trunk = copy.deepcopy(model.policy.mlp_extractor.value_net)
++    head = copy.deepcopy(model.policy.value_net)
++    if fresh:
++        for layer in trunk:
++            if isinstance(layer, torch.nn.Linear):
++                torch.nn.init.orthogonal_(layer.weight, np.sqrt(2))
++                torch.nn.init.zeros_(layer.bias)
++        torch.nn.init.orthogonal_(head.weight, 1.0)
++        torch.nn.init.zeros_(head.bias)
++    if scale_initial_output:
++        with torch.no_grad():
++            head.weight.mul_(scale)
++            head.bias.mul_(scale)
++    critic = torch.nn.Sequential(trunk, head)
++    optimizer = torch.optim.Adam(critic.parameters(), lr=3e-4, eps=1e-5)
++    batch = _tensors(data)
++    targets = batch["returns"] * scale
++    rows = []
++    for step in range(steps + 1):
++        predictions = critic(batch["observations"]).flatten()
++        loss = torch.mean((predictions - targets) ** 2)
++        if step == 0 or step == steps or step % 20 == 0:
++            stats = value_statistics(
++                predictions.detach().numpy() / scale, data["returns"].flatten()
++            )
++            rows.append({"update": step, **stats})
++        if step < steps:
++            optimizer.zero_grad()
++            loss.backward()
++            torch.nn.utils.clip_grad_norm_(critic.parameters(), model.max_grad_norm)
++            optimizer.step()
++    return {
++        "fresh_critic": fresh,
++        "target_scale": scale,
++        "initial_output_scale": scale if scale_initial_output else 1.0,
++        "optimizer": "fresh Adam lr=3e-4 eps=1e-5, critic-only max_grad_norm=0.5",
++        "fixed_batch_updates": steps,
++        "initial": rows[0],
++        "final": rows[-1],
++        "scope": "in-sample frozen-target fit only; no control performance claim",
++    }, rows
++
++
++def activation_probe(model: Any, data: dict) -> list[dict]:
++    import torch
++
++    activation = _tensors(data)["observations"]
++    rows = []
++    with torch.no_grad():
++        for index, layer in enumerate(model.policy.mlp_extractor.value_net):
++            activation = layer(activation)
++            if isinstance(layer, torch.nn.Tanh):
++                rows.append(
++                    {
++                        "layer": index,
++                        "fraction_abs_activation_gt_095": float(
++                            (activation.abs() > 0.95).float().mean()
++                        ),
++                        "mean_unit_std_across_samples": float(activation.std(dim=0).mean()),
++                    }
++                )
++    return rows
++
++
++def run(args: argparse.Namespace) -> dict:
++    if args.output.exists():
++        raise FileExistsError(f"refusing to overwrite {args.output}")
++    if not 2 <= args.rollout_steps <= 400 or args.envs not in (1, 2, 4):
++        raise ValueError("rollout-steps must be 2..400; envs must be 1, 2, or 4")
++    if args.fit_steps < 1 or args.seed < 0 or args.batch_size < 2:
++        raise ValueError("fit-steps must be positive, seed nonnegative, batch-size at least 2")
++    import torch
++    from stable_baselines3.common import buffers, on_policy_algorithm, policies
++
++    torch.set_num_threads(1)
++    checkpoint_hash = hashlib.sha256(args.checkpoint.read_bytes()).hexdigest()
++    model, data = collect_rollout(args.checkpoint, args.seed, args.rollout_steps, args.envs)
++    root = Path(__file__).resolve().parents[1]
++    source_paths = list((root / "src" / "wheel_legged_control").rglob("*.py"))
++    source_paths.extend(
++        Path(module.__file__) for module in (buffers, on_policy_algorithm, policies)
++    )
++    source_paths.append(Path(inspect.getfile(type(model))))
++    data["probe_indices"] = np.random.default_rng(args.seed + 1).permutation(
++        args.rollout_steps * args.envs
++    )[: args.batch_size]
++    recomputed = lambda_returns(
++        data["rewards"],
++        data["values"],
++        data["episode_starts"],
++        data["last_values"],
++        data["dones"],
++        model.gamma,
++        model.gae_lambda,
++    )
++    np.testing.assert_allclose(recomputed, data["returns"], rtol=2e-6, atol=2e-5)
++    args.output.mkdir(parents=True, exist_ok=False)
++    np.savez_compressed(args.output / "rollout.npz", **data)
++    initial = value_statistics(data["values"], data["returns"])
++    gradients = [gradient_probe(model, data, scale) for scale in (1.0, 0.1, 0.01)]
++    optimizer_steps = [
++        optimizer_probe(model, data, mode) for mode in ("global", "separate", "none")
++    ]
++    fits = []
++    for fresh in (False, True):
++        for scale in (1.0, 0.01):
++            result, rows = fit_critic(
++                model, data, scale=scale, fresh=fresh, steps=args.fit_steps, seed=args.seed
++            )
++            fits.append(result)
++            path = args.output / f"critic_fit_{'fresh' if fresh else 'loaded'}_scale_{scale:g}.csv"
++            with path.open("x", newline="", encoding="utf-8") as stream:
++                writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
++                writer.writeheader()
++                writer.writerows(rows)
++    result, rows = fit_critic(
++        model,
++        data,
++        scale=0.01,
++        fresh=True,
++        steps=args.fit_steps,
++        seed=args.seed,
++        scale_initial_output=False,
++    )
++    fits.append(result)
++    with (args.output / "critic_fit_fresh_reward_only_scale_0.01.csv").open(
++        "x", newline="", encoding="utf-8"
++    ) as stream:
++        writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
++        writer.writeheader()
++        writer.writerows(rows)
++    offset = float(data["raw_rewards"].mean() / (1 - model.gamma) - data["values"].mean())
++    shifted = lambda_returns(
++        data["rewards"],
++        data["values"] + offset,
++        data["episode_starts"],
++        data["last_values"] + offset,
++        data["dones"],
++        model.gamma,
++        model.gae_lambda,
++    )
++    summary = {
++        "checkpoint": str(args.checkpoint),
++        "checkpoint_sha256": checkpoint_hash,
++        "checkpoint_metadata_sha256": hashlib.sha256(
++            args.checkpoint.with_name("metadata.json").read_bytes()
++        ).hexdigest(),
++        "seed": args.seed,
++        "rollout_steps": args.rollout_steps,
++        "n_envs": args.envs,
++        "gradient_optimizer_minibatch_size": len(data["probe_indices"]),
++        "data": "new seeded real flat D1 rollout, stochastic frozen policy; development only",
++        "actions": "stored unsquashed samples; environment applied bounded copies as in SB3",
++        "gamma": model.gamma,
++        "gae_lambda": model.gae_lambda,
++        "vf_coef": model.vf_coef,
++        "max_grad_norm": model.max_grad_norm,
++        "normalize_advantage": model.normalize_advantage,
++        "reward_mean": float(data["raw_rewards"].mean()),
++        "timeout_bootstrap_corrections": int(
++            np.count_nonzero(data["rewards"] - data["raw_rewards"])
++        ),
++        "numpy_sb3_return_max_abs_difference": float(np.max(np.abs(recomputed - data["returns"]))),
++        "initial": initial,
++        "gradient_probes": gradients,
++        "optimizer_probes": optimizer_steps,
++        "critic_activations": activation_probe(model, data),
++        "critic_fits": fits,
++        "constant_bootstrap_probe": {
++            "offset": offset,
++            "return_time_correlation_before": float(
++                np.corrcoef(np.arange(args.rollout_steps), data["returns"].mean(axis=1))[0, 1]
++            ),
++            "return_time_correlation_after": float(
++                np.corrcoef(np.arange(args.rollout_steps), shifted.mean(axis=1))[0, 1]
++            ),
++            "statistics_after": value_statistics(data["values"] + offset, shifted),
++            "scope": "algebraic sensitivity only; mean_reward/(1-gamma) is not a known true value",
++            "valid_without_timeout_only": not bool(
++                np.any(data["dones"]) or np.any(data["episode_starts"][1:])
++            ),
++        },
++        "checkpoint_unchanged": hashlib.sha256(args.checkpoint.read_bytes()).hexdigest()
++        == checkpoint_hash,
++        "source_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
++        "runtime_source_sha256": {
++            str(path.relative_to(root)) if path.is_relative_to(root) else str(path): hashlib.sha256(
++                path.read_bytes()
++            ).hexdigest()
++            for path in sorted(set(source_paths))
++        },
++        "package_versions": {
++            name: version(name) for name in ("torch", "stable-baselines3", "mujoco", "numpy")
++        },
++    }
++    with (args.output / "summary.json").open("x", encoding="utf-8") as stream:
++        json.dump(summary, stream, indent=2, allow_nan=False)
++        stream.write("\n")
++    with (args.output / "manifest.json").open("x", encoding="utf-8") as stream:
++        json.dump(
++            {
++                path.name: hashlib.sha256(path.read_bytes()).hexdigest()
++                for path in sorted(args.output.iterdir())
++                if path.name != "manifest.json"
++            },
++            stream,
++            indent=2,
++        )
++    print(
++        json.dumps(
++            {"initial": initial, "gradient_probes": gradients, "critic_fits": fits}, indent=2
++        )
++    )
++    if args.require_ev is not None and initial["explained_variance"] < args.require_ev:
++        raise SystemExit(
++            f"[DEBUG-terrain-ppo] EV below diagnostic threshold {args.require_ev}; artifacts retained"
++        )
++    return summary
++
++
++def main() -> None:
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--checkpoint", type=Path, required=True)
++    parser.add_argument("--output", type=Path, required=True)
++    parser.add_argument("--seed", type=int, default=1701)
++    parser.add_argument("--rollout-steps", type=int, default=128)
++    parser.add_argument("--envs", type=int, choices=(1, 2, 4), default=4)
++    parser.add_argument("--fit-steps", type=int, default=200)
++    parser.add_argument("--batch-size", type=int, default=128)
++    parser.add_argument(
++        "--require-ev",
++        type=float,
++        help="optional red/green diagnostic threshold, not a quality guarantee",
++    )
++    run(parser.parse_args())
++
++
++if __name__ == "__main__":
++    main()

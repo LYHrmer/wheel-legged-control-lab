@@ -1,0 +1,35 @@
+{
+  "schema": "d1-continuous-video-verification-v1",
+  "renderer_sha256": "6b99eb7b37469daa89f316190fcb6cb80cd1ce1877e3edc422096c061d91dffb",
+  "videos": [
+    {
+      "path": "seed19000_sensor45_45s.mp4",
+      "sha256": "9ef806edbd28c6cfcff165ec52145c22934405e05ca4ed023cc3943b9e7a575b",
+      "mode": "policy",
+      "checkpoint_sha256": "94450ea3337b68d595015d3caa66e7479405f5b3e09d3d9c86659c8825d57b5e",
+      "ffmpeg_full_decode_exit_code": 0,
+      "decoded_frames": 901,
+      "playback_duration_s": 45.05,
+      "frame_size": [960, 540],
+      "fps": 20,
+      "completed": true,
+      "quality_pass": false
+    },
+    {
+      "path": "zero_sensor45_45s.mp4",
+      "sha256": "7b140b1742b87cd539592f802b4c240739d033f8edd77984fa42d69a09ca0817",
+      "mode": "zero",
+      "checkpoint_sha256": null,
+      "ffmpeg_full_decode_exit_code": 0,
+      "decoded_frames": 901,
+      "playback_duration_s": 45.05,
+      "frame_size": [960, 540],
+      "fps": 20,
+      "completed": true,
+      "quality_pass": false
+    }
+  ],
+  "decode_command_template": "rtk proxy ffmpeg -hide_banner -i VIDEO.mp4 -f null -",
+  "visual_inspection": "Both actual midpoint frames inspected; solid-background schema labels are readable; force and controller source labels are visible.",
+  "frame_selection": "initial state 0, every fifth actual recorded control step, terminal state 4500; no physics integration in renderer"
+}

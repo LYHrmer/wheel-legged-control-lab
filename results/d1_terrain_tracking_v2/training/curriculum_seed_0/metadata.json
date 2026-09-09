@@ -1,0 +1,131 @@
+{
+  "condition": "curriculum",
+  "profile": "tracking-v2",
+  "training_reward_scale": 0.01,
+  "training_seed": 0,
+  "requested_timesteps": 65536,
+  "actual_timesteps": 65536,
+  "completed_rollouts": 128,
+  "ppo_epochs_completed": 512,
+  "ppo": {
+    "learning_rate": 0.0003,
+    "n_steps": 128,
+    "batch_size": 128,
+    "n_epochs": 4,
+    "gamma": 0.9950124791926823,
+    "gae_lambda": 0.95,
+    "clip_range": 0.2,
+    "ent_coef": 0.0,
+    "policy_kwargs": {
+      "net_arch": [
+        64,
+        64
+      ]
+    }
+  },
+  "observation_schema": "d1-terrain-tracking-oracle-v2",
+  "reward_schema": "d1-terrain-tracking-v2",
+  "action_schema": "d1-terrain-residual-quarter-v1",
+  "control_schema": "d1-lqr-vmc-local-tangent-v2",
+  "model_sha256": "cc60dea1fc3faf2f92929a3d04b505657028cb5c34a01191f85ac8a03045720d",
+  "source_sha256": {
+    "pyproject.toml": "d250d44b5b8d05b30b816f3eaa7530843c12e45ab6fd0dba780e8baa0c47ad01",
+    "scripts/run_d1_terrain_curriculum.py": "363451d9870918568e68b04aa9edbf35f5ce46ee99915876cb60ae673131031d",
+    "src/wheel_legged_control/__init__.py": "27776a51c8ab97c39e51a26dea9db93f0feb566187e1c14d9fd86f5df540da1b",
+    "src/wheel_legged_control/actuator_bench.py": "edb0e7c65076c9cd7dc108797cf695e9d8405b485a576c4a5ae712b420303625",
+    "src/wheel_legged_control/actuator_identification.py": "07af57632b5acfe8dd74a6f363879e072ff12393d4ebe7a2604216108a07c790",
+    "src/wheel_legged_control/assets/__init__.py": "cfb8faf893c8e29d2ba3a6b57e7f1001c286a756cbab15654a884dff5f967073",
+    "src/wheel_legged_control/assets/wheel_legged_planar.xml": "a0153542f4d7211b2adc9894fc0123306d8f4d77c88d14951e7d9163dec46ef3",
+    "src/wheel_legged_control/controllers.py": "9a83b860fad2c27ab017828948ceb7fd925d26f417b8d2379bb6bf5309f1c5b6",
+    "src/wheel_legged_control/d1/__init__.py": "43ccb447aeff86023e04360cc7c2d1129d2c2fcd4bca5e3a1bb88589bd455a92",
+    "src/wheel_legged_control/d1/assets/__init__.py": "1b61e62d47e4eb7bc328696f7fb770bd634423cfef62dd3bd541e1a59c159524",
+    "src/wheel_legged_control/d1/assets/meshes/L_calf.STL": "e3389a611c0869b002c9ad6c92e5967367e585f31ce67887b47d95f85210599b",
+    "src/wheel_legged_control/d1/assets/meshes/L_foot.STL": "afc74ac83c9286f9d201d43dfc682195895a678464e5f8564763b071368d9eeb",
+    "src/wheel_legged_control/d1/assets/meshes/L_hip.STL": "6bd4d237b585fce86dc97d0d6f52b10811588f9b9fe2b2de8a74763c33f41d90",
+    "src/wheel_legged_control/d1/assets/meshes/L_thigh.STL": "c804473b99df48fe293a7d37e89096313c5421ffbeb1b0141130bfb0ceb4b2ee",
+    "src/wheel_legged_control/d1/assets/meshes/R_calf.STL": "71c9d33c49b3fcf0ce6aecee4f8407dc9872a1d6f8340705ac43df7154f7966b",
+    "src/wheel_legged_control/d1/assets/meshes/R_foot.STL": "11f49126b3fec371ce1277556828a1517309347d777907b57567a50e807dba1f",
+    "src/wheel_legged_control/d1/assets/meshes/R_hip.STL": "91751fa14272761ce4176cfb50cefde6397e43cd639ed5a5dc94d64d3b6f69d1",
+    "src/wheel_legged_control/d1/assets/meshes/R_thigh.STL": "8d5e6772757f64cb691e8f595f914c5b3acf36295d59e3c1c72543f86302ce4b",
+    "src/wheel_legged_control/d1/assets/meshes/base_link.STL": "d13fd7d3a7924e988b957008617744c44de73fbb39b43f3483fbcda989efd92a",
+    "src/wheel_legged_control/d1/assets/meshes/docking_Link.STL": "afe9cfe3f8896ff3d53c8bb3b61e12727973705b21751b94c2e5148743072f2c",
+    "src/wheel_legged_control/d1/assets/meshes/funtion_Link.STL": "ff81ab5dda97f86c083e0410b0a836cfe438df045d25177cc7ac0215fe76fc9b",
+    "src/wheel_legged_control/d1/assets/urdf/robot.urdf": "3ef048898f351134a4e30d21be8918f9fef48c7b508320a8c9a3f21a25391742",
+    "src/wheel_legged_control/d1/contact_allocation.py": "e5606d693c9bce185ff8cc824e882bed235bdb099649088481b534bc6108c6d1",
+    "src/wheel_legged_control/d1/contact_audit.py": "94ed115f742b53869678772751f430bfc6ce670ba11eb8b5dc575eed4ad24adf",
+    "src/wheel_legged_control/d1/controllers.py": "15ec4b88826fa9091ec6a9a934659a51e3f3115400be387d805380b5f6b3702c",
+    "src/wheel_legged_control/d1/env.py": "7063e8a70cfaffa130a66359d6d189ff8617ea5526ec4ef1c95db8ab4c7fe194",
+    "src/wheel_legged_control/d1/experiments.py": "2ba0c071473a905918c04e89d43c7fb81637e226b55695be40e5877e40d3b4a6",
+    "src/wheel_legged_control/d1/hierarchical.py": "8924f6ab544a52684bc9ee8360b012da1ef4efd111ea3b7f2abcb6dc5f2d1aaa",
+    "src/wheel_legged_control/d1/interactive.py": "8e1ffca89fe1c3ffb038a06103eaaa8d63b2605b68768a8010412361dc2c2a7a",
+    "src/wheel_legged_control/d1/inverse_dynamics.py": "8f80b259a4925ad264143ffac2a896cf40e07cefaf13a0461d45929c1dbc2600",
+    "src/wheel_legged_control/d1/linear_model.py": "f51d4ed60ab626f243de603a1b51c6d186553b0fd57b2eb127db9ec0034c5a01",
+    "src/wheel_legged_control/d1/model.py": "5b629c6535a5f2be5ba7d00636e410ba728d9d35039956ece9878d8d8792837f",
+    "src/wheel_legged_control/d1/policy.py": "fb81ba914ab5fdda48975ea00120041cfca04ba50d3518e8d7dc2c1f52204c33",
+    "src/wheel_legged_control/d1/rewards.py": "26ad04cac0aff610d2e2a8fdc8acd1d5110ab0858cda82ac563eaf58bff2d692",
+    "src/wheel_legged_control/d1/state_estimation.py": "a1bf8e529242d17aed1224268d275503f7fced002f46eecc029772abc15d2145",
+    "src/wheel_legged_control/d1/terrain.py": "a72ad8d9c599e87d5587f253b2ade893d26629b55f755a0ca60e55d87c18e6fd",
+    "src/wheel_legged_control/d1/terrain_env.py": "0c90ece3a6d4607fe0c0b977a602a26a2b60e93fde9381882a507ea53d4b355d",
+    "src/wheel_legged_control/d1/terrain_tracking_env.py": "0e3cd6bada1d2d384a9baad4faa7b84568e9eb59e690c4c3c1a1163b3e33e551",
+    "src/wheel_legged_control/d1/training_terrain.py": "25bf4490be6ea1c6aba0799ac042a1d177ff4343ceb07bc7608432ba0c97dc05",
+    "src/wheel_legged_control/env.py": "0840d9046b12bb187b4dd98bb1d9b2aaf085fd51357f77538f0213c3dc8036af",
+    "src/wheel_legged_control/experiments.py": "5c8a7a273fd3219c549c005a7d6996de66600a4fcf54c409b88c4d3cd49a7ed4",
+    "src/wheel_legged_control/model.py": "92b909eaf5e425a2df29036c7a2053e4ae80695a0a8d1c1964a2554dfdefc91e",
+    "src/wheel_legged_control/ppo_learning.py": "aa05abf6f392bb2dee199f2d09870e0be3f9fb84de290cfe6a457507440c70b5",
+    "src/wheel_legged_control/ppo_update.py": "cac98e17d26ede082a517e842567ef07f1c1dffe27d3643c0f6a9c6f3ee77d50",
+    "src/wheel_legged_control/provenance.py": "2da900d3bc84d4b236e4b1a39a23a931919e8c5497fc1d04f2433359a9706067",
+    "src/wheel_legged_control/rewards.py": "cfecf7b726a08d65d03fc913066059cec5422a3fbf735389360960599130c4da",
+    "src/wheel_legged_control/train.py": "01ba14b6ba39e7a270732923492971561035f14c5dbf04efde8763feacf9c6b7",
+    "src/wheel_legged_control/wheel_control.py": "e46735a96a52a1617f2471cf9be4d357f40212025b835abd6528ea3f683c4129"
+  },
+  "wall_time_s": 121.18221270499998,
+  "training_transitions_per_wall_second": 540.8054411379467,
+  "parent_process_peak_rss_kib": 761604,
+  "memory_scope": "process lifetime high-water mark; excludes worker-process RSS",
+  "exposure": {
+    "stage_steps": {
+      "0": 17600,
+      "1": 16000,
+      "2": 16000,
+      "3": 15936
+    },
+    "stage_episodes_started": {
+      "0": 44,
+      "1": 40,
+      "2": 40,
+      "3": 40
+    },
+    "stage_episodes_completed": {
+      "0": 44,
+      "1": 40,
+      "2": 40,
+      "3": 36
+    },
+    "terrain_steps": {
+      "flat": 30400,
+      "bumps": 19168,
+      "ramp": 15968
+    },
+    "stage_kind_steps": {
+      "0:flat": 17600,
+      "1:bumps": 10800,
+      "1:flat": 5200,
+      "2:bumps": 4800,
+      "2:flat": 4000,
+      "2:ramp": 7200,
+      "3:ramp": 8768,
+      "3:flat": 3600,
+      "3:bumps": 3568
+    },
+    "ramp_slope_steps": {
+      "-2": 7200,
+      "2": 5184,
+      "-4": 2384,
+      "4": 1200
+    },
+    "final_stage_sampled": true
+  },
+  "episode_starts_json": "episode_starts.json",
+  "episode_starts_sha256": "ddee0fefe83d871a56d1109c681380a3acb4ba670711be198df6d2dcf77b6910",
+  "checkpoint_selection": "final"
+}

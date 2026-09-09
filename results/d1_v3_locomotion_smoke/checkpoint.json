@@ -1,0 +1,417 @@
+{
+  "action_dim": 8,
+  "action_schema": "d1-wheel-leg-extension-speed-v1",
+  "action_space": {
+    "dtype": "float32",
+    "high": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "low": [
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0,
+      -1.0
+    ],
+    "shape": [
+      8
+    ]
+  },
+  "baseline": "wheel_leg",
+  "control_schema": "d1-synchronized-control-loop-v1",
+  "controller_schema": "d1-wheel-leg-joint-pd-wheel-pi-yaw-feedback-v2",
+  "extra": {
+    "num_timesteps": 256,
+    "training_seed": 24000
+  },
+  "history_length": 1,
+  "model_sha256": "eacc0f85b868cdf8a1159dad809d1ae9fd647fba42cfa6d9a2714dfea7ffbae0",
+  "observation_dim": 82,
+  "observation_schema": "d1-proprio-current-control82-v1",
+  "observation_space": {
+    "dtype": "float32",
+    "high": [
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      5.0
+    ],
+    "low": [
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0,
+      -5.0
+    ],
+    "shape": [
+      82
+    ]
+  },
+  "recorded_episode": {
+    "action_schema": "d1-wheel-leg-extension-speed-v1",
+    "actuator": {
+      "delay_steps": 0,
+      "gain": 1.0,
+      "n_axes": 16,
+      "physics_dt_s": 0.002,
+      "time_constant_s": 0.0,
+      "torque_limit_nm": [
+        80.0,
+        80.0,
+        80.0,
+        12.0,
+        80.0,
+        80.0,
+        80.0,
+        12.0,
+        80.0,
+        80.0,
+        80.0,
+        12.0,
+        80.0,
+        80.0,
+        80.0,
+        12.0
+      ]
+    },
+    "baseline": "wheel_leg",
+    "command_seed": 714196343,
+    "command_source": "schedule",
+    "control_dt_s": 0.01,
+    "control_schema": "d1-synchronized-control-loop-v1",
+    "controller_schema": "d1-wheel-leg-joint-pd-wheel-pi-yaw-feedback-v2",
+    "domain": {
+      "actuator_strength_scale": 1.0,
+      "base_mass_scale": 1.0,
+      "damping_scale": 1.0,
+      "friction_scale": 1.0
+    },
+    "duration_s": 1.0,
+    "measurement_seed": 540802466,
+    "observation_schema": "d1-proprio-current-control82-v1",
+    "parameter_origin": "synthetic simulation settings, not real D1 identification",
+    "physics_dt_s": 0.002,
+    "provider": {
+      "impairments": null,
+      "initial_position_m": null,
+      "initial_rpy_rad": null,
+      "kind": "oracle",
+      "sensor_delay_steps": 0,
+      "sensor_noise": null
+    },
+    "randomization": {
+      "actuator_delay_steps": null,
+      "actuator_gain": null,
+      "actuator_strength_scale": [
+        1.0,
+        1.0
+      ],
+      "actuator_time_constant_s": null,
+      "base_mass_scale": [
+        1.0,
+        1.0
+      ],
+      "damping_scale": [
+        1.0,
+        1.0
+      ],
+      "friction_scale": [
+        1.0,
+        1.0
+      ],
+      "measurement_delay_steps": null
+    },
+    "reward": {
+      "action_change_scale": 0.1,
+      "action_change_weight": 0.01,
+      "attitude_scale_rad": 0.3,
+      "attitude_weight": 0.2,
+      "height_scale_m": 0.05,
+      "height_weight": 1.0,
+      "mechanical_power_scale_w": 200.0,
+      "power_weight": 0.02,
+      "termination_cost": 2.0,
+      "velocity_sigma_mps": 0.2,
+      "velocity_weight": 1.0,
+      "yaw_sigma_rps": 0.2,
+      "yaw_weight": 1.0
+    },
+    "reward_schema": "d1-command-tracking-rate-v1",
+    "safe_half_size_m": [
+      5.3,
+      2.3
+    ],
+    "schedule": {
+      "duration_s": 1.0,
+      "initial_command": {
+        "clearance_m": 0.455,
+        "forward_velocity_mps": 0.0,
+        "yaw_rate_rps": 0.0
+      },
+      "label": "commands-random-seed-714196343-1s",
+      "schema": "d1-explicit-motion-schedule-v1",
+      "segments": [
+        {
+          "command": {
+            "clearance_m": 0.455,
+            "forward_velocity_mps": 0.0,
+            "yaw_rate_rps": 0.0
+          },
+          "duration_s": 0.08,
+          "transition_s": 0.04
+        },
+        {
+          "command": {
+            "clearance_m": 0.455,
+            "forward_velocity_mps": 0.2486323021584521,
+            "yaw_rate_rps": 0.0
+          },
+          "duration_s": 0.4,
+          "transition_s": 0.2
+        },
+        {
+          "command": {
+            "clearance_m": 0.4730262815416667,
+            "forward_velocity_mps": 0.0,
+            "yaw_rate_rps": 0.0
+          },
+          "duration_s": 0.09188120629896687,
+          "transition_s": 0.045940603149483436
+        },
+        {
+          "command": {
+            "clearance_m": 0.455,
+            "forward_velocity_mps": -0.14525944601498994,
+            "yaw_rate_rps": 0.0
+          },
+          "duration_s": 0.08798864043796512,
+          "transition_s": 0.04399432021898256
+        },
+        {
+          "command": {
+            "clearance_m": 0.455,
+            "forward_velocity_mps": 0.09540316036259068,
+            "yaw_rate_rps": -0.1743927515042194
+          },
+          "duration_s": 0.08397879423334037,
+          "transition_s": 0.041989397116670185
+        },
+        {
+          "command": {
+            "clearance_m": 0.4455682379079185,
+            "forward_velocity_mps": 0.0,
+            "yaw_rate_rps": 0.0
+          },
+          "duration_s": 0.08301439485415488,
+          "transition_s": 0.04150719742707744
+        },
+        {
+          "command": {
+            "clearance_m": 0.455,
+            "forward_velocity_mps": 0.09493612137154862,
+            "yaw_rate_rps": 0.1724722928229017
+          },
+          "duration_s": 0.09313696417557271,
+          "transition_s": 0.046568482087786356
+        },
+        {
+          "command": {
+            "clearance_m": 0.455,
+            "forward_velocity_mps": 0.0,
+            "yaw_rate_rps": 0.0
+          },
+          "duration_s": 0.08000000000000007,
+          "transition_s": 0.040000000000000036
+        }
+      ]
+    },
+    "source_schema": "d1-synchronized-oracle-v1",
+    "spawn_position_m": [
+      -3.8,
+      0.0,
+      0.455
+    ],
+    "task_schema": "d1-fixed-road-command-task-v1",
+    "terrain": {
+      "cross_slope_deg": 0.5,
+      "layout": "straight",
+      "phase_x_rad": 0.0,
+      "phase_y_rad": 0.2,
+      "ripple_amplitude_m": 0.005,
+      "schema": "d1-fixed-2d-road-v1",
+      "slope_deg": 1.0,
+      "step_height_m": 0.005,
+      "wavelength_x_m": 0.6,
+      "wavelength_y_m": 0.9
+    }
+  },
+  "reward_schema": "d1-command-tracking-rate-v1",
+  "schema": "d1-locomotion-checkpoint-v1",
+  "source_schema": "d1-synchronized-oracle-v1",
+  "task_schema": "d1-fixed-road-command-task-v1"
+}

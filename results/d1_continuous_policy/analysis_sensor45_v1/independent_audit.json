@@ -1,0 +1,66 @@
+{
+  "schema": "d1-continuous-policy-independent-audit-v1",
+  "input_manifest_sha256": "da1179fc38c9e5d85ac8dd2aaebc99dd6ed615a3ba3fe5b8a332c252b5a8425d",
+  "analyzer_sha256": "bdaf9a0db7f3352b06ebd1b61c5ac0ffaa734f49221e35d26be38c404468e85d",
+  "artifact_sha_checks": 266,
+  "archived_source_sha_checks": 36,
+  "raw_rollouts_recomputed": 42,
+  "max_summary_rmse_discrepancy": 0.0,
+  "complete_case_inventory_matches_protocol": true,
+  "training_samples": 393216,
+  "holdout_by_training_seed": [
+    {
+      "training_seed": 19000,
+      "cases": 6,
+      "policy_complete": 6,
+      "baseline_complete": 6,
+      "policy_quality": 0,
+      "baseline_quality": 0,
+      "mean_paired_delta_velocity_error_mps": -0.0015657634227066429,
+      "mean_paired_delta_lateral_velocity_mps": 0.00018727030536568978,
+      "mean_paired_delta_yaw_rate_error_rps": 0.0006296243697289927,
+      "mean_paired_delta_clearance_error_m": 0.003339026471005311,
+      "mean_paired_delta_lateral_path_error_m": 0.004394917228319859,
+      "mean_paired_delta_longitudinal_path_error_m": 0.04225738356394815
+    },
+    {
+      "training_seed": 20000,
+      "cases": 6,
+      "policy_complete": 6,
+      "baseline_complete": 6,
+      "policy_quality": 0,
+      "baseline_quality": 0,
+      "mean_paired_delta_velocity_error_mps": -0.0007119160829347215,
+      "mean_paired_delta_lateral_velocity_mps": 0.00035335940508319125,
+      "mean_paired_delta_yaw_rate_error_rps": 0.0007011858197760122,
+      "mean_paired_delta_clearance_error_m": 0.0033440347346820397,
+      "mean_paired_delta_lateral_path_error_m": 0.004759507782558708,
+      "mean_paired_delta_longitudinal_path_error_m": 0.04505040437034117
+    },
+    {
+      "training_seed": 21000,
+      "cases": 6,
+      "policy_complete": 6,
+      "baseline_complete": 6,
+      "policy_quality": 0,
+      "baseline_quality": 0,
+      "mean_paired_delta_velocity_error_mps": -0.001540762146564817,
+      "mean_paired_delta_lateral_velocity_mps": 0.0002519047766022402,
+      "mean_paired_delta_yaw_rate_error_rps": 0.0007412799688361378,
+      "mean_paired_delta_clearance_error_m": 0.003334914355542642,
+      "mean_paired_delta_lateral_path_error_m": 0.0038994907563857026,
+      "mean_paired_delta_longitudinal_path_error_m": 0.038984151267784206
+    }
+  ],
+  "statistical_unit": "3 training seeds; 6 paired evaluation cases per seed; no control-step pseudoreplication",
+  "scope": "one fixed composite road, new measurement-noise seeds, 45/50 s command schedules; no terrain-map holdout or real-hardware claim",
+  "action_check": "actual sampled Normal actions and actual elementwise clip; no theoretical clipping probability substituted",
+  "state_phase_convention": {
+    "physics_substep_s": 0.002,
+    "truth_xyz": "xpos before the final implicitfast integration substep",
+    "recorded_qpos": "qpos after the final integration substep",
+    "verified_identity": "truth_xyz == recorded_qpos_xyz - 0.002 * recorded_qvel_xyz (absolute tolerance 1e-12 m)",
+    "max_position_offset_m": 0.001080904432301466,
+    "limitation": "current plant does not refresh derived kinematics after mj_step; telemetry and video are not exactly synchronous"
+  }
+}

@@ -1,0 +1,166 @@
+{
+  "schema": "d1-heightfield-delay-diagnosis-v1",
+  "variants": [
+    "reference",
+    "leg_pd_quarter",
+    "attitude_feedback_quarter"
+  ],
+  "hypotheses": {
+    "solver_iterations_100": "insufficient constraint convergence; more iterations should improve standing",
+    "ccd_tolerance_1e-8": "convex collision precision; tighter tolerance should change early contact loss",
+    "fixed_attitude": "measured support attitude amplifies feedback; a level prior should improve standing",
+    "leg_pd_quarter": "delayed leg feedback is too stiff; one-quarter PD scale should reduce oscillation",
+    "attitude_feedback_quarter": "delayed body feedback is too stiff; one-quarter attitude feedback scale should reduce oscillation"
+  },
+  "reference": {
+    "purpose": "isolate arena geometry and domain setup for the delayed stand failure",
+    "scope": "synthetic simulation diagnostic; no hardware claim, no parameter search",
+    "control_schema": "d1-synchronized-control-loop-v1",
+    "cases": {
+      "heightfield_bare": {
+        "heightfield": true,
+        "set_domain": false
+      }
+    },
+    "command": {
+      "kind": "D1MotionCommand()",
+      "forward_velocity_mps": 0.0,
+      "yaw_rate_rps": 0.0,
+      "clearance_m": 0.455
+    },
+    "action": "zeros(8) every tick",
+    "duration_s": 4.0,
+    "physics_dt_s": 0.002,
+    "control_dt_s": 0.01,
+    "sampling_mode": "synchronized",
+    "spawn_position_m": [
+      -3.8,
+      0.0,
+      0.455
+    ],
+    "safe_half_size_m": [
+      5.3,
+      2.3
+    ],
+    "measurement_seed": 1814784298,
+    "measurement_seed_origin": "second draw of full-env reset(seed=17)",
+    "sensor_noise_enabled": true,
+    "provider": {
+      "kind": "imu_encoder_fusion",
+      "impairments": null,
+      "sensor_noise": {
+        "gyro_std_rad_s": 0.002,
+        "accelerometer_std_m_s2": 0.03,
+        "encoder_position_std_rad": 0.0005,
+        "encoder_velocity_std_rad_s": 0.005,
+        "gyro_bias_rad_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "accelerometer_bias_m_s2": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "sensor_delay_steps": 2,
+      "initial_position_m": [
+        -3.8,
+        0.0,
+        0.455
+      ],
+      "initial_rpy_rad": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "actuator_channel": {
+      "n_axes": 16,
+      "physics_dt_s": 0.002,
+      "delay_steps": 0,
+      "time_constant_s": 0.0,
+      "gain": 1.0,
+      "torque_limit_nm": [
+        80.0,
+        80.0,
+        80.0,
+        12.0,
+        80.0,
+        80.0,
+        80.0,
+        12.0,
+        80.0,
+        80.0,
+        80.0,
+        12.0,
+        80.0,
+        80.0,
+        80.0,
+        12.0
+      ]
+    },
+    "controller": {
+      "wheel_kp": 0.55,
+      "wheel_ki": 1.5,
+      "yaw_feedback_gain": 4.0
+    },
+    "terrain": {
+      "layout": "flat",
+      "slope_deg": 0.0,
+      "cross_slope_deg": 0.0,
+      "ripple_amplitude_m": 0.0,
+      "wavelength_x_m": 0.8,
+      "wavelength_y_m": 1.2,
+      "phase_x_rad": 0.0,
+      "phase_y_rad": 0.0,
+      "step_height_m": 0.0,
+      "schema": "d1-fixed-2d-road-v1"
+    },
+    "termination": {
+      "clearance_below_m": 0.22,
+      "abs_roll_pitch_above_rad": 0.85,
+      "undesired_ground_contacts_above": 0,
+      "source": "oracle truth, logging and termination only"
+    },
+    "flatness_definition": {
+      "height_tolerance_m": 0.001,
+      "slope_tolerance_rad": 0.004363323129985824
+    },
+    "source_sha256": {
+      "scripts/probe_d1_delay_parity.py": "401542b80878feb97a8caaa412d559455702b52874eb45d75f272de7a716ad5d",
+      "src/wheel_legged_control/d1/actuator_channel.py": "e8100e976a7de18bdd39b4743cfdc0df8c5ae89ca11e337f828104cb424e6a0e",
+      "src/wheel_legged_control/d1/control_context.py": "1015eb59eb48a55248c162120bcc4f5531e79a8a82540182eedf7f1335b45a53",
+      "src/wheel_legged_control/d1/control_loop.py": "2d4fe87e635e124816985a6c72cbd8b35412b1f3910d61713eac1087387cdefe",
+      "src/wheel_legged_control/d1/control_primitives.py": "31be86faf68f33c60ec3678fa65fd3d09402eca1f868d31b0114f58ab3fb139d",
+      "src/wheel_legged_control/d1/controllers.py": "8ae4eab5326f0f279576c840febb08e8101f2817fb754ddb6c07d0a60f90c124",
+      "src/wheel_legged_control/d1/locomotion_env.py": "9ada3203efdcda7eb4e409d6a2f914bc5ad105c47f178083de648d2769a39335",
+      "src/wheel_legged_control/d1/locomotion_terrain.py": "0800c28e35bf58aa6de8f37ff3bf5d53e392d97c0965c2fefb5751cff859526e",
+      "src/wheel_legged_control/d1/model.py": "0d606a044e8f9b010976ceb7e45b6640b143371887284cc30c17acd1d0c96bc6",
+      "src/wheel_legged_control/d1/sensor_estimation.py": "3072d19499a9e20e4161295499f0e51c83bfc85fe010b28e24451a2a0b9722d5",
+      "src/wheel_legged_control/d1/state_estimation.py": "eea9c3969e3064819ef6bc8a7621e5541e1547bacbea741b21e1fa909e2f51b8",
+      "src/wheel_legged_control/d1/state_provider.py": "e3250710355d31a9e4005c036f6f60c9d0f15bdb0fae111ac5679ec1aa77df81",
+      "src/wheel_legged_control/d1/training_terrain.py": "25bf4490be6ea1c6aba0799ac042a1d177ff4343ceb07bc7608432ba0c97dc05",
+      "src/wheel_legged_control/d1/wheel_leg_controller.py": "d58b5519fd2e131a98407a90e5099372f18f72a896d1a04f98ea0c1851caaf7b"
+    }
+  },
+  "mujoco_version": "3.12.0",
+  "source_sha256": {
+    "scripts/probe_d1_delay_parity.py": "401542b80878feb97a8caaa412d559455702b52874eb45d75f272de7a716ad5d",
+    "src/wheel_legged_control/d1/actuator_channel.py": "e8100e976a7de18bdd39b4743cfdc0df8c5ae89ca11e337f828104cb424e6a0e",
+    "src/wheel_legged_control/d1/control_context.py": "1015eb59eb48a55248c162120bcc4f5531e79a8a82540182eedf7f1335b45a53",
+    "src/wheel_legged_control/d1/control_loop.py": "2d4fe87e635e124816985a6c72cbd8b35412b1f3910d61713eac1087387cdefe",
+    "src/wheel_legged_control/d1/control_primitives.py": "31be86faf68f33c60ec3678fa65fd3d09402eca1f868d31b0114f58ab3fb139d",
+    "src/wheel_legged_control/d1/controllers.py": "8ae4eab5326f0f279576c840febb08e8101f2817fb754ddb6c07d0a60f90c124",
+    "src/wheel_legged_control/d1/locomotion_env.py": "9ada3203efdcda7eb4e409d6a2f914bc5ad105c47f178083de648d2769a39335",
+    "src/wheel_legged_control/d1/locomotion_terrain.py": "0800c28e35bf58aa6de8f37ff3bf5d53e392d97c0965c2fefb5751cff859526e",
+    "src/wheel_legged_control/d1/model.py": "0d606a044e8f9b010976ceb7e45b6640b143371887284cc30c17acd1d0c96bc6",
+    "src/wheel_legged_control/d1/sensor_estimation.py": "3072d19499a9e20e4161295499f0e51c83bfc85fe010b28e24451a2a0b9722d5",
+    "src/wheel_legged_control/d1/state_estimation.py": "eea9c3969e3064819ef6bc8a7621e5541e1547bacbea741b21e1fa909e2f51b8",
+    "src/wheel_legged_control/d1/state_provider.py": "e3250710355d31a9e4005c036f6f60c9d0f15bdb0fae111ac5679ec1aa77df81",
+    "src/wheel_legged_control/d1/training_terrain.py": "25bf4490be6ea1c6aba0799ac042a1d177ff4343ceb07bc7608432ba0c97dc05",
+    "src/wheel_legged_control/d1/wheel_leg_controller.py": "d58b5519fd2e131a98407a90e5099372f18f72a896d1a04f98ea0c1851caaf7b",
+    "scripts/diagnose_d1_heightfield_delay.py": "f75a2587bfea92fdbba04588708ffe31e20c4b2a7c362b9723699ca22cd2666b"
+  }
+}

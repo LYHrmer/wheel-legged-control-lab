@@ -1,0 +1,173 @@
+{
+  "completed": true,
+  "quality_pass": false,
+  "duration_s": 45.0,
+  "stage_summaries": [
+    {
+      "stage": "settle",
+      "steps": 200,
+      "steady_steps": 101,
+      "completed": true,
+      "quality_pass": true,
+      "steady_rmse": {
+        "velocity_error_mps": 0.02099380448421204,
+        "lateral_velocity_mps": 0.0023356008390055015,
+        "yaw_rate_error_rps": 0.004194567404306308,
+        "clearance_error_m": 0.016423943724517935
+      },
+      "yaw_change_rad": 0.000457324973482154,
+      "commanded_yaw_change_rad": 0.0,
+      "turn_progress_fraction": null
+    },
+    {
+      "stage": "cruise_bumps",
+      "steps": 800,
+      "steady_steps": 701,
+      "completed": true,
+      "quality_pass": true,
+      "steady_rmse": {
+        "velocity_error_mps": 0.09179821319694692,
+        "lateral_velocity_mps": 0.001707743515777402,
+        "yaw_rate_error_rps": 0.0036152606777293456,
+        "clearance_error_m": 0.022143031745863132
+      },
+      "yaw_change_rad": -0.000929286735690127,
+      "commanded_yaw_change_rad": 0.0,
+      "turn_progress_fraction": null
+    },
+    {
+      "stage": "stop_one",
+      "steps": 300,
+      "steady_steps": 201,
+      "completed": true,
+      "quality_pass": false,
+      "steady_rmse": {
+        "velocity_error_mps": 0.03534024220555202,
+        "lateral_velocity_mps": 0.0016600202173932513,
+        "yaw_rate_error_rps": 0.0026633722673193518,
+        "clearance_error_m": 0.027689154795458047
+      },
+      "yaw_change_rad": 0.0010891163107706252,
+      "commanded_yaw_change_rad": 0.0,
+      "turn_progress_fraction": null
+    },
+    {
+      "stage": "climb_and_descend",
+      "steps": 1000,
+      "steady_steps": 900,
+      "completed": true,
+      "quality_pass": true,
+      "steady_rmse": {
+        "velocity_error_mps": 0.08002805036403642,
+        "lateral_velocity_mps": 0.001611808164629929,
+        "yaw_rate_error_rps": 0.006146119306833135,
+        "clearance_error_m": 0.024271687718794094
+      },
+      "yaw_change_rad": 0.00010993176849682798,
+      "commanded_yaw_change_rad": 0.0,
+      "turn_progress_fraction": null
+    },
+    {
+      "stage": "slow_exit",
+      "steps": 600,
+      "steady_steps": 501,
+      "completed": true,
+      "quality_pass": false,
+      "steady_rmse": {
+        "velocity_error_mps": 0.084001103661635,
+        "lateral_velocity_mps": 0.0022448507542679103,
+        "yaw_rate_error_rps": 0.004397313230578435,
+        "clearance_error_m": 0.0252938574221057
+      },
+      "yaw_change_rad": 0.0038850939986904962,
+      "commanded_yaw_change_rad": 0.0,
+      "turn_progress_fraction": null
+    },
+    {
+      "stage": "turn_left",
+      "steps": 600,
+      "steady_steps": 501,
+      "completed": true,
+      "quality_pass": false,
+      "steady_rmse": {
+        "velocity_error_mps": 0.0751691373971625,
+        "lateral_velocity_mps": 0.002805317923461043,
+        "yaw_rate_error_rps": 0.03620765884015449,
+        "clearance_error_m": 0.029197032383650907
+      },
+      "yaw_change_rad": 0.2567913692521913,
+      "commanded_yaw_change_rad": 0.45560000000000483,
+      "turn_progress_fraction": 0.5636333829064719
+    },
+    {
+      "stage": "turn_right",
+      "steps": 600,
+      "steady_steps": 501,
+      "completed": true,
+      "quality_pass": false,
+      "steady_rmse": {
+        "velocity_error_mps": 0.022341642817136898,
+        "lateral_velocity_mps": 0.003423316257188376,
+        "yaw_rate_error_rps": 0.04899523289431566,
+        "clearance_error_m": 0.02590369778803938
+      },
+      "yaw_change_rad": -0.1575712402488859,
+      "commanded_yaw_change_rad": -0.43200000000000494,
+      "turn_progress_fraction": 0.3647482413168614
+    },
+    {
+      "stage": "stop_final",
+      "steps": 400,
+      "steady_steps": 301,
+      "completed": true,
+      "quality_pass": false,
+      "steady_rmse": {
+        "velocity_error_mps": 0.01569678338975383,
+        "lateral_velocity_mps": 0.002109878866641156,
+        "yaw_rate_error_rps": 0.008044789308653981,
+        "clearance_error_m": 0.026091790086646065
+      },
+      "yaw_change_rad": -0.04016694680300509,
+      "commanded_yaw_change_rad": -0.023599999999999927,
+      "turn_progress_fraction": null
+    }
+  ],
+  "visited_sections": [
+    "bumps",
+    "flat",
+    "plateau",
+    "ramp_down",
+    "ramp_up"
+  ],
+  "required_terrain_visited": true,
+  "final_lateral_path_error_m": -0.17019014228259383,
+  "max_abs_yaw_error_rad": 0.19610067457934632,
+  "whole_task_rmse": {
+    "velocity_error_mps": 0.07205532304288263,
+    "lateral_velocity_mps": 0.0021846980499384584,
+    "yaw_rate_error_rps": 0.022688603967283838,
+    "clearance_error_m": 0.02498062172299272,
+    "lateral_path_error_m": 0.07612082431222192,
+    "longitudinal_path_error_m": 0.5719674318552036
+  },
+  "quality_criteria": {
+    "steady_window_excludes_first_s": 1.0,
+    "velocity_rmse_max_mps": 0.14,
+    "lateral_velocity_rmse_max_mps": 0.1,
+    "yaw_rate_rmse_max_rps": 0.06,
+    "clearance_rmse_max_m": 0.025,
+    "turn_progress_fraction_range": [
+      0.25,
+      1.75
+    ],
+    "all_terrain_sections_and_stages_required": true
+  },
+  "interpretation": "one fixed-road sensor/noise rollout; use paired cases and training seeds for comparisons",
+  "evaluation_seed": 17,
+  "planned_duration_s": 45.0,
+  "checkpoint_sha256": "94450ea3337b68d595015d3caa66e7479405f5b3e09d3d9c86659c8825d57b5e",
+  "mean_abs_action": [
+    0.9708877257506052,
+    1.0
+  ]
+}

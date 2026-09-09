@@ -232,7 +232,7 @@ env = D1ResidualEnv(contact_allocation="constrained")  # 或 "legacy"
 
 ```bash
 wheel-legged-d1-play --contact-allocation constrained
-wheel-legged-d1-contact-audit --seed 21 --episodes 3 --output results/contact_dev
+wheel-legged-d1-contact-audit --seed 21 --episodes 3 --output results/my_contact_dev
 ```
 
 `play` 默认使用 `legacy`，通过参数切换。`contact-audit` 固定成对比较两种模式，不接受

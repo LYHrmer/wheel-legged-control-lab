@@ -1,0 +1,30 @@
+{
+  "arguments": {
+    "baseline": "wheel_leg",
+    "delay_randomization": false,
+    "duration": 60.0,
+    "history": 1,
+    "measurement_delay": 2,
+    "metadata": null,
+    "mode": "evaluate",
+    "output": "results/d1_v3_delay_diagnosis/attitude_quarter_delay20_development",
+    "policy": null,
+    "seed": 24000,
+    "source": "imu_encoder_fusion",
+    "split": "development",
+    "steps": 32768,
+    "wheel_ki": 1.5,
+    "wheel_kp": 0.55,
+    "workers": 4,
+    "yaw_feedback_gain": null
+  },
+  "quality_thresholds": {
+    "attitude_rmse_rad": 0.15,
+    "height_rmse_m": 0.025,
+    "velocity_rmse_mps": 0.08,
+    "yaw_rmse_rps": 0.08
+  },
+  "runtime_diagnostic": "attitude_feedback_quarter",
+  "schema": "d1-feedback-development-diagnostic-v1",
+  "scope": "development only; zero action; no model selection or checkpoint load"
+}

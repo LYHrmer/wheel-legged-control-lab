@@ -9,13 +9,13 @@ Torch 对小型 actor/critic 执行一次 SGD，保留每个参数的更新记�
 在仓库根目录运行：
 
 ```bash
-PYTHONPATH=src:.local-deps python3 examples/ppo_walkthrough.py
+PYTHONPATH=src python3 examples/ppo_walkthrough.py
 ```
 
 不需要 Torch 或 GPU，也不启动机器人仿真；终端会打印短轨迹的计算表。需要保存表格时：
 
 ```bash
-PYTHONPATH=src:.local-deps python3 examples/ppo_walkthrough.py --output /tmp/d1-ppo-lesson
+PYTHONPATH=src python3 examples/ppo_walkthrough.py --output /tmp/d1-ppo-lesson
 ```
 
 这里的目录必须不存在。脚本写入 JSON 和三份 CSV，已有目录一律拒绝覆盖。默认运行不写
@@ -126,9 +126,9 @@ clip 也不保证一次网络更新后所有样本的比率都在区间内。网
 这只是等物理折扣的换算，不能保证训练更好。GAE 的尾部权重由 `gamma*lambda` 决定，
 奖励是否按每步或每秒计量也要一起检查。本次没有修改训练默认值。
 
-现有 D1 策略观察为 42 维，动作是两个残差合力，缩放为纵向 `±45 N` 和竖直 `±80 N`。
+历史 D1 平地训练入口使用 42 维观察，动作是两个残差合力，缩放为纵向 `±45 N` 和竖直 `±80 N`。
 它经过 LQR/MPC+VMC 分配到电机；新的 IDQP 尚未接入这条 PPO 训练路径。观察与动作含义
-见[学习指南对应章节](learning_guide.md#8-d1-残差-ppo-的动作与观察)。
+见[学习指南](learning_guide.md)第 8 节。当前 82 维主线另见[命令条件实验](locomotion_lab.md)。
 
 两个环境都把摔倒作为 `terminated`，采集步数用完作为 `truncated`。SB3 的 rollout
 采集会处理超时 bootstrap；不能在送进 SB3 前再次手动加一遍。这份函数只是独立教学
@@ -156,7 +156,7 @@ clip 也不保证一次网络更新后所有样本的比率都在区间内。网
 这一节需要已安装 RL 可选依赖。先用平面模型和单个 CPU 环境检查采集、更新及保存流程：
 
 ```bash
-PYTHONPATH=src:.local-deps python3 -m wheel_legged_control.train \
+PYTHONPATH=src python3 -m wheel_legged_control.train \
   --robot planar --device cpu --envs 1 --steps 512 \
   --n-steps 128 --batch-size 64 --n-epochs 2 \
   --learning-rate 0.0003 --gamma 0.99 --gae-lambda 0.95 \

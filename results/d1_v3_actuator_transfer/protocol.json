@@ -1,0 +1,52 @@
+{
+  "calibration_samples": 2000,
+  "calibration_seed": 10017,
+  "cases": [
+    "ideal",
+    "nonideal",
+    "fitted_compensation"
+  ],
+  "causal_compensation": "fitted gain/lag inverse from current/previous request, no delay cancellation",
+  "control_dt_s": 0.01,
+  "duration_s": 60.0,
+  "full_60s_protocol": true,
+  "known_synthetic_wheels": {
+    "delay_steps": 2,
+    "gain": [
+      0.8,
+      0.9,
+      0.85,
+      0.95
+    ],
+    "n_axes": 4,
+    "physics_dt_s": 0.002,
+    "time_constant_s": [
+      0.006,
+      0.008,
+      0.01,
+      0.012
+    ],
+    "torque_limit_nm": 12.0
+  },
+  "limits": "synthetic torque measurement; no real D1 torque sensing or hardware identification claim",
+  "noise_std_nm": 0.01,
+  "numpy": "2.2.6",
+  "parameter_selection": "calibration only; no validation/terrain tuning or holdout evaluation",
+  "physics_dt_s": 0.002,
+  "python": "3.10.12",
+  "quality_thresholds": {
+    "attitude_rmse_rad": 0.15,
+    "height_rmse_m": 0.025,
+    "velocity_rmse_mps": 0.08,
+    "yaw_rmse_rps": 0.08
+  },
+  "schema": "synthetic-torque-identification-d1-transfer-v1",
+  "seed": 17,
+  "terrain_indices": [
+    0,
+    1
+  ],
+  "terrain_split": "development",
+  "validation_samples": 1500,
+  "validation_seed": 20017
+}

@@ -1,0 +1,235 @@
+{
+  "action_schema": "d1-wheel-leg-extension-speed-v1",
+  "actuator": {
+    "delay_steps": 0,
+    "gain": 1.0,
+    "n_axes": 16,
+    "physics_dt_s": 0.002,
+    "time_constant_s": 0.0,
+    "torque_limit_nm": [
+      80.0,
+      80.0,
+      80.0,
+      12.0,
+      80.0,
+      80.0,
+      80.0,
+      12.0,
+      80.0,
+      80.0,
+      80.0,
+      12.0,
+      80.0,
+      80.0,
+      80.0,
+      12.0
+    ]
+  },
+  "baseline": "wheel_leg",
+  "command_seed": 2007055256,
+  "command_source": "schedule",
+  "control_dt_s": 0.01,
+  "control_schema": "d1-synchronized-control-loop-v1",
+  "controller_parameters": {
+    "wheel_ki": 1.5,
+    "wheel_kp": 0.55,
+    "yaw_feedback_gain": 4.0
+  },
+  "controller_schema": "d1-wheel-leg-joint-pd-wheel-pi-yaw-feedback-configured-v3",
+  "domain": {
+    "actuator_strength_scale": 1.0,
+    "base_mass_scale": 1.0,
+    "damping_scale": 1.0,
+    "friction_scale": 1.0
+  },
+  "duration_s": 4.0,
+  "measurement_seed": 107475050,
+  "observation_schema": "d1-proprio-current-control82-v1",
+  "parameter_origin": "synthetic simulation settings, not real D1 identification",
+  "physics_dt_s": 0.002,
+  "provider": {
+    "impairments": {
+      "base_angular_velocity_std_radps": 0.0,
+      "base_linear_velocity_std_mps": 0.0,
+      "base_position_std_m": 0.0,
+      "base_rotation_std_rad": 0.0,
+      "contact_flip_probability": 0.0,
+      "contact_jacobian_std": 0.0,
+      "contact_normal_std_rad": 0.0,
+      "contact_point_std_m": 0.0,
+      "delay_steps": 2,
+      "foot_jacobian_std": 0.0,
+      "foot_position_std_m": 0.0,
+      "joint_position_std_rad": 0.0,
+      "joint_velocity_std_radps": 0.0
+    },
+    "initial_position_m": null,
+    "initial_rpy_rad": null,
+    "kind": "truth_impairment",
+    "sensor_delay_steps": 0,
+    "sensor_noise": null
+  },
+  "randomization": {
+    "actuator_delay_steps": null,
+    "actuator_gain": null,
+    "actuator_strength_scale": [
+      1.0,
+      1.0
+    ],
+    "actuator_time_constant_s": null,
+    "base_mass_scale": [
+      1.0,
+      1.0
+    ],
+    "damping_scale": [
+      1.0,
+      1.0
+    ],
+    "friction_scale": [
+      1.0,
+      1.0
+    ],
+    "measurement_delay_steps": null
+  },
+  "reward": {
+    "action_change_scale": 0.1,
+    "action_change_weight": 0.01,
+    "attitude_scale_rad": 0.3,
+    "attitude_weight": 0.2,
+    "height_scale_m": 0.05,
+    "height_weight": 1.0,
+    "mechanical_power_scale_w": 200.0,
+    "power_weight": 0.02,
+    "termination_cost": 2.0,
+    "velocity_sigma_mps": 0.2,
+    "velocity_weight": 1.0,
+    "yaw_sigma_rps": 0.2,
+    "yaw_weight": 1.0
+  },
+  "reward_schema": "d1-command-tracking-rate-v1",
+  "safe_half_size_m": [
+    5.3,
+    2.3
+  ],
+  "schedule": {
+    "duration_s": 4.0,
+    "initial_command": {
+      "clearance_m": 0.455,
+      "forward_velocity_mps": 0.0,
+      "yaw_rate_rps": 0.0
+    },
+    "label": "commands-development-4s",
+    "schema": "d1-explicit-motion-schedule-v1",
+    "segments": [
+      {
+        "command": {
+          "clearance_m": 0.455,
+          "forward_velocity_mps": 0.0,
+          "yaw_rate_rps": 0.0
+        },
+        "duration_s": 0.24,
+        "transition_s": 0.12
+      },
+      {
+        "command": {
+          "clearance_m": 0.455,
+          "forward_velocity_mps": 0.22,
+          "yaw_rate_rps": 0.0
+        },
+        "duration_s": 0.8,
+        "transition_s": 0.4
+      },
+      {
+        "command": {
+          "clearance_m": 0.455,
+          "forward_velocity_mps": 0.14,
+          "yaw_rate_rps": 0.12
+        },
+        "duration_s": 0.48,
+        "transition_s": 0.24
+      },
+      {
+        "command": {
+          "clearance_m": 0.43,
+          "forward_velocity_mps": 0.0,
+          "yaw_rate_rps": 0.0
+        },
+        "duration_s": 0.32,
+        "transition_s": 0.16
+      },
+      {
+        "command": {
+          "clearance_m": 0.455,
+          "forward_velocity_mps": -0.12,
+          "yaw_rate_rps": 0.0
+        },
+        "duration_s": 0.4,
+        "transition_s": 0.2
+      },
+      {
+        "command": {
+          "clearance_m": 0.455,
+          "forward_velocity_mps": 0.08,
+          "yaw_rate_rps": -0.16
+        },
+        "duration_s": 0.48,
+        "transition_s": 0.24
+      },
+      {
+        "command": {
+          "clearance_m": 0.48,
+          "forward_velocity_mps": 0.16,
+          "yaw_rate_rps": 0.0
+        },
+        "duration_s": 0.48,
+        "transition_s": 0.24
+      },
+      {
+        "command": {
+          "clearance_m": 0.455,
+          "forward_velocity_mps": 0.0,
+          "yaw_rate_rps": -0.1
+        },
+        "duration_s": 0.24,
+        "transition_s": 0.12
+      },
+      {
+        "command": {
+          "clearance_m": 0.455,
+          "forward_velocity_mps": 0.0,
+          "yaw_rate_rps": 0.13
+        },
+        "duration_s": 0.24,
+        "transition_s": 0.12
+      },
+      {
+        "command": {
+          "clearance_m": 0.455,
+          "forward_velocity_mps": 0.0,
+          "yaw_rate_rps": 0.0
+        },
+        "duration_s": 0.31999999999999984,
+        "transition_s": 0.15999999999999992
+      }
+    ]
+  },
+  "source_schema": "d1-synchronized-truth-impairment-v1",
+  "spawn_position_m": [
+    -3.8,
+    0.0,
+    0.455
+  ],
+  "task_schema": "d1-fixed-road-command-task-v1",
+  "terrain": {
+    "cross_slope_deg": 0.0,
+    "layout": "flat",
+    "phase_x_rad": 0.0,
+    "phase_y_rad": 0.0,
+    "ripple_amplitude_m": 0.0,
+    "schema": "d1-fixed-2d-road-v1",
+    "slope_deg": 0.0,
+    "step_height_m": 0.0,
+    "wavelength_x_m": 0.8,
+    "wavelength_y_m": 1.2
+  }
+}

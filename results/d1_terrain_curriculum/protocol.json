@@ -1,0 +1,247 @@
+{
+  "schema_version": 1,
+  "question": "Does terrain curriculum PPO improve a fixed LQR+VMC residual baseline?",
+  "mode": "train",
+  "evaluation_split": "holdout",
+  "training_conditions": [
+    "flat",
+    "curriculum"
+  ],
+  "training_seeds": [
+    0,
+    1,
+    2
+  ],
+  "requested_steps_per_condition_seed": 32768,
+  "actual_budget_per_condition_seed": 32768,
+  "n_envs": 4,
+  "episode_seconds": 4.0,
+  "control_dt_s": 0.01,
+  "ppo": {
+    "learning_rate": 0.0003,
+    "n_steps": 128,
+    "batch_size": 128,
+    "n_epochs": 4,
+    "gamma": 0.9950124791926823,
+    "gae_lambda": 0.95,
+    "clip_range": 0.2,
+    "ent_coef": 0.0,
+    "policy_kwargs": {
+      "net_arch": [
+        64,
+        64
+      ]
+    }
+  },
+  "device": "cpu",
+  "torch_num_threads": 1,
+  "vector_start_method": "spawn",
+  "baseline": "lqr",
+  "domain_randomization": false,
+  "velocity_command": "forward only; stand for 0.3 s, smoothstep ramp during 0.3-0.6 s, then hold",
+  "observation_schema": "d1-terrain-oracle-v1",
+  "observation_size": 44,
+  "action_schema": "d1-terrain-residual-quarter-v1",
+  "residual_scale_n": [
+    11.25,
+    20.0
+  ],
+  "state_and_terrain_reference": "oracle_simulator_state_and_collision_geometry",
+  "curriculum": {
+    "schedule": "four equal timestep ranges; changes apply at the next reset",
+    "stage_0": "flat",
+    "stage_1": "flat and 5 mm bumps",
+    "stage_2": "flat, 5-10 mm bumps, +/-2 degree ramps",
+    "stage_3": "retain easy terrain; add +/-4 degree ramps",
+    "training_bump_wavelengths_m": [
+      0.8,
+      1.0,
+      1.2
+    ]
+  },
+  "checkpoint_selection": "final fixed-budget checkpoint, never selected by evaluation",
+  "pairing": "identical case geometry, command and environment seed for every condition",
+  "baseline_replication": "one zero-residual episode per case, not one per training seed",
+  "metric_semantics": {
+    "completed": "time limit reached without task termination; not quality success",
+    "errors": "post-transition state versus the command used for that transition",
+    "policy_enabled": "RL action path enabled, even when its action happens to be zero",
+    "torque_saturation": "mean fraction of the 16 commanded joints at their limits",
+    "progress_fraction": "world-x displacement divided by integral of logged velocity command over observed steps; null for zero integral",
+    "slip": "not measured; no unvalidated contact/slip proxy is reported"
+  },
+  "cases": [
+    {
+      "case_id": "holdout_00_flat",
+      "terrain": {
+        "kind": "flat"
+      },
+      "velocity_mps": 0.2,
+      "height_m": 0.455,
+      "environment_seed": 24000
+    },
+    {
+      "case_id": "holdout_01_flat",
+      "terrain": {
+        "kind": "flat"
+      },
+      "velocity_mps": 0.35,
+      "height_m": 0.455,
+      "environment_seed": 24001
+    },
+    {
+      "case_id": "holdout_02_flat",
+      "terrain": {
+        "kind": "flat"
+      },
+      "velocity_mps": 0.45,
+      "height_m": 0.455,
+      "environment_seed": 24002
+    },
+    {
+      "case_id": "holdout_03_flat",
+      "terrain": {
+        "kind": "flat"
+      },
+      "velocity_mps": 0.3,
+      "height_m": 0.455,
+      "environment_seed": 24003
+    },
+    {
+      "case_id": "holdout_04_bumps",
+      "terrain": {
+        "kind": "bumps",
+        "amplitude_m": 0.005,
+        "wavelength_m": 0.7,
+        "phase_rad": 0.37
+      },
+      "velocity_mps": 0.25,
+      "height_m": 0.455,
+      "environment_seed": 24004
+    },
+    {
+      "case_id": "holdout_05_bumps",
+      "terrain": {
+        "kind": "bumps",
+        "amplitude_m": 0.005,
+        "wavelength_m": 0.9,
+        "phase_rad": 1.41
+      },
+      "velocity_mps": 0.4,
+      "height_m": 0.455,
+      "environment_seed": 24005
+    },
+    {
+      "case_id": "holdout_06_bumps",
+      "terrain": {
+        "kind": "bumps",
+        "amplitude_m": 0.005,
+        "wavelength_m": 1.1,
+        "phase_rad": 0.37
+      },
+      "velocity_mps": 0.35,
+      "height_m": 0.455,
+      "environment_seed": 24006
+    },
+    {
+      "case_id": "holdout_07_bumps",
+      "terrain": {
+        "kind": "bumps",
+        "amplitude_m": 0.005,
+        "wavelength_m": 0.7,
+        "phase_rad": 1.41
+      },
+      "velocity_mps": 0.3,
+      "height_m": 0.455,
+      "environment_seed": 24007
+    },
+    {
+      "case_id": "holdout_08_bumps",
+      "terrain": {
+        "kind": "bumps",
+        "amplitude_m": 0.01,
+        "wavelength_m": 0.7,
+        "phase_rad": 0.37
+      },
+      "velocity_mps": 0.25,
+      "height_m": 0.455,
+      "environment_seed": 24008
+    },
+    {
+      "case_id": "holdout_09_bumps",
+      "terrain": {
+        "kind": "bumps",
+        "amplitude_m": 0.01,
+        "wavelength_m": 0.9,
+        "phase_rad": 1.41
+      },
+      "velocity_mps": 0.4,
+      "height_m": 0.455,
+      "environment_seed": 24009
+    },
+    {
+      "case_id": "holdout_10_bumps",
+      "terrain": {
+        "kind": "bumps",
+        "amplitude_m": 0.01,
+        "wavelength_m": 1.1,
+        "phase_rad": 0.37
+      },
+      "velocity_mps": 0.35,
+      "height_m": 0.455,
+      "environment_seed": 24010
+    },
+    {
+      "case_id": "holdout_11_bumps",
+      "terrain": {
+        "kind": "bumps",
+        "amplitude_m": 0.01,
+        "wavelength_m": 0.7,
+        "phase_rad": 1.41
+      },
+      "velocity_mps": 0.3,
+      "height_m": 0.455,
+      "environment_seed": 24011
+    },
+    {
+      "case_id": "holdout_12_ramp",
+      "terrain": {
+        "kind": "ramp",
+        "slope_deg": -3.0
+      },
+      "velocity_mps": 0.25,
+      "height_m": 0.455,
+      "environment_seed": 24012
+    },
+    {
+      "case_id": "holdout_13_ramp",
+      "terrain": {
+        "kind": "ramp",
+        "slope_deg": -3.0
+      },
+      "velocity_mps": 0.4,
+      "height_m": 0.455,
+      "environment_seed": 24013
+    },
+    {
+      "case_id": "holdout_14_ramp",
+      "terrain": {
+        "kind": "ramp",
+        "slope_deg": 3.0
+      },
+      "velocity_mps": 0.25,
+      "height_m": 0.455,
+      "environment_seed": 24014
+    },
+    {
+      "case_id": "holdout_15_ramp",
+      "terrain": {
+        "kind": "ramp",
+        "slope_deg": 3.0
+      },
+      "velocity_mps": 0.4,
+      "height_m": 0.455,
+      "environment_seed": 24015
+    }
+  ]
+}

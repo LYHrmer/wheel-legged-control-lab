@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "experiment": "frozen_d1_residual_feedback",
+  "evaluation_split": "development",
+  "cases": [
+    {
+      "case_id": "tracking_v2_development_01_flat",
+      "terrain": {
+        "kind": "flat"
+      },
+      "velocity_mps": 0.35,
+      "height_m": 0.455,
+      "environment_seed": 33001
+    },
+    {
+      "case_id": "tracking_v2_development_04_bumps",
+      "terrain": {
+        "kind": "bumps",
+        "amplitude_m": 0.005,
+        "wavelength_m": 0.8,
+        "phase_rad": 0.0
+      },
+      "velocity_mps": 0.25,
+      "height_m": 0.455,
+      "environment_seed": 33004
+    },
+    {
+      "case_id": "tracking_v2_development_05_bumps",
+      "terrain": {
+        "kind": "bumps",
+        "amplitude_m": 0.005,
+        "wavelength_m": 0.8,
+        "phase_rad": 1.5707963267948966
+      },
+      "velocity_mps": 0.4,
+      "height_m": 0.455,
+      "environment_seed": 33005
+    },
+    {
+      "case_id": "tracking_v2_development_10_bumps",
+      "terrain": {
+        "kind": "bumps",
+        "amplitude_m": 0.01,
+        "wavelength_m": 0.8,
+        "phase_rad": 0.0
+      },
+      "velocity_mps": 0.25,
+      "height_m": 0.455,
+      "environment_seed": 33010
+    },
+    {
+      "case_id": "tracking_v2_development_11_bumps",
+      "terrain": {
+        "kind": "bumps",
+        "amplitude_m": 0.01,
+        "wavelength_m": 0.8,
+        "phase_rad": 1.5707963267948966
+      },
+      "velocity_mps": 0.4,
+      "height_m": 0.455,
+      "environment_seed": 33011
+    },
+    {
+      "case_id": "tracking_v2_development_22_ramp",
+      "terrain": {
+        "kind": "ramp",
+        "slope_deg": 4.0
+      },
+      "velocity_mps": 0.25,
+      "height_m": 0.455,
+      "environment_seed": 33022
+    }
+  ],
+  "feedback_cases": [
+    "tracking_v2_development_04_bumps",
+    "tracking_v2_development_10_bumps"
+  ],
+  "training_seeds": [
+    0,
+    1000,
+    2000
+  ],
+  "episode_seconds": 4.0,
+  "control_dt_s": 0.01,
+  "torch_threads": 1,
+  "checkpoint_selection": "all requested mixed final checkpoints; no score selection",
+  "model_sha256": {
+    "0": "378d056b5c991e66206d462af42b1f3f4a823c6652cf327991fe4c3b40327f0a",
+    "1000": "19f28bb3e6df558cc8b32884e618543f5d99d679aaaf14e58dd7cbd531e7b38b",
+    "2000": "5df4d53f96e712ecd6e5ff2c3ff8680802c8c422af4034857486ff4ce42e5dff"
+  },
+  "baseline": "same LQR/VMC feedback remains active in every variant",
+  "nominal_modes": [
+    "zero",
+    "constant_fz",
+    "full",
+    "fx_only",
+    "fz_only",
+    "replay"
+  ],
+  "constant_action": [
+    0.0,
+    1.0
+  ],
+  "residual_scale_n": [
+    11.25,
+    20.0
+  ],
+  "perturbations": {
+    "pitch_minus": {
+      "initial_pitch_rad": -0.02
+    },
+    "pitch_plus": {
+      "initial_pitch_rad": 0.02
+    },
+    "push_minus": {
+      "world_fx_n": -20,
+      "start_s": 2.0,
+      "duration_s": 0.1
+    },
+    "push_plus": {
+      "world_fx_n": 20,
+      "start_s": 2.0,
+      "duration_s": 0.1
+    }
+  },
+  "nominal_replay_tolerance": 1e-10,
+  "replay_checked_fields": [
+    "position_x_m",
+    "position_y_m",
+    "yaw_rad",
+    "forward_velocity_mps",
+    "clearance_m",
+    "measured_pitch_rad",
+    "measured_roll_rad",
+    "action_longitudinal",
+    "action_vertical",
+    "reward",
+    "terminated",
+    "truncated",
+    "push_force_n"
+  ],
+  "replay_state_check": "each step also requires identical SHA256 of little-endian float64 qpos+qvel",
+  "quality_criteria": {
+    "minimum_episode_seconds": 4.0,
+    "progress_fraction_min": 0.65,
+    "progress_fraction_max": 1.35,
+    "tail_window_seconds": 1.0,
+    "tail_velocity_rmse_absolute_mps": 0.06,
+    "tail_velocity_rmse_target_fraction": 0.25,
+    "clearance_rmse_max_m": 0.03,
+    "max_abs_yaw_rad": 0.15,
+    "mean_torque_saturation_fraction_max": 0.05
+  },
+  "failure_type_threshold": "bias share >= .8: bias-dominated; <= .2: fluctuation-dominated; descriptive only",
+  "decision_thresholds": {
+    "remove_fz": "mean height RMSE decrease >= .002m; velocity RMSE increase <= .005m/s; no quality-count loss",
+    "live_vs_replay": "mean perturbed tail RMSE decrease >= max(.005m/s,10% of replay); no quality-count loss"
+  },
+  "hypotheses": [
+    "Fz is an unnecessary constant bias",
+    "raw Gaussian mean drifts outside action bounds",
+    "RL feedback has no measurable benefit beyond its nominal tape",
+    "bumps failures mix bias and variance"
+  ],
+  "raw_gaussian_probe": "current observation; deterministic evaluation; no extra Gaussian sample is executed",
+  "history_use": "historical holdout classification only, never used to select this matrix or a new model"
+}

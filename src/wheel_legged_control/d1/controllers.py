@@ -87,6 +87,8 @@ class D1VMCController:
         # Keep only nominal model constants.  Runtime feedback must arrive in a
         # D1StateEstimate so randomized MuJoCo truth cannot leak into control.
         self.total_mass_kg = plant.nominal_total_mass_kg
+        self.nominal_base_com_offset_body_m = plant.model.body_ipos[plant.base_body_id].copy()
+        self.nominal_base_com_offset_body_m.setflags(write=False)
         self.gravity_mps2 = abs(float(plant.model.opt.gravity[2]))
         self.wheel_radius_m = float(plant.wheel_radius_m)
         self.leg_kp = np.tile((40.0, 40.0, 40.0, 0.0), len(LEG_PREFIXES))

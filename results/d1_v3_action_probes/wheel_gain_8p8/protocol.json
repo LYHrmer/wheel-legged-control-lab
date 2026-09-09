@@ -1,0 +1,26 @@
+{
+  "cases": [
+    "stand",
+    "start_stop",
+    "turn_left",
+    "turn_right"
+  ],
+  "sampling_mode": "synchronized",
+  "source_sha256": {
+    "scripts/probe_d1_wheel_leg_actions.py": "807c12088c4b5d758933c31cb9543482ec171114464c13937ff367b2bc72a3b6",
+    "src/wheel_legged_control/d1/wheel_leg_controller.py": "cdee701ea7b4a4c42208a3d679abc7ea574f893c68db821b602682d0f0c3374d",
+    "src/wheel_legged_control/d1/model.py": "2c34551cbecd6d212f2622fd0db971282a03443a07afcc68487583edec714fa2",
+    "src/wheel_legged_control/d1/state_estimation.py": "eea9c3969e3064819ef6bc8a7621e5541e1547bacbea741b21e1fa909e2f51b8"
+  },
+  "scope": "deterministic development probes; no RL, no hardware claims",
+  "standing_thresholds": {
+    "height_rmse_m": 0.025,
+    "max_abs_roll_pitch_rad": 0.1
+  },
+  "action_amplitude": 0.5,
+  "wheel_kp_nm_per_rad_s": 8.8,
+  "turn_thresholds": {
+    "minimum_commanded_progress_fraction": 0.25,
+    "tail_yaw_rmse_max_rps": 0.1
+  }
+}

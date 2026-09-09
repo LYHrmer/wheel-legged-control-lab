@@ -1,0 +1,86 @@
+{
+  "schema": "d1-continuous-delivery-supplement-v1",
+  "auditor_sha256": "ccdf04e8a27fe314978dbd993198359a64939f5ca0644bc590a823ad27c9b4bd",
+  "original_manifest_sha256": "da1179fc38c9e5d85ac8dd2aaebc99dd6ed615a3ba3fe5b8a332c252b5a8425d",
+  "experiment_artifact_sha_checks": 266,
+  "analysis_artifact_sha_checks": 7,
+  "sources": {
+    "archived_files": 36,
+    "current_source_changes": [
+      "scripts/render_d1_continuous_task.py"
+    ]
+  },
+  "training": [
+    {
+      "seed": 19000,
+      "physical_samples": 131072,
+      "completed_episodes": 28,
+      "completed_episode_samples": 126000,
+      "unfinished_episode_samples": 5072,
+      "maximum_reward_scale_error": 0.0,
+      "maximum_monitor_return_rounding_error": 4.7323010221589357e-07,
+      "actual_sample_clip_fraction": [
+        0.3762054443359375,
+        0.6527328491210938
+      ]
+    },
+    {
+      "seed": 20000,
+      "physical_samples": 131072,
+      "completed_episodes": 28,
+      "completed_episode_samples": 126000,
+      "unfinished_episode_samples": 5072,
+      "maximum_reward_scale_error": 0.0,
+      "maximum_monitor_return_rounding_error": 4.825296855415218e-07,
+      "actual_sample_clip_fraction": [
+        0.32227325439453125,
+        0.7031326293945312
+      ]
+    },
+    {
+      "seed": 21000,
+      "physical_samples": 131072,
+      "completed_episodes": 28,
+      "completed_episode_samples": 126000,
+      "unfinished_episode_samples": 5072,
+      "maximum_reward_scale_error": 0.0,
+      "maximum_monitor_return_rounding_error": 4.7324465413112193e-07,
+      "actual_sample_clip_fraction": [
+        0.35253143310546875,
+        0.7875518798828125
+      ]
+    }
+  ],
+  "telemetry_primitive_and_stage_checks": {
+    "rollouts": 42,
+    "control_steps": 195000,
+    "maximum_primitive_error": 0.0
+  },
+  "replay": {
+    "replay_artifact_sha_checks": 12,
+    "byte_identical_recordings": 2,
+    "new_physics_run": false
+  },
+  "videos": [
+    {
+      "file": "seed19000_sensor45_45s.mp4",
+      "sha256": "9ef806edbd28c6cfcff165ec52145c22934405e05ca4ed023cc3943b9e7a575b",
+      "decoded_frames": 901,
+      "duration_s": 45.05,
+      "decode_exit_code": 0
+    },
+    {
+      "file": "zero_sensor45_45s.mp4",
+      "sha256": "7b140b1742b87cd539592f802b4c240739d033f8edd77984fa42d69a09ca0817",
+      "decoded_frames": 901,
+      "duration_s": 45.05,
+      "decode_exit_code": 0
+    }
+  ],
+  "limits": [
+    "This supplement checks archived artifacts; it does not independently reproduce training.",
+    "The separate analyzer recomputes RMSE/reward/quality from CSV; this supplement checks primitive error fields and stored stage turn numbers.",
+    "Raw training means/std/log_prob were not recorded in this experiment; raw likelihood ratios cannot be reconstructed from training_samples.npz.",
+    "Video decode and input provenance are machine-checked. Visual inspection is separately recorded in the delivery note."
+  ]
+}

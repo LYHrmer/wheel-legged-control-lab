@@ -1,0 +1,37 @@
+{
+  "cases": [
+    "stand",
+    "start_stop",
+    "turn_left",
+    "turn_right",
+    "action_0_plus",
+    "action_0_minus",
+    "action_1_plus",
+    "action_1_minus",
+    "action_2_plus",
+    "action_2_minus",
+    "action_3_plus",
+    "action_3_minus",
+    "action_4_plus",
+    "action_4_minus",
+    "action_5_plus",
+    "action_5_minus",
+    "action_6_plus",
+    "action_6_minus",
+    "action_7_plus",
+    "action_7_minus"
+  ],
+  "sampling_mode": "synchronized",
+  "source_sha256": {
+    "scripts/probe_d1_wheel_leg_actions.py": "8959543109d66e50cb62d630933d162e40bd18b819018734a39314d58344b20c",
+    "src/wheel_legged_control/d1/wheel_leg_controller.py": "0254e467133114b719413df30a583c557a68fd922a27fb7004c8951179777b0f",
+    "src/wheel_legged_control/d1/model.py": "2c34551cbecd6d212f2622fd0db971282a03443a07afcc68487583edec714fa2",
+    "src/wheel_legged_control/d1/state_estimation.py": "eea9c3969e3064819ef6bc8a7621e5541e1547bacbea741b21e1fa909e2f51b8"
+  },
+  "scope": "deterministic development probes; no RL, no hardware claims",
+  "standing_thresholds": {
+    "height_rmse_m": 0.025,
+    "max_abs_roll_pitch_rad": 0.1
+  },
+  "action_amplitude": 0.5
+}

@@ -1,0 +1,78 @@
+{
+  "cases": [
+    "turn_left",
+    "turn_right"
+  ],
+  "sampling_mode": "synchronized",
+  "source_sha256": {
+    "scripts/probe_d1_wheel_leg_actions.py": "883e2398e7c92a5322cb91ea731bf0872634f4ac8736dbf1e0cf2e7880f50d56",
+    "src/wheel_legged_control/d1/wheel_leg_controller.py": "4429b22b6976c286a1f86fc39eb03e9261ea4cacad44377e60ae9c799ebf7c1e",
+    "src/wheel_legged_control/d1/model.py": "0d606a044e8f9b010976ceb7e45b6640b143371887284cc30c17acd1d0c96bc6",
+    "src/wheel_legged_control/d1/state_estimation.py": "eea9c3969e3064819ef6bc8a7621e5541e1547bacbea741b21e1fa909e2f51b8",
+    "src/wheel_legged_control/d1/control_context.py": "1015eb59eb48a55248c162120bcc4f5531e79a8a82540182eedf7f1335b45a53",
+    "src/wheel_legged_control/d1/controllers.py": "8ae4eab5326f0f279576c840febb08e8101f2817fb754ddb6c07d0a60f90c124",
+    "src/wheel_legged_control/d1/terrain.py": "a72ad8d9c599e87d5587f253b2ade893d26629b55f755a0ca60e55d87c18e6fd",
+    "src/wheel_legged_control/d1/training_terrain.py": "25bf4490be6ea1c6aba0799ac042a1d177ff4343ceb07bc7608432ba0c97dc05",
+    "src/wheel_legged_control/d1/state_provider.py": "e3250710355d31a9e4005c036f6f60c9d0f15bdb0fae111ac5679ec1aa77df81",
+    "src/wheel_legged_control/d1/sensor_estimation.py": "3072d19499a9e20e4161295499f0e51c83bfc85fe010b28e24451a2a0b9722d5"
+  },
+  "scope": "deterministic development probes; no RL, no hardware claims",
+  "state_source": "sensor",
+  "sensor_delay_steps": 2,
+  "measurement_noise_seed": 17,
+  "sensor_noise_std": {
+    "gyro_rad_s": 0.002,
+    "accelerometer_m_s2": 0.03,
+    "encoder_position_rad": 0.0005,
+    "encoder_velocity_rad_s": 0.005
+  },
+  "standing_thresholds": {
+    "height_rmse_m": 0.025,
+    "max_abs_roll_pitch_rad": 0.1
+  },
+  "action_amplitude": 0.5,
+  "action_order": [
+    "extension_FL",
+    "extension_FR",
+    "extension_RL",
+    "extension_RR",
+    "wheel_FL",
+    "wheel_FR",
+    "wheel_RL",
+    "wheel_RR"
+  ],
+  "action_scales": {
+    "extension_m": 0.04,
+    "wheel_speed_rad_s": 4.0
+  },
+  "asset_sha256": {
+    "src/wheel_legged_control/d1/assets/LICENSE-WMP-D1-loco.txt": "51a0c476af7f9b871310ee72a575334cf8f9bbbe0ff2952c4b712c2f21cff079",
+    "src/wheel_legged_control/d1/assets/__init__.py": "1b61e62d47e4eb7bc328696f7fb770bd634423cfef62dd3bd541e1a59c159524",
+    "src/wheel_legged_control/d1/assets/meshes/L_calf.STL": "e3389a611c0869b002c9ad6c92e5967367e585f31ce67887b47d95f85210599b",
+    "src/wheel_legged_control/d1/assets/meshes/L_foot.STL": "afc74ac83c9286f9d201d43dfc682195895a678464e5f8564763b071368d9eeb",
+    "src/wheel_legged_control/d1/assets/meshes/L_hip.STL": "6bd4d237b585fce86dc97d0d6f52b10811588f9b9fe2b2de8a74763c33f41d90",
+    "src/wheel_legged_control/d1/assets/meshes/L_thigh.STL": "c804473b99df48fe293a7d37e89096313c5421ffbeb1b0141130bfb0ceb4b2ee",
+    "src/wheel_legged_control/d1/assets/meshes/R_calf.STL": "71c9d33c49b3fcf0ce6aecee4f8407dc9872a1d6f8340705ac43df7154f7966b",
+    "src/wheel_legged_control/d1/assets/meshes/R_foot.STL": "11f49126b3fec371ce1277556828a1517309347d777907b57567a50e807dba1f",
+    "src/wheel_legged_control/d1/assets/meshes/R_hip.STL": "91751fa14272761ce4176cfb50cefde6397e43cd639ed5a5dc94d64d3b6f69d1",
+    "src/wheel_legged_control/d1/assets/meshes/R_thigh.STL": "8d5e6772757f64cb691e8f595f914c5b3acf36295d59e3c1c72543f86302ce4b",
+    "src/wheel_legged_control/d1/assets/meshes/base_link.STL": "d13fd7d3a7924e988b957008617744c44de73fbb39b43f3483fbcda989efd92a",
+    "src/wheel_legged_control/d1/assets/meshes/docking_Link.STL": "afe9cfe3f8896ff3d53c8bb3b61e12727973705b21751b94c2e5148743072f2c",
+    "src/wheel_legged_control/d1/assets/meshes/funtion_Link.STL": "ff81ab5dda97f86c083e0410b0a836cfe438df045d25177cc7ac0215fe76fc9b",
+    "src/wheel_legged_control/d1/assets/urdf/robot.urdf": "3ef048898f351134a4e30d21be8918f9fef48c7b508320a8c9a3f21a25391742"
+  },
+  "wheel_kp_nm_per_rad_s": 0.55,
+  "wheel_ki_nm_per_rad": 0.75,
+  "yaw_feedback_gain": 6.0,
+  "yaw_request_limit_rps": 0.6,
+  "control_schema": "d1-wheel-leg-joint-pd-wheel-pi-yaw-feedback-v2",
+  "turn_70_thresholds": {
+    "minimum_commanded_progress_fraction": 0.7,
+    "tail_yaw_rmse_max_rps": 0.05,
+    "straight_stop_noninferiority_relative_margin": 0.1
+  },
+  "turn_thresholds": {
+    "minimum_commanded_progress_fraction": 0.25,
+    "tail_yaw_rmse_max_rps": 0.1
+  }
+}

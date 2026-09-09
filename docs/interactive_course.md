@@ -1,5 +1,8 @@
 # D1 键盘驾驶与地形课程
 
+本页是历史课程入口 `wheel-legged-d1-play`，包含受保护跳跃。当前 82 维主线使用
+[另一套运行入口](locomotion_lab.md)，Space 为停车且没有跳跃；两套 checkpoint 和按键不要混用。
+
 这份笔记对应 [`interactive.py`](../src/wheel_legged_control/d1/interactive.py) 和
 [`terrain.py`](../src/wheel_legged_control/d1/terrain.py)。它记录场景尺寸、控制接口、验收条件，
 也保留开发中遇到的三次失败。修改控制参数后，可直接重跑文末命令核对结果。
@@ -21,7 +24,7 @@
 
 ```bash
 MUJOCO_GL=egl wheel-legged-d1-play \
-  --overview results/d1_interactive/course_overview.png
+  --overview results/my_interactive/course_overview.png
 ```
 
 ## 从按键到 16 路力矩
@@ -149,7 +152,7 @@ wheel-legged-d1-play \
 wheel-legged-d1-play \
   --baseline lqr \
   --state-mode oracle \
-  --audit-output results/d1_interactive
+  --audit-output results/my_interactive
 ```
 
 | 区域 | 进度门槛 [m] | 通过 | 距离 [m] | 最大 Roll [deg] | 最大 Pitch [deg] | 四轮接触比例 | 跳跃/横杆 |

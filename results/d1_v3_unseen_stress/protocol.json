@@ -1,0 +1,331 @@
+{
+  "actuator": {
+    "delay_steps": 0,
+    "gain": 1.0,
+    "n_axes": 16,
+    "physics_dt_s": 0.002,
+    "time_constant_s": 0.0,
+    "torque_limit_nm": [
+      80.0,
+      80.0,
+      80.0,
+      12.0,
+      80.0,
+      80.0,
+      80.0,
+      12.0,
+      80.0,
+      80.0,
+      80.0,
+      12.0,
+      80.0,
+      80.0,
+      80.0,
+      12.0
+    ]
+  },
+  "case_count": 16,
+  "cases": [
+    {
+      "case": "road0_seed17",
+      "controller": "zero_residual",
+      "episode_seed": 17,
+      "road_index": 0
+    },
+    {
+      "case": "road0_seed29",
+      "controller": "zero_residual",
+      "episode_seed": 29,
+      "road_index": 0
+    },
+    {
+      "case": "road1_seed17",
+      "controller": "zero_residual",
+      "episode_seed": 17,
+      "road_index": 1
+    },
+    {
+      "case": "road1_seed29",
+      "controller": "zero_residual",
+      "episode_seed": 29,
+      "road_index": 1
+    },
+    {
+      "case": "road0_seed17",
+      "controller": "h4_dr_seed27000",
+      "episode_seed": 17,
+      "road_index": 0
+    },
+    {
+      "case": "road0_seed29",
+      "controller": "h4_dr_seed27000",
+      "episode_seed": 29,
+      "road_index": 0
+    },
+    {
+      "case": "road1_seed17",
+      "controller": "h4_dr_seed27000",
+      "episode_seed": 17,
+      "road_index": 1
+    },
+    {
+      "case": "road1_seed29",
+      "controller": "h4_dr_seed27000",
+      "episode_seed": 29,
+      "road_index": 1
+    },
+    {
+      "case": "road0_seed17",
+      "controller": "h4_dr_seed28000",
+      "episode_seed": 17,
+      "road_index": 0
+    },
+    {
+      "case": "road0_seed29",
+      "controller": "h4_dr_seed28000",
+      "episode_seed": 29,
+      "road_index": 0
+    },
+    {
+      "case": "road1_seed17",
+      "controller": "h4_dr_seed28000",
+      "episode_seed": 17,
+      "road_index": 1
+    },
+    {
+      "case": "road1_seed29",
+      "controller": "h4_dr_seed28000",
+      "episode_seed": 29,
+      "road_index": 1
+    },
+    {
+      "case": "road0_seed17",
+      "controller": "h4_dr_seed29000",
+      "episode_seed": 17,
+      "road_index": 0
+    },
+    {
+      "case": "road0_seed29",
+      "controller": "h4_dr_seed29000",
+      "episode_seed": 29,
+      "road_index": 0
+    },
+    {
+      "case": "road1_seed17",
+      "controller": "h4_dr_seed29000",
+      "episode_seed": 17,
+      "road_index": 1
+    },
+    {
+      "case": "road1_seed29",
+      "controller": "h4_dr_seed29000",
+      "episode_seed": 29,
+      "road_index": 1
+    }
+  ],
+  "command_split": "development",
+  "control_dt_s": 0.01,
+  "controller_parameters": {
+    "attitude_feedback_scale": 0.25,
+    "leg_feedback_scale": 1.0,
+    "wheel_ki": 1.5,
+    "wheel_kp": 0.55,
+    "yaw_feedback_gain": 4.0
+  },
+  "controllers": [
+    {
+      "controller": "zero_residual",
+      "training_seed": null
+    },
+    {
+      "controller": "h4_dr_seed27000",
+      "directory": "/home/lyh/wheel-legged-control-lab/results/d1_v3_delay_ablation/h4_dr_seed27000",
+      "input_sha256": {
+        "checkpoint.json": "6d70f0ba29adc1eb85ac41543eb4b9de7763c6cbb97673c830c4c4cf7fa1a4d3",
+        "checkpoint.zip": "780d99d8352f757a999cfb257900ed489225e7ce31db25ba0def5d82d86ba2f8",
+        "protocol.json": "8d942e08d5438eb10689282d851e1b1d5dcc8594c10884f3ce965d285d6f7bd3",
+        "source.json": "8dafb2b72c0c49131a739a7ea1a9a3bf02fe809f55eb2cf4afe3c723e8d11cf5",
+        "source.tar.gz": "f993ea1a2c814b7d164aef5dadeceea228eab98e7e8b808f2149b28278727b64",
+        "source_consistency.json": "99a03f68c4dbe50de2116c150e8a67e8490c0d5f6c666d30ed39b2f9e37ebcab",
+        "training.json": "63d310e0fbb23873da411b54cfb91f14b3665f1219f2b9ac6fe4677218ab4ef0"
+      },
+      "training_seed": 27000
+    },
+    {
+      "controller": "h4_dr_seed28000",
+      "directory": "/home/lyh/wheel-legged-control-lab/results/d1_v3_delay_ablation/h4_dr_seed28000",
+      "input_sha256": {
+        "checkpoint.json": "5567dcebbf80c85b9d3d20e9f470498538b5b94fba8f6eab34f97f43656d9d08",
+        "checkpoint.zip": "c52de1a123cf1076240b20b59455c5f6750a3e948ecc83dd74ecb10720c862bb",
+        "protocol.json": "1b1b26449fd793dd282c16658b633d5c1dfc53688f6c3a72e42354b603951612",
+        "source.json": "51e9e85c0741d05aed6aaa91d26011bbeed71807fca46458cbe9747cc34ebfed",
+        "source.tar.gz": "e3a9d0bbd1b58480c22235d00a9dc51b563a1565a22263b3bd64225a0e675aaf",
+        "source_consistency.json": "99a03f68c4dbe50de2116c150e8a67e8490c0d5f6c666d30ed39b2f9e37ebcab",
+        "training.json": "4fbdde120bcc40cdbf7008d3f164b4c367ec75b958b6860752e12989d084b913"
+      },
+      "training_seed": 28000
+    },
+    {
+      "controller": "h4_dr_seed29000",
+      "directory": "/home/lyh/wheel-legged-control-lab/results/d1_v3_delay_ablation/h4_dr_seed29000",
+      "input_sha256": {
+        "checkpoint.json": "138758d643d9043edc806aa014bdc8a89ff10c31538306f392bcf9ee9dc886b2",
+        "checkpoint.zip": "1129873fe5953e7a4dd6911ed99224d4e17c01f333ca21e343e9bd91129d8bd9",
+        "protocol.json": "e28132d3d22fe634e3612cfbfbcd2858976250ff0ae577ed17305545eda2be75",
+        "source.json": "4f97566fd242b3c37f605e6a225758156439404ad3ddd3a7f1967c5ab47a891b",
+        "source.tar.gz": "b71586ff46142ac80c215f8968b48f9179ff55cbd6004d726972b962e9612a86",
+        "source_consistency.json": "99a03f68c4dbe50de2116c150e8a67e8490c0d5f6c666d30ed39b2f9e37ebcab",
+        "training.json": "69e8b8d01e5a5f7c39caed27e3855015db51bf81e52a6d1a5912fd54189e4c36"
+      },
+      "training_seed": 29000
+    }
+  ],
+  "episode_limit_s": 60.0,
+  "episode_seeds": [
+    17,
+    29
+  ],
+  "friction_scope": "set_domain scales geom_friction[:,0] sliding friction only; torsional/rolling coefficients unchanged; no added motor friction",
+  "history_length": 4,
+  "integrity_scope": "hashes bind local inputs; they do not authenticate provenance or establish performance",
+  "measurement_delay_s": 0.03,
+  "measurement_delay_steps": 3,
+  "measurement_seed_rule": "existing env reset derives sensor RNG seed; actual measurement_seed in each episode JSON, not literally 17/29",
+  "noise_scope": "synthetic per-sample standard deviations x2; biases unchanged; not calibration",
+  "noise_std_factor": 2.0,
+  "quality_thresholds": {
+    "attitude_rmse_rad": 0.15,
+    "height_rmse_m": 0.025,
+    "velocity_rmse_mps": 0.08,
+    "yaw_rmse_rps": 0.08
+  },
+  "randomization": {
+    "actuator_delay_steps": null,
+    "actuator_gain": null,
+    "actuator_strength_scale": [
+      1.0,
+      1.0
+    ],
+    "actuator_time_constant_s": null,
+    "base_mass_scale": [
+      1.0,
+      1.0
+    ],
+    "damping_scale": [
+      1.0,
+      1.0
+    ],
+    "friction_scale": [
+      0.6,
+      0.6
+    ],
+    "measurement_delay_steps": null
+  },
+  "replication_unit": "training seed; paired episodes are not independent policy replications",
+  "reproduction_command": "/usr/bin/python3 scripts/evaluate_d1_unseen_stress.py --study /home/lyh/wheel-legged-control-lab/results/d1_v3_delay_ablation --output /home/lyh/wheel-legged-control-lab/results/d1_v3_unseen_stress",
+  "roads": [
+    {
+      "cross_slope_deg": -0.75,
+      "layout": "right_offset",
+      "phase_x_rad": 0.3,
+      "phase_y_rad": 0.5,
+      "ripple_amplitude_m": 0.006,
+      "schema": "d1-fixed-2d-road-v1",
+      "slope_deg": 1.25,
+      "step_height_m": 0.006,
+      "wavelength_x_m": 0.75,
+      "wavelength_y_m": 1.05
+    },
+    {
+      "cross_slope_deg": 0.75,
+      "layout": "right_offset",
+      "phase_x_rad": 0.9,
+      "phase_y_rad": 1.1,
+      "ripple_amplitude_m": 0.008,
+      "schema": "d1-fixed-2d-road-v1",
+      "slope_deg": -1.25,
+      "step_height_m": 0.008,
+      "wavelength_x_m": 0.85,
+      "wavelength_y_m": 1.15
+    }
+  ],
+  "runtime_source": "source.json and source.tar.gz include this adapter and existing evaluator",
+  "scaled_noise_fields": [
+    "gyro_std_rad_s",
+    "accelerometer_std_m_s2",
+    "encoder_position_std_rad",
+    "encoder_velocity_std_rad_s"
+  ],
+  "schema": "d1-joint-unseen-stress-v1",
+  "scope": "joint extrapolation; not independent-factor attribution or new terrain holdout",
+  "selection_rule": "all three h4+DR final 32768-step models; no stress-based selection",
+  "sensor_noise": {
+    "accelerometer_bias_m_s2": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "accelerometer_std_m_s2": 0.06,
+    "encoder_position_std_rad": 0.001,
+    "encoder_velocity_std_rad_s": 0.01,
+    "gyro_bias_rad_s": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "gyro_std_rad_s": 0.004
+  },
+  "sensor_noise_base": {
+    "accelerometer_bias_m_s2": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "accelerometer_std_m_s2": 0.03,
+    "encoder_position_std_rad": 0.0005,
+    "encoder_velocity_std_rad_s": 0.005,
+    "gyro_bias_rad_s": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "gyro_std_rad_s": 0.002
+  },
+  "source_kind": "imu_encoder_fusion",
+  "terrain_split": "development",
+  "training_randomization": {
+    "actuator_delay_steps": [
+      0,
+      3
+    ],
+    "actuator_gain": [
+      0.95,
+      1.05
+    ],
+    "actuator_strength_scale": [
+      1.0,
+      1.0
+    ],
+    "actuator_time_constant_s": [
+      0.0,
+      0.006
+    ],
+    "base_mass_scale": [
+      1.0,
+      1.0
+    ],
+    "damping_scale": [
+      1.0,
+      1.0
+    ],
+    "friction_scale": [
+      1.0,
+      1.0
+    ],
+    "measurement_delay_steps": [
+      0,
+      2
+    ]
+  },
+  "working_directory": "/home/lyh/wheel-legged-control-lab"
+}

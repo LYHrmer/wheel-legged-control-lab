@@ -1,5 +1,14 @@
 # 从降阶 LQR/MPC 到 D1 整机残差强化学习
 
+当前主线是[命令条件轮足实验](locomotion_lab.md)：四腿伸缩和四轮速度接到同一个控制循环，
+PPO 每次更新保留数值记录。六个固定预算模型已完成开发/留出对照，速度改善伴随高度误差和
+机械活动量增加，见[正式报告](../results/d1_v3_locomotion_report/README.md)。20 ms 测量延迟仍会
+失稳。新手可先跑零残差，再做本页的 LQR/GAE 基础练习；旧实验成绩与新版分开阅读。
+
+最近补充的[五项实验练习](control_rl_experiments.md)集中讨论颠簸失效与残差作用，并把
+动作概率核对接到传感器闭环、45 s 策略复演。每节有手算答案和对应测试；先从这里找一项
+自己还解释不清的结果，再回到下面补基础。
+
 这份说明把实验分成两个层次。先用六状态模型拆开线性化、LQR、MPC 和奖励，再到 16 执行器
 D1 上处理接触、力矩分配、延迟与残差学习。中间穿插单轮辨识与闭环对照、PPO 数值计算和
 一次小网络参数更新，方便把公式中的状态转移和梯度对应到代码。
@@ -25,6 +34,8 @@ D1 上处理接触、力矩分配、延迟与残差学习。中间穿插单轮�
 | 7. 残差策略与观察 | [`d1/env.py`](../src/wheel_legged_control/d1/env.py)、第 8、11、12 节 | 先开关策略；另一次实验修改残差尺度并重新训练 | 当前策略是否优于零残差？门控覆盖了哪些训练外工况，又没有保证什么？ |
 | 8. 模型误差与延迟 | 第 10、13 节、[执行器辨识台架](actuator_identification.md) | 先单独改变状态延迟；台架实验只改一个未知执行器参数 | 外推在哪种运动下失效？标定在未参与拟合的输入上是否仍有效？ |
 | 8a. 单轮闭环补偿 | [PI 与前馈对照](wheel_control_lab.md) | 先只切换前馈参数；另一次只改积分增益 | 前馈收益来自结构还是参数？饱和时为何不能继续累积同向积分？ |
+| 9. 多地形 PPO | [小起伏与缓坡课程](terrain_curriculum.md)、[倒滑诊断与第二版跟踪](terrain_tracking_v2.md)、[`run_d1_terrain_curriculum.py`](../scripts/run_d1_terrain_curriculum.py) | 一个阶段的采样比例，或奖励单位 | LQR姿态参考怎样影响速度误差？Critic梯度如何影响PPO更新？课程与直接混合地形有什么不同？ |
+| 10. 共用控制循环与八维 PPO | [命令条件实验](locomotion_lab.md)、[逐拍循环](../src/wheel_legged_control/d1/control_loop.py) | 先零残差与固定 checkpoint 配对；另一次只改轮速 PI 增益 | 同为 82 维的观测为何不保证模型兼容？短转向通过后，为何还要运行完整道路？ |
 
 每次实验按同一份记录验收：
 
@@ -46,7 +57,8 @@ D1 上处理接触、力矩分配、延迟与残差学习。中间穿插单轮�
 当前的热启动配置会改变接触内力分配，不能写成与冷求解数值等价。它仍是独立的实验路径，
 尚未接入 PPO 训练或旧键盘控制器。`ppo_walkthrough.py` 只演示公式，
 `ppo_update_walkthrough.py` 对小型教学网络执行一次更新；机器人训练继续使用 SB3。
-IMU/编码器融合估计器也尚未实现。
+新的 [IMU/编码器互补估计器](sensor_estimation.md)已在独立实验和连续任务中运行，
+没有替换旧键盘入口的状态误差通道。
 
 模型来源、许可证和另一份本地 URDF 为什么没有上传，单独记录在
 [`d1_model_card.md`](d1_model_card.md)。
@@ -147,7 +159,7 @@ LQR 提供基线反馈，策略被设计为补偿基线尚未充分处理的误�
 在仓库根目录运行：
 
 ```bash
-PYTHONPATH=src:.local-deps python3 examples/ppo_walkthrough.py
+PYTHONPATH=src python3 examples/ppo_walkthrough.py
 ```
 
 这个例程只用 NumPy 处理固定数值，不启动 MuJoCo，也不训练策略。输出先比较同一条短轨迹
@@ -319,7 +331,11 @@ mode-matched 辨识后，同一回归能够跑完整段。这个记录说明低�
 MPC 使用当前分配模式对应的模型、权重和终端 Riccati 代价，预测 20 个 `10 ms` 步长，并
 在优化内显式施加 `±180 N` 约束。LQR 与 MPC 的区别集中在有限时域预测和约束求解。
 
-### 8. D1 残差 PPO 的动作与观察
+### 8. 历史平地课程：42 维观察与两维力残差
+
+第 8–12 节解释早期 `d1/env.py` 和 `wheel-legged-d1-play` 路径，保留它们用于理解 VMC 与
+残差学习。当前 82 维任务的动作缩放、奖励、状态源和键盘按键均不同，见
+[命令条件实验](locomotion_lab.md)。两条路径不能混用 checkpoint。
 
 策略仍然不输出 16 维原始关节力矩，只输出两个归一化残差：
 
@@ -349,7 +365,7 @@ MPC 使用当前分配模式对应的模型、权重和终端 Riccati 代价，�
 `contact_allocation`。加载 checkpoint 时四项必须与运行环境一致。仓库现有策略按 legacy
 分配训练，不能直接放进 constrained 控制路径作为主结果；constrained 策略需要重新训练。
 
-### 9. 奖励函数
+### 9. 历史平地课程的奖励函数
 
 理想状态的正奖励上限为 `4.2`：
 
@@ -370,7 +386,7 @@ r_{\Delta a} &= -0.025(\Delta a_{x,t}^2+2\Delta a_{z,t}^2).
 奖励使用速度跟踪误差，负速度命令也能正确计分。竖直动作的代价更高，是因为它的物理缩放
 为 `80 N`，而纵向残差只有 `45 N`；训练日志还显示，等权动作代价会产生持续向上的偏置。
 
-### 10. 随机化与延迟
+### 10. 历史平地课程的随机化与延迟
 
 训练时每回合改变：
 
@@ -392,8 +408,9 @@ r_{\Delta a} &= -0.025(\Delta a_{x,t}^2+2\Delta a_{z,t}^2).
 `estimated` 模式会把带噪延迟快照同时交给 LQR/MPC、VMC、PPO、安全逻辑和地形估计。动作
 延迟与状态延迟分别采样，不再共用一个队列。
 
-这里仍没有模拟 IMU 或编码器融合。当前 source 只是确定性的误差通道，适合做灵敏度实验；
-详细字段和时间语义见 [`state_estimation.md`](state_estimation.md)。
+本节旧 `estimated` source 是确定性的误差通道，适合做灵敏度实验；详细字段和时间语义见
+[`state_estimation.md`](state_estimation.md)。要研究实际测量融合，使用独立的
+[`sensor_estimation.md`](sensor_estimation.md) 实验，不要把两种状态来源混写成同一个估计器。
 
 默认误差通道也会扰动接触点、接触法向和接触点 Jacobian。常速度补偿只外推基座、关节和
 轮心运动，接触标志、接触点、法向及接触 Jacobian 保留在测量时刻。使用 constrained 分配
@@ -403,7 +420,7 @@ r_{\Delta a} &= -0.025(\Delta a_{x,t}^2+2\Delta a_{z,t}^2).
 的一阶外推，接触仍保持延迟测量。评估时要保留原始状态年龄，并和 `none` 使用完全相同的
 评测种子；只看外推成功的常速片段会高估效果。
 
-### 11. 训练与评估
+### 11. 重跑历史平地训练与评估
 
 这台电脑上使用 8 个 CPU 环境训练：
 
@@ -419,7 +436,7 @@ wheel-legged-train \
   --seed 7 \
   --runs 1 \
   --device cpu \
-  --output results/d1_residual_ppo
+  --output results/my_legacy_residual_ppo
 ```
 
 PPO rollout 批次使实际步数向上取整为 `401408`。仓库早期训练记录中，本机 8 个 CPU 环境
@@ -434,7 +451,8 @@ MUJOCO_GL=egl wheel-legged-d1-benchmark \
   --contact-allocation legacy \
   --policy results/d1_residual_ppo/model.zip \
   --audit-episodes 30 \
-  --gif
+  --gif \
+  --output results/my_legacy_benchmark
 ```
 
 接触分配先跑三组开发审计；只有固定的 121–150 共 30 组种子具备正式晋级资格：
@@ -443,12 +461,12 @@ MUJOCO_GL=egl wheel-legged-d1-benchmark \
 wheel-legged-d1-contact-audit \
   --seed 21 \
   --episodes 3 \
-  --output results/contact_dev
+  --output results/my_contact_dev
 
 wheel-legged-d1-contact-audit \
   --seed 121 \
   --episodes 30 \
-  --output results/d1_contact_allocation
+  --output results/my_contact_allocation
 ```
 
 审计配对比较 legacy 与 constrained 的模式匹配闭环配置，包括各自的分配器、辨识模型和固定
@@ -476,7 +494,7 @@ PPO − LQR 的配对均值差及 95% 置信区间：
 三个误差区间都跨过 0，奖励区间全部低于 0。这个 PPO checkpoint 没有优于 LQR，只用于
 练习残差接口、策略门控和配对评测。MPC 在随机域出现一次失败，CSV 保留了这条记录。
 
-### 12. 键盘、转向和地形课程
+### 12. 历史键盘与跳跃课程
 
 ```bash
 wheel-legged-d1-play
@@ -515,7 +533,7 @@ wheel-legged-d1-play --policy results/d1_residual_ppo/model.zip
 [执行器辨识台架](actuator_identification.md)，先查看脚本参数：
 
 ```bash
-PYTHONPATH=src:.local-deps python3 scripts/run_actuator_identification.py --help
+PYTHONPATH=src python3 scripts/run_actuator_identification.py --help
 ```
 
 MuJoCo 台架包含 `wheel` 和 `pendulum` 两种固定基座单转轴负载。前者是无轮地接触的自由
@@ -530,10 +548,10 @@ MuJoCo 台架包含 `wheel` 和 `pendulum` 两种固定基座单转轴负载。�
 模型在未见输入上的误差。后一类实验即使优化收敛，拟合参数也未必等于隐藏真值。当前台架
 不包含完整 PACE 的位置 PD 数据采集流程，也没有把参数自动写入 D1 IDQP。
 
-传感器方向可以从模拟 IMU 和编码器开始设计日志接口，无需等到拿到实机；融合估计器尚未
-实现。现有 `estimated` source 仍是真值误差通道。将来拿到真实日志后，需要重新确认关节
-顺序和时间戳等接口，并重新辨识参数。现在的结果只能说明合成数据上的程序行为，不能
-写成已完成实际 D1 辨识或 sim2real 迁移。
+传感器方向已有[纯测量回放与融合实验](sensor_estimation.md)：IMU 比力和轮端运动学约束
+共同估计速度，理想接触开关参与支撑面拟合。零延迟闭环已运行，20 ms 测量延迟仍出现跌倒。
+旧 `estimated` source 保留为真值误差通道。将来拿到真实日志后，需要重新确认关节顺序和
+时间戳等接口，并重新辨识参数。合成数据上的结果不能写成实际 D1 辨识或 sim2real 迁移。
 
 ### 13.2 从辨识到单轮闭环
 

@@ -1,0 +1,1378 @@
+diff --git a/src/wheel_legged_control/d1/env.py b/src/wheel_legged_control/d1/env.py
+index 9f4f73c..d4e9df3 100644
+--- a/src/wheel_legged_control/d1/env.py
++++ b/src/wheel_legged_control/d1/env.py
+@@ -13,7 +13,7 @@ from .contact_allocation import D1_CONTACT_ALLOCATION_MODES, make_d1_contact_all
+ from .controllers import D1Command
+ from .hierarchical import D1LQRVMCController, D1MPCVMCController
+ from .model import JOINT_VELOCITY_LIMIT, NOMINAL_JOINT_POSITION, D1Plant
+-from .rewards import D1_REWARD_SCHEMA, calculate_d1_reward
++from .rewards import D1_REWARD_SCHEMA, D1RewardBreakdown, calculate_d1_reward
+ from .state_estimation import (
+     D1StateEstimate,
+     make_d1_state_source,
+@@ -96,6 +96,8 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
+         contact_allocation: str = "legacy",
+         measure_contact_wrench: bool = False,
+         profile_allocation_timing: bool = False,
++        *,
++        plant: D1Plant | None = None,
+     ) -> None:
+         super().__init__()
+         if baseline not in {"lqr", "mpc"}:
+@@ -121,7 +123,7 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
+         self.contact_allocation = contact_allocation
+         self.measure_contact_wrench = measure_contact_wrench
+         self.profile_allocation_timing = profile_allocation_timing
+-        self.plant = D1Plant(control_dt=0.01)
++        self.plant = D1Plant(control_dt=0.01) if plant is None else plant
+         allocator = make_d1_contact_allocator(self.plant, contact_allocation)
+         self.controller = (
+             D1LQRVMCController(self.plant, contact_allocator=allocator)
+@@ -178,6 +180,9 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
+         self._training_velocity = float(self.np_random.uniform(-0.75, 0.75))
+         self._training_height = float(self.np_random.uniform(0.445, 0.475))
+ 
++    def _reset_base_height_m(self) -> float:
++        return self.plant.nominal_base_height_m
++
+     def _command_at_step(self) -> D1Command:
+         time_s = self._step_count * self.plant.control_dt
+         if self._scenario == "training":
+@@ -287,7 +292,7 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
+             joint_position[self._leg_indices] += self.np_random.uniform(
+                 -0.025, 0.025, size=len(self._leg_indices)
+             )
+-        base_height = self.plant.nominal_base_height_m + (
++        base_height = self._reset_base_height_m() + (
+             float(self.np_random.uniform(-0.008, 0.012)) if use_randomization else 0.0
+         )
+         self.plant.reset(
+@@ -491,7 +496,7 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
+         torque = self.controller.compute(
+             transition_command,
+             self._state,
+-            residual_force_n=applied_action * D1_RESIDUAL_SCALE,
++            residual_force_n=self._residual_force(applied_action),
+         )
+         push_force = (
+             self._push_force_n if self._push_start <= self._step_count < self._push_end else 0.0
+@@ -505,20 +510,10 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
+             ),
+         )
+         self._publish_control_state(self._state_source.read())
+-        linear_velocity, _ = self.plant.base_velocity(local=True)
+-        roll, pitch, _ = self.plant.base_rpy
+-        terminated = self.plant.has_fallen()
+-        reward_terms = calculate_d1_reward(
+-            forward_velocity_mps=float(linear_velocity[0]),
+-            roll_rad=float(roll),
+-            pitch_rad=float(pitch),
+-            base_height_m=float(self.plant.base_position[2]),
+-            joint_position=self.plant.joint_position,
+-            command_velocity_mps=transition_command.forward_velocity_mps,
+-            command_height_m=transition_command.base_height_m,
+-            normalized_action=applied_action,
+-            previous_normalized_action=self._previous_applied_action,
+-            undesired_contacts=self.plant.undesired_ground_contacts,
++        terminated = self._has_fallen()
++        reward_terms = self._reward_terms(
++            command=transition_command,
++            applied_action=applied_action,
+             terminated=terminated,
+         )
+         info = self._info(
+@@ -536,5 +531,34 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
+         self._command = self._command_at_step()
+         return self._observation(), reward_terms.total, terminated, truncated, info
+ 
++    def _residual_force(self, applied_action: np.ndarray) -> np.ndarray:
++        return applied_action * D1_RESIDUAL_SCALE
++
++    def _has_fallen(self) -> bool:
++        return self.plant.has_fallen()
++
++    def _reward_terms(
++        self,
++        *,
++        command: D1Command,
++        applied_action: np.ndarray,
++        terminated: bool,
++    ) -> D1RewardBreakdown:
++        linear_velocity, _ = self.plant.base_velocity(local=True)
++        roll, pitch, _ = self.plant.base_rpy
++        return calculate_d1_reward(
++            forward_velocity_mps=float(linear_velocity[0]),
++            roll_rad=float(roll),
++            pitch_rad=float(pitch),
++            base_height_m=float(self.plant.base_position[2]),
++            joint_position=self.plant.joint_position,
++            command_velocity_mps=command.forward_velocity_mps,
++            command_height_m=command.base_height_m,
++            normalized_action=applied_action,
++            previous_normalized_action=self._previous_applied_action,
++            undesired_contacts=self.plant.undesired_ground_contacts,
++            terminated=terminated,
++        )
++
+     def close(self) -> None:
+         self._delay_queue.clear()
+diff --git a/src/wheel_legged_control/d1/model.py b/src/wheel_legged_control/d1/model.py
+index 6f49102..eef805a 100644
+--- a/src/wheel_legged_control/d1/model.py
++++ b/src/wheel_legged_control/d1/model.py
+@@ -9,6 +9,13 @@ import mujoco
+ import numpy as np
+ 
+ from .terrain import SUPPORTED_D1_ARENAS, add_d1_terrain
++from .training_terrain import (
++    TrainingGroundReference,
++    TrainingTerrainConfig,
++    add_training_heightfield,
++    training_ground_reference,
++    update_training_heightfield,
++)
+ 
+ LEG_PREFIXES = ("FL", "FR", "RL", "RR")
+ D1_JOINT_NAMES = tuple(
+@@ -106,6 +113,7 @@ def build_d1_model(
+     timestep: float = 0.002,
+     ground_friction: float = 0.9,
+     arena: str = "flat",
++    training_terrain: TrainingTerrainConfig | None = None,
+ ) -> mujoco.MjModel:
+     """Build a floating-base D1 world from the redistributable URDF.
+ 
+@@ -121,6 +129,11 @@ def build_d1_model(
+         raise ValueError("ground_friction must be positive")
+     if arena not in SUPPORTED_D1_ARENAS:
+         raise ValueError(f"arena must be one of {SUPPORTED_D1_ARENAS}")
++    if training_terrain is not None:
++        if not isinstance(training_terrain, TrainingTerrainConfig):
++            raise ValueError("training_terrain must be a TrainingTerrainConfig")
++        if arena != "flat":
++            raise ValueError("training_terrain requires arena='flat'")
+ 
+     spec = mujoco.MjSpec.from_file(_asset_urdf_path())
+     spec.modelname = "d1_full_body_control_lab"
+@@ -175,6 +188,8 @@ def build_d1_model(
+                 geom.rgba = (0.72, 0.76, 0.80, 1.0)
+ 
+     add_d1_terrain(spec, arena, ground_friction)
++    if training_terrain is not None:
++        add_training_heightfield(spec)
+     spec.worldbody.add_light(
+         name="key_light",
+         pos=(0.0, -1.5, 3.0),
+@@ -188,7 +203,10 @@ def build_d1_model(
+     spec.visual.headlight.specular = (0.15, 0.15, 0.15)
+     spec.visual.global_.offwidth = 960
+     spec.visual.global_.offheight = 540
+-    return spec.compile()
++    model = spec.compile()
++    if training_terrain is not None:
++        update_training_heightfield(model, training_terrain)
++    return model
+ 
+ 
+ class D1Plant:
+@@ -203,8 +221,12 @@ class D1Plant:
+         control_dt: float = 0.01,
+         ground_friction: float = 0.9,
+         arena: str = "flat",
++        training_terrain: TrainingTerrainConfig | None = None,
+     ) -> None:
+-        self.model = build_d1_model(ground_friction=ground_friction, arena=arena)
++        self.model = build_d1_model(
++            ground_friction=ground_friction, arena=arena, training_terrain=training_terrain
++        )
++        self.training_terrain = training_terrain
+         self.data = mujoco.MjData(self.model)
+         ratio = control_dt / self.model.opt.timestep
+         if control_dt <= 0.0 or not np.isclose(ratio, round(ratio)):
+@@ -257,6 +279,23 @@ class D1Plant:
+         self._actuator_strength_scale = 1.0
+         self.reset()
+ 
++    def set_training_terrain(self, config: TrainingTerrainConfig) -> None:
++        """Change elevations without recompiling; call reset before stepping.
++
++        Only plants constructed with ``training_terrain`` support this operation.
++        Existing renderer contexts require a heightfield upload after changes.
++        """
++
++        if self.training_terrain is None:
++            raise ValueError("plant was not constructed with a training terrain")
++        update_training_heightfield(self.model, config)
++        self.training_terrain = config
++
++    def training_ground_reference(self, x: float, y: float) -> TrainingGroundReference:
++        """Return oracle height/pitch/roll from the finite training collision map."""
++
++        return training_ground_reference(self.model, x, y)
++
+     @property
+     def summary(self) -> D1ModelSummary:
+         return D1ModelSummary(
+diff --git a/src/wheel_legged_control/d1/training_terrain.py b/src/wheel_legged_control/d1/training_terrain.py
+new file mode 100644
+index 0000000..4f13912
+--- /dev/null
++++ b/src/wheel_legged_control/d1/training_terrain.py
+@@ -0,0 +1,161 @@
++"""Small, mutable heightfields for straight-line D1 training experiments.
++
++The reference is an oracle read from the actual collision heightfield, not a
++terrain estimate or a deployable sensor. Profiles are constant across y. Their
++piecewise-linear x interpolation is therefore also the height of both collision
++triangles in each grid cell.
++"""
++
++from __future__ import annotations
++
++from dataclasses import dataclass
++from numbers import Real
++
++import mujoco
++import numpy as np
++
++TRAINING_TERRAIN_X_HALF_SIZE_M = 6.0
++TRAINING_TERRAIN_Y_HALF_SIZE_M = 3.0
++TRAINING_TERRAIN_GRID_SPACING_M = 0.01
++_HEIGHTFIELD_NAME = "training_ground"
++_HEIGHTFIELD_NCOL = 1201
++_HEIGHTFIELD_NROW = 2
++_HEIGHTFIELD_Z_SPAN_M = 1.4
++_HEIGHTFIELD_Z_OFFSET_M = -0.7
++
++
++def _finite_real(value: object, name: str) -> float:
++    if isinstance(value, (bool, np.bool_)) or not isinstance(value, Real) or not np.isfinite(value):
++        raise ValueError(f"{name} must be a finite real number")
++    return float(value)
++
++
++@dataclass(frozen=True)
++class TrainingTerrainConfig:
++    """Physical profile parameters, in metres and degrees.
++
++    ``amplitude_m`` is the sine amplitude, not its peak-to-peak height. Positive
++    ``slope_deg`` rises towards world +x. The ramp-angle limit does not constrain
++    the local slope of bumps. Unused amplitude/slope parameters must be zero so
++    recorded configurations cannot silently describe a different surface.
++    """
++
++    kind: str = "flat"
++    amplitude_m: float = 0.0
++    slope_deg: float = 0.0
++    wavelength_m: float = 0.8
++    phase_rad: float = 0.0
++
++    def __post_init__(self) -> None:
++        if self.kind not in ("flat", "bumps", "ramp"):
++            raise ValueError("kind must be flat, bumps, or ramp")
++        for name in ("amplitude_m", "slope_deg", "wavelength_m", "phase_rad"):
++            object.__setattr__(self, name, _finite_real(getattr(self, name), name))
++        if not 0.0 <= self.amplitude_m <= 0.03:
++            raise ValueError("amplitude_m must lie in [0, 0.03]")
++        if abs(self.slope_deg) > 6.0:
++            raise ValueError("slope_deg must lie in [-6, 6]")
++        if self.wavelength_m < 0.3:
++            raise ValueError("wavelength_m must be at least 0.3")
++        if self.kind != "bumps" and self.amplitude_m != 0.0:
++            raise ValueError("amplitude_m must be zero unless kind is bumps")
++        if self.kind != "ramp" and self.slope_deg != 0.0:
++            raise ValueError("slope_deg must be zero unless kind is ramp")
++
++
++@dataclass(frozen=True)
++class TrainingGroundReference:
++    """Oracle collision height and world-axis tangent orientation.
++
++    ``pitch_rad`` follows D1's RPY convention: an uphill +x tangent has negative
++    pitch. ``roll_rad`` is zero because these profiles do not vary across y.
++    At a grid knot the right-hand x segment is selected, except at the last knot.
++    """
++
++    height_m: float
++    pitch_rad: float
++    roll_rad: float
++
++
++def add_training_heightfield(spec: mujoco.MjSpec) -> None:
++    """Replace the existing flat floor before compiling; preserve its identity."""
++
++    # Two equal rows suffice for an extruded 1-D surface and avoid unnecessary
++    # collision cells across the wheel width. Size/geom position stay fixed for
++    # every episode, including flat ones; only normalized elevations change.
++    spec.add_hfield(
++        name=_HEIGHTFIELD_NAME,
++        size=(
++            TRAINING_TERRAIN_X_HALF_SIZE_M,
++            TRAINING_TERRAIN_Y_HALF_SIZE_M,
++            _HEIGHTFIELD_Z_SPAN_M,
++            0.1,
++        ),
++        nrow=_HEIGHTFIELD_NROW,
++        ncol=_HEIGHTFIELD_NCOL,
++        userdata=[0.0] * (_HEIGHTFIELD_NROW * _HEIGHTFIELD_NCOL),
++    )
++    floor = spec.geom("floor")
++    floor.type = mujoco.mjtGeom.mjGEOM_HFIELD
++    floor.hfieldname = _HEIGHTFIELD_NAME
++    floor.pos = (0.0, 0.0, _HEIGHTFIELD_Z_OFFSET_M)
++
++
++def _heightfield_data(model: mujoco.MjModel) -> np.ndarray:
++    hfield_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_HFIELD, _HEIGHTFIELD_NAME)
++    if hfield_id < 0:
++        raise ValueError("plant was not constructed with a training terrain")
++    address = int(model.hfield_adr[hfield_id])
++    count = _HEIGHTFIELD_NROW * _HEIGHTFIELD_NCOL
++    return model.hfield_data[address : address + count].reshape(
++        _HEIGHTFIELD_NROW, _HEIGHTFIELD_NCOL
++    )
++
++
++def update_training_heightfield(model: mujoco.MjModel, config: TrainingTerrainConfig) -> None:
++    """Write a compiled collision surface; caller must reset before stepping.
++
++    Compile-time normalization is deliberately not used: it would turn a 5 mm
++    and a 10 mm sine wave into the same height. A renderer created before this
++    update additionally needs ``mjr_uploadHField`` to refresh its GPU copy.
++    """
++
++    if not isinstance(config, TrainingTerrainConfig):
++        raise TypeError("config must be a TrainingTerrainConfig")
++    data = _heightfield_data(model)
++    x = np.linspace(
++        -TRAINING_TERRAIN_X_HALF_SIZE_M,
++        TRAINING_TERRAIN_X_HALF_SIZE_M,
++        _HEIGHTFIELD_NCOL,
++    )
++    if config.kind == "ramp":
++        height = np.tan(np.deg2rad(config.slope_deg)) * x
++    elif config.kind == "bumps":
++        height = config.amplitude_m * np.sin(
++            (2.0 * np.pi / config.wavelength_m) * x + config.phase_rad
++        )
++    else:
++        height = np.zeros_like(x)
++    # Fixed bounds contain the full allowed profile family. MuJoCo stores the
++    # data as float32; oracle queries below read that same rounded data.
++    data[:] = (height - _HEIGHTFIELD_Z_OFFSET_M) / _HEIGHTFIELD_Z_SPAN_M
++
++
++def training_ground_reference(model: mujoco.MjModel, x: float, y: float) -> TrainingGroundReference:
++    """Query the collision triangles in O(1), refusing points outside the map."""
++
++    x = _finite_real(x, "x")
++    y = _finite_real(y, "y")
++    if abs(x) > TRAINING_TERRAIN_X_HALF_SIZE_M or abs(y) > TRAINING_TERRAIN_Y_HALF_SIZE_M:
++        raise ValueError("reference point lies outside the finite training terrain")
++    data = _heightfield_data(model)
++    coordinate = (x + TRAINING_TERRAIN_X_HALF_SIZE_M) / TRAINING_TERRAIN_GRID_SPACING_M
++    index = min(int(np.floor(coordinate)), _HEIGHTFIELD_NCOL - 2)
++    fraction = coordinate - index
++    left = float(data[0, index])
++    right = float(data[0, index + 1])
++    height = _HEIGHTFIELD_Z_OFFSET_M + _HEIGHTFIELD_Z_SPAN_M * (left + fraction * (right - left))
++    slope = _HEIGHTFIELD_Z_SPAN_M * (right - left) / TRAINING_TERRAIN_GRID_SPACING_M
++    return TrainingGroundReference(
++        height_m=height, pitch_rad=-float(np.arctan(slope)), roll_rad=0.0
++    )
+diff --git a/src/wheel_legged_control/d1/terrain_env.py b/src/wheel_legged_control/d1/terrain_env.py
+new file mode 100644
+index 0000000..ef5932f
+--- /dev/null
++++ b/src/wheel_legged_control/d1/terrain_env.py
+@@ -0,0 +1,375 @@
++"""Oracle-terrain residual learning, separate from legacy 42-value policies.
++
++The controller tracks world-upright attitude and ground-relative clearance.
++Terrain height and angles are simulator measurements, not a real estimator.
++The first 0.3 s are stationary; a 0.3 s smoothstep then raises forward speed.
++Curriculum stages are externally scheduled and change only on reset.
++"""
++
++from __future__ import annotations
++
++from dataclasses import asdict
++from numbers import Integral, Real
++from typing import Any
++
++import numpy as np
++from gymnasium import spaces
++
++from .controllers import D1Command
++from .env import D1ResidualEnv, encode_d1_observation
++from .model import D1Plant
++from .rewards import D1RewardBreakdown, calculate_d1_reward
++from .training_terrain import (
++    TRAINING_TERRAIN_X_HALF_SIZE_M,
++    TRAINING_TERRAIN_Y_HALF_SIZE_M,
++    TrainingGroundReference,
++    TrainingTerrainConfig,
++)
++
++D1_TERRAIN_OBSERVATION_SIZE = 44
++D1_TERRAIN_OBSERVATION_SCHEMA = "d1-terrain-oracle-v1"
++D1_TERRAIN_REWARD_SCHEMA = "d1-terrain-clearance-v1"
++D1_TERRAIN_ACTION_SCHEMA = "d1-terrain-residual-quarter-v1"
++D1_TERRAIN_RESIDUAL_SCALE = np.asarray((11.25, 20.0), dtype=np.float64)
++TRAINING_WAVELENGTHS_M = (0.8, 1.0, 1.2)
++
++
++def _finite_scalar(value: Any, name: str) -> float:
++    if isinstance(value, bool) or not isinstance(value, Real) or not np.isfinite(value):
++        raise ValueError(f"{name} must be a finite number")
++    return float(value)
++
++
++def _validate_stage(stage: int) -> int:
++    if isinstance(stage, bool) or not isinstance(stage, Integral) or stage not in range(4):
++        raise ValueError("curriculum stage must be an integer from 0 through 3")
++    return int(stage)
++
++
++def sample_training_terrain(
++    rng: np.random.Generator,
++    stage: int,
++) -> TrainingTerrainConfig:
++    """Sample a fixed stage distribution; this function never sees test scores."""
++
++    stage = _validate_stage(stage)
++    probabilities = (
++        (1.0, 0.0, 0.0),
++        (0.5, 0.5, 0.0),
++        (0.3, 0.35, 0.35),
++        (0.25, 0.25, 0.5),
++    )[stage]
++    kind = str(rng.choice(("flat", "bumps", "ramp"), p=probabilities))
++    if kind == "bumps":
++        return TrainingTerrainConfig(
++            kind=kind,
++            amplitude_m=0.005 if stage == 1 else float(rng.uniform(0.005, 0.010)),
++            wavelength_m=float(rng.choice(TRAINING_WAVELENGTHS_M)),
++            phase_rad=float(rng.uniform(-np.pi, np.pi)),
++        )
++    if kind == "ramp":
++        slopes = (-2.0, 2.0) if stage == 2 else (-4.0, -2.0, 2.0, 4.0)
++        return TrainingTerrainConfig(kind=kind, slope_deg=float(rng.choice(slopes)))
++    return TrainingTerrainConfig()
++
++
++def calculate_d1_terrain_reward(
++    *,
++    ground_height_m: float,
++    command_clearance_m: float,
++    base_height_m: float,
++    **kwargs: Any,
++) -> D1RewardBreakdown:
++    """Use the existing transparent weights with a relative-height target.
++
++    Attitude remains world-upright, as in the controller. The terrain pitch and
++    roll are observations only; they do not redefine the upright reward.
++    """
++
++    return calculate_d1_reward(
++        base_height_m=base_height_m - ground_height_m,
++        command_height_m=command_clearance_m,
++        **kwargs,
++    )
++
++
++class D1TerrainResidualEnv(D1ResidualEnv):
++    """Small-bump/ramp curriculum with a distinct observation/action contract.
++
++    ``height_m`` in reset options means clearance above local ground, whereas
++    the inherited D1Command height is world-z. Old 42-value policies cannot be
++    loaded into this 44-value environment. Neither training nor evaluation
++    uses the interactive demo's policy gate.
++    """
++
++    observation_schema = D1_TERRAIN_OBSERVATION_SCHEMA
++    reward_schema = D1_TERRAIN_REWARD_SCHEMA
++    action_schema = D1_TERRAIN_ACTION_SCHEMA
++
++    def __init__(
++        self,
++        baseline: str = "lqr",
++        episode_seconds: float = 4.0,
++        training_mode: str = "curriculum",
++        randomize: bool = False,
++        stage: int = 0,
++    ) -> None:
++        if training_mode not in {"flat", "curriculum"}:
++            raise ValueError("training_mode must be 'flat' or 'curriculum'")
++        if not isinstance(randomize, bool):
++            raise TypeError("randomize must be a bool")
++        duration = _finite_scalar(episode_seconds, "episode_seconds")
++        if duration < 0.01:
++            raise ValueError("episode_seconds must be at least one control step (0.01 s)")
++        self.training_mode = training_mode
++        self.curriculum_stage = _validate_stage(stage)
++        self._episode_stage = self.curriculum_stage
++        self._terrain = TrainingTerrainConfig()
++        self._command_clearance_m = 0.455
++        self._termination_reason = "ongoing"
++        self._initial_height_lift_m = 0.0
++        super().__init__(
++            baseline=baseline,
++            episode_seconds=duration,
++            randomize=randomize,
++            plant=D1Plant(control_dt=0.01, training_terrain=self._terrain),
++        )
++        self.observation_space = spaces.Box(
++            -5.0, 5.0, shape=(D1_TERRAIN_OBSERVATION_SIZE,), dtype=np.float32
++        )
++
++    def set_curriculum_stage(self, stage: int) -> None:
++        """Set the next episode's stage without changing the current terrain."""
++
++        self.curriculum_stage = _validate_stage(stage)
++
++    def _ground_reference(self) -> TrainingGroundReference:
++        # A final state may lie beyond the safe interior. Clamp only the query
++        # for reporting that terminal transition; _has_fallen rejects it.
++        x, y = self.plant.base_position[:2]
++        if not np.isfinite((x, y)).all():
++            x = y = 0.0
++        return self.plant.training_ground_reference(
++            float(np.clip(x, -TRAINING_TERRAIN_X_HALF_SIZE_M, TRAINING_TERRAIN_X_HALF_SIZE_M)),
++            float(np.clip(y, -TRAINING_TERRAIN_Y_HALF_SIZE_M, TRAINING_TERRAIN_Y_HALF_SIZE_M)),
++        )
++
++    def _reset_base_height_m(self) -> float:
++        ground = self.plant.training_ground_reference(0.0, 0.0)
++        return ground.height_m + self.plant.nominal_base_height_m
++
++    def _configure_episode(self, options: dict[str, Any]) -> None:
++        allowed = {
++            "terrain",
++            "velocity_mps",
++            "height_m",
++            "randomize",
++            "base_mass_scale",
++            "damping_scale",
++            "friction_scale",
++            "actuator_strength_scale",
++            "action_delay_steps",
++            "sensor_noise",
++            "initial_roll",
++            "initial_pitch",
++            "initial_yaw",
++        }
++        unknown = set(options) - allowed
++        if unknown:
++            raise ValueError(f"unsupported terrain reset options: {sorted(unknown)}")
++        if "randomize" in options and not isinstance(options["randomize"], bool):
++            raise TypeError("randomize must be a bool")
++        if "action_delay_steps" in options:
++            delay = options["action_delay_steps"]
++            if isinstance(delay, bool) or not isinstance(delay, Integral) or delay < 0:
++                raise ValueError("action_delay_steps must be a non-negative integer")
++        self._episode_stage = self.curriculum_stage
++        if "terrain" in options:
++            terrain = options["terrain"]
++            if isinstance(terrain, dict):
++                terrain = TrainingTerrainConfig(**terrain)
++            if not isinstance(terrain, TrainingTerrainConfig):
++                raise TypeError("terrain must be TrainingTerrainConfig or a dictionary")
++        else:
++            terrain = (
++                TrainingTerrainConfig()
++                if self.training_mode == "flat"
++                else sample_training_terrain(self.np_random, self._episode_stage)
++            )
++        velocity = _finite_scalar(
++            options.get("velocity_mps", self.np_random.uniform(0.20, 0.45)), "velocity_mps"
++        )
++        clearance = _finite_scalar(options.get("height_m", 0.455), "height_m")
++        if not 0.0 <= velocity <= 0.6:
++            raise ValueError("velocity_mps must be in [0, 0.6] for this forward-only curriculum")
++        if not 0.35 <= clearance <= 0.55:
++            raise ValueError("height_m clearance must be in [0.35, 0.55]")
++        for key in ("initial_roll", "initial_pitch", "initial_yaw"):
++            if key in options:
++                _finite_scalar(options[key], key)
++        self._terrain = terrain
++        self.plant.set_training_terrain(terrain)
++        self._training_velocity = velocity
++        self._command_clearance_m = clearance
++        self._termination_reason = "ongoing"
++        inherited_options = {
++            key: value
++            for key, value in options.items()
++            if key not in {"terrain", "velocity_mps", "height_m"}
++        }
++        # The legacy "training" scenario injects 90--170 N pushes regardless
++        # of randomize. A separate scenario deliberately excludes those pushes.
++        inherited_options["scenario"] = "terrain"
++        inherited_options.setdefault("initial_pitch", 0.0)
++        super()._configure_episode(inherited_options)
++        self._lift_initial_penetration()
++        self._publish_control_state(self._state_source.reset())
++
++    def _lift_initial_penetration(self) -> None:
++        """Lift an intersecting initial pose, without stepping the simulation."""
++
++        self._initial_height_lift_m = 0.0
++        for _ in range(4):
++            lifts = [
++                (-float(contact.dist) + 0.002) / max(abs(float(contact.frame[2])), 0.2)
++                for contact in self.plant.data.contact
++                if contact.dist < 0.0
++                and (
++                    int(contact.geom1) in self.plant.terrain_geom_ids
++                    or int(contact.geom2) in self.plant.terrain_geom_ids
++                )
++            ]
++            if not lifts:
++                return
++            lift = max(lifts)
++            qpos, qvel = self.plant.simulation_state()
++            qpos[2] += lift
++            self.plant.set_simulation_state(qpos, qvel)
++            self._initial_height_lift_m += lift
++        raise RuntimeError("terrain reset still intersects the ground after lifting")
++
++    def _command_at_step(self) -> D1Command:
++        time_s = self._step_count * self.plant.control_dt
++        progress = float(np.clip((time_s - 0.3) / 0.3, 0.0, 1.0))
++        velocity = self._training_velocity * progress**2 * (3.0 - 2.0 * progress)
++        return D1Command(
++            forward_velocity_mps=velocity,
++            base_height_m=self._ground_reference().height_m + self._command_clearance_m,
++        )
++
++    def _residual_force(self, applied_action: np.ndarray) -> np.ndarray:
++        return applied_action * D1_TERRAIN_RESIDUAL_SCALE
++
++    def _observation(self) -> np.ndarray:
++        ground = self._ground_reference()
++        # self._command belongs to the observed state, not the prior transition.
++        observation = encode_d1_observation(
++            state=self._state,
++            command=self._command,
++            baseline_longitudinal_force_n=self.controller.last_longitudinal_force_n,
++            previous_applied_action=self._previous_applied_action,
++        )
++        if self._noise_scale:
++            observation += self.np_random.normal(0.0, 0.008 * self._noise_scale, size=42).astype(
++                np.float32
++            )
++        return np.clip(
++            np.concatenate((observation, (ground.pitch_rad, ground.roll_rad))), -5.0, 5.0
++        ).astype(np.float32)
++
++    def _has_fallen(self) -> bool:
++        x, y, z = self.plant.base_position
++        roll, pitch, _ = self.plant.base_rpy
++        if (
++            not np.isfinite(self.plant.data.qpos).all()
++            or not np.isfinite(self.plant.data.qvel).all()
++        ):
++            reason = "nonfinite"
++        elif (
++            abs(x) > TRAINING_TERRAIN_X_HALF_SIZE_M - 0.5
++            or abs(y) > TRAINING_TERRAIN_Y_HALF_SIZE_M - 0.5
++        ):
++            reason = "out_of_terrain"
++        elif z - self._ground_reference().height_m < 0.22:
++            reason = "low_clearance"
++        elif abs(roll) > 0.85:
++            reason = "excess_roll"
++        elif abs(pitch) > 0.85:
++            reason = "excess_pitch"
++        else:
++            reason = "ongoing"
++        self._termination_reason = reason
++        return reason != "ongoing"
++
++    def _reward_terms(
++        self,
++        *,
++        command: D1Command,
++        applied_action: np.ndarray,
++        terminated: bool,
++    ) -> D1RewardBreakdown:
++        roll, pitch, _ = self.plant.base_rpy
++        return calculate_d1_terrain_reward(
++            ground_height_m=self._ground_reference().height_m,
++            command_clearance_m=self._command_clearance_m,
++            base_height_m=float(self.plant.base_position[2]),
++            forward_velocity_mps=float(self.plant.base_velocity(local=True)[0][0]),
++            roll_rad=float(roll),
++            pitch_rad=float(pitch),
++            joint_position=self.plant.joint_position,
++            command_velocity_mps=command.forward_velocity_mps,
++            normalized_action=applied_action,
++            previous_normalized_action=self._previous_applied_action,
++            undesired_contacts=self.plant.undesired_ground_contacts,
++            terminated=terminated,
++        )
++
++    def _info(self, **kwargs: Any) -> dict[str, Any]:
++        info = super()._info(**kwargs)
++        ground = self._ground_reference()
++        clearance = float(self.plant.base_position[2] - ground.height_m)
++        torque = np.asarray(kwargs["torque_nm"])
++        info.update(
++            terrain_config=asdict(self._terrain),
++            curriculum_stage=self._episode_stage,
++            training_mode=self.training_mode,
++            ground_height_m=ground.height_m,
++            ground_pitch_rad=ground.pitch_rad,
++            ground_roll_rad=ground.roll_rad,
++            clearance_m=clearance,
++            command_clearance_m=self._command_clearance_m,
++            clearance_error_m=clearance - self._command_clearance_m,
++            world_height_target_m=info["command_height_m"],
++            reward_world_height_target_m=ground.height_m + self._command_clearance_m,
++            velocity_error_mps=info["forward_velocity_mps"] - info["command_velocity_mps"],
++            target_velocity_mps=self._training_velocity,
++            episode_step=self._step_count,
++            initial_height_lift_m=self._initial_height_lift_m,
++            position_x_m=float(self.plant.base_position[0]),
++            position_y_m=float(self.plant.base_position[1]),
++            yaw_rad=float(self.plant.base_rpy[2]),
++            termination_reason=self._termination_reason,
++            torque_saturation_fraction=float(
++                np.mean(np.abs(torque) >= self.plant.actuator_torque_limit_nm - 1e-8)
++            ),
++            policy_applied=False,
++            policy_gated=False,
++            observation_schema=self.observation_schema,
++            reward_schema=self.reward_schema,
++            action_schema=self.action_schema,
++            residual_scale_n=D1_TERRAIN_RESIDUAL_SCALE.copy(),
++            attitude_target="world_upright",
++            ground_reference_source="simulation_oracle",
++        )
++        return info
++
++    def step(self, action: np.ndarray) -> tuple[np.ndarray, float, bool, bool, dict[str, Any]]:
++        checked = np.asarray(action, dtype=np.float64)
++        if checked.shape != (2,) or not np.isfinite(checked).all():
++            raise ValueError("D1 terrain residual action must contain two finite values")
++        observation, reward, terminated, truncated, info = super().step(checked)
++        info["episode_step"] = self._step_count
++        info["policy_applied"] = True
++        if truncated and not terminated:
++            info["termination_reason"] = "time_limit"
++        return observation, reward, terminated, truncated, info
+diff --git a/scripts/run_d1_terrain_curriculum.py b/scripts/run_d1_terrain_curriculum.py
+new file mode 100644
+index 0000000..9c35f5c
+--- /dev/null
++++ b/scripts/run_d1_terrain_curriculum.py
+@@ -0,0 +1,608 @@
++"""Train paired flat/terrain PPO policies and evaluate frozen final checkpoints.
++
++The baseline mode needs only core dependencies. Training uses optional CPU
++PyTorch/SB3 dependencies; it never loads a legacy 42-value D1 policy.
++"""
++
++from __future__ import annotations
++
++import argparse
++import csv
++import hashlib
++import json
++import math
++import platform
++import resource
++import time
++from collections import Counter
++from importlib.metadata import PackageNotFoundError, version
++from pathlib import Path
++from typing import Any
++
++import numpy as np
++
++from wheel_legged_control.provenance import capture_git_provenance
++
++ROOT = Path(__file__).resolve().parents[1]
++CONTROL_DT_S = 0.01
++OBSERVATION_SCHEMA = "d1-terrain-oracle-v1"
++ACTION_SCHEMA = "d1-terrain-residual-quarter-v1"
++PPO_SETTINGS = {
++    "learning_rate": 3e-4,
++    "n_steps": 128,
++    "batch_size": 128,
++    "n_epochs": 4,
++    "gamma": math.exp(-CONTROL_DT_S / 2.0),
++    "gae_lambda": 0.95,
++    "clip_range": 0.2,
++    "ent_coef": 0.0,
++    "policy_kwargs": {"net_arch": [64, 64]},
++}
++INFO_FIELDS = (
++    "position_x_m",
++    "position_y_m",
++    "yaw_rad",
++    "forward_velocity_mps",
++    "command_velocity_mps",
++    "velocity_error_mps",
++    "clearance_m",
++    "command_clearance_m",
++    "clearance_error_m",
++    "ground_height_m",
++    "ground_pitch_rad",
++    "ground_roll_rad",
++    "torque_saturation_fraction",
++    "initial_height_lift_m",
++)
++TELEMETRY_FIELDS = (
++    "step",
++    "time_s",
++    *INFO_FIELDS,
++    "initial_position_x_m",
++    "action_longitudinal",
++    "action_vertical",
++    "policy_enabled",
++    "policy_gated",
++    "reward",
++    "terminated",
++    "truncated",
++    "termination_reason",
++)
++
++
++def build_parser() -> argparse.ArgumentParser:
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("--output", type=Path, required=True, help="new experiment directory")
++    parser.add_argument("--mode", choices=("baseline", "train"), default="train")
++    parser.add_argument("--steps", type=int, default=8192, help="per seed and training condition")
++    parser.add_argument("--seeds", type=int, nargs="+", default=[0, 1, 2])
++    parser.add_argument("--envs", type=int, choices=(1, 2, 4), default=4)
++    parser.add_argument("--episode-seconds", type=float, default=4.0)
++    parser.add_argument(
++        "--evaluation-split", choices=("development", "holdout"), default="development"
++    )
++    parser.add_argument("--verbose", action="store_true")
++    return parser
++
++
++def actual_budget(requested_steps: int, n_envs: int) -> int:
++    """SB3 finishes whole rollouts, so freeze the rounded budget before training."""
++
++    if requested_steps <= 0 or n_envs not in (1, 2, 4):
++        raise ValueError("steps must be positive and envs must be 1, 2, or 4")
++    rollout = PPO_SETTINGS["n_steps"] * n_envs
++    return math.ceil(requested_steps / rollout) * rollout
++
++
++def curriculum_stage(num_timesteps: int, total_timesteps: int) -> int:
++    if num_timesteps < 0 or total_timesteps <= 0:
++        raise ValueError("timesteps must be nonnegative and total_timesteps positive")
++    return min(3, 4 * num_timesteps // total_timesteps)
++
++
++def evaluation_cases(split: str) -> list[dict[str, Any]]:
++    """Sixteen fixed cases; no model scores enter their construction.
++
++    Holdout bumps use wavelengths absent from training, and ramps use +/-3
++    degrees rather than the training +/-2 and +/-4 degrees. Flat cases remain
++    an in-distribution retention check, not unseen terrain.
++    """
++
++    if split not in {"development", "holdout"}:
++        raise ValueError("unknown evaluation split")
++    wavelengths = (0.7, 0.9, 1.1) if split == "holdout" else (0.8, 1.0, 1.2)
++    phases = (0.37, 1.41) if split == "holdout" else (0.0, math.pi / 2.0)
++    ramp_angle = 3.0 if split == "holdout" else 2.0
++    cases: list[dict[str, Any]] = []
++
++    def add(terrain: dict[str, Any], velocity: float, label: str) -> None:
++        index = len(cases)
++        cases.append(
++            {
++                "case_id": f"{split}_{index:02d}_{label}",
++                "terrain": terrain,
++                "velocity_mps": velocity,
++                "height_m": 0.455,
++                "environment_seed": (24000 if split == "holdout" else 13000) + index,
++            }
++        )
++
++    for velocity in (0.20, 0.35, 0.45, 0.30):
++        add({"kind": "flat"}, velocity, "flat")
++    for amplitude in (0.005, 0.010):
++        for index in range(4):
++            add(
++                {
++                    "kind": "bumps",
++                    "amplitude_m": amplitude,
++                    "wavelength_m": wavelengths[index % len(wavelengths)],
++                    "phase_rad": phases[index % len(phases)],
++                },
++                (0.25, 0.40, 0.35, 0.30)[index],
++                "bumps",
++            )
++    for slope in (-ramp_angle, ramp_angle):
++        for velocity in (0.25, 0.40):
++            add({"kind": "ramp", "slope_deg": slope}, velocity, "ramp")
++    return cases
++
++
++def validate_args(args: argparse.Namespace) -> None:
++    budget = actual_budget(args.steps, args.envs)
++    if args.mode == "train" and budget < 2 * PPO_SETTINGS["n_steps"] * args.envs:
++        raise ValueError("training requires at least two complete PPO rollouts")
++    if not math.isfinite(args.episode_seconds) or args.episode_seconds < 0.1:
++        raise ValueError("episode-seconds must be finite and at least 0.1")
++    if not args.seeds or any(seed < 0 for seed in args.seeds):
++        raise ValueError("seeds must be nonnegative")
++    if len(set(args.seeds)) != len(args.seeds):
++        raise ValueError("duplicate training seeds do not provide independent runs")
++    if args.output.exists():
++        raise FileExistsError(f"refusing to overwrite existing output: {args.output}")
++
++
++def _sha256(path: Path) -> str:
++    return hashlib.sha256(path.read_bytes()).hexdigest()
++
++
++def _write_json(path: Path, value: Any) -> None:
++    with path.open("x", encoding="utf-8") as stream:
++        json.dump(value, stream, ensure_ascii=False, indent=2, allow_nan=False)
++        stream.write("\n")
++
++
++def _write_csv(path: Path, rows: list[dict[str, Any]], fields: tuple[str, ...]) -> None:
++    with path.open("x", newline="", encoding="utf-8") as stream:
++        writer = csv.DictWriter(stream, fieldnames=fields)
++        writer.writeheader()
++        writer.writerows(rows)
++
++
++def _source_hashes() -> dict[str, str]:
++    paths = [Path(__file__), ROOT / "pyproject.toml"]
++    # Include indirectly used controller/model modules and local robot assets.
++    paths.extend(
++        path
++        for path in (ROOT / "src" / "wheel_legged_control").rglob("*")
++        if path.is_file() and path.suffix.lower() in {".py", ".xml", ".urdf", ".stl"}
++    )
++    return {str(path.relative_to(ROOT)): _sha256(path) for path in sorted(set(paths))}
++
++
++def build_protocol(args: argparse.Namespace) -> dict[str, Any]:
++    return {
++        "schema_version": 1,
++        "question": "Does terrain curriculum PPO improve a fixed LQR+VMC residual baseline?",
++        "mode": args.mode,
++        "evaluation_split": args.evaluation_split,
++        "training_conditions": ["flat", "curriculum"] if args.mode == "train" else [],
++        "training_seeds": args.seeds if args.mode == "train" else [],
++        "requested_steps_per_condition_seed": args.steps,
++        "actual_budget_per_condition_seed": actual_budget(args.steps, args.envs),
++        "n_envs": args.envs,
++        "episode_seconds": args.episode_seconds,
++        "control_dt_s": CONTROL_DT_S,
++        "ppo": PPO_SETTINGS,
++        "device": "cpu",
++        "torch_num_threads": 1,
++        "vector_start_method": "spawn" if args.envs > 1 else "in_process",
++        "baseline": "lqr",
++        "domain_randomization": False,
++        "velocity_command": "forward only; stand for 0.3 s, smoothstep ramp during 0.3-0.6 s, then hold",
++        "observation_schema": OBSERVATION_SCHEMA,
++        "observation_size": 44,
++        "action_schema": ACTION_SCHEMA,
++        "residual_scale_n": [11.25, 20.0],
++        "state_and_terrain_reference": "oracle_simulator_state_and_collision_geometry",
++        "curriculum": {
++            "schedule": "four equal timestep ranges; changes apply at the next reset",
++            "stage_0": "flat",
++            "stage_1": "flat and 5 mm bumps",
++            "stage_2": "flat, 5-10 mm bumps, +/-2 degree ramps",
++            "stage_3": "retain easy terrain; add +/-4 degree ramps",
++            "training_bump_wavelengths_m": [0.8, 1.0, 1.2],
++        },
++        "checkpoint_selection": "final fixed-budget checkpoint, never selected by evaluation",
++        "pairing": "identical case geometry, command and environment seed for every condition",
++        "baseline_replication": "one zero-residual episode per case, not one per training seed",
++        "metric_semantics": {
++            "completed": "time limit reached without task termination; not quality success",
++            "errors": "post-transition state versus the command used for that transition",
++            "policy_enabled": "RL action path enabled, even when its action happens to be zero",
++            "torque_saturation": "mean fraction of the 16 commanded joints at their limits",
++            "progress_fraction": "world-x displacement divided by integral of logged velocity command over observed steps; null for zero integral",
++            "slip": "not measured; no unvalidated contact/slip proxy is reported",
++        },
++        "cases": evaluation_cases(args.evaluation_split),
++    }
++
++
++def _load_rl_dependencies() -> tuple[Any, ...]:
++    try:
++        import torch
++        from stable_baselines3 import PPO
++        from stable_baselines3.common.callbacks import BaseCallback
++        from stable_baselines3.common.env_util import make_vec_env
++        from stable_baselines3.common.logger import configure
++        from stable_baselines3.common.vec_env import DummyVecEnv, SubprocVecEnv
++    except ImportError as error:
++        raise RuntimeError(
++            'training requires optional dependencies: pip install -e ".[rl]"'
++        ) from error
++    torch.set_num_threads(1)
++    return PPO, BaseCallback, make_vec_env, configure, DummyVecEnv, SubprocVecEnv
++
++
++def _curriculum_callback(base: type, condition: str, budget: int) -> Any:
++    class ExposureCallback(base):
++        def __init__(self) -> None:
++            super().__init__()
++            self.pending_stage = 0
++            self.steps: Counter[int] = Counter()
++            self.episodes_started: Counter[int] = Counter()
++            self.episodes_completed: Counter[int] = Counter()
++            self.terrain_steps: Counter[str] = Counter()
++            self.stage_kind_steps: Counter[str] = Counter()
++            self.ramp_slope_steps: Counter[str] = Counter()
++            self.episode_starts: list[dict[str, Any]] = []
++
++        def _on_step(self) -> bool:
++            transitions = zip(self.locals["infos"], self.locals["dones"], strict=True)
++            for env_index, (info, done) in enumerate(transitions):
++                stage = int(info["curriculum_stage"])
++                terrain = info["terrain_config"]
++                kind = str(terrain["kind"])
++                self.steps[stage] += 1
++                self.terrain_steps[kind] += 1
++                self.stage_kind_steps[f"{stage}:{kind}"] += 1
++                if kind == "ramp":
++                    self.ramp_slope_steps[f"{float(terrain['slope_deg']):g}"] += 1
++                if info["episode_step"] == 1:
++                    self.episodes_started[stage] += 1
++                    self.episode_starts.append(
++                        {
++                            "global_timesteps_after_vector_step": self.num_timesteps,
++                            "env_index": env_index,
++                            "curriculum_stage": stage,
++                            "terrain_config": dict(terrain),
++                            "target_velocity_mps": float(info["target_velocity_mps"]),
++                        }
++                    )
++                if done:
++                    self.episodes_completed[stage] += 1
++            next_stage = (
++                curriculum_stage(self.num_timesteps, budget) if condition == "curriculum" else 0
++            )
++            if next_stage != self.pending_stage:
++                self.training_env.env_method("set_curriculum_stage", next_stage)
++                self.pending_stage = next_stage
++            return True
++
++        def statistics(self) -> dict[str, Any]:
++            return {
++                "stage_steps": {str(stage): self.steps[stage] for stage in range(4)},
++                "stage_episodes_started": {
++                    str(stage): self.episodes_started[stage] for stage in range(4)
++                },
++                "stage_episodes_completed": {
++                    str(stage): self.episodes_completed[stage] for stage in range(4)
++                },
++                "terrain_steps": dict(self.terrain_steps),
++                "stage_kind_steps": dict(self.stage_kind_steps),
++                "ramp_slope_steps": dict(self.ramp_slope_steps),
++                "final_stage_sampled": self.steps[3] > 0 if condition == "curriculum" else None,
++            }
++
++    return ExposureCallback()
++
++
++def validate_checkpoint(metadata: dict[str, Any], model: Any) -> None:
++    """Schema and shape are both mandatory; a legacy policy cannot be reused."""
++
++    if metadata.get("observation_schema") != OBSERVATION_SCHEMA:
++        raise ValueError("checkpoint observation schema is not d1-terrain-oracle-v1")
++    if metadata.get("action_schema") != ACTION_SCHEMA:
++        raise ValueError("checkpoint action schema is incompatible")
++    if model.observation_space.shape != (44,) or model.action_space.shape != (2,):
++        raise ValueError("checkpoint must have 44 observations and 2 residual actions")
++
++
++def train_policy(
++    args: argparse.Namespace,
++    *,
++    condition: str,
++    seed: int,
++    output: Path,
++    environment: type,
++    dependencies: tuple[Any, ...],
++    source_hashes: dict[str, str],
++) -> tuple[Any, dict[str, Any]]:
++    ppo, base_callback, make_vec_env, configure, dummy_vec, subproc_vec = dependencies
++    output.mkdir(parents=True, exist_ok=False)
++    budget = actual_budget(args.steps, args.envs)
++    callback = _curriculum_callback(base_callback, condition, budget)
++    vector_env = make_vec_env(
++        environment,
++        n_envs=args.envs,
++        seed=seed,
++        vec_env_cls=subproc_vec if args.envs > 1 else dummy_vec,
++        vec_env_kwargs={"start_method": "spawn"} if args.envs > 1 else None,
++        env_kwargs={
++            "baseline": "lqr",
++            "episode_seconds": args.episode_seconds,
++            "training_mode": condition,
++            "randomize": False,
++            "stage": 0,
++        },
++        monitor_dir=str(output / "episodes"),
++    )
++    logger = None
++    started = time.perf_counter()
++    try:
++        model = ppo("MlpPolicy", vector_env, **PPO_SETTINGS, seed=seed, device="cpu", verbose=0)
++        logger = configure(
++            str(output / "learning_metrics"), ["stdout", "csv"] if args.verbose else ["csv"]
++        )
++        model.set_logger(logger)
++        model.learn(total_timesteps=budget, callback=callback)
++        # SB3 usually dumps before its PPO update; explicitly flush the final
++        # update as another row, rather than silently losing its diagnostics.
++        logger.dump(step=model.num_timesteps)
++        elapsed = time.perf_counter() - started
++        if int(model.num_timesteps) != budget:
++            raise RuntimeError("training did not complete the predeclared rollout budget")
++        model_path = output / "model.zip"
++        model.save(model_path)
++        _write_json(output / "episode_starts.json", callback.episode_starts)
++        metadata = {
++            "condition": condition,
++            "training_seed": seed,
++            "requested_timesteps": args.steps,
++            "actual_timesteps": int(model.num_timesteps),
++            "completed_rollouts": budget // (PPO_SETTINGS["n_steps"] * args.envs),
++            "ppo_epochs_completed": int(getattr(model, "_n_updates", 0)),
++            "ppo": PPO_SETTINGS,
++            "observation_schema": environment.observation_schema,
++            "reward_schema": environment.reward_schema,
++            "action_schema": environment.action_schema,
++            "model_sha256": _sha256(model_path),
++            "source_sha256": source_hashes,
++            "wall_time_s": elapsed,
++            "training_transitions_per_wall_second": budget / elapsed,
++            "parent_process_peak_rss_kib": resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,
++            "memory_scope": "process lifetime high-water mark; excludes worker-process RSS",
++            "exposure": callback.statistics(),
++            "episode_starts_json": "episode_starts.json",
++            "episode_starts_sha256": _sha256(output / "episode_starts.json"),
++            "checkpoint_selection": "final",
++        }
++        _write_json(output / "metadata.json", metadata)
++        # Evaluate the serialized model, not just the still-live trainer.
++        loaded = ppo.load(model_path, device="cpu")
++        validate_checkpoint(metadata, loaded)
++        return loaded, metadata
++    finally:
++        vector_env.close()
++        if logger is not None:
++            logger.close()
++
++
++def evaluate_case(
++    environment: type,
++    case: dict[str, Any],
++    episode_seconds: float,
++    *,
++    model: Any = None,
++) -> tuple[list[dict[str, Any]], dict[str, Any]]:
++    """Log each complete control transition with no policy gating or reset reuse."""
++
++    env = environment(
++        baseline="lqr", episode_seconds=episode_seconds, training_mode="flat", randomize=False
++    )
++    rows: list[dict[str, Any]] = []
++    started = time.perf_counter()
++    try:
++        observation, reset_info = env.reset(
++            seed=case["environment_seed"],
++            options={key: case[key] for key in ("terrain", "velocity_mps", "height_m")},
++        )
++        initial_x_m = float(reset_info["position_x_m"])
++        for step in range(round(episode_seconds / CONTROL_DT_S)):
++            action = (
++                np.zeros(2, dtype=np.float32)
++                if model is None
++                else np.asarray(model.predict(observation, deterministic=True)[0], dtype=np.float32)
++            )
++            if action.shape != (2,) or not np.isfinite(action).all():
++                raise ValueError("policy returned an invalid action")
++            observation, reward, terminated, truncated, info = env.step(action)
++            row = {
++                "step": step + 1,
++                "time_s": (step + 1) * CONTROL_DT_S,
++                **{field: info[field] for field in INFO_FIELDS},
++                "initial_position_x_m": initial_x_m,
++                "action_longitudinal": float(action[0]),
++                "action_vertical": float(action[1]),
++                "policy_enabled": int(model is not None and info["policy_applied"]),
++                "policy_gated": int(model is not None and not info["policy_applied"]),
++                "reward": float(reward),
++                "terminated": int(terminated),
++                "truncated": int(truncated),
++                "termination_reason": info["termination_reason"],
++            }
++            rows.append(row)
++            if terminated or truncated:
++                break
++    finally:
++        env.close()
++    metrics = summarize_episode(rows)
++    metrics["evaluation_wall_time_s"] = time.perf_counter() - started
++    return rows, metrics
++
++
++def summarize_episode(rows: list[dict[str, Any]]) -> dict[str, Any]:
++    if not rows:
++        raise ValueError("cannot summarize an empty episode")
++
++    def mean(field: str) -> float:
++        return float(np.mean([row[field] for row in rows]))
++
++    def rmse(field: str) -> float:
++        return float(np.sqrt(np.mean(np.square([row[field] for row in rows]))))
++
++    last = rows[-1]
++    progress_m = last["position_x_m"] - rows[0]["initial_position_x_m"]
++    commanded_displacement_m = sum(row["command_velocity_mps"] for row in rows) * CONTROL_DT_S
++    return {
++        "control_steps": len(rows),
++        "simulated_duration_s": len(rows) * CONTROL_DT_S,
++        "completed": int(bool(last["truncated"]) and not bool(last["terminated"])),
++        "terminated": int(last["terminated"]),
++        "termination_reason": last["termination_reason"],
++        "velocity_rmse_mps": rmse("velocity_error_mps"),
++        "clearance_rmse_m": rmse("clearance_error_m"),
++        "max_abs_yaw_rad": max(abs(row["yaw_rad"]) for row in rows),
++        "final_position_x_m": last["position_x_m"],
++        "progress_m": progress_m,
++        "commanded_displacement_m": commanded_displacement_m,
++        "progress_fraction": (
++            progress_m / commanded_displacement_m if abs(commanded_displacement_m) > 1e-12 else None
++        ),
++        "mean_torque_saturation_fraction": mean("torque_saturation_fraction"),
++        "policy_enabled_fraction": mean("policy_enabled"),
++        "policy_gated_fraction": mean("policy_gated"),
++        "episode_return": float(sum(row["reward"] for row in rows)),
++    }
++
++
++def _dependency_versions() -> dict[str, str | None]:
++    result = {}
++    for name in ("numpy", "scipy", "mujoco", "gymnasium", "torch", "stable-baselines3"):
++        try:
++            result[name] = version(name)
++        except PackageNotFoundError:
++            result[name] = None
++    return result
++
++
++def run(args: argparse.Namespace) -> Path:
++    validate_args(args)
++    from wheel_legged_control.d1.terrain_env import D1TerrainResidualEnv
++
++    dependencies = _load_rl_dependencies() if args.mode == "train" else None
++    protocol = build_protocol(args)
++    source_hashes = _source_hashes()
++    provenance = capture_git_provenance(ROOT)
++    args.output.mkdir(parents=True, exist_ok=False)
++    _write_json(args.output / "protocol.json", protocol)
++    _write_json(
++        args.output / "provenance.json",
++        {
++            **provenance,
++            "source_sha256": source_hashes,
++            "python_version": platform.python_version(),
++            "dependency_versions": _dependency_versions(),
++            "protocol_sha256": _sha256(args.output / "protocol.json"),
++        },
++    )
++    policies: list[tuple[str, int | None, Any]] = [("zero_residual", None, None)]
++    if dependencies is not None:
++        for seed in args.seeds:
++            for condition in ("flat", "curriculum"):
++                print(f"Training {condition}, seed {seed}", flush=True)
++                model, _ = train_policy(
++                    args,
++                    condition=condition,
++                    seed=seed,
++                    output=args.output / "training" / f"{condition}_seed_{seed}",
++                    environment=D1TerrainResidualEnv,
++                    dependencies=dependencies,
++                    source_hashes=source_hashes,
++                )
++                policies.append((f"{condition}_rl", seed, model))
++    evaluations = args.output / "evaluation"
++    evaluations.mkdir()
++    metrics = []
++    for condition, seed, model in policies:
++        label = condition if seed is None else f"{condition}_seed_{seed}"
++        destination = evaluations / label
++        destination.mkdir()
++        print(f"Evaluating {label} ({args.evaluation_split})", flush=True)
++        for case in protocol["cases"]:
++            rows, result = evaluate_case(
++                D1TerrainResidualEnv, case, args.episode_seconds, model=model
++            )
++            telemetry_path = destination / f"{case['case_id']}.csv"
++            _write_csv(telemetry_path, rows, TELEMETRY_FIELDS)
++            metrics.append(
++                {
++                    "condition": condition,
++                    "training_seed": seed,
++                    "case_id": case["case_id"],
++                    "terrain_kind": case["terrain"]["kind"],
++                    "environment_seed": case["environment_seed"],
++                    "telemetry_csv": str(telemetry_path.relative_to(args.output)),
++                    **result,
++                }
++            )
++    _write_csv(args.output / "metrics.csv", metrics, tuple(metrics[0]))
++    source_unchanged = _source_hashes() == source_hashes
++    _write_json(
++        args.output / "summary.json",
++        {
++            "episodes": len(metrics),
++            "source_unchanged_during_run": source_unchanged,
++            "baseline_episodes": sum(item["condition"] == "zero_residual" for item in metrics),
++            "training_runs": len(policies) - 1,
++            "interpretation": "fixed-budget simulation experiment; no convergence or hardware claim",
++        },
++    )
++    _write_json(
++        args.output / "manifest.json",
++        {
++            "sha256": {
++                str(path.relative_to(args.output)): _sha256(path)
++                for path in sorted(args.output.rglob("*"))
++                if path.is_file()
++            },
++            "excludes": ["manifest.json", "files added after the run"],
++        },
++    )
++    if not source_unchanged:
++        raise RuntimeError(
++            "source changed during this run; artifacts retained but run is not frozen"
++        )
++    return args.output
++
++
++def main(argv: list[str] | None = None) -> None:
++    args = build_parser().parse_args(argv)
++    try:
++        result = run(args)
++    except (ValueError, FileExistsError, RuntimeError) as error:
++        raise SystemExit(str(error)) from error
++    print(f"Results: {result}")
++
++
++if __name__ == "__main__":
++    main()

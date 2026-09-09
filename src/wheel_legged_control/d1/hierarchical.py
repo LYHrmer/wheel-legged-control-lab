@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from time import perf_counter
 
 import numpy as np
@@ -9,6 +10,7 @@ from scipy.linalg import block_diag, solve_discrete_are
 from scipy.optimize import minimize
 
 from .contact_allocation import D1ContactAllocator
+from .control_context import D1ControllerMemory, D1ControlProposal, D1ForceBaseline
 from .controllers import D1Command, D1VMCController
 from .linear_model import D1SagittalLinearModel, identify_sagittal_model
 from .model import D1Plant
@@ -20,6 +22,17 @@ D1_CONSTRAINED_OUTER_R = np.asarray(((1e-6,),), dtype=np.float64)
 D1_LONGITUDINAL_FORCE_LIMIT_N = 180.0
 D1_VERTICAL_RESIDUAL_LIMIT_N = 120.0
 D1_VERTICAL_FEEDFORWARD_LIMIT_N = 500.0
+
+
+@dataclass(frozen=True)
+class _PreparedControl:
+    command: D1Command
+    state: D1StateEstimate
+    requested_feedforward_n: float
+    proposal: D1ControlProposal
+    solution: np.ndarray | None = None
+    solve_ms: float = 0.0
+    iterations: int = 0
 
 
 def _default_outer_r(allocation_mode: str) -> np.ndarray:
@@ -66,6 +79,91 @@ class _D1HierarchicalController:
         self.last_longitudinal_force_n = 0.0
         self.last_vertical_residual_n = 0.0
         self.last_solve_ms = 0.0
+        self._prepared_control: _PreparedControl | None = None
+        self._consumed_proposal_key: tuple[int, float] | None = None
+
+    @property
+    def control_memory(self) -> D1ControllerMemory:
+        """Read-only current integrals, before the next compute call."""
+        return D1ControllerMemory(self._distance_m, self._distance_reference_m)
+
+    def _pending_preview(self, command, state, feedforward) -> _PreparedControl | None:
+        if not np.isfinite(feedforward):
+            raise ValueError("vertical feedforward must be finite")
+        key = (state.sequence, state.control_time_s)
+        if key == self._consumed_proposal_key:
+            raise RuntimeError("this control-tick proposal has already been consumed")
+        pending = self._prepared_control
+        if pending is not None and (
+            pending.state is not state
+            or pending.command != command
+            or pending.requested_feedforward_n != feedforward
+            or pending.proposal.memory != self.control_memory
+        ):
+            raise RuntimeError(
+                "pending proposal is stale for this state, command or controller memory"
+            )
+        return pending
+
+    def _consume_preview(self, command, state, feedforward) -> _PreparedControl | None:
+        pending = self._pending_preview(command, state, feedforward)
+        if pending is not None:
+            self._prepared_control = None
+            self._consumed_proposal_key = (state.sequence, state.control_time_s)
+        return pending
+
+    def _preview_tracking(self, command, state) -> tuple[np.ndarray, np.ndarray]:
+        """The exact next tracking state/reference, without advancing integrals."""
+        linear_velocity, angular_velocity = state.base_velocity(local=True)
+        distance = self._distance_m + float(linear_velocity[0]) * self.control_dt
+        distance_reference = float(
+            np.clip(
+                self._distance_reference_m + command.forward_velocity_mps * self.control_dt,
+                distance - 0.55,
+                distance + 0.55,
+            )
+        )
+        control_state = np.asarray(
+            (distance, state.base_rpy[1], linear_velocity[0], angular_velocity[1]), dtype=np.float64
+        )
+        reference = np.asarray(
+            (
+                distance_reference,
+                self.linear_model.operating_state[1] + command.pitch_rad,
+                command.forward_velocity_mps,
+                0.0,
+            ),
+            dtype=np.float64,
+        )
+        return control_state, reference
+
+    def _force_proposal(self, command, state, force, feedforward) -> D1ControlProposal:
+        if command.base_vertical_velocity_mps != 0.0:
+            raise ValueError(
+                "vertical velocity feedforward requires the inverse dynamics controller"
+            )
+        # Same current nominal upward request as VMC, before allocation and RL.
+        support = (
+            self.low_level.total_mass_kg * self.low_level.gravity_mps2
+            + self.low_level.height_kp * (command.base_height_m - state.base_position[2])
+            - self.low_level.height_kd * state.base_linear_velocity_world[2]
+        )
+        return D1ControlProposal(
+            tick=state.sequence,
+            control_time_s=state.control_time_s,
+            baseline=D1ForceBaseline(
+                longitudinal_force_n=float(force),
+                support_vertical_force_n=float(support),
+                vertical_feedforward_force_n=float(
+                    np.clip(
+                        feedforward,
+                        -D1_VERTICAL_FEEDFORWARD_LIMIT_N,
+                        D1_VERTICAL_FEEDFORWARD_LIMIT_N,
+                    )
+                ),
+            ),
+            memory=self.control_memory,
+        )
 
     def _control_state(self, state: D1StateEstimate) -> np.ndarray:
         linear_velocity, angular_velocity = state.base_velocity(local=True)
@@ -159,9 +257,7 @@ class D1LQRVMCController(_D1HierarchicalController):
         super().__init__(plant, linear_model, contact_allocator=contact_allocator)
         self.q = D1_OUTER_Q.copy() if q is None else np.asarray(q, dtype=np.float64)
         self.r = (
-            _default_outer_r(self.allocation_mode)
-            if r is None
-            else np.asarray(r, dtype=np.float64)
+            _default_outer_r(self.allocation_mode) if r is None else np.asarray(r, dtype=np.float64)
         )
         riccati = solve_discrete_are(
             self.linear_model.a,
@@ -178,6 +274,27 @@ class D1LQRVMCController(_D1HierarchicalController):
         )
         self.reset()
 
+    def preview_baseline(
+        self,
+        command: D1Command,
+        state: D1StateEstimate,
+        *,
+        vertical_feedforward_force_n: float = 0.0,
+    ) -> D1ControlProposal:
+        """Prepare current baseline once; read/preview never advances integrals.
+
+        Repeated previews require the identical immutable state publication and
+        command. Compute consumes this proposal exactly once. Reset discards it.
+        """
+        pending = self._pending_preview(command, state, vertical_feedforward_force_n)
+        if pending is None:
+            control_state, reference = self._preview_tracking(command, state)
+            force = -float((self.gain @ (control_state - reference)).item())
+            proposal = self._force_proposal(command, state, force, vertical_feedforward_force_n)
+            pending = _PreparedControl(command, state, vertical_feedforward_force_n, proposal)
+            self._prepared_control = pending
+        return pending.proposal
+
     def compute(
         self,
         command: D1Command,
@@ -186,6 +303,7 @@ class D1LQRVMCController(_D1HierarchicalController):
         *,
         vertical_feedforward_force_n: float = 0.0,
     ) -> np.ndarray:
+        pending = self._consume_preview(command, state, vertical_feedforward_force_n)
         control_state = self._control_state(state)
         position_reference = self._advance_position_reference(command.forward_velocity_mps)
         reference = np.asarray(
@@ -197,7 +315,11 @@ class D1LQRVMCController(_D1HierarchicalController):
             ),
             dtype=np.float64,
         )
-        force = -float((self.gain @ (control_state - reference)).item())
+        force = (
+            -float((self.gain @ (control_state - reference)).item())
+            if pending is None
+            else pending.proposal.baseline.longitudinal_force_n
+        )
         return self._compose_torque(
             state,
             command,
@@ -228,9 +350,7 @@ class D1MPCVMCController(_D1HierarchicalController):
         self.horizon = horizon
         self.q = D1_OUTER_Q.copy() if q is None else np.asarray(q, dtype=np.float64)
         self.r = (
-            _default_outer_r(self.allocation_mode)
-            if r is None
-            else np.asarray(r, dtype=np.float64)
+            _default_outer_r(self.allocation_mode) if r is None else np.asarray(r, dtype=np.float64)
         )
         self.terminal_q = solve_discrete_are(
             self.linear_model.a,
@@ -279,6 +399,61 @@ class D1MPCVMCController(_D1HierarchicalController):
             dtype=np.float64,
         )
 
+    def preview_baseline(
+        self,
+        command: D1Command,
+        state: D1StateEstimate,
+        *,
+        vertical_feedforward_force_n: float = 0.0,
+    ) -> D1ControlProposal:
+        """Solve once for this tick without advancing distance or warm start.
+
+        The prepared solution is consumed by compute, avoiding a second QP
+        solve. Timing covers the preparation solve; measure preview+compute
+        wall time when benchmarking the full control decision.
+        """
+        pending = self._pending_preview(command, state, vertical_feedforward_force_n)
+        if pending is None:
+            control_state, reference = self._preview_tracking(command, state)
+            gradient = 2.0 * self._su.T @ self._qbar @ (self._sx @ (control_state - reference))
+
+            def objective(sequence):
+                return (
+                    0.5 * sequence @ self._hessian @ sequence + gradient @ sequence,
+                    self._hessian @ sequence + gradient,
+                )
+
+            start = perf_counter()
+            result = minimize(
+                objective,
+                self._solution.copy(),
+                method="L-BFGS-B",
+                jac=True,
+                bounds=[(-self.longitudinal_force_limit_n, self.longitudinal_force_limit_n)]
+                * self.horizon,
+                options={"maxiter": 30, "ftol": 1e-8, "gtol": 1e-6},
+            )
+            solve_ms = 1e3 * (perf_counter() - start)
+            solution = (
+                result.x.copy()
+                if result.success or np.isfinite(result.fun)
+                else self._solution.copy()
+            )
+            proposal = self._force_proposal(
+                command, state, float(solution[0]), vertical_feedforward_force_n
+            )
+            pending = _PreparedControl(
+                command,
+                state,
+                vertical_feedforward_force_n,
+                proposal,
+                solution,
+                solve_ms,
+                int(result.nit),
+            )
+            self._prepared_control = pending
+        return pending.proposal
+
     def compute(
         self,
         command: D1Command,
@@ -287,6 +462,19 @@ class D1MPCVMCController(_D1HierarchicalController):
         *,
         vertical_feedforward_force_n: float = 0.0,
     ) -> np.ndarray:
+        pending = self._consume_preview(command, state, vertical_feedforward_force_n)
+        if pending is not None:
+            self._control_state(state)
+            self._tracking_reference(command)
+            self._solution[:] = pending.solution
+            self.last_solve_ms = pending.solve_ms
+            self.last_iterations = pending.iterations
+            baseline_force = pending.proposal.baseline.longitudinal_force_n
+            self._solution[:-1] = self._solution[1:]
+            self._solution[-1] = self._solution[-2]
+            return self._compose_torque(
+                state, command, baseline_force, residual_force_n, vertical_feedforward_force_n
+            )
         control_state = self._control_state(state)
         reference = self._tracking_reference(command)
         tracking_error = control_state - reference

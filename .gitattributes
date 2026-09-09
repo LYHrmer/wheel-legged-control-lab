@@ -1,0 +1,5 @@
+# Preserve archived hashes even on checkouts with automatic newline conversion.
+results/** -text
+# Frozen CSV uses standard CRLF; unified diffs use single-space context lines.
+results/**/*.csv -whitespace
+results/**/source.patch -whitespace

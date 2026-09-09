@@ -13,7 +13,7 @@ from .contact_allocation import D1_CONTACT_ALLOCATION_MODES, make_d1_contact_all
 from .controllers import D1Command
 from .hierarchical import D1LQRVMCController, D1MPCVMCController
 from .model import JOINT_VELOCITY_LIMIT, NOMINAL_JOINT_POSITION, D1Plant
-from .rewards import D1_REWARD_SCHEMA, calculate_d1_reward
+from .rewards import D1_REWARD_SCHEMA, D1RewardBreakdown, calculate_d1_reward
 from .state_estimation import (
     D1StateEstimate,
     make_d1_state_source,
@@ -96,6 +96,8 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
         contact_allocation: str = "legacy",
         measure_contact_wrench: bool = False,
         profile_allocation_timing: bool = False,
+        *,
+        plant: D1Plant | None = None,
     ) -> None:
         super().__init__()
         if baseline not in {"lqr", "mpc"}:
@@ -121,7 +123,7 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
         self.contact_allocation = contact_allocation
         self.measure_contact_wrench = measure_contact_wrench
         self.profile_allocation_timing = profile_allocation_timing
-        self.plant = D1Plant(control_dt=0.01)
+        self.plant = D1Plant(control_dt=0.01) if plant is None else plant
         allocator = make_d1_contact_allocator(self.plant, contact_allocation)
         self.controller = (
             D1LQRVMCController(self.plant, contact_allocator=allocator)
@@ -177,6 +179,9 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
     def _sample_training_command(self) -> None:
         self._training_velocity = float(self.np_random.uniform(-0.75, 0.75))
         self._training_height = float(self.np_random.uniform(0.445, 0.475))
+
+    def _reset_base_height_m(self) -> float:
+        return self.plant.nominal_base_height_m
 
     def _command_at_step(self) -> D1Command:
         time_s = self._step_count * self.plant.control_dt
@@ -287,7 +292,7 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
             joint_position[self._leg_indices] += self.np_random.uniform(
                 -0.025, 0.025, size=len(self._leg_indices)
             )
-        base_height = self.plant.nominal_base_height_m + (
+        base_height = self._reset_base_height_m() + (
             float(self.np_random.uniform(-0.008, 0.012)) if use_randomization else 0.0
         )
         self.plant.reset(
@@ -491,7 +496,7 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
         torque = self.controller.compute(
             transition_command,
             self._state,
-            residual_force_n=applied_action * D1_RESIDUAL_SCALE,
+            residual_force_n=self._residual_force(applied_action),
         )
         push_force = (
             self._push_force_n if self._push_start <= self._step_count < self._push_end else 0.0
@@ -505,20 +510,10 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
             ),
         )
         self._publish_control_state(self._state_source.read())
-        linear_velocity, _ = self.plant.base_velocity(local=True)
-        roll, pitch, _ = self.plant.base_rpy
-        terminated = self.plant.has_fallen()
-        reward_terms = calculate_d1_reward(
-            forward_velocity_mps=float(linear_velocity[0]),
-            roll_rad=float(roll),
-            pitch_rad=float(pitch),
-            base_height_m=float(self.plant.base_position[2]),
-            joint_position=self.plant.joint_position,
-            command_velocity_mps=transition_command.forward_velocity_mps,
-            command_height_m=transition_command.base_height_m,
-            normalized_action=applied_action,
-            previous_normalized_action=self._previous_applied_action,
-            undesired_contacts=self.plant.undesired_ground_contacts,
+        terminated = self._has_fallen()
+        reward_terms = self._reward_terms(
+            command=transition_command,
+            applied_action=applied_action,
             terminated=terminated,
         )
         info = self._info(
@@ -535,6 +530,35 @@ class D1ResidualEnv(gym.Env[np.ndarray, np.ndarray]):
         info["is_success"] = bool(truncated and not terminated)
         self._command = self._command_at_step()
         return self._observation(), reward_terms.total, terminated, truncated, info
+
+    def _residual_force(self, applied_action: np.ndarray) -> np.ndarray:
+        return applied_action * D1_RESIDUAL_SCALE
+
+    def _has_fallen(self) -> bool:
+        return self.plant.has_fallen()
+
+    def _reward_terms(
+        self,
+        *,
+        command: D1Command,
+        applied_action: np.ndarray,
+        terminated: bool,
+    ) -> D1RewardBreakdown:
+        linear_velocity, _ = self.plant.base_velocity(local=True)
+        roll, pitch, _ = self.plant.base_rpy
+        return calculate_d1_reward(
+            forward_velocity_mps=float(linear_velocity[0]),
+            roll_rad=float(roll),
+            pitch_rad=float(pitch),
+            base_height_m=float(self.plant.base_position[2]),
+            joint_position=self.plant.joint_position,
+            command_velocity_mps=command.forward_velocity_mps,
+            command_height_m=command.base_height_m,
+            normalized_action=applied_action,
+            previous_normalized_action=self._previous_applied_action,
+            undesired_contacts=self.plant.undesired_ground_contacts,
+            terminated=terminated,
+        )
 
     def close(self) -> None:
         self._delay_queue.clear()

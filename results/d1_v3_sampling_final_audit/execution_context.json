@@ -1,0 +1,65 @@
+{
+  "schema": "d1-runtime-execution-context-v1",
+  "before_launch_utc": "2026-09-09 13:08:49 UTC",
+  "after_exit_confirmed_utc": "2026-09-09 13:09:45 UTC",
+  "cpu": [
+    {
+      "field": "Architecture:",
+      "data": "x86_64"
+    },
+    {
+      "field": "CPU(s):",
+      "data": "24"
+    },
+    {
+      "field": "On-line CPU(s) list:",
+      "data": "0-23"
+    },
+    {
+      "field": "Model name:",
+      "data": "Intel(R) Core(TM) i7-14650HX"
+    },
+    {
+      "field": "Thread(s) per core:",
+      "data": "2"
+    },
+    {
+      "field": "Core(s) per socket:",
+      "data": "16"
+    },
+    {
+      "field": "Socket(s):",
+      "data": "1"
+    },
+    {
+      "field": "CPU max MHz:",
+      "data": "5200.0000"
+    },
+    {
+      "field": "CPU min MHz:",
+      "data": "800.0000"
+    }
+  ],
+  "loadavg_before": [
+    0.56,
+    0.63,
+    0.87
+  ],
+  "loadavg_after": [
+    0.59,
+    0.63,
+    0.86
+  ],
+  "environment": {
+    "PYTHONPATH": "src:.local-deps",
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1"
+  },
+  "command": "rtk env PYTHONPATH=src:.local-deps OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 python3 scripts/benchmark_d1_runtime.py --output results/d1_v3_sampling_final --duration 4 --repeats 3",
+  "notes": [
+    "Timestamps bracket process launch and exit confirmation, not a measured end-to-end execution duration.",
+    "Other project agents paused heavy tests and training during this run; the desktop and OS remained active.",
+    "Audit verifies recorded-artifact consistency; it does not independently observe physical truth or prove data authenticity."
+  ]
+}

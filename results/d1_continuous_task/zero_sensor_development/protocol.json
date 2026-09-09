@@ -1,0 +1,106 @@
+{
+  "task_schema": "d1-continuous-static-road-v1",
+  "config": {
+    "duration_s": 45.0,
+    "ground_reference_mode": "estimated",
+    "yaw_controller": "pi",
+    "yaw_kp": 2.0,
+    "yaw_ki": 3.0
+  },
+  "mode": "zero",
+  "seed": 0,
+  "episode_reset_count": 1,
+  "stages_45_second_template": [
+    [
+      "settle",
+      0.0,
+      2.0,
+      0.0,
+      0.0
+    ],
+    [
+      "cruise_bumps",
+      2.0,
+      10.0,
+      0.25,
+      0.0
+    ],
+    [
+      "stop_one",
+      10.0,
+      13.0,
+      0.0,
+      0.0
+    ],
+    [
+      "climb_and_descend",
+      13.0,
+      23.0,
+      0.25,
+      0.0
+    ],
+    [
+      "slow_exit",
+      23.0,
+      29.0,
+      0.16,
+      0.0
+    ],
+    [
+      "turn_left",
+      29.0,
+      35.0,
+      0.12,
+      0.08
+    ],
+    [
+      "turn_right",
+      35.0,
+      41.0,
+      0.12,
+      -0.08
+    ],
+    [
+      "stop_final",
+      41.0,
+      45.0,
+      0.0,
+      0.0
+    ]
+  ],
+  "road": {
+    "schema": "static-composite-heightfield-v1",
+    "size": [
+      6.0,
+      3.0,
+      1.4,
+      0.1
+    ],
+    "nrow": 2,
+    "ncol": 1201,
+    "geom_z_offset_m": -0.7,
+    "bounds_x_m": [
+      -6.0,
+      6.0
+    ],
+    "bounds_y_m": [
+      -3.0,
+      3.0
+    ],
+    "bump_amplitude_m": 0.005,
+    "bump_wavelength_m": 0.8,
+    "maximum_ramp_grade_deg": 4.0,
+    "switching": "static spatial terrain; never rebuilt or switched during the episode"
+  },
+  "control_dt_s": 0.01,
+  "state_source": "sensor",
+  "observation_schema": "d1-continuous-estimated-layout44-v1",
+  "action_schema": "d1-terrain-residual-quarter-v1",
+  "control_schema": "d1-lqr-vmc-local-tangent-yaw-pi-v1",
+  "allow_oracle_v2_task_transfer": false,
+  "checkpoint_sha256": null,
+  "checkpoint_metadata": null,
+  "compiled_model_sha256": "8e9f1045b58c89364920b23e5599288b15752b5e9fc920ac6694b1349f728edd",
+  "interpretation": "actual zero-residual LQR/VMC baseline rollout; no PPO policy",
+  "state_recording": "actual post-step qpos/qvel plus initial state; no resimulation"
+}

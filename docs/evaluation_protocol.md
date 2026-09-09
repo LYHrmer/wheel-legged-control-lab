@@ -1,10 +1,14 @@
 # D1 评测协议
 
-这份协议约束仓库中的 D1 固定场景、随机域审计、地形课程和状态延迟实验。视频用于检查运动
+本页保留早期 42 维 D1 固定场景、随机域审计、键盘课程和状态延迟协议。当前 82 维主线使用
+60 s 命令任务，其冻结配置和阈值见[命令条件报告](../results/d1_v3_locomotion_report/README.md)
+及[训练前协议](../results/d1_v3_locomotion_protocol.json)，不能沿用下文 6 s 的成功定义。
+
+以下证据分工仍适用：视频用于检查运动
 是否符合直觉，pytest 用于守住接口与验收条件，多种子结果才用于讨论鲁棒性。三类证据不能
 互相替代。
 
-当前控制周期为 `10 ms`，默认回合为 `6 s`。下文的状态年龄、动作延迟和回合时长均按实际
+旧课程控制周期为 `10 ms`，默认回合为 `6 s`。下文的状态年龄、动作延迟和回合时长均按实际
 控制步计算，不用配置值代替日志值。
 
 每条 D1 结果都要记录 `contact_allocation`。带 PPO 的运行还要核对 checkpoint 中的
@@ -224,8 +228,9 @@ GIF 的 SHA-256。运行中断时目录里不会保留旧的 `complete` 标记�
 一部分字段，缺省按 `oracle / none / legacy` 兼容，不作为新实验的元数据范本。
 
 原始延迟与补偿结果使用固定目录 `results/d1_state_delay_raw` 和
-`results/d1_state_delay_compensated`。重新生成时覆盖这些当前产物，旧版本由 Git 历史保存，
-不创建 `final_v2` 一类副本。
+`results/d1_state_delay_compensated`。这些目录保存已报告的证据，重新运行时使用
+`results/my_state_delay_raw`、`results/my_state_delay_compensated` 等新目录。
+删除重复草稿不等于覆盖正式失败记录；只有比较输入协议后才能判断两次实验是否重复。
 
 ## 主张与证据
 
