@@ -141,6 +141,12 @@ python scripts/run_d1_locomotion.py --keyboard --source sensor \
 - [执行器辨识移植](docs/actuator_transfer.md)：合成台架参数进入整机，补偿收益与代价。
 - [仅位置编码器辨识](docs/encoder_identification.md)：PACE 启发的单轮练习，从位置轨迹拟合
   动力学，再检查未见激励预测与 PI 前馈；与整机主线分开评测。
+- [编码器速度反馈](docs/encoder_feedback.md)：从带噪位置在线估速。tracking/reversal 的跟踪
+  误差高于独立速度参考，stress 的误差下降伴随更多力矩限幅。
+- [摩擦与延迟辨识](docs/friction_delay_identification.md)：遗漏摩擦项后，54 次拟合有 24 次
+  延迟选错；低幅值激励在失配对象上的留出预测和控制更差。
+- [同底座动作比较](docs/shared_action_learning_lab.md)：共享两维与独立八维动作共用轮腿控制器，
+  区分策略概率、物理动作、参数量与配对评测。
 - [旧键盘课程与受保护跳跃演示](docs/interactive_course.md)：LEGACY，42 维路径，只用于复现
   旧结果，不属于新键盘接口。
 

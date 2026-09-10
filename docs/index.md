@@ -29,8 +29,11 @@
 | 10 | [delay_learning_lab.md](delay_learning_lab.md) | 四帧观测、两种延迟、固定预算与失败配对 | 5、8 |
 | 11 | [actuator_transfer.md](actuator_transfer.md) | 合成辨识进入整机通道，跟踪改善与运动收益的区别 | 7 |
 | 12 | [encoder_identification.md](encoder_identification.md) | 只用位置辨识、可辨识性限制、四组单轮前馈对照 | 7 |
+| 13 | [encoder_feedback.md](encoder_feedback.md) | 从带噪位置估速，再按采样时刻检查闭环误差 | 12 |
+| 14 | [friction_delay_identification.md](friction_delay_identification.md) | 检查漏建模摩擦怎样改变延迟选择及前馈效果 | 12 |
+| 15 | [shared_action_learning_lab.md](shared_action_learning_lab.md) | 同底座动作结构对照，二输出概率与八通道物理执行 | 2、5、6 |
 
-第 7、9、12 行是独立支线，没接进主线控制器；第 8 行的融合器同时被主线的 `sensor` 状态源使用。
+第 7、9、12–14 行是独立支线，没接进主线控制器；第 8 行的融合器同时被主线的 `sensor` 状态源使用。
 
 ## 当前主线：82 维共用循环
 
@@ -62,6 +65,8 @@ python scripts/run_d1_locomotion_experiment.py evaluate --split holdout \
 
 默认 `--baseline wheel_leg`，两维力残差用 `--baseline lqr`，评测时的 baseline 必须和
 checkpoint 一致。这两个模式需要 `[rl]` 可选依赖，其中包含用于记录内存的 `psutil`。
+同底座的共享两维动作另用 `--baseline wheel_leg --action-mode shared2`，不是两维力残差；
+对应地形套件与完整参数见[动作结构练习](shared_action_learning_lab.md)。下面的默认种子仍对应旧 `v1` 套件。
 评测种子固定为开发 `17 / 29`、
 留出 `617 / 629`，oracle 下同一路面的两个种子会产生逐字节相同的记录。
 
@@ -69,6 +74,8 @@ checkpoint 一致。这两个模式需要 `[rl]` 可选依赖，其中包含用�
 [实验报告](../results/d1_v3_locomotion_report/README.md)；20 ms 整包测量延迟下融合状态仍会
 失稳，见[延迟诊断](../results/d1_v3_delay_diagnosis/README.md)。后续
 [九模型历史/随机化对照](../results/d1_v3_delay_ablation/README.md)已完成，未得到稳定的延迟收益。
+新增[同底座动作对照](../results/d1_shared_action_study/README.md)共用轮腿低层，
+分别训练共享两维与独立八维策略；不能与上面的旧两维力残差结果混为一个实验。
 
 ## 历史路线与 QP 原型（LEGACY）
 
@@ -103,6 +110,10 @@ QP 原型没有接 PPO，也没有取代默认控制器。模型来源与许可�
 - [执行器辨识移植与补偿](actuator_transfer.md)：合成台架到整机轮力矩通道
 - [延迟与历史观测练习](delay_learning_lab.md)：三组固定预算对照、单位与归因边界
 - [原始数据下载与复算](reproducibility.md)：Git 中的摘要与 Release 中的大体积数据
+
+单轮支线的记录见[编码器速度反馈](../results/encoder_feedback_position_only/README.md)和
+[摩擦／延迟辨识](../results/friction_delay_cross_study/README.md)。后者的控制仍使用独立速度
+测量，不能与前者的位置估速反馈混为一组结果。
 
 复算一份已有记录，不导入仿真器：
 

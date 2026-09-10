@@ -22,6 +22,7 @@ import numpy as np
 from .training_terrain import TrainingGroundReference
 
 LOCOMOTION_TERRAIN_SCHEMA = "d1-fixed-2d-road-v1"
+LOCOMOTION_TERRAIN_SUITES = ("v1", "action_compare_v1")
 LOCOMOTION_MAP_HALF_SIZE_M = (6.0, 3.0)
 LOCOMOTION_GRID_SPACING_M = 0.05
 LOCOMOTION_SPAWN_XY_M = (-3.8, 0.0)
@@ -114,7 +115,9 @@ class D1LocomotionTerrainConfig:
         return cls(**fields)
 
 
-def locomotion_terrain_configs(split: str) -> tuple[D1LocomotionTerrainConfig, ...]:
+def locomotion_terrain_configs(
+    split: str, suite: str = "v1"
+) -> tuple[D1LocomotionTerrainConfig, ...]:
     """Fixed parameter sets with disjoint layouts, wavelengths and phases.
 
     Development is for tuning; holdout is only for the frozen final policy.
@@ -122,6 +125,8 @@ def locomotion_terrain_configs(split: str) -> tuple[D1LocomotionTerrainConfig, .
     terrain generalization. Flat construction is a separate diagnostic and
     is deliberately not duplicated across the three nonflat sets.
     """
+    if suite not in LOCOMOTION_TERRAIN_SUITES:
+        raise ValueError("suite must be v1 or action_compare_v1")
     # layout, slope, cross, amplitude, wavelength x/y, phase x/y, step
     rows = {
         "train": (
@@ -141,6 +146,19 @@ def locomotion_terrain_configs(split: str) -> tuple[D1LocomotionTerrainConfig, .
     }
     if split not in rows:
         raise ValueError("split must be train, development, or holdout")
+    if suite == "action_compare_v1":
+        # New parameter instances, not new layout families or command schedules.
+        # The four training roads remain identical to the original suite.
+        rows.update(
+            development=(
+                ("right_offset", 1.30, -0.70, 0.0065, 0.77, 1.07, 0.45, 0.65, 0.0065),
+                ("right_offset", -1.30, 0.70, 0.0070, 0.87, 1.17, 1.05, 1.25, 0.0070),
+            ),
+            holdout=(
+                ("s_bend", 1.35, 0.60, 0.0085, 0.72, 1.02, 1.55, 1.75, 0.0085),
+                ("diagonal", -1.35, -0.60, 0.0070, 0.82, 1.12, 2.15, 2.35, 0.0070),
+            ),
+        )
     return tuple(D1LocomotionTerrainConfig(*row) for row in rows[split])
 
 

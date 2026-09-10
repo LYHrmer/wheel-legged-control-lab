@@ -1,0 +1,103 @@
+{
+  "schema": "encoder-feedback-v1",
+  "created_utc": "2026-09-10T04:04:48.886387+00:00",
+  "arguments": {
+    "output": "/home/lyh/wheel-legged-control-lab/results/encoder_feedback_position_only",
+    "seeds": [
+      101,
+      103,
+      107
+    ],
+    "scenarios": [
+      "matched",
+      "mismatch"
+    ],
+    "conditions": [
+      "noisy",
+      "quantized",
+      "delayed"
+    ],
+    "duration": 6.0,
+    "calibration_duration": 3.0,
+    "max_delay_steps": 4,
+    "max_nfev": 30
+  },
+  "data_origin": "synthetic_only",
+  "bench": {
+    "kind": "wheel",
+    "dt": 0.002,
+    "torque_limit_nm": 2.0
+  },
+  "controller_all_arms": {
+    "kp": 0.12,
+    "ki": 0.6,
+    "dt": 0.002,
+    "torque_limit_nm": 2.0
+  },
+  "generator_truth_not_available_to_observer": {
+    "armature": 0.017,
+    "damping": 0.105,
+    "coulomb_friction": 0.043,
+    "delay_steps": 2
+  },
+  "extra_stribeck_nm": 0.08,
+  "calibration_seed": 89,
+  "calibration": "two position-only logs per scenario; one shared fit across feedbacks/conditions/seeds",
+  "feedbacks": [
+    "synthetic_velocity",
+    "difference_lowpass",
+    "alpha_beta"
+  ],
+  "profiles": [
+    "tracking",
+    "reversal",
+    "stress"
+  ],
+  "sensor_conditions": {
+    "noisy": {
+      "position_noise_std_rad": 0.0002,
+      "quantization_rad": 0.0,
+      "delay_steps": 0
+    },
+    "quantized": {
+      "position_noise_std_rad": 0.0002,
+      "quantization_rad": 0.0015339807878856412,
+      "delay_steps": 0
+    },
+    "delayed": {
+      "position_noise_std_rad": 0.0002,
+      "quantization_rad": 0.0,
+      "delay_steps": 5
+    }
+  },
+  "observer_configs": {
+    "difference_lowpass": {
+      "method": "difference_lowpass",
+      "dt": 0.002,
+      "cutoff_hz": 20.0,
+      "alpha": 0.25,
+      "beta": 0.04
+    },
+    "alpha_beta": {
+      "method": "alpha_beta",
+      "dt": 0.002,
+      "cutoff_hz": 20.0,
+      "alpha": 0.25,
+      "beta": 0.04
+    }
+  },
+  "synthetic_velocity_noise_std_rad_s": 0.002,
+  "reference_sensor_scope": "independent synthetic velocity sensor; not equivalent noise/quantization to encoder differentiation",
+  "measurement_delay": "same transport delay for all feedbacks; sample zero held at startup; known-rest v0=0",
+  "timing": "sample k, deliver max(0,k-d), update only new timestamp, controller, physical step",
+  "compensation": "none; model-free estimation at sample time, no extrapolation of old state",
+  "known_prior": "initial rest, zero pending torque commands, continuous encoder angle",
+  "scope": "single hidden parameter set, repeated noise; no contact, D1, hardware or RL claim",
+  "expected_control_cases": 162,
+  "versions": {
+    "numpy": "2.2.6",
+    "scipy": "1.15.3",
+    "mujoco": "3.12.0",
+    "matplotlib": "3.10.6"
+  }
+}

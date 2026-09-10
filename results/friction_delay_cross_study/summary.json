@@ -1,0 +1,58 @@
+{
+  "status": "completed",
+  "observed_counts": {
+    "cells": 54,
+    "fits": 54,
+    "candidates": 270,
+    "prediction_metric_rows": 432,
+    "control_cases": 324
+  },
+  "observed_labels": {
+    "families": [
+      "low_speed",
+      "standard"
+    ],
+    "splits": [
+      "calibration",
+      "holdout",
+      "validation"
+    ],
+    "profiles": [
+      "reversal",
+      "stress",
+      "tracking"
+    ],
+    "controllers": [
+      "fitted_ff",
+      "nominal_ff"
+    ],
+    "prediction_models": [
+      "nominal",
+      "selected"
+    ],
+    "fitted_delay_steps": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "observed_status_counts": {
+    "converged_selected_fits": 54,
+    "nonconverged_selected_fits": 0,
+    "delay_at_search_boundary": 42,
+    "actual_delay_out_of_search_range": 0,
+    "incomplete_control_runs": 0,
+    "speed_guard_triggered": 0
+  },
+  "elapsed_seconds": 363.31014879298164,
+  "limitations": [
+    "synthetic single-axis bench only; no D1 hardware or whole-robot claim",
+    "seeds repeat measurement noise for one object, not independent robots",
+    "nominal_ff rows are duplicated across families as paired references",
+    "counts above are observed records, not inferred from optimizer convergence",
+    "identification is position-only; control feedback uses an independent sensor",
+    "no delay compensation or pure-delay inversion is performed anywhere"
+  ]
+}

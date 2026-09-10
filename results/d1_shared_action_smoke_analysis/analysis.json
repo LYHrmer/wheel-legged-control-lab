@@ -1,0 +1,4323 @@
+{
+  "schema": "d1-shared-action-analysis-v1",
+  "kind": "smoke",
+  "study": "/home/lyh/wheel-legged-control-lab/results/d1_shared_action_smoke",
+  "parent_protocol_sha256": "d3cd8d79bffeaeb4b198a64be1788936e57eefd8b2e9313cacb1697c8cb251ca",
+  "training_seeds": [
+    31001
+  ],
+  "total_training_timesteps": 1024,
+  "training": {
+    "shared2_seed31001": {
+      "source": {
+        "file_count": 67,
+        "archive_sha256": "64850f5e6973a39b0b8ebebdc8e67bf6e0e7113b3f27af014b7548b3ad2cbc2b"
+      },
+      "num_timesteps": 512,
+      "policy_action_size": 2,
+      "physical_action_size": 8,
+      "policy_parameter_count": 19141,
+      "checkpoint_sha256": "c744f5105f63e5f93fc7928b22cb3cffc971fde530e7f149a52250bb8f3b7780",
+      "worker_episode_counts": [
+        7,
+        7,
+        7,
+        7
+      ],
+      "training_action_rms": 0.1406598855690162,
+      "policy_clip_fraction": 0.0,
+      "ppo_math": {
+        "directory": "/home/lyh/wheel-legged-control-lab/results/d1_shared_action_smoke/shared2_seed31001/updates",
+        "updates_checked": 1,
+        "updates": [
+          {
+            "audit_index": 0,
+            "npz_sha256": "e184c4ccf4858704eecd36344461486f8389a91f714e55db2dcd91095eadf754",
+            "max_absolute_errors": {
+              "gae": 2.735561608901982e-07,
+              "old_values": 0.0,
+              "returns": 2.7355616083468703e-07,
+              "gaussian_log_before": 8.228123062892223e-07,
+              "ratio_before": 0.0,
+              "gaussian_log_after": 5.1284919333483e-07,
+              "ratio_after": 0.0
+            },
+            "raw_advantage_examples_not_optimizer_loss": [
+              {
+                "sample": 0,
+                "advantage": 0.24700163304805756,
+                "ratio": 0.9680801224881554,
+                "unclipped": 0.23911737117593798,
+                "clipped": 0.23911737117593798,
+                "surrogate_min": 0.23911737117593798
+              },
+              {
+                "sample": 18,
+                "advantage": -0.0200393944978714,
+                "ratio": 0.8171107872384223,
+                "unclipped": -0.016374405413937008,
+                "clipped": -0.016374405413937008,
+                "surrogate_min": -0.016374405413937008
+              }
+            ],
+            "parameters_changed": true,
+            "samples": 128
+          }
+        ],
+        "scope": "GAE and recorded Gaussian likelihood arithmetic; no model deserialization or optimizer replay",
+        "limitations": "first 128 env-major samples are not an unbiased rollout sample; rewards include timeout bootstrap; illustrative raw-advantage clipping is not minibatch-normalized training loss"
+      }
+    },
+    "independent8_seed31001": {
+      "source": {
+        "file_count": 67,
+        "archive_sha256": "80a17f30427b423480f4c66d01a2ba77bd78436d2d3488f995ac09fdfc3954d5"
+      },
+      "num_timesteps": 512,
+      "policy_action_size": 8,
+      "physical_action_size": 8,
+      "policy_parameter_count": 19537,
+      "checkpoint_sha256": "200950199b9218bfa98b09f2be88b3b6a77de19e36fd61427728135f437ef489",
+      "worker_episode_counts": [
+        7,
+        7,
+        7,
+        7
+      ],
+      "training_action_rms": 0.13516760015926207,
+      "policy_clip_fraction": 0.0,
+      "ppo_math": {
+        "directory": "/home/lyh/wheel-legged-control-lab/results/d1_shared_action_smoke/independent8_seed31001/updates",
+        "updates_checked": 1,
+        "updates": [
+          {
+            "audit_index": 0,
+            "npz_sha256": "ebe4c75b39d82ce3e82f658f608985062f7399294f9b9ddc6a9bde9b7e857619",
+            "max_absolute_errors": {
+              "gae": 8.269913245873006e-08,
+              "old_values": 0.0,
+              "returns": 7.687048109161765e-08,
+              "gaussian_log_before": 1.1539317945619132e-06,
+              "ratio_before": 0.0,
+              "gaussian_log_after": 8.182260780031925e-07,
+              "ratio_after": 0.0
+            },
+            "raw_advantage_examples_not_optimizer_loss": [
+              {
+                "sample": 0,
+                "advantage": 0.2487112432718277,
+                "ratio": 1.086636824596242,
+                "unclipped": 0.27025879563028227,
+                "clipped": 0.27025879563028227,
+                "surrogate_min": 0.27025879563028227
+              },
+              {
+                "sample": 16,
+                "advantage": -0.007973205298185349,
+                "ratio": 0.8771913857065123,
+                "unclipped": -0.006994027004037712,
+                "clipped": -0.006994027004037712,
+                "surrogate_min": -0.006994027004037712
+              }
+            ],
+            "parameters_changed": true,
+            "samples": 128
+          }
+        ],
+        "scope": "GAE and recorded Gaussian likelihood arithmetic; no model deserialization or optimizer replay",
+        "limitations": "first 128 env-major samples are not an unbiased rollout sample; rewards include timeout bootstrap; illustrative raw-advantage clipping is not minibatch-normalized training loss"
+      }
+    }
+  },
+  "evaluations": {
+    "shared2_seed31001_development": [
+      {
+        "action_rms": 0.009426174765539794,
+        "attitude_rmse_rad": 0.0025779029777222027,
+        "case": "road0_seed1017",
+        "completed": true,
+        "duration_s": 0.20000000000000015,
+        "executed_steps": 20,
+        "height_rmse_m": 0.010243934529493074,
+        "mean_mechanical_power_w": 40.818279681162316,
+        "quality_pass": false,
+        "seed": 1017,
+        "terminal_reason": "time_limit",
+        "terrain": {
+          "cross_slope_deg": -0.7,
+          "layout": "right_offset",
+          "phase_x_rad": 0.45,
+          "phase_y_rad": 0.65,
+          "ripple_amplitude_m": 0.0065,
+          "schema": "d1-fixed-2d-road-v1",
+          "slope_deg": 1.3,
+          "step_height_m": 0.0065,
+          "wavelength_x_m": 0.77,
+          "wavelength_y_m": 1.07
+        },
+        "terrain_exposure": {
+          "nonflat_steps": 0,
+          "nonflat_fraction": 0.0,
+          "nonflat_now": false,
+          "path_m": 0.001382850260223821,
+          "nonflat_path_m": 0.0,
+          "unique_nonflat_0p25m_cells": 0
+        },
+        "velocity_rmse_mps": 0.12841097110844427,
+        "yaw_rmse_rps": 0.07520851179712268,
+        "csv_sha256": "1882f859a7fd0358a7d78f317e3c8647f191450992b873f512e1a94e81914005",
+        "npz_sha256": "3b132a1886d6edaaa8e7cb8e6888d17d67d3ca4bf50444f253bfb4edf37c1b56",
+        "schedule": {
+          "duration_s": 0.2,
+          "initial_command": {
+            "clearance_m": 0.455,
+            "forward_velocity_mps": 0.0,
+            "yaw_rate_rps": 0.0
+          },
+          "label": "commands-development-0.2s",
+          "schema": "d1-explicit-motion-schedule-v1",
+          "segments": [
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.22,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.04000000000000001,
+              "transition_s": 0.020000000000000004
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.14,
+                "yaw_rate_rps": 0.12
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.43,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.12,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.08,
+                "yaw_rate_rps": -0.16
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.48,
+                "forward_velocity_mps": 0.16,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": -0.1
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.13
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.015999999999999986,
+              "transition_s": 0.007999999999999993
+            }
+          ]
+        },
+        "controller_parameters": {
+          "wheel_kp": 0.55,
+          "wheel_ki": 1.5,
+          "yaw_feedback_gain": 4.0,
+          "leg_feedback_scale": 1.0,
+          "attitude_feedback_scale": 0.25
+        },
+        "measurement_seed": 1972145375
+      },
+      {
+        "action_rms": 0.009414951839765165,
+        "attitude_rmse_rad": 0.002478504868868319,
+        "case": "road0_seed1029",
+        "completed": true,
+        "duration_s": 0.20000000000000015,
+        "executed_steps": 20,
+        "height_rmse_m": 0.01022758322084397,
+        "mean_mechanical_power_w": 39.69015349671448,
+        "quality_pass": false,
+        "seed": 1029,
+        "terminal_reason": "time_limit",
+        "terrain": {
+          "cross_slope_deg": -0.7,
+          "layout": "right_offset",
+          "phase_x_rad": 0.45,
+          "phase_y_rad": 0.65,
+          "ripple_amplitude_m": 0.0065,
+          "schema": "d1-fixed-2d-road-v1",
+          "slope_deg": 1.3,
+          "step_height_m": 0.0065,
+          "wavelength_x_m": 0.77,
+          "wavelength_y_m": 1.07
+        },
+        "terrain_exposure": {
+          "nonflat_steps": 0,
+          "nonflat_fraction": 0.0,
+          "nonflat_now": false,
+          "path_m": 0.0013809545047411356,
+          "nonflat_path_m": 0.0,
+          "unique_nonflat_0p25m_cells": 0
+        },
+        "velocity_rmse_mps": 0.1281418120329782,
+        "yaw_rmse_rps": 0.07628893421305676,
+        "csv_sha256": "4db33986911e1a51c9d0687d004fddeebcc6f618dc57dadcc5e3d97bb3991bb0",
+        "npz_sha256": "bce5f54cbc2b66a262a48751820d8cddf8bad436fd02c0b043162713122dba52",
+        "schedule": {
+          "duration_s": 0.2,
+          "initial_command": {
+            "clearance_m": 0.455,
+            "forward_velocity_mps": 0.0,
+            "yaw_rate_rps": 0.0
+          },
+          "label": "commands-development-0.2s",
+          "schema": "d1-explicit-motion-schedule-v1",
+          "segments": [
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.22,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.04000000000000001,
+              "transition_s": 0.020000000000000004
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.14,
+                "yaw_rate_rps": 0.12
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.43,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.12,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.08,
+                "yaw_rate_rps": -0.16
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.48,
+                "forward_velocity_mps": 0.16,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": -0.1
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.13
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.015999999999999986,
+              "transition_s": 0.007999999999999993
+            }
+          ]
+        },
+        "controller_parameters": {
+          "wheel_kp": 0.55,
+          "wheel_ki": 1.5,
+          "yaw_feedback_gain": 4.0,
+          "leg_feedback_scale": 1.0,
+          "attitude_feedback_scale": 0.25
+        },
+        "measurement_seed": 1796965646
+      },
+      {
+        "action_rms": 0.009421182672786986,
+        "attitude_rmse_rad": 0.0024193480360311308,
+        "case": "road1_seed1017",
+        "completed": true,
+        "duration_s": 0.20000000000000015,
+        "executed_steps": 20,
+        "height_rmse_m": 0.010233959044330422,
+        "mean_mechanical_power_w": 40.385793429406746,
+        "quality_pass": false,
+        "seed": 1017,
+        "terminal_reason": "time_limit",
+        "terrain": {
+          "cross_slope_deg": 0.7,
+          "layout": "right_offset",
+          "phase_x_rad": 1.05,
+          "phase_y_rad": 1.25,
+          "ripple_amplitude_m": 0.007,
+          "schema": "d1-fixed-2d-road-v1",
+          "slope_deg": -1.3,
+          "step_height_m": 0.007,
+          "wavelength_x_m": 0.87,
+          "wavelength_y_m": 1.17
+        },
+        "terrain_exposure": {
+          "nonflat_steps": 0,
+          "nonflat_fraction": 0.0,
+          "nonflat_now": false,
+          "path_m": 0.001404841682386649,
+          "nonflat_path_m": 0.0,
+          "unique_nonflat_0p25m_cells": 0
+        },
+        "velocity_rmse_mps": 0.12838843491080956,
+        "yaw_rmse_rps": 0.07594364802381658,
+        "csv_sha256": "fded29187ae85715889428d976e9693aa388607a99ad4effb117a64a1a3c845c",
+        "npz_sha256": "c9439b9ae2b9fd9c7ec008799ed960ceef51e28358459c88aa3dfb644d9c9b75",
+        "schedule": {
+          "duration_s": 0.2,
+          "initial_command": {
+            "clearance_m": 0.455,
+            "forward_velocity_mps": 0.0,
+            "yaw_rate_rps": 0.0
+          },
+          "label": "commands-development-0.2s",
+          "schema": "d1-explicit-motion-schedule-v1",
+          "segments": [
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.22,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.04000000000000001,
+              "transition_s": 0.020000000000000004
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.14,
+                "yaw_rate_rps": 0.12
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.43,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.12,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.08,
+                "yaw_rate_rps": -0.16
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.48,
+                "forward_velocity_mps": 0.16,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": -0.1
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.13
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.015999999999999986,
+              "transition_s": 0.007999999999999993
+            }
+          ]
+        },
+        "controller_parameters": {
+          "wheel_kp": 0.55,
+          "wheel_ki": 1.5,
+          "yaw_feedback_gain": 4.0,
+          "leg_feedback_scale": 1.0,
+          "attitude_feedback_scale": 0.25
+        },
+        "measurement_seed": 1972145375
+      },
+      {
+        "action_rms": 0.009419946211737138,
+        "attitude_rmse_rad": 0.0023548920165169704,
+        "case": "road1_seed1029",
+        "completed": true,
+        "duration_s": 0.20000000000000015,
+        "executed_steps": 20,
+        "height_rmse_m": 0.010229358012656984,
+        "mean_mechanical_power_w": 39.883270596283076,
+        "quality_pass": false,
+        "seed": 1029,
+        "terminal_reason": "time_limit",
+        "terrain": {
+          "cross_slope_deg": 0.7,
+          "layout": "right_offset",
+          "phase_x_rad": 1.05,
+          "phase_y_rad": 1.25,
+          "ripple_amplitude_m": 0.007,
+          "schema": "d1-fixed-2d-road-v1",
+          "slope_deg": -1.3,
+          "step_height_m": 0.007,
+          "wavelength_x_m": 0.87,
+          "wavelength_y_m": 1.17
+        },
+        "terrain_exposure": {
+          "nonflat_steps": 0,
+          "nonflat_fraction": 0.0,
+          "nonflat_now": false,
+          "path_m": 0.0013981252246325468,
+          "nonflat_path_m": 0.0,
+          "unique_nonflat_0p25m_cells": 0
+        },
+        "velocity_rmse_mps": 0.12836288945892319,
+        "yaw_rmse_rps": 0.07588405229295997,
+        "csv_sha256": "c59b4279b90f944197bf10141e3bdf61abac5b182dc5fa150f113d8653791e71",
+        "npz_sha256": "f0e4b44b09e55a10519b41bbbb3ed0deb5a8704efaa2d8ccdbcc8b7734aff558",
+        "schedule": {
+          "duration_s": 0.2,
+          "initial_command": {
+            "clearance_m": 0.455,
+            "forward_velocity_mps": 0.0,
+            "yaw_rate_rps": 0.0
+          },
+          "label": "commands-development-0.2s",
+          "schema": "d1-explicit-motion-schedule-v1",
+          "segments": [
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.22,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.04000000000000001,
+              "transition_s": 0.020000000000000004
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.14,
+                "yaw_rate_rps": 0.12
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.43,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.12,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.08,
+                "yaw_rate_rps": -0.16
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.48,
+                "forward_velocity_mps": 0.16,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": -0.1
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.13
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.015999999999999986,
+              "transition_s": 0.007999999999999993
+            }
+          ]
+        },
+        "controller_parameters": {
+          "wheel_kp": 0.55,
+          "wheel_ki": 1.5,
+          "yaw_feedback_gain": 4.0,
+          "leg_feedback_scale": 1.0,
+          "attitude_feedback_scale": 0.25
+        },
+        "measurement_seed": 1796965646
+      }
+    ],
+    "shared2_seed31001_holdout": [
+      {
+        "action_rms": 0.009283741652102457,
+        "attitude_rmse_rad": 0.0021480971203279345,
+        "case": "road0_seed1617",
+        "completed": true,
+        "duration_s": 0.20000000000000015,
+        "executed_steps": 20,
+        "height_rmse_m": 0.006459495550660487,
+        "mean_mechanical_power_w": 28.070463441531917,
+        "quality_pass": false,
+        "seed": 1617,
+        "terminal_reason": "time_limit",
+        "terrain": {
+          "cross_slope_deg": 0.6,
+          "layout": "s_bend",
+          "phase_x_rad": 1.55,
+          "phase_y_rad": 1.75,
+          "ripple_amplitude_m": 0.0085,
+          "schema": "d1-fixed-2d-road-v1",
+          "slope_deg": 1.35,
+          "step_height_m": 0.0085,
+          "wavelength_x_m": 0.72,
+          "wavelength_y_m": 1.02
+        },
+        "terrain_exposure": {
+          "nonflat_steps": 0,
+          "nonflat_fraction": 0.0,
+          "nonflat_now": false,
+          "path_m": 0.001004299921346526,
+          "nonflat_path_m": 0.0,
+          "unique_nonflat_0p25m_cells": 0
+        },
+        "velocity_rmse_mps": 0.13383664322140384,
+        "yaw_rmse_rps": 0.06548698271948554,
+        "csv_sha256": "a12367cf79e9fd38d06f05e162b9f342379fedc05a2c2f902921a125497597d0",
+        "npz_sha256": "77298df4c2bbb8853fe862082cd07397670a1d0d2f466267bb999074c010ceb5",
+        "schedule": {
+          "duration_s": 0.2,
+          "initial_command": {
+            "clearance_m": 0.455,
+            "forward_velocity_mps": 0.0,
+            "yaw_rate_rps": 0.0
+          },
+          "label": "commands-holdout-0.2s",
+          "schema": "d1-explicit-motion-schedule-v1",
+          "segments": [
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.1,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.24,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.044000000000000004,
+              "transition_s": 0.022000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.12,
+                "yaw_rate_rps": -0.14
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.44,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.16
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.47,
+                "forward_velocity_mps": 0.16,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.1,
+                "yaw_rate_rps": 0.1
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.12,
+                "yaw_rate_rps": -0.07
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.011999999999999983,
+              "transition_s": 0.0059999999999999915
+            }
+          ]
+        },
+        "controller_parameters": {
+          "wheel_kp": 0.55,
+          "wheel_ki": 1.5,
+          "yaw_feedback_gain": 4.0,
+          "leg_feedback_scale": 1.0,
+          "attitude_feedback_scale": 0.25
+        },
+        "measurement_seed": 1062305516
+      },
+      {
+        "action_rms": 0.009290208286337304,
+        "attitude_rmse_rad": 0.002197190044914484,
+        "case": "road0_seed1629",
+        "completed": true,
+        "duration_s": 0.20000000000000015,
+        "executed_steps": 20,
+        "height_rmse_m": 0.006450923278099618,
+        "mean_mechanical_power_w": 28.123365151905478,
+        "quality_pass": false,
+        "seed": 1629,
+        "terminal_reason": "time_limit",
+        "terrain": {
+          "cross_slope_deg": 0.6,
+          "layout": "s_bend",
+          "phase_x_rad": 1.55,
+          "phase_y_rad": 1.75,
+          "ripple_amplitude_m": 0.0085,
+          "schema": "d1-fixed-2d-road-v1",
+          "slope_deg": 1.35,
+          "step_height_m": 0.0085,
+          "wavelength_x_m": 0.72,
+          "wavelength_y_m": 1.02
+        },
+        "terrain_exposure": {
+          "nonflat_steps": 0,
+          "nonflat_fraction": 0.0,
+          "nonflat_now": false,
+          "path_m": 0.0009859453315979802,
+          "nonflat_path_m": 0.0,
+          "unique_nonflat_0p25m_cells": 0
+        },
+        "velocity_rmse_mps": 0.13382546696044906,
+        "yaw_rmse_rps": 0.0635727424331421,
+        "csv_sha256": "2614055cdb8fe1a513c534938b79ddda6a1a1bf41debf0d87e53d18b308d9441",
+        "npz_sha256": "995fef3bb3417e41db9fce580a888a9ebb2ccd376d47196d6e88b832d2ed5de6",
+        "schedule": {
+          "duration_s": 0.2,
+          "initial_command": {
+            "clearance_m": 0.455,
+            "forward_velocity_mps": 0.0,
+            "yaw_rate_rps": 0.0
+          },
+          "label": "commands-holdout-0.2s",
+          "schema": "d1-explicit-motion-schedule-v1",
+          "segments": [
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.1,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.24,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.044000000000000004,
+              "transition_s": 0.022000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.12,
+                "yaw_rate_rps": -0.14
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.44,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.16
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.47,
+                "forward_velocity_mps": 0.16,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.1,
+                "yaw_rate_rps": 0.1
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.12,
+                "yaw_rate_rps": -0.07
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.011999999999999983,
+              "transition_s": 0.0059999999999999915
+            }
+          ]
+        },
+        "controller_parameters": {
+          "wheel_kp": 0.55,
+          "wheel_ki": 1.5,
+          "yaw_feedback_gain": 4.0,
+          "leg_feedback_scale": 1.0,
+          "attitude_feedback_scale": 0.25
+        },
+        "measurement_seed": 107328092
+      },
+      {
+        "action_rms": 0.009284545520583392,
+        "attitude_rmse_rad": 0.002179575078192909,
+        "case": "road1_seed1617",
+        "completed": true,
+        "duration_s": 0.20000000000000015,
+        "executed_steps": 20,
+        "height_rmse_m": 0.006448532436390344,
+        "mean_mechanical_power_w": 27.829099487138706,
+        "quality_pass": false,
+        "seed": 1617,
+        "terminal_reason": "time_limit",
+        "terrain": {
+          "cross_slope_deg": -0.6,
+          "layout": "diagonal",
+          "phase_x_rad": 2.15,
+          "phase_y_rad": 2.35,
+          "ripple_amplitude_m": 0.007,
+          "schema": "d1-fixed-2d-road-v1",
+          "slope_deg": -1.35,
+          "step_height_m": 0.007,
+          "wavelength_x_m": 0.82,
+          "wavelength_y_m": 1.12
+        },
+        "terrain_exposure": {
+          "nonflat_steps": 0,
+          "nonflat_fraction": 0.0,
+          "nonflat_now": false,
+          "path_m": 0.0010663256025325665,
+          "nonflat_path_m": 0.0,
+          "unique_nonflat_0p25m_cells": 0
+        },
+        "velocity_rmse_mps": 0.13391506616508403,
+        "yaw_rmse_rps": 0.06367137552684213,
+        "csv_sha256": "cb3a6808d9c8db033ac7c0fb00d7ac802d4e0d44d5ebaf4777be3343cd093551",
+        "npz_sha256": "8187ed7fbf571e4779a8d0c39183a7725b916af09e2ea93abd440dc2496ace1c",
+        "schedule": {
+          "duration_s": 0.2,
+          "initial_command": {
+            "clearance_m": 0.455,
+            "forward_velocity_mps": 0.0,
+            "yaw_rate_rps": 0.0
+          },
+          "label": "commands-holdout-0.2s",
+          "schema": "d1-explicit-motion-schedule-v1",
+          "segments": [
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.1,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.24,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.044000000000000004,
+              "transition_s": 0.022000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.12,
+                "yaw_rate_rps": -0.14
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.44,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.16
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.47,
+                "forward_velocity_mps": 0.16,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.1,
+                "yaw_rate_rps": 0.1
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.12,
+                "yaw_rate_rps": -0.07
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.011999999999999983,
+              "transition_s": 0.0059999999999999915
+            }
+          ]
+        },
+        "controller_parameters": {
+          "wheel_kp": 0.55,
+          "wheel_ki": 1.5,
+          "yaw_feedback_gain": 4.0,
+          "leg_feedback_scale": 1.0,
+          "attitude_feedback_scale": 0.25
+        },
+        "measurement_seed": 1062305516
+      },
+      {
+        "action_rms": 0.009289620493470683,
+        "attitude_rmse_rad": 0.002246577121140204,
+        "case": "road1_seed1629",
+        "completed": true,
+        "duration_s": 0.20000000000000015,
+        "executed_steps": 20,
+        "height_rmse_m": 0.006429725689317315,
+        "mean_mechanical_power_w": 27.63563086089834,
+        "quality_pass": false,
+        "seed": 1629,
+        "terminal_reason": "time_limit",
+        "terrain": {
+          "cross_slope_deg": -0.6,
+          "layout": "diagonal",
+          "phase_x_rad": 2.15,
+          "phase_y_rad": 2.35,
+          "ripple_amplitude_m": 0.007,
+          "schema": "d1-fixed-2d-road-v1",
+          "slope_deg": -1.35,
+          "step_height_m": 0.007,
+          "wavelength_x_m": 0.82,
+          "wavelength_y_m": 1.12
+        },
+        "terrain_exposure": {
+          "nonflat_steps": 0,
+          "nonflat_fraction": 0.0,
+          "nonflat_now": false,
+          "path_m": 0.0010192304939374796,
+          "nonflat_path_m": 0.0,
+          "unique_nonflat_0p25m_cells": 0
+        },
+        "velocity_rmse_mps": 0.13370626164128827,
+        "yaw_rmse_rps": 0.06324119208465681,
+        "csv_sha256": "0928d7d2266b4af5cb2405c64ec8a8a2fe7f329916d541e9ed12afc7e22f0605",
+        "npz_sha256": "1ec88a8de6880999abb944e416b3c8ef3d4c0eee248b9fa726ab8398d64167cd",
+        "schedule": {
+          "duration_s": 0.2,
+          "initial_command": {
+            "clearance_m": 0.455,
+            "forward_velocity_mps": 0.0,
+            "yaw_rate_rps": 0.0
+          },
+          "label": "commands-holdout-0.2s",
+          "schema": "d1-explicit-motion-schedule-v1",
+          "segments": [
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.1,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.24,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.044000000000000004,
+              "transition_s": 0.022000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.12,
+                "yaw_rate_rps": -0.14
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.44,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.16
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.47,
+                "forward_velocity_mps": 0.16,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.1,
+                "yaw_rate_rps": 0.1
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.12,
+                "yaw_rate_rps": -0.07
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.011999999999999983,
+              "transition_s": 0.0059999999999999915
+            }
+          ]
+        },
+        "controller_parameters": {
+          "wheel_kp": 0.55,
+          "wheel_ki": 1.5,
+          "yaw_feedback_gain": 4.0,
+          "leg_feedback_scale": 1.0,
+          "attitude_feedback_scale": 0.25
+        },
+        "measurement_seed": 107328092
+      }
+    ],
+    "independent8_seed31001_development": [
+      {
+        "action_rms": 0.008312496508954645,
+        "attitude_rmse_rad": 0.002403071309843143,
+        "case": "road0_seed1017",
+        "completed": true,
+        "duration_s": 0.20000000000000015,
+        "executed_steps": 20,
+        "height_rmse_m": 0.01022788253642625,
+        "mean_mechanical_power_w": 40.11762815478589,
+        "quality_pass": false,
+        "seed": 1017,
+        "terminal_reason": "time_limit",
+        "terrain": {
+          "cross_slope_deg": -0.7,
+          "layout": "right_offset",
+          "phase_x_rad": 0.45,
+          "phase_y_rad": 0.65,
+          "ripple_amplitude_m": 0.0065,
+          "schema": "d1-fixed-2d-road-v1",
+          "slope_deg": 1.3,
+          "step_height_m": 0.0065,
+          "wavelength_x_m": 0.77,
+          "wavelength_y_m": 1.07
+        },
+        "terrain_exposure": {
+          "nonflat_steps": 0,
+          "nonflat_fraction": 0.0,
+          "nonflat_now": false,
+          "path_m": 0.0014008257032373029,
+          "nonflat_path_m": 0.0,
+          "unique_nonflat_0p25m_cells": 0
+        },
+        "velocity_rmse_mps": 0.1285468261789268,
+        "yaw_rmse_rps": 0.07632910648830142,
+        "csv_sha256": "27a0989cbb04b24801369d35e6b266d7ab1522bdafdc4490c0214cc37d653f73",
+        "npz_sha256": "34d314b8109627ff55310c6974d25f2b7c893758c3ef9e7ceb2be16aecde172a",
+        "schedule": {
+          "duration_s": 0.2,
+          "initial_command": {
+            "clearance_m": 0.455,
+            "forward_velocity_mps": 0.0,
+            "yaw_rate_rps": 0.0
+          },
+          "label": "commands-development-0.2s",
+          "schema": "d1-explicit-motion-schedule-v1",
+          "segments": [
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.22,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.04000000000000001,
+              "transition_s": 0.020000000000000004
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.14,
+                "yaw_rate_rps": 0.12
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.43,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.12,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.08,
+                "yaw_rate_rps": -0.16
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.48,
+                "forward_velocity_mps": 0.16,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": -0.1
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.13
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.015999999999999986,
+              "transition_s": 0.007999999999999993
+            }
+          ]
+        },
+        "controller_parameters": {
+          "wheel_kp": 0.55,
+          "wheel_ki": 1.5,
+          "yaw_feedback_gain": 4.0,
+          "leg_feedback_scale": 1.0,
+          "attitude_feedback_scale": 0.25
+        },
+        "measurement_seed": 1972145375
+      },
+      {
+        "action_rms": 0.008314451662530083,
+        "attitude_rmse_rad": 0.0024942403880039306,
+        "case": "road0_seed1029",
+        "completed": true,
+        "duration_s": 0.20000000000000015,
+        "executed_steps": 20,
+        "height_rmse_m": 0.010226989528812942,
+        "mean_mechanical_power_w": 40.33475158058383,
+        "quality_pass": false,
+        "seed": 1029,
+        "terminal_reason": "time_limit",
+        "terrain": {
+          "cross_slope_deg": -0.7,
+          "layout": "right_offset",
+          "phase_x_rad": 0.45,
+          "phase_y_rad": 0.65,
+          "ripple_amplitude_m": 0.0065,
+          "schema": "d1-fixed-2d-road-v1",
+          "slope_deg": 1.3,
+          "step_height_m": 0.0065,
+          "wavelength_x_m": 0.77,
+          "wavelength_y_m": 1.07
+        },
+        "terrain_exposure": {
+          "nonflat_steps": 0,
+          "nonflat_fraction": 0.0,
+          "nonflat_now": false,
+          "path_m": 0.0014003579407370554,
+          "nonflat_path_m": 0.0,
+          "unique_nonflat_0p25m_cells": 0
+        },
+        "velocity_rmse_mps": 0.1285725804759196,
+        "yaw_rmse_rps": 0.07557091918663103,
+        "csv_sha256": "51466300fd12d713d7b3a714f84f046e77cac3b9f90aefe8b151ef1fffda3f46",
+        "npz_sha256": "45833007a76bbd94e3c037e7bd81d7547976e4a5dfc7c1e2df6594028a851f44",
+        "schedule": {
+          "duration_s": 0.2,
+          "initial_command": {
+            "clearance_m": 0.455,
+            "forward_velocity_mps": 0.0,
+            "yaw_rate_rps": 0.0
+          },
+          "label": "commands-development-0.2s",
+          "schema": "d1-explicit-motion-schedule-v1",
+          "segments": [
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.22,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.04000000000000001,
+              "transition_s": 0.020000000000000004
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.14,
+                "yaw_rate_rps": 0.12
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.43,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.12,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.08,
+                "yaw_rate_rps": -0.16
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.48,
+                "forward_velocity_mps": 0.16,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": -0.1
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.13
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.015999999999999986,
+              "transition_s": 0.007999999999999993
+            }
+          ]
+        },
+        "controller_parameters": {
+          "wheel_kp": 0.55,
+          "wheel_ki": 1.5,
+          "yaw_feedback_gain": 4.0,
+          "leg_feedback_scale": 1.0,
+          "attitude_feedback_scale": 0.25
+        },
+        "measurement_seed": 1796965646
+      },
+      {
+        "action_rms": 0.008314366562505154,
+        "attitude_rmse_rad": 0.0024048380851082263,
+        "case": "road1_seed1017",
+        "completed": true,
+        "duration_s": 0.20000000000000015,
+        "executed_steps": 20,
+        "height_rmse_m": 0.010213867786843136,
+        "mean_mechanical_power_w": 39.66771195718522,
+        "quality_pass": false,
+        "seed": 1017,
+        "terminal_reason": "time_limit",
+        "terrain": {
+          "cross_slope_deg": 0.7,
+          "layout": "right_offset",
+          "phase_x_rad": 1.05,
+          "phase_y_rad": 1.25,
+          "ripple_amplitude_m": 0.007,
+          "schema": "d1-fixed-2d-road-v1",
+          "slope_deg": -1.3,
+          "step_height_m": 0.007,
+          "wavelength_x_m": 0.87,
+          "wavelength_y_m": 1.17
+        },
+        "terrain_exposure": {
+          "nonflat_steps": 0,
+          "nonflat_fraction": 0.0,
+          "nonflat_now": false,
+          "path_m": 0.0013593159800360936,
+          "nonflat_path_m": 0.0,
+          "unique_nonflat_0p25m_cells": 0
+        },
+        "velocity_rmse_mps": 0.1284134969822486,
+        "yaw_rmse_rps": 0.07451882002916417,
+        "csv_sha256": "287087a83edb23ddcb2dc19817f45c720ae6879067101e518f2b5276036d7c34",
+        "npz_sha256": "aa5bcceac5e939fa9aba177b32803cace63c9283075019d13b9976983bdf196d",
+        "schedule": {
+          "duration_s": 0.2,
+          "initial_command": {
+            "clearance_m": 0.455,
+            "forward_velocity_mps": 0.0,
+            "yaw_rate_rps": 0.0
+          },
+          "label": "commands-development-0.2s",
+          "schema": "d1-explicit-motion-schedule-v1",
+          "segments": [
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.22,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.04000000000000001,
+              "transition_s": 0.020000000000000004
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.14,
+                "yaw_rate_rps": 0.12
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.43,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.12,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.08,
+                "yaw_rate_rps": -0.16
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.48,
+                "forward_velocity_mps": 0.16,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": -0.1
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.13
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.015999999999999986,
+              "transition_s": 0.007999999999999993
+            }
+          ]
+        },
+        "controller_parameters": {
+          "wheel_kp": 0.55,
+          "wheel_ki": 1.5,
+          "yaw_feedback_gain": 4.0,
+          "leg_feedback_scale": 1.0,
+          "attitude_feedback_scale": 0.25
+        },
+        "measurement_seed": 1972145375
+      },
+      {
+        "action_rms": 0.008314280851029978,
+        "attitude_rmse_rad": 0.0024918908069216264,
+        "case": "road1_seed1029",
+        "completed": true,
+        "duration_s": 0.20000000000000015,
+        "executed_steps": 20,
+        "height_rmse_m": 0.010227836515874568,
+        "mean_mechanical_power_w": 40.30582235574181,
+        "quality_pass": false,
+        "seed": 1029,
+        "terminal_reason": "time_limit",
+        "terrain": {
+          "cross_slope_deg": 0.7,
+          "layout": "right_offset",
+          "phase_x_rad": 1.05,
+          "phase_y_rad": 1.25,
+          "ripple_amplitude_m": 0.007,
+          "schema": "d1-fixed-2d-road-v1",
+          "slope_deg": -1.3,
+          "step_height_m": 0.007,
+          "wavelength_x_m": 0.87,
+          "wavelength_y_m": 1.17
+        },
+        "terrain_exposure": {
+          "nonflat_steps": 0,
+          "nonflat_fraction": 0.0,
+          "nonflat_now": false,
+          "path_m": 0.0013984432809626749,
+          "nonflat_path_m": 0.0,
+          "unique_nonflat_0p25m_cells": 0
+        },
+        "velocity_rmse_mps": 0.12859344354797464,
+        "yaw_rmse_rps": 0.07568003202642241,
+        "csv_sha256": "82d86269c2bc2e344ab49b4e9283c3fdddec99b8cd59e48ce722f6c9b73a0574",
+        "npz_sha256": "3dffb1c71083739fe9a19a18142a1a461a6e9e9057b586f65227cae02912035c",
+        "schedule": {
+          "duration_s": 0.2,
+          "initial_command": {
+            "clearance_m": 0.455,
+            "forward_velocity_mps": 0.0,
+            "yaw_rate_rps": 0.0
+          },
+          "label": "commands-development-0.2s",
+          "schema": "d1-explicit-motion-schedule-v1",
+          "segments": [
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.22,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.04000000000000001,
+              "transition_s": 0.020000000000000004
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.14,
+                "yaw_rate_rps": 0.12
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.43,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.12,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.08,
+                "yaw_rate_rps": -0.16
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.48,
+                "forward_velocity_mps": 0.16,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": -0.1
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.13
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.015999999999999986,
+              "transition_s": 0.007999999999999993
+            }
+          ]
+        },
+        "controller_parameters": {
+          "wheel_kp": 0.55,
+          "wheel_ki": 1.5,
+          "yaw_feedback_gain": 4.0,
+          "leg_feedback_scale": 1.0,
+          "attitude_feedback_scale": 0.25
+        },
+        "measurement_seed": 1796965646
+      }
+    ],
+    "independent8_seed31001_holdout": [
+      {
+        "action_rms": 0.00829887036582234,
+        "attitude_rmse_rad": 0.002250347471151962,
+        "case": "road0_seed1617",
+        "completed": true,
+        "duration_s": 0.20000000000000015,
+        "executed_steps": 20,
+        "height_rmse_m": 0.006478783323872305,
+        "mean_mechanical_power_w": 27.885548602526576,
+        "quality_pass": false,
+        "seed": 1617,
+        "terminal_reason": "time_limit",
+        "terrain": {
+          "cross_slope_deg": 0.6,
+          "layout": "s_bend",
+          "phase_x_rad": 1.55,
+          "phase_y_rad": 1.75,
+          "ripple_amplitude_m": 0.0085,
+          "schema": "d1-fixed-2d-road-v1",
+          "slope_deg": 1.35,
+          "step_height_m": 0.0085,
+          "wavelength_x_m": 0.72,
+          "wavelength_y_m": 1.02
+        },
+        "terrain_exposure": {
+          "nonflat_steps": 0,
+          "nonflat_fraction": 0.0,
+          "nonflat_now": false,
+          "path_m": 0.0010526879083976306,
+          "nonflat_path_m": 0.0,
+          "unique_nonflat_0p25m_cells": 0
+        },
+        "velocity_rmse_mps": 0.13396732563132374,
+        "yaw_rmse_rps": 0.06409823378519147,
+        "csv_sha256": "d0fb1b3824fafbef349c776c01fc9db5f68baaae5b6cd3cd2a70674b71e01dcc",
+        "npz_sha256": "b136de63fbcd944a74cf9373c8f286317b7ded3f951ec1aaa337ad17f098c4cc",
+        "schedule": {
+          "duration_s": 0.2,
+          "initial_command": {
+            "clearance_m": 0.455,
+            "forward_velocity_mps": 0.0,
+            "yaw_rate_rps": 0.0
+          },
+          "label": "commands-holdout-0.2s",
+          "schema": "d1-explicit-motion-schedule-v1",
+          "segments": [
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.1,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.24,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.044000000000000004,
+              "transition_s": 0.022000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.12,
+                "yaw_rate_rps": -0.14
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.44,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.16
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.47,
+                "forward_velocity_mps": 0.16,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.1,
+                "yaw_rate_rps": 0.1
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.12,
+                "yaw_rate_rps": -0.07
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.011999999999999983,
+              "transition_s": 0.0059999999999999915
+            }
+          ]
+        },
+        "controller_parameters": {
+          "wheel_kp": 0.55,
+          "wheel_ki": 1.5,
+          "yaw_feedback_gain": 4.0,
+          "leg_feedback_scale": 1.0,
+          "attitude_feedback_scale": 0.25
+        },
+        "measurement_seed": 1062305516
+      },
+      {
+        "action_rms": 0.00830040103407744,
+        "attitude_rmse_rad": 0.002273655800805618,
+        "case": "road0_seed1629",
+        "completed": true,
+        "duration_s": 0.20000000000000015,
+        "executed_steps": 20,
+        "height_rmse_m": 0.006464524249236446,
+        "mean_mechanical_power_w": 27.705564942593078,
+        "quality_pass": false,
+        "seed": 1629,
+        "terminal_reason": "time_limit",
+        "terrain": {
+          "cross_slope_deg": 0.6,
+          "layout": "s_bend",
+          "phase_x_rad": 1.55,
+          "phase_y_rad": 1.75,
+          "ripple_amplitude_m": 0.0085,
+          "schema": "d1-fixed-2d-road-v1",
+          "slope_deg": 1.35,
+          "step_height_m": 0.0085,
+          "wavelength_x_m": 0.72,
+          "wavelength_y_m": 1.02
+        },
+        "terrain_exposure": {
+          "nonflat_steps": 0,
+          "nonflat_fraction": 0.0,
+          "nonflat_now": false,
+          "path_m": 0.0009936708408140936,
+          "nonflat_path_m": 0.0,
+          "unique_nonflat_0p25m_cells": 0
+        },
+        "velocity_rmse_mps": 0.1337406088990417,
+        "yaw_rmse_rps": 0.06373895061060293,
+        "csv_sha256": "5c90ab8266fdf28c043c50758987dc26d5c494dc01e9b239b3736fec15625ad5",
+        "npz_sha256": "7931fcff280d82b28223a92ab3e017b3d00f27566735255523d9be1330245341",
+        "schedule": {
+          "duration_s": 0.2,
+          "initial_command": {
+            "clearance_m": 0.455,
+            "forward_velocity_mps": 0.0,
+            "yaw_rate_rps": 0.0
+          },
+          "label": "commands-holdout-0.2s",
+          "schema": "d1-explicit-motion-schedule-v1",
+          "segments": [
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.1,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.24,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.044000000000000004,
+              "transition_s": 0.022000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.12,
+                "yaw_rate_rps": -0.14
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.44,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.16
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.47,
+                "forward_velocity_mps": 0.16,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.1,
+                "yaw_rate_rps": 0.1
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.12,
+                "yaw_rate_rps": -0.07
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.011999999999999983,
+              "transition_s": 0.0059999999999999915
+            }
+          ]
+        },
+        "controller_parameters": {
+          "wheel_kp": 0.55,
+          "wheel_ki": 1.5,
+          "yaw_feedback_gain": 4.0,
+          "leg_feedback_scale": 1.0,
+          "attitude_feedback_scale": 0.25
+        },
+        "measurement_seed": 107328092
+      },
+      {
+        "action_rms": 0.008297910779140516,
+        "attitude_rmse_rad": 0.0021723232508252493,
+        "case": "road1_seed1617",
+        "completed": true,
+        "duration_s": 0.20000000000000015,
+        "executed_steps": 20,
+        "height_rmse_m": 0.0064671503988817615,
+        "mean_mechanical_power_w": 27.68988171635005,
+        "quality_pass": false,
+        "seed": 1617,
+        "terminal_reason": "time_limit",
+        "terrain": {
+          "cross_slope_deg": -0.6,
+          "layout": "diagonal",
+          "phase_x_rad": 2.15,
+          "phase_y_rad": 2.35,
+          "ripple_amplitude_m": 0.007,
+          "schema": "d1-fixed-2d-road-v1",
+          "slope_deg": -1.35,
+          "step_height_m": 0.007,
+          "wavelength_x_m": 0.82,
+          "wavelength_y_m": 1.12
+        },
+        "terrain_exposure": {
+          "nonflat_steps": 0,
+          "nonflat_fraction": 0.0,
+          "nonflat_now": false,
+          "path_m": 0.001026899185211252,
+          "nonflat_path_m": 0.0,
+          "unique_nonflat_0p25m_cells": 0
+        },
+        "velocity_rmse_mps": 0.13399235262153414,
+        "yaw_rmse_rps": 0.06565253333412721,
+        "csv_sha256": "f8025045201f9c7e7b0b93ec2c66a51651c44390e4bf78ed08d9824ed70b3aa8",
+        "npz_sha256": "305709709e9fbe29fd9c17532944abe682532c7ec9447644cfb79fe7b7a7e15d",
+        "schedule": {
+          "duration_s": 0.2,
+          "initial_command": {
+            "clearance_m": 0.455,
+            "forward_velocity_mps": 0.0,
+            "yaw_rate_rps": 0.0
+          },
+          "label": "commands-holdout-0.2s",
+          "schema": "d1-explicit-motion-schedule-v1",
+          "segments": [
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.1,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.24,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.044000000000000004,
+              "transition_s": 0.022000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.12,
+                "yaw_rate_rps": -0.14
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.44,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.16
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.47,
+                "forward_velocity_mps": 0.16,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.1,
+                "yaw_rate_rps": 0.1
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.12,
+                "yaw_rate_rps": -0.07
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.011999999999999983,
+              "transition_s": 0.0059999999999999915
+            }
+          ]
+        },
+        "controller_parameters": {
+          "wheel_kp": 0.55,
+          "wheel_ki": 1.5,
+          "yaw_feedback_gain": 4.0,
+          "leg_feedback_scale": 1.0,
+          "attitude_feedback_scale": 0.25
+        },
+        "measurement_seed": 1062305516
+      },
+      {
+        "action_rms": 0.008298541329519831,
+        "attitude_rmse_rad": 0.0021950484240708438,
+        "case": "road1_seed1629",
+        "completed": true,
+        "duration_s": 0.20000000000000015,
+        "executed_steps": 20,
+        "height_rmse_m": 0.006447603966248171,
+        "mean_mechanical_power_w": 27.406223254303,
+        "quality_pass": false,
+        "seed": 1629,
+        "terminal_reason": "time_limit",
+        "terrain": {
+          "cross_slope_deg": -0.6,
+          "layout": "diagonal",
+          "phase_x_rad": 2.15,
+          "phase_y_rad": 2.35,
+          "ripple_amplitude_m": 0.007,
+          "schema": "d1-fixed-2d-road-v1",
+          "slope_deg": -1.35,
+          "step_height_m": 0.007,
+          "wavelength_x_m": 0.82,
+          "wavelength_y_m": 1.12
+        },
+        "terrain_exposure": {
+          "nonflat_steps": 0,
+          "nonflat_fraction": 0.0,
+          "nonflat_now": false,
+          "path_m": 0.001094065049859077,
+          "nonflat_path_m": 0.0,
+          "unique_nonflat_0p25m_cells": 0
+        },
+        "velocity_rmse_mps": 0.1338382232434152,
+        "yaw_rmse_rps": 0.06324079837255228,
+        "csv_sha256": "2aed67b292c983f11f7242c5f428e728dc64b9bc3f56e78da1cf2c184b564938",
+        "npz_sha256": "b5a38fde9b06b0fd95458441cb2d7e0591379c34d5bece96202ec9bfa9ea9ab5",
+        "schedule": {
+          "duration_s": 0.2,
+          "initial_command": {
+            "clearance_m": 0.455,
+            "forward_velocity_mps": 0.0,
+            "yaw_rate_rps": 0.0
+          },
+          "label": "commands-holdout-0.2s",
+          "schema": "d1-explicit-motion-schedule-v1",
+          "segments": [
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.1,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.24,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.044000000000000004,
+              "transition_s": 0.022000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.12,
+                "yaw_rate_rps": -0.14
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.44,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.16
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.47,
+                "forward_velocity_mps": 0.16,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.1,
+                "yaw_rate_rps": 0.1
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.12,
+                "yaw_rate_rps": -0.07
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.011999999999999983,
+              "transition_s": 0.0059999999999999915
+            }
+          ]
+        },
+        "controller_parameters": {
+          "wheel_kp": 0.55,
+          "wheel_ki": 1.5,
+          "yaw_feedback_gain": 4.0,
+          "leg_feedback_scale": 1.0,
+          "attitude_feedback_scale": 0.25
+        },
+        "measurement_seed": 107328092
+      }
+    ],
+    "zero_development": [
+      {
+        "action_rms": 0.0,
+        "attitude_rmse_rad": 0.002481708630090935,
+        "case": "road0_seed1017",
+        "completed": true,
+        "duration_s": 0.20000000000000015,
+        "executed_steps": 20,
+        "height_rmse_m": 0.010214441474040529,
+        "mean_mechanical_power_w": 40.27064062995536,
+        "quality_pass": false,
+        "seed": 1017,
+        "terminal_reason": "time_limit",
+        "terrain": {
+          "cross_slope_deg": -0.7,
+          "layout": "right_offset",
+          "phase_x_rad": 0.45,
+          "phase_y_rad": 0.65,
+          "ripple_amplitude_m": 0.0065,
+          "schema": "d1-fixed-2d-road-v1",
+          "slope_deg": 1.3,
+          "step_height_m": 0.0065,
+          "wavelength_x_m": 0.77,
+          "wavelength_y_m": 1.07
+        },
+        "terrain_exposure": {
+          "nonflat_steps": 0,
+          "nonflat_fraction": 0.0,
+          "nonflat_now": false,
+          "path_m": 0.0013437672122333711,
+          "nonflat_path_m": 0.0,
+          "unique_nonflat_0p25m_cells": 0
+        },
+        "velocity_rmse_mps": 0.1284556927534651,
+        "yaw_rmse_rps": 0.07592545519137661,
+        "csv_sha256": "d1f5b549a79cae5bc9d98eb2c4d26bd10d446c50693ecef6c102fa01519e243c",
+        "npz_sha256": "68904650910204cddfc34dd42827e5f2063eba89f41daf7fcdf0bd82000a33ed",
+        "schedule": {
+          "duration_s": 0.2,
+          "initial_command": {
+            "clearance_m": 0.455,
+            "forward_velocity_mps": 0.0,
+            "yaw_rate_rps": 0.0
+          },
+          "label": "commands-development-0.2s",
+          "schema": "d1-explicit-motion-schedule-v1",
+          "segments": [
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.22,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.04000000000000001,
+              "transition_s": 0.020000000000000004
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.14,
+                "yaw_rate_rps": 0.12
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.43,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.12,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.08,
+                "yaw_rate_rps": -0.16
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.48,
+                "forward_velocity_mps": 0.16,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": -0.1
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.13
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.015999999999999986,
+              "transition_s": 0.007999999999999993
+            }
+          ]
+        },
+        "controller_parameters": {
+          "wheel_kp": 0.55,
+          "wheel_ki": 1.5,
+          "yaw_feedback_gain": 4.0,
+          "leg_feedback_scale": 1.0,
+          "attitude_feedback_scale": 0.25
+        },
+        "measurement_seed": 1972145375
+      },
+      {
+        "action_rms": 0.0,
+        "attitude_rmse_rad": 0.002418817819903836,
+        "case": "road0_seed1029",
+        "completed": true,
+        "duration_s": 0.20000000000000015,
+        "executed_steps": 20,
+        "height_rmse_m": 0.010223769868994476,
+        "mean_mechanical_power_w": 39.77912495014242,
+        "quality_pass": false,
+        "seed": 1029,
+        "terminal_reason": "time_limit",
+        "terrain": {
+          "cross_slope_deg": -0.7,
+          "layout": "right_offset",
+          "phase_x_rad": 0.45,
+          "phase_y_rad": 0.65,
+          "ripple_amplitude_m": 0.0065,
+          "schema": "d1-fixed-2d-road-v1",
+          "slope_deg": 1.3,
+          "step_height_m": 0.0065,
+          "wavelength_x_m": 0.77,
+          "wavelength_y_m": 1.07
+        },
+        "terrain_exposure": {
+          "nonflat_steps": 0,
+          "nonflat_fraction": 0.0,
+          "nonflat_now": false,
+          "path_m": 0.0013582609963370166,
+          "nonflat_path_m": 0.0,
+          "unique_nonflat_0p25m_cells": 0
+        },
+        "velocity_rmse_mps": 0.12846908322537096,
+        "yaw_rmse_rps": 0.0774777293619821,
+        "csv_sha256": "ff398111051356e5a76963fdd0a9882dd8e2d8aa9b78875ec1648f23a7b92ef9",
+        "npz_sha256": "dd073cdce4d95e03326cd9c689c87ea677a7191d9bf6955c8e8778b55b198bb3",
+        "schedule": {
+          "duration_s": 0.2,
+          "initial_command": {
+            "clearance_m": 0.455,
+            "forward_velocity_mps": 0.0,
+            "yaw_rate_rps": 0.0
+          },
+          "label": "commands-development-0.2s",
+          "schema": "d1-explicit-motion-schedule-v1",
+          "segments": [
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.22,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.04000000000000001,
+              "transition_s": 0.020000000000000004
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.14,
+                "yaw_rate_rps": 0.12
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.43,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.12,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.08,
+                "yaw_rate_rps": -0.16
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.48,
+                "forward_velocity_mps": 0.16,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": -0.1
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.13
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.015999999999999986,
+              "transition_s": 0.007999999999999993
+            }
+          ]
+        },
+        "controller_parameters": {
+          "wheel_kp": 0.55,
+          "wheel_ki": 1.5,
+          "yaw_feedback_gain": 4.0,
+          "leg_feedback_scale": 1.0,
+          "attitude_feedback_scale": 0.25
+        },
+        "measurement_seed": 1796965646
+      },
+      {
+        "action_rms": 0.0,
+        "attitude_rmse_rad": 0.002317166919332555,
+        "case": "road1_seed1017",
+        "completed": true,
+        "duration_s": 0.20000000000000015,
+        "executed_steps": 20,
+        "height_rmse_m": 0.010221917844369701,
+        "mean_mechanical_power_w": 39.726810401020124,
+        "quality_pass": false,
+        "seed": 1017,
+        "terminal_reason": "time_limit",
+        "terrain": {
+          "cross_slope_deg": 0.7,
+          "layout": "right_offset",
+          "phase_x_rad": 1.05,
+          "phase_y_rad": 1.25,
+          "ripple_amplitude_m": 0.007,
+          "schema": "d1-fixed-2d-road-v1",
+          "slope_deg": -1.3,
+          "step_height_m": 0.007,
+          "wavelength_x_m": 0.87,
+          "wavelength_y_m": 1.17
+        },
+        "terrain_exposure": {
+          "nonflat_steps": 0,
+          "nonflat_fraction": 0.0,
+          "nonflat_now": false,
+          "path_m": 0.0013411432080361468,
+          "nonflat_path_m": 0.0,
+          "unique_nonflat_0p25m_cells": 0
+        },
+        "velocity_rmse_mps": 0.12840209378293577,
+        "yaw_rmse_rps": 0.07605861550770197,
+        "csv_sha256": "b28128e94787d3cb248e98db6fa5c33db57e2baabce7efd3e642e47c33a0401d",
+        "npz_sha256": "931208fb9dbe90a5409d5eb4f0cc98ef5dec571d538b75d2ad2e9df9f47de33f",
+        "schedule": {
+          "duration_s": 0.2,
+          "initial_command": {
+            "clearance_m": 0.455,
+            "forward_velocity_mps": 0.0,
+            "yaw_rate_rps": 0.0
+          },
+          "label": "commands-development-0.2s",
+          "schema": "d1-explicit-motion-schedule-v1",
+          "segments": [
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.22,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.04000000000000001,
+              "transition_s": 0.020000000000000004
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.14,
+                "yaw_rate_rps": 0.12
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.43,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.12,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.08,
+                "yaw_rate_rps": -0.16
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.48,
+                "forward_velocity_mps": 0.16,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": -0.1
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.13
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.015999999999999986,
+              "transition_s": 0.007999999999999993
+            }
+          ]
+        },
+        "controller_parameters": {
+          "wheel_kp": 0.55,
+          "wheel_ki": 1.5,
+          "yaw_feedback_gain": 4.0,
+          "leg_feedback_scale": 1.0,
+          "attitude_feedback_scale": 0.25
+        },
+        "measurement_seed": 1972145375
+      },
+      {
+        "action_rms": 0.0,
+        "attitude_rmse_rad": 0.0024053574313301247,
+        "case": "road1_seed1029",
+        "completed": true,
+        "duration_s": 0.20000000000000015,
+        "executed_steps": 20,
+        "height_rmse_m": 0.010215683646722921,
+        "mean_mechanical_power_w": 40.00783419267804,
+        "quality_pass": false,
+        "seed": 1029,
+        "terminal_reason": "time_limit",
+        "terrain": {
+          "cross_slope_deg": 0.7,
+          "layout": "right_offset",
+          "phase_x_rad": 1.05,
+          "phase_y_rad": 1.25,
+          "ripple_amplitude_m": 0.007,
+          "schema": "d1-fixed-2d-road-v1",
+          "slope_deg": -1.3,
+          "step_height_m": 0.007,
+          "wavelength_x_m": 0.87,
+          "wavelength_y_m": 1.17
+        },
+        "terrain_exposure": {
+          "nonflat_steps": 0,
+          "nonflat_fraction": 0.0,
+          "nonflat_now": false,
+          "path_m": 0.001354700411072897,
+          "nonflat_path_m": 0.0,
+          "unique_nonflat_0p25m_cells": 0
+        },
+        "velocity_rmse_mps": 0.12836840054030854,
+        "yaw_rmse_rps": 0.07730278118093097,
+        "csv_sha256": "00e179aaa65ff9872466b1ccb3c2d843e6ea07b8dcc10660be6893c25c753758",
+        "npz_sha256": "52836e00827286b294775a8265e91220b086b3958436b4fbbef77d9aa50df54c",
+        "schedule": {
+          "duration_s": 0.2,
+          "initial_command": {
+            "clearance_m": 0.455,
+            "forward_velocity_mps": 0.0,
+            "yaw_rate_rps": 0.0
+          },
+          "label": "commands-development-0.2s",
+          "schema": "d1-explicit-motion-schedule-v1",
+          "segments": [
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.22,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.04000000000000001,
+              "transition_s": 0.020000000000000004
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.14,
+                "yaw_rate_rps": 0.12
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.43,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.12,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.08,
+                "yaw_rate_rps": -0.16
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.48,
+                "forward_velocity_mps": 0.16,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": -0.1
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.13
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.015999999999999986,
+              "transition_s": 0.007999999999999993
+            }
+          ]
+        },
+        "controller_parameters": {
+          "wheel_kp": 0.55,
+          "wheel_ki": 1.5,
+          "yaw_feedback_gain": 4.0,
+          "leg_feedback_scale": 1.0,
+          "attitude_feedback_scale": 0.25
+        },
+        "measurement_seed": 1796965646
+      }
+    ],
+    "zero_holdout": [
+      {
+        "action_rms": 0.0,
+        "attitude_rmse_rad": 0.0021839445808497435,
+        "case": "road0_seed1617",
+        "completed": true,
+        "duration_s": 0.20000000000000015,
+        "executed_steps": 20,
+        "height_rmse_m": 0.006467929544560451,
+        "mean_mechanical_power_w": 27.71174793671339,
+        "quality_pass": false,
+        "seed": 1617,
+        "terminal_reason": "time_limit",
+        "terrain": {
+          "cross_slope_deg": 0.6,
+          "layout": "s_bend",
+          "phase_x_rad": 1.55,
+          "phase_y_rad": 1.75,
+          "ripple_amplitude_m": 0.0085,
+          "schema": "d1-fixed-2d-road-v1",
+          "slope_deg": 1.35,
+          "step_height_m": 0.0085,
+          "wavelength_x_m": 0.72,
+          "wavelength_y_m": 1.02
+        },
+        "terrain_exposure": {
+          "nonflat_steps": 0,
+          "nonflat_fraction": 0.0,
+          "nonflat_now": false,
+          "path_m": 0.0010168477457229452,
+          "nonflat_path_m": 0.0,
+          "unique_nonflat_0p25m_cells": 0
+        },
+        "velocity_rmse_mps": 0.13384018937970013,
+        "yaw_rmse_rps": 0.06352460572013251,
+        "csv_sha256": "0d8ecb1a70813313d58d40ee5c232ecb946d461e8a177bfb2e88158982e934fa",
+        "npz_sha256": "f3a9ec50806b78a63b1bccb7d2a00b2b5cbb621ee4c572527b5dbacc94e6dbd3",
+        "schedule": {
+          "duration_s": 0.2,
+          "initial_command": {
+            "clearance_m": 0.455,
+            "forward_velocity_mps": 0.0,
+            "yaw_rate_rps": 0.0
+          },
+          "label": "commands-holdout-0.2s",
+          "schema": "d1-explicit-motion-schedule-v1",
+          "segments": [
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.1,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.24,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.044000000000000004,
+              "transition_s": 0.022000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.12,
+                "yaw_rate_rps": -0.14
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.44,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.16
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.47,
+                "forward_velocity_mps": 0.16,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.1,
+                "yaw_rate_rps": 0.1
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.12,
+                "yaw_rate_rps": -0.07
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.011999999999999983,
+              "transition_s": 0.0059999999999999915
+            }
+          ]
+        },
+        "controller_parameters": {
+          "wheel_kp": 0.55,
+          "wheel_ki": 1.5,
+          "yaw_feedback_gain": 4.0,
+          "leg_feedback_scale": 1.0,
+          "attitude_feedback_scale": 0.25
+        },
+        "measurement_seed": 1062305516
+      },
+      {
+        "action_rms": 0.0,
+        "attitude_rmse_rad": 0.0021867750598596482,
+        "case": "road0_seed1629",
+        "completed": true,
+        "duration_s": 0.20000000000000015,
+        "executed_steps": 20,
+        "height_rmse_m": 0.006466167072200227,
+        "mean_mechanical_power_w": 27.86905203576357,
+        "quality_pass": false,
+        "seed": 1629,
+        "terminal_reason": "time_limit",
+        "terrain": {
+          "cross_slope_deg": 0.6,
+          "layout": "s_bend",
+          "phase_x_rad": 1.55,
+          "phase_y_rad": 1.75,
+          "ripple_amplitude_m": 0.0085,
+          "schema": "d1-fixed-2d-road-v1",
+          "slope_deg": 1.35,
+          "step_height_m": 0.0085,
+          "wavelength_x_m": 0.72,
+          "wavelength_y_m": 1.02
+        },
+        "terrain_exposure": {
+          "nonflat_steps": 0,
+          "nonflat_fraction": 0.0,
+          "nonflat_now": false,
+          "path_m": 0.00099397000282553,
+          "nonflat_path_m": 0.0,
+          "unique_nonflat_0p25m_cells": 0
+        },
+        "velocity_rmse_mps": 0.13370574985365138,
+        "yaw_rmse_rps": 0.06303840972317314,
+        "csv_sha256": "6a463bfe3c07da850816de5c18b5f0ad0cab25843ec108a2259ccf0229b16e40",
+        "npz_sha256": "09d14ac94117f46ff35b397574cad59dd6741b97dfc80701c71db27e413c451e",
+        "schedule": {
+          "duration_s": 0.2,
+          "initial_command": {
+            "clearance_m": 0.455,
+            "forward_velocity_mps": 0.0,
+            "yaw_rate_rps": 0.0
+          },
+          "label": "commands-holdout-0.2s",
+          "schema": "d1-explicit-motion-schedule-v1",
+          "segments": [
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.1,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.24,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.044000000000000004,
+              "transition_s": 0.022000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.12,
+                "yaw_rate_rps": -0.14
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.44,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.16
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.47,
+                "forward_velocity_mps": 0.16,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.1,
+                "yaw_rate_rps": 0.1
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.12,
+                "yaw_rate_rps": -0.07
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.011999999999999983,
+              "transition_s": 0.0059999999999999915
+            }
+          ]
+        },
+        "controller_parameters": {
+          "wheel_kp": 0.55,
+          "wheel_ki": 1.5,
+          "yaw_feedback_gain": 4.0,
+          "leg_feedback_scale": 1.0,
+          "attitude_feedback_scale": 0.25
+        },
+        "measurement_seed": 107328092
+      },
+      {
+        "action_rms": 0.0,
+        "attitude_rmse_rad": 0.002138684637255198,
+        "case": "road1_seed1617",
+        "completed": true,
+        "duration_s": 0.20000000000000015,
+        "executed_steps": 20,
+        "height_rmse_m": 0.006471120635878233,
+        "mean_mechanical_power_w": 27.852963331288617,
+        "quality_pass": false,
+        "seed": 1617,
+        "terminal_reason": "time_limit",
+        "terrain": {
+          "cross_slope_deg": -0.6,
+          "layout": "diagonal",
+          "phase_x_rad": 2.15,
+          "phase_y_rad": 2.35,
+          "ripple_amplitude_m": 0.007,
+          "schema": "d1-fixed-2d-road-v1",
+          "slope_deg": -1.35,
+          "step_height_m": 0.007,
+          "wavelength_x_m": 0.82,
+          "wavelength_y_m": 1.12
+        },
+        "terrain_exposure": {
+          "nonflat_steps": 0,
+          "nonflat_fraction": 0.0,
+          "nonflat_now": false,
+          "path_m": 0.0010721870996056215,
+          "nonflat_path_m": 0.0,
+          "unique_nonflat_0p25m_cells": 0
+        },
+        "velocity_rmse_mps": 0.13391285109676743,
+        "yaw_rmse_rps": 0.06401976206486054,
+        "csv_sha256": "8403cccefbf445a1a40278e3d27773d139e3f24e90f5780c512a88815aea1b05",
+        "npz_sha256": "a8ed4bf13360d970acd8cfb2c0fb82ab766c098f9dbf5f2716c820418f06d529",
+        "schedule": {
+          "duration_s": 0.2,
+          "initial_command": {
+            "clearance_m": 0.455,
+            "forward_velocity_mps": 0.0,
+            "yaw_rate_rps": 0.0
+          },
+          "label": "commands-holdout-0.2s",
+          "schema": "d1-explicit-motion-schedule-v1",
+          "segments": [
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.1,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.24,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.044000000000000004,
+              "transition_s": 0.022000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.12,
+                "yaw_rate_rps": -0.14
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.44,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.16
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.47,
+                "forward_velocity_mps": 0.16,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.1,
+                "yaw_rate_rps": 0.1
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.12,
+                "yaw_rate_rps": -0.07
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.011999999999999983,
+              "transition_s": 0.0059999999999999915
+            }
+          ]
+        },
+        "controller_parameters": {
+          "wheel_kp": 0.55,
+          "wheel_ki": 1.5,
+          "yaw_feedback_gain": 4.0,
+          "leg_feedback_scale": 1.0,
+          "attitude_feedback_scale": 0.25
+        },
+        "measurement_seed": 1062305516
+      },
+      {
+        "action_rms": 0.0,
+        "attitude_rmse_rad": 0.0021752532853817398,
+        "case": "road1_seed1629",
+        "completed": true,
+        "duration_s": 0.20000000000000015,
+        "executed_steps": 20,
+        "height_rmse_m": 0.006456719331627601,
+        "mean_mechanical_power_w": 27.898144344723733,
+        "quality_pass": false,
+        "seed": 1629,
+        "terminal_reason": "time_limit",
+        "terrain": {
+          "cross_slope_deg": -0.6,
+          "layout": "diagonal",
+          "phase_x_rad": 2.15,
+          "phase_y_rad": 2.35,
+          "ripple_amplitude_m": 0.007,
+          "schema": "d1-fixed-2d-road-v1",
+          "slope_deg": -1.35,
+          "step_height_m": 0.007,
+          "wavelength_x_m": 0.82,
+          "wavelength_y_m": 1.12
+        },
+        "terrain_exposure": {
+          "nonflat_steps": 0,
+          "nonflat_fraction": 0.0,
+          "nonflat_now": false,
+          "path_m": 0.0010488034302341084,
+          "nonflat_path_m": 0.0,
+          "unique_nonflat_0p25m_cells": 0
+        },
+        "velocity_rmse_mps": 0.13378975767869436,
+        "yaw_rmse_rps": 0.0622164980269626,
+        "csv_sha256": "169738b55e47be750e58aaa33cf0bbd4d8070ca7d4c151376b82d12fad54bfea",
+        "npz_sha256": "9c8864f1fc2a0d65d021624a725fb720d56e829eea976dd37fcf3e2127bf4bbc",
+        "schedule": {
+          "duration_s": 0.2,
+          "initial_command": {
+            "clearance_m": 0.455,
+            "forward_velocity_mps": 0.0,
+            "yaw_rate_rps": 0.0
+          },
+          "label": "commands-holdout-0.2s",
+          "schema": "d1-explicit-motion-schedule-v1",
+          "segments": [
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.012,
+              "transition_s": 0.006
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.1,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.24,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.044000000000000004,
+              "transition_s": 0.022000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.12,
+                "yaw_rate_rps": -0.14
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.44,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.16
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.47,
+                "forward_velocity_mps": 0.16,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.024,
+              "transition_s": 0.012
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.1,
+                "yaw_rate_rps": 0.1
+              },
+              "duration_s": 0.020000000000000004,
+              "transition_s": 0.010000000000000002
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": -0.12,
+                "yaw_rate_rps": -0.07
+              },
+              "duration_s": 0.016,
+              "transition_s": 0.008
+            },
+            {
+              "command": {
+                "clearance_m": 0.455,
+                "forward_velocity_mps": 0.0,
+                "yaw_rate_rps": 0.0
+              },
+              "duration_s": 0.011999999999999983,
+              "transition_s": 0.0059999999999999915
+            }
+          ]
+        },
+        "controller_parameters": {
+          "wheel_kp": 0.55,
+          "wheel_ki": 1.5,
+          "yaw_feedback_gain": 4.0,
+          "leg_feedback_scale": 1.0,
+          "attitude_feedback_scale": 0.25
+        },
+        "measurement_seed": 107328092
+      }
+    ]
+  },
+  "comparisons": {
+    "development": {
+      "zero_physical_baseline": {
+        "cases": 4,
+        "completed": 4,
+        "failed": 0,
+        "terminal_reason_counts": {
+          "time_limit": 4
+        },
+        "quality_passes": 0,
+        "completed_only_means": {
+          "velocity_rmse_mps": 0.1284238175755201,
+          "yaw_rmse_rps": 0.07669114531049792,
+          "height_rmse_m": 0.010218953208531906,
+          "attitude_rmse_rad": 0.0024057627001643628,
+          "mean_mechanical_power_w": 39.94610254344899,
+          "action_rms": 0.0
+        },
+        "all_case_duration_s": [
+          0.20000000000000015,
+          0.20000000000000015,
+          0.20000000000000015,
+          0.20000000000000015
+        ],
+        "all_case_nonflat_fraction": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "per_seed": [
+        {
+          "training_seed": 31001,
+          "modes": {
+            "shared2": {
+              "cases": 4,
+              "completed": 4,
+              "failed": 0,
+              "terminal_reason_counts": {
+                "time_limit": 4
+              },
+              "quality_passes": 0,
+              "completed_only_means": {
+                "velocity_rmse_mps": 0.1283260268777888,
+                "yaw_rmse_rps": 0.075831286581739,
+                "height_rmse_m": 0.010233708701831112,
+                "attitude_rmse_rad": 0.002457661974784656,
+                "mean_mechanical_power_w": 40.19437430089165,
+                "action_rms": 0.009420563872457271
+              },
+              "all_case_duration_s": [
+                0.20000000000000015,
+                0.20000000000000015,
+                0.20000000000000015,
+                0.20000000000000015
+              ],
+              "all_case_nonflat_fraction": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "independent8": {
+              "cases": 4,
+              "completed": 4,
+              "failed": 0,
+              "terminal_reason_counts": {
+                "time_limit": 4
+              },
+              "quality_passes": 0,
+              "completed_only_means": {
+                "velocity_rmse_mps": 0.12853158679626742,
+                "yaw_rmse_rps": 0.07552471943262976,
+                "height_rmse_m": 0.010224144091989225,
+                "attitude_rmse_rad": 0.0024485101474692314,
+                "mean_mechanical_power_w": 40.10647851207419,
+                "action_rms": 0.008313898896254964
+              },
+              "all_case_duration_s": [
+                0.20000000000000015,
+                0.20000000000000015,
+                0.20000000000000015,
+                0.20000000000000015
+              ],
+              "all_case_nonflat_fraction": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "independent8_minus_shared2": [
+            {
+              "case": "road0_seed1017",
+              "both_completed": true,
+              "left_completed": true,
+              "right_completed": true,
+              "left_duration_s": 0.20000000000000015,
+              "right_duration_s": 0.20000000000000015,
+              "left_terminal_reason": "time_limit",
+              "right_terminal_reason": "time_limit",
+              "right_minus_left": {
+                "velocity_rmse_mps": 0.00013585507048252676,
+                "yaw_rmse_rps": 0.0011205946911787418,
+                "height_rmse_m": -1.605199306682452e-05,
+                "attitude_rmse_rad": -0.00017483166787905964,
+                "mean_mechanical_power_w": -0.7006515263764257,
+                "action_rms": -0.0011136782565851489
+              }
+            },
+            {
+              "case": "road0_seed1029",
+              "both_completed": true,
+              "left_completed": true,
+              "right_completed": true,
+              "left_duration_s": 0.20000000000000015,
+              "right_duration_s": 0.20000000000000015,
+              "left_terminal_reason": "time_limit",
+              "right_terminal_reason": "time_limit",
+              "right_minus_left": {
+                "velocity_rmse_mps": 0.0004307684429414038,
+                "yaw_rmse_rps": -0.0007180150264257251,
+                "height_rmse_m": -5.936920310280897e-07,
+                "attitude_rmse_rad": 1.5735519135611463e-05,
+                "mean_mechanical_power_w": 0.6445980838693472,
+                "action_rms": -0.0011005001772350816
+              }
+            },
+            {
+              "case": "road1_seed1017",
+              "both_completed": true,
+              "left_completed": true,
+              "right_completed": true,
+              "left_duration_s": 0.20000000000000015,
+              "right_duration_s": 0.20000000000000015,
+              "left_terminal_reason": "time_limit",
+              "right_terminal_reason": "time_limit",
+              "right_minus_left": {
+                "velocity_rmse_mps": 2.506207143904149e-05,
+                "yaw_rmse_rps": -0.0014248279946524056,
+                "height_rmse_m": -2.009125748728656e-05,
+                "attitude_rmse_rad": -1.4509950922904444e-05,
+                "mean_mechanical_power_w": -0.7180814722215274,
+                "action_rms": -0.0011068161102818323
+              }
+            },
+            {
+              "case": "road1_seed1029",
+              "both_completed": true,
+              "left_completed": true,
+              "right_completed": true,
+              "left_duration_s": 0.20000000000000015,
+              "right_duration_s": 0.20000000000000015,
+              "left_terminal_reason": "time_limit",
+              "right_terminal_reason": "time_limit",
+              "right_minus_left": {
+                "velocity_rmse_mps": 0.00023055408905145458,
+                "yaw_rmse_rps": -0.00020402026653755512,
+                "height_rmse_m": -1.5214967824164066e-06,
+                "attitude_rmse_rad": 0.00013699879040465594,
+                "mean_mechanical_power_w": 0.42255175945873447,
+                "action_rms": -0.0011056653607071608
+              }
+            }
+          ],
+          "policy_minus_zero": {
+            "shared2": [
+              {
+                "case": "road0_seed1017",
+                "both_completed": true,
+                "left_completed": true,
+                "right_completed": true,
+                "left_duration_s": 0.20000000000000015,
+                "right_duration_s": 0.20000000000000015,
+                "left_terminal_reason": "time_limit",
+                "right_terminal_reason": "time_limit",
+                "right_minus_left": {
+                  "velocity_rmse_mps": -4.472164502083986e-05,
+                  "yaw_rmse_rps": -0.0007169433942539327,
+                  "height_rmse_m": 2.949305545254556e-05,
+                  "attitude_rmse_rad": 9.619434763126749e-05,
+                  "mean_mechanical_power_w": 0.5476390512069571,
+                  "action_rms": 0.009426174765539794
+                }
+              },
+              {
+                "case": "road0_seed1029",
+                "both_completed": true,
+                "left_completed": true,
+                "right_completed": true,
+                "left_duration_s": 0.20000000000000015,
+                "right_duration_s": 0.20000000000000015,
+                "left_terminal_reason": "time_limit",
+                "right_terminal_reason": "time_limit",
+                "right_minus_left": {
+                  "velocity_rmse_mps": -0.0003272711923927585,
+                  "yaw_rmse_rps": -0.0011887951489253507,
+                  "height_rmse_m": 3.813351849494065e-06,
+                  "attitude_rmse_rad": 5.9687048964483184e-05,
+                  "mean_mechanical_power_w": -0.08897145342793777,
+                  "action_rms": 0.009414951839765165
+                }
+              },
+              {
+                "case": "road1_seed1017",
+                "both_completed": true,
+                "left_completed": true,
+                "right_completed": true,
+                "left_duration_s": 0.20000000000000015,
+                "right_duration_s": 0.20000000000000015,
+                "left_terminal_reason": "time_limit",
+                "right_terminal_reason": "time_limit",
+                "right_minus_left": {
+                  "velocity_rmse_mps": -1.3658872126204313e-05,
+                  "yaw_rmse_rps": -0.00011496748388539757,
+                  "height_rmse_m": 1.2041199960720686e-05,
+                  "attitude_rmse_rad": 0.00010218111669857595,
+                  "mean_mechanical_power_w": 0.658983028386622,
+                  "action_rms": 0.009421182672786986
+                }
+              },
+              {
+                "case": "road1_seed1029",
+                "both_completed": true,
+                "left_completed": true,
+                "right_completed": true,
+                "left_duration_s": 0.20000000000000015,
+                "right_duration_s": 0.20000000000000015,
+                "left_terminal_reason": "time_limit",
+                "right_terminal_reason": "time_limit",
+                "right_minus_left": {
+                  "velocity_rmse_mps": -5.511081385356498e-06,
+                  "yaw_rmse_rps": -0.0014187288879709964,
+                  "height_rmse_m": 1.3674365934062543e-05,
+                  "attitude_rmse_rad": -5.0465414813154284e-05,
+                  "mean_mechanical_power_w": -0.12456359639496384,
+                  "action_rms": 0.009419946211737138
+                }
+              }
+            ],
+            "independent8": [
+              {
+                "case": "road0_seed1017",
+                "both_completed": true,
+                "left_completed": true,
+                "right_completed": true,
+                "left_duration_s": 0.20000000000000015,
+                "right_duration_s": 0.20000000000000015,
+                "left_terminal_reason": "time_limit",
+                "right_terminal_reason": "time_limit",
+                "right_minus_left": {
+                  "velocity_rmse_mps": 9.11334254616869e-05,
+                  "yaw_rmse_rps": 0.00040365129692480906,
+                  "height_rmse_m": 1.3441062385721042e-05,
+                  "attitude_rmse_rad": -7.863732024779215e-05,
+                  "mean_mechanical_power_w": -0.1530124751694686,
+                  "action_rms": 0.008312496508954645
+                }
+              },
+              {
+                "case": "road0_seed1029",
+                "both_completed": true,
+                "left_completed": true,
+                "right_completed": true,
+                "left_duration_s": 0.20000000000000015,
+                "right_duration_s": 0.20000000000000015,
+                "left_terminal_reason": "time_limit",
+                "right_terminal_reason": "time_limit",
+                "right_minus_left": {
+                  "velocity_rmse_mps": 0.00010349725054864534,
+                  "yaw_rmse_rps": -0.0019068101753510758,
+                  "height_rmse_m": 3.2196598184659753e-06,
+                  "attitude_rmse_rad": 7.542256810009465e-05,
+                  "mean_mechanical_power_w": 0.5556266304414095,
+                  "action_rms": 0.008314451662530083
+                }
+              },
+              {
+                "case": "road1_seed1017",
+                "both_completed": true,
+                "left_completed": true,
+                "right_completed": true,
+                "left_duration_s": 0.20000000000000015,
+                "right_duration_s": 0.20000000000000015,
+                "left_terminal_reason": "time_limit",
+                "right_terminal_reason": "time_limit",
+                "right_minus_left": {
+                  "velocity_rmse_mps": 1.1403199312837176e-05,
+                  "yaw_rmse_rps": -0.0015397954785378032,
+                  "height_rmse_m": -8.050057526565874e-06,
+                  "attitude_rmse_rad": 8.76711657756715e-05,
+                  "mean_mechanical_power_w": -0.05909844383490537,
+                  "action_rms": 0.008314366562505154
+                }
+              },
+              {
+                "case": "road1_seed1029",
+                "both_completed": true,
+                "left_completed": true,
+                "right_completed": true,
+                "left_duration_s": 0.20000000000000015,
+                "right_duration_s": 0.20000000000000015,
+                "left_terminal_reason": "time_limit",
+                "right_terminal_reason": "time_limit",
+                "right_minus_left": {
+                  "velocity_rmse_mps": 0.00022504300766609808,
+                  "yaw_rmse_rps": -0.0016227491545085515,
+                  "height_rmse_m": 1.2152869151646137e-05,
+                  "attitude_rmse_rad": 8.653337559150166e-05,
+                  "mean_mechanical_power_w": 0.29798816306377063,
+                  "action_rms": 0.008314280851029978
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "holdout": {
+      "zero_physical_baseline": {
+        "cases": 4,
+        "completed": 4,
+        "failed": 0,
+        "terminal_reason_counts": {
+          "time_limit": 4
+        },
+        "quality_passes": 0,
+        "completed_only_means": {
+          "velocity_rmse_mps": 0.13381213700220332,
+          "yaw_rmse_rps": 0.06319981888378219,
+          "height_rmse_m": 0.006465484146066628,
+          "attitude_rmse_rad": 0.0021711643908365824,
+          "mean_mechanical_power_w": 27.832976912122326,
+          "action_rms": 0.0
+        },
+        "all_case_duration_s": [
+          0.20000000000000015,
+          0.20000000000000015,
+          0.20000000000000015,
+          0.20000000000000015
+        ],
+        "all_case_nonflat_fraction": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "per_seed": [
+        {
+          "training_seed": 31001,
+          "modes": {
+            "shared2": {
+              "cases": 4,
+              "completed": 4,
+              "failed": 0,
+              "terminal_reason_counts": {
+                "time_limit": 4
+              },
+              "quality_passes": 0,
+              "completed_only_means": {
+                "velocity_rmse_mps": 0.1338208594970563,
+                "yaw_rmse_rps": 0.06399307319103165,
+                "height_rmse_m": 0.006447169238616941,
+                "attitude_rmse_rad": 0.002192859841143883,
+                "mean_mechanical_power_w": 27.91463973536861,
+                "action_rms": 0.00928702898812346
+              },
+              "all_case_duration_s": [
+                0.20000000000000015,
+                0.20000000000000015,
+                0.20000000000000015,
+                0.20000000000000015
+              ],
+              "all_case_nonflat_fraction": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ]
+            },
+            "independent8": {
+              "cases": 4,
+              "completed": 4,
+              "failed": 0,
+              "terminal_reason_counts": {
+                "time_limit": 4
+              },
+              "quality_passes": 0,
+              "completed_only_means": {
+                "velocity_rmse_mps": 0.1338846275988287,
+                "yaw_rmse_rps": 0.06418262902561847,
+                "height_rmse_m": 0.006464515484559671,
+                "attitude_rmse_rad": 0.0022228437367134185,
+                "mean_mechanical_power_w": 27.67180462894318,
+                "action_rms": 0.00829893087714003
+              },
+              "all_case_duration_s": [
+                0.20000000000000015,
+                0.20000000000000015,
+                0.20000000000000015,
+                0.20000000000000015
+              ],
+              "all_case_nonflat_fraction": [
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ]
+            }
+          },
+          "independent8_minus_shared2": [
+            {
+              "case": "road0_seed1617",
+              "both_completed": true,
+              "left_completed": true,
+              "right_completed": true,
+              "left_duration_s": 0.20000000000000015,
+              "right_duration_s": 0.20000000000000015,
+              "left_terminal_reason": "time_limit",
+              "right_terminal_reason": "time_limit",
+              "right_minus_left": {
+                "velocity_rmse_mps": 0.00013068240991989666,
+                "yaw_rmse_rps": -0.0013887489342940679,
+                "height_rmse_m": 1.9287773211818134e-05,
+                "attitude_rmse_rad": 0.00010225035082402729,
+                "mean_mechanical_power_w": -0.18491483900534078,
+                "action_rms": -0.0009848712862801177
+              }
+            },
+            {
+              "case": "road0_seed1629",
+              "both_completed": true,
+              "left_completed": true,
+              "right_completed": true,
+              "left_duration_s": 0.20000000000000015,
+              "right_duration_s": 0.20000000000000015,
+              "left_terminal_reason": "time_limit",
+              "right_terminal_reason": "time_limit",
+              "right_minus_left": {
+                "velocity_rmse_mps": -8.485806140734464e-05,
+                "yaw_rmse_rps": 0.0001662081774608387,
+                "height_rmse_m": 1.3600971136827969e-05,
+                "attitude_rmse_rad": 7.646575589113393e-05,
+                "mean_mechanical_power_w": -0.41780020931240003,
+                "action_rms": -0.0009898072522598646
+              }
+            },
+            {
+              "case": "road1_seed1617",
+              "both_completed": true,
+              "left_completed": true,
+              "right_completed": true,
+              "left_duration_s": 0.20000000000000015,
+              "right_duration_s": 0.20000000000000015,
+              "left_terminal_reason": "time_limit",
+              "right_terminal_reason": "time_limit",
+              "right_minus_left": {
+                "velocity_rmse_mps": 7.728645645010968e-05,
+                "yaw_rmse_rps": 0.0019811578072850833,
+                "height_rmse_m": 1.8617962491417582e-05,
+                "attitude_rmse_rad": -7.251827367659846e-06,
+                "mean_mechanical_power_w": -0.1392177707886546,
+                "action_rms": -0.000986634741442876
+              }
+            },
+            {
+              "case": "road1_seed1629",
+              "both_completed": true,
+              "left_completed": true,
+              "right_completed": true,
+              "left_duration_s": 0.20000000000000015,
+              "right_duration_s": 0.20000000000000015,
+              "left_terminal_reason": "time_limit",
+              "right_terminal_reason": "time_limit",
+              "right_minus_left": {
+                "velocity_rmse_mps": 0.0001319616021269454,
+                "yaw_rmse_rps": -3.9371210452943117e-07,
+                "height_rmse_m": 1.7878276930856536e-05,
+                "attitude_rmse_rad": -5.152869706936004e-05,
+                "mean_mechanical_power_w": -0.22940760659533765,
+                "action_rms": -0.0009910791639508518
+              }
+            }
+          ],
+          "policy_minus_zero": {
+            "shared2": [
+              {
+                "case": "road0_seed1617",
+                "both_completed": true,
+                "left_completed": true,
+                "right_completed": true,
+                "left_duration_s": 0.20000000000000015,
+                "right_duration_s": 0.20000000000000015,
+                "left_terminal_reason": "time_limit",
+                "right_terminal_reason": "time_limit",
+                "right_minus_left": {
+                  "velocity_rmse_mps": -3.546158296285906e-06,
+                  "yaw_rmse_rps": 0.0019623769993530327,
+                  "height_rmse_m": -8.433993899964465e-06,
+                  "attitude_rmse_rad": -3.584746052180893e-05,
+                  "mean_mechanical_power_w": 0.35871550481852665,
+                  "action_rms": 0.009283741652102457
+                }
+              },
+              {
+                "case": "road0_seed1629",
+                "both_completed": true,
+                "left_completed": true,
+                "right_completed": true,
+                "left_duration_s": 0.20000000000000015,
+                "right_duration_s": 0.20000000000000015,
+                "left_terminal_reason": "time_limit",
+                "right_terminal_reason": "time_limit",
+                "right_minus_left": {
+                  "velocity_rmse_mps": 0.00011971710679767322,
+                  "yaw_rmse_rps": 0.0005343327099689571,
+                  "height_rmse_m": -1.5243794100608908e-05,
+                  "attitude_rmse_rad": 1.04149850548357e-05,
+                  "mean_mechanical_power_w": 0.2543131161419083,
+                  "action_rms": 0.009290208286337304
+                }
+              },
+              {
+                "case": "road1_seed1617",
+                "both_completed": true,
+                "left_completed": true,
+                "right_completed": true,
+                "left_duration_s": 0.20000000000000015,
+                "right_duration_s": 0.20000000000000015,
+                "left_terminal_reason": "time_limit",
+                "right_terminal_reason": "time_limit",
+                "right_minus_left": {
+                  "velocity_rmse_mps": 2.215068316602231e-06,
+                  "yaw_rmse_rps": -0.0003483865380184137,
+                  "height_rmse_m": -2.258819948788935e-05,
+                  "attitude_rmse_rad": 4.089044093771128e-05,
+                  "mean_mechanical_power_w": -0.023863844149911273,
+                  "action_rms": 0.009284545520583392
+                }
+              },
+              {
+                "case": "road1_seed1629",
+                "both_completed": true,
+                "left_completed": true,
+                "right_completed": true,
+                "left_duration_s": 0.20000000000000015,
+                "right_duration_s": 0.20000000000000015,
+                "left_terminal_reason": "time_limit",
+                "right_terminal_reason": "time_limit",
+                "right_minus_left": {
+                  "velocity_rmse_mps": -8.349603740609446e-05,
+                  "yaw_rmse_rps": 0.0010246940576942101,
+                  "height_rmse_m": -2.6993642310286017e-05,
+                  "attitude_rmse_rad": 7.132383575846404e-05,
+                  "mean_mechanical_power_w": -0.2625134838253942,
+                  "action_rms": 0.009289620493470683
+                }
+              }
+            ],
+            "independent8": [
+              {
+                "case": "road0_seed1617",
+                "both_completed": true,
+                "left_completed": true,
+                "right_completed": true,
+                "left_duration_s": 0.20000000000000015,
+                "right_duration_s": 0.20000000000000015,
+                "left_terminal_reason": "time_limit",
+                "right_terminal_reason": "time_limit",
+                "right_minus_left": {
+                  "velocity_rmse_mps": 0.00012713625162361075,
+                  "yaw_rmse_rps": 0.0005736280650589648,
+                  "height_rmse_m": 1.0853779311853669e-05,
+                  "attitude_rmse_rad": 6.640289030221836e-05,
+                  "mean_mechanical_power_w": 0.17380066581318587,
+                  "action_rms": 0.00829887036582234
+                }
+              },
+              {
+                "case": "road0_seed1629",
+                "both_completed": true,
+                "left_completed": true,
+                "right_completed": true,
+                "left_duration_s": 0.20000000000000015,
+                "right_duration_s": 0.20000000000000015,
+                "left_terminal_reason": "time_limit",
+                "right_terminal_reason": "time_limit",
+                "right_minus_left": {
+                  "velocity_rmse_mps": 3.485904539032858e-05,
+                  "yaw_rmse_rps": 0.0007005408874297958,
+                  "height_rmse_m": -1.6428229637809391e-06,
+                  "attitude_rmse_rad": 8.688074094596963e-05,
+                  "mean_mechanical_power_w": -0.1634870931704917,
+                  "action_rms": 0.00830040103407744
+                }
+              },
+              {
+                "case": "road1_seed1617",
+                "both_completed": true,
+                "left_completed": true,
+                "right_completed": true,
+                "left_duration_s": 0.20000000000000015,
+                "right_duration_s": 0.20000000000000015,
+                "left_terminal_reason": "time_limit",
+                "right_terminal_reason": "time_limit",
+                "right_minus_left": {
+                  "velocity_rmse_mps": 7.95015247667119e-05,
+                  "yaw_rmse_rps": 0.0016327712692666696,
+                  "height_rmse_m": -3.970236996471768e-06,
+                  "attitude_rmse_rad": 3.3638613570051434e-05,
+                  "mean_mechanical_power_w": -0.16308161493856588,
+                  "action_rms": 0.008297910779140516
+                }
+              },
+              {
+                "case": "road1_seed1629",
+                "both_completed": true,
+                "left_completed": true,
+                "right_completed": true,
+                "left_duration_s": 0.20000000000000015,
+                "right_duration_s": 0.20000000000000015,
+                "left_terminal_reason": "time_limit",
+                "right_terminal_reason": "time_limit",
+                "right_minus_left": {
+                  "velocity_rmse_mps": 4.846556472085095e-05,
+                  "yaw_rmse_rps": 0.0010243003455896807,
+                  "height_rmse_m": -9.115365379429481e-06,
+                  "attitude_rmse_rad": 1.9795138689104007e-05,
+                  "mean_mechanical_power_w": -0.49192109042073184,
+                  "action_rms": 0.008298541329519831
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "limitations": [
+    "Only three training seeds in the formal study; no confidence interval or universal action-dimension conclusion.",
+    "Both modes share low-level control; output-layer parameter counts and physical-action correlations still differ.",
+    "New evaluation terrain parameter instances reuse known layout families and existing command schedules.",
+    "Completed-only means exclude failures and must be read with all-case durations and completion counts.",
+    "Recorded Gaussian/GAE arithmetic is not an optimizer replay, dynamics verification, or hardware claim."
+  ]
+}

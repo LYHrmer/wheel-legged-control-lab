@@ -29,12 +29,20 @@ from stable_baselines3.common.callbacks import BaseCallback
 from stable_baselines3.common.monitor import Monitor
 from stable_baselines3.common.vec_env import DummyVecEnv, SubprocVecEnv
 
+from wheel_legged_control.d1.control_loop import (
+    D1ForceControllerAdapter,
+    D1WheelLegControllerAdapter,
+)
 from wheel_legged_control.d1.locomotion_env import (
     LOCOMOTION_SPAWN_POSITION_M,
+    POLICY_ACTION_MODES,
+    SHARED_POLICY_ACTION_SCHEMA,
+    SHARED_POLICY_TO_PHYSICAL_INDICES,
     D1LocomotionEnv,
     D1LocomotionRandomization,
 )
 from wheel_legged_control.d1.locomotion_terrain import (
+    LOCOMOTION_TERRAIN_SUITES,
     D1LocomotionTerrainConfig,
     locomotion_terrain_configs,
 )
@@ -147,6 +155,60 @@ def wheel_control_config(args):
     return D1WheelLegControlConfig(**overrides) if overrides else None
 
 
+def declared_action_contract(baseline, action_mode=None):
+    """Pre-dispatch declaration; train/evaluate also check actual env properties."""
+    if baseline not in ("wheel_leg", "lqr", "mpc"):
+        raise ValueError("baseline must be wheel_leg, lqr or mpc")
+    if action_mode is not None and (
+        action_mode not in POLICY_ACTION_MODES or baseline != "wheel_leg"
+    ):
+        raise ValueError(
+            "explicit action-mode must be shared2/independent8 with baseline wheel_leg"
+        )
+    adapter = D1WheelLegControllerAdapter if baseline == "wheel_leg" else D1ForceControllerAdapter
+    resolved = (action_mode or "independent8") if baseline == "wheel_leg" else "legacy_force2"
+    shared = resolved == "shared2"
+    return {
+        "action_mode": resolved,
+        "action_schema": SHARED_POLICY_ACTION_SCHEMA if shared else adapter.action_schema,
+        "policy_action_size": 2 if shared else adapter.action_size,
+        "physical_action_size": adapter.action_size,
+        "physical_action_schema": adapter.action_schema,
+        "policy_to_physical_indices": list(
+            SHARED_POLICY_TO_PHYSICAL_INDICES if shared else range(adapter.action_size)
+        ),
+    }
+
+
+def environment_action_contract(env):
+    base = env.unwrapped
+    contract = {
+        name: getattr(base, name)
+        for name in (
+            "action_mode",
+            "action_schema",
+            "policy_action_size",
+            "physical_action_size",
+            "physical_action_schema",
+            "policy_to_physical_indices",
+        )
+    }
+    contract["policy_to_physical_indices"] = list(contract["policy_to_physical_indices"])
+    if env.action_space.shape != (contract["policy_action_size"],):
+        raise ValueError("actual action space does not match policy action contract")
+    return contract
+
+
+def evaluation_seeds(split, suite="v1"):
+    if suite not in LOCOMOTION_TERRAIN_SUITES:
+        raise ValueError("suite must be v1 or action_compare_v1")
+    if split not in ("flat", "development", "holdout"):
+        raise ValueError("evaluation split must be flat, development, or holdout")
+    if suite == "action_compare_v1":
+        return (1617, 1629) if split == "holdout" else (1017, 1029)
+    return (617, 629) if split == "holdout" else (17, 29)
+
+
 class EpisodeRecord(gym.Wrapper):
     """One reset seed stream owned by Gym; None resets advance it reproducibly."""
 
@@ -175,7 +237,11 @@ def make_env(
     delay_randomization=False,
     directory=None,
     wheel_control=None,
+    action_mode=None,
+    terrain_suite="v1",
 ):
+    declared = declared_action_contract(baseline, action_mode)
+    terrains = locomotion_terrain_configs("train", suite=terrain_suite)
     torch.set_num_threads(1)
     randomization = (
         D1LocomotionRandomization(
@@ -190,11 +256,15 @@ def make_env(
     env = D1LocomotionEnv(
         baseline=baseline,
         episode_seconds=duration_s,
-        terrain=locomotion_terrain_configs("train")[worker % 4],
+        terrain=terrains[worker % len(terrains)],
         provider_config=provider_config(source),
         randomization=randomization,
         wheel_leg_control=wheel_control,
+        action_mode=action_mode,
     )
+    if environment_action_contract(env) != declared:
+        env.close()
+        raise ValueError("actual environment differs from declared action contract")
     if directory is not None:
         env = EpisodeRecord(env, directory / f"worker{worker}_episodes.jsonl")
         env = Monitor(env, str(directory / f"worker{worker}"))
@@ -213,6 +283,8 @@ def make_vec(args, workers, directory=None):
             args.delay_randomization,
             directory,
             wheel_control=wheel_control_config(args),
+            action_mode=getattr(args, "action_mode", None),
+            terrain_suite=getattr(args, "terrain_suite", "v1"),
         )
         for worker in range(workers)
     ]
@@ -275,6 +347,12 @@ def benchmark(args, directory):
 
 
 class RolloutAudit(BaseCallback):
+    """Legacy raw/applied columns remain raw/clipped policy-space aliases.
+
+    Physical actions come from the execution receipt, never from broadcasting
+    Gaussian samples. PPO's distribution and log probability stay policy-sized.
+    """
+
     def __init__(self, directory):
         super().__init__()
         self.directory = directory
@@ -287,6 +365,7 @@ class RolloutAudit(BaseCallback):
             np.asarray(self.locals["clipped_actions"]),
         )
         for worker, info in enumerate(self.locals["infos"]):
+            physical = np.asarray(info["applied_action"])
             self.rows.append(
                 {
                     "worker": worker,
@@ -294,6 +373,9 @@ class RolloutAudit(BaseCallback):
                     "reward": float(self.locals["rewards"][worker]),
                     "raw_action_rms": float(np.sqrt(np.mean(raw[worker] ** 2))),
                     "applied_action_rms": float(np.sqrt(np.mean(applied[worker] ** 2))),
+                    "policy_raw_action_rms": float(np.sqrt(np.mean(raw[worker] ** 2))),
+                    "policy_clipped_action_rms": float(np.sqrt(np.mean(applied[worker] ** 2))),
+                    "physical_applied_action_rms": float(np.sqrt(np.mean(physical**2))),
                     "raw_action_clipped_fraction": float(np.mean(raw[worker] != applied[worker])),
                     "nonflat_now": info["terrain_exposure"]["nonflat_now"],
                     "terminated": info["terminal_reason"] not in (None, "time_limit"),
@@ -303,6 +385,18 @@ class RolloutAudit(BaseCallback):
                     **{
                         f"applied_action_{axis}": float(value)
                         for axis, value in enumerate(applied[worker])
+                    },
+                    **{
+                        f"policy_raw_action_{axis}": float(value)
+                        for axis, value in enumerate(raw[worker])
+                    },
+                    **{
+                        f"policy_clipped_action_{axis}": float(value)
+                        for axis, value in enumerate(applied[worker])
+                    },
+                    **{
+                        f"physical_applied_action_{axis}": float(value)
+                        for axis, value in enumerate(physical)
                     },
                     **info["metrics"],
                     **{f"reward_{name}": value for name, value in info["reward_terms"].items()},
@@ -357,9 +451,14 @@ def train(args, directory):
             args.history,
             args.delay_randomization,
             wheel_control=wheel_control_config(args),
+            action_mode=getattr(args, "action_mode", None),
+            terrain_suite=getattr(args, "terrain_suite", "v1"),
         )
         try:
             reference.reset(seed=args.seed)
+            action_contract = environment_action_contract(reference)
+            if learner.action_space.shape != (action_contract["policy_action_size"],):
+                raise ValueError("learner and checkpoint reference action dimensions differ")
             write_checkpoint_metadata(
                 directory / "checkpoint.zip",
                 reference,
@@ -374,6 +473,10 @@ def train(args, directory):
             "samples_per_second": learner.num_timesteps / wall,
             "checkpoint_sha256": sha256(directory / "checkpoint.zip"),
             "updates": learner._n_updates,
+            "policy_action_size": action_contract["policy_action_size"],
+            "physical_action_size": action_contract["physical_action_size"],
+            "policy_parameter_count": sum(p.numel() for p in learner.policy.parameters()),
+            "action_contract": action_contract,
         }
         write_json(directory / "training.json", result)
         print(json.dumps(result), flush=True)
@@ -407,12 +510,15 @@ def evaluate(args, directory):
     from wheel_legged_control.d1.locomotion_checkpoint import load_locomotion_policy
 
     results = []
+    suite = getattr(args, "terrain_suite", "v1")
+    action_mode = getattr(args, "action_mode", None)
+    declared = declared_action_contract(args.baseline, action_mode)
+    seeds = evaluation_seeds(args.split, suite)
     configs = (
         (D1LocomotionTerrainConfig(),)
         if args.split == "flat"
-        else locomotion_terrain_configs(args.split)
+        else locomotion_terrain_configs(args.split, suite=suite)
     )
-    seeds = (17, 29) if args.split != "holdout" else (617, 629)
     for terrain_index, terrain in enumerate(configs):
         for seed in seeds:
             name = f"road{terrain_index}_seed{seed}"
@@ -423,15 +529,19 @@ def evaluate(args, directory):
                 command_mode="holdout" if args.split == "holdout" else "development",
                 provider_config=provider_config(args.source, args.measurement_delay),
                 wheel_leg_control=wheel_control_config(args),
+                action_mode=action_mode,
             )
             env = D1ObservationHistory(base, args.history)
             try:
                 obs, reset_info = env.reset(seed=seed)
+                action_contract = environment_action_contract(env)
+                if action_contract != declared:
+                    raise ValueError("actual environment differs from declared action contract")
                 model = (
                     load_locomotion_policy(args.policy, args.metadata, env) if args.policy else None
                 )
                 # Loader validation must not reset the environment or draw action samples.
-                rows, states, actions = [], [base.plant.data.qpos.copy()], []
+                rows, states, actions, physical_actions = [], [base.plant.data.qpos.copy()], [], []
                 while True:
                     action = (
                         model.predict(obs, deterministic=True)[0]
@@ -439,18 +549,20 @@ def evaluate(args, directory):
                         else np.zeros(env.action_space.shape, np.float32)
                     )
                     obs, reward, terminated, truncated, info = env.step(action)
+                    physical = np.asarray(info["applied_action"]).copy()
                     rows.append(
                         {
                             **info["metrics"],
                             **{f"command_{k}": v for k, v in info["command"].items()},
                             "reward": reward,
-                            "action_mean_square": float(np.mean(np.square(action))),
+                            "action_mean_square": float(np.mean(np.square(physical))),
                             "nonflat_now": info["terrain_exposure"]["nonflat_now"],
                             **{f"reward_{k}": v for k, v in info["reward_terms"].items()},
                         }
                     )
                     states.append(base.plant.data.qpos.copy())
                     actions.append(action.copy())
+                    physical_actions.append(physical)
                     if terminated or truncated:
                         break
                 with (directory / f"{name}.csv").open("w", newline="") as stream:
@@ -458,7 +570,12 @@ def evaluate(args, directory):
                     writer.writeheader()
                     writer.writerows(rows)
                 np.savez_compressed(
-                    directory / f"{name}.npz", qpos=np.asarray(states), actions=np.asarray(actions)
+                    directory / f"{name}.npz",
+                    qpos=np.asarray(states),
+                    actions=np.asarray(actions),
+                    policy_actions=np.asarray(actions),
+                    physical_actions=np.asarray(physical_actions),
+                    action_contract_json=np.asarray(json.dumps(action_contract, sort_keys=True)),
                 )
                 result = {
                     "case": name,
@@ -467,7 +584,10 @@ def evaluate(args, directory):
                     **summarize(rows, info),
                 }
                 results.append(result)
-                write_json(directory / f"{name}_episode.json", reset_info["episode_metadata"])
+                write_json(
+                    directory / f"{name}_episode.json",
+                    {**reset_info["episode_metadata"], "terrain_suite": suite},
+                )
                 write_json(directory / "evaluation.json", results)
                 print(json.dumps(result), flush=True)
             finally:
@@ -480,6 +600,8 @@ def parser():
     p.add_argument("mode", choices=("benchmark", "train", "evaluate"))
     p.add_argument("--output", type=Path, required=True)
     p.add_argument("--baseline", choices=("wheel_leg", "lqr", "mpc"), default="wheel_leg")
+    p.add_argument("--action-mode", choices=POLICY_ACTION_MODES, default=None)
+    p.add_argument("--terrain-suite", choices=LOCOMOTION_TERRAIN_SUITES, default="v1")
     p.add_argument("--wheel-kp", type=float)
     p.add_argument("--wheel-ki", type=float)
     p.add_argument("--yaw-feedback-gain", type=float)
@@ -512,6 +634,7 @@ def main():
     args = p.parse_args()
     try:
         wheel_control_config(args)
+        action_contract = declared_action_contract(args.baseline, args.action_mode)
     except (TypeError, ValueError) as exc:
         p.error(str(exc))
     if (
@@ -557,11 +680,27 @@ def main():
         "replication_unit": "training seed, not episode steps",
         "sensor_noise": asdict(NOISE),
         "noise_origin": "synthetic, not calibrated D1 data",
+        "terrain_suite": args.terrain_suite,
+        "action_contract": action_contract,
+        "action_contract_origin": "declared from arguments; checked against actual train/evaluate environments",
+        "action_recording": {
+            "training_raw_action": "SB3 raw Gaussian policy action; alias policy_raw_action",
+            "training_applied_action": "SB3 clipped policy action; alias policy_clipped_action",
+            "training_physical_applied_action": "actual physical action from environment receipt",
+            "evaluation_actions": "deterministic policy prediction; alias policy_actions",
+            "evaluation_physical_actions": "actual physical action from environment receipt",
+        },
         "terrain_splits": {
-            split: [asdict(config) for config in locomotion_terrain_configs(split)]
+            split: [
+                asdict(config)
+                for config in locomotion_terrain_configs(split, suite=args.terrain_suite)
+            ]
             for split in ("train", "development", "holdout")
         },
-        "evaluation_seeds": {"development": [17, 29], "holdout": [617, 629]},
+        "evaluation_seeds": {
+            split: list(evaluation_seeds(split, args.terrain_suite))
+            for split in ("development", "holdout")
+        },
         "command_splits": "development and holdout schedules in frozen locomotion_commands.py; full targets logged per episode",
         "python": platform.python_version(),
         "versions": {

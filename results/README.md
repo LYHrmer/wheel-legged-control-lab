@@ -12,6 +12,9 @@
 | [组合压力测试](d1_v3_unseen_stress/README.md) | 30 ms、两倍噪声标准差与 0.6 倍滑动摩擦；16 例均失败 |
 | [执行器辨识移植](d1_v3_actuator_transfer/README.md) | 合成增益/时间常数/延迟拟合、独立激励验证、整机补偿得失 |
 | [位置编码器辨识](encoder_identification_position_only/README.md) | 独立单轮练习：仅位置与 q+v 拟合、模型失配、未见激励及四臂 PI 前馈对照 |
+| [编码器速度反馈](encoder_feedback_position_only/README.md) | 162 例；位置估速的 tracking/reversal 跟踪误差高于独立速度参考，stress 误差下降但限幅增多 |
+| [摩擦与延迟辨识](friction_delay_cross_study/README.md) | 54 次拟合中 24 次延迟误判；low_speed 在额外摩擦场景的留出预测与控制误差均增大 |
+| [同底座动作对照](d1_shared_action_study/README.md) | 六模型共用轮腿低层；共享两维与独立八维的逐种子结果，384 次 PPO 数学记录复算 |
 | [同步采样检查](d1_v3_sampling_final_audit/README.md) | 采样相位、COM 与机身原点速度的区别 |
 | [历史连续任务](d1_continuous_policy/README.md) | 45 维路线的固定预算与配对分析；不等于新主线 |
 

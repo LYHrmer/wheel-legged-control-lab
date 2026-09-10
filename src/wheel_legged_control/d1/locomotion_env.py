@@ -53,6 +53,12 @@ from .wheel_leg_controller import (
 
 LOCOMOTION_REWARD_SCHEMA = "d1-command-tracking-rate-v1"
 LOCOMOTION_TASK_SCHEMA = "d1-fixed-road-command-task-v1"
+SHARED_POLICY_ACTION_SCHEMA = "d1-shared-wheel-leg-extension-speed-v1"
+# One leg-extension and one wheel-speed policy dimension replicated onto the
+# unchanged physical eight-dimensional schema. The map is a pure gather: no
+# normalization, reordering or scaling happens here.
+SHARED_POLICY_TO_PHYSICAL_INDICES = (0, 0, 0, 0, 1, 1, 1, 1)
+POLICY_ACTION_MODES = ("shared2", "independent8")
 LOCOMOTION_SPAWN_POSITION_M = (*LOCOMOTION_SPAWN_XY_M, 0.455)
 # The body-origin boundary leaves room for the whole footprint before the
 # collision map ends. It is a safety termination, not task completion.
@@ -130,10 +136,18 @@ class D1LocomotionEnv(gym.Env):
         reward_config: D1LocomotionRewardConfig | None = None,
         command_source: Callable[[float], D1MotionCommand] | None = None,
         wheel_leg_control: D1WheelLegControlConfig | None = None,
+        action_mode: str | None = None,
     ):
         super().__init__()
         if baseline not in ("wheel_leg", "lqr", "mpc"):
             raise ValueError("baseline must be wheel_leg, lqr or mpc")
+        if action_mode is not None:
+            # Rejected before any simulator/controller exists: an unsupported
+            # policy mapping must never build a half-configured environment.
+            if action_mode not in POLICY_ACTION_MODES:
+                raise ValueError("action_mode must be None, 'shared2' or 'independent8'")
+            if baseline != "wheel_leg":
+                raise ValueError("action_mode requires the wheel_leg baseline")
         if wheel_leg_control is not None and baseline != "wheel_leg":
             raise ValueError("wheel_leg_control requires the wheel_leg baseline")
         if wheel_leg_control is not None and not isinstance(
@@ -212,9 +226,22 @@ class D1LocomotionEnv(gym.Env):
                 else D1MPCVMCController(self.plant)
             )
         )
-        self.action_schema = self._controller.action_schema
+        self.physical_action_schema = self._controller.action_schema
+        self.physical_action_size = self._controller.action_size
+        self.action_mode = (
+            ("independent8" if action_mode is None else action_mode)
+            if baseline == "wheel_leg"
+            else "legacy_force2"
+        )
+        shared = self.action_mode == "shared2"
+        self.action_schema = SHARED_POLICY_ACTION_SCHEMA if shared else self.physical_action_schema
+        self.policy_action_size = 2 if shared else self.physical_action_size
+        self.policy_to_physical_indices = (
+            SHARED_POLICY_TO_PHYSICAL_INDICES if shared else tuple(range(self.physical_action_size))
+        )
+        self._policy_gather = np.asarray(self.policy_to_physical_indices, dtype=np.intp)
         self.source_schema = self.provider_config.source_schema
-        self.action_space = spaces.Box(-1.0, 1.0, (self._controller.action_size,), dtype=np.float32)
+        self.action_space = spaces.Box(-1.0, 1.0, (self.policy_action_size,), dtype=np.float32)
         self.observation_space = spaces.Box(
             -5.0, 5.0, (LOCOMOTION_OBSERVATION_SIZE,), dtype=np.float32
         )
@@ -347,6 +374,11 @@ class D1LocomotionEnv(gym.Env):
             ),
             "observation_schema": self.observation_schema,
             "action_schema": self.action_schema,
+            "action_mode": self.action_mode,
+            "policy_action_size": self.policy_action_size,
+            "physical_action_size": self.physical_action_size,
+            "physical_action_schema": self.physical_action_schema,
+            "policy_to_physical_indices": list(self.policy_to_physical_indices),
             "source_schema": self.source_schema,
             "reward_schema": self.reward_schema,
             "baseline": self.baseline_name,
@@ -432,12 +464,25 @@ class D1LocomotionEnv(gym.Env):
             "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
         }
 
+    def _policy_action(self, action):
+        """Validate the policy action, then gather it onto physical dimensions.
+
+        Validation does not advance physics or consume the prepared decision.
+        The environment still requires reset after an error, as before this
+        mapping existed. Clipping belongs to the physical control loop.
+        """
+        policy = np.asarray(action, dtype=np.float64)
+        if policy.shape != (self.policy_action_size,) or not np.isfinite(policy).all():
+            raise ValueError("action must match the finite action schema (policy dimensions)")
+        return policy.copy(), policy[self._policy_gather]
+
     def step(self, action):
         if not self._active:
             raise RuntimeError("reset must precede step or follow episode end")
-        self._ground_query_clamped = False
         try:
-            transition = self.loop.step(action)
+            policy, physical = self._policy_action(action)
+            self._ground_query_clamped = False
+            transition = self.loop.step(physical)
             self.last_transition = transition
             self._steps += 1
             ground = self._bounded_ground_query(*transition.truth.base_position[:2])
@@ -493,6 +538,7 @@ class D1LocomotionEnv(gym.Env):
                 "ground_query_clamped": self._ground_query_clamped,
                 "raw_action": transition.raw_action.copy(),
                 "applied_action": transition.receipt.normalized_action.copy(),
+                "policy_action": policy,
             }
         except Exception:
             # Do not turn numerical/invariant failures into fabricated terminal

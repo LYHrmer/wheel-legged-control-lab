@@ -14,6 +14,10 @@ v0.6.0 的逐步 CSV、NPZ、编译模型 MJB、源码快照放在同仓库的
 源码快照直接保存在 Git 的 `results/encoder_identification_position_only/`，无需下载上述
 Release。它是独立的新实验，不属于 v0.6.0 的冻结附件。
 
+本轮编码器反馈、摩擦与延迟辨识，以及同底座动作比较，计划单独放入 v0.7.0，
+见下方 [v0.7.0 下载与复算](#v070下载与复算)。它不替换 v0.6.0 附件。
+下面的分片表及“下载后先校验”“从日志复算”两节仍只对应 v0.6.0。
+
 整包上传两次因连接中断失败，Release 改用 128 MiB 分片。下载以下几类附件：
 
 | 文件 | 用途 |
@@ -84,6 +88,100 @@ python scripts/audit_d1_ppo_math.py \
 
 前者核对原始轨迹、命令和完整评测矩阵；后者重算 GAE、Gaussian 概率及裁剪相关量。
 它们分别回答不同的问题，见[主线学习文档](locomotion_lab.md)。
+
+## v0.7.0：下载与复算
+
+本轮待发布，实际附件完整后可执行本节命令。新包与 v0.6.0 分开下载，不把两版的同名
+分片或清单放进一个目录。每片为 128 MiB，末片可能较小；文件名仍为
+`result_artifacts.tar.gz.partNNNN`，并带 `parts_manifest.json`、`archive_manifest.json`
+和 `SHA256SUMS`。
+
+新包计划包含以下九个实验或分析目录，另带 `results/artifact_licenses/` 的许可证：
+
+| 内容 | 包内目录，均位于 `results/` |
+|---|---|
+| 编码器位置反馈 | `encoder_feedback_position_only/`、`encoder_feedback_analysis/` |
+| 摩擦与延迟辨识 | `friction_delay_cross_study/`、`friction_delay_cross_analysis/`、`friction_delay_cross_plots/` |
+| 同底座动作比较 | `d1_shared_action_smoke/`、`d1_shared_action_smoke_analysis/`、`d1_shared_action_study/`、`d1_shared_action_analysis/` |
+
+smoke 是小预算流程检查，不能代替正式三训练种子的结果。发布清单中的
+`packaging_git_head` 仍只说明打包版本；训练源码以各实验自己的源码快照为准。
+新发布号不会改变旧实验的来源标识。
+
+### 下载、重组和解包
+
+在仓库根目录运行。下面三个目录都必须尚不存在；任一步报错就停止，先检查缺片或哈希
+不一致的原因，不修改清单绕过校验。下载需要 GitHub CLI，也可以手动下载该版本全部
+分片和三份元数据到相同目录。
+
+```bash
+mkdir downloaded-artifacts-v070
+gh release download v0.7.0 --repo LYHrmer/wheel-legged-control-lab \
+  --dir downloaded-artifacts-v070 --pattern 'result_artifacts.tar.gz.part*' \
+  --pattern parts_manifest.json \
+  --pattern archive_manifest.json --pattern SHA256SUMS
+
+python scripts/transfer_result_artifacts.py join \
+  --directory downloaded-artifacts-v070 --output joined-artifacts-v070
+
+python scripts/verify_result_artifacts.py --directory joined-artifacts-v070
+```
+
+重组器校验分片和整包字节；校验器继续检查压缩包中的成员。只有两步都成功后，才解到
+第三个新目录。不要将下面的解包目标改成已有的 `results/`。
+
+```bash
+mkdir restored-artifacts-v070
+tar --extract --gzip --file joined-artifacts-v070/result_artifacts.tar.gz \
+  --directory restored-artifacts-v070 --keep-old-files --no-same-owner --no-same-permissions
+```
+
+包内路径恢复为 `restored-artifacts-v070/results/...`，Git 中的原始记录不变。
+同时保留分片、重组包和解包文件，约需“压缩包大小的两倍加解包大小”的空间，另留操作
+余量。本轮准确大小待打包完成后补充；解包总字节数以 `archive_manifest.json` 的
+`total_input_bytes` 为准，不能沿用上面 v0.6.0 的 8 GB 建议当作新包实测值。
+
+### 三组独立复算
+
+安装 NumPy 后，以下脚本只读已有记录，不加载 checkpoint，也不运行 MuJoCo 或 PPO
+训练。这里直接使用附件中保留的分析脚本，使分析版本与原报告对应。输出统一写到仓库的
+`results/my_v070_*`，必须是新文件或新目录，且不能放回被审计目录。不要使用 `python -O`。
+
+编码器反馈检查完整逐拍递推与时间戳：
+
+```bash
+python restored-artifacts-v070/results/encoder_feedback_analysis/audit_feedback.py \
+  --directory restored-artifacts-v070/results/encoder_feedback_position_only \
+  --output results/my_v070_encoder_feedback_audit.json
+```
+
+摩擦与延迟辨识重算记录中的预测误差和控制指标：
+
+```bash
+python restored-artifacts-v070/results/friction_delay_cross_analysis/analysis_source.py \
+  restored-artifacts-v070/results/friction_delay_cross_study \
+  --output results/my_v070_friction_delay_analysis
+```
+
+同底座动作比较核对策略空间与物理执行空间，按案例配对，并复算保存的 PPO 算术：
+
+```bash
+python restored-artifacts-v070/results/d1_shared_action_analysis/analyze_d1_shared_actions.py \
+  restored-artifacts-v070/results/d1_shared_action_study \
+  --output results/my_v070_shared_action_analysis
+```
+
+同底座分析目录内的 `audit_d1_locomotion.py` 与 `audit_d1_ppo_math.py` 是配套依赖，运行时
+保留在 `analyze_d1_shared_actions.py` 旁边。若只检查 smoke，仍使用正式分析目录
+`d1_shared_action_analysis/` 中的脚本与配套模块，仅把输入改为 `d1_shared_action_smoke/`，
+输出改成另一个新目录。旧 smoke 分析脚本存在目录迁移后的路径校验问题，不能用于下载
+副本的复算；其原运行快照仍保留追溯。修复只调整路径校验，不改训练记录或数值算术，
+也不能把小预算的分析称为正式三种子结果。
+
+复算通过只说明文件和记录中的算术满足检查条件。它不会重新求解辨识优化问题，也不重放
+PPO 参数更新或证明仿真模型可信。延迟误判、力矩限幅增加与未完成回合仍应保留在结果中。
+重新运行实验的参数和学习说明见[编码器闭环](encoder_feedback.md)、
+[摩擦与延迟辨识](friction_delay_identification.md)，以及 [README](../README.md) 的同底座实验入口。
 
 ## 重新运行时保留哪些条件
 

@@ -1,0 +1,176 @@
+{
+  "status": "verified",
+  "directory": "/home/lyh/wheel-legged-control-lab/results/encoder_feedback_position_only",
+  "full_protocol_required": true,
+  "case_count": 162,
+  "raw_rows": 486000,
+  "source_members": 15,
+  "manifest_files": 228,
+  "post_experiment_docs_not_in_original_manifest": [
+    "README.md"
+  ],
+  "summary_status": "completed",
+  "completed_cases": 162,
+  "guard_cases": 0,
+  "fits": [
+    {
+      "scenario": "matched",
+      "parameters": {
+        "armature": 0.01699947357477179,
+        "damping": 0.10505890144339874,
+        "coulomb_friction": 0.04288394968319066,
+        "delay_steps": 2
+      },
+      "selected_success": true,
+      "candidate_nfev": [
+        7,
+        7,
+        6,
+        7,
+        7
+      ],
+      "candidate_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "scenario": "mismatch",
+      "parameters": {
+        "armature": 0.017243628145503877,
+        "damping": 0.10746109740301255,
+        "coulomb_friction": 0.050992525796971847,
+        "delay_steps": 4
+      },
+      "selected_success": true,
+      "candidate_nfev": [
+        8,
+        8,
+        8,
+        7,
+        7
+      ],
+      "candidate_success": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    }
+  ],
+  "paired_comparisons": [
+    {
+      "condition": "noisy",
+      "feedback": "difference_lowpass",
+      "pairs": 18,
+      "rmse_lower_count": 6,
+      "rmse_higher_count": 12,
+      "median_rmse_ratio_to_reference": 1.5400256314846015,
+      "worst_rmse_ratio": 2.479515990547154,
+      "worst_case": [
+        "matched",
+        "noisy",
+        101,
+        "tracking",
+        "difference_lowpass"
+      ],
+      "max_saturation_fraction": 0.5803333333333334,
+      "max_current_estimation_rmse_rad_s": 0.4687553406040424
+    },
+    {
+      "condition": "noisy",
+      "feedback": "alpha_beta",
+      "pairs": 18,
+      "rmse_lower_count": 6,
+      "rmse_higher_count": 12,
+      "median_rmse_ratio_to_reference": 1.8416195040123449,
+      "worst_rmse_ratio": 3.589395084966094,
+      "worst_case": [
+        "matched",
+        "noisy",
+        101,
+        "tracking",
+        "alpha_beta"
+      ],
+      "max_saturation_fraction": 0.5876666666666667,
+      "max_current_estimation_rmse_rad_s": 0.7094929963865909
+    },
+    {
+      "condition": "quantized",
+      "feedback": "difference_lowpass",
+      "pairs": 18,
+      "rmse_lower_count": 6,
+      "rmse_higher_count": 12,
+      "median_rmse_ratio_to_reference": 1.5404384141094538,
+      "worst_rmse_ratio": 2.4789096573494573,
+      "worst_case": [
+        "matched",
+        "quantized",
+        101,
+        "tracking",
+        "difference_lowpass"
+      ],
+      "max_saturation_fraction": 0.5806666666666667,
+      "max_current_estimation_rmse_rad_s": 0.4716976052751469
+    },
+    {
+      "condition": "quantized",
+      "feedback": "alpha_beta",
+      "pairs": 18,
+      "rmse_lower_count": 6,
+      "rmse_higher_count": 12,
+      "median_rmse_ratio_to_reference": 1.8413864050699242,
+      "worst_rmse_ratio": 3.5883882504415237,
+      "worst_case": [
+        "matched",
+        "quantized",
+        101,
+        "tracking",
+        "alpha_beta"
+      ],
+      "max_saturation_fraction": 0.588,
+      "max_current_estimation_rmse_rad_s": 0.7097091388879442
+    },
+    {
+      "condition": "delayed",
+      "feedback": "difference_lowpass",
+      "pairs": 18,
+      "rmse_lower_count": 6,
+      "rmse_higher_count": 12,
+      "median_rmse_ratio_to_reference": 1.3638096827656296,
+      "worst_rmse_ratio": 1.6908439714222743,
+      "worst_case": [
+        "matched",
+        "delayed",
+        101,
+        "tracking",
+        "difference_lowpass"
+      ],
+      "max_saturation_fraction": 0.6003333333333334,
+      "max_current_estimation_rmse_rad_s": 1.150412877558011
+    },
+    {
+      "condition": "delayed",
+      "feedback": "alpha_beta",
+      "pairs": 18,
+      "rmse_lower_count": 6,
+      "rmse_higher_count": 12,
+      "median_rmse_ratio_to_reference": 1.5508599517687225,
+      "worst_rmse_ratio": 2.042373261481366,
+      "worst_case": [
+        "matched",
+        "delayed",
+        101,
+        "tracking",
+        "alpha_beta"
+      ],
+      "max_saturation_fraction": 0.612,
+      "max_current_estimation_rmse_rad_s": 1.3973489317786705
+    }
+  ],
+  "scope": "Checks raw arithmetic, timing, deterministic sensor draws, pairing, shared fit and archive integrity; does not rerun hidden physical dynamics, prove optimizer quality, or claim hardware/closed-loop robustness."
+}

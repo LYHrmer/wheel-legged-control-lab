@@ -33,6 +33,74 @@ _UNSCALED_CONTROLLER_SCHEMAS = (
 )
 _UNSCALED_GAIN_FIELDS = ("wheel_kp", "wheel_ki", "yaw_feedback_gain")
 _FEEDBACK_SCALE_FIELDS = ("leg_feedback_scale", "attitude_feedback_scale")
+_ACTION_CONTRACT_KEYS = (
+    "action_mode",
+    "policy_action_size",
+    "physical_action_size",
+    "physical_action_schema",
+    "policy_to_physical_indices",
+)
+# Modes whose policy dimensions are the physical dimensions: their pre-mapping
+# sidecars are unambiguous, because action_schema and action_dim already pin the
+# one-to-one contract. A shared policy has no such implicit description.
+_ONE_TO_ONE_ACTION_MODES = ("independent8", "legacy_force2")
+
+
+def _environment_action_contract(env) -> dict:
+    """Read the resolved policy/physical mapping a sidecar has to reproduce."""
+    fields = {name: env.get_wrapper_attr(name) for name in _ACTION_CONTRACT_KEYS}
+    for name in ("action_mode", "physical_action_schema"):
+        if not isinstance(fields[name], str) or not fields[name]:
+            raise ValueError(f"{name} must be a nonempty string")
+    for name in ("policy_action_size", "physical_action_size"):
+        value = fields[name]
+        if isinstance(value, bool) or not isinstance(value, int) or value < 1:
+            raise ValueError(f"{name} must be a positive integer dimension")
+    indices = list(fields["policy_to_physical_indices"])
+    if len(indices) != fields["physical_action_size"] or any(
+        isinstance(index, bool)
+        or not isinstance(index, int)
+        or not 0 <= index < fields["policy_action_size"]
+        for index in indices
+    ):
+        raise ValueError("policy_to_physical_indices must index the policy action per dimension")
+    if _space_record(env.action_space)["shape"][0] != fields["policy_action_size"]:
+        raise ValueError("action_space must expose the policy action size")
+    fields["policy_to_physical_indices"] = [int(index) for index in indices]
+    return fields
+
+
+def _action_contract(metadata: dict, expected: dict) -> dict:
+    """Normalize a sidecar's action mapping, rejecting partial/mistyped records.
+
+    Sidecars written before the shared mapping existed carry none of these
+    fields and stay loadable for one-to-one modes only. Anything present must be
+    complete and strictly typed: a bool is not a dimension or an index, and a
+    float is not an index even when it is equal-valued.
+    """
+    present = [name for name in _ACTION_CONTRACT_KEYS if name in metadata]
+    if not present:
+        if expected["action_mode"] not in _ONE_TO_ONE_ACTION_MODES:
+            raise ValueError("checkpoint action_mode is required for a shared policy mapping")
+        return dict(expected)
+    missing = [name for name in _ACTION_CONTRACT_KEYS if name not in metadata]
+    if missing:
+        raise ValueError(f"checkpoint {missing[0]} is missing from a partial action contract")
+    fields = {name: metadata[name] for name in _ACTION_CONTRACT_KEYS}
+    for name in ("action_mode", "physical_action_schema"):
+        if type(fields[name]) is not str:
+            raise ValueError(f"checkpoint {name} must be a string")
+    for name in ("policy_action_size", "physical_action_size"):
+        if type(fields[name]) is not int:
+            raise ValueError(f"checkpoint {name} must be an integer dimension")
+    indices = fields["policy_to_physical_indices"]
+    if type(indices) is not list or any(type(index) is not int for index in indices):
+        raise ValueError("checkpoint policy_to_physical_indices must be a list of integers")
+    if len(indices) != fields["physical_action_size"] or any(
+        not 0 <= index < fields["policy_action_size"] for index in indices
+    ):
+        raise ValueError("checkpoint policy_to_physical_indices does not match its action sizes")
+    return fields
 
 
 def _controller_parameters(metadata: dict, expected: dict) -> dict:
@@ -101,6 +169,9 @@ def _environment_contract(env) -> dict:
     for name in ("action_schema", "source_schema"):
         if env.get_wrapper_attr(name) != fields[name]:
             raise ValueError(f"wrapper {name} differs from the task")
+    action_contract = _environment_action_contract(env)
+    if any(episode[name] != value for name, value in action_contract.items()):
+        raise ValueError("recorded action contract differs from the environment")
     observation_schema = env.get_wrapper_attr("observation_schema")
     if not isinstance(observation_schema, str) or not observation_schema:
         raise ValueError("observation_schema must be a nonempty string")
@@ -124,6 +195,7 @@ def _environment_contract(env) -> dict:
         ),
         "schema": CHECKPOINT_SCHEMA,
         **fields,
+        **action_contract,
         "observation_schema": observation_schema,
         "history_length": history_length,
         "observation_dim": observation["shape"][0],
@@ -165,11 +237,15 @@ def load_locomotion_policy(model_path, metadata_path, env):
     metadata = json.loads(Path(metadata_path).read_text())
     if not isinstance(metadata, dict):
         raise TypeError("checkpoint metadata must be an object")
-    for name, expected in _environment_contract(env).items():
+    contract = _environment_contract(env)
+    action = _action_contract(metadata, {name: contract[name] for name in _ACTION_CONTRACT_KEYS})
+    for name, expected in contract.items():
         # JSON equality alone would accept True as history_length=1.
         actual = (
             _controller_parameters(metadata, expected)
             if name == "controller_parameters"
+            else action[name]
+            if name in _ACTION_CONTRACT_KEYS
             else metadata.get(name)
         )
         if type(actual) is not type(expected) or actual != expected:

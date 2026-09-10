@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "data_origin": "synthetic_only",
+  "created_utc": "2026-09-10T04:12:52.844465+00:00",
+  "arguments": {
+    "output": "/home/lyh/wheel-legged-control-lab/results/friction_delay_cross_study",
+    "frictions": [
+      0.0,
+      0.04,
+      0.08
+    ],
+    "actual_delays": [
+      0,
+      2,
+      4
+    ],
+    "families": [
+      "standard",
+      "low_speed"
+    ],
+    "seeds": [
+      53,
+      67,
+      79
+    ],
+    "calibration_duration": 3.0,
+    "duration": 6.0,
+    "max_delay_steps": 4,
+    "max_nfev": 30,
+    "noise_scale": 1.0
+  },
+  "versions": {
+    "numpy": "2.2.6",
+    "scipy": "1.15.3",
+    "mujoco": "3.12.0"
+  },
+  "bench_config": {
+    "kind": "wheel",
+    "dt": 0.002,
+    "torque_limit_nm": 2.0
+  },
+  "controller_config_all_conditions": {
+    "kp": 0.12,
+    "ki": 0.6,
+    "dt": 0.002,
+    "torque_limit_nm": 2.0
+  },
+  "nominal_parameters": {
+    "armature": 0.01,
+    "damping": 0.08,
+    "coulomb_friction": 0.025,
+    "delay_steps": 0
+  },
+  "continuous_truth_not_available_to_fitter_or_controller": {
+    "armature": 0.017,
+    "damping": 0.105,
+    "coulomb_friction": 0.043
+  },
+  "grids": {
+    "extra_hidden_stribeck_friction_nm": [
+      0.0,
+      0.04,
+      0.08
+    ],
+    "hidden_actual_delay_steps": [
+      0,
+      2,
+      4
+    ],
+    "calibration_families": [
+      "standard",
+      "low_speed"
+    ],
+    "noise_seeds": [
+      53,
+      67,
+      79
+    ]
+  },
+  "position_noise_std_rad": 0.0002,
+  "expected_counts": {
+    "fits": 54,
+    "candidates": 270,
+    "prediction_metric_rows": 432,
+    "control_cases": 324
+  },
+  "protocol": {
+    "identification": "position-only encoder logs; no velocity or applied torque",
+    "selection": "two calibration logs only, minimum calibration loss",
+    "held_out_pairing": "validation/holdout commands and noise identical across families",
+    "seeds": "repeated measurement noise for one object, not independent robots",
+    "control": "fitted parameters change controller feedforward only, never the plant",
+    "delay_compensation": "none; no pure-delay inversion",
+    "nominal_rows": "duplicated across families as paired references, not new samples"
+  }
+}

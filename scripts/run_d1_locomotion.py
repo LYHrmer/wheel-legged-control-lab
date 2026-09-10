@@ -223,7 +223,7 @@ def run(env, output: Path, *, seed=17, policy_path=None, metadata_path=None, key
             "command_csv_sha256": _sha256(base.command_source.path)
             if isinstance(base.command_source, RecordedCommands)
             else None,
-            "action_record": "policy-returned action before runtime clipping; not a latent Gaussian sample",
+            "action_record": "policy_action is policy-returned, not latent Gaussian; raw_action/applied_action are physical residual channels before/after clipping",
             "state_record": "qpos/qvel and time include reset, then each completed control interval",
             "source_sha256": source_hashes,
             "asset_sha256": asset_hashes,
@@ -243,7 +243,7 @@ def run(env, output: Path, *, seed=17, policy_path=None, metadata_path=None, key
             viewer_context = mujoco.viewer.launch_passive(
                 viewer_model, viewer_data, key_callback=keyboard.key_callback
             )
-        rows, rewards, actions, applied, motor_torques = [], [], [], [], []
+        rows, rewards, actions, applied, motor_torques, policy_actions = [], [], [], [], [], []
         states = [base.plant.measurement_data.qpos.copy()]
         velocities = [base.plant.measurement_data.qvel.copy()]
         times, observations = [0.0], [observation.copy()]
@@ -291,10 +291,13 @@ def run(env, output: Path, *, seed=17, policy_path=None, metadata_path=None, key
                     ):
                         row[f"action_returned_{index}"] = float(raw)
                         row[f"action_applied_{index}"] = float(sent)
+                    for index, value in enumerate(action):
+                        row[f"policy_action_{index}"] = float(value)
                     rows.append(row)
                     rewards.append(reward)
                     actions.append(transition.raw_action)
                     applied.append(transition.receipt.normalized_action)
+                    policy_actions.append(np.asarray(action).copy())
                     motor_torques.append(
                         np.asarray(
                             [
@@ -335,8 +338,9 @@ def run(env, output: Path, *, seed=17, policy_path=None, metadata_path=None, key
                 qvel=np.asarray(velocities),
                 time_s=np.asarray(times),
                 observation=np.asarray(observations),
-                raw_action=np.asarray(actions).reshape(-1, env.action_space.shape[0]),
-                applied_action=np.asarray(applied).reshape(-1, env.action_space.shape[0]),
+                policy_action=np.asarray(policy_actions).reshape(-1, env.action_space.shape[0]),
+                raw_action=np.asarray(actions).reshape(-1, base.physical_action_size),
+                applied_action=np.asarray(applied).reshape(-1, base.physical_action_size),
                 actuator_applied_nm=np.asarray(motor_torques).reshape(
                     -1, base.plant.physics_steps, 16
                 ),
@@ -378,6 +382,7 @@ def build_parser():
         "--output", type=Path, required=True, help="new directory; never overwritten"
     )
     parser.add_argument("--baseline", choices=("wheel_leg", "lqr", "mpc"), default="wheel_leg")
+    parser.add_argument("--action-mode", choices=("shared2", "independent8"))
     parser.add_argument("--wheel-kp", type=float)
     parser.add_argument("--wheel-ki", type=float)
     parser.add_argument("--yaw-feedback-gain", type=float)
@@ -418,6 +423,7 @@ def build_parser():
         "--terrain-json", type=Path, help="explicit D1LocomotionTerrainConfig JSON"
     )
     parser.add_argument("--terrain-index", type=int, default=0)
+    parser.add_argument("--terrain-suite", choices=("v1", "action_compare_v1"), default="v1")
     parser.add_argument("--source", choices=("oracle", "sensor"), default="sensor")
     parser.add_argument("--sensor-delay-steps", type=int, default=0, help="10 ms measurement steps")
     parser.add_argument("--actuator-delay-steps", type=int, default=0, help="2 ms physics steps")
@@ -443,6 +449,8 @@ def main(argv=None):
 
     parser = build_parser()
     args = parser.parse_args(argv)
+    if args.action_mode is not None and args.baseline != "wheel_leg":
+        parser.error("explicit action mode requires --baseline wheel_leg")
     overrides = {
         name: getattr(args, name)
         for name in (
@@ -475,7 +483,7 @@ def main(argv=None):
             parser.error("flat terrain has only index 0")
         terrain = D1LocomotionTerrainConfig()
     else:
-        configs = locomotion_terrain_configs(args.terrain)
+        configs = locomotion_terrain_configs(args.terrain, suite=args.terrain_suite)
         if not 0 <= args.terrain_index < len(configs):
             parser.error("terrain index is out of range for the chosen split")
         terrain = configs[args.terrain_index]
@@ -511,6 +519,7 @@ def main(argv=None):
     env = D1ObservationHistory(
         D1LocomotionEnv(
             baseline=args.baseline,
+            action_mode=args.action_mode,
             episode_seconds=seconds,
             terrain=terrain,
             command_mode=args.command_mode,
