@@ -14,7 +14,7 @@ v0.6.0 的逐步 CSV、NPZ、编译模型 MJB、源码快照放在同仓库的
 源码快照直接保存在 Git 的 `results/encoder_identification_position_only/`，无需下载上述
 Release。它是独立的新实验，不属于 v0.6.0 的冻结附件。
 
-本轮编码器反馈、摩擦与延迟辨识，以及同底座动作比较，计划单独放入 v0.7.0，
+本轮编码器反馈、摩擦与延迟辨识，以及同底座动作比较，单独归档为 v0.7.0，
 见下方 [v0.7.0 下载与复算](#v070下载与复算)。它不替换 v0.6.0 附件。
 下面的分片表及“下载后先校验”“从日志复算”两节仍只对应 v0.6.0。
 
@@ -91,12 +91,13 @@ python scripts/audit_d1_ppo_math.py \
 
 ## v0.7.0：下载与复算
 
-本轮待发布，实际附件完整后可执行本节命令。新包与 v0.6.0 分开下载，不把两版的同名
+本节针对 [v0.7.0 附件](https://github.com/LYHrmer/wheel-legged-control-lab/releases/tag/v0.7.0)。
+下载时应取得五个分片和三份元数据。新包与 v0.6.0 分开下载，不把两版的同名
 分片或清单放进一个目录。每片为 128 MiB，末片可能较小；文件名仍为
 `result_artifacts.tar.gz.partNNNN`，并带 `parts_manifest.json`、`archive_manifest.json`
 和 `SHA256SUMS`。
 
-新包计划包含以下九个实验或分析目录，另带 `results/artifact_licenses/` 的许可证：
+新包包含以下九个实验或分析目录，另带 `results/artifact_licenses/` 的许可证：
 
 | 内容 | 包内目录，均位于 `results/` |
 |---|---|
@@ -137,9 +138,13 @@ tar --extract --gzip --file joined-artifacts-v070/result_artifacts.tar.gz \
 ```
 
 包内路径恢复为 `restored-artifacts-v070/results/...`，Git 中的原始记录不变。
-同时保留分片、重组包和解包文件，约需“压缩包大小的两倍加解包大小”的空间，另留操作
-余量。本轮准确大小待打包完成后补充；解包总字节数以 `archive_manifest.json` 的
-`total_input_bytes` 为准，不能沿用上面 v0.6.0 的 8 GB 建议当作新包实测值。
+压缩包为 625,636,942 字节，解包后 2254 个文件共 938,859,118 字节。前四片各 128 MiB，
+第五片为 88,766,030 字节。同时保留分片、重组包和解包文件约需 2.19 GB，建议至少留
+3 GB 空间。准确成员清单及解包总字节数以 `archive_manifest.json` 为准。
+
+完整压缩包 SHA-256 为 `bc45b722bab51d787022be2f26668b6e50d2b60b5247c39d48235edd962c8de8`。
+它从干净提交 `d3ae5d8e873d87a98947821a85eda5025ea30ec0` 打包；随后补充的本文下载说明
+不改变包内实验记录，不能据此改写打包清单的来源字段。
 
 ### 三组独立复算
 
