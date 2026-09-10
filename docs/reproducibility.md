@@ -6,9 +6,13 @@
 ## 代码仓库和原始数据各放什么
 
 Git 保存源码、学习文档、协议与摘要，也包含策略 checkpoint、演示视频和回归测试必需的原始文件。
-新的逐步 CSV、NPZ、编译模型 MJB、源码快照放在同仓库的
+v0.6.0 的逐步 CSV、NPZ、编译模型 MJB、源码快照放在同仓库的
 [v0.6.0 Release 附件](https://github.com/LYHrmer/wheel-legged-control-lab/releases/tag/v0.6.0)。
 历史已跟踪的数据仍保留，不改写 Git 历史。
+
+后来新增的[位置编码器单轮实验](encoder_identification.md)体积较小，完整 CSV/CSV.gz、图和
+源码快照直接保存在 Git 的 `results/encoder_identification_position_only/`，无需下载上述
+Release。它是独立的新实验，不属于 v0.6.0 的冻结附件。
 
 整包上传两次因连接中断失败，Release 改用 128 MiB 分片。下载以下几类附件：
 

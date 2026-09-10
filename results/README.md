@@ -11,9 +11,11 @@
 | [九模型延迟对照](d1_v3_delay_ablation/README.md) | 单帧、四帧、随机化；固定预算，完整失败矩阵与 576 次更新复算 |
 | [组合压力测试](d1_v3_unseen_stress/README.md) | 30 ms、两倍噪声标准差与 0.6 倍滑动摩擦；16 例均失败 |
 | [执行器辨识移植](d1_v3_actuator_transfer/README.md) | 合成增益/时间常数/延迟拟合、独立激励验证、整机补偿得失 |
+| [位置编码器辨识](encoder_identification_position_only/README.md) | 独立单轮练习：仅位置与 q+v 拟合、模型失配、未见激励及四臂 PI 前馈对照 |
 | [同步采样检查](d1_v3_sampling_final_audit/README.md) | 采样相位、COM 与机身原点速度的区别 |
 | [历史连续任务](d1_continuous_policy/README.md) | 45 维路线的固定预算与配对分析；不等于新主线 |
 
-协议、结果 JSON 和小体积图像留在 Git。新 CSV/NPZ/MJB 与源码归档由 Release 附件提供，
+协议、结果 JSON 和小体积图像留在 Git。整机逐步 CSV/NPZ/MJB 与源码归档由 Release 附件提供；
+上表的位置编码器单轮实验较小，完整记录直接留在 Git。
 见[下载与复算说明](../docs/reproducibility.md)。目录里的失败记录也是实验结果，
 清理草稿时不删除它们。

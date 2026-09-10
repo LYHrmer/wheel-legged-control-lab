@@ -1,0 +1,101 @@
+{
+  "schema": "position-only-bench-comparison-v1",
+  "created_utc": "2026-09-10T02:53:18.305002+00:00",
+  "arguments": {
+    "output": "/home/lyh/wheel-legged-control-lab/results/encoder_identification_position_only",
+    "seeds": [
+      17,
+      29,
+      43
+    ],
+    "scenario": "both",
+    "duration": 6.0,
+    "calibration_duration": 3.0,
+    "noise_scale": 1.0,
+    "max_delay_steps": 4,
+    "max_nfev": 30
+  },
+  "data_origin": "synthetic_only",
+  "paper": "https://arxiv.org/html/2509.06342v2#S2.SS2",
+  "paper_adaptation": "known torque replay, smooth friction, bounded least squares; no position PD/CMA-ES",
+  "bench": {
+    "kind": "wheel",
+    "dt": 0.002,
+    "torque_limit_nm": 2.0
+  },
+  "controller_all_arms": {
+    "kp": 0.12,
+    "ki": 0.6,
+    "dt": 0.002,
+    "torque_limit_nm": 2.0
+  },
+  "generator_truth_not_available_to_fitter": {
+    "armature": 0.017,
+    "damping": 0.105,
+    "coulomb_friction": 0.043,
+    "delay_steps": 2
+  },
+  "mismatch_extra_stribeck_friction_nm": 0.08,
+  "parameter_bounds": {
+    "armature": [
+      0.002,
+      0.06
+    ],
+    "damping": [
+      0.001,
+      0.35
+    ],
+    "coulomb_friction": [
+      0.0,
+      0.2
+    ]
+  },
+  "residual_scales": {
+    "position_rad": 0.05,
+    "velocity_rad_s": 0.5
+  },
+  "initialization_both_fits": "first measured position, known zero velocity, zero pending commands",
+  "position_noise_std_rad": 0.0002,
+  "reference_velocity_noise_std_rad_s": 0.002,
+  "fit_inputs": {
+    "position": [
+      "command",
+      "position"
+    ],
+    "position_velocity": [
+      "command",
+      "position",
+      "synthetic measured velocity"
+    ]
+  },
+  "fit_selection": "two calibration trajectories only; all integer delays and optimizer statuses retained",
+  "heldout_prediction": "whole validation chirp and holdout steps/reversals excluded from fitting",
+  "closed_loop_feedback": "synthetic velocity measurement; not a position-only controller",
+  "closed_loop_pairing": "same plant, initial state, PI gains, references and noise at each time",
+  "delay_compensation": "none; estimated delay is not inverted by feedforward",
+  "metric_timing": "current reference minus current true velocity; not next-state velocity",
+  "expected_prediction_rows": 72,
+  "expected_control_cases": 72,
+  "scenarios": [
+    "matched",
+    "mismatch"
+  ],
+  "profiles": [
+    "tracking",
+    "reversal",
+    "stress"
+  ],
+  "arms": [
+    "pi",
+    "nominal_ff",
+    "position_ff",
+    "position_velocity_ff"
+  ],
+  "versions": {
+    "numpy": "2.2.6",
+    "scipy": "1.15.3",
+    "mujoco": "3.12.0",
+    "matplotlib": "3.10.6"
+  },
+  "scope": "single known load and hidden parameter set with repeated noise; no population or D1 claim"
+}

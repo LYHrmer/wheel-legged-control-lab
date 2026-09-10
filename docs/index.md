@@ -28,8 +28,9 @@
 | 9 | [contact_allocation.md](contact_allocation.md)、[inverse_dynamics.md](inverse_dynamics.md) | 约束接触力分配，整机任务空间 QP | 6 |
 | 10 | [delay_learning_lab.md](delay_learning_lab.md) | 四帧观测、两种延迟、固定预算与失败配对 | 5、8 |
 | 11 | [actuator_transfer.md](actuator_transfer.md) | 合成辨识进入整机通道，跟踪改善与运动收益的区别 | 7 |
+| 12 | [encoder_identification.md](encoder_identification.md) | 只用位置辨识、可辨识性限制、四组单轮前馈对照 | 7 |
 
-第 7、9 行是独立支线，没接进主线控制器；第 8 行的融合器同时被主线的 `sensor` 状态源使用。
+第 7、9、12 行是独立支线，没接进主线控制器；第 8 行的融合器同时被主线的 `sensor` 状态源使用。
 
 ## 当前主线：82 维共用循环
 

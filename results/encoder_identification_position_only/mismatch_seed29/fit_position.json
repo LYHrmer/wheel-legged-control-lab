@@ -1,0 +1,87 @@
+{
+  "scenario": "mismatch",
+  "seed": 29,
+  "observation": "position",
+  "parameters": {
+    "armature": 0.01724289353191063,
+    "damping": 0.10734333725576284,
+    "coulomb_friction": 0.05118533281028499,
+    "delay_steps": 4
+  },
+  "candidates": [
+    {
+      "parameters": {
+        "armature": 0.018287393623679704,
+        "damping": 0.10611432088759237,
+        "coulomb_friction": 0.05190209094459944,
+        "delay_steps": 0
+      },
+      "calibration_loss": 0.1319956791827155,
+      "optimizer_success": true,
+      "nfev": 8,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "parameters": {
+        "armature": 0.018026793325033985,
+        "damping": 0.10641744879062816,
+        "coulomb_friction": 0.05172739501921695,
+        "delay_steps": 1
+      },
+      "calibration_loss": 0.11432197200191102,
+      "optimizer_success": true,
+      "nfev": 8,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "parameters": {
+        "armature": 0.01776587270172022,
+        "damping": 0.10672325393199554,
+        "coulomb_friction": 0.051549808100619224,
+        "delay_steps": 2
+      },
+      "calibration_loss": 0.0989359430104457,
+      "optimizer_success": true,
+      "nfev": 8,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "parameters": {
+        "armature": 0.017504583840353992,
+        "damping": 0.10703183371077545,
+        "coulomb_friction": 0.051369201717042956,
+        "delay_steps": 3
+      },
+      "calibration_loss": 0.08582958765429045,
+      "optimizer_success": true,
+      "nfev": 7,
+      "message": "`ftol` termination condition is satisfied."
+    },
+    {
+      "parameters": {
+        "armature": 0.01724289353191063,
+        "damping": 0.10734333725576284,
+        "coulomb_friction": 0.05118533281028499,
+        "delay_steps": 4
+      },
+      "calibration_loss": 0.07499347526887948,
+      "optimizer_success": true,
+      "nfev": 7,
+      "message": "`ftol` termination condition is satisfied."
+    }
+  ],
+  "jacobian_singular_values": [
+    40.116340727944596,
+    9.16140743594246,
+    4.600126337208646
+  ],
+  "jacobian_rank": 3,
+  "fit_seconds": 4.571032016989193,
+  "fit_status": {
+    "optimizer_success": true,
+    "continuous_parameters_at_bounds": [],
+    "delay_at_search_boundary": true,
+    "normalized_jacobian_condition": 8.720704125766938,
+    "diagnostic_scope": "local continuous sensitivity at selected delay, not global identifiability"
+  }
+}
