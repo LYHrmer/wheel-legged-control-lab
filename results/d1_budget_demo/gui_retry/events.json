@@ -1,0 +1,243 @@
+{
+  "kind": "automated_real_gui_integration",
+  "human_manual_acceptance": false,
+  "capture_scope": "owned MuJoCo client window drawable only; no desktop capture",
+  "command": [
+    "rtk",
+    "proxy",
+    "env",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "PYTHONPATH=/home/lyh/wheel-legged-control-lab/src:/home/lyh/wheel-legged-control-lab/.local-deps",
+    "OMP_NUM_THREADS=1",
+    "OPENBLAS_NUM_THREADS=1",
+    "MKL_NUM_THREADS=1",
+    "python3",
+    "/home/lyh/wheel-legged-control-lab/scripts/run_d1_locomotion.py",
+    "--keyboard",
+    "--source",
+    "sensor",
+    "--seed",
+    "1017",
+    "--seconds",
+    "30",
+    "--baseline",
+    "wheel_leg",
+    "--action-mode",
+    "independent8",
+    "--wheel-kp",
+    "0.55",
+    "--wheel-ki",
+    "1.5",
+    "--yaw-feedback-gain",
+    "4",
+    "--leg-feedback-scale",
+    "1",
+    "--attitude-feedback-scale",
+    "0.25",
+    "--output",
+    "/tmp/d1_demo_delivery_2hwlvrso/gui_retry/rollout"
+  ],
+  "planned_events": [
+    [
+      0.5,
+      "w"
+    ],
+    [
+      0.75,
+      "w"
+    ],
+    [
+      1.0,
+      "a"
+    ],
+    [
+      1.25,
+      "r"
+    ],
+    [
+      2.3,
+      "r"
+    ],
+    [
+      2.55,
+      "f"
+    ],
+    [
+      3.0,
+      "w"
+    ],
+    [
+      3.3,
+      "d"
+    ],
+    [
+      3.6,
+      "space"
+    ],
+    [
+      4.0,
+      "s"
+    ],
+    [
+      4.3,
+      "a"
+    ],
+    [
+      4.6,
+      "space"
+    ],
+    [
+      5.0,
+      "r"
+    ],
+    [
+      5.3,
+      "f"
+    ]
+  ],
+  "events": [
+    {
+      "planned_wall_s": 0.5,
+      "actual_wall_s": 0.5261638660158496,
+      "key": "w",
+      "target_window": "0x360000b",
+      "target_pid": 806937
+    },
+    {
+      "planned_wall_s": 0.75,
+      "actual_wall_s": 0.7623956400202587,
+      "key": "w",
+      "target_window": "0x360000b",
+      "target_pid": 806937
+    },
+    {
+      "planned_wall_s": 1.0,
+      "actual_wall_s": 1.026231027994072,
+      "key": "a",
+      "target_window": "0x360000b",
+      "target_pid": 806937
+    },
+    {
+      "planned_wall_s": 1.25,
+      "actual_wall_s": 1.299636134004686,
+      "key": "r",
+      "target_window": "0x360000b",
+      "target_pid": 806937
+    },
+    {
+      "planned_wall_s": 2.3,
+      "actual_wall_s": 2.3017906089953613,
+      "key": "r",
+      "target_window": "0x360000b",
+      "target_pid": 806937
+    },
+    {
+      "planned_wall_s": 2.55,
+      "actual_wall_s": 2.55201307599782,
+      "key": "f",
+      "target_window": "0x360000b",
+      "target_pid": 806937
+    },
+    {
+      "planned_wall_s": 3.0,
+      "actual_wall_s": 3.0024093890096992,
+      "key": "w",
+      "target_window": "0x360000b",
+      "target_pid": 806937
+    },
+    {
+      "planned_wall_s": 3.3,
+      "actual_wall_s": 3.313093573000515,
+      "key": "d",
+      "target_window": "0x360000b",
+      "target_pid": 806937
+    },
+    {
+      "planned_wall_s": 3.6,
+      "actual_wall_s": 3.6116225330042653,
+      "key": "space",
+      "target_window": "0x360000b",
+      "target_pid": 806937
+    },
+    {
+      "planned_wall_s": 4.0,
+      "actual_wall_s": 4.002585417998489,
+      "key": "s",
+      "target_window": "0x360000b",
+      "target_pid": 806937
+    },
+    {
+      "planned_wall_s": 4.3,
+      "actual_wall_s": 4.321672156016575,
+      "key": "a",
+      "target_window": "0x360000b",
+      "target_pid": 806937
+    },
+    {
+      "planned_wall_s": 4.6,
+      "actual_wall_s": 4.601794905000133,
+      "key": "space",
+      "target_window": "0x360000b",
+      "target_pid": 806937
+    },
+    {
+      "planned_wall_s": 5.0,
+      "actual_wall_s": 5.0309400130063295,
+      "key": "r",
+      "target_window": "0x360000b",
+      "target_pid": 806937
+    },
+    {
+      "planned_wall_s": 5.3,
+      "actual_wall_s": 5.31140888700611,
+      "key": "f",
+      "target_window": "0x360000b",
+      "target_pid": 806937
+    },
+    {
+      "actual_wall_s": 7.42079544000444,
+      "key": "Escape",
+      "target_window": "0x360000b",
+      "target_pid": 806937
+    }
+  ],
+  "driver_sha256": "95046c9eff06d2b344f8656459058fc39c8d9f1ee26a755cc845b54b0d25606d",
+  "window_id": "0x360000b",
+  "window_pid": 806937,
+  "window_name": "MuJoCo",
+  "capture_command": [
+    "rtk",
+    "proxy",
+    "ffmpeg",
+    "-hide_banner",
+    "-loglevel",
+    "warning",
+    "-n",
+    "-f",
+    "x11grab",
+    "-window_id",
+    "56623115",
+    "-draw_mouse",
+    "0",
+    "-framerate",
+    "20",
+    "-i",
+    ":0",
+    "-an",
+    "-threads",
+    "1",
+    "-c:v",
+    "libx264",
+    "-crf",
+    "23",
+    "-pix_fmt",
+    "yuv420p",
+    "-t",
+    "6.6",
+    "/tmp/d1_demo_delivery_2hwlvrso/gui_retry/window.mp4"
+  ],
+  "event_origin_monotonic_s": 230314.54298238,
+  "capture_exit_code": 0,
+  "viewer_exit_code": 1,
+  "status": "captured; telemetry verification required"
+}

@@ -1,0 +1,77 @@
+{
+  "counts": {
+    "csv_rows": 24,
+    "expected_train_calls": 4,
+    "max_budget": 1024,
+    "metrics_per_train_call": 6,
+    "models": 2,
+    "train_calls_per_model": 2,
+    "train_calls_total": 4,
+    "transitions_per_train_call": 512
+  },
+  "inputs_sha256": {
+    "independent8_seed31001/checkpoints/budget1024/checkpoint.json": "3ae5eb1c3cab5fed492e3d9f21a7cffa8450576508f2a5f32fa1d79465a1cada",
+    "independent8_seed31001/checkpoints/budget1024/checkpoint.zip": "c4bb805e6dd6d067336f36ccdb9668ef449b2cf76cd7c69b6407975d91f957eb",
+    "independent8_seed31001/checkpoints/budget512/checkpoint.json": "a30f5e7d8d1a22916072700861f2fd0d06fec67fa0a342f4a8538c485d521237",
+    "independent8_seed31001/checkpoints/budget512/checkpoint.zip": "bb846c941be63dd234f61210ffba5d8c4049f613130c66462e0d8ad92c77c991",
+    "independent8_seed31001/protocol.json": "6ab8191ee6f9a4eb6bb3462bdda5311d58846d4343bc84348607e608ae90c458",
+    "independent8_seed31001/training.json": "a4fc1a9a926639bfa6a9e005dfd2a584ddfdfbd2ce507a0afd7cc651e0e84a80",
+    "independent8_seed31001/updates/updates.jsonl": "630680519378900a154163b5765a4d60a5bb5b0bf82a35e54c461458be581dab",
+    "protocol.json": "8842c08bf942d52204ae4addac71b36a208fb5d51e0a22c1aa72a9ab21c689e2",
+    "shared2_seed31001/checkpoints/budget1024/checkpoint.json": "589241538566ad3c5dc5d5ee4579a5a79a484f88f6d12fbdda32de7d4364e3f5",
+    "shared2_seed31001/checkpoints/budget1024/checkpoint.zip": "70de632962de246537afc260ff6cdd72396501d95fd3917a0530287165c72273",
+    "shared2_seed31001/checkpoints/budget512/checkpoint.json": "b8045bc9a442da5fa403d66153d16ddc40409382e8c0e3bf0f9583efc07c3006",
+    "shared2_seed31001/checkpoints/budget512/checkpoint.zip": "d1f8b15a486064e5e15bb716dd5562de82fc56a56feaec0d50e32b71d2d881f5",
+    "shared2_seed31001/protocol.json": "154898f3e64545e030850881161dd97c402ceccfbaa9cb586c5f6b0a2d99917f",
+    "shared2_seed31001/training.json": "291016b50b9c94e89536a7235acfbb52577e307a0b258001a1e8f1d1139dfa93",
+    "shared2_seed31001/updates/updates.jsonl": "684f07eb4fd08041bfa36bd01fd67467c8cc07ee624b0c48f29124346e97e0fe"
+  },
+  "kind": "smoke",
+  "metrics": [
+    "train/std",
+    "train/approx_kl",
+    "train/clip_fraction",
+    "train/value_loss",
+    "train/policy_gradient_loss",
+    "train/explained_variance"
+  ],
+  "metrics_semantics": {
+    "_excluded": "updates.jsonl 顶层的 approx_reverse_kl_after / explained_variance_old_values 等审计字段基于前 128 个 env-major 样本子集，语义不同，本脚本不使用也不混用。",
+    "_source": "stable_baselines3/ppo/ppo.py::PPO.train（本地依赖，仅阅读未导入）",
+    "train/approx_kl": "仅最后一个已完成 epoch 的 minibatch 均值，不是全部 epoch 的均值。",
+    "train/clip_fraction": "所有 epoch / minibatch 中 abs(ratio - 1) > clip_range 的比例均值；不等于 min 实际选择裁剪分支的比例，后者还取决于 advantage 的符号。",
+    "train/explained_variance": "更新前的旧 value 预测对完整 rollout 的解释方差（OLD values）。",
+    "train/policy_gradient_loss": "本次 train() 调用内所有 epoch / minibatch 的均值。",
+    "train/std": "本次 train() 调用结束后的 mean(exp(log_std))（更新后的策略标准差）。",
+    "train/value_loss": "本次 train() 调用内所有 epoch / minibatch 的均值。"
+  },
+  "models": [
+    {
+      "action_mode": "shared2",
+      "model_id": "shared2_seed31001",
+      "seed": 31001,
+      "train_calls": 2
+    },
+    {
+      "action_mode": "independent8",
+      "model_id": "independent8_seed31001",
+      "seed": 31001,
+      "train_calls": 2
+    }
+  ],
+  "outputs_sha256": {
+    "training_diagnostics.png": "c3416102382c2c13b1add2d8ca18d79f5f8231787049fbbf6cc4dd723477e375",
+    "training_metrics.csv": "031af73cc2b207a1e80712c8422f77a184e93ac94f7ed4bbbd69fbfa687d1cdf"
+  },
+  "schema": "d1-ppo-training-diagnostics-v1",
+  "script": {
+    "path": "/home/lyh/wheel-legged-control-lab/scripts/plot_d1_ppo_training.py",
+    "sha256": "3617bf3e7390b210a5b9d4efc711f0f44c552aefea78011f1ded1a0c7d8baf4d"
+  },
+  "study_path": "/home/lyh/wheel-legged-control-lab/results/d1_budget_smoke_final",
+  "study_schema": "d1-budget-study-v1",
+  "versions": {
+    "matplotlib": "3.10.6",
+    "python": "3.10.12"
+  }
+}

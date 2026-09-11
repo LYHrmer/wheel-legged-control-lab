@@ -1,0 +1,86 @@
+{
+  "schema": "d1-budget-weights-v1",
+  "status": "weights_verified",
+  "study": "/home/lyh/wheel-legged-control-lab/results/d1_budget_smoke_final",
+  "input_sha256": {
+    "protocol.json": "8842c08bf942d52204ae4addac71b36a208fb5d51e0a22c1aa72a9ab21c689e2",
+    "summary.json": "58839628b77be10c754d60da310c01ce7114d85bcbbdd9ed96ab189e2bc9da7d",
+    "shared2_seed31001/updates/updates.jsonl": "684f07eb4fd08041bfa36bd01fd67467c8cc07ee624b0c48f29124346e97e0fe",
+    "shared2_seed31001/checkpoints/manifest.json": "b469dad0230a3eddf950ec54685eb6e5f767ca8283a6b28ca8b8028f108d6de8",
+    "shared2_seed31001/checkpoint_reload.json": "14be675f19807039b7775b02b97b766aa1c537a832ad6202b8cba5a3a9234c34",
+    "shared2_seed31001/training.json": "291016b50b9c94e89536a7235acfbb52577e307a0b258001a1e8f1d1139dfa93",
+    "independent8_seed31001/updates/updates.jsonl": "630680519378900a154163b5765a4d60a5bb5b0bf82a35e54c461458be581dab",
+    "independent8_seed31001/checkpoints/manifest.json": "204f52d53b1eec28f08d56e44248123bc2de1e50e52ee4f08843e181738445b4",
+    "independent8_seed31001/checkpoint_reload.json": "db66bce7ed68ccf10b72444d019ca19f3eb1c97a116e1ed179ffbf0f7bb091fd",
+    "independent8_seed31001/training.json": "a4fc1a9a926639bfa6a9e005dfd2a584ddfdfbd2ce507a0afd7cc651e0e84a80"
+  },
+  "models": [
+    {
+      "model_id": "shared2_seed31001",
+      "checkpoints": [
+        {
+          "parameter_sha256": "ccea5d5ff88f6b351d08376de32d8f3c5d0e84ddf3cb1e9c032dd3af8053e82a",
+          "zip_sha256": "d1f8b15a486064e5e15bb716dd5562de82fc56a56feaec0d50e32b71d2d881f5",
+          "parameter_count": 19141,
+          "metadata_sha256": "b8045bc9a442da5fa403d66153d16ddc40409382e8c0e3bf0f9583efc07c3006",
+          "budget": 512,
+          "after_update_index": 0
+        },
+        {
+          "parameter_sha256": "e8836331a44dd5199b7d4e6f20bde8ea8ddb6fea6926f5da15cec0d63c29ecd3",
+          "zip_sha256": "70de632962de246537afc260ff6cdd72396501d95fd3917a0530287165c72273",
+          "parameter_count": 19141,
+          "metadata_sha256": "589241538566ad3c5dc5d5ee4579a5a79a484f88f6d12fbdda32de7d4364e3f5",
+          "budget": 1024,
+          "after_update_index": 1
+        }
+      ],
+      "final_checkpoint": {
+        "parameter_sha256": "e8836331a44dd5199b7d4e6f20bde8ea8ddb6fea6926f5da15cec0d63c29ecd3",
+        "zip_sha256": "70de632962de246537afc260ff6cdd72396501d95fd3917a0530287165c72273",
+        "parameter_count": 19141,
+        "metadata_sha256": "d7391de256fbe3b8c07703fa4ef4d079c24d797c903f851c258f458771daa100",
+        "budget": 1024,
+        "after_update_index": 1
+      }
+    },
+    {
+      "model_id": "independent8_seed31001",
+      "checkpoints": [
+        {
+          "parameter_sha256": "cb2ac38755dd23c67125d0b98a8b5426763800275759e51e0ac14ce6e580b813",
+          "zip_sha256": "bb846c941be63dd234f61210ffba5d8c4049f613130c66462e0d8ad92c77c991",
+          "parameter_count": 19537,
+          "metadata_sha256": "a30f5e7d8d1a22916072700861f2fd0d06fec67fa0a342f4a8538c485d521237",
+          "budget": 512,
+          "after_update_index": 0
+        },
+        {
+          "parameter_sha256": "bf60c8b10bc72ae6b58b0c05d0dda390b66d47f58fd33a19496013128ae1e5e7",
+          "zip_sha256": "c4bb805e6dd6d067336f36ccdb9668ef449b2cf76cd7c69b6407975d91f957eb",
+          "parameter_count": 19537,
+          "metadata_sha256": "3ae5eb1c3cab5fed492e3d9f21a7cffa8450576508f2a5f32fa1d79465a1cada",
+          "budget": 1024,
+          "after_update_index": 1
+        }
+      ],
+      "final_checkpoint": {
+        "parameter_sha256": "bf60c8b10bc72ae6b58b0c05d0dda390b66d47f58fd33a19496013128ae1e5e7",
+        "zip_sha256": "c4bb805e6dd6d067336f36ccdb9668ef449b2cf76cd7c69b6407975d91f957eb",
+        "parameter_count": 19537,
+        "metadata_sha256": "ae387049781dd5d5e248352352779b0ca70aa29fd79b10b0300072a2479896ed",
+        "budget": 1024,
+        "after_update_index": 1
+      }
+    }
+  ],
+  "checkpoints_checked": 4,
+  "root_finals_checked": 2,
+  "total_zip_files_checked": 6,
+  "limitations": [
+    "仅校验 policy.pth 张量与文件哈希，不验证 optimizer/pytorch_variables/data 字段",
+    "不重放训练、不做任何数学或科学有效性判断",
+    "不解析 NPZ 或源码归档；这些记录由既有独立分析器另行核验",
+    "仅适用于受信任的本地项目检查点；weights_only 对不可信文件不构成安全保证"
+  ]
+}

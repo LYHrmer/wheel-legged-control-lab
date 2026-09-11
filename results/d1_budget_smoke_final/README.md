@@ -18,9 +18,14 @@ ZIP 和标准元数据均已实际重载，参数哈希与对应更新记录一�
 该结果仅检查实验接口，不能说明机器人学会了地形通行。
 
 - [独立分析](../d1_budget_smoke_final_analysis/analysis.json)
+- [直接读取权重的核验](../d1_budget_smoke_final_weights/report.json)：四个预算存档与两个最终模型
 - [开发集接口图](../d1_budget_smoke_final_plots/development.png)
 - [留出集接口图](../d1_budget_smoke_final_plots/holdout.png)
 - [学习方法与重跑命令](../../docs/budget_learning_lab.md)
 
 图中带有 `SMOKE - interface only` 水印。原始 CSV/JSONL/NPZ 和源码归档保留在本地，
 不随普通 Git 克隆下载；后续原始数据附件另行说明。正式 60 s 评测使用独立研究目录。
+
+本次原始记录还实际打包并恢复到新目录，从包内三份分析脚本重新复算。除了三个目录路径
+字段，输出与原分析逐项相同。这验证了此次日志复算的可迁移性，不等于重新训练或重新运行
+仿真后必然得到完全相同的运动。

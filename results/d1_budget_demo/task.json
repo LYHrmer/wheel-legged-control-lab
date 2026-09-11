@@ -1,0 +1,30 @@
+{
+  "purpose": "Mainline 82-dimensional same-case demonstration and automated real GUI integration check",
+  "root": "/home/lyh/wheel-legged-control-lab",
+  "terrain_source": "results/d1_budget_study/zero_development/protocol.json#/terrain_splits/development/0",
+  "reference_episode": "results/d1_budget_study/zero_development/road0_seed1017_episode.json",
+  "selection_rule": "Predetermined independent8 training seed 31000, final 262144 sample checkpoint; no holdout model selection",
+  "policy": "results/d1_budget_study/independent8_seed31000/checkpoints/budget262144/checkpoint.zip",
+  "policy_sha256": "00657ed4dcf71a201a9e40b74381b6dd697ab585ee035095d609a8225a1e1101",
+  "reset_seed": 1017,
+  "expected_measurement_seed": 1972145375,
+  "expected_command_seed": 2119272573,
+  "source_cli": "sensor",
+  "source_provider_kind": "imu_encoder_fusion",
+  "source_alias_verified_at": "scripts/run_d1_locomotion.py:500-519",
+  "command_mode": "development",
+  "history_length": 1,
+  "controller_parameters": {
+    "wheel_kp": 0.55,
+    "wheel_ki": 1.5,
+    "yaw_feedback_gain": 4.0,
+    "leg_feedback_scale": 1.0,
+    "attitude_feedback_scale": 0.25
+  },
+  "limits": [
+    "Development demonstration, not a new holdout evaluation or robustness claim",
+    "GUI events are automated X11 input to the owned MuJoCo window, not human manual acceptance",
+    "No jumping is implemented by this 82-dimensional entry point",
+    "Repository source and the running formal experiment must remain unchanged"
+  ]
+}

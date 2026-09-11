@@ -1,0 +1,74 @@
+{
+  "pair": {
+    "formal_development_case_matches": {
+      "terrain": true,
+      "provider": true,
+      "controller_parameters": true,
+      "actuator": true,
+      "domain": true,
+      "command_seed": true,
+      "measurement_seed": true,
+      "duration_s": true,
+      "action_mode": true,
+      "source_schema": true
+    },
+    "all_episode_metadata_equal": true,
+    "compiled_model_equal": true,
+    "initial_qpos_qvel_equal": true,
+    "all_6000_executed_commands_equal": true,
+    "state_timestamps_equal": true,
+    "predetermined_policy_sha256_matches": true,
+    "summaries": {
+      "zero": {
+        "changed_source_files": [],
+        "completed": true,
+        "duration_s": 60.00000000002736,
+        "height_rmse_m": 0.01175942231862658,
+        "requested_duration_s": 60.0,
+        "return": 113.35989137170658,
+        "source_unchanged": true,
+        "status_note": "development rollout; completion is not a tracking-quality or sim2real claim",
+        "steps": 6000,
+        "stop_reason": "time_limit",
+        "terrain_exposure": {
+          "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+          "nonflat_fraction": 0.8155,
+          "nonflat_now": true,
+          "nonflat_path_m": 4.624895640393185,
+          "nonflat_steps": 4893,
+          "path_m": 6.133182496795043,
+          "unique_nonflat_0p25m_cells": 23
+        },
+        "velocity_rmse_mps": 0.03291539873285543,
+        "wall_seconds": 25.728576366003836,
+        "yaw_rate_rmse_rps": 0.033971442325770804
+      },
+      "ppo": {
+        "changed_source_files": [],
+        "completed": true,
+        "duration_s": 60.00000000002736,
+        "height_rmse_m": 0.006650678921457492,
+        "requested_duration_s": 60.0,
+        "return": 112.6062575620667,
+        "source_unchanged": true,
+        "status_note": "development rollout; completion is not a tracking-quality or sim2real claim",
+        "steps": 6000,
+        "stop_reason": "time_limit",
+        "terrain_exposure": {
+          "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+          "nonflat_fraction": 0.8268333333333333,
+          "nonflat_now": true,
+          "nonflat_path_m": 4.761994866206073,
+          "nonflat_steps": 4961,
+          "path_m": 6.168149381040658,
+          "unique_nonflat_0p25m_cells": 19
+        },
+        "velocity_rmse_mps": 0.04239442505605751,
+        "wall_seconds": 30.0863545339962,
+        "yaw_rate_rmse_rps": 0.05117553978436043
+      }
+    },
+    "claim_limit": "One fixed development case, not aggregate holdout performance"
+  },
+  "media": {}
+}

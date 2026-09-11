@@ -90,6 +90,9 @@ python scripts/run_d1_locomotion.py --keyboard --source sensor \
 不是急停。新入口没有跳跃，也没有横移。D1 四轮没有转向机构，`A/D` 靠左右轮差速改航向。旧入口
 `wheel-legged-d1-play` 的 `Space` 是跳跃，属于历史 42 维路径，两套按键不要混用。
 
+`S` 是速度减量，不是直接切换倒退；`Esc` 主动结束时当前 CLI 返回退出码 1，需结合
+`keyboard_escape` 判断。[主线演示与手动试驾](docs/demo_showcase.md)给出完整命令及待填验收表。
+
 ## 留出道路结果
 
 六个模型 = 两种结构 × 训练种子 24000/25000/26000，每个固定 32768 个样本，oracle 状态源、
@@ -111,6 +114,9 @@ python scripts/run_d1_locomotion.py --keyboard --source sensor \
 不是独立复现，报告因此不给置信区间。完整指标、逐道路结果和两段 60 s 状态录像见
 [实验报告](results/d1_v3_locomotion_report/README.md)，两段录像走的道路不同，不能当逐帧公平
 对照。
+
+本轮另做了[同条件 60 秒对照片](docs/demo_showcase.md)：零残差与预定八维 PPO 共用道路，
+初态和全部 6000 拍命令逐项核对。该案例中 PPO 的净空误差减小，速度和偏航误差增大。
 
 ## 现在还不行的部分
 
@@ -171,8 +177,9 @@ ruff check src tests examples scripts
 ```
 
 pytest 守的是接口和验收条件，例如同步采样的有限差分检查、观测与奖励的手算值、键盘命令逻辑。
-键盘部分只有自动化测试，`KeyboardCommands` 的时钟可以注入，`key_callback` 按 keycode 直接
-调用，没有人在图形窗口里手动验证过它。原始记录另有一份独立复算：
+键盘既有可注入时钟的单元测试，也已在真实 MuJoCo 窗口完成自动按键验证；命令变化与 CSV
+逐项核对。[窗口证据与人工记录表](docs/demo_showcase.md#现有-gui-证据与待填记录)区分这两类
+检查，人工试驾仍未验收。原始记录另有一份独立复算：
 
 ```bash
 python scripts/audit_d1_locomotion.py --matrix-root results \

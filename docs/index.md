@@ -79,7 +79,7 @@ checkpoint 一致。这两个模式需要 `[rl]` 可选依赖，其中包含用�
 分别训练共享两维与独立八维策略；不能与上面的旧两维力残差结果混为一个实验。
 
 [预算阶梯学习页](budget_learning_lab.md)接着检查连续训练的四档存档，包含
-[绘图入口](../scripts/plot_d1_budget_study.py)及计数表的读法。当前 2900 项测试通过只说明
+[绘图入口](../scripts/plot_d1_budget_study.py)及计数表的读法。当前 3016 项测试通过只说明
 实现验收通过，正式学习曲线尚未完成，不能提前写成增加预算带来了性能提升。
 [最终短流程记录](../results/d1_budget_smoke_final/README.md)已完成存档重载和独立分析；
 0.2 s 回合没有进入非平地任务，仅用作接口检查。
@@ -118,6 +118,9 @@ QP 原型没有接 PPO，也没有取代默认控制器。模型来源与许可�
 - [延迟与历史观测练习](delay_learning_lab.md)：三组固定预算对照、单位与归因边界
 - [原始数据下载与复算](reproducibility.md)：Git 中的摘要与 Release 中的大体积数据
 - [预算阶梯的运行与读图](budget_learning_lab.md#先跑短流程)：新目录运行、独立复算后再绘图
+- [PPO 逐次更新诊断](budget_learning_lab.md#ppo更新时发生了什么)：六条训练轨迹的日志口径与手算练习
+- [主线演示与手动试驾](demo_showcase.md)：同条件对照片、实际窗口自动按键记录，人工验收表待填
+- [测量与执行器延迟对照](../results/d1_delay_channel_study/README.md)：24 个开发案例，包括全部 14 次提前终止
 
 单轮支线的记录见[编码器速度反馈](../results/encoder_feedback_position_only/README.md)和
 [摩擦／延迟辨识](../results/friction_delay_cross_study/README.md)。后者的控制仍使用独立速度
