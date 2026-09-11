@@ -15,6 +15,7 @@ import math
 import platform
 import tarfile
 from dataclasses import asdict
+from datetime import datetime, timezone
 from functools import partial
 from importlib.metadata import version
 from numbers import Integral
@@ -29,6 +30,10 @@ from stable_baselines3.common.callbacks import BaseCallback
 from stable_baselines3.common.monitor import Monitor
 from stable_baselines3.common.vec_env import DummyVecEnv, SubprocVecEnv
 
+from wheel_legged_control.d1.budget_checkpoints import (
+    BudgetCheckpointWriter,
+    validate_checkpoint_budgets,
+)
 from wheel_legged_control.d1.control_loop import (
     D1ForceControllerAdapter,
     D1WheelLegControllerAdapter,
@@ -47,6 +52,7 @@ from wheel_legged_control.d1.locomotion_terrain import (
     locomotion_terrain_configs,
 )
 from wheel_legged_control.d1.observation_history import D1ObservationHistory
+from wheel_legged_control.d1.ppo_update_audit import AuditedPPO
 from wheel_legged_control.d1.sensor_estimation import D1SensorNoise
 from wheel_legged_control.d1.state_estimation import D1EstimatorImpairments
 from wheel_legged_control.d1.state_provider import D1StateProviderConfig
@@ -201,9 +207,11 @@ def environment_action_contract(env):
 
 def evaluation_seeds(split, suite="v1"):
     if suite not in LOCOMOTION_TERRAIN_SUITES:
-        raise ValueError("suite must be v1 or action_compare_v1")
+        raise ValueError(f"suite must be one of {LOCOMOTION_TERRAIN_SUITES}")
     if split not in ("flat", "development", "holdout"):
         raise ValueError("evaluation split must be flat, development, or holdout")
+    if suite == "budget_compare_v1":
+        return (4617, 4629) if split == "holdout" else (1017, 1029)
     if suite == "action_compare_v1":
         return (1617, 1629) if split == "holdout" else (1017, 1029)
     return (617, 629) if split == "holdout" else (17, 29)
@@ -424,26 +432,35 @@ class RolloutAudit(BaseCallback):
         self.rows.clear()
 
 
+class BudgetAuditedPPO(AuditedPPO):
+    """Retain predeclared checkpoints after each complete audited PPO train call."""
+
+    def __init__(self, *args, budget_writer=None, **kwargs):
+        self._budget_writer = budget_writer
+        super().__init__(*args, **kwargs)
+
+    def train(self):
+        if self._budget_writer is None:
+            return super().train()
+        return self._budget_writer.execute_update(self, super().train)
+
+    def _excluded_save_params(self):
+        return super()._excluded_save_params() + ["_budget_writer"]
+
+
 def train(args, directory):
     from wheel_legged_control.d1.locomotion_checkpoint import write_checkpoint_metadata
     from wheel_legged_control.d1.ppo_update_audit import AuditedPPO
 
-    vector = make_vec(args, args.workers, directory)
-    try:
-        learner = AuditedPPO(
-            "MlpPolicy",
-            vector,
-            seed=args.seed,
-            device="cpu",
-            verbose=0,
-            audit_directory=directory / "updates",
-            **PPO_SETTINGS,
-        )
-        before = perf_counter()
-        learner.learn(total_timesteps=args.steps, callback=RolloutAudit(directory))
-        wall = perf_counter() - before
-        learner.save(directory / "checkpoint.zip")
-        reference = make_env(
+    budgets = validate_checkpoint_budgets(
+        getattr(args, "checkpoint_budgets", None),
+        total_steps=args.steps,
+        workers=args.workers,
+        n_steps=PPO_SETTINGS["n_steps"],
+    )
+
+    def new_reference():
+        return make_env(
             args.baseline,
             0,
             args.duration,
@@ -454,19 +471,57 @@ def train(args, directory):
             action_mode=getattr(args, "action_mode", None),
             terrain_suite=getattr(args, "terrain_suite", "v1"),
         )
-        try:
+
+    vector = make_vec(args, args.workers, directory)
+    reference = None
+    writer = None
+    try:
+        learner_type = AuditedPPO
+        budget_options = {}
+        if budgets is not None:
+            # All reference construction precedes the learner's RNG seeding.
+            # Checkpoint saves never create/reset environments or load policies.
+            reference = new_reference()
             reference.reset(seed=args.seed)
-            action_contract = environment_action_contract(reference)
-            if learner.action_space.shape != (action_contract["policy_action_size"],):
-                raise ValueError("learner and checkpoint reference action dimensions differ")
-            write_checkpoint_metadata(
-                directory / "checkpoint.zip",
-                reference,
-                directory / "checkpoint.json",
-                extra={"training_seed": args.seed, "num_timesteps": learner.num_timesteps},
+            writer = BudgetCheckpointWriter(
+                directory / "checkpoints",
+                budgets,
+                workers=args.workers,
+                n_steps=PPO_SETTINGS["n_steps"],
+                training_seed=args.seed,
+                reference_env=reference,
+                audit_directory=directory / "updates",
             )
-        finally:
-            reference.close()
+            learner_type = BudgetAuditedPPO
+            budget_options["budget_writer"] = writer
+        learner = learner_type(
+            "MlpPolicy",
+            vector,
+            seed=args.seed,
+            device="cpu",
+            verbose=0,
+            audit_directory=directory / "updates",
+            **budget_options,
+            **PPO_SETTINGS,
+        )
+        training_started_at_utc = datetime.now(timezone.utc).isoformat()
+        before = writer.begin_learning() if writer is not None else perf_counter()
+        learner.learn(total_timesteps=args.steps, callback=RolloutAudit(directory))
+        wall = perf_counter() - before
+        training_finished_at_utc = datetime.now(timezone.utc).isoformat()
+        learner.save(directory / "checkpoint.zip")
+        if reference is None:
+            reference = new_reference()
+            reference.reset(seed=args.seed)
+        action_contract = environment_action_contract(reference)
+        if learner.action_space.shape != (action_contract["policy_action_size"],):
+            raise ValueError("learner and checkpoint reference action dimensions differ")
+        write_checkpoint_metadata(
+            directory / "checkpoint.zip",
+            reference,
+            directory / "checkpoint.json",
+            extra={"training_seed": args.seed, "num_timesteps": learner.num_timesteps},
+        )
         result = {
             "num_timesteps": learner.num_timesteps,
             "wall_s": wall,
@@ -478,10 +533,93 @@ def train(args, directory):
             "policy_parameter_count": sum(p.numel() for p in learner.policy.parameters()),
             "action_contract": action_contract,
         }
+        if writer is not None:
+            if not writer.complete:
+                raise RuntimeError("learning ended without all predeclared budget checkpoints")
+            # Real deserialization witness, strictly after the continuous learn.
+            # This is not a standard-library reconstruction of policy tensors.
+            from wheel_legged_control.d1.locomotion_checkpoint import load_locomotion_policy
+            from wheel_legged_control.d1.ppo_update_audit import parameter_sha256
+
+            reload_start = perf_counter()
+            reload_started_at_utc = datetime.now(timezone.utc).isoformat()
+            records = []
+            for saved in writer.saved:
+                model_path = writer.directory / saved["model_path"]
+                metadata_path = writer.directory / saved["metadata_path"]
+                reloaded = load_locomotion_policy(model_path, metadata_path, reference)
+                parameter_hash = parameter_sha256(reloaded.policy)
+                if parameter_hash != saved["param_sha256_after"]:
+                    raise RuntimeError(
+                        "reloaded budget checkpoint parameters differ from saved audit"
+                    )
+                if (
+                    sha256(model_path) != saved["zip_sha256"]
+                    or sha256(metadata_path) != saved["metadata_sha256"]
+                ):
+                    raise RuntimeError("budget checkpoint file bytes changed before reload witness")
+                records.append(
+                    {
+                        "budget": saved["budget"],
+                        "after_update_index": saved["after_update_index"],
+                        "reloaded_policy_param_sha256": parameter_hash,
+                        "zip_sha256": saved["zip_sha256"],
+                        "metadata_sha256": saved["metadata_sha256"],
+                    }
+                )
+                del reloaded
+            reloaded = load_locomotion_policy(
+                directory / "checkpoint.zip", directory / "checkpoint.json", reference
+            )
+            final_parameter_hash = parameter_sha256(reloaded.policy)
+            if final_parameter_hash != writer.saved[-1]["param_sha256_after"]:
+                raise RuntimeError("reloaded final root checkpoint differs from last budget")
+            final_record = {
+                "model_path": "checkpoint.zip",
+                "metadata_path": "checkpoint.json",
+                "num_timesteps": learner.num_timesteps,
+                "after_update_index": writer.saved[-1]["after_update_index"],
+                "reloaded_policy_param_sha256": final_parameter_hash,
+                "zip_sha256": sha256(directory / "checkpoint.zip"),
+                "metadata_sha256": sha256(directory / "checkpoint.json"),
+            }
+            del reloaded
+            with (directory / "checkpoint_reload.json").open("x", encoding="utf-8") as stream:
+                json.dump(
+                    {
+                        "schema": "d1-budget-checkpoint-reload-v1",
+                        "phase": "after_training",
+                        "training_final_num_timesteps": learner.num_timesteps,
+                        "training_finished_at_utc": training_finished_at_utc,
+                        "started_at_utc": reload_started_at_utc,
+                        "records": records,
+                        "final_checkpoint": final_record,
+                        "elapsed_s": perf_counter() - reload_start,
+                    },
+                    stream,
+                    indent=2,
+                    sort_keys=True,
+                )
+                stream.write("\n")
+            result.update(
+                {
+                    "learn_calls": 1,
+                    "training_mode": "single_continuous_learn",
+                    "checkpoint_budgets": list(budgets),
+                    "training_started_at_utc": training_started_at_utc,
+                    "training_finished_at_utc": training_finished_at_utc,
+                }
+            )
         write_json(directory / "training.json", result)
         print(json.dumps(result), flush=True)
         return result
+    except BaseException as exc:
+        if writer is not None:
+            writer.record_failure(exc)
+        raise
     finally:
+        if reference is not None:
+            reference.close()
         vector.close()
 
 
@@ -620,6 +758,7 @@ def parser():
     p.add_argument("--history", type=int, default=1)
     p.add_argument("--seed", type=int, default=24000)
     p.add_argument("--steps", type=int, default=32768)
+    p.add_argument("--checkpoint-budgets", type=int, nargs="+", default=None)
     p.add_argument("--workers", type=int, choices=(1, 2, 4), default=4)
     p.add_argument("--delay-randomization", action="store_true")
     p.add_argument("--measurement-delay", type=int, default=0)
@@ -665,6 +804,17 @@ def main():
         p.error("policy and metadata files must exist")
     if args.mode == "train" and args.steps % (args.workers * PPO_SETTINGS["n_steps"]):
         p.error("training steps must be an exact rollout-budget multiple")
+    if args.checkpoint_budgets is not None and args.mode != "train":
+        p.error("checkpoint-budgets is training-only")
+    try:
+        validate_checkpoint_budgets(
+            args.checkpoint_budgets,
+            total_steps=args.steps,
+            workers=args.workers,
+            n_steps=PPO_SETTINGS["n_steps"],
+        )
+    except (TypeError, ValueError) as exc:
+        p.error(str(exc))
     if args.output.exists():
         p.error("output must be a new directory; failed runs are retained")
     torch.set_num_threads(1)
@@ -674,10 +824,18 @@ def main():
         "arguments": {k: str(v) if isinstance(v, Path) else v for k, v in vars(args).items()},
         "ppo_settings": PPO_SETTINGS,
         "quality_thresholds": QUALITY,
-        "selection_rule": "fixed final budget; no holdout checkpoint selection",
+        "selection_rule": (
+            "fixed final budget; no holdout checkpoint selection"
+            if args.checkpoint_budgets is None
+            else "keep all predeclared budgets; no best or holdout checkpoint selection"
+        ),
         "reward_scale": 1.0,
         "discount_horizon_s": 2.0,
         "replication_unit": "training seed, not episode steps",
+        "checkpoint_budgets": args.checkpoint_budgets,
+        "checkpoint_save_timing": (
+            None if args.checkpoint_budgets is None else "after_complete_ppo_train_call"
+        ),
         "sensor_noise": asdict(NOISE),
         "noise_origin": "synthetic, not calibrated D1 data",
         "terrain_suite": args.terrain_suite,

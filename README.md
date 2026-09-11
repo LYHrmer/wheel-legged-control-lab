@@ -147,6 +147,8 @@ python scripts/run_d1_locomotion.py --keyboard --source sensor \
   延迟选错；低幅值激励在失配对象上的留出预测和控制更差。
 - [同底座动作比较](docs/shared_action_learning_lab.md)：共享两维与独立八维动作共用轮腿控制器，
   区分策略概率、物理动作、参数量与配对评测。
+- [连续训练的预算曲线](docs/budget_learning_lab.md)：每模型一次训练、四档存档，检查保存时机
+  是否在 PPO 更新之后；正式结果尚待完成。
 - [旧键盘课程与受保护跳跃演示](docs/interactive_course.md)：LEGACY，42 维路径，只用于复现
   旧结果，不属于新键盘接口。
 

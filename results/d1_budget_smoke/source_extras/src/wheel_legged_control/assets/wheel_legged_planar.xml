@@ -1,0 +1,74 @@
+<mujoco model="planar wheel-legged robot">
+  <compiler angle="radian" inertiafromgeom="true"/>
+  <option timestep="0.002" integrator="RK4" gravity="0 0 -9.81"/>
+
+  <default>
+    <joint armature="0.01" damping="0.05"/>
+    <geom friction="0.8 0.005 0.0001" rgba="0.25 0.45 0.75 1"/>
+  </default>
+
+  <visual>
+    <global offwidth="960" offheight="540"/>
+    <headlight ambient="0.45 0.45 0.45" diffuse="0.75 0.75 0.75"/>
+  </visual>
+
+  <worldbody>
+    <light pos="0 -3 4" dir="0 1 -1"/>
+    <geom name="ground" type="plane" size="30 3 0.1" rgba="0.92 0.92 0.94 1"/>
+
+    <!--
+      A reduced-order planar wheel-legged robot.  The wheel axle translates in x,
+      the body pitches about the axle, and the paired telescopic legs are represented
+      by one symmetric extension coordinate.  Horizontal axle force is the equivalent
+      of two wheel torques divided by wheel radius.
+    -->
+    <body name="wheel_axle" pos="0 0 0.13">
+      <joint name="base_x" type="slide" axis="1 0 0" damping="0.30"/>
+      <geom name="axle" type="cylinder" size="0.035 0.22" euler="1.570796 0 0"
+            mass="1.0" rgba="0.16 0.18 0.22 1" contype="0" conaffinity="0"/>
+      <geom name="left_wheel" type="cylinder" pos="0 0.25 0" size="0.13 0.035"
+            euler="1.570796 0 0" mass="1.5" rgba="0.08 0.09 0.11 1"
+            contype="0" conaffinity="0"/>
+      <geom name="right_wheel" type="cylinder" pos="0 -0.25 0" size="0.13 0.035"
+            euler="1.570796 0 0" mass="1.5" rgba="0.08 0.09 0.11 1"
+            contype="0" conaffinity="0"/>
+
+      <body name="pitch_frame">
+        <joint name="body_pitch" type="hinge" axis="0 1 0" damping="0.08"
+               armature="0.02" range="-1.2 1.2"/>
+        <geom name="left_lower_leg" type="capsule" fromto="0 0.12 0 0 0.12 0.39"
+              size="0.022" mass="0.7" rgba="0.92 0.55 0.12 1" contype="0" conaffinity="0"/>
+        <geom name="right_lower_leg" type="capsule" fromto="0 -0.12 0 0 -0.12 0.39"
+              size="0.022" mass="0.7" rgba="0.92 0.55 0.12 1" contype="0" conaffinity="0"/>
+
+        <body name="torso" pos="0 0 0.48">
+          <joint name="leg_extension" type="slide" axis="0 0 1" range="-0.12 0.12"
+                 damping="4.0" armature="0.05"/>
+          <geom name="left_upper_leg" type="capsule" fromto="0 0.12 -0.18 0 0.12 0"
+                size="0.028" mass="0.5" rgba="0.96 0.72 0.22 1" contype="0" conaffinity="0"/>
+          <geom name="right_upper_leg" type="capsule" fromto="0 -0.12 -0.18 0 -0.12 0"
+                size="0.028" mass="0.5" rgba="0.96 0.72 0.22 1" contype="0" conaffinity="0"/>
+          <geom name="body" type="box" pos="0 0 0.11" size="0.13 0.20 0.16"
+                mass="12.0" rgba="0.18 0.42 0.78 1" contype="0" conaffinity="0"/>
+          <geom name="battery" type="box" pos="0 0 0.06" size="0.08 0.14 0.05"
+                mass="1.0" rgba="0.10 0.13 0.18 1" contype="0" conaffinity="0"/>
+          <site name="imu" pos="0 0 0.18" size="0.015" rgba="0.2 0.9 0.3 1"/>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <motor name="wheel_force" joint="base_x" gear="1" ctrllimited="true"
+           ctrlrange="-80 80"/>
+    <motor name="leg_force" joint="leg_extension" gear="1" ctrllimited="true"
+           ctrlrange="0 260"/>
+  </actuator>
+
+  <sensor>
+    <jointpos name="pitch" joint="body_pitch"/>
+    <jointvel name="pitch_rate" joint="body_pitch"/>
+    <framepos name="body_position" objtype="body" objname="torso"/>
+    <framelinvel name="body_velocity" objtype="body" objname="torso"/>
+  </sensor>
+</mujoco>

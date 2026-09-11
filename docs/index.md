@@ -32,6 +32,7 @@
 | 13 | [encoder_feedback.md](encoder_feedback.md) | 从带噪位置估速，再按采样时刻检查闭环误差 | 12 |
 | 14 | [friction_delay_identification.md](friction_delay_identification.md) | 检查漏建模摩擦怎样改变延迟选择及前馈效果 | 12 |
 | 15 | [shared_action_learning_lab.md](shared_action_learning_lab.md) | 同底座动作结构对照，二输出概率与八通道物理执行 | 2、5、6 |
+| 16 | [budget_learning_lab.md](budget_learning_lab.md) | 四档存档逐种子作图，保留未完成回合对应缺口 | 15 |
 
 第 7、9、12–14 行是独立支线，没接进主线控制器；第 8 行的融合器同时被主线的 `sensor` 状态源使用。
 
@@ -77,6 +78,12 @@ checkpoint 一致。这两个模式需要 `[rl]` 可选依赖，其中包含用�
 新增[同底座动作对照](../results/d1_shared_action_study/README.md)共用轮腿低层，
 分别训练共享两维与独立八维策略；不能与上面的旧两维力残差结果混为一个实验。
 
+[预算阶梯学习页](budget_learning_lab.md)接着检查连续训练的四档存档，包含
+[绘图入口](../scripts/plot_d1_budget_study.py)及计数表的读法。当前 2900 项测试通过只说明
+实现验收通过，正式学习曲线尚未完成，不能提前写成增加预算带来了性能提升。
+[最终短流程记录](../results/d1_budget_smoke_final/README.md)已完成存档重载和独立分析；
+0.2 s 回合没有进入非平地任务，仅用作接口检查。
+
 ## 历史路线与 QP 原型（LEGACY）
 
 按观测维数分组。checkpoint 不跨组兼容，入口和评测口径也不同，它们的数字不并入主线成绩。
@@ -110,6 +117,7 @@ QP 原型没有接 PPO，也没有取代默认控制器。模型来源与许可�
 - [执行器辨识移植与补偿](actuator_transfer.md)：合成台架到整机轮力矩通道
 - [延迟与历史观测练习](delay_learning_lab.md)：三组固定预算对照、单位与归因边界
 - [原始数据下载与复算](reproducibility.md)：Git 中的摘要与 Release 中的大体积数据
+- [预算阶梯的运行与读图](budget_learning_lab.md#先跑短流程)：新目录运行、独立复算后再绘图
 
 单轮支线的记录见[编码器速度反馈](../results/encoder_feedback_position_only/README.md)和
 [摩擦／延迟辨识](../results/friction_delay_cross_study/README.md)。后者的控制仍使用独立速度

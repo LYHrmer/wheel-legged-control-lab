@@ -22,7 +22,7 @@ import numpy as np
 from .training_terrain import TrainingGroundReference
 
 LOCOMOTION_TERRAIN_SCHEMA = "d1-fixed-2d-road-v1"
-LOCOMOTION_TERRAIN_SUITES = ("v1", "action_compare_v1")
+LOCOMOTION_TERRAIN_SUITES = ("v1", "action_compare_v1", "budget_compare_v1")
 LOCOMOTION_MAP_HALF_SIZE_M = (6.0, 3.0)
 LOCOMOTION_GRID_SPACING_M = 0.05
 LOCOMOTION_SPAWN_XY_M = (-3.8, 0.0)
@@ -120,13 +120,14 @@ def locomotion_terrain_configs(
 ) -> tuple[D1LocomotionTerrainConfig, ...]:
     """Fixed parameter sets with disjoint layouts, wavelengths and phases.
 
-    Development is for tuning; holdout is only for the frozen final policy.
+    Development is for tuning; holdout is reserved for predeclared evaluations
+    without checkpoint selection.
     This is a small interpolation-oriented split, not evidence for arbitrary
     terrain generalization. Flat construction is a separate diagnostic and
     is deliberately not duplicated across the three nonflat sets.
     """
     if suite not in LOCOMOTION_TERRAIN_SUITES:
-        raise ValueError("suite must be v1 or action_compare_v1")
+        raise ValueError(f"suite must be one of {LOCOMOTION_TERRAIN_SUITES}")
     # layout, slope, cross, amplitude, wavelength x/y, phase x/y, step
     rows = {
         "train": (
@@ -146,7 +147,7 @@ def locomotion_terrain_configs(
     }
     if split not in rows:
         raise ValueError("split must be train, development, or holdout")
-    if suite == "action_compare_v1":
+    if suite in ("action_compare_v1", "budget_compare_v1"):
         # New parameter instances, not new layout families or command schedules.
         # The four training roads remain identical to the original suite.
         rows.update(
@@ -158,6 +159,14 @@ def locomotion_terrain_configs(
                 ("s_bend", 1.35, 0.60, 0.0085, 0.72, 1.02, 1.55, 1.75, 0.0085),
                 ("diagonal", -1.35, -0.60, 0.0070, 0.82, 1.12, 2.15, 2.35, 0.0070),
             ),
+        )
+    if suite == "budget_compare_v1":
+        # The previous final-test results informed this follow-up. Preserve the
+        # training/development sets and freeze fresh final-test instances before
+        # training; known layout families and command schedules are still reused.
+        rows["holdout"] = (
+            ("s_bend", 1.20, 0.55, 0.0080, 0.74, 1.04, 1.70, 1.90, 0.0080),
+            ("diagonal", -1.20, -0.55, 0.0075, 0.84, 1.14, 2.30, 2.50, 0.0075),
         )
     return tuple(D1LocomotionTerrainConfig(*row) for row in rows[split])
 

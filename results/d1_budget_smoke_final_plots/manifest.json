@@ -1,0 +1,43 @@
+{
+  "analysis_path": "/home/lyh/wheel-legged-control-lab/results/d1_budget_smoke_final_analysis/analysis.json",
+  "analysis_sha256": "19c2740b4e33ba781cd1c66984ac3570c9f6a4be45cf81d2d179fc5c867233a8",
+  "cases_per_point": 4,
+  "checkpoint_budgets": [
+    512,
+    1024
+  ],
+  "input_schema": "d1-budget-analysis-v1",
+  "kind": "smoke",
+  "metrics": [
+    "velocity_rmse_mps",
+    "yaw_rmse_rps",
+    "height_rmse_m",
+    "attitude_rmse_rad",
+    "mean_mechanical_power_w",
+    "action_rms"
+  ],
+  "modes": [
+    "shared2",
+    "independent8"
+  ],
+  "outputs": {
+    "counts.csv": "600789e971861a8a58015df8096832f2c23de3e127c001bb73b992174232cb27",
+    "development.png": "7ebb4130ad97f59453bf5a57e3d6778fa54c11f1d416ee32ef7f6ba83838e74e",
+    "holdout.png": "fed286cb10d6898bbed35204a2fae8e3990b3866b14f3329c121e85e7a42f159"
+  },
+  "schema": "d1-budget-plots-v1",
+  "scope": "Read-only replot of a precomputed independent D1 budget audit. This plotting script does not run physics, training or evaluation and does not modify its input. Points are plotted only when all 4 evaluation cases completed, otherwise the curve breaks. The zero-physical-action reference is drawn only when its own 4 cases completed. No confidence intervals, no interpolation, no best-checkpoint selection; the independent unit is the training seed.",
+  "script_path": "/home/lyh/wheel-legged-control-lab/scripts/plot_d1_budget_study.py",
+  "script_sha256": "919814dee62346a2dbc7f301d5fc55f2fe3b12235d57af237d25acd2600a3628",
+  "splits": [
+    "development",
+    "holdout"
+  ],
+  "training_seeds": [
+    31001
+  ],
+  "zero_reference_available": {
+    "development": true,
+    "holdout": true
+  }
+}
