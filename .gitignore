@@ -23,6 +23,11 @@ results/residual_ppo/*.pth
 /results/**/*.mjb
 /results/**/*.mjb.gz
 /results/**/*.tar.gz
+# Interrupted studies and duplicate source trees remain in the result release.
+/results/d1_budget_study_interrupted_*/
+/results/.d1_budget_study.recovery*.lock
+/results/d1_delay_channel_study/**/source/
+/results/d1_budget_demo/**/*.xwd
 # The reference-diagnosis telemetry JSON stays in Git: a frozen hash regression needs it.
 
 # These small inputs keep links in checksum-frozen historical reports usable.
