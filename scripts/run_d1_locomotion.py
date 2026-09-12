@@ -1,9 +1,8 @@
 """Run the common D1 Gym loop; open a viewer only with --keyboard.
 
-W/S: forward/reverse target, A/D: left/right yaw, R/F: body clearance.
-Space requests zero speed; Escape ends the rollout. Motion pulses expire after
-0.8 wall-clock seconds. These are software command limits, not an emergency stop
-or a guarantee of tracking. Jumping and lateral translation are not implemented.
+Hold W/S: forward/reverse, A/D: left/right yaw, R/F: body clearance.
+Release motion keys or leave window focus to clear requested motion. Space
+requests zero speed; Escape ends the rollout. Jumping is not implemented.
 """
 
 from __future__ import annotations
@@ -164,6 +163,12 @@ def _snapshot(output):
         file = getattr(module, "__file__", None)
         if file and str(ROOT / "src/wheel_legged_control") in file and file.endswith(".py"):
             paths.add(Path(file).resolve())
+        if (
+            file
+            and Path(file).name in ("d1_keyboard_commands.py", "d1_keyboard_viewer.py")
+            and Path(file).resolve().parent == ROOT / "scripts"
+        ):
+            paths.add(Path(file).resolve())
     hashes = {str(path.relative_to(ROOT)): _sha256(path) for path in sorted(paths)}
     with tarfile.open(output / "source.tar.gz", "w:gz") as archive:
         for path in sorted(paths):
@@ -193,6 +198,12 @@ def run(env, output: Path, *, seed=17, policy_path=None, metadata_path=None, key
         env.close()
         raise ValueError("policy_path and metadata_path must be supplied together")
     try:
+        held_keyboard = keyboard is not None and hasattr(keyboard, "update_pressed")
+        if held_keyboard:
+            if __package__:
+                from .d1_keyboard_viewer import KeyboardViewer
+            else:
+                from d1_keyboard_viewer import KeyboardViewer
         observation, _ = env.reset(seed=seed)
         policy = (
             None if policy_path is None else load_locomotion_policy(policy_path, metadata_path, env)
@@ -220,6 +231,11 @@ def run(env, output: Path, *, seed=17, policy_path=None, metadata_path=None, key
             if policy is None
             else json.loads(Path(metadata_path).read_text()),
             "keyboard": keyboard is not None,
+            "keyboard_input": "held_keys_glfw_v1"
+            if held_keyboard
+            else "legacy_pulses"
+            if keyboard is not None
+            else None,
             "command_csv_sha256": _sha256(base.command_source.path)
             if isinstance(base.command_source, RecordedCommands)
             else None,
@@ -232,17 +248,30 @@ def run(env, output: Path, *, seed=17, policy_path=None, metadata_path=None, key
         if keyboard is None:
             viewer_context = nullcontext(None)
         else:
-            # GUI code is imported only on this explicit user-requested path.
-            import mujoco.viewer
-
             # Viewer synchronization/UI must not alter the control plant's
             # integrator history or physics parameters.
             viewer_model = copy(base.plant.model)
             viewer_data = mujoco.MjData(viewer_model)
             mujoco.mj_copyData(viewer_data, viewer_model, base.plant.measurement_data)
-            viewer_context = mujoco.viewer.launch_passive(
-                viewer_model, viewer_data, key_callback=keyboard.key_callback
-            )
+            if held_keyboard:
+                terrain = base.episode_metadata.get("terrain", {})
+                label = (
+                    f"{terrain.get('layout', 'road')} | slope {terrain.get('slope_deg', 0):g} deg | "
+                    f"ripples {1000 * terrain.get('ripple_amplitude_m', 0):g} mm | "
+                    f"step {1000 * terrain.get('step_height_m', 0):g} mm"
+                    if isinstance(terrain, dict)
+                    else "recorded terrain"
+                )
+                viewer_context = KeyboardViewer(
+                    viewer_model, viewer_data, keyboard, terrain_label=label
+                )
+            else:
+                # Keep the old callback interface usable for recorded pulse tests.
+                import mujoco.viewer
+
+                viewer_context = mujoco.viewer.launch_passive(
+                    viewer_model, viewer_data, key_callback=keyboard.key_callback
+                )
         rows, rewards, actions, applied, motor_torques, policy_actions = [], [], [], [], [], []
         states = [base.plant.measurement_data.qpos.copy()]
         velocities = [base.plant.measurement_data.qvel.copy()]
@@ -253,9 +282,12 @@ def run(env, output: Path, *, seed=17, policy_path=None, metadata_path=None, key
         try:
             with viewer_context as viewer:
                 if viewer is not None:
-                    viewer.cam.distance = 2.5
+                    if not held_keyboard:
+                        viewer.cam.distance = 2.5
                     viewer.cam.lookat[:] = base.plant.base_position
                 while True:
+                    if held_keyboard:
+                        viewer.poll(times[-1])
                     if keyboard is not None and keyboard.stopped:
                         reason = "keyboard_escape"
                         break
@@ -317,6 +349,8 @@ def run(env, output: Path, *, seed=17, policy_path=None, metadata_path=None, key
                                 viewer_data, viewer_model, base.plant.measurement_data
                             )
                             viewer.cam.lookat[:] = transition.truth.base_position
+                        if held_keyboard:
+                            viewer.set_status(command, transition.truth.control_time_s)
                         viewer.sync()
                     if terminated or truncated:
                         reason = info["terminal_reason"]
@@ -327,6 +361,10 @@ def run(env, output: Path, *, seed=17, policy_path=None, metadata_path=None, key
             reason = "keyboard_interrupt"
         finally:
             # Preserve partial completed intervals even if a later step fails.
+            if held_keyboard:
+                with (output / "keyboard_events.jsonl").open("x") as stream:
+                    for event in viewer_context.events:
+                        stream.write(json.dumps(event, sort_keys=True, allow_nan=False) + "\n")
             with (output / "telemetry.csv").open("x", newline="") as stream:
                 if rows:
                     writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
@@ -417,7 +455,9 @@ def build_parser():
     parser.add_argument("--metadata", type=Path, help="required validated v3 checkpoint sidecar")
     terrain = parser.add_mutually_exclusive_group()
     terrain.add_argument(
-        "--terrain", choices=("flat", "train", "development", "holdout"), default="flat"
+        "--terrain",
+        choices=("flat", "train", "development", "holdout"),
+        help="default development for keyboard driving, flat for headless runs",
     )
     terrain.add_argument(
         "--terrain-json", type=Path, help="explicit D1LocomotionTerrainConfig JSON"
@@ -476,6 +516,8 @@ def main(argv=None):
         parser.error("seed/delay must be non-negative; history must be positive")
     if args.source == "oracle" and args.sensor_delay_steps:
         parser.error("oracle does not accept sensor delay")
+    if args.terrain is None:
+        args.terrain = "development" if args.keyboard else "flat"
     if args.terrain_json is not None:
         terrain = D1LocomotionTerrainConfig.from_json(args.terrain_json.read_text())
     elif args.terrain == "flat":
@@ -488,7 +530,13 @@ def main(argv=None):
             parser.error("terrain index is out of range for the chosen split")
         terrain = configs[args.terrain_index]
     commands = RecordedCommands(args.command_csv) if args.command_csv else None
-    keyboard = KeyboardCommands() if args.keyboard else None
+    keyboard = None
+    if args.keyboard:
+        if __package__:
+            from .d1_keyboard_commands import HeldKeyboardCommands
+        else:
+            from d1_keyboard_commands import HeldKeyboardCommands
+        keyboard = HeldKeyboardCommands()
     seconds = (
         args.seconds if args.seconds is not None else commands.duration_s if commands else 60.0
     )
@@ -537,7 +585,9 @@ def main(argv=None):
     )
     if keyboard is not None:
         print(
-            "W/S speed, A/D yaw, R/F height; Space requests stop, Esc exits. No jump.", flush=True
+            "Hold W/S to drive, A/D to turn, R/F for height; release to stop request. "
+            "Space stops, C resets camera, Esc exits. Mouse drag or wheel changes view. No jump.",
+            flush=True,
         )
     summary = run(
         env,

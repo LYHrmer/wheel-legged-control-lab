@@ -1,0 +1,29 @@
+{
+  "schema": "d1-human-driving-feedback-v1",
+  "operator": "user in current conversation",
+  "input_source": "user keyboard, no agent-generated driving events in this run",
+  "steps": 19106,
+  "command_ranges": {
+    "command_vx_mps": [
+      -0.05,
+      0.3
+    ],
+    "command_yaw_rps": [
+      -0.25,
+      0.25
+    ],
+    "command_clearance_m": [
+      0.435,
+      0.455
+    ]
+  },
+  "observed_stop_reason": "viewer_closed",
+  "user_feedback": [
+    "长按WASD无效，只能单点",
+    "按W有时地面看不到",
+    "地图没有地形",
+    "询问是否没有跳跃功能"
+  ],
+  "acceptance": "failed",
+  "followup": "Held GLFW keys, dedicated driving viewer, development terrain default; jumping remains unimplemented"
+}

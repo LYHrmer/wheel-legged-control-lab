@@ -21,7 +21,7 @@ python scripts/run_d1_locomotion.py --keyboard --source sensor \
   --output results/my_locomotion_keyboard
 ```
 
-新键盘入口用 W/S 改前进速度，A/D 改转向，R/F 升高/降低净空。Space 请求停车，Esc 退出；没有按键输入一段时间后，速度与转向命令归零。它不提供跳跃。旧入口的 Space 是跳跃，两套按键不要混用。
+新键盘入口支持长按 W/S 前进与倒退、A/D 转向、R/F 升高与降低净空。松开方向键或失去窗口焦点后，相应运动命令归零；Space 请求停车，Esc 退出。默认打开开发道路，鼠标拖动与滚轮控制视角，C 恢复相机。它不提供跳跃。旧入口的 Space 是跳跃，两套按键不要混用。
 
 `telemetry.csv` 记录已经执行的命令及误差；`states.npz` 保存真实仿真状态和各物理子步施加的力矩。回放这份 CSV 时，使用相同道路、状态源及 seed：
 
@@ -31,7 +31,7 @@ python scripts/run_d1_locomotion.py --source oracle --seed 17 \
   --output results/my_locomotion_replay
 ```
 
-键盘代码已经过自动化检查，自动化测试不代表有人实际操作过图形窗口。
+2026-09-12 人工试驾暴露了长按与查看器快捷键冲突，原版本验收未通过。修订后的输入及显示检查与人工复验分别记录，见[试驾说明](demo_showcase.md)。
 
 ## 一拍里发生了什么
 

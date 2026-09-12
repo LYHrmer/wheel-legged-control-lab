@@ -1,0 +1,136 @@
+{
+  "status": "passed",
+  "input_method": "XSendEvent to owned child window, no global key injection",
+  "automatic_test_not_human_acceptance": true,
+  "summary": {
+    "changed_source_files": [],
+    "completed": false,
+    "duration_s": 6.379999999999519,
+    "height_rmse_m": 0.007238903593292822,
+    "requested_duration_s": 30.0,
+    "return": 11.12652175034629,
+    "source_unchanged": true,
+    "status_note": "development rollout; completion is not a tracking-quality or sim2real claim",
+    "steps": 638,
+    "stop_reason": "keyboard_escape",
+    "terrain_exposure": {
+      "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+      "nonflat_fraction": 0.0,
+      "nonflat_now": false,
+      "nonflat_path_m": 0.0,
+      "nonflat_steps": 0,
+      "path_m": 0.9936360853914291,
+      "unique_nonflat_0p25m_cells": 0
+    },
+    "velocity_rmse_mps": 0.09259404450485588,
+    "wall_seconds": 6.837349444998836,
+    "yaw_rate_rmse_rps": 0.06524130836755929
+  },
+  "events_sent": [
+    {
+      "key": "w",
+      "down": true,
+      "monotonic_s": 20544.451094096
+    },
+    {
+      "key": "a",
+      "down": true,
+      "monotonic_s": 20546.668662297
+    },
+    {
+      "key": "w",
+      "down": false,
+      "monotonic_s": 20547.469422201
+    },
+    {
+      "key": "a",
+      "down": false,
+      "monotonic_s": 20547.870283522
+    },
+    {
+      "key": "r",
+      "down": true,
+      "monotonic_s": 20548.371257271
+    },
+    {
+      "key": "r",
+      "down": false,
+      "monotonic_s": 20548.97321007
+    },
+    {
+      "key": "f",
+      "down": true,
+      "monotonic_s": 20548.973529084
+    },
+    {
+      "key": "f",
+      "down": false,
+      "monotonic_s": 20549.57463576
+    },
+    {
+      "key": "s",
+      "down": true,
+      "monotonic_s": 20549.574849427
+    },
+    {
+      "key": "space",
+      "down": true,
+      "monotonic_s": 20550.275301339
+    },
+    {
+      "key": "space",
+      "down": false,
+      "monotonic_s": 20550.575919773
+    },
+    {
+      "key": "s",
+      "down": false,
+      "monotonic_s": 20550.575954589
+    },
+    {
+      "key": "Escape",
+      "down": true,
+      "monotonic_s": 20550.791153228
+    },
+    {
+      "key": "Escape",
+      "down": false,
+      "monotonic_s": 20550.791419911
+    }
+  ],
+  "source_sha256": {
+    "scripts/d1_keyboard_commands.py": "eba4c4ef858408e6f56440b73e96caf4f8ed19333b89842a90d52453d0d90935",
+    "scripts/d1_keyboard_viewer.py": "a406a6f3171229a4544d4352721e6cf0c2ae33386efaf8e9318b514379cc794d",
+    "scripts/run_d1_locomotion.py": "6177b59e25c544f3435bad4232da00bfb920b25376aee30d670d326add09bc34",
+    "src/wheel_legged_control/__init__.py": "27776a51c8ab97c39e51a26dea9db93f0feb566187e1c14d9fd86f5df540da1b",
+    "src/wheel_legged_control/controllers.py": "9a83b860fad2c27ab017828948ceb7fd925d26f417b8d2379bb6bf5309f1c5b6",
+    "src/wheel_legged_control/d1/__init__.py": "43ccb447aeff86023e04360cc7c2d1129d2c2fcd4bca5e3a1bb88589bd455a92",
+    "src/wheel_legged_control/d1/actuator_channel.py": "e8100e976a7de18bdd39b4743cfdc0df8c5ae89ca11e337f828104cb424e6a0e",
+    "src/wheel_legged_control/d1/assets/__init__.py": "1b61e62d47e4eb7bc328696f7fb770bd634423cfef62dd3bd541e1a59c159524",
+    "src/wheel_legged_control/d1/contact_allocation.py": "e5606d693c9bce185ff8cc824e882bed235bdb099649088481b534bc6108c6d1",
+    "src/wheel_legged_control/d1/control_context.py": "1015eb59eb48a55248c162120bcc4f5531e79a8a82540182eedf7f1335b45a53",
+    "src/wheel_legged_control/d1/control_loop.py": "2d4fe87e635e124816985a6c72cbd8b35412b1f3910d61713eac1087387cdefe",
+    "src/wheel_legged_control/d1/control_primitives.py": "31be86faf68f33c60ec3678fa65fd3d09402eca1f868d31b0114f58ab3fb139d",
+    "src/wheel_legged_control/d1/controllers.py": "8ae4eab5326f0f279576c840febb08e8101f2817fb754ddb6c07d0a60f90c124",
+    "src/wheel_legged_control/d1/env.py": "7063e8a70cfaffa130a66359d6d189ff8617ea5526ec4ef1c95db8ab4c7fe194",
+    "src/wheel_legged_control/d1/hierarchical.py": "cd8de672e3f5b094ed994e6f958c923e1ff83a41c4fd54b831a70a8a056a9172",
+    "src/wheel_legged_control/d1/linear_model.py": "f51d4ed60ab626f243de603a1b51c6d186553b0fd57b2eb127db9ec0034c5a01",
+    "src/wheel_legged_control/d1/locomotion_checkpoint.py": "861e26737ac81aa4dc8f890e1944f3f475997ef5f8f9a54ee785c93c18b1943f",
+    "src/wheel_legged_control/d1/locomotion_commands.py": "b8cd6cc9b2443f4f601f8c475f77b8cea102c317f14412fb319d41b08caa885b",
+    "src/wheel_legged_control/d1/locomotion_env.py": "077c48d797f7a40ce142525f3b49f3643e8f78ca3f118ba5f48c1ae9541910ff",
+    "src/wheel_legged_control/d1/locomotion_observation.py": "398bbb2361a35602e7c00bc0e66661c947f3981c8359e39d9137b963c190d25f",
+    "src/wheel_legged_control/d1/locomotion_rewards.py": "ca74044764d6f4309054229cb665d0667d41f7b91a6b55f7ed7bcde91236765d",
+    "src/wheel_legged_control/d1/locomotion_terrain.py": "85f5d55e065678fc0f088962941cf36bc9f7daa43ebcd56315098854bcda66d3",
+    "src/wheel_legged_control/d1/model.py": "0d606a044e8f9b010976ceb7e45b6640b143371887284cc30c17acd1d0c96bc6",
+    "src/wheel_legged_control/d1/observation_history.py": "48f4f0328235a49a2801e77946c50dde7049d48de028ccba8530bcc8a1aabdae",
+    "src/wheel_legged_control/d1/rewards.py": "26ad04cac0aff610d2e2a8fdc8acd1d5110ab0858cda82ac563eaf58bff2d692",
+    "src/wheel_legged_control/d1/sensor_estimation.py": "3072d19499a9e20e4161295499f0e51c83bfc85fe010b28e24451a2a0b9722d5",
+    "src/wheel_legged_control/d1/state_estimation.py": "eea9c3969e3064819ef6bc8a7621e5541e1547bacbea741b21e1fa909e2f51b8",
+    "src/wheel_legged_control/d1/state_provider.py": "e3250710355d31a9e4005c036f6f60c9d0f15bdb0fae111ac5679ec1aa77df81",
+    "src/wheel_legged_control/d1/terrain.py": "a72ad8d9c599e87d5587f253b2ade893d26629b55f755a0ca60e55d87c18e6fd",
+    "src/wheel_legged_control/d1/training_terrain.py": "25bf4490be6ea1c6aba0799ac042a1d177ff4343ceb07bc7608432ba0c97dc05",
+    "src/wheel_legged_control/d1/wheel_leg_controller.py": "0c731d366e811a465248cec4b9ce345d6d3c69a8a9c387e314ca6f992ac32156",
+    "src/wheel_legged_control/model.py": "92b909eaf5e425a2df29036c7a2053e4ae80695a0a8d1c1964a2554dfdefc91e",
+    "src/wheel_legged_control/rewards.py": "cfecf7b726a08d65d03fc913066059cec5422a3fbf735389360960599130c4da"
+  }
+}
