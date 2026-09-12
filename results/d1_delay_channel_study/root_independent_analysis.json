@@ -1,0 +1,1425 @@
+{
+  "schema": "d1-delay-channel-diagnostic-analysis-v1",
+  "case_count": 24,
+  "verified_source_files": 71,
+  "matrix": [
+    {
+      "profile": "fusion_noise_m0_a0",
+      "completed": 2,
+      "cases": 2,
+      "durations_s": [
+        60.00000000002736,
+        60.00000000002736
+      ],
+      "terminal_reasons": [
+        "time_limit",
+        "time_limit"
+      ]
+    },
+    {
+      "profile": "fusion_noise_m10_a0",
+      "completed": 2,
+      "cases": 2,
+      "durations_s": [
+        60.00000000002736,
+        60.00000000002736
+      ],
+      "terminal_reasons": [
+        "time_limit",
+        "time_limit"
+      ]
+    },
+    {
+      "profile": "fusion_noise_m20_a0",
+      "completed": 0,
+      "cases": 2,
+      "durations_s": [
+        20.229999999999666,
+        20.649999999999434
+      ],
+      "terminal_reasons": [
+        "fall_or_body_contact",
+        "fall_or_body_contact"
+      ]
+    },
+    {
+      "profile": "fusion_noise_m30_a0",
+      "completed": 0,
+      "cases": 2,
+      "durations_s": [
+        1.9000000000000015,
+        5.619999999999603
+      ],
+      "terminal_reasons": [
+        "fall_or_body_contact",
+        "fall_or_body_contact"
+      ]
+    },
+    {
+      "profile": "fusion_noise_m0_a10",
+      "completed": 2,
+      "cases": 2,
+      "durations_s": [
+        60.00000000002736,
+        60.00000000002736
+      ],
+      "terminal_reasons": [
+        "time_limit",
+        "time_limit"
+      ]
+    },
+    {
+      "profile": "fusion_noise_m0_a20",
+      "completed": 0,
+      "cases": 2,
+      "durations_s": [
+        21.549999999998935,
+        21.689999999998857
+      ],
+      "terminal_reasons": [
+        "fall_or_body_contact",
+        "fall_or_body_contact"
+      ]
+    },
+    {
+      "profile": "fusion_noise_m0_a30",
+      "completed": 0,
+      "cases": 2,
+      "durations_s": [
+        1.1600000000000008,
+        2.4799999999999485
+      ],
+      "terminal_reasons": [
+        "fall_or_body_contact",
+        "fall_or_body_contact"
+      ]
+    },
+    {
+      "profile": "fusion_ideal_m0_a0",
+      "completed": 2,
+      "cases": 2,
+      "durations_s": [
+        60.00000000002736,
+        60.00000000002736
+      ],
+      "terminal_reasons": [
+        "time_limit",
+        "time_limit"
+      ]
+    },
+    {
+      "profile": "fusion_ideal_m30_a0",
+      "completed": 0,
+      "cases": 2,
+      "durations_s": [
+        2.309999999999967,
+        2.309999999999967
+      ],
+      "terminal_reasons": [
+        "fall_or_body_contact",
+        "fall_or_body_contact"
+      ]
+    },
+    {
+      "profile": "oracle_m0_a0",
+      "completed": 2,
+      "cases": 2,
+      "durations_s": [
+        60.00000000002736,
+        60.00000000002736
+      ],
+      "terminal_reasons": [
+        "time_limit",
+        "time_limit"
+      ]
+    },
+    {
+      "profile": "oracle_m0_a30",
+      "completed": 0,
+      "cases": 2,
+      "durations_s": [
+        1.0900000000000007,
+        1.0900000000000007
+      ],
+      "terminal_reasons": [
+        "fall_or_body_contact",
+        "fall_or_body_contact"
+      ]
+    },
+    {
+      "profile": "truth_delayed_m30_a0",
+      "completed": 0,
+      "cases": 2,
+      "durations_s": [
+        2.8799999999999044,
+        2.8799999999999044
+      ],
+      "terminal_reasons": [
+        "fall_or_body_contact",
+        "fall_or_body_contact"
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "case": "fusion_noise_m0_a0_road0_seed17",
+      "measurement_seed": 1814784298,
+      "controller_diagnostics": {
+        "controller_torque_clipped_fraction": 0.0,
+        "controller_torque_changed_fraction": 0.0,
+        "controller_position_guard_fraction": 0.0,
+        "controller_velocity_guard_fraction": 0.0,
+        "controller_joint_target_limited_fraction": 0.2513958333333333
+      },
+      "completed": true,
+      "duration_s": 60.00000000002736,
+      "episode_seed": 17,
+      "error": null,
+      "executed_steps": 6000,
+      "full_horizon_tracking": {
+        "attitude_rmse_rad": 0.03283618385305811,
+        "height_rmse_m": 0.011765750455369204,
+        "velocity_rmse_mps": 0.0323884396569284,
+        "yaw_rmse_rps": 0.034161314301439975
+      },
+      "mean_input_clipped_fraction": 0.0,
+      "measurement_age_max_s": 0.0,
+      "partial_horizon_tracking": {
+        "attitude_rmse_rad": 0.03283618385305811,
+        "height_rmse_m": 0.011765750455369204,
+        "velocity_rmse_mps": 0.0323884396569284,
+        "yaw_rmse_rps": 0.034161314301439975
+      },
+      "profile": {
+        "actuator_ms": 0,
+        "measurement_ms": 0,
+        "name": "fusion_noise_m0_a0",
+        "source": "fusion_noise"
+      },
+      "requested_duration_s": 60.0,
+      "terminal_reason": "time_limit",
+      "terrain_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.8158333333333333,
+        "nonflat_now": true,
+        "nonflat_path_m": 4.631748868980372,
+        "nonflat_steps": 4895,
+        "path_m": 6.138746742287765,
+        "unique_nonflat_0p25m_cells": 24
+      },
+      "wall_seconds": 26.19354671300971
+    },
+    {
+      "case": "fusion_noise_m0_a0_road0_seed29",
+      "measurement_seed": 107475050,
+      "controller_diagnostics": {
+        "controller_torque_clipped_fraction": 0.0,
+        "controller_torque_changed_fraction": 0.0,
+        "controller_position_guard_fraction": 0.0,
+        "controller_velocity_guard_fraction": 0.0,
+        "controller_joint_target_limited_fraction": 0.25166666666666665
+      },
+      "completed": true,
+      "duration_s": 60.00000000002736,
+      "episode_seed": 29,
+      "error": null,
+      "executed_steps": 6000,
+      "full_horizon_tracking": {
+        "attitude_rmse_rad": 0.032785799980833884,
+        "height_rmse_m": 0.011774447815079817,
+        "velocity_rmse_mps": 0.03260333771596609,
+        "yaw_rmse_rps": 0.03589459424501942
+      },
+      "mean_input_clipped_fraction": 0.0,
+      "measurement_age_max_s": 0.0,
+      "partial_horizon_tracking": {
+        "attitude_rmse_rad": 0.032785799980833884,
+        "height_rmse_m": 0.011774447815079817,
+        "velocity_rmse_mps": 0.03260333771596609,
+        "yaw_rmse_rps": 0.03589459424501942
+      },
+      "profile": {
+        "actuator_ms": 0,
+        "measurement_ms": 0,
+        "name": "fusion_noise_m0_a0",
+        "source": "fusion_noise"
+      },
+      "requested_duration_s": 60.0,
+      "terminal_reason": "time_limit",
+      "terrain_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.8156666666666667,
+        "nonflat_now": true,
+        "nonflat_path_m": 4.629907417884463,
+        "nonflat_steps": 4894,
+        "path_m": 6.1403244836125035,
+        "unique_nonflat_0p25m_cells": 24
+      },
+      "wall_seconds": 26.25786371898721
+    },
+    {
+      "case": "fusion_noise_m10_a0_road0_seed17",
+      "measurement_seed": 1814784298,
+      "controller_diagnostics": {
+        "controller_torque_clipped_fraction": 0.0,
+        "controller_torque_changed_fraction": 0.0,
+        "controller_position_guard_fraction": 0.0,
+        "controller_velocity_guard_fraction": 0.0,
+        "controller_joint_target_limited_fraction": 0.2507916666666667
+      },
+      "completed": true,
+      "duration_s": 60.00000000002736,
+      "episode_seed": 17,
+      "error": null,
+      "executed_steps": 6000,
+      "full_horizon_tracking": {
+        "attitude_rmse_rad": 0.032341819758905876,
+        "height_rmse_m": 0.012146089655012269,
+        "velocity_rmse_mps": 0.033216219794578644,
+        "yaw_rmse_rps": 0.03754277203019978
+      },
+      "mean_input_clipped_fraction": 0.0,
+      "measurement_age_max_s": 0.010000000000012221,
+      "partial_horizon_tracking": {
+        "attitude_rmse_rad": 0.032341819758905876,
+        "height_rmse_m": 0.012146089655012269,
+        "velocity_rmse_mps": 0.033216219794578644,
+        "yaw_rmse_rps": 0.03754277203019978
+      },
+      "profile": {
+        "actuator_ms": 0,
+        "measurement_ms": 10,
+        "name": "fusion_noise_m10_a0",
+        "source": "fusion_noise"
+      },
+      "requested_duration_s": 60.0,
+      "terminal_reason": "time_limit",
+      "terrain_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.8161666666666667,
+        "nonflat_now": true,
+        "nonflat_path_m": 4.604456394874198,
+        "nonflat_steps": 4897,
+        "path_m": 6.1208866528040815,
+        "unique_nonflat_0p25m_cells": 24
+      },
+      "wall_seconds": 26.569154224998783
+    },
+    {
+      "case": "fusion_noise_m10_a0_road0_seed29",
+      "measurement_seed": 107475050,
+      "controller_diagnostics": {
+        "controller_torque_clipped_fraction": 0.0,
+        "controller_torque_changed_fraction": 0.0,
+        "controller_position_guard_fraction": 0.0,
+        "controller_velocity_guard_fraction": 0.0,
+        "controller_joint_target_limited_fraction": 0.25196875
+      },
+      "completed": true,
+      "duration_s": 60.00000000002736,
+      "episode_seed": 29,
+      "error": null,
+      "executed_steps": 6000,
+      "full_horizon_tracking": {
+        "attitude_rmse_rad": 0.03232441129035077,
+        "height_rmse_m": 0.012377019231405112,
+        "velocity_rmse_mps": 0.03316305882032733,
+        "yaw_rmse_rps": 0.03777209055146993
+      },
+      "mean_input_clipped_fraction": 0.0,
+      "measurement_age_max_s": 0.010000000000012221,
+      "partial_horizon_tracking": {
+        "attitude_rmse_rad": 0.03232441129035077,
+        "height_rmse_m": 0.012377019231405112,
+        "velocity_rmse_mps": 0.03316305882032733,
+        "yaw_rmse_rps": 0.03777209055146993
+      },
+      "profile": {
+        "actuator_ms": 0,
+        "measurement_ms": 10,
+        "name": "fusion_noise_m10_a0",
+        "source": "fusion_noise"
+      },
+      "requested_duration_s": 60.0,
+      "terminal_reason": "time_limit",
+      "terrain_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.8161666666666667,
+        "nonflat_now": true,
+        "nonflat_path_m": 4.62199706136404,
+        "nonflat_steps": 4897,
+        "path_m": 6.135137365077623,
+        "unique_nonflat_0p25m_cells": 18
+      },
+      "wall_seconds": 26.03957962000277
+    },
+    {
+      "case": "fusion_noise_m20_a0_road0_seed17",
+      "measurement_seed": 1814784298,
+      "controller_diagnostics": {
+        "controller_torque_clipped_fraction": 0.0035219970341077607,
+        "controller_torque_changed_fraction": 0.0035528917449332673,
+        "controller_position_guard_fraction": 3.089471082550667e-05,
+        "controller_velocity_guard_fraction": 0.0,
+        "controller_joint_target_limited_fraction": 0.2607204646564508
+      },
+      "completed": false,
+      "duration_s": 20.229999999999666,
+      "episode_seed": 17,
+      "error": null,
+      "executed_steps": 2023,
+      "full_horizon_tracking": null,
+      "mean_input_clipped_fraction": 0.0,
+      "measurement_age_max_s": 0.02000000000000668,
+      "partial_horizon_tracking": {
+        "attitude_rmse_rad": 0.08757160150410126,
+        "height_rmse_m": 0.013144537587685166,
+        "velocity_rmse_mps": 0.05506093148812687,
+        "yaw_rmse_rps": 0.21145799994463632
+      },
+      "profile": {
+        "actuator_ms": 0,
+        "measurement_ms": 20,
+        "name": "fusion_noise_m20_a0",
+        "source": "fusion_noise"
+      },
+      "requested_duration_s": 60.0,
+      "terminal_reason": "fall_or_body_contact",
+      "terrain_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.4552644587246663,
+        "nonflat_now": true,
+        "nonflat_path_m": 1.6683260400303621,
+        "nonflat_steps": 921,
+        "path_m": 3.1832094188214,
+        "unique_nonflat_0p25m_cells": 7
+      },
+      "wall_seconds": 9.0001863350044
+    },
+    {
+      "case": "fusion_noise_m20_a0_road0_seed29",
+      "measurement_seed": 107475050,
+      "controller_diagnostics": {
+        "controller_torque_clipped_fraction": 0.005024213075060533,
+        "controller_torque_changed_fraction": 0.005145278450363196,
+        "controller_position_guard_fraction": 0.00012106537530266344,
+        "controller_velocity_guard_fraction": 0.0,
+        "controller_joint_target_limited_fraction": 0.27345641646489105
+      },
+      "completed": false,
+      "duration_s": 20.649999999999434,
+      "episode_seed": 29,
+      "error": null,
+      "executed_steps": 2065,
+      "full_horizon_tracking": null,
+      "mean_input_clipped_fraction": 0.0,
+      "measurement_age_max_s": 0.02000000000000668,
+      "partial_horizon_tracking": {
+        "attitude_rmse_rad": 0.08623670530451684,
+        "height_rmse_m": 0.015609093879895347,
+        "velocity_rmse_mps": 0.06587500232743711,
+        "yaw_rmse_rps": 0.28409174897848877
+      },
+      "profile": {
+        "actuator_ms": 0,
+        "measurement_ms": 20,
+        "name": "fusion_noise_m20_a0",
+        "source": "fusion_noise"
+      },
+      "requested_duration_s": 60.0,
+      "terminal_reason": "fall_or_body_contact",
+      "terrain_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.4668280871670702,
+        "nonflat_now": true,
+        "nonflat_path_m": 2.4892404580225778,
+        "nonflat_steps": 964,
+        "path_m": 4.008087763045454,
+        "unique_nonflat_0p25m_cells": 13
+      },
+      "wall_seconds": 9.256671726005152
+    },
+    {
+      "case": "fusion_noise_m30_a0_road0_seed17",
+      "measurement_seed": 1814784298,
+      "controller_diagnostics": {
+        "controller_torque_clipped_fraction": 0.024671052631578948,
+        "controller_torque_changed_fraction": 0.025,
+        "controller_position_guard_fraction": 0.000986842105263158,
+        "controller_velocity_guard_fraction": 0.0,
+        "controller_joint_target_limited_fraction": 0.325
+      },
+      "completed": false,
+      "duration_s": 1.9000000000000015,
+      "episode_seed": 17,
+      "error": null,
+      "executed_steps": 190,
+      "full_horizon_tracking": null,
+      "mean_input_clipped_fraction": 0.0,
+      "measurement_age_max_s": 0.030000000000000027,
+      "partial_horizon_tracking": {
+        "attitude_rmse_rad": 0.19742813464054934,
+        "height_rmse_m": 0.021686005626045318,
+        "velocity_rmse_mps": 0.12234525645677108,
+        "yaw_rmse_rps": 0.6155092953474866
+      },
+      "profile": {
+        "actuator_ms": 0,
+        "measurement_ms": 30,
+        "name": "fusion_noise_m30_a0",
+        "source": "fusion_noise"
+      },
+      "requested_duration_s": 60.0,
+      "terminal_reason": "fall_or_body_contact",
+      "terrain_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.0,
+        "nonflat_now": false,
+        "nonflat_path_m": 0.0,
+        "nonflat_steps": 0,
+        "path_m": 0.1439823328789185,
+        "unique_nonflat_0p25m_cells": 0
+      },
+      "wall_seconds": 0.9242690480023157
+    },
+    {
+      "case": "fusion_noise_m30_a0_road0_seed29",
+      "measurement_seed": 107475050,
+      "controller_diagnostics": {
+        "controller_torque_clipped_fraction": 0.0064501779359430605,
+        "controller_torque_changed_fraction": 0.0067838078291814945,
+        "controller_position_guard_fraction": 0.0003336298932384342,
+        "controller_velocity_guard_fraction": 0.0,
+        "controller_joint_target_limited_fraction": 0.27391014234875444
+      },
+      "completed": false,
+      "duration_s": 5.619999999999603,
+      "episode_seed": 29,
+      "error": null,
+      "executed_steps": 562,
+      "full_horizon_tracking": null,
+      "mean_input_clipped_fraction": 0.0,
+      "measurement_age_max_s": 0.030000000000000027,
+      "partial_horizon_tracking": {
+        "attitude_rmse_rad": 0.12656324570056166,
+        "height_rmse_m": 0.019452757005012106,
+        "velocity_rmse_mps": 0.08398258425683575,
+        "yaw_rmse_rps": 0.44026382129021663
+      },
+      "profile": {
+        "actuator_ms": 0,
+        "measurement_ms": 30,
+        "name": "fusion_noise_m30_a0",
+        "source": "fusion_noise"
+      },
+      "requested_duration_s": 60.0,
+      "terminal_reason": "fall_or_body_contact",
+      "terrain_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.0,
+        "nonflat_now": false,
+        "nonflat_path_m": 0.0,
+        "nonflat_steps": 0,
+        "path_m": 0.5091154090878101,
+        "unique_nonflat_0p25m_cells": 0
+      },
+      "wall_seconds": 2.6160010599996895
+    },
+    {
+      "case": "fusion_noise_m0_a10_road0_seed17",
+      "measurement_seed": 1814784298,
+      "controller_diagnostics": {
+        "controller_torque_clipped_fraction": 0.0,
+        "controller_torque_changed_fraction": 0.0,
+        "controller_position_guard_fraction": 0.0,
+        "controller_velocity_guard_fraction": 0.0,
+        "controller_joint_target_limited_fraction": 0.25145833333333334
+      },
+      "completed": true,
+      "duration_s": 60.00000000002736,
+      "episode_seed": 17,
+      "error": null,
+      "executed_steps": 6000,
+      "full_horizon_tracking": {
+        "attitude_rmse_rad": 0.03264290761736085,
+        "height_rmse_m": 0.011915257394235153,
+        "velocity_rmse_mps": 0.03331953571118758,
+        "yaw_rmse_rps": 0.03650642778827874
+      },
+      "mean_input_clipped_fraction": 0.0,
+      "measurement_age_max_s": 0.0,
+      "partial_horizon_tracking": {
+        "attitude_rmse_rad": 0.03264290761736085,
+        "height_rmse_m": 0.011915257394235153,
+        "velocity_rmse_mps": 0.03331953571118758,
+        "yaw_rmse_rps": 0.03650642778827874
+      },
+      "profile": {
+        "actuator_ms": 10,
+        "measurement_ms": 0,
+        "name": "fusion_noise_m0_a10",
+        "source": "fusion_noise"
+      },
+      "requested_duration_s": 60.0,
+      "terminal_reason": "time_limit",
+      "terrain_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.8156666666666667,
+        "nonflat_now": true,
+        "nonflat_path_m": 4.633852303702335,
+        "nonflat_steps": 4894,
+        "path_m": 6.138345304126041,
+        "unique_nonflat_0p25m_cells": 24
+      },
+      "wall_seconds": 26.05927601401345
+    },
+    {
+      "case": "fusion_noise_m0_a10_road0_seed29",
+      "measurement_seed": 107475050,
+      "controller_diagnostics": {
+        "controller_torque_clipped_fraction": 0.0,
+        "controller_torque_changed_fraction": 0.0,
+        "controller_position_guard_fraction": 0.0,
+        "controller_velocity_guard_fraction": 0.0,
+        "controller_joint_target_limited_fraction": 0.25136458333333334
+      },
+      "completed": true,
+      "duration_s": 60.00000000002736,
+      "episode_seed": 29,
+      "error": null,
+      "executed_steps": 6000,
+      "full_horizon_tracking": {
+        "attitude_rmse_rad": 0.03211878206924626,
+        "height_rmse_m": 0.012231688566559156,
+        "velocity_rmse_mps": 0.03402961293593758,
+        "yaw_rmse_rps": 0.03880627580168097
+      },
+      "mean_input_clipped_fraction": 0.0,
+      "measurement_age_max_s": 0.0,
+      "partial_horizon_tracking": {
+        "attitude_rmse_rad": 0.03211878206924626,
+        "height_rmse_m": 0.012231688566559156,
+        "velocity_rmse_mps": 0.03402961293593758,
+        "yaw_rmse_rps": 0.03880627580168097
+      },
+      "profile": {
+        "actuator_ms": 10,
+        "measurement_ms": 0,
+        "name": "fusion_noise_m0_a10",
+        "source": "fusion_noise"
+      },
+      "requested_duration_s": 60.0,
+      "terminal_reason": "time_limit",
+      "terrain_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.816,
+        "nonflat_now": true,
+        "nonflat_path_m": 4.633883319740366,
+        "nonflat_steps": 4896,
+        "path_m": 6.1509045169941325,
+        "unique_nonflat_0p25m_cells": 24
+      },
+      "wall_seconds": 26.359813050017692
+    },
+    {
+      "case": "fusion_noise_m0_a20_road0_seed17",
+      "measurement_seed": 1814784298,
+      "controller_diagnostics": {
+        "controller_torque_clipped_fraction": 0.006670533642691415,
+        "controller_torque_changed_fraction": 0.006815545243619489,
+        "controller_position_guard_fraction": 0.00017401392111368908,
+        "controller_velocity_guard_fraction": 0.0,
+        "controller_joint_target_limited_fraction": 0.2799013921113689
+      },
+      "completed": false,
+      "duration_s": 21.549999999998935,
+      "episode_seed": 17,
+      "error": null,
+      "executed_steps": 2155,
+      "full_horizon_tracking": null,
+      "mean_input_clipped_fraction": 0.0,
+      "measurement_age_max_s": 0.0,
+      "partial_horizon_tracking": {
+        "attitude_rmse_rad": 0.09141562438226268,
+        "height_rmse_m": 0.01843109632519714,
+        "velocity_rmse_mps": 0.11579851299431408,
+        "yaw_rmse_rps": 0.45689215574284914
+      },
+      "profile": {
+        "actuator_ms": 20,
+        "measurement_ms": 0,
+        "name": "fusion_noise_m0_a20",
+        "source": "fusion_noise"
+      },
+      "requested_duration_s": 60.0,
+      "terminal_reason": "fall_or_body_contact",
+      "terrain_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.48863109048723896,
+        "nonflat_now": true,
+        "nonflat_path_m": 2.394279532942677,
+        "nonflat_steps": 1053,
+        "path_m": 3.9088460314669278,
+        "unique_nonflat_0p25m_cells": 15
+      },
+      "wall_seconds": 9.611400764988502
+    },
+    {
+      "case": "fusion_noise_m0_a20_road0_seed29",
+      "measurement_seed": 107475050,
+      "controller_diagnostics": {
+        "controller_torque_clipped_fraction": 0.009970032272936837,
+        "controller_torque_changed_fraction": 0.010114107883817428,
+        "controller_position_guard_fraction": 0.00014407561088059014,
+        "controller_velocity_guard_fraction": 0.0,
+        "controller_joint_target_limited_fraction": 0.2898801290917474
+      },
+      "completed": false,
+      "duration_s": 21.689999999998857,
+      "episode_seed": 29,
+      "error": null,
+      "executed_steps": 2169,
+      "full_horizon_tracking": null,
+      "mean_input_clipped_fraction": 0.0,
+      "measurement_age_max_s": 0.0,
+      "partial_horizon_tracking": {
+        "attitude_rmse_rad": 0.08431376281240793,
+        "height_rmse_m": 0.01833331929591544,
+        "velocity_rmse_mps": 0.10366583881420086,
+        "yaw_rmse_rps": 0.3992356182585991
+      },
+      "profile": {
+        "actuator_ms": 20,
+        "measurement_ms": 0,
+        "name": "fusion_noise_m0_a20",
+        "source": "fusion_noise"
+      },
+      "requested_duration_s": 60.0,
+      "terminal_reason": "fall_or_body_contact",
+      "terrain_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.49147072383586904,
+        "nonflat_now": true,
+        "nonflat_path_m": 2.1983394060038752,
+        "nonflat_steps": 1066,
+        "path_m": 3.7070339051999746,
+        "unique_nonflat_0p25m_cells": 9
+      },
+      "wall_seconds": 9.616203830984887
+    },
+    {
+      "case": "fusion_noise_m0_a30_road0_seed17",
+      "measurement_seed": 1814784298,
+      "controller_diagnostics": {
+        "controller_torque_clipped_fraction": 0.05172413793103448,
+        "controller_torque_changed_fraction": 0.05765086206896552,
+        "controller_position_guard_fraction": 0.008081896551724138,
+        "controller_velocity_guard_fraction": 0.0,
+        "controller_joint_target_limited_fraction": 0.3917025862068966
+      },
+      "completed": false,
+      "duration_s": 1.1600000000000008,
+      "episode_seed": 17,
+      "error": null,
+      "executed_steps": 116,
+      "full_horizon_tracking": null,
+      "mean_input_clipped_fraction": 0.0,
+      "measurement_age_max_s": 0.0,
+      "partial_horizon_tracking": {
+        "attitude_rmse_rad": 0.20055960684012253,
+        "height_rmse_m": 0.03809592890745103,
+        "velocity_rmse_mps": 0.21568831096908736,
+        "yaw_rmse_rps": 0.34625692811312136
+      },
+      "profile": {
+        "actuator_ms": 30,
+        "measurement_ms": 0,
+        "name": "fusion_noise_m0_a30",
+        "source": "fusion_noise"
+      },
+      "requested_duration_s": 60.0,
+      "terminal_reason": "fall_or_body_contact",
+      "terrain_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.0,
+        "nonflat_now": false,
+        "nonflat_path_m": 0.0,
+        "nonflat_steps": 0,
+        "path_m": 0.11599569075105416,
+        "unique_nonflat_0p25m_cells": 0
+      },
+      "wall_seconds": 0.5824880829895847
+    },
+    {
+      "case": "fusion_noise_m0_a30_road0_seed29",
+      "measurement_seed": 107475050,
+      "controller_diagnostics": {
+        "controller_torque_clipped_fraction": 0.09979838709677419,
+        "controller_torque_changed_fraction": 0.1081149193548387,
+        "controller_position_guard_fraction": 0.009072580645161291,
+        "controller_velocity_guard_fraction": 0.0005040322580645161,
+        "controller_joint_target_limited_fraction": 0.5914818548387096
+      },
+      "completed": false,
+      "duration_s": 2.4799999999999485,
+      "episode_seed": 29,
+      "error": null,
+      "executed_steps": 248,
+      "full_horizon_tracking": null,
+      "mean_input_clipped_fraction": 0.0,
+      "measurement_age_max_s": 0.0,
+      "partial_horizon_tracking": {
+        "attitude_rmse_rad": 0.3515512111420841,
+        "height_rmse_m": 0.03333041460225938,
+        "velocity_rmse_mps": 0.33515230935658097,
+        "yaw_rmse_rps": 1.3824183538944432
+      },
+      "profile": {
+        "actuator_ms": 30,
+        "measurement_ms": 0,
+        "name": "fusion_noise_m0_a30",
+        "source": "fusion_noise"
+      },
+      "requested_duration_s": 60.0,
+      "terminal_reason": "fall_or_body_contact",
+      "terrain_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.0,
+        "nonflat_now": false,
+        "nonflat_path_m": 0.0,
+        "nonflat_steps": 0,
+        "path_m": 0.9163201662404254,
+        "unique_nonflat_0p25m_cells": 0
+      },
+      "wall_seconds": 1.1209027270087972
+    },
+    {
+      "case": "fusion_ideal_m0_a0_road0_seed17",
+      "measurement_seed": 1814784298,
+      "controller_diagnostics": {
+        "controller_torque_clipped_fraction": 0.0,
+        "controller_torque_changed_fraction": 0.0,
+        "controller_position_guard_fraction": 0.0,
+        "controller_velocity_guard_fraction": 0.0,
+        "controller_joint_target_limited_fraction": 0.2514375
+      },
+      "completed": true,
+      "duration_s": 60.00000000002736,
+      "episode_seed": 17,
+      "error": null,
+      "executed_steps": 6000,
+      "full_horizon_tracking": {
+        "attitude_rmse_rad": 0.032854710590942984,
+        "height_rmse_m": 0.011763566236916193,
+        "velocity_rmse_mps": 0.03256281036512668,
+        "yaw_rmse_rps": 0.03561412512822919
+      },
+      "mean_input_clipped_fraction": 0.0,
+      "measurement_age_max_s": 0.0,
+      "partial_horizon_tracking": {
+        "attitude_rmse_rad": 0.032854710590942984,
+        "height_rmse_m": 0.011763566236916193,
+        "velocity_rmse_mps": 0.03256281036512668,
+        "yaw_rmse_rps": 0.03561412512822919
+      },
+      "profile": {
+        "actuator_ms": 0,
+        "measurement_ms": 0,
+        "name": "fusion_ideal_m0_a0",
+        "source": "fusion_ideal"
+      },
+      "requested_duration_s": 60.0,
+      "terminal_reason": "time_limit",
+      "terrain_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.8156666666666667,
+        "nonflat_now": true,
+        "nonflat_path_m": 4.632761079750636,
+        "nonflat_steps": 4894,
+        "path_m": 6.14238094801011,
+        "unique_nonflat_0p25m_cells": 22
+      },
+      "wall_seconds": 26.194579664996127
+    },
+    {
+      "case": "fusion_ideal_m0_a0_road0_seed29",
+      "measurement_seed": 107475050,
+      "controller_diagnostics": {
+        "controller_torque_clipped_fraction": 0.0,
+        "controller_torque_changed_fraction": 0.0,
+        "controller_position_guard_fraction": 0.0,
+        "controller_velocity_guard_fraction": 0.0,
+        "controller_joint_target_limited_fraction": 0.2514375
+      },
+      "completed": true,
+      "duration_s": 60.00000000002736,
+      "episode_seed": 29,
+      "error": null,
+      "executed_steps": 6000,
+      "full_horizon_tracking": {
+        "attitude_rmse_rad": 0.032854710590942984,
+        "height_rmse_m": 0.011763566236916193,
+        "velocity_rmse_mps": 0.03256281036512668,
+        "yaw_rmse_rps": 0.03561412512822919
+      },
+      "mean_input_clipped_fraction": 0.0,
+      "measurement_age_max_s": 0.0,
+      "partial_horizon_tracking": {
+        "attitude_rmse_rad": 0.032854710590942984,
+        "height_rmse_m": 0.011763566236916193,
+        "velocity_rmse_mps": 0.03256281036512668,
+        "yaw_rmse_rps": 0.03561412512822919
+      },
+      "profile": {
+        "actuator_ms": 0,
+        "measurement_ms": 0,
+        "name": "fusion_ideal_m0_a0",
+        "source": "fusion_ideal"
+      },
+      "requested_duration_s": 60.0,
+      "terminal_reason": "time_limit",
+      "terrain_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.8156666666666667,
+        "nonflat_now": true,
+        "nonflat_path_m": 4.632761079750636,
+        "nonflat_steps": 4894,
+        "path_m": 6.14238094801011,
+        "unique_nonflat_0p25m_cells": 22
+      },
+      "wall_seconds": 26.641418845014414
+    },
+    {
+      "case": "fusion_ideal_m30_a0_road0_seed17",
+      "measurement_seed": 1814784298,
+      "controller_diagnostics": {
+        "controller_torque_clipped_fraction": 0.017857142857142856,
+        "controller_torque_changed_fraction": 0.018668831168831168,
+        "controller_position_guard_fraction": 0.0010822510822510823,
+        "controller_velocity_guard_fraction": 0.0,
+        "controller_joint_target_limited_fraction": 0.30627705627705626
+      },
+      "completed": false,
+      "duration_s": 2.309999999999967,
+      "episode_seed": 17,
+      "error": null,
+      "executed_steps": 231,
+      "full_horizon_tracking": null,
+      "mean_input_clipped_fraction": 0.0,
+      "measurement_age_max_s": 0.030000000000000027,
+      "partial_horizon_tracking": {
+        "attitude_rmse_rad": 0.16225159729196373,
+        "height_rmse_m": 0.021213390933352286,
+        "velocity_rmse_mps": 0.09998873327357012,
+        "yaw_rmse_rps": 0.5205446894086734
+      },
+      "profile": {
+        "actuator_ms": 0,
+        "measurement_ms": 30,
+        "name": "fusion_ideal_m30_a0",
+        "source": "fusion_ideal"
+      },
+      "requested_duration_s": 60.0,
+      "terminal_reason": "fall_or_body_contact",
+      "terrain_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.0,
+        "nonflat_now": false,
+        "nonflat_path_m": 0.0,
+        "nonflat_steps": 0,
+        "path_m": 0.15086808635642082,
+        "unique_nonflat_0p25m_cells": 0
+      },
+      "wall_seconds": 1.3274622860189993
+    },
+    {
+      "case": "fusion_ideal_m30_a0_road0_seed29",
+      "measurement_seed": 107475050,
+      "controller_diagnostics": {
+        "controller_torque_clipped_fraction": 0.017857142857142856,
+        "controller_torque_changed_fraction": 0.018668831168831168,
+        "controller_position_guard_fraction": 0.0010822510822510823,
+        "controller_velocity_guard_fraction": 0.0,
+        "controller_joint_target_limited_fraction": 0.30627705627705626
+      },
+      "completed": false,
+      "duration_s": 2.309999999999967,
+      "episode_seed": 29,
+      "error": null,
+      "executed_steps": 231,
+      "full_horizon_tracking": null,
+      "mean_input_clipped_fraction": 0.0,
+      "measurement_age_max_s": 0.030000000000000027,
+      "partial_horizon_tracking": {
+        "attitude_rmse_rad": 0.16225159729196373,
+        "height_rmse_m": 0.021213390933352286,
+        "velocity_rmse_mps": 0.09998873327357012,
+        "yaw_rmse_rps": 0.5205446894086734
+      },
+      "profile": {
+        "actuator_ms": 0,
+        "measurement_ms": 30,
+        "name": "fusion_ideal_m30_a0",
+        "source": "fusion_ideal"
+      },
+      "requested_duration_s": 60.0,
+      "terminal_reason": "fall_or_body_contact",
+      "terrain_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.0,
+        "nonflat_now": false,
+        "nonflat_path_m": 0.0,
+        "nonflat_steps": 0,
+        "path_m": 0.15086808635642082,
+        "unique_nonflat_0p25m_cells": 0
+      },
+      "wall_seconds": 1.1898247209901456
+    },
+    {
+      "case": "oracle_m0_a0_road0_seed17",
+      "measurement_seed": 1814784298,
+      "controller_diagnostics": {
+        "controller_torque_clipped_fraction": 0.0,
+        "controller_torque_changed_fraction": 0.0,
+        "controller_position_guard_fraction": 0.0,
+        "controller_velocity_guard_fraction": 0.0,
+        "controller_joint_target_limited_fraction": 0.2518020833333333
+      },
+      "completed": true,
+      "duration_s": 60.00000000002736,
+      "episode_seed": 17,
+      "error": null,
+      "executed_steps": 6000,
+      "full_horizon_tracking": {
+        "attitude_rmse_rad": 0.03159732658864962,
+        "height_rmse_m": 0.011915336999594512,
+        "velocity_rmse_mps": 0.033386251384289856,
+        "yaw_rmse_rps": 0.036192914513208864
+      },
+      "mean_input_clipped_fraction": 0.0,
+      "measurement_age_max_s": 0.0,
+      "partial_horizon_tracking": {
+        "attitude_rmse_rad": 0.03159732658864962,
+        "height_rmse_m": 0.011915336999594512,
+        "velocity_rmse_mps": 0.033386251384289856,
+        "yaw_rmse_rps": 0.036192914513208864
+      },
+      "profile": {
+        "actuator_ms": 0,
+        "measurement_ms": 0,
+        "name": "oracle_m0_a0",
+        "source": "oracle"
+      },
+      "requested_duration_s": 60.0,
+      "terminal_reason": "time_limit",
+      "terrain_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.8156666666666667,
+        "nonflat_now": true,
+        "nonflat_path_m": 4.623312840237997,
+        "nonflat_steps": 4894,
+        "path_m": 6.1336605600173115,
+        "unique_nonflat_0p25m_cells": 22
+      },
+      "wall_seconds": 23.74741406799876
+    },
+    {
+      "case": "oracle_m0_a0_road0_seed29",
+      "measurement_seed": 107475050,
+      "controller_diagnostics": {
+        "controller_torque_clipped_fraction": 0.0,
+        "controller_torque_changed_fraction": 0.0,
+        "controller_position_guard_fraction": 0.0,
+        "controller_velocity_guard_fraction": 0.0,
+        "controller_joint_target_limited_fraction": 0.2518020833333333
+      },
+      "completed": true,
+      "duration_s": 60.00000000002736,
+      "episode_seed": 29,
+      "error": null,
+      "executed_steps": 6000,
+      "full_horizon_tracking": {
+        "attitude_rmse_rad": 0.03159732658864962,
+        "height_rmse_m": 0.011915336999594512,
+        "velocity_rmse_mps": 0.033386251384289856,
+        "yaw_rmse_rps": 0.036192914513208864
+      },
+      "mean_input_clipped_fraction": 0.0,
+      "measurement_age_max_s": 0.0,
+      "partial_horizon_tracking": {
+        "attitude_rmse_rad": 0.03159732658864962,
+        "height_rmse_m": 0.011915336999594512,
+        "velocity_rmse_mps": 0.033386251384289856,
+        "yaw_rmse_rps": 0.036192914513208864
+      },
+      "profile": {
+        "actuator_ms": 0,
+        "measurement_ms": 0,
+        "name": "oracle_m0_a0",
+        "source": "oracle"
+      },
+      "requested_duration_s": 60.0,
+      "terminal_reason": "time_limit",
+      "terrain_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.8156666666666667,
+        "nonflat_now": true,
+        "nonflat_path_m": 4.623312840237997,
+        "nonflat_steps": 4894,
+        "path_m": 6.1336605600173115,
+        "unique_nonflat_0p25m_cells": 22
+      },
+      "wall_seconds": 22.682025058020372
+    },
+    {
+      "case": "oracle_m0_a30_road0_seed17",
+      "measurement_seed": 1814784298,
+      "controller_diagnostics": {
+        "controller_torque_clipped_fraction": 0.04529816513761468,
+        "controller_torque_changed_fraction": 0.04873853211009174,
+        "controller_position_guard_fraction": 0.0034403669724770644,
+        "controller_velocity_guard_fraction": 0.0005733944954128441,
+        "controller_joint_target_limited_fraction": 0.393348623853211
+      },
+      "completed": false,
+      "duration_s": 1.0900000000000007,
+      "episode_seed": 17,
+      "error": null,
+      "executed_steps": 109,
+      "full_horizon_tracking": null,
+      "mean_input_clipped_fraction": 0.0,
+      "measurement_age_max_s": 0.0,
+      "partial_horizon_tracking": {
+        "attitude_rmse_rad": 0.12069939723133984,
+        "height_rmse_m": 0.018175849491959124,
+        "velocity_rmse_mps": 0.1809046678726088,
+        "yaw_rmse_rps": 0.11113775699822123
+      },
+      "profile": {
+        "actuator_ms": 30,
+        "measurement_ms": 0,
+        "name": "oracle_m0_a30",
+        "source": "oracle"
+      },
+      "requested_duration_s": 60.0,
+      "terminal_reason": "fall_or_body_contact",
+      "terrain_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.0,
+        "nonflat_now": false,
+        "nonflat_path_m": 0.0,
+        "nonflat_steps": 0,
+        "path_m": 0.09025258693802585,
+        "unique_nonflat_0p25m_cells": 0
+      },
+      "wall_seconds": 0.41018780999002047
+    },
+    {
+      "case": "oracle_m0_a30_road0_seed29",
+      "measurement_seed": 107475050,
+      "controller_diagnostics": {
+        "controller_torque_clipped_fraction": 0.04529816513761468,
+        "controller_torque_changed_fraction": 0.04873853211009174,
+        "controller_position_guard_fraction": 0.0034403669724770644,
+        "controller_velocity_guard_fraction": 0.0005733944954128441,
+        "controller_joint_target_limited_fraction": 0.393348623853211
+      },
+      "completed": false,
+      "duration_s": 1.0900000000000007,
+      "episode_seed": 29,
+      "error": null,
+      "executed_steps": 109,
+      "full_horizon_tracking": null,
+      "mean_input_clipped_fraction": 0.0,
+      "measurement_age_max_s": 0.0,
+      "partial_horizon_tracking": {
+        "attitude_rmse_rad": 0.12069939723133984,
+        "height_rmse_m": 0.018175849491959124,
+        "velocity_rmse_mps": 0.1809046678726088,
+        "yaw_rmse_rps": 0.11113775699822123
+      },
+      "profile": {
+        "actuator_ms": 30,
+        "measurement_ms": 0,
+        "name": "oracle_m0_a30",
+        "source": "oracle"
+      },
+      "requested_duration_s": 60.0,
+      "terminal_reason": "fall_or_body_contact",
+      "terrain_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.0,
+        "nonflat_now": false,
+        "nonflat_path_m": 0.0,
+        "nonflat_steps": 0,
+        "path_m": 0.09025258693802585,
+        "unique_nonflat_0p25m_cells": 0
+      },
+      "wall_seconds": 0.4043460600078106
+    },
+    {
+      "case": "truth_delayed_m30_a0_road0_seed17",
+      "measurement_seed": 1814784298,
+      "controller_diagnostics": {
+        "controller_torque_clipped_fraction": 0.010633680555555556,
+        "controller_torque_changed_fraction": 0.010850694444444444,
+        "controller_position_guard_fraction": 0.00021701388888888888,
+        "controller_velocity_guard_fraction": 0.0,
+        "controller_joint_target_limited_fraction": 0.2762586805555556
+      },
+      "completed": false,
+      "duration_s": 2.8799999999999044,
+      "episode_seed": 17,
+      "error": null,
+      "executed_steps": 288,
+      "full_horizon_tracking": null,
+      "mean_input_clipped_fraction": 0.0,
+      "measurement_age_max_s": 0.030000000000000027,
+      "partial_horizon_tracking": {
+        "attitude_rmse_rad": 0.13504371132850979,
+        "height_rmse_m": 0.012451821401241332,
+        "velocity_rmse_mps": 0.08650482172806426,
+        "yaw_rmse_rps": 0.5760697618286303
+      },
+      "profile": {
+        "actuator_ms": 0,
+        "measurement_ms": 30,
+        "name": "truth_delayed_m30_a0",
+        "source": "truth_delayed"
+      },
+      "requested_duration_s": 60.0,
+      "terminal_reason": "fall_or_body_contact",
+      "terrain_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.0,
+        "nonflat_now": false,
+        "nonflat_path_m": 0.0,
+        "nonflat_steps": 0,
+        "path_m": 0.13777356739579533,
+        "unique_nonflat_0p25m_cells": 0
+      },
+      "wall_seconds": 1.2223247080110013
+    },
+    {
+      "case": "truth_delayed_m30_a0_road0_seed29",
+      "measurement_seed": 107475050,
+      "controller_diagnostics": {
+        "controller_torque_clipped_fraction": 0.010633680555555556,
+        "controller_torque_changed_fraction": 0.010850694444444444,
+        "controller_position_guard_fraction": 0.00021701388888888888,
+        "controller_velocity_guard_fraction": 0.0,
+        "controller_joint_target_limited_fraction": 0.2762586805555556
+      },
+      "completed": false,
+      "duration_s": 2.8799999999999044,
+      "episode_seed": 29,
+      "error": null,
+      "executed_steps": 288,
+      "full_horizon_tracking": null,
+      "mean_input_clipped_fraction": 0.0,
+      "measurement_age_max_s": 0.030000000000000027,
+      "partial_horizon_tracking": {
+        "attitude_rmse_rad": 0.13504371132850979,
+        "height_rmse_m": 0.012451821401241332,
+        "velocity_rmse_mps": 0.08650482172806426,
+        "yaw_rmse_rps": 0.5760697618286303
+      },
+      "profile": {
+        "actuator_ms": 0,
+        "measurement_ms": 30,
+        "name": "truth_delayed_m30_a0",
+        "source": "truth_delayed"
+      },
+      "requested_duration_s": 60.0,
+      "terminal_reason": "fall_or_body_contact",
+      "terrain_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.0,
+        "nonflat_now": false,
+        "nonflat_path_m": 0.0,
+        "nonflat_steps": 0,
+        "path_m": 0.13777356739579533,
+        "unique_nonflat_0p25m_cells": 0
+      },
+      "wall_seconds": 1.2285216400050558
+    }
+  ],
+  "paired_against_fusion_noise_zero": [
+    {
+      "case": "fusion_noise_m0_a0_road0_seed17",
+      "baseline": "fusion_noise_m0_a0_road0_seed17",
+      "full_horizon_rmse_difference": {
+        "attitude_rmse_rad": 0.0,
+        "height_rmse_m": 0.0,
+        "velocity_rmse_mps": 0.0,
+        "yaw_rmse_rps": 0.0
+      }
+    },
+    {
+      "case": "fusion_noise_m0_a0_road0_seed29",
+      "baseline": "fusion_noise_m0_a0_road0_seed29",
+      "full_horizon_rmse_difference": {
+        "attitude_rmse_rad": 0.0,
+        "height_rmse_m": 0.0,
+        "velocity_rmse_mps": 0.0,
+        "yaw_rmse_rps": 0.0
+      }
+    },
+    {
+      "case": "fusion_noise_m10_a0_road0_seed17",
+      "baseline": "fusion_noise_m0_a0_road0_seed17",
+      "full_horizon_rmse_difference": {
+        "attitude_rmse_rad": -0.0004943640941522318,
+        "height_rmse_m": 0.0003803391996430646,
+        "velocity_rmse_mps": 0.0008277801376502456,
+        "yaw_rmse_rps": 0.003381457728759807
+      }
+    },
+    {
+      "case": "fusion_noise_m10_a0_road0_seed29",
+      "baseline": "fusion_noise_m0_a0_road0_seed29",
+      "full_horizon_rmse_difference": {
+        "attitude_rmse_rad": -0.0004613886904831152,
+        "height_rmse_m": 0.0006025714163252951,
+        "velocity_rmse_mps": 0.000559721104361241,
+        "yaw_rmse_rps": 0.0018774963064505101
+      }
+    },
+    {
+      "case": "fusion_noise_m20_a0_road0_seed17",
+      "baseline": "fusion_noise_m0_a0_road0_seed17",
+      "full_horizon_rmse_difference": null
+    },
+    {
+      "case": "fusion_noise_m20_a0_road0_seed29",
+      "baseline": "fusion_noise_m0_a0_road0_seed29",
+      "full_horizon_rmse_difference": null
+    },
+    {
+      "case": "fusion_noise_m30_a0_road0_seed17",
+      "baseline": "fusion_noise_m0_a0_road0_seed17",
+      "full_horizon_rmse_difference": null
+    },
+    {
+      "case": "fusion_noise_m30_a0_road0_seed29",
+      "baseline": "fusion_noise_m0_a0_road0_seed29",
+      "full_horizon_rmse_difference": null
+    },
+    {
+      "case": "fusion_noise_m0_a10_road0_seed17",
+      "baseline": "fusion_noise_m0_a0_road0_seed17",
+      "full_horizon_rmse_difference": {
+        "attitude_rmse_rad": -0.0001932762356972595,
+        "height_rmse_m": 0.00014950693886594917,
+        "velocity_rmse_mps": 0.0009310960542591798,
+        "yaw_rmse_rps": 0.0023451134868387666
+      }
+    },
+    {
+      "case": "fusion_noise_m0_a10_road0_seed29",
+      "baseline": "fusion_noise_m0_a0_road0_seed29",
+      "full_horizon_rmse_difference": {
+        "attitude_rmse_rad": -0.0006670179115876237,
+        "height_rmse_m": 0.00045724075147933994,
+        "velocity_rmse_mps": 0.00142627521997149,
+        "yaw_rmse_rps": 0.0029116815566615495
+      }
+    },
+    {
+      "case": "fusion_noise_m0_a20_road0_seed17",
+      "baseline": "fusion_noise_m0_a0_road0_seed17",
+      "full_horizon_rmse_difference": null
+    },
+    {
+      "case": "fusion_noise_m0_a20_road0_seed29",
+      "baseline": "fusion_noise_m0_a0_road0_seed29",
+      "full_horizon_rmse_difference": null
+    },
+    {
+      "case": "fusion_noise_m0_a30_road0_seed17",
+      "baseline": "fusion_noise_m0_a0_road0_seed17",
+      "full_horizon_rmse_difference": null
+    },
+    {
+      "case": "fusion_noise_m0_a30_road0_seed29",
+      "baseline": "fusion_noise_m0_a0_road0_seed29",
+      "full_horizon_rmse_difference": null
+    },
+    {
+      "case": "fusion_ideal_m0_a0_road0_seed17",
+      "baseline": "fusion_noise_m0_a0_road0_seed17",
+      "full_horizon_rmse_difference": {
+        "attitude_rmse_rad": 1.8526737884876077e-05,
+        "height_rmse_m": -2.1842184530114495e-06,
+        "velocity_rmse_mps": 0.00017437070819828482,
+        "yaw_rmse_rps": 0.0014528108267892123
+      }
+    },
+    {
+      "case": "fusion_ideal_m0_a0_road0_seed29",
+      "baseline": "fusion_noise_m0_a0_road0_seed29",
+      "full_horizon_rmse_difference": {
+        "attitude_rmse_rad": 6.891061010910055e-05,
+        "height_rmse_m": -1.0881578163623659e-05,
+        "velocity_rmse_mps": -4.0527350839404674e-05,
+        "yaw_rmse_rps": -0.0002804691167902357
+      }
+    },
+    {
+      "case": "fusion_ideal_m30_a0_road0_seed17",
+      "baseline": "fusion_noise_m0_a0_road0_seed17",
+      "full_horizon_rmse_difference": null
+    },
+    {
+      "case": "fusion_ideal_m30_a0_road0_seed29",
+      "baseline": "fusion_noise_m0_a0_road0_seed29",
+      "full_horizon_rmse_difference": null
+    },
+    {
+      "case": "oracle_m0_a0_road0_seed17",
+      "baseline": "fusion_noise_m0_a0_road0_seed17",
+      "full_horizon_rmse_difference": {
+        "attitude_rmse_rad": -0.001238857264408491,
+        "height_rmse_m": 0.00014958654422530734,
+        "velocity_rmse_mps": 0.000997811727361457,
+        "yaw_rmse_rps": 0.0020316002117688886
+      }
+    },
+    {
+      "case": "oracle_m0_a0_road0_seed29",
+      "baseline": "fusion_noise_m0_a0_road0_seed29",
+      "full_horizon_rmse_difference": {
+        "attitude_rmse_rad": -0.0011884733921842666,
+        "height_rmse_m": 0.00014088918451469513,
+        "velocity_rmse_mps": 0.0007829136683237675,
+        "yaw_rmse_rps": 0.00029832026818944063
+      }
+    },
+    {
+      "case": "oracle_m0_a30_road0_seed17",
+      "baseline": "fusion_noise_m0_a0_road0_seed17",
+      "full_horizon_rmse_difference": null
+    },
+    {
+      "case": "oracle_m0_a30_road0_seed29",
+      "baseline": "fusion_noise_m0_a0_road0_seed29",
+      "full_horizon_rmse_difference": null
+    },
+    {
+      "case": "truth_delayed_m30_a0_road0_seed17",
+      "baseline": "fusion_noise_m0_a0_road0_seed17",
+      "full_horizon_rmse_difference": null
+    },
+    {
+      "case": "truth_delayed_m30_a0_road0_seed29",
+      "baseline": "fusion_noise_m0_a0_road0_seed29",
+      "full_horizon_rmse_difference": null
+    }
+  ],
+  "limits": [
+    "One previously used development road; no holdout or generalization claim.",
+    "Oracle/fusion ablation changes both state and ground reference source.",
+    "Full-horizon tracking is null on every early termination.",
+    "3 s smoke uses first 3 s of the fixed 60 s schedule, not a rescaled task."
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "schema": "public-code-contribution-summary-v1",
+  "contributions": [
+    {
+      "model": "claude-opus-5",
+      "session_id": "31da5239-e0f1-4fb1-8387-c5372d08a573",
+      "module": "scripts/d1_terrain_display.py",
+      "test_module": "tests/test_d1_terrain_display.py",
+      "scope": "Initial heightfield sampling, scene-only terrain grid functions, and 18 initial tests; independently revised for invalid coordinates and geometry/allocation bounds before integration.",
+      "final_source_sha256": {
+        "scripts/d1_terrain_display.py": "2dddacbaff1ecf740417ec32686d04c9c8fe2100319141568f7db42bb1fe8d12",
+        "tests/test_d1_terrain_display.py": "d71cb6633298dba0cdd0316f130fc71f2ee12aac1cb3248b523dabaa9b527cbf"
+      },
+      "independent_validation": {
+        "terrain_tests": 25,
+        "existing_viewer_tests": 4,
+        "ruff": "passed",
+        "ray_audit": "terrain_display/real_heightfield_audit.json"
+      }
+    },
+    {
+      "model": "claude-opus-5",
+      "session_id": "ee4ddc56-6d06-4e37-b3b4-618fbb61cd91",
+      "module": "scripts/run_d1_course_drive.py",
+      "scope": "Initial apply_course_events function: consume an append-only event log with cursor validation and process discrete zone-reset/J requests. The full course runner and held-key controller were integrated separately.",
+      "original_core_sha256": "e967de6d31f621a525e425bb694c88b03a09f1cce0fa0d651b4ccc5e0f9a0e30",
+      "module_sha256_at_passed_attempt": "8bb1b039be157e1403c9888c44bb5a6777a95d52b2cb5448541bc5d874657409"
+    }
+  ],
+  "scope_note": "Code assistance attribution only. GUI checks were executed separately. The ray audit covers the real development heightfield; it does not establish course traversal or PPO performance."
+}

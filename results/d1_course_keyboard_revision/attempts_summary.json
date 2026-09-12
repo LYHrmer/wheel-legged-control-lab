@@ -1,0 +1,115 @@
+{
+  "schema": "course-keyboard-attempts-v1",
+  "automatic_test_not_human_acceptance": true,
+  "later_human_acceptance": {
+    "status": "not_passed",
+    "source": "Project owner relay of subsequent user driving feedback on 2026-09-12.",
+    "feedback": "Controls other than W were not sufficiently apparent; user requested A/D lateral translation, Q/E yaw, Space jump, and R self-righting.",
+    "followup": "New interaction revision is separate work; this frozen group records the earlier controls and automatic checks."
+  },
+  "attempts": [
+    {
+      "directory": "course_gui_check_01",
+      "status": "failed_automatic_acceptance",
+      "saved_pass_report": false,
+      "steps": 1082,
+      "csv_rows": 1082,
+      "integrated_duration_s": 10.82,
+      "wall_seconds": 14.779536075999204,
+      "segments": 11,
+      "zone_sequence": [
+        "rough",
+        "ramp",
+        "ramp",
+        "stairs",
+        "stairs",
+        "bumps",
+        "bumps",
+        "jump",
+        "jump",
+        "start",
+        "start"
+      ],
+      "requested_forward_range_mps": [
+        -0.2,
+        0.15589792799983115
+      ],
+      "jump_phases_observed": [
+        "crouch",
+        "flight",
+        "landing",
+        "ready",
+        "thrust"
+      ],
+      "source_unchanged": true,
+      "stop_reason": "keyboard_escape"
+    },
+    {
+      "directory": "course_gui_check_02",
+      "status": "failed_automatic_acceptance",
+      "saved_pass_report": false,
+      "steps": 1307,
+      "csv_rows": 1307,
+      "integrated_duration_s": 13.07,
+      "wall_seconds": 15.204660892999527,
+      "segments": 6,
+      "zone_sequence": [
+        "rough",
+        "ramp",
+        "stairs",
+        "bumps",
+        "jump",
+        "start"
+      ],
+      "requested_forward_range_mps": [
+        0.0,
+        0.0
+      ],
+      "jump_phases_observed": [
+        "crouch",
+        "flight",
+        "landing",
+        "ready",
+        "thrust"
+      ],
+      "source_unchanged": true,
+      "stop_reason": "keyboard_escape"
+    },
+    {
+      "directory": "course_gui_check_03",
+      "status": "passed",
+      "saved_pass_report": true,
+      "steps": 965,
+      "csv_rows": 965,
+      "integrated_duration_s": 9.65,
+      "wall_seconds": 15.678355053001724,
+      "segments": 6,
+      "zone_sequence": [
+        "rough",
+        "ramp",
+        "stairs",
+        "bumps",
+        "jump",
+        "start"
+      ],
+      "requested_forward_range_mps": [
+        -0.2,
+        0.3
+      ],
+      "jump_phases_observed": [
+        "crouch",
+        "flight",
+        "landing",
+        "ready",
+        "thrust"
+      ],
+      "source_unchanged": true,
+      "stop_reason": "keyboard_escape"
+    }
+  ],
+  "diagnosis": {
+    "course_gui_check_01": "Owner diagnosed synthetic XSendEvent press/release timing as causing repeated zone resets; recorded 11 segments and insufficient forward request. No original pass report exists.",
+    "course_gui_check_02": "Owner diagnosed inactive window-manager focus; all saved requested forward values are zero. Six zone resets and jump phases alone did not satisfy driving acceptance.",
+    "course_gui_check_03": "Window-manager activation, explicit input focus, and 80 ms press duration for discrete zone/J keys; all saved automatic assertions passed."
+  }
+}

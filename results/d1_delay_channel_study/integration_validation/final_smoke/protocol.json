@@ -1,0 +1,113 @@
+{
+  "actuator_gain": 1.0,
+  "actuator_time_constant_s": 0.0,
+  "caveats": [
+    "One previously used development road; no holdout or generalization claim.",
+    "Oracle/fusion ablation changes both state and ground reference source.",
+    "Full-horizon tracking is null on every early termination.",
+    "3 s smoke uses first 3 s of the fixed 60 s schedule, not a rescaled task."
+  ],
+  "controller": {
+    "attitude_feedback_scale": 0.25,
+    "leg_feedback_scale": 1.0,
+    "wheel_ki": 1.5,
+    "wheel_kp": 0.55,
+    "yaw_feedback_gain": 4.0
+  },
+  "duration_s": 3.0,
+  "measurement_dt_s": 0.01,
+  "physics_dt_s": 0.002,
+  "profiles": [
+    {
+      "actuator_ms": 0,
+      "measurement_ms": 0,
+      "name": "fusion_noise_m0_a0",
+      "source": "fusion_noise"
+    },
+    {
+      "actuator_ms": 0,
+      "measurement_ms": 10,
+      "name": "fusion_noise_m10_a0",
+      "source": "fusion_noise"
+    },
+    {
+      "actuator_ms": 0,
+      "measurement_ms": 20,
+      "name": "fusion_noise_m20_a0",
+      "source": "fusion_noise"
+    },
+    {
+      "actuator_ms": 0,
+      "measurement_ms": 30,
+      "name": "fusion_noise_m30_a0",
+      "source": "fusion_noise"
+    },
+    {
+      "actuator_ms": 10,
+      "measurement_ms": 0,
+      "name": "fusion_noise_m0_a10",
+      "source": "fusion_noise"
+    },
+    {
+      "actuator_ms": 20,
+      "measurement_ms": 0,
+      "name": "fusion_noise_m0_a20",
+      "source": "fusion_noise"
+    },
+    {
+      "actuator_ms": 30,
+      "measurement_ms": 0,
+      "name": "fusion_noise_m0_a30",
+      "source": "fusion_noise"
+    },
+    {
+      "actuator_ms": 0,
+      "measurement_ms": 0,
+      "name": "fusion_ideal_m0_a0",
+      "source": "fusion_ideal"
+    },
+    {
+      "actuator_ms": 0,
+      "measurement_ms": 30,
+      "name": "fusion_ideal_m30_a0",
+      "source": "fusion_ideal"
+    },
+    {
+      "actuator_ms": 0,
+      "measurement_ms": 0,
+      "name": "oracle_m0_a0",
+      "source": "oracle"
+    },
+    {
+      "actuator_ms": 30,
+      "measurement_ms": 0,
+      "name": "oracle_m0_a30",
+      "source": "oracle"
+    },
+    {
+      "actuator_ms": 0,
+      "measurement_ms": 30,
+      "name": "truth_delayed_m30_a0",
+      "source": "truth_delayed"
+    }
+  ],
+  "python": "3.10.12",
+  "roads": [
+    0
+  ],
+  "schedule_duration_s": 60.0,
+  "schema": "d1-delay-channel-diagnostic-v1",
+  "seeds": [
+    17
+  ],
+  "split": "development",
+  "terrain_suite": "v1",
+  "trace_layout": "control tick, physics substep, field, actuator axis; actuator trace before physics integration",
+  "versions": {
+    "gymnasium": "1.3.0",
+    "mujoco": "3.12.0",
+    "numpy": "2.2.6"
+  },
+  "workers": 1,
+  "zero_residual": true
+}

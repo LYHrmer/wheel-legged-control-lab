@@ -1,0 +1,222 @@
+{
+  "action_contract": {
+    "action_mode": "independent8",
+    "action_schema": "d1-wheel-leg-extension-speed-v1",
+    "physical_action_schema": "d1-wheel-leg-extension-speed-v1",
+    "physical_action_size": 8,
+    "policy_action_size": 8,
+    "policy_to_physical_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  "action_contract_origin": "declared from arguments; checked against actual train/evaluate environments",
+  "action_recording": {
+    "evaluation_actions": "deterministic policy prediction; alias policy_actions",
+    "evaluation_physical_actions": "actual physical action from environment receipt",
+    "training_applied_action": "SB3 clipped policy action; alias policy_clipped_action",
+    "training_physical_applied_action": "actual physical action from environment receipt",
+    "training_raw_action": "SB3 raw Gaussian policy action; alias policy_raw_action"
+  },
+  "arguments": {
+    "action_mode": "independent8",
+    "attitude_feedback_scale": 0.25,
+    "baseline": "wheel_leg",
+    "checkpoint_budgets": null,
+    "delay_randomization": false,
+    "duration": 60.0,
+    "history": 1,
+    "leg_feedback_scale": 1.0,
+    "measurement_delay": 0,
+    "metadata": "/home/lyh/wheel-legged-control-lab/results/d1_budget_study/independent8_seed32000/checkpoints/budget262144/checkpoint.json",
+    "mode": "evaluate",
+    "output": "/home/lyh/wheel-legged-control-lab/results/d1_budget_study/independent8_seed32000_budget262144_development",
+    "policy": "/home/lyh/wheel-legged-control-lab/results/d1_budget_study/independent8_seed32000/checkpoints/budget262144/checkpoint.zip",
+    "seed": 32000,
+    "source": "imu_encoder_fusion",
+    "split": "development",
+    "steps": 262144,
+    "terrain_suite": "budget_compare_v1",
+    "wheel_ki": 1.5,
+    "wheel_kp": 0.55,
+    "workers": 4,
+    "yaw_feedback_gain": 4.0
+  },
+  "checkpoint_budgets": null,
+  "checkpoint_save_timing": null,
+  "command_splits": "development and holdout schedules in frozen locomotion_commands.py; full targets logged per episode",
+  "discount_horizon_s": 2.0,
+  "evaluation_seeds": {
+    "development": [
+      1017,
+      1029
+    ],
+    "holdout": [
+      4617,
+      4629
+    ]
+  },
+  "noise_origin": "synthetic, not calibrated D1 data",
+  "ppo_settings": {
+    "batch_size": 128,
+    "clip_range": 0.2,
+    "ent_coef": 0.0,
+    "gae_lambda": 0.95,
+    "gamma": 0.9950124791926823,
+    "learning_rate": 0.0003,
+    "n_epochs": 4,
+    "n_steps": 128,
+    "policy_kwargs": {
+      "log_std_init": -2.0,
+      "net_arch": [
+        64,
+        64
+      ]
+    }
+  },
+  "python": "3.10.12",
+  "quality_thresholds": {
+    "attitude_rmse_rad": 0.15,
+    "height_rmse_m": 0.025,
+    "velocity_rmse_mps": 0.08,
+    "yaw_rmse_rps": 0.08
+  },
+  "replication_unit": "training seed, not episode steps",
+  "reward_scale": 1.0,
+  "schema": "d1-command-locomotion-experiment-v1",
+  "selection_rule": "fixed final budget; no holdout checkpoint selection",
+  "sensor_noise": {
+    "accelerometer_bias_m_s2": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "accelerometer_std_m_s2": 0.03,
+    "encoder_position_std_rad": 0.0005,
+    "encoder_velocity_std_rad_s": 0.005,
+    "gyro_bias_rad_s": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "gyro_std_rad_s": 0.002
+  },
+  "terrain_splits": {
+    "development": [
+      {
+        "cross_slope_deg": -0.7,
+        "layout": "right_offset",
+        "phase_x_rad": 0.45,
+        "phase_y_rad": 0.65,
+        "ripple_amplitude_m": 0.0065,
+        "schema": "d1-fixed-2d-road-v1",
+        "slope_deg": 1.3,
+        "step_height_m": 0.0065,
+        "wavelength_x_m": 0.77,
+        "wavelength_y_m": 1.07
+      },
+      {
+        "cross_slope_deg": 0.7,
+        "layout": "right_offset",
+        "phase_x_rad": 1.05,
+        "phase_y_rad": 1.25,
+        "ripple_amplitude_m": 0.007,
+        "schema": "d1-fixed-2d-road-v1",
+        "slope_deg": -1.3,
+        "step_height_m": 0.007,
+        "wavelength_x_m": 0.87,
+        "wavelength_y_m": 1.17
+      }
+    ],
+    "holdout": [
+      {
+        "cross_slope_deg": 0.55,
+        "layout": "s_bend",
+        "phase_x_rad": 1.7,
+        "phase_y_rad": 1.9,
+        "ripple_amplitude_m": 0.008,
+        "schema": "d1-fixed-2d-road-v1",
+        "slope_deg": 1.2,
+        "step_height_m": 0.008,
+        "wavelength_x_m": 0.74,
+        "wavelength_y_m": 1.04
+      },
+      {
+        "cross_slope_deg": -0.55,
+        "layout": "diagonal",
+        "phase_x_rad": 2.3,
+        "phase_y_rad": 2.5,
+        "ripple_amplitude_m": 0.0075,
+        "schema": "d1-fixed-2d-road-v1",
+        "slope_deg": -1.2,
+        "step_height_m": 0.0075,
+        "wavelength_x_m": 0.84,
+        "wavelength_y_m": 1.14
+      }
+    ],
+    "train": [
+      {
+        "cross_slope_deg": 0.5,
+        "layout": "straight",
+        "phase_x_rad": 0.0,
+        "phase_y_rad": 0.2,
+        "ripple_amplitude_m": 0.005,
+        "schema": "d1-fixed-2d-road-v1",
+        "slope_deg": 1.0,
+        "step_height_m": 0.005,
+        "wavelength_x_m": 0.6,
+        "wavelength_y_m": 0.9
+      },
+      {
+        "cross_slope_deg": -0.5,
+        "layout": "straight",
+        "phase_x_rad": 0.6,
+        "phase_y_rad": 0.8,
+        "ripple_amplitude_m": 0.01,
+        "schema": "d1-fixed-2d-road-v1",
+        "slope_deg": -1.5,
+        "step_height_m": 0.01,
+        "wavelength_x_m": 0.9,
+        "wavelength_y_m": 1.2
+      },
+      {
+        "cross_slope_deg": -1.0,
+        "layout": "left_offset",
+        "phase_x_rad": 0.6,
+        "phase_y_rad": 0.2,
+        "ripple_amplitude_m": 0.0075,
+        "schema": "d1-fixed-2d-road-v1",
+        "slope_deg": 1.5,
+        "step_height_m": 0.0075,
+        "wavelength_x_m": 0.6,
+        "wavelength_y_m": 1.2
+      },
+      {
+        "cross_slope_deg": 1.0,
+        "layout": "left_offset",
+        "phase_x_rad": 0.0,
+        "phase_y_rad": 0.8,
+        "ripple_amplitude_m": 0.005,
+        "schema": "d1-fixed-2d-road-v1",
+        "slope_deg": -1.0,
+        "step_height_m": 0.005,
+        "wavelength_x_m": 0.9,
+        "wavelength_y_m": 0.9
+      }
+    ]
+  },
+  "terrain_suite": "budget_compare_v1",
+  "versions": {
+    "gymnasium": "1.3.0",
+    "mujoco": "3.12.0",
+    "numpy": "2.2.6",
+    "stable_baselines3": "2.9.0",
+    "torch": "2.13.0"
+  }
+}
