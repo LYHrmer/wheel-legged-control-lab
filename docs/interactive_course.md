@@ -13,6 +13,7 @@ python scripts/run_d1_course_drive.py --zone rough --baseline lqr --seconds 600 
 `R` 把机器人扶正并重置到当前区域起点，清除旧运动目标；这是仿真复位，不是物理自救动作。
 `X` 取消运动与朝向目标，`T/G` 升降机身，`C` 复位相机，`Esc` 退出并保存记录。
 `A/D` 暂不执行侧移并在画面显示原因：现有固定轮控制器没有侧步功能。
+这不表示腿式侧移在机构上不可行；抬腿、横向落脚和重心转移需要独立步态控制及动态平衡验证。
 `1` 回起点；`2/3/4/5/6` 分别重置到乱石、坡道、台阶、波浪路、跳跃区。
 各区切换是重新放置机器人，轨迹按 segment 分开记录，不能拼接成连续通关。
 窗口显示实际控制器、oracle 状态来源、跳跃阶段和安全状态。
@@ -26,6 +27,9 @@ python scripts/run_d1_course_drive.py --zone rough --baseline lqr --seconds 600 
 
 新课程界面在命令层加入目标朝向及角速度反馈，并启用低层已有的轮速反馈，以减小转向时的前移；参数与源码
 记录在每次运行的 `protocol.json`。这不修改下文历史实验或当前正式 PPO 实验的控制器参数。
+
+[本次航向控制证据](../results/d1_course_heading_revision/README.md)保存真实窗口自动检查、
+四例平地/乱石转向探针及失败候选；自动检查通过，人工体验仍待复验。
 
 这份笔记对应 [`interactive.py`](../src/wheel_legged_control/d1/interactive.py) 和
 [`terrain.py`](../src/wheel_legged_control/d1/terrain.py)。它记录场景尺寸、控制接口、验收条件，
@@ -90,7 +94,7 @@ s^\star_{k+1}=s^\star_k+v^\star T_s.
 机器人转过 90° 后，`v_{x,b}` 仍表示它面对方向上的速度。这个定义也用于 PPO 观察、速度
 奖励和 RMSE。
 
-D1 固定轮的横向速度不可控。`A/D` 生成偏航角速度目标，低层给左右轮施加相反的差动力矩：
+以下原入口采用四轮着地滚动，没有横向步态。其 `A/D` 生成偏航角速度目标，低层给左右轮施加相反的差动力矩：
 
 \[
 \tau_{yaw}=k_r(\dot\psi^\star-\dot\psi),
