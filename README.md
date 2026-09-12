@@ -72,6 +72,19 @@ python scripts/run_d1_locomotion.py --source oracle --seconds 60 \
 
 ## 键盘接口
 
+想试坡道、乱石、台阶和跳跃，使用项目已有的[地形课程](docs/interactive_course.md)：
+
+```bash
+python scripts/run_d1_course_drive.py --zone rough --seconds 600 \
+  --output results/my_course_drive_01
+```
+
+该入口支持下表的长按操作，另有 `1..6` 重置地形区域、`J` 请求受保护跳跃。
+它使用原有 LQR/MPC 课程控制器和 oracle 状态，不加载主线 PPO。
+乱石为固定方块。各区重置会分段记录，不计作连续越障。
+
+试当前 82 维强化学习主线时使用：
+
 ```bash
 python scripts/run_d1_locomotion.py --keyboard --source sensor \
   --output results/my_keyboard_run
@@ -88,7 +101,7 @@ python scripts/run_d1_locomotion.py --keyboard --source sensor \
 
 松开某个运动方向的按键后，该方向的命令归零；窗口失去焦点时清掉前进与转向命令。
 按住 W 和 A 可边前进边转向，相反方向的键相互抵消。刹车仍然由控制器和物理决定，这些是软件命令限幅，
-不是急停。新入口没有跳跃，也没有横移。D1 四轮没有转向机构，`A/D` 靠左右轮差速改航向。旧入口
+不是急停。82 维主线入口没有跳跃，也没有横移。D1 四轮没有转向机构，`A/D` 靠左右轮差速改航向。旧入口
 `wheel-legged-d1-play` 的 `Space` 是跳跃，属于历史 42 维路径，两套按键不要混用。
 
 键盘默认使用带缓坡、起伏与小台阶的开发道路，可用 `--terrain flat` 切回平地。

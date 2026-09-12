@@ -165,7 +165,7 @@ def _snapshot(output):
             paths.add(Path(file).resolve())
         if (
             file
-            and Path(file).name in ("d1_keyboard_commands.py", "d1_keyboard_viewer.py")
+            and Path(file).name in ("d1_keyboard_commands.py", "d1_keyboard_viewer.py", "d1_terrain_display.py")
             and Path(file).resolve().parent == ROOT / "scripts"
         ):
             paths.add(Path(file).resolve())

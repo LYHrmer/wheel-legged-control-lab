@@ -136,7 +136,7 @@ def interrupted(tmp_path, monkeypatch):
     runner = SimpleNamespace(
         LEDGER_FIELDS=frozen.LEDGER_FIELDS, build_runs=build_runs,
         source_hashes=lambda: {name: recovery.digest(repo / name) for name in hashes},
-        _child_artifacts=frozen._child_artifacts, _environment=lambda: {}, _execute=execute,
+        _child_artifacts=frozen._child_artifacts, _environment=dict, _execute=execute,
         _utc=lambda: datetime.now(timezone.utc).isoformat(), _sigterm=frozen._sigterm,
         write_json=frozen.write_json)
     monkeypatch.setattr(recovery, 'SOURCE_COUNT', 3)

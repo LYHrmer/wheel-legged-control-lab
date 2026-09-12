@@ -10,6 +10,11 @@ import math
 import time
 from contextlib import nullcontext
 
+if __package__:
+    from .d1_terrain_display import append_terrain_grid
+else:
+    from d1_terrain_display import append_terrain_grid
+
 
 class KeyboardViewer:
     def __init__(self, model, data, commands, *, terrain_label=""):
@@ -146,6 +151,7 @@ class KeyboardViewer:
         )
         # No keyboard callback ever changes scene flags or geometry visibility.
         self.scene.flags[mj.mjtRndFlag.mjRND_WIREFRAME] = 0
+        append_terrain_grid(self.model, self.scene, self.cam.lookat[:2])
         viewport = mj.MjrRect(0, 0, width, height)
         mj.mjr_render(viewport, self.scene, self.context)
         vx, yaw, clearance, seconds = self._status

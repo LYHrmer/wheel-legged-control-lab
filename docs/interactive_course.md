@@ -1,7 +1,25 @@
 # D1 键盘驾驶与地形课程
 
-本页是历史课程入口 `wheel-legged-d1-play`，包含受保护跳跃。当前 82 维主线使用
-[另一套运行入口](locomotion_lab.md)，Space 为停车且没有跳跃；两套 checkpoint 和按键不要混用。
+现在可以用长按键盘界面驾驶项目已有的课程。它复用原有 LQR/MPC 与受保护跳跃，
+不加载当前 82 维主线的 PPO 权重。下面命令从仓库根目录运行，输出目录必须是新的：
+
+```bash
+python scripts/run_d1_course_drive.py --zone rough --baseline lqr --seconds 600 \
+  --output results/my_course_drive_01
+```
+
+点击窗口后，按住 `W/S` 前进或倒退、`A/D` 转向、`R/F` 升降机身；松开方向键清除该轴目标。
+`Space` 停车，`J` 请求跳跃，`C` 复位相机，`Esc` 退出并保存记录。
+`1` 回起点；`2/3/4/5/6` 分别重置到乱石、坡道、台阶、波浪路、跳跃区。
+各区切换是重新放置机器人，轨迹按 segment 分开记录，不能拼接成连续通关。
+窗口显示实际控制器、oracle 状态来源、跳跃阶段和安全状态。
+
+“乱石”是固定的碰撞方块，不是会滚动的散粒碎石。界面更新没有扩大已有地形，也没有改变
+课程控制器的物理和跳跃保护。已有自动按键测试与真实用户试驾分别记录，自动通过不能替代人工体验验收。
+
+下文保留原 `wheel-legged-d1-play` 入口的设计和历史实验，其中空格用于跳跃；
+新界面统一为 `J` 跳跃、`Space` 停车。当前 82 维主线使用
+[另一套运行入口](locomotion_lab.md)，尚无跳跃；两套 checkpoint 不兼容。
 
 这份笔记对应 [`interactive.py`](../src/wheel_legged_control/d1/interactive.py) 和
 [`terrain.py`](../src/wheel_legged_control/d1/terrain.py)。它记录场景尺寸、控制接口、验收条件，
