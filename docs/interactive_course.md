@@ -8,8 +8,11 @@ python scripts/run_d1_course_drive.py --zone rough --baseline lqr --seconds 600 
   --output results/my_course_drive_01
 ```
 
-点击窗口后，按住 `W/S` 前进或倒退、`A/D` 转向、`R/F` 升降机身；松开方向键清除该轴目标。
-`Space` 停车，`J` 请求跳跃，`C` 复位相机，`Esc` 退出并保存记录。
+点击窗口后，按住 `W/S` 前进或倒退，松开清除前进目标。按住 `Q/E` 调整目标朝向，松开后
+继续向该角度收敛；画面会同时显示实际角度和目标角度。`Space` 请求受保护跳跃，
+`R` 把机器人扶正并重置到当前区域起点，清除旧运动目标；这是仿真复位，不是物理自救动作。
+`X` 取消运动与朝向目标，`T/G` 升降机身，`C` 复位相机，`Esc` 退出并保存记录。
+`A/D` 暂不执行侧移并在画面显示原因：现有固定轮控制器没有侧步功能。
 `1` 回起点；`2/3/4/5/6` 分别重置到乱石、坡道、台阶、波浪路、跳跃区。
 各区切换是重新放置机器人，轨迹按 segment 分开记录，不能拼接成连续通关。
 窗口显示实际控制器、oracle 状态来源、跳跃阶段和安全状态。
@@ -18,8 +21,11 @@ python scripts/run_d1_course_drive.py --zone rough --baseline lqr --seconds 600 
 课程控制器的物理和跳跃保护。已有自动按键测试与真实用户试驾分别记录，自动通过不能替代人工体验验收。
 
 下文保留原 `wheel-legged-d1-play` 入口的设计和历史实验，其中空格用于跳跃；
-新界面统一为 `J` 跳跃、`Space` 停车。当前 82 维主线使用
+课程新界面为 `Space` 跳跃、`X` 停车，保留 `J` 为跳跃别名。当前 82 维主线使用
 [另一套运行入口](locomotion_lab.md)，尚无跳跃；两套 checkpoint 不兼容。
+
+新课程界面在命令层加入目标朝向及角速度反馈，并启用低层已有的轮速反馈，以减小转向时的前移；参数与源码
+记录在每次运行的 `protocol.json`。这不修改下文历史实验或当前正式 PPO 实验的控制器参数。
 
 这份笔记对应 [`interactive.py`](../src/wheel_legged_control/d1/interactive.py) 和
 [`terrain.py`](../src/wheel_legged_control/d1/terrain.py)。它记录场景尺寸、控制接口、验收条件，

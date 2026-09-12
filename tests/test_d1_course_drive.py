@@ -18,7 +18,7 @@ def key(char, action=1):
     return {"type": "key", "key": ord(char), "action": action}
 
 
-def test_event_core_handles_fifo_reset_and_jump_once_and_ignores_space_repeat():
+def test_event_core_handles_fifo_reset_and_space_jump_and_ignores_repeat():
     calls = []
     simulation = SimpleNamespace(
         reset=lambda zone: calls.append(("reset", zone)),
@@ -42,6 +42,7 @@ def test_event_core_handles_fifo_reset_and_jump_once_and_ignores_space_repeat():
         ("held", set()),
         ("camera",),
         ("segment", "ramp", 0),
+        ("jump", 32),
         ("jump", 32),
         ("reset", "stairs"),
         ("held", set()),
@@ -153,6 +154,7 @@ def test_real_microsteps_record_integrated_states_and_discontinuous_resets(tmp_p
 
 def test_headless_runner_leaves_legacy_physics_identical_to_direct_steps(tmp_path):
     actual, reference = D1InteractiveSimulation(), D1InteractiveSimulation()
+    reference.teleop.controller.low_level.wheel_velocity_gain = 0.55
     reference.reset("rough")
     for _ in range(3):
         reference.step()
@@ -168,13 +170,13 @@ def test_headless_runner_leaves_legacy_physics_identical_to_direct_steps(tmp_pat
     np.testing.assert_array_equal(actual.plant.data.qvel, reference.plant.data.qvel)
 
 
-def test_j_press_reaches_existing_guard_after_settle_and_space_does_not_jump():
+def test_space_press_reaches_existing_guard_after_settle():
     simulation = D1InteractiveSimulation()
     for _ in range(100):
         simulation.step()
     viewer = SimpleNamespace(events=[key(" ")])
     cursor = apply_course_events(simulation, viewer, 0, lambda *_: None)
-    assert simulation.step().jump_phase == "ready"
+    assert simulation.step().jump_phase == "crouch"
     viewer.events.append(key("J"))
     apply_course_events(simulation, viewer, cursor, lambda *_: None)
     assert simulation.step().jump_phase == "crouch"

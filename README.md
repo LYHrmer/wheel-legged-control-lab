@@ -79,7 +79,9 @@ python scripts/run_d1_course_drive.py --zone rough --seconds 600 \
   --output results/my_course_drive_01
 ```
 
-该入口支持下表的长按操作，另有 `1..6` 重置地形区域、`J` 请求受保护跳跃。
+该入口使用 `W/S` 前后移动、`Q/E` 调整目标朝向、`Space` 请求受保护跳跃、`R` 扶正复位到
+当前区域起点、`X` 取消运动、`T/G` 调整高度，`1..6` 重置地形区域。`A/D` 侧移仍未实现，
+界面会明确提示；固定轮没有直接横移命令。R 是仿真复位，不称物理自救。
 它使用原有 LQR/MPC 课程控制器和 oracle 状态，不加载主线 PPO。
 乱石为固定方块。各区重置会分段记录，不计作连续越障。
 
@@ -169,9 +171,10 @@ python scripts/run_d1_locomotion.py --keyboard --source sensor \
 - [同底座动作比较](docs/shared_action_learning_lab.md)：共享两维与独立八维动作共用轮腿控制器，
   区分策略概率、物理动作、参数量与配对评测。
 - [连续训练的预算曲线](docs/budget_learning_lab.md)：每模型一次训练、四档存档，检查保存时机
-  是否在 PPO 更新之后；正式结果尚待完成。
-- [旧键盘课程与受保护跳跃演示](docs/interactive_course.md)：LEGACY，42 维路径，只用于复现
-  旧结果，不属于新键盘接口。
+  是否在 PPO 更新之后；[正式结果](docs/d1_budget_study.md)覆盖 200 例，198 完整、192 达标，
+  增加预算未带来一致改善。
+- [地形课程与受保护跳跃](docs/interactive_course.md)：已有地形接入新的键盘界面，支持目标朝向和仿真扶正复位。
+- [ATEC 项目参考方案](docs/atec_reference.md)：视觉导航与课程训练可借鉴之处，及权重不能直接加载的原因。
 
 ## 模型来源与许可
 

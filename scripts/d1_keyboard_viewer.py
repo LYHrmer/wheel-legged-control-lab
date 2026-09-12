@@ -25,6 +25,7 @@ class KeyboardViewer:
         self.model, self.data, self.commands = model, data, commands
         self.terrain_label = terrain_label
         self.extra_help = ""
+        self.controls_help = None
         self._last_render = -math.inf
         self.events = []
         self._clock_start = time.monotonic()
@@ -106,7 +107,11 @@ class KeyboardViewer:
         self.glfw.poll_events()
         focused = bool(self.glfw.get_window_attrib(self.window, self.glfw.FOCUSED))
         self._focused = focused
-        keys = {ord(c) for c in "WASDRF"} | {self.glfw.KEY_SPACE, self.glfw.KEY_ESCAPE}
+        keys = getattr(
+            self.commands,
+            "key_codes",
+            {ord(c) for c in "WASDRF"} | {self.glfw.KEY_SPACE, self.glfw.KEY_ESCAPE},
+        )
         pressed = {
             key
             for key in keys
@@ -155,9 +160,13 @@ class KeyboardViewer:
         viewport = mj.MjrRect(0, 0, width, height)
         mj.mjr_render(viewport, self.scene, self.context)
         vx, yaw, clearance, seconds = self._status
-        left = "Hold W/S\nHold A/D\nHold R/F\nSpace\nMouse / wheel\nC / Esc\nTarget\nTerrain\nTime"
+        controls = self.controls_help or (
+            "Hold W/S\nHold A/D\nHold R/F\nSpace\nMouse / wheel\nC / Esc",
+            "Forward / reverse (release stops request)\nLeft / right\nRaise / lower body\nStop request\nOrbit / zoom\nReset camera / exit",
+        )
+        left = controls[0] + "\nTarget\nTerrain\nTime"
         right = (
-            "Forward / reverse (release stops request)\nLeft / right\nRaise / lower body\nStop request\nOrbit / zoom\nReset camera / exit\n"
+            controls[1] + "\n"
             f"v {vx:+.2f} m/s | yaw {yaw:+.2f} rad/s | height {clearance:.3f} m\n"
             f"{self.terrain_label}\n{seconds:.1f} s"
         )
