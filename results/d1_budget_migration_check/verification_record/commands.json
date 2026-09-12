@@ -1,0 +1,45 @@
+{
+  "scope": "Actual archived analyzer and independent weight reader entrypoints, wrapped only with file-access guards.",
+  "commands": [
+    {
+      "mode": "analysis",
+      "argv": [
+        "rtk",
+        "proxy",
+        "env",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "PYTHONPATH=/home/lyh/wheel-legged-control-lab/.local-deps",
+        "OPENBLAS_NUM_THREADS=1",
+        "OMP_NUM_THREADS=1",
+        "MKL_NUM_THREADS=1",
+        "python3",
+        "-B",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/migration_check/migration_read_guard.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/migration_check/reference/d1_budget_study_analysis/analyze_d1_budget_study.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/migration_check/relocated_study",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/migration_check/recomputed_analysis",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/migration_check/analysis_read_guard.json"
+      ]
+    },
+    {
+      "mode": "weights",
+      "argv": [
+        "rtk",
+        "proxy",
+        "env",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "PYTHONPATH=/home/lyh/wheel-legged-control-lab/.local-deps",
+        "OPENBLAS_NUM_THREADS=1",
+        "OMP_NUM_THREADS=1",
+        "MKL_NUM_THREADS=1",
+        "python3",
+        "-B",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/migration_check/migration_read_guard.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/migration_check/reference/d1_budget_study_weights/audit_d1_budget_weights.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/migration_check/relocated_study",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/migration_check/recomputed_weights",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/migration_check/weights_read_guard.json"
+      ]
+    }
+  ]
+}

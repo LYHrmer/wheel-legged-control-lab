@@ -1,0 +1,145 @@
+{
+  "status": "migration_recomputation_passed",
+  "observed_utc": "2026-09-12T16:19:24.665502+00:00",
+  "analysis_comparison": {
+    "numeric_and_nonpath_fields_exactly_equal": true,
+    "allowed_path_changes": [
+      {
+        "field": [
+          "study"
+        ],
+        "before": "/home/lyh/wheel-legged-control-lab/results/d1_budget_study",
+        "after": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/migration_check/relocated_study"
+      },
+      {
+        "field": [
+          "training",
+          "shared2_seed31000",
+          "ppo_math",
+          "directory"
+        ],
+        "before": "/home/lyh/wheel-legged-control-lab/results/d1_budget_study/shared2_seed31000/updates",
+        "after": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/migration_check/relocated_study/shared2_seed31000/updates"
+      },
+      {
+        "field": [
+          "training",
+          "shared2_seed32000",
+          "ppo_math",
+          "directory"
+        ],
+        "before": "/home/lyh/wheel-legged-control-lab/results/d1_budget_study/shared2_seed32000/updates",
+        "after": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/migration_check/relocated_study/shared2_seed32000/updates"
+      },
+      {
+        "field": [
+          "training",
+          "shared2_seed33000",
+          "ppo_math",
+          "directory"
+        ],
+        "before": "/home/lyh/wheel-legged-control-lab/results/d1_budget_study/shared2_seed33000/updates",
+        "after": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/migration_check/relocated_study/shared2_seed33000/updates"
+      },
+      {
+        "field": [
+          "training",
+          "independent8_seed31000",
+          "ppo_math",
+          "directory"
+        ],
+        "before": "/home/lyh/wheel-legged-control-lab/results/d1_budget_study/independent8_seed31000/updates",
+        "after": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/migration_check/relocated_study/independent8_seed31000/updates"
+      },
+      {
+        "field": [
+          "training",
+          "independent8_seed32000",
+          "ppo_math",
+          "directory"
+        ],
+        "before": "/home/lyh/wheel-legged-control-lab/results/d1_budget_study/independent8_seed32000/updates",
+        "after": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/migration_check/relocated_study/independent8_seed32000/updates"
+      },
+      {
+        "field": [
+          "training",
+          "independent8_seed33000",
+          "ppo_math",
+          "directory"
+        ],
+        "before": "/home/lyh/wheel-legged-control-lab/results/d1_budget_study/independent8_seed33000/updates",
+        "after": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/migration_check/relocated_study/independent8_seed33000/updates"
+      }
+    ],
+    "normalized_canonical_sha256": "996849cb52d44babc689ed6121a5de1acad8a829f3fee323d62d6dd569deb8a5",
+    "original_report_sha256": "1a4426dc03ed27682e34c81a05c41975c6fffc96804636d15cebaa1dc5f313a0",
+    "migrated_report_sha256": "ba8cc30b72119dc461419cef861c4be8859dd1e643712c64a9aa51651e2344b8"
+  },
+  "weight_comparison": {
+    "all_tensor_and_file_hash_chains_exactly_equal": true,
+    "allowed_path_changes": [
+      {
+        "field": [
+          "study"
+        ],
+        "before": "/home/lyh/wheel-legged-control-lab/results/d1_budget_study",
+        "after": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/migration_check/relocated_study"
+      }
+    ],
+    "original_report_sha256": "c80c933a0d75b8970ac30a6fe23c4376cd3a53abfc6b40bb3abbda6bdd637de4",
+    "migrated_report_sha256": "4ccf1ff005adde82385891fdd04bb90f4d37a8b191de254cc93b0266a49eb9a8"
+  },
+  "counts": {
+    "commands": 56,
+    "source_files": 77,
+    "train_calls": 3072,
+    "evaluation_cases": 200,
+    "completed": 198,
+    "failed_map_boundary": 2,
+    "quality_passes": 192,
+    "checkpoint_zips": 24,
+    "root_final_zips": 6
+  },
+  "study_input_files": 4171,
+  "study_input_bytes": 3296266633,
+  "original_and_migrated_inputs_unchanged": true,
+  "input_sha256_manifest_sha256": "46859fa6d6946ed39ee1b9917b225ee7b64cca19c09f8132f964dc5270fb8e9f",
+  "reader_guards": {
+    "analysis": {
+      "status": "passed",
+      "script": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/migration_check/reference/d1_budget_study_analysis/analyze_d1_budget_study.py",
+      "study": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/migration_check/relocated_study",
+      "blocked_accesses": [],
+      "study_access_counts": {
+        "open": 11275,
+        "os.scandir": 66,
+        "os.listdir": 6
+      },
+      "scope": "CPython audit events reject original project reads except shared .local-deps and reject writes to migrated study; not an OS sandbox or dependency migration test."
+    },
+    "weights": {
+      "status": "passed",
+      "script": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/migration_check/reference/d1_budget_study_weights/audit_d1_budget_weights.py",
+      "study": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/migration_check/relocated_study",
+      "blocked_accesses": [],
+      "study_access_counts": {
+        "open": 142
+      },
+      "scope": "CPython audit events reject original project reads except shared .local-deps and reject writes to migrated study; not an OS sandbox or dependency migration test."
+    }
+  },
+  "verified_output_files": [
+    "recomputed_analysis/analysis.json",
+    "recomputed_analysis/analyze_d1_budget_study.py",
+    "recomputed_analysis/audit_d1_locomotion.py",
+    "recomputed_analysis/audit_d1_ppo_math.py",
+    "recomputed_weights/report.json",
+    "recomputed_weights/audit_d1_budget_weights.py"
+  ],
+  "limitations": [
+    "Same machine and installed dependencies; no dependency-installation or cross-platform test.",
+    "This run used physical copytree-equivalent file copies, not a GitHub download or result bundle.",
+    "Archived analyzers were executed unchanged; no training, simulation evaluation, optimizer replay or remote write."
+  ]
+}
