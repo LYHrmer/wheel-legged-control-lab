@@ -18,6 +18,7 @@ python scripts/run_d1_course_drive.py --zone rough --baseline lqr --seconds 600 
 添加 `--side-step-profile conservative` 可使用原约 41 秒的保守步态。
 首次试侧步可先按 `1` 回平地起点，停稳后长按 `A` 或 `D` 约 12 秒。
 完整对照、Claude Opus 实现出处及本地修复见[侧步开发证据](../results/d1_side_step_development/README.md)。
+连续三步实测累计侧移约 10.8 cm，仍有约 1.8 cm 纵向漂移；全程最大朝向偏差约 1.47°。
 松键、反向或失焦会先完成当前落脚，再交回轮式控制器。侧步期间暂停前进、转向和跳跃请求。
 侧步使用仿真真值与世界高度为零的平面假设，只允许停稳且四轮接触时开始，暂不支持坡道或碎石上的侧步。
 `1` 回起点；`2/3/4/5/6` 分别重置到乱石、坡道、台阶、波浪路、跳跃区。

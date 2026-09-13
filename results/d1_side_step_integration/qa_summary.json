@@ -1,0 +1,82 @@
+{
+  "schema": "d1-side-step-integration-qa-v1",
+  "status": "completed",
+  "started_utc": "2026-09-13T05:02:56.245732+00:00",
+  "finished_utc": "2026-09-13T05:09:11.503431+00:00",
+  "versions": {
+    "numpy": "2.2.6",
+    "mujoco": "3.12.0",
+    "pytest": "8.4.2",
+    "ruff": "0.16.5"
+  },
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "pytest": {
+    "tests": 3121,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "exit_code": 0,
+    "duration_s": 372.99,
+    "warnings": 206,
+    "command": "rtk proxy env PYTHONPATH=.local-deps:src:. PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 python3 -B -m pytest -ra"
+  },
+  "lint": {
+    "source_scope": "src scripts tests",
+    "source_scope_exit_code": 0,
+    "full_scope": ".",
+    "full_scope_exit_code": 1,
+    "full_scope_findings": 57,
+    "findings_by_root": {
+      "results": 57
+    },
+    "codes": {
+      "I001": 22,
+      "C417": 1,
+      "F401": 13,
+      "C408": 15,
+      "B023": 5,
+      "RUF059": 1
+    },
+    "source_command": "rtk proxy env PYTHONPATH=.local-deps python3 -m ruff check src scripts tests",
+    "full_command": "rtk proxy env PYTHONPATH=.local-deps python3 -m ruff check ."
+  },
+  "source": {
+    "tested_files": 231,
+    "changed_during_qa": [],
+    "frozen_formal_files": 77,
+    "frozen_changed_before": [],
+    "frozen_changed_after": []
+  },
+  "profile_selection": {
+    "python_run": "fast",
+    "command_line": "fast",
+    "conservative_factory": "SideStepController",
+    "stable_fallback_sha256": "42b488660a300077eb7c89f37d6d8649f360ade5852f9ce4f9c2c317ef4d134e",
+    "fallback_unchanged": true
+  },
+  "integration_findings": [
+    "Viewer focus loss clears public command input; held polling and watchdog remain enabled.",
+    "The bridge chooses one compute owner and shares exactly one plant.step/update_state path.",
+    "Failure without done keeps side torque ownership; release/reversal cancels toward landing.",
+    "Legacy controller/terrain/torque/boost memories reset only at safe handoff; state source sequence and plant state remain continuous.",
+    "Fast and stable torque_source labels are provided by the selected controller, while legacy rows remain legacy.",
+    "Raw states, applied torque and segments are recorded; allocation fields not calculated by side control remain None/not_applicable.",
+    "Side controllers read simulator truth; frozen RL source and physics/control time steps are unchanged."
+  ],
+  "original_work_evidence_sha256": {
+    "start.json": "819c7766b5b58835a782551dbf267bc5d933ca7dcd8b90a2ef0af31a44c21e88",
+    "final_counts.json": "0260275b1ad377704b190a72a68f4ca9b5f43e7eda7bdffc751d0261bf79595c",
+    "integration_review.json": "8742d7d843d3503d6c57e80625693c40284ddead42612f6dab26f888aea03fe5",
+    "report.md": "0a44189460bdcbe64710e5f65ff303462f89e443e71eef617c57dba6c4745e3c",
+    "ruff_findings.json": "679a8f43510a896fb3043e5d6eb6fe38683b484e9141748f2b0fbdec5575cbbb",
+    "pytest.xml": "406b4800c895157cd812682c4d36b71e49535d78d68c4b33629bd4a52bec3180",
+    "fast_focus_handoff.npz": "5ea0d8f09c17dd52624acd35b51696d1c6225dbb141e7efe2ac498acc224abf5",
+    "fast_focus_handoff_trace.json": "d8593ad56eb4d096cf4c0a39fb537c0a08c51514a57040030f4d24997cf37e44"
+  },
+  "omitted": "Raw NPZ and per-tick trajectories remain in the original work evidence; this public tree contains summaries and source hashes.",
+  "limits": [
+    "Side control uses simulator truth on flat ground.",
+    "This is neither PPO validation nor hardware/human driving acceptance.",
+    "GUI04 stopped before landing finished; the separate public-input physical probe validates completed handoff."
+  ]
+}

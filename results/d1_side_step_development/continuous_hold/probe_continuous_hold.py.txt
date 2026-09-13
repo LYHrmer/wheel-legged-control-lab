@@ -1,0 +1,214 @@
+"""Real command-adapter/bridge dynamics for continuously held A/D inputs."""
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+from pathlib import Path
+import time
+
+import numpy as np
+
+from scripts.d1_course_controls import CourseKeyboardCommands
+from scripts.d1_course_side_step import CourseSideStepDrive
+from scripts.d1_fast_side_step import FastSideStepController
+from wheel_legged_control.d1.interactive import D1InteractiveSimulation
+from wheel_legged_control.d1.model import JOINT_VELOCITY_LIMIT
+
+ROOT = Path('/home/lyh/wheel-legged-control-lab')
+SOURCE_FILES = ['scripts/d1_course_controls.py', 'scripts/d1_course_side_step.py',
+                'scripts/d1_fast_side_step.py', 'scripts/d1_side_step.py',
+                'src/wheel_legged_control/d1/interactive.py']
+
+
+def digest(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def snapshot(plant):
+    arrays = [plant.data.qpos, plant.data.qvel, plant.data.ctrl,
+              plant.data.xfrc_applied, plant.data.qfrc_applied,
+              plant.data.qacc_warmstart, plant.model.body_mass,
+              plant.model.body_inertia, plant.model.geom_friction,
+              plant.measurement_data.qpos, plant.measurement_data.qvel,
+              plant.measurement_data.xpos]
+    return [x.copy() for x in arrays]+[np.array([plant.data.time, plant.control_dt,
+                                               plant.model.opt.timestep, plant.physics_steps])]
+
+
+def unchanged(before, plant):
+    for old, new in zip(before, snapshot(plant)):
+        if not np.array_equal(old, new):
+            raise AssertionError('side controller changed live/measured physics state')
+
+
+def probe(direction, yaw, output):
+    output.parent.mkdir(parents=True, exist_ok=True)
+    if any(output.parent.glob(output.name+'.*')):
+        raise FileExistsError(output)
+    hashes = {p: digest(ROOT/p) for p in SOURCE_FILES}
+    sim = D1InteractiveSimulation(baseline='lqr', arena='course', state_mode='oracle')
+    plant = sim.plant
+    commands = CourseKeyboardCommands(clock=lambda: float(plant.data.time))
+    sim.teleop.controller.low_level.wheel_velocity_gain = commands.wheel_velocity_gain
+    sim.reset('start')
+    if yaw:
+        # Initial scenario placement only, before any keyboard/control tick.
+        plant.reset(base_quaternion=np.array([np.cos(yaw/2), 0., 0., np.sin(yaw/2)]))
+        sim.teleop._publish_control_state(sim.teleop.state_source.reset(seed=0))
+    commands.reset(float(plant.base_rpy[2]), plant.base_position[:2])
+    drive = CourseSideStepDrive(sim, side_controller_factory=FastSideStepController)
+    counts = dict(legacy=0, side=0, integrate=0, update=0)
+    originals = {name: function for name, function in [
+        ('legacy', sim.teleop.compute), ('side', drive.side.compute),
+        ('integrate', plant.step), ('update', sim.teleop.update_state)]}
+
+    def counted(name):
+        def call(*args, **kwargs):
+            counts[name] += 1
+            before = snapshot(plant) if name == 'side' else None
+            result = originals[name](*args, **kwargs)
+            if before is not None:
+                unchanged(before, plant)
+            return result
+        return call
+
+    sim.teleop.compute = counted('legacy')
+    drive.side.compute = counted('side')
+    plant.step = counted('integrate')
+    sim.teleop.update_state = counted('update')
+    events, cycles, records = [], [], []
+    released, release_pending, legacy_ticks = False, False, 0
+    release_time, handoff_time, cycle_start = None, None, None
+    cycle_lifted = np.zeros(4, dtype=bool)
+    initial, last_phase, exception = None, None, None
+    started_wall = time.perf_counter()
+    initial_yaw = yaw
+    max_tilt = max_torque = max_velocity = 0.
+    min_height, max_yaw_drift = float('inf'), 0.
+    step_duration = []
+    try:
+        for tick in range(9000):
+            state = sim.teleop._state
+            commands.set_state(yaw_rad=float(state.base_rpy[2]), position_xy=state.base_position[:2],
+                               forward_velocity_mps=float(state.base_linear_velocity_body[0]),
+                               yaw_rate_rps=float(state.base_angular_velocity_body[2]),
+                               fallen=bool(state.has_fallen()), simulation_time_s=float(plant.data.time))
+            if tick == 200:
+                initial, initial_yaw = plant.base_position.copy(), float(plant.base_rpy[2])
+                events.append({'time': plant.data.time, 'event': 'hold_start', 'key': 'A' if direction > 0 else 'D'})
+            if release_pending and not released:
+                released, release_time = True, float(plant.data.time)
+                events.append({'time': release_time, 'event': 'release', 'reason': 'three successes then actual fourth-cycle airborne swing'})
+            held = tick >= 200 and not released
+            keys = {ord('A' if direction > 0 else 'D')} if held else set()
+            commands.update_pressed(keys, focused=True)
+            requested = commands(float(plant.data.time))
+            before, active_before = dict(counts), drive.active
+            before_time = float(plant.data.time)
+            status, torque, info = drive.step(requested, commands.side_direction)
+            commands.set_side_active(drive.active)
+            delta_counts = {k: counts[k]-before[k] for k in counts}
+            expected = {'legacy': 0, 'side': 1, 'integrate': 1, 'update': 1} if info['torque_source'] == 'd1_fast_side_step' else {'legacy': 1, 'side': 0, 'integrate': 1, 'update': 1}
+            assert delta_counts == expected, (delta_counts, info)
+            assert abs(plant.data.time-before_time-.01) < 1e-9
+            assert np.isfinite(torque).all() and np.all(np.abs(torque) <= plant.actuator_torque_limit_nm)
+            points, _ = drive.side._geometry(plant.measurement_data)
+            contact = drive.side._contacts()
+            rpy = plant.base_rpy
+            yaw_error = float(np.arctan2(np.sin(rpy[2]-initial_yaw), np.cos(rpy[2]-initial_yaw)))
+            max_tilt = max(max_tilt, float(np.max(np.abs(rpy[:2]))))
+            max_torque = max(max_torque, float(np.max(np.abs(torque)/plant.actuator_torque_limit_nm)))
+            max_velocity = max(max_velocity, float(np.max(np.abs(plant.joint_velocity)/JOINT_VELOCITY_LIMIT)))
+            min_height = min(min_height, float(plant.base_position[2]))
+            max_yaw_drift = max(max_yaw_drift, abs(yaw_error))
+            assert not plant.has_fallen() and plant.undesired_ground_contacts == 0
+            assert max_tilt < .30 and min_height > .30 and max_velocity <= 1.
+            if info['torque_source'] == 'd1_fast_side_step' and not active_before:
+                cycle_start = before_time
+                cycle_lifted[:] = False
+                events.append({'time': before_time, 'event': 'cycle_start', 'number': len(cycles)+1})
+            if info['torque_source'] == 'd1_fast_side_step':
+                cycle_lifted |= points[:, 2] > .012
+            phase_key = (info['torque_source'], info['phase'], info['active_leg'])
+            if phase_key != last_phase:
+                events.append({'time': plant.data.time, 'event': 'phase', 'source': phase_key[0],
+                               'phase': phase_key[1], 'leg': phase_key[2], 'contacts': contact.tolist()})
+                last_phase = phase_key
+            if info['torque_source'] == 'd1_fast_side_step' and info['done'] and info['success']:
+                assert contact.all() and cycle_lifted.all()
+                delta = plant.base_position-initial
+                left = np.array([-np.sin(initial_yaw), np.cos(initial_yaw)])
+                forward = np.array([np.cos(initial_yaw), np.sin(initial_yaw)])
+                cycle = {'number': len(cycles)+1, 'time': float(plant.data.time),
+                         'duration_s': float(plant.data.time-cycle_start),
+                         'cumulative_lateral_m': float(delta[:2]@left),
+                         'cumulative_forward_m': float(delta[:2]@forward),
+                         'yaw_error_rad': yaw_error, 'contacts': contact.tolist(),
+                         'lifted_each_leg': cycle_lifted.tolist(), 'done': True, 'success': True}
+                previous_lateral = cycles[-1]['cumulative_lateral_m'] if cycles else 0.
+                cycle['increment_lateral_m'] = cycle['cumulative_lateral_m']-previous_lateral
+                assert direction*cycle['increment_lateral_m'] > .02
+                assert abs(yaw_error) < .12
+                cycles.append(cycle)
+                events.append({'event': 'success', **cycle})
+            if len(cycles) >= 3 and info['phase'] == 'swing' and drive.active:
+                release_pending = True
+            if released and info['torque_source'] == 'd1_fast_side_step' and info['done']:
+                assert not info['success'] and info['failure'] == 'cancelled'
+                assert contact.all() and not drive.active
+                assert np.linalg.norm(plant.base_origin_velocity()) < .04
+                handoff_time = float(plant.data.time)
+                events.append({'time': handoff_time, 'event': 'safe_handoff', 'failure': info['failure']})
+            if released and info['torque_source'] == 'legacy':
+                assert handoff_time is not None and not drive.active
+                legacy_ticks += 1
+            records.append((float(plant.data.time), plant.data.qpos.copy(), plant.data.qvel.copy(),
+                            torque.copy(), rpy.copy(), contact.copy(), points[:, 2].copy(),
+                            info['torque_source'], info['phase'], commands.side_direction,
+                            commands.goal_yaw_rad, held))
+            if legacy_ticks >= 100:
+                break
+        assert len(cycles) >= 3 and legacy_ticks == 100 and handoff_time is not None
+    except Exception as error:
+        exception = f'{type(error).__name__}: {error}'
+    report = {'direction': direction, 'initial_yaw_rad': initial_yaw, 'arena': plant.arena,
+              'sampling_mode': plant.sampling_mode, 'side_profile': 'fast',
+              'real_classes': ['CourseKeyboardCommands', 'CourseSideStepDrive', 'FastSideStepController'],
+              'input_method': 'continuously refreshed held key set through the real adapter, no GUI/window events',
+              'initial_state_setup': 'optional yaw reset only before control; no reset during held sequence',
+              'success_cycles': cycles, 'completed_success_count': len(cycles),
+              'held_without_release_through_three_successes': len(cycles) >= 3,
+              'release_during_fourth_airborne_cycle': release_time is not None,
+              'release_to_safe_handoff_s': None if handoff_time is None else handoff_time-release_time,
+              'legacy_ticks_after_handoff': legacy_ticks, 'exception': exception,
+              'passed': exception is None, 'wall_time_s': time.perf_counter()-started_wall,
+              'sim_time_s': float(plant.data.time), 'max_roll_pitch_rad': max_tilt,
+              'max_yaw_drift_rad': max_yaw_drift, 'min_base_height_m': min_height,
+              'max_torque_fraction': max_torque, 'max_joint_velocity_fraction': max_velocity,
+              'source_sha256': hashes, 'source_unchanged': all(digest(ROOT/p)==sha for p,sha in hashes.items()),
+              'one_compute_owner_one_plant_step_one_state_update_per_tick': True,
+              'live_state_mutation_checks': True, 'full_trace_in_git': False}
+    if initial is not None:
+        delta = plant.base_position-initial
+        report['final_delta_world_m'] = delta.tolist()
+        report['final_contacts'] = drive.side._contacts().tolist()
+        report['final_base_speed_mps'] = float(np.linalg.norm(plant.base_origin_velocity()))
+    if records:
+        t,qpos,qvel,torque,rpy,contact,height,source,phase,side_direction,goal_yaw,held = map(np.array, zip(*records))
+        np.savez_compressed(output.with_suffix('.npz'), time=t,qpos=qpos,qvel=qvel,torque=torque,
+                            rpy=rpy,contacts=contact,lowest_wheel_z=height,torque_source=source,
+                            phase=phase,side_direction=side_direction,goal_yaw=goal_yaw,held_key=held)
+        report['trace_sha256'] = digest(output.with_suffix('.npz'))
+    output.with_suffix('.events.json').write_text(json.dumps(events,indent=2)+'\n')
+    output.with_suffix('.json').write_text(json.dumps(report,indent=2)+'\n')
+    return report
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--direction', type=int, choices=(-1,1), required=True)
+    parser.add_argument('--yaw', type=float, default=0.)
+    parser.add_argument('--output', type=Path, required=True)
+    args = parser.parse_args()
+    print(json.dumps(probe(args.direction,args.yaw,args.output),indent=2))

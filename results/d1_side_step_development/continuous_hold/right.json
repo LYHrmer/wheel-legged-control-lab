@@ -1,0 +1,123 @@
+{
+  "direction": -1,
+  "initial_yaw_rad": -2.9738762850113272e-06,
+  "arena": "course",
+  "sampling_mode": "legacy_mixed",
+  "side_profile": "fast",
+  "real_classes": [
+    "CourseKeyboardCommands",
+    "CourseSideStepDrive",
+    "FastSideStepController"
+  ],
+  "input_method": "continuously refreshed held key set through the real adapter, no GUI/window events",
+  "initial_state_setup": "optional yaw reset only before control; no reset during held sequence",
+  "success_cycles": [
+    {
+      "number": 1,
+      "time": 12.560000000000864,
+      "duration_s": 10.560000000000862,
+      "cumulative_lateral_m": -0.03704897939163208,
+      "cumulative_forward_m": -0.006114560466796279,
+      "yaw_error_rad": -0.00527565587255836,
+      "contacts": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "lifted_each_leg": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "done": true,
+      "success": true,
+      "increment_lateral_m": -0.03704897939163208
+    },
+    {
+      "number": 2,
+      "time": 23.149999999998048,
+      "duration_s": 10.589999999997184,
+      "cumulative_lateral_m": -0.07293276587992852,
+      "cumulative_forward_m": -0.012066924682902077,
+      "yaw_error_rad": -0.006887851005710894,
+      "contacts": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "lifted_each_leg": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "done": true,
+      "success": true,
+      "increment_lateral_m": -0.03588378648829644
+    },
+    {
+      "number": 3,
+      "time": 33.759999999995294,
+      "duration_s": 10.609999999997246,
+      "cumulative_lateral_m": -0.10797111805255877,
+      "cumulative_forward_m": -0.017978002156749016,
+      "yaw_error_rad": -0.0062640065171250744,
+      "contacts": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "lifted_each_leg": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "done": true,
+      "success": true,
+      "increment_lateral_m": -0.03503835217263025
+    }
+  ],
+  "completed_success_count": 3,
+  "held_without_release_through_three_successes": true,
+  "release_during_fourth_airborne_cycle": true,
+  "release_to_safe_handoff_s": 0.6000000000007333,
+  "legacy_ticks_after_handoff": 100,
+  "exception": null,
+  "passed": true,
+  "wall_time_s": 22.380478163999214,
+  "sim_time_s": 36.559999999998716,
+  "max_roll_pitch_rad": 0.01986475836712704,
+  "max_yaw_drift_rad": 0.025589993186513522,
+  "min_base_height_m": 0.45500670912712254,
+  "max_torque_fraction": 0.5189832758190641,
+  "max_joint_velocity_fraction": 0.20584758878573509,
+  "source_sha256": {
+    "scripts/d1_course_controls.py": "a05dcbfa7fd7cf81a177be296d74101d647e66bde8fcbe47033e840f2896f026",
+    "scripts/d1_course_side_step.py": "53eb5b3d5a7878c5290647388e5589d7ed4c8c1c3677b405cea3a47b4343269c",
+    "scripts/d1_fast_side_step.py": "935a77e31b83de407c5a4d3258c835546d4ff51f690edd2ed272e32ff91e8cb4",
+    "scripts/d1_side_step.py": "42b488660a300077eb7c89f37d6d8649f360ade5852f9ce4f9c2c317ef4d134e",
+    "src/wheel_legged_control/d1/interactive.py": "8e1ffca89fe1c3ffb038a06103eaaa8d63b2605b68768a8010412361dc2c2a7a"
+  },
+  "source_unchanged": true,
+  "one_compute_owner_one_plant_step_one_state_update_per_tick": true,
+  "live_state_mutation_checks": true,
+  "full_trace_in_git": false,
+  "final_delta_world_m": [
+    0.02309688570747674,
+    -0.10802522888564108,
+    -0.000894834972659575
+  ],
+  "final_contacts": [
+    true,
+    true,
+    true,
+    true
+  ],
+  "final_base_speed_mps": 0.05253324409912565,
+  "trace_sha256": "8ff67285916766a5616ea34c5dfaf2f8bba6e5568d0615fd875d7d85ac9299eb"
+}
