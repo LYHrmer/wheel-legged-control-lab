@@ -8,6 +8,9 @@ python scripts/run_d1_course_drive.py --zone rough --baseline lqr --seconds 600 
   --output results/my_course_drive_01
 ```
 
+软件渲染或窗口响应较慢时可添加 `--render-quality low`。该选项关闭窗口抗锯齿、阴影和反射，
+保留相同的模型、地面、碰撞及控制周期；默认 `normal` 保持原画面。每次运行都会记录所选画质。
+
 点击窗口后，按住 `W/S` 前进或倒退，松开清除前进目标。按住 `Q/E` 调整目标朝向，松开后
 继续向该角度收敛；画面会同时显示实际角度和目标角度。`Space` 请求受保护跳跃，
 `R` 把机器人扶正并重置到当前区域起点，清除旧运动目标；这是仿真复位，不是物理自救动作。

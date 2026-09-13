@@ -126,6 +126,7 @@ def run(
     viewer_factory=KeyboardViewer,
     realtime=True,
     side_step_profile="fast",
+    render_quality="normal",
 ):
     """Record commands before step, integrated states after step, and every reset.
 
@@ -145,6 +146,8 @@ def run(
         raise ValueError("course driving does not accept a residual policy")
     if side_step_profile not in ("fast", "conservative"):
         raise ValueError("side step profile must be fast or conservative")
+    if render_quality not in ("normal", "low"):
+        raise ValueError("render quality must be normal or low")
     commands = CourseKeyboardCommands() if commands is None else commands
     if isinstance(commands, CourseKeyboardCommands):
         simulation.teleop.controller.low_level.wheel_velocity_gain = commands.wheel_velocity_gain
@@ -186,6 +189,8 @@ def run(
         "state_timing": "qpos/qvel and segment_time_s are integrated plant.data snapshots after step; each reset adds an initial state",
         "legacy_measurement_timing": "legacy_mixed keeps the previous final physics substep derived measurements; they are not relabeled synchronized",
         "rendering": "copy plant.data and model; mj_forward for rendering runs only on the copy",
+        "render_quality": render_quality,
+        "render_quality_effect": "low sets GLFW MSAA samples to 0 and clears the shadow and reflection scene render flags; window size, floor, geometry, camera and all physics/control timing are unchanged",
         "segment_rule": "never interpolate or measure displacement across different segment_id values",
         "compiled_model_sha256": _sha(output / "model.mjb"),
         "source_sha256": hashes,
@@ -239,8 +244,10 @@ def run(
             display_model = copy(plant.model)
             display_data = mujoco.MjData(display_model)
             mujoco.mj_copyData(display_data, display_model, plant.data)
+            # Normal mode keeps the historical call signature for injected viewers.
+            quality = {} if render_quality == "normal" else {"render_quality": render_quality}
             viewer = viewer_factory(
-                display_model, display_data, commands, terrain_label=f"Course: {zone}"
+                display_model, display_data, commands, terrain_label=f"Course: {zone}", **quality
             )
             viewer.controls_help = (
                 "W / S\nQ / E\nSpace\nR\nX\nT / G\nA / D\nC / Esc",
@@ -395,6 +402,10 @@ def main(argv=None):
     parser.add_argument("--baseline", choices=("lqr", "mpc"), default="lqr")
     parser.add_argument("--side-step-profile", choices=("fast", "conservative"), default="fast")
     parser.add_argument(
+        "--render-quality", choices=("normal", "low"), default="normal",
+        help="low disables MSAA and shadow/reflection scene flags; geometry and timing unchanged",
+    )
+    parser.add_argument(
         "--headless", action="store_true", help="zero-command recording without GUI"
     )
     args = parser.parse_args(argv)
@@ -423,6 +434,7 @@ def main(argv=None):
         viewer_factory=None if args.headless else KeyboardViewer,
         realtime=not args.headless,
         side_step_profile=args.side_step_profile,
+        render_quality=args.render_quality,
     )
     print(json.dumps(summary, indent=2, allow_nan=False))
     return 0 if summary["source_unchanged"] else 1

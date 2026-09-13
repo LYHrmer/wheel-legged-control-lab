@@ -1,0 +1,564 @@
+{
+  "input_sha256": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/side_gui_check_01/rollout/telemetry.csv": "8e4002b206ae101fa7559f34c0c0fca8f6ca16bb04de8dd598cd5f4f21ac9bd5",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/side_gui_check_01/rollout/source.tar.gz": "da0d826ce70f911bdaff1a11cab6e70dca45e3b53be8eb0ff862bc0796b95b3a",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/verify_held_gui.py": "452b45eb19ccdc4ba302c2db05f363a82b4d00b3f247a05c9f18d0712b8301ca"
+  },
+  "source_verification": {
+    "scripts/d1_course_controls.py": {
+      "archived_sha256": "9018e23204d3f44158ec2a66fb025f79c7e8cd6753b5562f278d4e6436713ffd",
+      "protocol_matches": true,
+      "current_matches": true
+    },
+    "scripts/d1_keyboard_viewer.py": {
+      "archived_sha256": "5b89394a219710810e31484b09fcc56c0ea1ec21a2968128d5814d1f3b1dba91",
+      "protocol_matches": true,
+      "current_matches": true
+    },
+    "scripts/d1_course_side_step.py": {
+      "archived_sha256": "43ad3de816bd5a958fe89e9dfa2176d46e2b4d42f00a14158b8a8c8dc4a348a0",
+      "protocol_matches": true,
+      "current_matches": true
+    },
+    "scripts/run_d1_course_drive.py": {
+      "archived_sha256": "fc5a590b6966672e93c912806ae677eaeeb5afbdd2b9ee14b1d13df8259096ee",
+      "protocol_matches": true,
+      "current_matches": false
+    }
+  },
+  "rows": 17384,
+  "segments": [
+    "0"
+  ],
+  "first_cancel": {
+    "tick": "3653",
+    "segment_id": "0",
+    "zone": "start",
+    "state_before_index": "3652",
+    "state_after_index": "3653",
+    "segment_before_time_s": "36.51999999999867",
+    "segment_after_time_s": "36.52999999999868",
+    "total_time_s": "36.53",
+    "requested_forward_mps": "0.0",
+    "requested_yaw_rps": "0.0",
+    "requested_height_m": "0.455",
+    "operator_forward_mps": "0.0",
+    "heading_target_rad": "0.006471212502242971",
+    "actual_heading_rad": "0.006456048636153682",
+    "input_status": "Motion cancelled",
+    "operator_side_direction": "0",
+    "applied_controller": "d1_side_step",
+    "side_phase": "abort_land",
+    "side_direction": "1",
+    "side_active_leg": "FR",
+    "side_done": "False",
+    "side_success": "False",
+    "side_failure": "cancelled",
+    "forward_velocity_mps": "0.0",
+    "yaw_rate_rps": "0.0",
+    "base_height_m": "0.4644864887842795",
+    "jump_phase": "ready",
+    "safety_mode": "side_step_abort",
+    "traction_mode": "not_applicable",
+    "rl_mode": "off",
+    "vertical_feedforward_force_n": "",
+    "residual_longitudinal_force_n": "0.0",
+    "residual_vertical_force_n": "0.0",
+    "safety_interventions": "0",
+    "completed_jumps": "0",
+    "torque_saturation_fraction": "0.0",
+    "state_estimation_mode": "simulator_truth",
+    "state_age_ms": "",
+    "latency_compensation": "not_applicable",
+    "compensation_status": "not_applicable",
+    "compensation_horizon_ms": "",
+    "contact_allocation": "not_applicable",
+    "allocation_status": "not_applicable",
+    "allocation_wrench_tracking_status": "not_applicable",
+    "allocation_status_reason": "side controller has its own force allocation",
+    "allocation_solve_ms": "",
+    "allocation_constraint_violation": "",
+    "allocation_force_error_norm_n": "",
+    "allocation_moment_error_norm_nm": ""
+  },
+  "consecutive_motion_cancelled_rows": 82,
+  "input_branch_reproduction": {
+    "focus_loss": {
+      "side_direction": 0,
+      "message": "Motion cancelled",
+      "stopped": false
+    },
+    "physical_release": {
+      "side_direction": 0,
+      "message": "Landing before returning to wheel driving",
+      "stopped": false
+    },
+    "opposite_keys": {
+      "side_direction": 0,
+      "message": "Landing before returning to wheel driving",
+      "stopped": false
+    },
+    "watchdog_between_poll_and_call": {
+      "side_direction": 0,
+      "message": "Slow side step: hold A/D on flat ground",
+      "stopped": false
+    },
+    "slow_previous_tick_then_fresh_poll": {
+      "side_direction": 1,
+      "message": "Slow side step: hold A/D on flat ground",
+      "stopped": false
+    },
+    "cancel_key_x": {
+      "side_direction": 0,
+      "message": "Motion cancelled",
+      "stopped": false
+    },
+    "reset_key_r": {
+      "side_direction": 0,
+      "message": "Motion cancelled",
+      "stopped": false
+    },
+    "escape": {
+      "side_direction": 0,
+      "message": "Motion cancelled",
+      "stopped": true
+    },
+    "fallen": {
+      "side_direction": 0,
+      "message": "Fallen: press R for simulation reset",
+      "stopped": false
+    }
+  },
+  "transitions": [
+    {
+      "tick": "1",
+      "total_time_s": "0.01",
+      "operator_side_direction": "0",
+      "applied_controller": "legacy",
+      "side_phase": "idle",
+      "side_active_leg": "",
+      "side_done": "False",
+      "side_failure": "",
+      "input_status": "Heading target retained after releasing Q/E",
+      "safety_mode": "normal"
+    },
+    {
+      "tick": "222",
+      "total_time_s": "2.22",
+      "operator_side_direction": "1",
+      "applied_controller": "d1_side_step",
+      "side_phase": "shift",
+      "side_active_leg": "RL",
+      "side_done": "False",
+      "side_failure": "",
+      "input_status": "Slow side step: hold A/D on flat ground",
+      "safety_mode": "side_step"
+    },
+    {
+      "tick": "580",
+      "total_time_s": "5.8",
+      "operator_side_direction": "1",
+      "applied_controller": "d1_side_step",
+      "side_phase": "unload",
+      "side_active_leg": "RL",
+      "side_done": "False",
+      "side_failure": "",
+      "input_status": "Slow side step: hold A/D on flat ground",
+      "safety_mode": "side_step"
+    },
+    {
+      "tick": "640",
+      "total_time_s": "6.4",
+      "operator_side_direction": "1",
+      "applied_controller": "d1_side_step",
+      "side_phase": "lift",
+      "side_active_leg": "RL",
+      "side_done": "False",
+      "side_failure": "",
+      "input_status": "Slow side step: hold A/D on flat ground",
+      "safety_mode": "side_step"
+    },
+    {
+      "tick": "740",
+      "total_time_s": "7.4",
+      "operator_side_direction": "1",
+      "applied_controller": "d1_side_step",
+      "side_phase": "swing",
+      "side_active_leg": "RL",
+      "side_done": "False",
+      "side_failure": "",
+      "input_status": "Slow side step: hold A/D on flat ground",
+      "safety_mode": "side_step"
+    },
+    {
+      "tick": "890",
+      "total_time_s": "8.9",
+      "operator_side_direction": "1",
+      "applied_controller": "d1_side_step",
+      "side_phase": "lower",
+      "side_active_leg": "RL",
+      "side_done": "False",
+      "side_failure": "",
+      "input_status": "Slow side step: hold A/D on flat ground",
+      "safety_mode": "side_step"
+    },
+    {
+      "tick": "1019",
+      "total_time_s": "10.19",
+      "operator_side_direction": "1",
+      "applied_controller": "d1_side_step",
+      "side_phase": "load",
+      "side_active_leg": "",
+      "side_done": "False",
+      "side_failure": "",
+      "input_status": "Slow side step: hold A/D on flat ground",
+      "safety_mode": "side_step"
+    },
+    {
+      "tick": "1099",
+      "total_time_s": "10.99",
+      "operator_side_direction": "1",
+      "applied_controller": "d1_side_step",
+      "side_phase": "shift",
+      "side_active_leg": "FL",
+      "side_done": "False",
+      "side_failure": "",
+      "input_status": "Slow side step: hold A/D on flat ground",
+      "safety_mode": "side_step"
+    },
+    {
+      "tick": "1400",
+      "total_time_s": "14.0",
+      "operator_side_direction": "1",
+      "applied_controller": "d1_side_step",
+      "side_phase": "unload",
+      "side_active_leg": "FL",
+      "side_done": "False",
+      "side_failure": "",
+      "input_status": "Slow side step: hold A/D on flat ground",
+      "safety_mode": "side_step"
+    },
+    {
+      "tick": "1460",
+      "total_time_s": "14.6",
+      "operator_side_direction": "1",
+      "applied_controller": "d1_side_step",
+      "side_phase": "lift",
+      "side_active_leg": "FL",
+      "side_done": "False",
+      "side_failure": "",
+      "input_status": "Slow side step: hold A/D on flat ground",
+      "safety_mode": "side_step"
+    },
+    {
+      "tick": "1560",
+      "total_time_s": "15.6",
+      "operator_side_direction": "1",
+      "applied_controller": "d1_side_step",
+      "side_phase": "swing",
+      "side_active_leg": "FL",
+      "side_done": "False",
+      "side_failure": "",
+      "input_status": "Slow side step: hold A/D on flat ground",
+      "safety_mode": "side_step"
+    },
+    {
+      "tick": "1710",
+      "total_time_s": "17.1",
+      "operator_side_direction": "1",
+      "applied_controller": "d1_side_step",
+      "side_phase": "lower",
+      "side_active_leg": "FL",
+      "side_done": "False",
+      "side_failure": "",
+      "input_status": "Slow side step: hold A/D on flat ground",
+      "safety_mode": "side_step"
+    },
+    {
+      "tick": "1839",
+      "total_time_s": "18.39",
+      "operator_side_direction": "1",
+      "applied_controller": "d1_side_step",
+      "side_phase": "load",
+      "side_active_leg": "",
+      "side_done": "False",
+      "side_failure": "",
+      "input_status": "Slow side step: hold A/D on flat ground",
+      "safety_mode": "side_step"
+    },
+    {
+      "tick": "1919",
+      "total_time_s": "19.19",
+      "operator_side_direction": "1",
+      "applied_controller": "d1_side_step",
+      "side_phase": "shift",
+      "side_active_leg": "RR",
+      "side_done": "False",
+      "side_failure": "",
+      "input_status": "Slow side step: hold A/D on flat ground",
+      "safety_mode": "side_step"
+    },
+    {
+      "tick": "2383",
+      "total_time_s": "23.830000000000002",
+      "operator_side_direction": "1",
+      "applied_controller": "d1_side_step",
+      "side_phase": "unload",
+      "side_active_leg": "RR",
+      "side_done": "False",
+      "side_failure": "",
+      "input_status": "Slow side step: hold A/D on flat ground",
+      "safety_mode": "side_step"
+    },
+    {
+      "tick": "2443",
+      "total_time_s": "24.43",
+      "operator_side_direction": "1",
+      "applied_controller": "d1_side_step",
+      "side_phase": "lift",
+      "side_active_leg": "RR",
+      "side_done": "False",
+      "side_failure": "",
+      "input_status": "Slow side step: hold A/D on flat ground",
+      "safety_mode": "side_step"
+    },
+    {
+      "tick": "2543",
+      "total_time_s": "25.43",
+      "operator_side_direction": "1",
+      "applied_controller": "d1_side_step",
+      "side_phase": "swing",
+      "side_active_leg": "RR",
+      "side_done": "False",
+      "side_failure": "",
+      "input_status": "Slow side step: hold A/D on flat ground",
+      "safety_mode": "side_step"
+    },
+    {
+      "tick": "2693",
+      "total_time_s": "26.93",
+      "operator_side_direction": "1",
+      "applied_controller": "d1_side_step",
+      "side_phase": "lower",
+      "side_active_leg": "RR",
+      "side_done": "False",
+      "side_failure": "",
+      "input_status": "Slow side step: hold A/D on flat ground",
+      "safety_mode": "side_step"
+    },
+    {
+      "tick": "2822",
+      "total_time_s": "28.22",
+      "operator_side_direction": "1",
+      "applied_controller": "d1_side_step",
+      "side_phase": "load",
+      "side_active_leg": "",
+      "side_done": "False",
+      "side_failure": "",
+      "input_status": "Slow side step: hold A/D on flat ground",
+      "safety_mode": "side_step"
+    },
+    {
+      "tick": "2902",
+      "total_time_s": "29.02",
+      "operator_side_direction": "1",
+      "applied_controller": "d1_side_step",
+      "side_phase": "shift",
+      "side_active_leg": "FR",
+      "side_done": "False",
+      "side_failure": "",
+      "input_status": "Slow side step: hold A/D on flat ground",
+      "safety_mode": "side_step"
+    },
+    {
+      "tick": "3580",
+      "total_time_s": "35.800000000000004",
+      "operator_side_direction": "1",
+      "applied_controller": "d1_side_step",
+      "side_phase": "unload",
+      "side_active_leg": "FR",
+      "side_done": "False",
+      "side_failure": "",
+      "input_status": "Slow side step: hold A/D on flat ground",
+      "safety_mode": "side_step"
+    },
+    {
+      "tick": "3640",
+      "total_time_s": "36.4",
+      "operator_side_direction": "1",
+      "applied_controller": "d1_side_step",
+      "side_phase": "lift",
+      "side_active_leg": "FR",
+      "side_done": "False",
+      "side_failure": "",
+      "input_status": "Slow side step: hold A/D on flat ground",
+      "safety_mode": "side_step"
+    },
+    {
+      "tick": "3653",
+      "total_time_s": "36.53",
+      "operator_side_direction": "0",
+      "applied_controller": "d1_side_step",
+      "side_phase": "abort_land",
+      "side_active_leg": "FR",
+      "side_done": "False",
+      "side_failure": "cancelled",
+      "input_status": "Motion cancelled",
+      "safety_mode": "side_step_abort"
+    },
+    {
+      "tick": "3735",
+      "total_time_s": "37.35",
+      "operator_side_direction": "0",
+      "applied_controller": "d1_side_step",
+      "side_phase": "abort_land",
+      "side_active_leg": "FR",
+      "side_done": "False",
+      "side_failure": "cancelled",
+      "input_status": "Landing before returning to wheel driving",
+      "safety_mode": "side_step_abort"
+    },
+    {
+      "tick": "3781",
+      "total_time_s": "37.81",
+      "operator_side_direction": "0",
+      "applied_controller": "d1_side_step",
+      "side_phase": "abort_hold",
+      "side_active_leg": "",
+      "side_done": "False",
+      "side_failure": "cancelled",
+      "input_status": "Landing before returning to wheel driving",
+      "safety_mode": "side_step_abort"
+    },
+    {
+      "tick": "3831",
+      "total_time_s": "38.31",
+      "operator_side_direction": "0",
+      "applied_controller": "d1_side_step",
+      "side_phase": "failed",
+      "side_active_leg": "",
+      "side_done": "True",
+      "side_failure": "cancelled",
+      "input_status": "Landing before returning to wheel driving",
+      "safety_mode": "side_step_abort"
+    },
+    {
+      "tick": "3832",
+      "total_time_s": "38.32",
+      "operator_side_direction": "0",
+      "applied_controller": "legacy",
+      "side_phase": "failed",
+      "side_active_leg": "",
+      "side_done": "True",
+      "side_failure": "cancelled",
+      "input_status": "Heading target retained after releasing Q/E",
+      "safety_mode": "normal"
+    },
+    {
+      "tick": "4714",
+      "total_time_s": "47.14",
+      "operator_side_direction": "0",
+      "applied_controller": "legacy",
+      "side_phase": "failed",
+      "side_active_leg": "",
+      "side_done": "True",
+      "side_failure": "cancelled",
+      "input_status": "Motion cancelled",
+      "safety_mode": "normal"
+    },
+    {
+      "tick": "6796",
+      "total_time_s": "67.96000000000001",
+      "operator_side_direction": "0",
+      "applied_controller": "legacy",
+      "side_phase": "failed",
+      "side_active_leg": "",
+      "side_done": "True",
+      "side_failure": "cancelled",
+      "input_status": "Heading target retained after releasing Q/E",
+      "safety_mode": "normal"
+    },
+    {
+      "tick": "7371",
+      "total_time_s": "73.71000000000001",
+      "operator_side_direction": "0",
+      "applied_controller": "legacy",
+      "side_phase": "failed",
+      "side_active_leg": "",
+      "side_done": "True",
+      "side_failure": "cancelled",
+      "input_status": "Motion cancelled",
+      "safety_mode": "normal"
+    },
+    {
+      "tick": "7636",
+      "total_time_s": "76.36",
+      "operator_side_direction": "0",
+      "applied_controller": "legacy",
+      "side_phase": "failed",
+      "side_active_leg": "",
+      "side_done": "True",
+      "side_failure": "cancelled",
+      "input_status": "Heading target retained after releasing Q/E",
+      "safety_mode": "normal"
+    },
+    {
+      "tick": "8551",
+      "total_time_s": "85.51",
+      "operator_side_direction": "0",
+      "applied_controller": "legacy",
+      "side_phase": "failed",
+      "side_active_leg": "",
+      "side_done": "True",
+      "side_failure": "cancelled",
+      "input_status": "Motion cancelled",
+      "safety_mode": "normal"
+    },
+    {
+      "tick": "8768",
+      "total_time_s": "87.68",
+      "operator_side_direction": "0",
+      "applied_controller": "legacy",
+      "side_phase": "failed",
+      "side_active_leg": "",
+      "side_done": "True",
+      "side_failure": "cancelled",
+      "input_status": "Heading target retained after releasing Q/E",
+      "safety_mode": "normal"
+    },
+    {
+      "tick": "17252",
+      "total_time_s": "172.52",
+      "operator_side_direction": "0",
+      "applied_controller": "legacy",
+      "side_phase": "failed",
+      "side_active_leg": "",
+      "side_done": "True",
+      "side_failure": "cancelled",
+      "input_status": "Motion cancelled",
+      "safety_mode": "normal"
+    }
+  ],
+  "conclusions": [
+    "First cancellation at tick 3653, simulation time 36.53s: operator direction 1 -> 0, FR lift -> abort_land, message Motion cancelled.",
+    "The same Motion cancelled message lasts 82 control rows; at tick 3735 it changes to Landing before returning to wheel driving.",
+    "Plain release/opposite keys produce Landing while side_active; watchdog alone retains the old message; a fresh poll after a long preceding tick restores held A.",
+    "The recorded message selects the early-return branch: unfocused, X/R, stopped, or fallen. Fallen has a distinct message and Escape exits before logging; R press would create a new segment.",
+    "The harness sends only A PRESS before waiting for side_success, then would send A RELEASE; no success occurred. Thus ordinary harness A release cannot explain this attempt.",
+    "Focus loss is consistent with all observed evidence and the harness sequence. Exact focus event/source is not identifiable because received events and sent events were not persisted on failure.",
+    "Failure reason is cancelled, not a support/liftoff/IK fault. The bridge kept side torque until landing completed at tick3831 and resumed legacy at3832."
+  ],
+  "missing_evidence": [
+    "received GLFW focus/key events",
+    "sent harness events on exception",
+    "per-tick wall/input times",
+    "raw states archive"
+  ],
+  "suggested_changes": [
+    "Persist harness sent events immediately, including focus checks and waits; currently an exception skips events_sent.json below finally.",
+    "Persist viewer received events each tick and save normal output on SIGTERM.",
+    "Record poll focus, held key set, input age and wall step duration if timing remains in question.",
+    "Make the harness detect an inactive/failure terminal result and classify it promptly, instead of waiting another 180 seconds for success that cannot occur.",
+    "Keep focus-loss cancellation; do not silently remove the watchdog or retry/repress A to hide lost-focus behavior."
+  ]
+}

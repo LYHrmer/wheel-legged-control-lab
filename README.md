@@ -86,9 +86,13 @@ python scripts/run_d1_course_drive.py --zone rough --seconds 600 \
 试侧步时先按 `1` 回平地起点，停稳后长按 `A` 或 `D` 约 12 秒。
 实测对照与 Claude Opus 的实现贡献见[侧步开发记录](results/d1_side_step_development/README.md)。
 连续三步侧移约 10.8 cm 时仍有约 1.8 cm 纵向漂移，属于低速平地原型。
+窗口自动测试及失败记录见[GUI 验证](results/d1_side_step_gui_validation/README.md)。
+软件渲染较慢时可添加 `--render-quality low`；自动通过仍需人工确认操作体验。
 R 是仿真复位，不称物理自救。
 它使用原有 LQR/MPC 课程控制器和 oracle 状态，不加载主线 PPO。
 乱石为固定方块。各区重置会分段记录，不计作连续越障。
+
+项目协作分工、Opus 的实际贡献和后续任务选择见[协作规则](docs/claude_collaboration.md)。
 
 试当前 82 维强化学习主线时使用：
 

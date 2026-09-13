@@ -1,0 +1,81 @@
+diff --git a/scripts/d1_keyboard_viewer.py b/scripts/d1_keyboard_viewer.py
+--- a/scripts/d1_keyboard_viewer.py
++++ b/scripts/d1_keyboard_viewer.py
+@@ -19,9 +19,12 @@
+ class KeyboardViewer:
+-    def __init__(self, model, data, commands, *, terrain_label=""):
++    def __init__(self, model, data, commands, *, terrain_label="", render_quality="normal"):
++        if render_quality not in ("normal", "low"):
++            raise ValueError("render quality must be normal or low")
+         import glfw
+         import mujoco
+ 
+         self.glfw, self.mujoco = glfw, mujoco
+         self.model, self.data, self.commands = model, data, commands
+         self.terrain_label = terrain_label
++        self.render_quality = render_quality
+         self.extra_help = ""
+@@ -37,6 +40,7 @@
+         if not glfw.init():
+             raise RuntimeError("Cannot open the current desktop with GLFW")
+         try:
+-            glfw.window_hint(glfw.SAMPLES, 4)
++            # Low quality drops MSAA only; window size and geometry stay the same.
++            glfw.window_hint(glfw.SAMPLES, 4 if render_quality == "normal" else 0)
+             self.window = glfw.create_window(1280, 800, "D1 driving | hold WASD", None, None)
+             if not self.window:
+@@ -156,5 +160,8 @@
+         )
+         # No keyboard callback ever changes scene flags or geometry visibility.
+         self.scene.flags[mj.mjtRndFlag.mjRND_WIREFRAME] = 0
++        if self.render_quality == "low":
++            # Scene render flags only; the model and data copies are never mutated.
++            self.scene.flags[mj.mjtRndFlag.mjRND_SHADOW] = 0
++            self.scene.flags[mj.mjtRndFlag.mjRND_REFLECTION] = 0
+         append_terrain_grid(self.model, self.scene, self.cam.lookat[:2])
+         viewport = mj.MjrRect(0, 0, width, height)
+diff --git a/scripts/run_d1_course_drive.py b/scripts/run_d1_course_drive.py
+--- a/scripts/run_d1_course_drive.py
++++ b/scripts/run_d1_course_drive.py
+@@ -126,4 +126,5 @@
+     viewer_factory=KeyboardViewer,
+     realtime=True,
+     side_step_profile="fast",
++    render_quality="normal",
+ ):
+@@ -146,3 +147,5 @@
+     if side_step_profile not in ("fast", "conservative"):
+         raise ValueError("side step profile must be fast or conservative")
++    if render_quality not in ("normal", "low"):
++        raise ValueError("render quality must be normal or low")
+     commands = CourseKeyboardCommands() if commands is None else commands
+@@ -187,4 +190,6 @@
+         "legacy_measurement_timing": "legacy_mixed keeps the previous final physics substep derived measurements; they are not relabeled synchronized",
+         "rendering": "copy plant.data and model; mj_forward for rendering runs only on the copy",
++        "render_quality": render_quality,
++        "render_quality_effect": "low sets GLFW MSAA samples to 0 and clears the shadow and reflection scene render flags; window size, floor, geometry, camera and all physics/control timing are unchanged",
+         "segment_rule": "never interpolate or measure displacement across different segment_id values",
+         "compiled_model_sha256": _sha(output / "model.mjb"),
+@@ -241,5 +246,8 @@
+             mujoco.mj_copyData(display_data, display_model, plant.data)
++            # Normal mode keeps the historical call signature for injected viewers.
++            quality = {} if render_quality == "normal" else {"render_quality": render_quality}
+             viewer = viewer_factory(
+-                display_model, display_data, commands, terrain_label=f"Course: {zone}"
++                display_model, display_data, commands, terrain_label=f"Course: {zone}", **quality
+             )
+             viewer.controls_help = (
+@@ -396,4 +404,8 @@
+     parser.add_argument("--side-step-profile", choices=("fast", "conservative"), default="fast")
++    parser.add_argument(
++        "--render-quality", choices=("normal", "low"), default="normal",
++        help="low disables MSAA and shadow/reflection scene flags; geometry and timing unchanged",
++    )
+     parser.add_argument(
+         "--headless", action="store_true", help="zero-command recording without GUI"
+     )
+@@ -424,3 +436,4 @@
+         realtime=not args.headless,
+         side_step_profile=args.side_step_profile,
++        render_quality=args.render_quality,
+     )

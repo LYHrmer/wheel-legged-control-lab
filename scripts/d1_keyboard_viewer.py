@@ -17,13 +17,16 @@ else:
 
 
 class KeyboardViewer:
-    def __init__(self, model, data, commands, *, terrain_label=""):
+    def __init__(self, model, data, commands, *, terrain_label="", render_quality="normal"):
+        if render_quality not in ("normal", "low"):
+            raise ValueError("render quality must be normal or low")
         import glfw
         import mujoco
 
         self.glfw, self.mujoco = glfw, mujoco
         self.model, self.data, self.commands = model, data, commands
         self.terrain_label = terrain_label
+        self.render_quality = render_quality
         self.extra_help = ""
         self.controls_help = None
         self._last_render = -math.inf
@@ -37,7 +40,8 @@ class KeyboardViewer:
         if not glfw.init():
             raise RuntimeError("Cannot open the current desktop with GLFW")
         try:
-            glfw.window_hint(glfw.SAMPLES, 4)
+            # Low quality drops MSAA only; window size and geometry stay the same.
+            glfw.window_hint(glfw.SAMPLES, 4 if render_quality == "normal" else 0)
             self.window = glfw.create_window(1280, 800, "D1 driving | hold WASD", None, None)
             if not self.window:
                 raise RuntimeError("GLFW could not create the D1 driving window")
@@ -156,6 +160,10 @@ class KeyboardViewer:
         )
         # No keyboard callback ever changes scene flags or geometry visibility.
         self.scene.flags[mj.mjtRndFlag.mjRND_WIREFRAME] = 0
+        if self.render_quality == "low":
+            # Only scene flags change here; physics/control settings stay intact.
+            self.scene.flags[mj.mjtRndFlag.mjRND_SHADOW] = 0
+            self.scene.flags[mj.mjtRndFlag.mjRND_REFLECTION] = 0
         append_terrain_grid(self.model, self.scene, self.cam.lookat[:2])
         viewport = mj.MjrRect(0, 0, width, height)
         mj.mjr_render(viewport, self.scene, self.context)

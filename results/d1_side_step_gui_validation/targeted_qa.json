@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "production_sha256": {
+    "scripts/d1_keyboard_viewer.py": "0983bf511613aa42843e060c45223cc075d3c4ed594c19347895d1b8150b7b4c",
+    "scripts/run_d1_course_drive.py": "0b4511d2da1f5cbf7983d7c8ea22c794eaf5af1e692e9a3ccf5ea29e094f4dcb"
+  },
+  "direct_cli_help": {
+    "PYTHONPATH": "src:.local-deps",
+    "command": "python3 -B scripts/run_d1_course_drive.py --help",
+    "exit_code": 0,
+    "render_quality_choices": [
+      "normal",
+      "low"
+    ]
+  },
+  "pytest": {
+    "paths": [
+      "tests/test_d1_keyboard_viewer.py",
+      "tests/test_d1_course_drive.py",
+      "tests/test_d1_course_controls.py",
+      "tests/test_d1_held_keyboard.py"
+    ],
+    "passed": 21,
+    "exit_code": 0,
+    "wall_s": 6.288820564
+  },
+  "ruff": {
+    "paths": [
+      "scripts/d1_keyboard_viewer.py",
+      "scripts/run_d1_course_drive.py",
+      "tests/test_d1_keyboard_viewer.py",
+      "tests/test_d1_course_drive.py",
+      "tests/test_d1_course_controls.py",
+      "tests/test_d1_held_keyboard.py"
+    ],
+    "exit_code": 0
+  },
+  "scope": "Existing focused regression suite and direct script import/CLI checks; real low-quality rendering comparison and five-segment GUI validation are separate records."
+}
