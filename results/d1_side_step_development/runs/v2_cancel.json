@@ -1,0 +1,147 @@
+{
+  "direction": 1,
+  "distance_m": 0.03,
+  "initial_yaw_rad": 0.0,
+  "request_accepted": true,
+  "cancel_requested": true,
+  "final_status": {
+    "phase": "failed",
+    "done": true,
+    "success": false,
+    "failure": "cancelled",
+    "active": false,
+    "active_leg": null,
+    "direction": 1,
+    "initial_yaw_rad": 7.327243323370475e-07,
+    "current_yaw_rad": -0.00015411661156614786,
+    "support_margin_m": 0.1439096642365396,
+    "ik_error_m": 1.7306795172564e-07,
+    "torque_source": "d1_fast_side_step",
+    "state_source": "simulator_truth",
+    "controller": "d1_fast_side_step",
+    "profile": "fast",
+    "legacy_torque_source": "d1_side_step",
+    "dynamic_margin_m": 0.1439096642365396,
+    "load_weight": 1.0,
+    "loading_leg": null,
+    "elapsed_s": 2.8299999999999836,
+    "shift_time_s": 0.8350418412184747,
+    "swing_time_s": 0.35156249999999994,
+    "lift_peaks_m": [
+      0.0,
+      0.0,
+      0.029608493133728358,
+      0.0
+    ],
+    "plan_error_m": 9.547970802967018e-07,
+    "max_torque_fraction": 0.3922939975496088,
+    "step_index": 0
+  },
+  "exception": null,
+  "physics_only_plant_step": true,
+  "live_mutation_checks_per_control_tick": true,
+  "sim_time_s": 4.82999999999969,
+  "delta_world_m": [
+    0.033404345531841025,
+    -0.029940504842224703,
+    0.0008613281309554632
+  ],
+  "lateral_m": -0.029940504842224703,
+  "forward_m": 0.033404345531841025,
+  "yaw_error_rad": -0.00015411661156614786,
+  "max_abs_roll_pitch_rad": 0.012170207076869244,
+  "min_base_height_m": 0.45519915837268077,
+  "max_torque_fraction": 0.3922939975496088,
+  "max_velocity_fraction": 0.1311097297447023,
+  "final_contacts": [
+    true,
+    true,
+    true,
+    true
+  ],
+  "airborne_seen_by_leg": [
+    false,
+    false,
+    true,
+    false
+  ],
+  "final_base_speed_mps": 0.00016973280672984858,
+  "acceptance": {
+    "finite_completed": true,
+    "controller_reports_success": false,
+    "measured_lateral_step": false,
+    "forward_drift": false,
+    "yaw_drift": true,
+    "body_tilt": true,
+    "body_height": true,
+    "final_four_contacts": true,
+    "all_legs_lifted": false,
+    "final_quiet": true,
+    "joint_velocity_limits": true
+  },
+  "wall_time_s": 2.2468067450026865,
+  "module_sha256": "b30fa2d99f55c7fcef1fbe4e01c562a3592c3571bd27bd0131c7017801243c55",
+  "module_unchanged_during_run": true,
+  "class_name": "FastSideStepController",
+  "sampling_mode": "synchronized",
+  "arena": "flat",
+  "measurement_and_timestep_immutability_checked": true,
+  "request_to_done_s": 1.8199999999997996,
+  "phase_total_s": {
+    "idle": 2.0000000000000004,
+    "shift": 0.8299999999999086,
+    "unload": 0.12999999999998568,
+    "lift": 0.25999999999997137,
+    "swing": 0.009999999999998899,
+    "abort_land": 0.27999999999996916,
+    "abort_hold": 0.29999999999996696
+  },
+  "phase_spans": [
+    {
+      "phase": "idle",
+      "active_leg": null,
+      "duration_s": 2.0000000000000004
+    },
+    {
+      "phase": "shift",
+      "active_leg": "RL",
+      "duration_s": 0.8299999999999086
+    },
+    {
+      "phase": "unload",
+      "active_leg": "RL",
+      "duration_s": 0.12999999999998568
+    },
+    {
+      "phase": "lift",
+      "active_leg": "RL",
+      "duration_s": 0.25999999999997137
+    },
+    {
+      "phase": "swing",
+      "active_leg": "RL",
+      "duration_s": 0.009999999999998899
+    },
+    {
+      "phase": "abort_land",
+      "active_leg": "RL",
+      "duration_s": 0.27999999999996916
+    },
+    {
+      "phase": "abort_hold",
+      "active_leg": null,
+      "duration_s": 0.29999999999996696
+    }
+  ],
+  "slow_baseline": {
+    "case": "local_v4_left",
+    "events_sha256": "8257db1fe2036cda352b32f7675e3f819f07c9858e1bab4cd67b50ed9ec14dd3",
+    "request_to_done_s": 41.74000000000749
+  },
+  "observed_duration_ratio": 22.934065934072574,
+  "under_12_sim_seconds": true,
+  "physical_control_interval_s": 0.009999999999998899,
+  "unchanged_10ms_integration": true,
+  "qualified_step_success": false,
+  "speedup": null
+}

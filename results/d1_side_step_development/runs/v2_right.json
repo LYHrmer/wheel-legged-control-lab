@@ -1,0 +1,243 @@
+{
+  "direction": -1,
+  "distance_m": 0.03,
+  "initial_yaw_rad": 0.0,
+  "request_accepted": true,
+  "cancel_requested": false,
+  "final_status": {
+    "phase": "done",
+    "done": true,
+    "success": true,
+    "failure": null,
+    "active": false,
+    "active_leg": null,
+    "direction": -1,
+    "initial_yaw_rad": 7.327243323370475e-07,
+    "current_yaw_rad": -0.0028667413670589994,
+    "support_margin_m": 0.16391530679352317,
+    "ik_error_m": 8.281651042402405e-08,
+    "torque_source": "d1_fast_side_step",
+    "state_source": "simulator_truth",
+    "controller": "d1_fast_side_step",
+    "profile": "fast",
+    "legacy_torque_source": "d1_side_step",
+    "dynamic_margin_m": 0.16391530679352317,
+    "load_weight": 1.0,
+    "loading_leg": null,
+    "elapsed_s": 11.549999999999798,
+    "shift_time_s": 1.0822912580611297,
+    "swing_time_s": 0.35156249999999994,
+    "lift_peaks_m": [
+      0.0260490263306963,
+      0.028868495871840018,
+      0.029978446821105845,
+      0.029612622616978165
+    ],
+    "plan_error_m": 9.34521022808774e-07,
+    "max_torque_fraction": 0.45659782137869237,
+    "step_index": 4
+  },
+  "exception": null,
+  "physics_only_plant_step": true,
+  "live_mutation_checks_per_control_tick": true,
+  "sim_time_s": 13.550000000001194,
+  "delta_world_m": [
+    -0.0011223574312524485,
+    -0.03416613792139583,
+    0.0008539700569346609
+  ],
+  "lateral_m": -0.03416613792139583,
+  "forward_m": -0.0011223574312524485,
+  "yaw_error_rad": -0.0028667413670589994,
+  "max_abs_roll_pitch_rad": 0.02054599950601377,
+  "min_base_height_m": 0.45486287676025783,
+  "max_torque_fraction": 0.45659782137869237,
+  "max_velocity_fraction": 0.1311097297447023,
+  "final_contacts": [
+    true,
+    true,
+    true,
+    true
+  ],
+  "airborne_seen_by_leg": [
+    true,
+    true,
+    true,
+    true
+  ],
+  "final_base_speed_mps": 0.0002741820197313731,
+  "acceptance": {
+    "finite_completed": true,
+    "controller_reports_success": true,
+    "measured_lateral_step": true,
+    "forward_drift": true,
+    "yaw_drift": true,
+    "body_tilt": true,
+    "body_height": true,
+    "final_four_contacts": true,
+    "all_legs_lifted": true,
+    "final_quiet": true,
+    "joint_velocity_limits": true
+  },
+  "wall_time_s": 5.401336549999542,
+  "module_sha256": "b30fa2d99f55c7fcef1fbe4e01c562a3592c3571bd27bd0131c7017801243c55",
+  "module_unchanged_during_run": true,
+  "class_name": "FastSideStepController",
+  "sampling_mode": "synchronized",
+  "arena": "flat",
+  "measurement_and_timestep_immutability_checked": true,
+  "request_to_done_s": 10.550000000000859,
+  "phase_total_s": {
+    "idle": 2.0000000000000004,
+    "shift": 4.580000000000051,
+    "unload": 0.5200000000000005,
+    "lift": 1.040000000000041,
+    "swing": 1.4400000000001612,
+    "lower": 1.1200000000001253,
+    "load": 0.6000000000000676,
+    "recenter": 1.240000000000414
+  },
+  "phase_spans": [
+    {
+      "phase": "idle",
+      "active_leg": null,
+      "duration_s": 2.0000000000000004
+    },
+    {
+      "phase": "shift",
+      "active_leg": "RR",
+      "duration_s": 0.8299999999999086
+    },
+    {
+      "phase": "unload",
+      "active_leg": "RR",
+      "duration_s": 0.12999999999998568
+    },
+    {
+      "phase": "lift",
+      "active_leg": "RR",
+      "duration_s": 0.25999999999997137
+    },
+    {
+      "phase": "swing",
+      "active_leg": "RR",
+      "duration_s": 0.35999999999996035
+    },
+    {
+      "phase": "lower",
+      "active_leg": "RR",
+      "duration_s": 0.27999999999996916
+    },
+    {
+      "phase": "load",
+      "active_leg": null,
+      "duration_s": 0.14999999999998392
+    },
+    {
+      "phase": "shift",
+      "active_leg": "FR",
+      "duration_s": 1.17999999999987
+    },
+    {
+      "phase": "unload",
+      "active_leg": "FR",
+      "duration_s": 0.12999999999998568
+    },
+    {
+      "phase": "lift",
+      "active_leg": "FR",
+      "duration_s": 0.25999999999997137
+    },
+    {
+      "phase": "swing",
+      "active_leg": "FR",
+      "duration_s": 0.35999999999996035
+    },
+    {
+      "phase": "lower",
+      "active_leg": "FR",
+      "duration_s": 0.27999999999996916
+    },
+    {
+      "phase": "load",
+      "active_leg": null,
+      "duration_s": 0.14999999999998348
+    },
+    {
+      "phase": "shift",
+      "active_leg": "RL",
+      "duration_s": 1.3199999999998546
+    },
+    {
+      "phase": "unload",
+      "active_leg": "RL",
+      "duration_s": 0.12999999999998568
+    },
+    {
+      "phase": "lift",
+      "active_leg": "RL",
+      "duration_s": 0.26000000000001133
+    },
+    {
+      "phase": "swing",
+      "active_leg": "RL",
+      "duration_s": 0.3600000000001202
+    },
+    {
+      "phase": "lower",
+      "active_leg": "RL",
+      "duration_s": 0.3000000000001002
+    },
+    {
+      "phase": "load",
+      "active_leg": null,
+      "duration_s": 0.1500000000000501
+    },
+    {
+      "phase": "shift",
+      "active_leg": "FL",
+      "duration_s": 1.2500000000004174
+    },
+    {
+      "phase": "unload",
+      "active_leg": "FL",
+      "duration_s": 0.13000000000004341
+    },
+    {
+      "phase": "lift",
+      "active_leg": "FL",
+      "duration_s": 0.26000000000008683
+    },
+    {
+      "phase": "swing",
+      "active_leg": "FL",
+      "duration_s": 0.3600000000001202
+    },
+    {
+      "phase": "lower",
+      "active_leg": "FL",
+      "duration_s": 0.26000000000008683
+    },
+    {
+      "phase": "load",
+      "active_leg": null,
+      "duration_s": 0.1500000000000501
+    },
+    {
+      "phase": "recenter",
+      "active_leg": null,
+      "duration_s": 1.240000000000414
+    }
+  ],
+  "slow_baseline": {
+    "case": "local_v4_right",
+    "events_sha256": "f0c1c8206d6e2402ac1d4d22b00b06a773958483f9cd3088fe80d6cafd0c077b",
+    "request_to_done_s": 41.77000000000753
+  },
+  "observed_duration_ratio": 3.959241706161529,
+  "under_12_sim_seconds": true,
+  "physical_control_interval_s": 0.010000000000000009,
+  "unchanged_10ms_integration": true,
+  "qualified_step_success": true,
+  "speedup": 3.959241706161529
+}

@@ -182,6 +182,16 @@ def test_space_press_reaches_existing_guard_after_settle():
     assert simulation.step().jump_phase == "crouch"
 
 
+def test_jump_during_side_step_is_recorded_as_blocked_and_not_queued():
+    simulation = D1InteractiveSimulation()
+    viewer = SimpleNamespace(events=[key(" "), key("J")])
+    cursor = apply_course_events(simulation, viewer, 0, lambda *_: None, can_jump=lambda: False)
+    assert cursor == 2 and not simulation.teleop._jump_requested
+    assert [event["type"] for event in viewer.events[2:]] == ["jump_blocked", "jump_blocked"]
+    assert apply_course_events(simulation, viewer, cursor, lambda *_: None, can_jump=lambda: True) == 4
+    assert not simulation.teleop._jump_requested
+
+
 def test_existing_output_rejected_before_reset_and_cli_has_no_policy_option(tmp_path):
     simulation = D1InteractiveSimulation()
     simulation.step()

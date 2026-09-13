@@ -1,0 +1,34 @@
+{
+  "recorded_utc": "2026-09-13T05:07:05.639969+00:00",
+  "runtime_mujoco": "3.12.0",
+  "source_sha256": {
+    "scripts/d1_fast_side_step.py": "935a77e31b83de407c5a4d3258c835546d4ff51f690edd2ed272e32ff91e8cb4",
+    "tests/test_d1_fast_side_step.py": "42b72af0b6c9f335fa33164720bd504ca2a7fe72817e624ceff394cfc708001d"
+  },
+  "stable_fallback": {
+    "path": "scripts/d1_side_step.py",
+    "sha256": "42b488660a300077eb7c89f37d6d8649f360ade5852f9ce4f9c2c317ef4d134e"
+  },
+  "pytest": {
+    "exit_code": 0,
+    "passed": 14,
+    "output": "..............                                                           [100%]\n",
+    "includes": "five actual <12sec dynamics cases, cancellations, missing touchdown, completion-tick IK/target/allocation faults, ZMP sign/time budget, old/new fullM binding contracts"
+  },
+  "ruff": {
+    "exit_code": 0,
+    "output": "All checks passed!"
+  },
+  "direct_script_import_after_fix": {
+    "command": "PYTHONPATH=src:.local-deps python3 -B scripts/run_d1_course_drive.py --help",
+    "exit_code": 0,
+    "result": "help printed with fast/conservative profile choices"
+  },
+  "old_mujoco_compatibility": "Old/new fullM bindings have protocol tests. Only MuJoCo3.12 has been run in the reported dynamics.",
+  "frozen_formal_sources": {
+    "members": 77,
+    "mismatches": []
+  },
+  "scope": "Simulator truth on zero-plane flat terrain and flat start of actual course, motor torque only. No hardware, PPO or random terrain robustness claim.",
+  "numeric_report_stage": "v2 trajectories keep their actual source SHA; later failure handling, binding and import changes passed the complete 14-test suite."
+}

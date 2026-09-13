@@ -1,0 +1,117 @@
+{
+  "direction": 1,
+  "distance_m": 0.03,
+  "initial_yaw_rad": 0.0,
+  "request_accepted": true,
+  "cancel_requested": false,
+  "final_status": {
+    "phase": "unload",
+    "done": false,
+    "success": false,
+    "failure": null,
+    "active": true,
+    "active_leg": "RL",
+    "direction": 1,
+    "initial_yaw_rad": 7.327243323370475e-07,
+    "current_yaw_rad": 0.0008685570469389886,
+    "support_margin_m": 0.033837447672571117,
+    "ik_error_m": 1.8109037117560386e-07,
+    "torque_source": "d1_fast_side_step",
+    "state_source": "simulator_truth",
+    "controller": "d1_fast_side_step",
+    "profile": "fast",
+    "legacy_torque_source": "d1_side_step",
+    "dynamic_margin_m": 0.033837447672571117,
+    "load_weight": -1.3322676295501878e-15,
+    "loading_leg": null,
+    "elapsed_s": 0.9600000000000006,
+    "shift_time_s": 0.8350418412184747,
+    "swing_time_s": 0.35156249999999994,
+    "lift_peaks_m": [
+      0.0,
+      0.0,
+      0.0007342606715685011,
+      0.0
+    ],
+    "plan_error_m": 9.547970802967018e-07,
+    "max_torque_fraction": 0.3718614950873436,
+    "step_index": 0
+  },
+  "exception": "AttributeError: 'mujoco._structs.MjData' object has no attribute 'qM'",
+  "physics_only_plant_step": true,
+  "live_mutation_checks_per_control_tick": true,
+  "sim_time_s": 2.9599999999998956,
+  "delta_world_m": [
+    0.029081197681553577,
+    -0.02903069526366163,
+    0.0010966847177003025
+  ],
+  "lateral_m": -0.02903069526366163,
+  "forward_m": 0.029081197681553577,
+  "yaw_error_rad": 0.0008685570469389886,
+  "max_abs_roll_pitch_rad": 0.005443441146354466,
+  "min_base_height_m": 0.45519915837268077,
+  "max_torque_fraction": 0.3718614950873436,
+  "max_velocity_fraction": 0.1311097297447023,
+  "final_contacts": [
+    true,
+    true,
+    true,
+    true
+  ],
+  "airborne_seen_by_leg": [
+    false,
+    false,
+    false,
+    false
+  ],
+  "final_base_speed_mps": 0.030051438336691924,
+  "acceptance": {
+    "finite_completed": false,
+    "controller_reports_success": false,
+    "measured_lateral_step": false,
+    "forward_drift": true,
+    "yaw_drift": true,
+    "body_tilt": true,
+    "body_height": true,
+    "final_four_contacts": true,
+    "all_legs_lifted": false,
+    "final_quiet": true,
+    "joint_velocity_limits": true
+  },
+  "wall_time_s": 1.2838238750046003,
+  "module_sha256": "e88d6a3ecbc8864ba02c443a0ba3076bc190b3ef95bea5a1c4262a6d28f2033f",
+  "module_unchanged_during_run": true,
+  "class_name": "FastSideStepController",
+  "sampling_mode": "synchronized",
+  "arena": "flat",
+  "measurement_and_timestep_immutability_checked": true,
+  "request_to_done_s": null,
+  "phase_total_s": {
+    "idle": 2.0000000000000004,
+    "shift": 0.8299999999999086
+  },
+  "phase_spans": [
+    {
+      "phase": "idle",
+      "active_leg": null,
+      "duration_s": 2.0000000000000004
+    },
+    {
+      "phase": "shift",
+      "active_leg": "RL",
+      "duration_s": 0.8299999999999086
+    }
+  ],
+  "slow_baseline": {
+    "case": "local_v4_left",
+    "events_sha256": "8257db1fe2036cda352b32f7675e3f819f07c9858e1bab4cd67b50ed9ec14dd3",
+    "request_to_done_s": 41.74000000000749
+  },
+  "observed_duration_ratio": null,
+  "under_12_sim_seconds": false,
+  "physical_control_interval_s": 0.010000000000000009,
+  "unchanged_10ms_integration": true,
+  "qualified_step_success": false,
+  "speedup": null
+}

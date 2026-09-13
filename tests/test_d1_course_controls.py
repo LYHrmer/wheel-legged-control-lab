@@ -62,7 +62,7 @@ def test_focus_stop_watchdog_and_escape_cancel_goals():
     assert tick(commands, clock, "WQ").forward_velocity_mps == 0
 
 
-def test_invalid_state_is_atomic_and_ad_has_explicit_feedback():
+def test_invalid_state_is_atomic_and_ad_requests_side_motion_without_yaw():
     commands, clock = controller()
     before = vars(commands).copy()
     with pytest.raises(ValueError):
@@ -71,10 +71,34 @@ def test_invalid_state_is_atomic_and_ad_has_explicit_feedback():
     for _ in range(30):
         command = tick(commands, clock, "A")
     assert command.forward_velocity_mps == 0 and command.yaw_rate_rps == 0
-    assert "not available" in commands.message
+    assert commands.side_direction == 1 and "side step" in commands.message.lower()
+    tick(commands, clock, "D")
+    assert commands.side_direction == -1
+    tick(commands, clock, "AD")
+    assert commands.side_direction == 0
     for _ in range(300):
         command = tick(commands, clock, "Q")
         assert abs(command.yaw_rate_rps) <= 1.0
+
+
+def test_side_motion_owns_drive_keys_until_landing_and_focus_loss_cancels():
+    commands, clock = controller()
+    tick(commands, clock, "AWQ")
+    assert commands.side_direction == 1
+    assert commands.requested_forward_mps == 0 and commands.goal_yaw_rad == 0
+    commands.set_side_active(True)
+    command = tick(commands, clock, "WQ")
+    assert commands.side_direction == 0
+    assert command.forward_velocity_mps == command.yaw_rate_rps == 0
+    assert "Landing" in commands.message
+    tick(commands, clock, "A", focused=False)
+    assert commands.side_direction == 0 and commands.side_active
+    commands.set_side_active(False)
+    assert tick(commands, clock, "W").forward_velocity_mps > 0
+    tick(commands, clock, "A")
+    clock[0] += 1
+    commands(clock[0])
+    assert commands.side_direction == 0
 
 
 def test_r_resets_actually_overturned_robot_and_clears_commands():

@@ -1,0 +1,237 @@
+{
+  "direction": 1,
+  "distance_m": 0.03,
+  "initial_yaw_rad": 0.0,
+  "request_accepted": true,
+  "cancel_requested": false,
+  "final_status": {
+    "phase": "done",
+    "done": true,
+    "success": true,
+    "failure": null,
+    "active": false,
+    "active_leg": null,
+    "direction": 1,
+    "initial_yaw_rad": -6.16891699544766e-06,
+    "current_yaw_rad": 0.004658078453600886,
+    "support_margin_m": 0.1571023760393971,
+    "ik_error_m": 3.249273754945896e-08,
+    "torque_source": "d1_fast_side_step",
+    "state_source": "simulator_truth",
+    "controller": "d1_fast_side_step",
+    "profile": "fast",
+    "legacy_torque_source": "d1_side_step",
+    "dynamic_margin_m": 0.1571023760393971,
+    "load_weight": 1.0,
+    "loading_leg": null,
+    "elapsed_s": 11.569999999999798,
+    "shift_time_s": 1.131496017604467,
+    "swing_time_s": 0.35156249999999994,
+    "lift_peaks_m": [
+      0.028914873812435602,
+      0.026137649923655182,
+      0.02996561088027243,
+      0.03036537442969153
+    ],
+    "plan_error_m": 6.77003620323047e-07,
+    "max_torque_fraction": 0.4533556283338845,
+    "step_index": 4
+  },
+  "exception": null,
+  "physics_only_plant_step": true,
+  "live_mutation_checks_per_control_tick": true,
+  "sim_time_s": 13.570000000001201,
+  "delta_world_m": [
+    -0.000890237014651858,
+    0.03721491825043263,
+    0.0008444003684853763
+  ],
+  "lateral_m": 0.03721491825043263,
+  "forward_m": -0.000890237014651858,
+  "yaw_error_rad": 0.004658078453600887,
+  "max_abs_roll_pitch_rad": 0.020511264612324887,
+  "min_base_height_m": 0.46381068344396054,
+  "max_torque_fraction": 0.4533556283338845,
+  "max_velocity_fraction": 0.075353059098503,
+  "final_contacts": [
+    true,
+    true,
+    true,
+    true
+  ],
+  "airborne_seen_by_leg": [
+    true,
+    true,
+    true,
+    true
+  ],
+  "final_base_speed_mps": 0.00038647824886442716,
+  "acceptance": {
+    "finite_completed": true,
+    "controller_reports_success": true,
+    "measured_lateral_step": true,
+    "forward_drift": true,
+    "yaw_drift": true,
+    "body_tilt": true,
+    "body_height": true,
+    "final_four_contacts": true,
+    "all_legs_lifted": true,
+    "final_quiet": true,
+    "joint_velocity_limits": true
+  },
+  "wall_time_s": 4.596062101998541,
+  "module_sha256": "b30fa2d99f55c7fcef1fbe4e01c562a3592c3571bd27bd0131c7017801243c55",
+  "module_unchanged_during_run": true,
+  "class_name": "FastSideStepController",
+  "sampling_mode": "legacy_mixed",
+  "arena": "course",
+  "measurement_and_timestep_immutability_checked": true,
+  "request_to_done_s": 10.570000000000865,
+  "phase_total_s": {
+    "shift": 4.560000000000057,
+    "unload": 0.5200000000000005,
+    "lift": 1.040000000000032,
+    "swing": 1.4400000000001612,
+    "lower": 1.1300000000001242,
+    "load": 0.6000000000000671,
+    "recenter": 1.2700000000004241
+  },
+  "phase_spans": [
+    {
+      "phase": "shift",
+      "active_leg": "RL",
+      "duration_s": 0.7699999999999152
+    },
+    {
+      "phase": "unload",
+      "active_leg": "RL",
+      "duration_s": 0.12999999999998568
+    },
+    {
+      "phase": "lift",
+      "active_leg": "RL",
+      "duration_s": 0.25999999999997137
+    },
+    {
+      "phase": "swing",
+      "active_leg": "RL",
+      "duration_s": 0.35999999999996035
+    },
+    {
+      "phase": "lower",
+      "active_leg": "RL",
+      "duration_s": 0.28999999999996806
+    },
+    {
+      "phase": "load",
+      "active_leg": null,
+      "duration_s": 0.14999999999998348
+    },
+    {
+      "phase": "shift",
+      "active_leg": "FL",
+      "duration_s": 1.1999999999998683
+    },
+    {
+      "phase": "unload",
+      "active_leg": "FL",
+      "duration_s": 0.12999999999998568
+    },
+    {
+      "phase": "lift",
+      "active_leg": "FL",
+      "duration_s": 0.25999999999997137
+    },
+    {
+      "phase": "swing",
+      "active_leg": "FL",
+      "duration_s": 0.35999999999996035
+    },
+    {
+      "phase": "lower",
+      "active_leg": "FL",
+      "duration_s": 0.27999999999996916
+    },
+    {
+      "phase": "load",
+      "active_leg": null,
+      "duration_s": 0.14999999999998348
+    },
+    {
+      "phase": "shift",
+      "active_leg": "RR",
+      "duration_s": 1.3299999999998535
+    },
+    {
+      "phase": "unload",
+      "active_leg": "RR",
+      "duration_s": 0.12999999999998568
+    },
+    {
+      "phase": "lift",
+      "active_leg": "RR",
+      "duration_s": 0.26000000000000245
+    },
+    {
+      "phase": "swing",
+      "active_leg": "RR",
+      "duration_s": 0.3600000000001202
+    },
+    {
+      "phase": "lower",
+      "active_leg": "RR",
+      "duration_s": 0.3000000000001002
+    },
+    {
+      "phase": "load",
+      "active_leg": null,
+      "duration_s": 0.1500000000000501
+    },
+    {
+      "phase": "shift",
+      "active_leg": "FR",
+      "duration_s": 1.2600000000004208
+    },
+    {
+      "phase": "unload",
+      "active_leg": "FR",
+      "duration_s": 0.13000000000004341
+    },
+    {
+      "phase": "lift",
+      "active_leg": "FR",
+      "duration_s": 0.26000000000008683
+    },
+    {
+      "phase": "swing",
+      "active_leg": "FR",
+      "duration_s": 0.3600000000001202
+    },
+    {
+      "phase": "lower",
+      "active_leg": "FR",
+      "duration_s": 0.26000000000008683
+    },
+    {
+      "phase": "load",
+      "active_leg": null,
+      "duration_s": 0.1500000000000501
+    },
+    {
+      "phase": "recenter",
+      "active_leg": null,
+      "duration_s": 1.2700000000004241
+    }
+  ],
+  "slow_baseline": {
+    "case": "course_entry_left",
+    "events_sha256": "fbbdcf41d2744415cd9505fd631742d89d9e958a1264715b98943443b498a9dc",
+    "request_to_done_s": 40.810000000006355
+  },
+  "observed_duration_ratio": 3.860927152318166,
+  "under_12_sim_seconds": true,
+  "physical_control_interval_s": 0.009999999999998899,
+  "unchanged_10ms_integration": true,
+  "qualified_step_success": true,
+  "speedup": 3.860927152318166
+}

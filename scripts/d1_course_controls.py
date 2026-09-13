@@ -38,6 +38,8 @@ class CourseKeyboardCommands:
         self._actual_yaw = self._actual_velocity = 0.0
         self._actual_yaw_rate = 0.0
         self._fallen = False
+        self.side_direction = 0
+        self.side_active = False
         self.position_xy = (0.0, 0.0)
         self.goal_yaw_rad = 0.0
         self.requested_forward_mps = 0.0
@@ -78,13 +80,20 @@ class CourseKeyboardCommands:
         self._clearance = 0.455
         self._last_update = None
         self._focused = False
+        self.side_active = False
         self._cancel()
         self.message = "Simulation reset: upright at this zone's start"
 
     def _cancel(self):
         self.requested_forward_mps = 0.0
+        self.side_direction = 0
         self.goal_yaw_rad = self._actual_yaw
         self._command = D1MotionCommand(0.0, 0.0, self._clearance)
+
+    def set_side_active(self, active):
+        if type(active) is not bool:
+            raise TypeError("side active flag must be boolean")
+        self.side_active = active
 
     def update_pressed(self, keys, focused=True):
         if not isinstance(keys, (set, frozenset)) or any(type(k) is not int for k in keys):
@@ -108,6 +117,16 @@ class CourseKeyboardCommands:
             self._cancel()
             self.message = "Fallen: press R for simulation reset" if self._fallen else "Motion cancelled"
             return
+        was_side = bool(self.side_direction) or self.side_active
+        self.side_direction = int(ord("A") in keys)-int(ord("D") in keys)
+        if self.side_direction or self.side_active:
+            if not was_side:
+                self.goal_yaw_rad = self._actual_yaw
+            self.requested_forward_mps = 0.0
+            self._command = D1MotionCommand(0.0, 0.0, self._clearance)
+            self.message = ("Side step: hold A/D on flat ground"
+                            if self.side_direction else "Landing before returning to wheel driving")
+            return
         forward = int(ord("W") in keys)-int(ord("S") in keys)
         target = 0.30 if forward > 0 else -0.20 if forward < 0 else 0.0
         if target == 0:
@@ -126,9 +145,7 @@ class CourseKeyboardCommands:
                           self.heading_gain*wrap_angle(self.goal_yaw_rad-self._actual_yaw)
                           -self.heading_damping*self._actual_yaw_rate))
         self._command = D1MotionCommand(self.requested_forward_mps, yaw_request, self._clearance)
-        self.message = ("A/D side stepping is not available with this controller"
-                        if ord("A") in keys or ord("D") in keys
-                        else "Heading target retained after releasing Q/E")
+        self.message = "Heading target retained after releasing Q/E"
 
     def __call__(self, simulation_time_s):
         self._finite(simulation_time_s)

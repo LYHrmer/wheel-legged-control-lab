@@ -1,0 +1,414 @@
+#!/usr/bin/env python3
+"""Headless validation for the fast D1 lateral stepping controller.
+
+Measures, per case, from the real plant: simulated elapsed time, body-frame
+lateral / forward drift, yaw drift, per-leg peak wheel-contact clearance, final
+contact set, torque bound, attitude bound, and that the controller never mutates
+live plant state inside compute(). Nothing here is a hardware claim.
+
+Usage:
+    python scripts/validate_d1_fast_side_step.py \
+        --plant-factory tests.test_d1_side_step:make_plant \
+        --cases left,right,yaw90,cancel --profile fast --out artifacts/fast_side_step
+"""
+from __future__ import annotations
+
+import argparse
+import importlib
+import json
+import sys
+import time as wallclock
+from pathlib import Path
+
+import mujoco
+import numpy as np
+
+_ROOT = Path(__file__).resolve().parent.parent
+for candidate in (_ROOT, _ROOT/"scripts"):
+    if str(candidate) not in sys.path:
+        sys.path.insert(0, str(candidate))
+
+from d1_fast_side_step import PROFILES, FastSideStepController  # noqa: E402
+
+WHEEL_RADIUS = .087
+WHEEL_HALF_WIDTH = .020
+
+PLANT_CANDIDATES = (
+    "tests.test_d1_side_step:make_plant",
+    "tests.test_d1_side_step:build_plant",
+    "tests.test_d1_side_step:_plant",
+    "wheel_legged_control.d1.plant:D1Plant",
+    "wheel_legged_control.d1.plant:Plant",
+    "wheel_legged_control.d1.simulation:D1Plant",
+    "wheel_legged_control.d1.sim:D1Plant",
+    "wheel_legged_control.d1.mujoco_plant:D1Plant",
+)
+
+# --------------------------------------------------------------------- plant
+
+
+def _resolve(spec):
+    module_name, _, attribute = spec.partition(":")
+    module = importlib.import_module(module_name)
+    factory = getattr(module, attribute)
+    return getattr(factory, "__wrapped__", factory)
+
+
+def load_plant(spec=None):
+    tried = []
+    for candidate in ([spec] if spec else list(PLANT_CANDIDATES)):
+        try:
+            return _resolve(candidate)(), candidate
+        except Exception as exc:  # noqa: BLE001 - report and keep probing
+            tried.append(f"{candidate}: {type(exc).__name__}: {exc}")
+    raise SystemExit("could not construct a plant; pass --plant-factory module:callable\n  "
+                     + "\n  ".join(tried))
+
+
+# ---------------------------------------------------- independent measurement
+
+
+def contact_geometry(model, data, wheel_joints, bodies):
+    """Wheel ground-contact points, recomputed here so the check is independent."""
+    axes = data.xaxis[wheel_joints]
+    az = np.clip(axes[:, 2], -1., 1.)
+    lateral = np.sqrt(np.maximum(1e-10, 1. - az*az))
+    points = data.xpos[bodies].copy()
+    up = np.tile([0., 0., 1.], (len(bodies), 1))
+    points -= WHEEL_RADIUS*(up - axes*az[:, None])/lateral[:, None]
+    signs = np.where(np.abs(az) < .002, 0., np.sign(az))
+    points -= WHEEL_HALF_WIDTH*signs[:, None]*axes
+    return points
+
+
+def contact_flags(model, data, terrain_geoms, bodies):
+    active = np.zeros(len(bodies), dtype=bool)
+    for contact in data.contact:
+        a, b = int(contact.geom1), int(contact.geom2)
+        other = b if a in terrain_geoms else a if b in terrain_geoms else None
+        if other is not None and contact.efc_address >= 0:
+            body = int(model.geom_bodyid[other])
+            if body in bodies:
+                active[list(bodies).index(body)] = True
+    return active
+
+
+class LiveStateGuard:
+    """Snapshot/compare every mutable field the controller must not touch."""
+
+    DATA_FIELDS = ("qpos", "qvel", "act", "ctrl", "qfrc_applied", "xfrc_applied",
+                   "mocap_pos", "mocap_quat", "qacc", "qacc_warmstart")
+    MODEL_FIELDS = ("body_mass", "body_inertia", "dof_damping", "dof_frictionloss",
+                    "dof_armature", "geom_friction", "geom_size", "actuator_gainprm",
+                    "actuator_biasprm", "actuator_ctrlrange", "jnt_range", "opt.timestep",
+                    "opt.gravity")
+
+    def __init__(self, plant):
+        self.plant = plant
+        self.targets = [plant.data]
+        measurement = getattr(plant, "measurement_data", None)
+        if measurement is not None and measurement is not plant.data:
+            self.targets.append(measurement)
+
+    @staticmethod
+    def _get(obj, name):
+        for part in name.split("."):
+            obj = getattr(obj, part)
+        return np.array(obj, copy=True)
+
+    def snapshot(self):
+        state = {}
+        for index, data in enumerate(self.targets):
+            for field in self.DATA_FIELDS:
+                if hasattr(data, field):
+                    state[f"data{index}.{field}"] = self._get(data, field)
+            state[f"data{index}.time"] = float(data.time)
+        for field in self.MODEL_FIELDS:
+            try:
+                state[f"model.{field}"] = self._get(self.plant.model, field)
+            except AttributeError:
+                pass
+        return state
+
+    def diff(self, before, after):
+        changed = []
+        for key, value in before.items():
+            other = after[key]
+            if isinstance(value, float):
+                if value != other:
+                    changed.append(key)
+            elif not np.array_equal(value, other):
+                changed.append(key)
+        return changed
+
+
+# ------------------------------------------------------------------ scenarios
+
+
+def place_yaw(plant, yaw):
+    """Scene setup only, before any control. Not performed by the controller."""
+    if hasattr(plant, "reset"):
+        try:
+            plant.reset()
+        except TypeError:
+            pass
+    data = plant.data
+    data.qpos[3:7] = [np.cos(yaw/2.), 0., 0., np.sin(yaw/2.)]
+    data.qvel[:] = 0.
+    mujoco.mj_forward(plant.model, data)
+    if hasattr(plant, "refresh_measurement"):
+        plant.refresh_measurement()
+
+
+def run_case(plant, controller, guard, name, direction, distance, settle_ticks,
+             timeout_s, cancel_at_phase=None, check_every=1):
+    model = plant.model
+    bodies = list(plant.wheel_body_ids_by_leg)
+    wheel_joints = plant.joint_ids.reshape(4, 4)[:, 3]
+    terrain = set(int(g) for g in plant.terrain_geom_ids)
+    limit = np.abs(np.asarray(plant.actuator_torque_limit_nm, dtype=float))
+    dt = float(plant.control_dt)
+
+    trace = {k: [] for k in ("qpos", "qvel", "tau", "contacts", "foot_z", "phase",
+                             "margin", "dynamic_margin", "rpy", "base", "done", "load_weight")}
+    events = {"mutation": [], "done_while_airborne": [], "phase_changes": []}
+
+    controller.reset()
+    for _ in range(settle_ticks):
+        plant.step(controller.compute())
+
+    start_base = np.array(plant.base_position, dtype=float)
+    start_yaw = float(plant.base_rpy[2])
+    step_dt_error = 0.
+    if not controller.start(direction, distance_m=distance):
+        return {"case": name, "status": "rejected", "reason": "start() refused the request"}
+
+    lift_peaks = np.full(4, -np.inf)
+    cancelled = False
+    ticks = 0
+    wall_start = wallclock.perf_counter()
+    previous_phase = controller.status["phase"]
+    while ticks*dt < timeout_s:
+        before = guard.snapshot() if ticks % check_every == 0 else None
+        tau = controller.compute()
+        if before is not None:
+            changed = guard.diff(before, guard.snapshot())
+            if changed:
+                events["mutation"].append({"tick": ticks, "fields": changed})
+
+        status = controller.status
+        data = plant.measurement_data
+        points = contact_geometry(model, data, wheel_joints, bodies)
+        contacts = contact_flags(model, data, terrain, bodies)
+        lift_peaks = np.maximum(lift_peaks, points[:, 2])
+        if status["done"] and (not contacts.all() or float(np.max(points[:, 2])) > .006):
+            events["done_while_airborne"].append({"tick": ticks, "phase": status["phase"],
+                                                  "contacts": contacts.tolist(),
+                                                  "foot_z": points[:, 2].tolist()})
+        if status["phase"] != previous_phase:
+            events["phase_changes"].append({"t": ticks*dt, "phase": status["phase"],
+                                            "leg": status["active_leg"]})
+            previous_phase = status["phase"]
+
+        trace["qpos"].append(np.array(data.qpos, copy=True))
+        trace["qvel"].append(np.array(data.qvel, copy=True))
+        trace["tau"].append(np.array(tau, copy=True))
+        trace["contacts"].append(contacts.copy())
+        trace["foot_z"].append(points[:, 2].copy())
+        trace["phase"].append(status["phase"])
+        trace["margin"].append(status["support_margin_m"])
+        trace["dynamic_margin"].append(status["dynamic_margin_m"])
+        trace["rpy"].append(np.array(plant.base_rpy, copy=True))
+        trace["base"].append(np.array(plant.base_position, copy=True))
+        trace["done"].append(bool(status["done"]))
+        trace["load_weight"].append(status["load_weight"])
+
+        if (cancel_at_phase is not None and not cancelled
+                and status["phase"] == cancel_at_phase):
+            controller.cancel()
+            cancelled = True
+
+        time_before = float(plant.data.time)
+        plant.step(tau)
+        step_dt_error = max(step_dt_error, abs(float(plant.data.time) - time_before - dt))
+        ticks += 1
+        if controller.status["done"]:
+            break
+
+    wall_elapsed = wallclock.perf_counter() - wall_start
+    status = controller.status
+    data = plant.measurement_data
+    points = contact_geometry(model, data, wheel_joints, bodies)
+    contacts = contact_flags(model, data, terrain, bodies)
+    end_base = np.array(plant.base_position, dtype=float)
+    displacement = end_base - start_base
+    cy, sy = np.cos(start_yaw), np.sin(start_yaw)
+    forward = cy*displacement[0] + sy*displacement[1]
+    lateral = -sy*displacement[0] + cy*displacement[1]
+    yaw_drift = float(np.arctan2(np.sin(plant.base_rpy[2] - start_yaw),
+                                 np.cos(plant.base_rpy[2] - start_yaw)))
+    torque = np.abs(np.asarray(trace["tau"]))
+    attitude = np.abs(np.asarray(trace["rpy"])[:, :2])
+
+    return {
+        "case": name,
+        "status": "ran",
+        "profile": status["profile"],
+        "direction": direction,
+        "target_lateral_mm": 1e3*direction*distance,
+        "elapsed_simulated_s": ticks*dt,
+        "elapsed_wall_s": wall_elapsed,
+        "ticks": ticks,
+        "control_dt_s": dt,
+        "physics_dt_s": float(model.opt.timestep),
+        "physics_steps_per_control": dt/float(model.opt.timestep),
+        "step_dt_error_s": step_dt_error,
+        "done": bool(status["done"]),
+        "success": bool(status["success"]),
+        "failure": status["failure"],
+        "phase": status["phase"],
+        "lateral_mm": 1e3*float(lateral),
+        "forward_mm": 1e3*float(forward),
+        "vertical_mm": 1e3*float(displacement[2]),
+        "yaw_drift_rad": yaw_drift,
+        "max_roll_pitch_rad": float(attitude.max()) if len(attitude) else float("nan"),
+        "max_torque_fraction": float(np.max(torque/np.maximum(limit, 1e-9))) if len(torque) else 0.,
+        "max_torque_nm": float(torque.max()) if len(torque) else 0.,
+        "torque_finite": bool(np.isfinite(np.asarray(trace["tau"])).all()),
+        "leg_peak_lift_mm": (1e3*lift_peaks).tolist(),
+        "final_contacts": contacts.tolist(),
+        "final_speed_mps": float(np.linalg.norm(plant.base_origin_velocity())),
+        "min_base_height_m": float(np.min(np.asarray(trace["base"])[:, 2])),
+        "live_state_mutations": events["mutation"],
+        "done_while_airborne": events["done_while_airborne"],
+        "phase_changes": events["phase_changes"],
+        "_trace": trace,
+    }
+
+
+def judge(result, args, expect_success=True):
+    if result["status"] != "ran":
+        return ["case did not run: " + result.get("reason", "unknown")]
+    f = []
+    target = result["target_lateral_mm"]
+    if not result["done"]:
+        f.append("controller never reported done")
+    if expect_success and not result["success"]:
+        f.append(f"success=False failure={result['failure']}")
+    if expect_success:
+        if result["elapsed_simulated_s"] > args.max_cycle_s:
+            f.append(f"cycle {result['elapsed_simulated_s']:.2f}s > {args.max_cycle_s}s")
+        ratio = result["lateral_mm"]/target if target else 0.
+        if not .5 <= ratio <= 1.6:
+            f.append(f"lateral {result['lateral_mm']:.2f}mm vs target {target:.1f}mm")
+        if abs(result["forward_mm"]) > args.max_forward_mm:
+            f.append(f"forward drift {result['forward_mm']:.2f}mm")
+        if abs(result["yaw_drift_rad"]) > args.max_yaw_rad:
+            f.append(f"yaw drift {result['yaw_drift_rad']:.5f}rad")
+        if min(result["leg_peak_lift_mm"]) < 12.:
+            f.append(f"leg lift {result['leg_peak_lift_mm']} mm, need >12 each")
+    if result["max_roll_pitch_rad"] > args.max_attitude_rad:
+        f.append(f"attitude {result['max_roll_pitch_rad']:.5f}rad")
+    if result["max_torque_fraction"] > args.max_torque_fraction:
+        f.append(f"torque {100*result['max_torque_fraction']:.2f}% of limit")
+    if not result["torque_finite"]:
+        f.append("non-finite torque emitted")
+    if not all(result["final_contacts"]):
+        f.append(f"final contacts {result['final_contacts']}")
+    if result["done_while_airborne"]:
+        f.append(f"done=True with a foot airborne on {len(result['done_while_airborne'])} tick(s)")
+    if result["live_state_mutations"]:
+        f.append(f"live plant state mutated during compute(): {result['live_state_mutations'][0]}")
+    if result["step_dt_error_s"] > 1e-9:
+        f.append(f"plant.step did not advance exactly control_dt ({result['step_dt_error_s']:.2e}s)")
+    if abs(result["physics_steps_per_control"] - 5.) > 1e-6:
+        f.append(f"unexpected dt ratio {result['physics_steps_per_control']}")
+    return f
+
+
+def main():
+    p = argparse.ArgumentParser()
+    p.add_argument("--plant-factory", default=None)
+    p.add_argument("--cases", default="left,right,yaw90,cancel")
+    p.add_argument("--profile", default="fast", choices=sorted(PROFILES))
+    p.add_argument("--distance", type=float, default=.03)
+    p.add_argument("--settle-ticks", type=int, default=200)
+    p.add_argument("--timeout-s", type=float, default=60.)
+    p.add_argument("--max-cycle-s", type=float, default=12.)
+    p.add_argument("--max-forward-mm", type=float, default=8.)
+    p.add_argument("--max-yaw-rad", type=float, default=.02)
+    p.add_argument("--max-attitude-rad", type=float, default=.05)
+    p.add_argument("--max-torque-fraction", type=float, default=.85)
+    p.add_argument("--check-every", type=int, default=1,
+                   help="live-state mutation check stride, in control ticks")
+    p.add_argument("--out", default="artifacts/d1_fast_side_step")
+    p.add_argument("--no-trace", action="store_true")
+    args = p.parse_args()
+
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
+    profile = PROFILES[args.profile]
+    specs = {
+        "left":   dict(direction=+1, yaw=0.,        cancel_at_phase=None),
+        "right":  dict(direction=-1, yaw=0.,        cancel_at_phase=None),
+        "yaw90":  dict(direction=+1, yaw=np.pi/2.,  cancel_at_phase=None),
+        "cancel": dict(direction=+1, yaw=0.,        cancel_at_phase="swing"),
+    }
+
+    results, failures = [], {}
+    for name in [c.strip() for c in args.cases.split(",") if c.strip()]:
+        if name not in specs:
+            raise SystemExit(f"unknown case {name!r}; choose from {sorted(specs)}")
+        spec = specs[name]
+        plant, source = load_plant(args.plant_factory)
+        if spec["yaw"]:
+            place_yaw(plant, spec["yaw"])
+        controller = FastSideStepController(plant, profile)
+        assert controller.scratch is not plant.data
+        assert controller.scratch is not getattr(plant, "measurement_data", None)
+        guard = LiveStateGuard(plant)
+        result = run_case(plant, controller, guard, name, spec["direction"], args.distance,
+                          args.settle_ticks, args.timeout_s,
+                          cancel_at_phase=spec["cancel_at_phase"], check_every=args.check_every)
+        result["plant_factory"] = source
+        trace = result.pop("_trace", None)
+        expect_success = spec["cancel_at_phase"] is None
+        problems = judge(result, args, expect_success=expect_success)
+        if name == "cancel" and result["status"] == "ran":
+            if result["success"]:
+                problems.append("cancelled cycle reported success=True")
+            if result["failure"] != "cancelled":
+                problems.append(f"cancel failure tag is {result['failure']!r}, expected 'cancelled'")
+            if result["final_speed_mps"] > .01:
+                problems.append(f"cancel left the body moving at {result['final_speed_mps']:.4f} m/s")
+        result["problems"] = problems
+        result["pass"] = not problems
+        failures[name] = problems
+        results.append(result)
+        if trace is not None and not args.no_trace:
+            np.savez_compressed(
+                out/f"{args.profile}_{name}.npz",
+                phase=np.array(trace["phase"]),
+                **{k: np.asarray(v) for k, v in trace.items() if k != "phase"})
+        print(f"[{name}] {'PASS' if result['pass'] else 'FAIL'} "
+              f"t={result.get('elapsed_simulated_s', float('nan')):.2f}s "
+              f"lat={result.get('lateral_mm', float('nan')):.2f}mm "
+              f"yaw={result.get('yaw_drift_rad', float('nan')):.5f}rad "
+              f"tau={100*result.get('max_torque_fraction', 0.):.2f}% "
+              f"lift={['%.1f' % v for v in result.get('leg_peak_lift_mm', [])]}")
+        for problem in problems:
+            print(f"    - {problem}")
+
+    report = {"profile": args.profile, "distance_m": args.distance,
+              "thresholds": {k: getattr(args, k) for k in
+                             ("max_cycle_s", "max_forward_mm", "max_yaw_rad",
+                              "max_attitude_rad", "max_torque_fraction")},
+              "results": results,
+              "all_pass": all(r["pass"] for r in results)}
+    (out/f"{args.profile}_report.json").write_text(json.dumps(report, indent=2, default=str))
+    print(f"\nreport: {out/f'{args.profile}_report.json'}  all_pass={report['all_pass']}")
+    return 0 if report["all_pass"] else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

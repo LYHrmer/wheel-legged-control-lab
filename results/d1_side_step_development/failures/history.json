@@ -1,0 +1,22 @@
+[
+  {
+    "case": "runs/opus_raw_left.json",
+    "status": "observed failure",
+    "reason": "Original Opus code accessed qM removed in MuJoCo3.12 at first liftoff",
+    "resolution": "Support qM legacy binding and MjData new binding, with tests"
+  },
+  {
+    "case": "runs/v1_left.json",
+    "status": "observed failure",
+    "reason": "Final pose was judged before the body finished settling; no success was claimed",
+    "resolution": "Wait for actual tracking and lower speed until timeout rather than judging at nominal recenter end"
+  },
+  {
+    "case": "failures/direct_import_before_fix.log",
+    "status": "observed CLI reproduction of GUI03 startup defect",
+    "reason": "Absolute scripts package import unavailable in direct script launch with PYTHONPATH=src:.local-deps",
+    "pre_fix_source_sha256": "af37613d2c7ccdaf2bd2f87deeaa3278caefe27d2a069b32cc0c71adf373d771",
+    "reproduction": "Exact pre-fix source reconstructed and SHA-checked; direct import produced the saved real traceback, exit1. This is an import reproduction, not a GUI interaction recording.",
+    "resolution": "Package-relative / direct sibling dual import; direct CLI help and all14 tests pass"
+  }
+]

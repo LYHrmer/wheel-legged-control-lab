@@ -1,0 +1,159 @@
+--- opus_raw_candidate/d1_fast_side_step.py
++++ scripts/d1_fast_side_step.py
+@@ -1,4 +1,8 @@
+-"""Faster body-relative lateral stepping for the D1 wheel-legged prototype.
++"""Experimental fast body-relative lateral stepping for the D1 prototype.
++
++Primary implementation: Claude Opus, session 3c2827e5-6927-4524-a0a2-d2a1d21b966c.
++Locally adapted and physically validated; original response and failed candidates
++are retained separately. This is not a policy or hardware validation result.
+ 
+ This is an experimental controller outside the frozen RL experiments. It reads
+ live MuJoCo state, plans and solves IK on a private scratch MjData, and returns
+@@ -20,20 +24,17 @@
+ """
+ from __future__ import annotations
+ 
+-import sys
+ from dataclasses import dataclass, replace
+-from pathlib import Path
+ 
+ import mujoco
+ import numpy as np
+ 
+-_HERE = Path(__file__).resolve().parent
+-if str(_HERE) not in sys.path:
+-    sys.path.insert(0, str(_HERE))
+-
+-from d1_side_step import SideStepController, _edges, _smooth  # noqa: E402
+-
+-from wheel_legged_control.d1.model import JOINT_POSITION_HIGH, JOINT_POSITION_LOW  # noqa: E402
++from wheel_legged_control.d1.model import JOINT_POSITION_HIGH, JOINT_POSITION_LOW
++
++if __package__:
++    from .d1_side_step import SideStepController, _edges, _smooth
++else:
++    from d1_side_step import SideStepController, _edges, _smooth
+ 
+ G = 9.81
+ #: peak of d2/dt2 of the unit quintic smoothstep, used to size move durations.
+@@ -49,6 +50,18 @@
+ 
+ def _wrap(angle):
+     return float(np.arctan2(np.sin(angle), np.cos(angle)))
++
++
++def _dense_inertia(model, data):
++    """Expand inertia with either supported MuJoCo fullM binding signature."""
++    matrix = np.zeros((model.nv, model.nv))
++    if hasattr(data, "qM"):
++        # MuJoCo versions exposing the packed inertia array accept dst, qM.
++        mujoco.mj_fullM(model, matrix, data.qM)
++    else:
++        # Newer versions expose the operation through MjData directly.
++        mujoco.mj_fullM(model, data, matrix)
++    return matrix
+ 
+ 
+ @dataclass(frozen=True)
+@@ -80,7 +93,7 @@
+     shift_extra_time_s: float = 1.10    # grace after the nominal shift before timeout
+     shift_correction_rate: float = .012  # fallback inward creep, m/s
+     recenter_extra_time_s: float = 2.0
+-    recenter_settle_speed: float = .060
++    recenter_settle_speed: float = .035
+     final_position_tolerance_m: float = .012
+     final_yaw_tolerance_rad: float = .12
+     distance_scale: float = 1.0         # optional open-loop calibration of the commanded step
+@@ -173,14 +186,14 @@
+     swing_kd=3.,
+     target_velocity_clip=1.5,
+     swing_inertia_feedforward=False,
+-    torque_source="d1_side_step",
++    torque_source="d1_fast_side_step",
+ )
+ 
+ PROFILES = {"fast": FAST_PROFILE, "conservative": CONSERVATIVE_PROFILE}
+ 
+ 
+ class FastSideStepController(SideStepController):
+-    """One ~10 s, four-wheel lifting lateral step; +1 means initial body left.
++    """Experimental four-wheel lifting lateral step; +1 means initial body left.
+ 
+     Body-relative: the commanded displacement is built from the yaw captured at
+     ``start`` and that yaw is regulated for the whole cycle. There is no turn,
+@@ -222,7 +235,6 @@
+             "controller": "d1_fast_side_step",
+             "profile": self.cfg.name,
+             "torque_source": self.cfg.torque_source,
+-            "legacy_torque_source": "d1_side_step",
+             "dynamic_margin_m": float(self.dynamic_margin),
+             "load_weight": float(self.load_weight),
+             "loading_leg": None if self.loading_leg is None else ("FL", "FR", "RL", "RR")[self.loading_leg],
+@@ -270,7 +282,11 @@
+     # ------------------------------------------------------------------ timing
+ 
+     def _move_time(self, span):
+-        """Duration that keeps the commanded ZMP excursion inside ``zmp_budget_m``."""
++        """Size ideal horizontal COM acceleration to the commanded ZMP budget.
++
++        The nominal upper duration must not shorten a move below that budget.
++        Actual stability is still checked from contact and body motion.
++        """
+         cfg = self.cfg
+         if not cfg.adaptive_timing:
+             return float(cfg.fixed_shift_time_s)
+@@ -279,7 +295,7 @@
+             return float(cfg.shift_time_bounds[1])
+         budget = max(float(cfg.zmp_budget_m), 1e-4)
+         duration = np.sqrt(max(1e-9, SMOOTH_PEAK_ACCEL*distance*self.com_height/(G*budget)))
+-        return float(np.clip(duration, cfg.shift_time_bounds[0], cfg.shift_time_bounds[1]))
++        return float(max(duration, cfg.shift_time_bounds[0]))
+ 
+     def _swing_time(self):
+         cfg = self.cfg
+@@ -441,7 +457,7 @@
+         stance = np.arange(4) if self.leg is None else np.delete(np.arange(4), self.leg)
+         self.com_height = float(np.clip(com[2] - float(np.min(points[:, 2])), .10, 1.))
+         boundary = _edges(points[stance, :2])
+-        zmp = com[:2] + (self.com_height/G)*self.body_accel[:2]
++        zmp = com[:2] - (self.com_height/G)*self.body_accel[:2]
+         self.margin = min((n@(com[:2] - a) for a, n in boundary), default=-1.)
+         self.dynamic_margin = min((n@(zmp - a) for a, n in boundary), default=-1.)
+         if self.leg is not None:
+@@ -569,7 +585,10 @@
+                 yaw_error = _wrap(self.plant.base_rpy[2] - self.yaw)
+                 ok = bool(np.linalg.norm(error[:2]) < cfg.final_position_tolerance_m
+                           and abs(yaw_error) < cfg.final_yaw_tolerance_rad)
+-                self._finish(ok, None if ok else "final_tracking_error")
++                if ok:
++                    self._finish(True, None)
++                elif self.phase_time > self.shift_time + cfg.recenter_extra_time_s:
++                    self._abort("final_tracking_error")
+             elif self.phase_time > self.shift_time + cfg.recenter_extra_time_s:
+                 self._abort("recenter_timeout")
+ 
+@@ -596,6 +615,7 @@
+         except np.linalg.LinAlgError:
+             forces = np.linalg.lstsq(allocation, wrench, rcond=None)[0]
+         if not np.isfinite(forces).all():
++            self._abort("nonfinite_allocation")
+             forces = np.zeros(12)
+         forces = forces.reshape(4, 3)
+         cap = cfg.normal_force_fraction*self.mass*G
+@@ -660,8 +680,7 @@
+         tau += kp*(target - d.qpos[plant.qpos_addresses]) + kd*(velocity_target - velocity)
+ 
+         if cfg.swing_inertia_feedforward and swinging and self.phase != "unload":
+-            inertia = np.zeros((self.model.nv, self.model.nv))
+-            mujoco.mj_fullM(self.model, inertia, self.scratch.qM)
++            inertia = _dense_inertia(self.model, self.scratch)
+             dofs = self.vadr[self.leg, :3]
+             feedforward = inertia[np.ix_(dofs, dofs)]@accel_target[4*self.leg:4*self.leg + 3]
+             if np.isfinite(feedforward).all():
+@@ -683,4 +702,4 @@
+         return tau
+ 
+ 
+-__all__ = ["FastSideStepController", "GaitProfile", "FAST_PROFILE", "CONSERVATIVE_PROFILE", "PROFILES"]
++__all__ = ["CONSERVATIVE_PROFILE", "FAST_PROFILE", "PROFILES", "FastSideStepController", "GaitProfile"]
