@@ -94,7 +94,7 @@ zero 正停车晚段最大速度为 .06087 m/s，指定两秒累计路径 .05669
 ## 新 GUI 候选的交接边界
 
 Astra ultra 已冻结 `heading_gui_contract.md`，委托实际 Opus 编写 WORK 内候选，预期为新增 `scripts/run_d1_heading_drive.py`，本轮不会仓促改变已运行评测的控制链。
-第一次调用 `heading_gui_opus_01` 因网络失败，0 tokens/$0；重试输出为 `heading_gui_opus_02`。新窗口先读取最终收据和候选检查记录，不能假定请求已成功。
+第一次调用 `heading_gui_opus_01` 因网络失败，0 tokens/$0；第二次 `heading_gui_opus_02` 于 2026-09-14 08:02:49 UTC 在 900 秒期限后以 `TimeoutExpired` 结束，进程已清理，**没有生成 GUI 代码**。原始 response/stderr 都为空，实际账单未知；本轮没有第三次请求。最终收据和候选状态位于该目录的 `receipt.json`、`candidate_review.json`，新窗口不得假定候选已存在。
 候选设计：每 run 显式选择 zero 或可信 PPO checkpoint；直接消费 85 维环境原始 W/S、Q/E 命令；X 只清除请求，不能称为已验证的可靠停车；R 重新分段；终止后保留窗口等待 R。
 A/D/Space 在该新后端尚不支持，应明确引导原课程入口。使用 `KeyboardViewer` 的独立 model/data，不让渲染或键盘轮询增加物理步。
 后续集成须独立验证逐拍轨迹、终止/复位、日志 T/T+1 和真实窗口，再邀请人工试驾。
@@ -108,4 +108,6 @@ A/D/Space 在该新后端尚不支持，应明确引导原课程入口。使用 
 
 本轮本机全套 **3,314** 项测试通过，零失败、错误和跳过；Ruff 通过，77 份冻结输入 SHA 全部一致。[完整测试与交付校验](../results/d1_driving_stability_development/integration_verification_02/summary.json)保留 XML、源码 SHA、公开包 manifest 与压缩 blob 校验。该证据证明程序回归通过，不证明停车、越障或完整驾驶目标已完成。
 
-最终提交与云端 CI 应以实际 GitHub 状态为准；GUI 调用终态先读本机 WORK 的收据及静态审阅记录。本文件不把未完成的控制能力标成已完成。
+控制代码及本轮完整评测提交为 `387ab5e4e1c942cf46dfb8c55b7244fea433e473`，已通过 SSH 上传并由 GitHub API 核实。云端运行 `34820469671` 对应此代码提交。后续交接/归档补充不改变控制代码；最终 HEAD 与 CI 应以实际 GitHub 状态为准。
+
+新窗口先读本机 WORK 的 `continuation_state.json` 获取本轮最终状态，再核对当前仓库。没有待续跑的 PPO、物理评测或 GUI 代码生成进程。本文件不把未完成的控制能力标成已完成。
