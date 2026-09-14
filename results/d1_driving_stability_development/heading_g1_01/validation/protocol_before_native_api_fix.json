@@ -1,0 +1,376 @@
+{
+  "schema": "d1-heading-g1-domain-probe-v1",
+  "planner": "GPT-6-astra / ultra",
+  "date": "2026-09-14",
+  "status": "frozen_before_new_G1_probe",
+  "scope": "Six small command/disturbance probes for three final 65k models plus zero; development evaluation, not new training or unseen-terrain generalization. Existing 32s dev road evidence stays separate.",
+  "models": [
+    {
+      "label": "zero",
+      "kind": "zero_action",
+      "checkpoint": null,
+      "metadata": null
+    },
+    {
+      "label": "seed49001_step65536",
+      "kind": "deterministic_ppo",
+      "seed": 49001,
+      "budget": 65536,
+      "checkpoint": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260914/heading_training_01/seed49001/checkpoints/step65536/model.zip",
+      "metadata": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260914/heading_training_01/seed49001/checkpoints/step65536/model.metadata.json",
+      "model_sha256": "8ba64bccbc7964952c58d377890d543474e7328e3f027d2921b91fed6a2b7810",
+      "metadata_sha256": "239405aa05a1db68876fd2ca0703e4cd46db2d974d11bac4b9ec0b77ca4a865a"
+    },
+    {
+      "label": "seed49002_step65536",
+      "kind": "deterministic_ppo",
+      "seed": 49002,
+      "budget": 65536,
+      "checkpoint": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260914/heading_training_01/seed49002/checkpoints/step65536/model.zip",
+      "metadata": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260914/heading_training_01/seed49002/checkpoints/step65536/model.metadata.json",
+      "model_sha256": "1954cf7a64afd6345251b85b0048adf189270d6ec5f9cf8ec818877b232c8564",
+      "metadata_sha256": "7d43b75635b693ba6af92734fd79cfa6637df9d3ae80f74b305ea4fec8488d95"
+    },
+    {
+      "label": "seed49003_step65536",
+      "kind": "deterministic_ppo",
+      "seed": 49003,
+      "budget": 65536,
+      "checkpoint": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260914/heading_training_01/seed49003/checkpoints/step65536/model.zip",
+      "metadata": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260914/heading_training_01/seed49003/checkpoints/step65536/model.metadata.json",
+      "model_sha256": "dc2d999a759c9b2ae889cd8f5d43099e32c1a2f233ffbadf75f618cd8fd23393",
+      "metadata_sha256": "0eaf5982fd1343c99e3ec57bbf88168ee446a921823cb16b030171569cd78bcb"
+    }
+  ],
+  "cases": [
+    {
+      "name": "flat_forward_stop",
+      "classification": "development_task_domain_probe",
+      "seed": 55101,
+      "episode_seconds": 8.0,
+      "max_transitions": 800,
+      "terrain": {
+        "layout": "flat",
+        "slope_deg": 0.0,
+        "cross_slope_deg": 0.0,
+        "ripple_amplitude_m": 0.0,
+        "wavelength_x_m": 0.8,
+        "wavelength_y_m": 1.2,
+        "phase_x_rad": 0.0,
+        "phase_y_rad": 0.0,
+        "step_height_m": 0.0,
+        "schema": "d1-fixed-2d-road-v1"
+      },
+      "command": {
+        "forward_target_mps": 0.25,
+        "settle_ticks": 50,
+        "ramp_ticks": 50,
+        "stop_tick": 400,
+        "yaw_pulse": null,
+        "height_m": 0.455
+      },
+      "external_wrench": null,
+      "training_support": "Forward ramp/hold is represented in training; sustained stop after locomotion is not.",
+      "gate_groups": [
+        "all_cases",
+        "stop_cases"
+      ]
+    },
+    {
+      "name": "flat_reverse_stop",
+      "classification": "development_task_domain_probe",
+      "seed": 55101,
+      "episode_seconds": 8.0,
+      "max_transitions": 800,
+      "terrain": {
+        "layout": "flat",
+        "slope_deg": 0.0,
+        "cross_slope_deg": 0.0,
+        "ripple_amplitude_m": 0.0,
+        "wavelength_x_m": 0.8,
+        "wavelength_y_m": 1.2,
+        "phase_x_rad": 0.0,
+        "phase_y_rad": 0.0,
+        "step_height_m": 0.0,
+        "schema": "d1-fixed-2d-road-v1"
+      },
+      "command": {
+        "forward_target_mps": -0.25,
+        "settle_ticks": 50,
+        "ramp_ticks": 50,
+        "stop_tick": 400,
+        "yaw_pulse": null,
+        "height_m": 0.455
+      },
+      "external_wrench": null,
+      "training_support": "Nonzero negative forward command and sustained stopping are outside the training command distribution.",
+      "gate_groups": [
+        "all_cases",
+        "stop_cases"
+      ]
+    },
+    {
+      "name": "stationary_turn_left_hold",
+      "classification": "development_task_domain_probe",
+      "seed": 55101,
+      "episode_seconds": 8.0,
+      "max_transitions": 800,
+      "terrain": {
+        "layout": "flat",
+        "slope_deg": 0.0,
+        "cross_slope_deg": 0.0,
+        "ripple_amplitude_m": 0.0,
+        "wavelength_x_m": 0.8,
+        "wavelength_y_m": 1.2,
+        "phase_x_rad": 0.0,
+        "phase_y_rad": 0.0,
+        "step_height_m": 0.0,
+        "schema": "d1-fixed-2d-road-v1"
+      },
+      "command": {
+        "forward_target_mps": 0.0,
+        "settle_ticks": 50,
+        "ramp_ticks": 50,
+        "stop_tick": null,
+        "yaw_pulse": {
+          "start_tick": 200,
+          "end_tick_exclusive": 250,
+          "user_yaw_rate_rps": 0.6
+        },
+        "height_m": 0.455
+      },
+      "external_wrench": null,
+      "training_support": "Nonzero user yaw and prolonged stationary turning are outside the training command distribution.",
+      "gate_groups": [
+        "all_cases",
+        "turn_cases"
+      ]
+    },
+    {
+      "name": "stationary_turn_right_hold",
+      "classification": "development_task_domain_probe",
+      "seed": 55101,
+      "episode_seconds": 8.0,
+      "max_transitions": 800,
+      "terrain": {
+        "layout": "flat",
+        "slope_deg": 0.0,
+        "cross_slope_deg": 0.0,
+        "ripple_amplitude_m": 0.0,
+        "wavelength_x_m": 0.8,
+        "wavelength_y_m": 1.2,
+        "phase_x_rad": 0.0,
+        "phase_y_rad": 0.0,
+        "step_height_m": 0.0,
+        "schema": "d1-fixed-2d-road-v1"
+      },
+      "command": {
+        "forward_target_mps": 0.0,
+        "settle_ticks": 50,
+        "ramp_ticks": 50,
+        "stop_tick": null,
+        "yaw_pulse": {
+          "start_tick": 200,
+          "end_tick_exclusive": 250,
+          "user_yaw_rate_rps": -0.6
+        },
+        "height_m": 0.455
+      },
+      "external_wrench": null,
+      "training_support": "Nonzero user yaw and prolonged stationary turning are outside the training command distribution.",
+      "gate_groups": [
+        "all_cases",
+        "turn_cases"
+      ]
+    },
+    {
+      "name": "forward_positive_yaw_impulse",
+      "classification": "development_task_domain_probe",
+      "seed": 55101,
+      "episode_seconds": 12.0,
+      "max_transitions": 1200,
+      "terrain": {
+        "layout": "flat",
+        "slope_deg": 0.0,
+        "cross_slope_deg": 0.0,
+        "ripple_amplitude_m": 0.0,
+        "wavelength_x_m": 0.8,
+        "wavelength_y_m": 1.2,
+        "phase_x_rad": 0.0,
+        "phase_y_rad": 0.0,
+        "step_height_m": 0.0,
+        "schema": "d1-fixed-2d-road-v1"
+      },
+      "command": {
+        "forward_target_mps": 0.25,
+        "settle_ticks": 50,
+        "ramp_ticks": 50,
+        "stop_tick": null,
+        "yaw_pulse": null,
+        "height_m": 0.455
+      },
+      "external_wrench": {
+        "start_tick": 600,
+        "end_tick_exclusive": 620,
+        "body": "env.plant.base_body_id",
+        "frame": "world",
+        "force_xyz_n": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "torque_xyz_nm": [
+          0.0,
+          0.0,
+          0.5
+        ]
+      },
+      "training_support": "Physical yaw disturbance is outside training; forward command remains in training range.",
+      "gate_groups": [
+        "all_cases",
+        "forward_and_impulse",
+        "impulse_cases"
+      ]
+    },
+    {
+      "name": "forward_negative_yaw_impulse",
+      "classification": "development_task_domain_probe",
+      "seed": 55101,
+      "episode_seconds": 12.0,
+      "max_transitions": 1200,
+      "terrain": {
+        "layout": "flat",
+        "slope_deg": 0.0,
+        "cross_slope_deg": 0.0,
+        "ripple_amplitude_m": 0.0,
+        "wavelength_x_m": 0.8,
+        "wavelength_y_m": 1.2,
+        "phase_x_rad": 0.0,
+        "phase_y_rad": 0.0,
+        "step_height_m": 0.0,
+        "schema": "d1-fixed-2d-road-v1"
+      },
+      "command": {
+        "forward_target_mps": 0.25,
+        "settle_ticks": 50,
+        "ramp_ticks": 50,
+        "stop_tick": null,
+        "yaw_pulse": null,
+        "height_m": 0.455
+      },
+      "external_wrench": {
+        "start_tick": 600,
+        "end_tick_exclusive": 620,
+        "body": "env.plant.base_body_id",
+        "frame": "world",
+        "force_xyz_n": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "torque_xyz_nm": [
+          0.0,
+          0.0,
+          -0.5
+        ]
+      },
+      "training_support": "Physical yaw disturbance is outside training; forward command remains in training range.",
+      "gate_groups": [
+        "all_cases",
+        "forward_and_impulse",
+        "impulse_cases"
+      ]
+    }
+  ],
+  "control_dt_s": 0.01,
+  "nominal_episodes": 24,
+  "maximum_physical_transitions": 22400,
+  "command_definition": "At prepared tick k=floor(round(simulation_time_s/.01)), forward=target*clip((k-50)/50,0,1), overridden by zero when stop_tick is not None and k>=stop_tick. Nonzero yaw applies only within [start_tick,end_tick_exclusive); otherwise zero. Height=.455. Use env heading reference left-hold; never feed a heading P/D servo as user yaw.",
+  "environment": {
+    "class": "scripts.d1_heading_tracking_env.D1HeadingTrackingEnv",
+    "loader": "scripts.d1_heading_tracking_env.load_heading_policy",
+    "task_schema": "d1-heading-reference-task-v1",
+    "observation_size": 85,
+    "action_mode": "independent8",
+    "heading_outer_loop": {
+      "kp": 2.0,
+      "kd": 0.4,
+      "limit_rps": 1.0
+    },
+    "heading_reward_weight": 0.5,
+    "heading_sigma_rad": 0.08726646259971647,
+    "provider": "unchanged synchronized oracle default",
+    "action_transform": "none; unmodified deterministic policy action or zeros",
+    "reward_change": "none"
+  },
+  "execution": {
+    "first_termination_ends_episode": true,
+    "reset_after_termination_for_padding": false,
+    "new_output_directory": true,
+    "all_models_all_cases": true,
+    "actual_perturbation": "write only prescribed external wrench to base xfrc_applied for exactly ticks600..619; clear it before subsequent intervals and in finally; no qpos/qvel mutation",
+    "perturbation_total_yaw_impulse_nms": 0.1,
+    "wrench_direction": "signed per case; prescribed magnitude .1 N m s",
+    "source_hashes": "capture actual probe, heading modules, models/sidecars, protocol and frozen77; verify unchanged after evaluation",
+    "existing_experiments": "do not mix dynamic-braking, side-intent, legacy-course or old82 policies into these cases"
+  },
+  "proposed_gates": {
+    "all_cases": {
+      "complete_duration": true,
+      "nonwheel_contact_steps_max": 0,
+      "max_abs_actual_roll_pitch_rad": 0.17453292519943295,
+      "height_rmse_m_max": 0.015,
+      "heading_peak_rad_max": 0.08726646259971647,
+      "no_boundary_or_fall": true
+    },
+    "forward_and_impulse": {
+      "velocity_rmse_mps_max": 0.05,
+      "heading_rmse_rad_max": 0.05235987755982989,
+      "cross_track_peak_m_max": 0.15,
+      "cross_track_final_abs_m_max": 0.1
+    },
+    "stop_cases": {
+      "release_tick": 400,
+      "speed_window_start_tick": 500,
+      "speed_window_end_tick_exclusive": 800,
+      "max_abs_body_vx_late_mps": 0.03,
+      "stationary_path_window_start_tick": 500,
+      "stationary_path_window_end_tick_exclusive": 700,
+      "cumulative_planar_path_after_first_second_m_max": 0.05,
+      "heading_rmse_rad_max": 0.05235987755982989,
+      "velocity_rmse_mps_max": 0.05
+    },
+    "turn_cases": {
+      "expected_final_reference_delta_rad": 0.3,
+      "sign": "positive left; negative right",
+      "hold_settling_window_start_tick": 450,
+      "hold_window_end_tick_exclusive": 800,
+      "max_abs_heading_error_after_settle_rad": 0.05235987755982989,
+      "max_abs_body_vx_after_settle_mps": 0.03,
+      "planar_origin_displacement_peak_m_max": 0.1
+    },
+    "impulse_cases": {
+      "recovery_window_start_tick": 820,
+      "recovery_window_end_tick_exclusive": 1200,
+      "max_abs_heading_error_after_recovery_rad": 0.05235987755982989
+    }
+  },
+  "required_metrics": [
+    "all actual transitions/time/termination x-vs-y-vs-fall",
+    "actual quaternion-derived body roll/pitch peak, separately from ground-relative errors",
+    "user-target forward/yaw velocity errors and heading-reference tracking",
+    "cross-track for straight tasks and planar displacement for stationary turns",
+    "stop forward excursion, reverse excursion from running peak, reverse speed, net displacement and cumulative late planar path; do not rank by net displacement alone",
+    "actual applied wrench and integrated signed yaw impulse",
+    "all applied action channels, Box boundary occupancy and per-phase summaries",
+    "original task/servo/heading returns separately; no reward-based controller selection",
+    "each learned policy versus zero on strict common observable prefix per case; retain all terminations"
+  ],
+  "decision_rule": "Do not change model, gains, reward, gate thresholds or perturbation after a failure. Report each model/case gate. Root selects GUI task support only from passed command domains; any unsupported stop/reverse/turn must not be advertised as learned support. If zero succeeds where PPO fails, preserve zero as deployable baseline and design one bounded applicability intervention before any new training budget.",
+  "scope_limits": [
+    "Three final models are retained; selecting 49003 merely for the best old speed RMSE would ignore saturated leg actions and worse heading.",
+    "All six cases use flat terrain to isolate command/perturbation behavior; the old32s dev road is the only terrain evidence in this milestone.",
+    "This matrix plus GUI parity is a development G1 milestone, not broad robustness or a claim that all original G1 scenarios have passed."
+  ],
+  "metric_window_definition": "Gate time windows refer to exact state endpoint ticks, k=round(time_s/.01). Speed and heading use endpoint tick >= start and < end. A planar path window500..700 includes positions at both endpoints and sums its200 consecutive displacement intervals; do not replace path length by net displacement."
+}

@@ -1,0 +1,27 @@
+{
+  "schema": "d1-side-intent-independent-code-review-v1",
+  "reviewer": "GPT-6-astra / ultra",
+  "scope": "read-only source review of actual extracted Opus pure core and root-thread integration; no new physics or tests in this review",
+  "verdict": "No blocker found for proceeding to the predeclared real-physics validation; does not assert the new interaction passes physical acceptance.",
+  "source_sha256": {
+    "scripts/d1_course_side_intent.py": "0301dfdcc7d6a0ea18bbb624d952bd24f44fc1d3758d9fc9b2e89d6dbc038c86",
+    "scripts/d1_course_controls.py": "8a0ae6b8b31d641e6747ff56dfd7732680a0f95415501bd29b9d8a181bad2a01",
+    "scripts/run_d1_course_drive.py": "a05b1b181ac4c8bb4bd8479f534118163a1d58583d1a63b7902f383fe19286bd"
+  },
+  "verified_by_reading": [
+    "All inputs validated before intent memory changes; active ordinary release/reverse retains current direction.",
+    "Explicit cancel and new controller-failure edge enter release barrier; sticky failure does not re-lock on every tick.",
+    "Barrier release frame never starts a new tap, and active barrier continues safe cancellation.",
+    "Mode inhibition clears repetition and prevents delayed start until real release.",
+    "Same-poll A/D PRESS is consumed once; X PRESS has a separate latch so a same-poll X tap still cancels.",
+    "A+D physical conflict is distinguished from two released keys.",
+    "After reset sampled_after_reset=False prevents synthesized neutral input from clearing the barrier.",
+    "Old raw operator held direction is logged separately from resolved direction sent to unchanged drive.",
+    "GUI accepted jump/active side remain mutually guarded; pending jump during direct active drive remains safe-abort, without delayed jump.",
+    "Default side_input_mode remains release_abort until real-physics commit-cycle validation is complete."
+  ],
+  "limits": [
+    "Physical cancellation and handoff continue to rely on unchanged side controller safety gates; this source review does not independently rerun them.",
+    "Core candidate includes a local cancel_reason validation fix relative to the raw Opus response; the original should not be described as passing unchanged."
+  ]
+}

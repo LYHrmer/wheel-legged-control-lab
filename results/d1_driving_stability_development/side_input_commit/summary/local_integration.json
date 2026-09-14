@@ -1,0 +1,39 @@
+{
+  "schema": "d1-side-input-commit-integration-v1",
+  "scope": "Course input/runner only; old direct-drive release behavior and both physical side controllers unchanged.",
+  "initial_default_during_nine_case_matrix": "release_abort; every tested matrix case explicitly selected commit_cycle_v1",
+  "final_default_after_all_nine_cases_passed": "commit_cycle_v1",
+  "post_matrix_changes": [
+    "Switch DEFAULT_SIDE_INPUT_MODE to commit_cycle_v1.",
+    "Ensure the reset control packet cannot falsely rearm even a generic direction-only headless adapter.",
+    "Clarify keyboard event docstring."
+  ],
+  "validation": {
+    "pure_candidate_tests": 33,
+    "final_focused_tests": 89,
+    "matrix_cases": 9,
+    "matrix_control_transitions": 19900,
+    "matrix_gate_checks": 107,
+    "matrix_gate_failures": 0,
+    "default_extra_control_transitions": 2000,
+    "default_extra_space_request_blocked": true,
+    "total_physical_control_transitions": 21900,
+    "manual_gui_tested": false
+  },
+  "source_files": [
+    "scripts/d1_course_side_intent.py",
+    "scripts/d1_course_controls.py",
+    "scripts/run_d1_course_drive.py"
+  ],
+  "source_sha256": {
+    "scripts/d1_course_side_intent.py": "0301dfdcc7d6a0ea18bbb624d952bd24f44fc1d3758d9fc9b2e89d6dbc038c86",
+    "scripts/d1_course_controls.py": "8a0ae6b8b31d641e6747ff56dfd7732680a0f95415501bd29b9d8a181bad2a01",
+    "scripts/run_d1_course_drive.py": "a05b1b181ac4c8bb4bd8479f534118163a1d58583d1a63b7902f383fe19286bd"
+  },
+  "limitations": [
+    "Only the fast flat-ground gait has passed these new-input physical gates.",
+    "Two explicitly cancelled cycles are retained as cancelled, not relabeled successful. Their final body positions need not equal the start.",
+    "One active cycle is interrupted by an explicit operator simulation reset, recorded as a separate segment, not a continuous physical transition.",
+    "No steering/braking/G1/jumping performance claim follows from this side-input validation."
+  ]
+}

@@ -1,0 +1,669 @@
+{
+  "cases": {
+    "flat_forward_stop": {
+      "baseline": "wheel_leg",
+      "checks_passed": true,
+      "controller_parameters": {
+        "attitude_feedback_scale": 1.0,
+        "leg_feedback_scale": 1.0,
+        "wheel_ki": 3.0,
+        "wheel_kp": 2.2,
+        "yaw_feedback_gain": 4.0
+      },
+      "controller_schema": "d1-wheel-leg-joint-pd-wheel-pi-yaw-feedback-v2",
+      "distance_reference_present": false,
+      "external_wrench_all_zero": true,
+      "input_sha256": {
+        "episode_metadata.json": "69aba29698ab4bbfab87188bf1dc617ee7b1e604c7aae3ec05b754f5842756fc",
+        "manifest.json": "f9ca5ca573e77a996163cc1a7d65fc4dd01a1de525230fa4fbb4307d115b6b69",
+        "states.npz": "4a35caca4e0d220b33c5d6f66e14e65d0fd8031cb5122531a618e96fcc44ceb7",
+        "summary.json": "c243ec2159a04f7e2ae3565b024d2e37a401d4f5659cc44eac6f48cc8c0f11f1",
+        "trace.jsonl.gz": "a7ae19735c70de09fb2191c7f9f937004a3843a5b13e21aa60a2ea6705ca8ee6"
+      },
+      "integral_recurrence_max_error_nm": 6.002987640307822e-08,
+      "late_planar_path_gate_m": 0.05669442120616602,
+      "late_planar_path_limit_m": 0.05,
+      "late_speed_gate_mps": 0.060869449639403335,
+      "late_speed_limit_mps": 0.03,
+      "parking_gates_passed": false,
+      "pitch_reference_max_abs_rad": 0.0,
+      "reconstructed_torque_max_quantization_bound_nm": 1.043081283569336e-06,
+      "reconstructed_wheel_torque_peak_abs_nm": 6.2004815111949805,
+      "recorded_failed_gates": [
+        "late_stop_speed",
+        "late_stop_planar_path",
+        "velocity_rmse"
+      ],
+      "samples": [
+        {
+          "actual_pitch_rad": -0.002154294104445179,
+          "body_vx_mps": 0.24445431623479752,
+          "decision_tick": 399,
+          "decision_time_s": 3.99,
+          "nominal_wheel_mean_times_radius_mps": 0.2500542793795466,
+          "reconstructed_wheel_mean_torque_nm_this_interval": 0.8013174957038105,
+          "wheel_integral_mean_nm_before": 0.7178261876106262,
+          "wheel_mean_times_radius_mps": 0.24679699470657745
+        },
+        {
+          "actual_pitch_rad": -0.0020781853315640563,
+          "body_vx_mps": 0.24506073456992788,
+          "decision_tick": 400,
+          "decision_time_s": 4.0,
+          "nominal_wheel_mean_times_radius_mps": 1.676914980635047e-05,
+          "reconstructed_wheel_mean_torque_nm_this_interval": -5.840222382340658,
+          "wheel_integral_mean_nm_before": 0.7189493775367737,
+          "wheel_mean_times_radius_mps": 0.2559127076099572
+        },
+        {
+          "actual_pitch_rad": -0.001925657889058889,
+          "body_vx_mps": 0.25470640854201065,
+          "decision_tick": 401,
+          "decision_time_s": 4.01,
+          "nominal_wheel_mean_times_radius_mps": 1.0643654968589544e-06,
+          "reconstructed_wheel_mean_torque_nm_this_interval": -0.6319335385902719,
+          "wheel_integral_mean_nm_before": 0.6307093948125839,
+          "wheel_mean_times_radius_mps": 0.049261125262096125
+        },
+        {
+          "actual_pitch_rad": 0.0004967116570083543,
+          "body_vx_mps": 0.24253241402770356,
+          "decision_tick": 405,
+          "decision_time_s": 4.05,
+          "nominal_wheel_mean_times_radius_mps": 4.306077025830745e-05,
+          "reconstructed_wheel_mean_torque_nm_this_interval": 0.018218873689057613,
+          "wheel_integral_mean_nm_before": 0.5882430672645569,
+          "wheel_mean_times_radius_mps": 0.022281673068878342
+        },
+        {
+          "actual_pitch_rad": 0.005972435221547945,
+          "body_vx_mps": 0.21617264521664395,
+          "decision_tick": 410,
+          "decision_time_s": 4.1,
+          "nominal_wheel_mean_times_radius_mps": 9.783776476979256e-06,
+          "reconstructed_wheel_mean_torque_nm_this_interval": -0.2198945298056108,
+          "wheel_integral_mean_nm_before": 0.5424357950687408,
+          "wheel_mean_times_radius_mps": 0.029750922783843323
+        },
+        {
+          "actual_pitch_rad": 0.019349151454091846,
+          "body_vx_mps": 0.10033247836713526,
+          "decision_tick": 425,
+          "decision_time_s": 4.25,
+          "nominal_wheel_mean_times_radius_mps": -7.370875391643494e-06,
+          "reconstructed_wheel_mean_torque_nm_this_interval": -0.6185516045737249,
+          "wheel_integral_mean_nm_before": 0.3591588884592056,
+          "wheel_mean_times_radius_mps": 0.038136491198841466
+        },
+        {
+          "actual_pitch_rad": 0.01861781580029716,
+          "body_vx_mps": -0.09388731661183575,
+          "decision_tick": 450,
+          "decision_time_s": 4.5,
+          "nominal_wheel_mean_times_radius_mps": -7.415008731186389e-06,
+          "reconstructed_wheel_mean_torque_nm_this_interval": -0.37850975694428235,
+          "wheel_integral_mean_nm_before": 0.10907170362770557,
+          "wheel_mean_times_radius_mps": 0.019014821358877693
+        },
+        {
+          "actual_pitch_rad": 0.0032505108997734444,
+          "body_vx_mps": -0.12097241016234553,
+          "decision_tick": 475,
+          "decision_time_s": 4.75,
+          "nominal_wheel_mean_times_radius_mps": -8.056879159994424e-06,
+          "reconstructed_wheel_mean_torque_nm_this_interval": 0.10169144715117645,
+          "wheel_integral_mean_nm_before": 0.06108595058321953,
+          "wheel_mean_times_radius_mps": -0.0015922174951842351
+        },
+        {
+          "actual_pitch_rad": -0.004583561801617984,
+          "body_vx_mps": -0.02636433113612313,
+          "decision_tick": 500,
+          "decision_time_s": 5.0,
+          "nominal_wheel_mean_times_radius_mps": 1.1686447542160749e-05,
+          "reconstructed_wheel_mean_torque_nm_this_interval": 0.2836427442862411,
+          "wheel_integral_mean_nm_before": 0.11375785246491432,
+          "wheel_mean_times_radius_mps": -0.006616109780603952
+        },
+        {
+          "actual_pitch_rad": 0.009884152112760686,
+          "body_vx_mps": 0.04346038435255907,
+          "decision_tick": 550,
+          "decision_time_s": 5.5,
+          "nominal_wheel_mean_times_radius_mps": 3.64764709956944e-06,
+          "reconstructed_wheel_mean_torque_nm_this_interval": 0.0986158887321629,
+          "wheel_integral_mean_nm_before": 0.15279348380863667,
+          "wheel_mean_times_radius_mps": 0.0021173025928603374
+        },
+        {
+          "actual_pitch_rad": 0.010305846356475315,
+          "body_vx_mps": -0.04865260922341609,
+          "decision_tick": 600,
+          "decision_time_s": 6.0,
+          "nominal_wheel_mean_times_radius_mps": -4.6358996769413347e-07,
+          "reconstructed_wheel_mean_torque_nm_this_interval": 0.09135717629786878,
+          "wheel_integral_mean_nm_before": 0.08389236871153116,
+          "wheel_mean_times_radius_mps": -0.0002916914660409504
+        },
+        {
+          "actual_pitch_rad": 0.008168114072794793,
+          "body_vx_mps": 0.021105239623833205,
+          "decision_tick": 650,
+          "decision_time_s": 6.5,
+          "nominal_wheel_mean_times_radius_mps": 8.942584390752017e-06,
+          "reconstructed_wheel_mean_torque_nm_this_interval": 0.0863707278901989,
+          "wheel_integral_mean_nm_before": 0.07094397582113743,
+          "wheel_mean_times_radius_mps": -0.0005929083096086107
+        },
+        {
+          "actual_pitch_rad": 0.015121856505541901,
+          "body_vx_mps": -0.007737908245156993,
+          "decision_tick": 700,
+          "decision_time_s": 7.0,
+          "nominal_wheel_mean_times_radius_mps": -1.8607405945658683e-06,
+          "reconstructed_wheel_mean_torque_nm_this_interval": -0.12892283404822394,
+          "wheel_integral_mean_nm_before": -0.001299804076552391,
+          "wheel_mean_times_radius_mps": 0.004977154264310572
+        },
+        {
+          "actual_pitch_rad": 0.012545309705866528,
+          "body_vx_mps": -0.02161975721679699,
+          "decision_tick": 750,
+          "decision_time_s": 7.5,
+          "nominal_wheel_mean_times_radius_mps": -2.0226894412189723e-06,
+          "reconstructed_wheel_mean_torque_nm_this_interval": -0.0888419893827013,
+          "wheel_integral_mean_nm_before": -0.024605086771771312,
+          "wheel_mean_times_radius_mps": 0.0025040807711716644
+        },
+        {
+          "actual_pitch_rad": 0.013369993762335983,
+          "body_vx_mps": -0.00398592442734877,
+          "decision_tick": 799,
+          "decision_time_s": 7.99,
+          "nominal_wheel_mean_times_radius_mps": 2.9058119980618354e-06,
+          "reconstructed_wheel_mean_torque_nm_this_interval": 0.08912947362470065,
+          "wheel_integral_mean_nm_before": 0.007984640542417765,
+          "wheel_mean_times_radius_mps": -0.0031628343273522753
+        }
+      ],
+      "stop_nominal_wheel_common_equivalent_speed_peak_abs_mps": 4.306077025830745e-05,
+      "terminal_reason": "time_limit",
+      "transitions": 800,
+      "wheel_integral_peak_abs_nm": 0.8155297636985779,
+      "windows": {
+        "4to5s": {
+          "body_vx_mps": {
+            "max": 0.25470640854201065,
+            "mean": -0.0018356058826959167,
+            "min": -0.13288627040522,
+            "rms": 0.12860053179599631
+          },
+          "pitch_rad": {
+            "max": 0.022655570973072765,
+            "mean": 0.009803905650169177,
+            "min": -0.00442745204040119,
+            "rms": 0.013492304902046458
+          },
+          "reconstructed_mean_wheel_torque_nm": {
+            "max": 0.3470620599822717,
+            "mean": -0.22601228889179173,
+            "min": -5.840222382340658,
+            "rms": 0.6883618598052825
+          },
+          "wheel_mean_times_radius_mps": {
+            "max": 0.2559127076099572,
+            "mean": 0.01755244654566585,
+            "min": -0.009525699138137967,
+            "rms": 0.03430629521540995
+          }
+        },
+        "5to6s": {
+          "body_vx_mps": {
+            "max": 0.060869449639403335,
+            "mean": 0.012333718540193985,
+            "min": -0.048596211447882245,
+            "rms": 0.039065196998038614
+          },
+          "pitch_rad": {
+            "max": 0.014638264884987179,
+            "mean": 0.00690771237869727,
+            "min": -0.004995496080308673,
+            "rms": 0.009863492641604805
+          },
+          "reconstructed_mean_wheel_torque_nm": {
+            "max": 0.39546429938376604,
+            "mean": 0.10960439321167163,
+            "min": -0.11871498093439833,
+            "rms": 0.1666888194914289
+          },
+          "wheel_mean_times_radius_mps": {
+            "max": 0.00967008824594905,
+            "mean": 0.0008656043228861697,
+            "min": -0.010884992574281063,
+            "rms": 0.004663074872005557
+          }
+        },
+        "5to8s": {
+          "body_vx_mps": {
+            "max": 0.060869449639403335,
+            "mean": -0.0016645550188608778,
+            "min": -0.04865260922341609,
+            "rms": 0.02891958926273981
+          },
+          "pitch_rad": {
+            "max": 0.015419691251829874,
+            "mean": 0.010112939071771238,
+            "min": -0.004995496080308673,
+            "rms": 0.011356278846043776
+          },
+          "reconstructed_mean_wheel_torque_nm": {
+            "max": 0.39546429938376604,
+            "mean": 0.03316187579284757,
+            "min": -0.2840148179029874,
+            "rms": 0.12502163246217524
+          },
+          "wheel_mean_times_radius_mps": {
+            "max": 0.01089975693930347,
+            "mean": 0.001012175242333571,
+            "min": -0.010884992574281063,
+            "rms": 0.004163728792628857
+          }
+        },
+        "6to7s": {
+          "body_vx_mps": {
+            "max": 0.028013672107525894,
+            "mean": -0.0011342433872039055,
+            "min": -0.04865260922341609,
+            "rms": 0.025597158940688126
+          },
+          "pitch_rad": {
+            "max": 0.015307982794537494,
+            "mean": 0.010206078681068822,
+            "min": 0.00666322689741517,
+            "rms": 0.010653314761122693
+          },
+          "reconstructed_mean_wheel_torque_nm": {
+            "max": 0.21397554950467237,
+            "mean": -0.0034082824168109507,
+            "min": -0.23828792881906077,
+            "rms": 0.10952080680173654
+          },
+          "wheel_mean_times_radius_mps": {
+            "max": 0.01089975693930347,
+            "mean": 0.002471183100044025,
+            "min": -0.005336006708912772,
+            "rms": 0.004467025648821729
+          }
+        },
+        "7to8s": {
+          "body_vx_mps": {
+            "max": -0.003972528288061372,
+            "mean": -0.01619314020957271,
+            "min": -0.026938451173992878,
+            "rms": 0.01810314246329382
+          },
+          "pitch_rad": {
+            "max": 0.015419691251829874,
+            "mean": 0.013225026155547626,
+            "min": 0.011721867168218356,
+            "rms": 0.013270780127662325
+          },
+          "reconstructed_mean_wheel_torque_nm": {
+            "max": 0.17694234477040394,
+            "mean": -0.0067104834163179425,
+            "min": -0.2840148179029874,
+            "rms": 0.08432826385365831
+          },
+          "wheel_mean_times_radius_mps": {
+            "max": 0.010519701895497396,
+            "mean": -0.0003002616959294816,
+            "min": -0.006803669628970876,
+            "rms": 0.0032111254984099956
+          }
+        }
+      },
+      "zero_forward_command_from_tick": 400,
+      "zero_residual_actions": true
+    },
+    "flat_reverse_stop": {
+      "baseline": "wheel_leg",
+      "checks_passed": true,
+      "controller_parameters": {
+        "attitude_feedback_scale": 1.0,
+        "leg_feedback_scale": 1.0,
+        "wheel_ki": 3.0,
+        "wheel_kp": 2.2,
+        "yaw_feedback_gain": 4.0
+      },
+      "controller_schema": "d1-wheel-leg-joint-pd-wheel-pi-yaw-feedback-v2",
+      "distance_reference_present": false,
+      "external_wrench_all_zero": true,
+      "input_sha256": {
+        "episode_metadata.json": "69aba29698ab4bbfab87188bf1dc617ee7b1e604c7aae3ec05b754f5842756fc",
+        "manifest.json": "e3fa7673a319479818a7299a6ce010782d48299e9293683b0da17da8733442e4",
+        "states.npz": "be8957f8138daf3fa01bad4ac661b90db95a2dc9630c89095b7a38c14fe79d36",
+        "summary.json": "1bc655cce939fc5e9948740235e0fa105509e7834decc0f307a4eb97866af0d8",
+        "trace.jsonl.gz": "726b210902e814e25ca22ba7825545494888a62f54e2dfa75e5d6f23e631bf16"
+      },
+      "integral_recurrence_max_error_nm": 5.750466780529706e-08,
+      "late_planar_path_gate_m": 0.07616839013046348,
+      "late_planar_path_limit_m": 0.05,
+      "late_speed_gate_mps": 0.08634777875619469,
+      "late_speed_limit_mps": 0.03,
+      "parking_gates_passed": false,
+      "pitch_reference_max_abs_rad": 0.0,
+      "reconstructed_torque_max_quantization_bound_nm": 1.043081283569336e-06,
+      "reconstructed_wheel_torque_peak_abs_nm": 6.011839624033732,
+      "recorded_failed_gates": [
+        "late_stop_speed",
+        "late_stop_planar_path",
+        "velocity_rmse"
+      ],
+      "samples": [
+        {
+          "actual_pitch_rad": 0.015124118639329533,
+          "body_vx_mps": -0.26038044036349844,
+          "decision_tick": 399,
+          "decision_time_s": 3.99,
+          "nominal_wheel_mean_times_radius_mps": -0.2500204530358314,
+          "reconstructed_wheel_mean_torque_nm_this_interval": -0.911355791258543,
+          "wheel_integral_mean_nm_before": -0.7471017837524414,
+          "wheel_mean_times_radius_mps": -0.24361233696983056
+        },
+        {
+          "actual_pitch_rad": 0.01504715426921855,
+          "body_vx_mps": -0.2607046753369218,
+          "decision_tick": 400,
+          "decision_time_s": 4.0,
+          "nominal_wheel_mean_times_radius_mps": -2.1355978678911923e-05,
+          "reconstructed_wheel_mean_torque_nm_this_interval": 5.673791869017446,
+          "wheel_integral_mean_nm_before": -0.7493114769458771,
+          "wheel_mean_times_radius_mps": -0.25060879583739715
+        },
+        {
+          "actual_pitch_rad": 0.014893838330062152,
+          "body_vx_mps": -0.26964738573323227,
+          "decision_tick": 401,
+          "decision_time_s": 4.01,
+          "nominal_wheel_mean_times_radius_mps": -3.889962681569158e-06,
+          "reconstructed_wheel_mean_torque_nm_this_interval": 0.3908389282496505,
+          "wheel_integral_mean_nm_before": -0.6629020124673843,
+          "wheel_mean_times_radius_mps": -0.0411139629379324
+        },
+        {
+          "actual_pitch_rad": 0.01196072032535325,
+          "body_vx_mps": -0.2574470359816963,
+          "decision_tick": 405,
+          "decision_time_s": 4.05,
+          "nominal_wheel_mean_times_radius_mps": 2.7742171660065648e-05,
+          "reconstructed_wheel_mean_torque_nm_this_interval": 0.22225604835631965,
+          "wheel_integral_mean_nm_before": -0.6238169521093369,
+          "wheel_mean_times_radius_mps": -0.032980487007085474
+        },
+        {
+          "actual_pitch_rad": 0.0063114088272558785,
+          "body_vx_mps": -0.23444437072415356,
+          "decision_tick": 410,
+          "decision_time_s": 4.1,
+          "nominal_wheel_mean_times_radius_mps": -1.6927148681133983e-05,
+          "reconstructed_wheel_mean_torque_nm_this_interval": 0.3240284621183409,
+          "wheel_integral_mean_nm_before": -0.5682234838604927,
+          "wheel_mean_times_radius_mps": -0.0348267566241362
+        },
+        {
+          "actual_pitch_rad": -0.00630696408267175,
+          "body_vx_mps": -0.11543199326220939,
+          "decision_tick": 425,
+          "decision_time_s": 4.25,
+          "nominal_wheel_mean_times_radius_mps": 1.0683344589779153e-06,
+          "reconstructed_wheel_mean_torque_nm_this_interval": 0.42705232659077286,
+          "wheel_integral_mean_nm_before": -0.3907415345311165,
+          "wheel_mean_times_radius_mps": -0.031903894158665
+        },
+        {
+          "actual_pitch_rad": -0.002901131444947453,
+          "body_vx_mps": 0.07318698664558745,
+          "decision_tick": 450,
+          "decision_time_s": 4.5,
+          "nominal_wheel_mean_times_radius_mps": 3.9007871237117793e-07,
+          "reconstructed_wheel_mean_torque_nm_this_interval": 0.3269486656558043,
+          "wheel_integral_mean_nm_before": -0.12372233159840107,
+          "wheel_mean_times_radius_mps": -0.01758184188474727
+        },
+        {
+          "actual_pitch_rad": 0.01432750682038625,
+          "body_vx_mps": 0.0999007636381665,
+          "decision_tick": 475,
+          "decision_time_s": 4.75,
+          "nominal_wheel_mean_times_radius_mps": 5.578879499807954e-06,
+          "reconstructed_wheel_mean_torque_nm_this_interval": -0.0327318905521259,
+          "wheel_integral_mean_nm_before": -0.052778877317905426,
+          "wheel_mean_times_radius_mps": -0.0007765232898830446
+        },
+        {
+          "actual_pitch_rad": 0.023632992856864855,
+          "body_vx_mps": 0.0019947418475163748,
+          "decision_tick": 500,
+          "decision_time_s": 5.0,
+          "nominal_wheel_mean_times_radius_mps": -3.0112458625808357e-06,
+          "reconstructed_wheel_mean_torque_nm_this_interval": -0.3091514439744398,
+          "wheel_integral_mean_nm_before": -0.0961012989282608,
+          "wheel_mean_times_radius_mps": 0.008308810565311775
+        },
+        {
+          "actual_pitch_rad": 0.010501326755761157,
+          "body_vx_mps": -0.062426858507707905,
+          "decision_tick": 550,
+          "decision_time_s": 5.5,
+          "nominal_wheel_mean_times_radius_mps": 7.08153995219618e-06,
+          "reconstructed_wheel_mean_torque_nm_this_interval": 0.016215799872312336,
+          "wheel_integral_mean_nm_before": -0.07945644203573465,
+          "wheel_mean_times_radius_mps": -0.003725423055088764
+        },
+        {
+          "actual_pitch_rad": 0.014567440711367355,
+          "body_vx_mps": 0.04063109311536359,
+          "decision_tick": 600,
+          "decision_time_s": 6.0,
+          "nominal_wheel_mean_times_radius_mps": 5.278985481709242e-06,
+          "reconstructed_wheel_mean_torque_nm_this_interval": -0.04863816199367496,
+          "wheel_integral_mean_nm_before": -0.03340580122312531,
+          "wheel_mean_times_radius_mps": 0.0005995459954596613
+        },
+        {
+          "actual_pitch_rad": 0.018877521030270142,
+          "body_vx_mps": -0.03860691463400262,
+          "decision_tick": 650,
+          "decision_time_s": 6.5,
+          "nominal_wheel_mean_times_radius_mps": -2.685373183339834e-06,
+          "reconstructed_wheel_mean_torque_nm_this_interval": -0.05999233200601034,
+          "wheel_integral_mean_nm_before": -0.05334834894165397,
+          "wheel_mean_times_radius_mps": 0.0002565193445573307
+        },
+        {
+          "actual_pitch_rad": 0.012504750758083423,
+          "body_vx_mps": -0.008674469874328237,
+          "decision_tick": 700,
+          "decision_time_s": 7.0,
+          "nominal_wheel_mean_times_radius_mps": -4.547329153865575e-06,
+          "reconstructed_wheel_mean_torque_nm_this_interval": 0.08793705139280554,
+          "wheel_integral_mean_nm_before": -0.00939906807616353,
+          "wheel_mean_times_radius_mps": -0.0038019655014105767
+        },
+        {
+          "actual_pitch_rad": 0.01751259250338214,
+          "body_vx_mps": -0.0019332410505310527,
+          "decision_tick": 750,
+          "decision_time_s": 7.5,
+          "nominal_wheel_mean_times_radius_mps": 6.240955553948879e-07,
+          "reconstructed_wheel_mean_torque_nm_this_interval": 0.14680586113161254,
+          "wheel_integral_mean_nm_before": 0.0101872687228024,
+          "wheel_mean_times_radius_mps": -0.005329338971976404
+        },
+        {
+          "actual_pitch_rad": 0.014564754016487467,
+          "body_vx_mps": -0.021875093240586025,
+          "decision_tick": 799,
+          "decision_time_s": 7.99,
+          "nominal_wheel_mean_times_radius_mps": 1.1533614015206694e-05,
+          "reconstructed_wheel_mean_torque_nm_this_interval": 0.04512077491523199,
+          "wheel_integral_mean_nm_before": 0.014249387662857771,
+          "wheel_mean_times_radius_mps": -0.0011928657757611072
+        }
+      ],
+      "stop_nominal_wheel_common_equivalent_speed_peak_abs_mps": 7.878188509494066e-05,
+      "terminal_reason": "time_limit",
+      "transitions": 800,
+      "wheel_integral_peak_abs_nm": 0.8637220859527588,
+      "windows": {
+        "4to5s": {
+          "body_vx_mps": {
+            "max": 0.1105413166101531,
+            "mean": -0.01734086349649387,
+            "min": -0.26964738573323227,
+            "rms": 0.12778499926036485
+          },
+          "pitch_rad": {
+            "max": 0.02349671379201232,
+            "mean": 0.00550318370797612,
+            "min": -0.009132221509968338,
+            "rms": 0.012143495856476602
+          },
+          "reconstructed_mean_wheel_torque_nm": {
+            "max": 5.673791869017446,
+            "mean": 0.2499958355288953,
+            "min": -0.3515409024840249,
+            "rms": 0.6682253814191838
+          },
+          "wheel_mean_times_radius_mps": {
+            "max": 0.011025344169745589,
+            "mean": -0.018933802021036568,
+            "min": -0.25060879583739715,
+            "rms": 0.03424609913282793
+          }
+        },
+        "5to6s": {
+          "body_vx_mps": {
+            "max": 0.04178534282126348,
+            "mean": -0.029224640531548447,
+            "min": -0.08634777875619469,
+            "rms": 0.05337863355024768
+          },
+          "pitch_rad": {
+            "max": 0.023865459805024,
+            "mean": 0.014240401982141144,
+            "min": 0.007503456723470434,
+            "rms": 0.015356320223879113
+          },
+          "reconstructed_mean_wheel_torque_nm": {
+            "max": 0.15118611897619796,
+            "mean": -0.030911269931954984,
+            "min": -0.3375585569684624,
+            "rms": 0.11032380307421118
+          },
+          "wheel_mean_times_radius_mps": {
+            "max": 0.009044341096536679,
+            "mean": -0.001817780191411441,
+            "min": -0.007966044875262436,
+            "rms": 0.004176472480114869
+          }
+        },
+        "5to8s": {
+          "body_vx_mps": {
+            "max": 0.04178534282126348,
+            "mean": -0.017283981528278373,
+            "min": -0.08634777875619469,
+            "rms": 0.03704777374507266
+          },
+          "pitch_rad": {
+            "max": 0.023865459805024,
+            "mean": 0.015515022772349158,
+            "min": 0.007503456723470434,
+            "rms": 0.016005232150238958
+          },
+          "reconstructed_mean_wheel_torque_nm": {
+            "max": 0.1624213100762978,
+            "mean": -0.008919662357062992,
+            "min": -0.3375585569684624,
+            "rms": 0.08596392429419665
+          },
+          "wheel_mean_times_radius_mps": {
+            "max": 0.009044341096536679,
+            "mean": -0.0010699846920231954,
+            "min": -0.007966044875262436,
+            "rms": 0.0032134796721228396
+          }
+        },
+        "6to7s": {
+          "body_vx_mps": {
+            "max": 0.04063109311536359,
+            "mean": -0.015843822729474356,
+            "min": -0.04582038731882598,
+            "rms": 0.03168249345448641
+          },
+          "pitch_rad": {
+            "max": 0.02063927577050419,
+            "mean": 0.01675666671279363,
+            "min": 0.012454912653646788,
+            "rms": 0.01697852598729467
+          },
+          "reconstructed_mean_wheel_torque_nm": {
+            "max": 0.1624213100762978,
+            "mean": -0.02275268077837952,
+            "min": -0.21959833782904448,
+            "rms": 0.0803561111630927
+          },
+          "wheel_mean_times_radius_mps": {
+            "max": 0.007241659921422874,
+            "mean": -0.0006952545982474544,
+            "min": -0.007204943025532532,
+            "rms": 0.0028988473718233178
+          }
+        },
+        "7to8s": {
+          "body_vx_mps": {
+            "max": 0.013733365590162343,
+            "mean": -0.006783481323812314,
+            "min": -0.02685226516944737,
+            "rms": 0.016265107045853842
+          },
+          "pitch_rad": {
+            "max": 0.017671485902507413,
+            "mean": 0.015547999622112705,
+            "min": 0.01247651819728479,
+            "rms": 0.01563379202335662
+          },
+          "reconstructed_mean_wheel_torque_nm": {
+            "max": 0.14680586113161254,
+            "mean": 0.02690496363914552,
+            "min": -0.09098008961170538,
+            "rms": 0.059505820842691334
+          },
+          "wheel_mean_times_radius_mps": {
+            "max": 0.004108992640483603,
+            "mean": -0.0006969192864106909,
+            "min": -0.005329338971976404,
+            "rms": 0.002265638176575496
+          }
+        }
+      },
+      "zero_forward_command_from_tick": 400,
+      "zero_residual_actions": true
+    }
+  },
+  "helper_sha256": "df2a1b79db38763b8505514e36bc49a16d5faae9abf1e46111c17214a7fc3a4e",
+  "interpretation": "Confirmed abrupt nominal-wheel stop and body/wheel speed separation with decaying/reversing motion; no distance reference or pitch target leftover, no sustained integral/torque saturation. Leg/body elastic-motion excitation is a supported mechanism hypothesis, not a proven unique cause. Eight seconds cannot establish asymptotic steady state.",
+  "new_physics_steps": 0,
+  "plant_instantiated": false,
+  "repository_modified": false,
+  "schema": "d1-heading-zero-stop-readonly-v1",
+  "source_sha256": {
+    "scripts/d1_heading_tracking_env.py": "91cbb3bcf697cab21f9b2c6b02480cf73d41811e4dd3cad51f1ae9554c4177ec",
+    "scripts/probe_d1_heading_g1.py": "a631f443537a7183ca80bbaaca5e2b864b01bd4ac2adf899cb9f26462971cd78",
+    "src/wheel_legged_control/d1/control_loop.py": "2d4fe87e635e124816985a6c72cbd8b35412b1f3910d61713eac1087387cdefe",
+    "src/wheel_legged_control/d1/locomotion_observation.py": "398bbb2361a35602e7c00bc0e66661c947f3981c8359e39d9137b963c190d25f",
+    "src/wheel_legged_control/d1/model.py": "0d606a044e8f9b010976ceb7e45b6640b143371887284cc30c17acd1d0c96bc6",
+    "src/wheel_legged_control/d1/wheel_leg_controller.py": "0c731d366e811a465248cec4b9ce345d6d3c69a8a9c387e314ca6f992ac32156"
+  },
+  "torque_method": "tau[k] = 2.2*(30*obs[k,56:60]-qvel[k,6:][wheel]) + 4*obs[k+1,64:68]. Observations store float32; torque is reconstructed, not directly recorded. All wheel torque/speed bounds are inactive; actuator has unit gain, no lag/delay. No wheel position limit exists."
+}

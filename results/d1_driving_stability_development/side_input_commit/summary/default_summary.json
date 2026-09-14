@@ -1,0 +1,105 @@
+{
+  "all_passed": true,
+  "checks": {
+    "all_tap_gates_passed": true,
+    "default_mode_recorded": true,
+    "no_jump_queued_after_cycle": true,
+    "one_space_event_blocked": true,
+    "source_unchanged": true
+  },
+  "manual_gui_tested": false,
+  "result": {
+    "all_passed": true,
+    "cancel_time_s": null,
+    "case": {
+      "direction": 1,
+      "duration": 20.0,
+      "kind": "tap",
+      "name": "tap_A",
+      "zone": "start"
+    },
+    "checks": [
+      {
+        "name": "exact_physical_step_count",
+        "passed": true
+      },
+      {
+        "name": "finite_states_and_torques",
+        "passed": true
+      },
+      {
+        "name": "one_owner_one_step",
+        "passed": true
+      },
+      {
+        "name": "torques_within_actual_limits",
+        "passed": true
+      },
+      {
+        "name": "cycle1_side_owned_through_completion",
+        "passed": true
+      },
+      {
+        "name": "cycle1_four_contacts_before_handoff",
+        "passed": true
+      },
+      {
+        "name": "cycle1_no_pending_leg_before_handoff",
+        "passed": true
+      },
+      {
+        "name": "cycle1_duration_within_15_seconds",
+        "passed": true
+      },
+      {
+        "name": "cycle1_signed_lateral_2p5_to_5cm",
+        "passed": true
+      },
+      {
+        "name": "handoff_4s_same_segment",
+        "passed": true
+      },
+      {
+        "name": "handoff_retains_at_least_90percent",
+        "passed": true
+      },
+      {
+        "name": "handoff_rollback_at_most_5mm",
+        "passed": true
+      },
+      {
+        "name": "exactly_one_successful_cycle",
+        "passed": true
+      },
+      {
+        "name": "ordinary_release_did_not_cancel",
+        "passed": true
+      }
+    ],
+    "cycles": [
+      {
+        "completion_contact_dwell_s": 0.0,
+        "completion_pending_leg": null,
+        "completion_speed_mps": 0.032634110028131456,
+        "completion_support_margin_m": 0.16598421534768615,
+        "cycle_seconds": 10.56,
+        "direction": 1,
+        "end_tick": 1256,
+        "failure": null,
+        "index": 1,
+        "max_handoff_rollback_m": 0.0009167762964609402,
+        "retained_fraction_after_4s": 0.9830286898081251,
+        "retained_lateral_after_4s_m": 0.036403074578383564,
+        "safe_completion_contacts": true,
+        "same_segment": true,
+        "signed_body_lateral_m": 0.03703154847442854,
+        "start_tick": 200,
+        "success": true
+      }
+    ],
+    "failed_checks": [],
+    "manual_gui_tested": false,
+    "steps": 2000
+  },
+  "steps": 2000
+}

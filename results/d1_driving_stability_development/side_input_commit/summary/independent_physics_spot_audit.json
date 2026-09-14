@@ -1,0 +1,65 @@
+{
+  "all_passed": true,
+  "audited_cases": [
+    {
+      "actual_cycle_seconds": 10.560000000000862,
+      "all_tap_gate_thresholds_passed": true,
+      "case": "tap_A",
+      "four_contacts_and_no_pending_leg_before_handoff": true,
+      "inferred_end_tick": 1256,
+      "inferred_start_tick": 200,
+      "max_handoff_rollback_m": 0.0009167762964609402,
+      "one_cycle_and_no_later_restart": true,
+      "retained_fraction_after_4s": 0.9830286898081251,
+      "retained_lateral_after_4s_m": 0.036403074578383564,
+      "signed_body_lateral_m": 0.03703154847442854
+    },
+    {
+      "actual_cycle_seconds": 10.560000000000862,
+      "all_tap_gate_thresholds_passed": true,
+      "case": "tap_D",
+      "four_contacts_and_no_pending_leg_before_handoff": true,
+      "inferred_end_tick": 1256,
+      "inferred_start_tick": 200,
+      "max_handoff_rollback_m": 0.0009131401920795604,
+      "one_cycle_and_no_later_restart": true,
+      "retained_fraction_after_4s": 0.9829371833136719,
+      "retained_lateral_after_4s_m": 0.03641001768445868,
+      "signed_body_lateral_m": 0.03704205955635278
+    },
+    {
+      "actual_cycle_seconds": 1.8199999999997996,
+      "actual_handoff_time_s": 3.819999999999801,
+      "airborne_at_cancel": true,
+      "cancel_time_s": 3.219999999999867,
+      "case": "cancel_swing",
+      "four_contacts_and_no_pending_leg_before_handoff": true,
+      "held_input_preserved_but_resolved_zero": true,
+      "inferred_end_tick": 382,
+      "inferred_start_tick": 200,
+      "one_cycle_and_no_later_restart": true,
+      "phase_after_cancel": "abort_land",
+      "phase_at_cancel": "swing",
+      "side_owned_every_tick_until_safe_completion": true,
+      "signed_body_lateral_m": -0.0285751799859162
+    }
+  ],
+  "helper_sha256": "79e6cb35648f4a9777c0f072e104ee575f6c7f64d779f4d1f5e58860fcfaeeb8",
+  "input_sha256": {
+    "cancel_swing/physical_gate.json": "255140627e00c710a3f34602df8666dae215e645bf1b0ee6f5533a716605ec30",
+    "cancel_swing/physical_side_trace.jsonl": "7ae55e2018bc48dbdad3d503c99df522b93b305781fa4c96c87dab8c39f32034",
+    "cancel_swing/states.npz": "31fc83e6bcb6c773a582f89309cad4e9036d7775f306e1e9e19a0bca584d85c4",
+    "cancel_swing/telemetry.csv": "e09706ca1bb2715e167188e71d04ed7a460007f077d3f0124bf54bdb1e14c1fd",
+    "tap_A/physical_gate.json": "f9a2ec391d2bf0afdb5d098b6405268736252ab50dd2d208d12525d2e816a159",
+    "tap_A/physical_side_trace.jsonl": "8bffeeb68569298dff490ee77e2ea87a1cdc29bfbf53fef3d66aaa29a6f3d62c",
+    "tap_A/states.npz": "8e49f2c0bd67f6c8cb8a3b56be2ad6fc77b3bd1ef897a1d36b7f5b3a05b79d4f",
+    "tap_A/telemetry.csv": "2ce3ad3857664e293ac530b368a4ad202a99e511aaa64bed6f02db7c36a33df2",
+    "tap_D/physical_gate.json": "e52c2325a4a658b81048e1ca49deadebf014b7ebc59085230cd59170fe07939d",
+    "tap_D/physical_side_trace.jsonl": "9e68f64bc55dfd4049798ec79b91034f089c63ba903ae661eb3f8220e259081b",
+    "tap_D/states.npz": "dd621db1863046e6667cd6999a3854064c9d5c85133d8e0ec335318840e7a615",
+    "tap_D/telemetry.csv": "ca8d5981095e3a5e3c3c969dfd9be286aff5e804545c4d8c1b36c40364d56ad4"
+  },
+  "new_physics_steps": 0,
+  "schema": "d1-side-intent-independent-spot-audit-v1",
+  "scope": "Independent arithmetic of tap_A/tap_D and swing cancellation only; other cases not claimed reaudited."
+}

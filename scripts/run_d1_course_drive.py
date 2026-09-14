@@ -29,12 +29,14 @@ from wheel_legged_control.d1.terrain import D1_COURSE_SPAWNS
 
 if __package__:
     from .d1_course_controls import CourseKeyboardCommands
+    from .d1_course_side_intent import CourseSideStepIntent, SideStepIntentDecision
     from .d1_course_side_step import CourseSideStepDrive
     from .d1_fast_side_step import FastSideStepController
     from .d1_keyboard_viewer import KeyboardViewer
     from .d1_side_step import SideStepController
 else:
     from d1_course_controls import CourseKeyboardCommands
+    from d1_course_side_intent import CourseSideStepIntent, SideStepIntentDecision
     from d1_course_side_step import CourseSideStepDrive
     from d1_fast_side_step import FastSideStepController
     from d1_keyboard_viewer import KeyboardViewer
@@ -42,6 +44,52 @@ else:
 
 ROOT = Path(__file__).resolve().parents[1]
 ZONES = dict(zip(map(ord, "123456"), ("start", "rough", "ramp", "stairs", "bumps", "jump")))
+SIDE_INPUT_MODES = ("release_abort", "commit_cycle_v1")
+DEFAULT_SIDE_INPUT_MODE = "commit_cycle_v1"
+
+
+def resolve_course_side_input(commands, drive, intent, mode, *, reset_this_tick=False):
+    """Resolve one input packet before the unchanged controller/physics call."""
+    direction = int(getattr(commands, "side_direction", 0))
+    if hasattr(commands, "consume_side_input"):
+        packet = commands.consume_side_input()
+    else:
+        # Explicit fallback convention for headless direction-only adapters.
+        packet = {"held_direction": direction, "press_direction": 0,
+                  "keys_released": direction == 0, "sampled_after_reset": True,
+                  "cancel_reason": None}
+    if reset_this_tick:
+        packet["keys_released"] = False
+        packet["sampled_after_reset"] = False
+        packet["press_direction"] = 0
+    teleop = drive.teleop
+    state = teleop._state
+    recovery = bool(state.has_fallen() or state.base_position[2] < 0.28)
+    jump = bool(teleop._jump_requested or teleop._jump_step is not None)
+    packet["start_inhibited"] = recovery or jump
+    if packet["cancel_reason"] is None:
+        if recovery:
+            packet["cancel_reason"] = "fallen_or_recovery"
+        elif drive.active and teleop._jump_requested:
+            packet["cancel_reason"] = "accepted_jump_request"
+    if mode == "commit_cycle_v1":
+        decision = intent.resolve(
+            packet["held_direction"], keys_released=packet["keys_released"],
+            press_direction=packet["press_direction"], cancel_reason=packet["cancel_reason"],
+            active=bool(drive.active), active_direction=int(drive.side.direction),
+            controller_failed=bool(drive.side.failure), start_inhibited=packet["start_inhibited"],
+        )
+    else:
+        decision = SideStepIntentDecision(
+            drive_direction=direction,
+            cancel_current=bool(drive.active and (
+                direction != drive.side.direction or teleop._jump_requested)),
+            finish_current_cycle=False,
+            repeat_direction=0 if packet["start_inhibited"] else direction,
+            blocked_until_release=bool(drive._blocked_until_release),
+            reason="legacy_release_abort",
+        )
+    return decision, packet
 
 
 def apply_course_events(simulation, viewer, cursor, on_reset, current_zone="start", *, can_jump=None):
@@ -99,7 +147,7 @@ def _snapshot(output):
     paths = {Path(__file__).resolve(), ROOT / "pyproject.toml"}
     paths.update(
         ROOT / "scripts" / name
-        for name in ("d1_course_controls.py", "d1_course_braking.py", "d1_course_side_step.py", "d1_side_step.py", "d1_fast_side_step.py", "d1_keyboard_commands.py",
+        for name in ("d1_course_controls.py", "d1_course_side_intent.py", "d1_course_braking.py", "d1_course_side_step.py", "d1_side_step.py", "d1_fast_side_step.py", "d1_keyboard_commands.py",
                      "d1_keyboard_viewer.py", "d1_terrain_display.py")
     )
     for module in tuple(sys.modules.values()):
@@ -128,6 +176,7 @@ def run(
     side_step_profile="fast",
     render_quality="normal",
     brake_reference_mode="legacy",
+    side_input_mode=DEFAULT_SIDE_INPUT_MODE,
 ):
     """Record commands before step, integrated states after step, and every reset.
 
@@ -151,8 +200,11 @@ def run(
         raise ValueError("render quality must be normal or low")
     if brake_reference_mode not in ("legacy", "release_reanchor_experimental"):
         raise ValueError("unsupported course brake reference mode")
+    if side_input_mode not in SIDE_INPUT_MODES:
+        raise ValueError("unsupported side input mode")
     commands = CourseKeyboardCommands() if commands is None else commands
     if isinstance(commands, CourseKeyboardCommands):
+        commands.side_input_mode = side_input_mode
         simulation.teleop.controller.low_level.wheel_velocity_gain = commands.wheel_velocity_gain
     simulation.reset(zone)
     if hasattr(commands, "set_state"):
@@ -162,6 +214,7 @@ def run(
     side_factory = FastSideStepController if side_step_profile == "fast" else SideStepController
     drive = CourseSideStepDrive(simulation, side_controller_factory=side_factory,
                                brake_reference_mode=brake_reference_mode)
+    intent = CourseSideStepIntent()
     output.mkdir(parents=True, exist_ok=False)
     hashes = _snapshot(output)
     mujoco.mj_saveModel(plant.model, str(output / "model.mjb"), None)
@@ -177,7 +230,7 @@ def run(
         "state_mode": simulation.teleop.state_mode,
         "policy": "none",
         "contact_allocation": simulation.teleop.contact_allocation,
-        "controls": "W/S forward; Shift cycles speed gears; A/D hold for side steps; Q/E desired heading; Space guarded jump; R simulation reset; X cancel; T/G height; 1..6 zones; Esc exit",
+        "controls": "W/S forward; Shift cycles speed gears; A/D side steps (see side_input_behavior); Q/E desired heading; Space guarded jump; R simulation reset; X cancel; T/G height; 1..6 zones; Esc exit",
         "speed_gears": {
             "forward_mps": getattr(commands, "forward_gears_mps", None),
             "reverse_mps": getattr(commands, "reverse_gears_mps", None),
@@ -186,6 +239,15 @@ def run(
         "lateral_motion": "experimental torque-only four-leg side stepping on flat z=0 ground; release completes landing before wheel-controller handoff; no PPO",
         "side_step_controller": side_factory.__name__,
         "side_step_profile": side_step_profile,
+        "side_input_mode": side_input_mode,
+        "side_input_schema": "d1-side-step-intent-packet-v1",
+        "side_input_behavior": (
+            "Idle tap requests one full cycle; held repeats at cycle boundaries; release finishes current cycle and stops repeats; X/focus loss/timeout/recovery safely cancel. Active taps are not queued."
+            if side_input_mode == "commit_cycle_v1" else
+            "Legacy direct direction: release or reversal requests safe abort/landing of the current cycle."
+        ),
+        "side_input_fallback": "Direction-only headless adapters explicitly treat direction zero as released; CourseKeyboardCommands distinguishes A+D conflict and real post-reset polls.",
+        "side_step_timing": "Existing fast gait is approximately 11 seconds per cycle; input mode does not accelerate the gait.",
         "side_step_distance_m": 0.03,
         "recovery": "R explicitly resets simulator to current zone spawn; not physical self-righting",
         "command_adapter": type(commands).__name__,
@@ -217,6 +279,7 @@ def run(
     applied_torques = []
     segments, jump_phases = [], set()
     tick = 0
+    reset_this_tick = False
     viewer = None
     started = time.monotonic()
     reason, cursor = "duration", 0
@@ -239,7 +302,11 @@ def run(
         global_times.append(tick * plant.control_dt)
 
     def start_segment(selected_zone, event_index):
+        nonlocal reset_this_tick
         drive.reset()
+        if event_index is not None:
+            intent.reset()
+            reset_this_tick = True
         if hasattr(commands, "set_side_active"):
             commands.set_side_active(False)
         segments.append(
@@ -267,7 +334,9 @@ def run(
             )
             viewer.controls_help = (
                 "W / S\nShift\nQ / E\nSpace\nR\nX\nT / G\nA / D\nC / Esc",
-                "Forward / reverse\nCycle speed gear 1 / 2 / 3\nSet heading left / right\nGuarded jump\nReset upright at this zone's start\nCancel motion and heading\nRaise / lower body\nHold for flat-ground side steps\nReset camera / exit",
+                "Forward / reverse\nCycle speed gear 1 / 2 / 3\nSet heading left / right\nGuarded jump\nReset upright at this zone's start\nSafely cancel motion\nRaise / lower body\n"
+                + ("Tap for full side step (~11 s); hold repeats" if side_input_mode == "commit_cycle_v1"
+                   else "Hold for side step; release safely aborts") + "\nReset camera / exit",
             )
         with (
             nullcontext(None) if viewer is None else viewer,
@@ -275,6 +344,7 @@ def run(
         ):
             writer = None
             for _ in range(math.ceil(seconds / plant.control_dt)):
+                reset_this_tick = False
                 wall_tick = time.monotonic()
                 if hasattr(commands, "set_state"):
                     state = simulation.teleop._state
@@ -296,13 +366,18 @@ def run(
                 if viewer is not None:
                     cursor = apply_course_events(
                         simulation, viewer, cursor, start_segment, segments[-1]["zone"],
-                        can_jump=lambda: not drive.active and not getattr(commands, "side_direction", 0),
+                        can_jump=lambda: not drive.active and not getattr(commands, "side_direction", 0)
+                        and not (side_input_mode == "commit_cycle_v1"
+                                 and getattr(commands, "side_press_direction", 0)),
                     )
                     viewer.terrain_label = f"Course: {segments[-1]['zone']}"
                     save_events()
                 requested = commands(float(plant.data.time))
+                decision, side_packet = resolve_course_side_input(
+                    commands, drive, intent, side_input_mode, reset_this_tick=reset_this_tick)
+                active_before = bool(drive.active)
                 before_time, before_index = float(plant.data.time), len(positions) - 1
-                status, torque, side_status = drive.step(requested, getattr(commands, "side_direction", 0))
+                status, torque, side_status = drive.step(requested, decision.drive_direction)
                 applied_torques.append(torque.copy())
                 if hasattr(commands, "set_side_active"):
                     commands.set_side_active(drive.active)
@@ -327,6 +402,22 @@ def run(
                     "input_status": getattr(commands, "message", "legacy input"),
                     "input_focused": getattr(commands, "_focused", None),
                     "operator_side_direction": getattr(commands, "side_direction", 0),
+                    "side_input_mode": side_input_mode,
+                    "side_raw_held_direction": side_packet["held_direction"],
+                    "side_press_direction": side_packet["press_direction"],
+                    "side_keys_released": side_packet["keys_released"],
+                    "side_sampled_after_reset": side_packet["sampled_after_reset"],
+                    "side_cancel_reason": side_packet["cancel_reason"],
+                    "side_start_inhibited": side_packet["start_inhibited"],
+                    "side_resolved_direction": decision.drive_direction,
+                    "side_cancel_current": decision.cancel_current,
+                    "side_finish_current_cycle": decision.finish_current_cycle,
+                    "side_repeat_direction": decision.repeat_direction,
+                    "side_blocked_until_release": decision.blocked_until_release,
+                    "side_intent_reason": decision.reason,
+                    "side_active_before": active_before,
+                    "side_active_after": bool(drive.active),
+                    "measured_wheel_contacts_after": json.dumps(simulation.teleop._state.wheel_contact.tolist()),
                     "applied_controller": side_status["torque_source"],
                     "side_phase": side_status["phase"],
                     "side_direction": side_status["direction"],
@@ -363,6 +454,10 @@ def run(
                         if getattr(commands, "side_direction", 0) and not drive.active
                         else f"Side: {side_status['phase']} | {side_status['failure'] or ''}"
                     )
+                    if side_input_mode == "commit_cycle_v1" and drive.active:
+                        side_hint = ("Complete this cycle, then reverse while the opposite key remains held"
+                                     if decision.reason == "reverse_after_cycle" else
+                                     "Completing current cycle; release stops repeats; X safely cancels")
                     viewer.extra_help = (
                         "1 start | 2 rough | 3 ramp | 4 stairs | 5 bumps | 6 jump zone\n"
                         f"Gear {getattr(commands, 'gear', 1)} | Shift cycles speed | "
@@ -408,6 +503,7 @@ def run(
             "source_unchanged": not changed,
             "changed_source_files": changed,
             "jump_phases_observed": sorted(jump_phases),
+            "side_input_mode": side_input_mode,
             "note": "course controller demonstration; reset segments are discontinuous; no PPO or obstacle-traversal success claim",
         }
         _json(output / "summary.json", summary)
@@ -425,6 +521,8 @@ def main(argv=None):
     parser.add_argument("--zone", choices=tuple(D1_COURSE_SPAWNS), default="start")
     parser.add_argument("--baseline", choices=("lqr", "mpc"), default="lqr")
     parser.add_argument("--side-step-profile", choices=("fast", "conservative"), default="fast")
+    parser.add_argument("--side-input-mode", choices=SIDE_INPUT_MODES, default=DEFAULT_SIDE_INPUT_MODE,
+                        help="commit_cycle_v1: tap completes a full side step, held repeats; release_abort retains legacy cancellation")
     parser.add_argument(
         "--brake-reference-mode", choices=("legacy", "release_reanchor_experimental"),
         default="legacy", help="Default retains original braking; experimental reanchoring can increase uphill rollback",
@@ -451,7 +549,7 @@ def main(argv=None):
     print(
         "Course LQR/MPC with oracle state, no PPO. W/S drive; Shift cycles speed gears 1/2/3; "
         "Q/E set heading; Space jump; "
-        "R resets upright at current zone; X cancels; T/G height; hold A/D for flat-ground side steps; "
+        "R resets upright at current zone; X safely cancels; T/G height; A/D side steps; "
         "1..6 zones; Esc exits.",
         flush=True,
     )
@@ -465,6 +563,7 @@ def main(argv=None):
         side_step_profile=args.side_step_profile,
         render_quality=args.render_quality,
         brake_reference_mode=args.brake_reference_mode,
+        side_input_mode=args.side_input_mode,
     )
     print(json.dumps(summary, indent=2, allow_nan=False))
     return 0 if summary["source_unchanged"] else 1

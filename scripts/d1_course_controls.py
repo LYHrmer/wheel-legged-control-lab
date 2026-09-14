@@ -17,6 +17,7 @@ def wrap_angle(value):
 
 
 class CourseKeyboardCommands:
+    side_keys = frozenset({ord("A"), ord("D")})
     shift_keys = frozenset({340, 344})  # GLFW left/right Shift
     key_codes = frozenset(map(ord, "WASDQERXTG")) | {32, 256} | shift_keys
     forward_gears_mps = (0.30, 0.40, 0.50)
@@ -43,6 +44,15 @@ class CourseKeyboardCommands:
         self._fallen = False
         self.side_direction = 0
         self.side_active = False
+        self.side_input_mode = "release_abort"
+        self.raw_side_direction = 0
+        self._side_sampled = False
+        self._side_held_keys = set()
+        self._side_event_keys = set()
+        self._side_event_mode = False
+        self._pending_side_press = 0
+        self._side_cancel_reason = None
+        self._cancel_event_pending = False
         self.gear = 1
         self._shift_held = False
         self._shift_event_mode = False
@@ -89,14 +99,21 @@ class CourseKeyboardCommands:
         self._last_update = None
         self._focused = False
         self.side_active = False
+        self._side_sampled = False
+        self._pending_side_press = 0
+        self._side_cancel_reason = None
+        self._cancel_event_pending = False
         self.gear = 1
         self._pending_shift_presses = 0
         self._cancel()
         self.message = "Simulation reset: upright at this zone's start"
 
-    def _cancel(self):
+    def _cancel(self, side_reason=None):
         self.requested_forward_mps = 0.0
         self.side_direction = 0
+        if side_reason is not None:
+            self._side_cancel_reason = side_reason
+            self._pending_side_press = 0
         self.goal_yaw_rad = self._actual_yaw
         self._command = D1MotionCommand(0.0, 0.0, self._clearance)
 
@@ -106,12 +123,27 @@ class CourseKeyboardCommands:
         self.side_active = active
 
     def handle_key_event(self, key, action):
-        """Keep short Shift taps even when PRESS/RELEASE share one GLFW poll.
+        """Keep short Shift/A/D/X taps when PRESS/RELEASE share one GLFW poll.
 
         Held-state sampling remains available to headless input adapters. Once
         Shift events arrive, only those events count presses; polling cannot
         count the same press twice. Both Shift keys act as one held button.
+        A/D keeps only the last new press; the intent resolver never queues it.
+        X uses an explicit cancel packet, separate from ordinary A/D release.
         """
+        if key == ord("X") and action == 1:
+            self._cancel_event_pending = True
+            self._cancel("x")
+            return
+        if key in self.side_keys:
+            self._side_event_mode = True
+            if action == 1:
+                if key not in self._side_event_keys:
+                    self._pending_side_press = 1 if key == ord("A") else -1
+                self._side_event_keys.add(key)
+            elif action == 0:
+                self._side_event_keys.discard(key)
+            return
         if key not in self.shift_keys:
             return
         self._shift_event_mode = True
@@ -121,6 +153,28 @@ class CourseKeyboardCommands:
             self._shift_event_keys.add(key)
         elif action == 0:  # GLFW RELEASE
             self._shift_event_keys.discard(key)
+
+    @property
+    def side_press_direction(self):
+        """Pending fresh PRESS; reading this does not consume the input packet."""
+        return self._pending_side_press
+
+    def consume_side_input(self):
+        """Consume PRESS/cancel once while preserving the latest physical held sample.
+
+        After reset, keys_released stays false until update_pressed supplies a
+        new real poll. An equal A/D difference is not proof that both keys lifted.
+        """
+        packet = {
+            "held_direction": self.raw_side_direction,
+            "press_direction": self._pending_side_press,
+            "keys_released": self._side_sampled and not self._side_held_keys,
+            "sampled_after_reset": self._side_sampled,
+            "cancel_reason": self._side_cancel_reason,
+        }
+        self._pending_side_press = 0
+        self._side_cancel_reason = None
+        return packet
 
     def update_pressed(self, keys, focused=True):
         if not isinstance(keys, (set, frozenset)) or any(type(k) is not int for k in keys):
@@ -135,8 +189,16 @@ class CourseKeyboardCommands:
         dt = 0.01 if self._last_update is None else min(0.1, now-self._last_update)
         self._control_time = self._state_time
         self._last_update = now
+        side_keys = keys & self.side_keys
+        if not self._side_event_mode:
+            newly_pressed = side_keys - self._side_held_keys
+            if len(newly_pressed) == 1:
+                self._pending_side_press = 1 if ord("A") in newly_pressed else -1
+        self._side_held_keys = set(side_keys)
+        self.raw_side_direction = int(ord("A") in side_keys)-int(ord("D") in side_keys)
+        self._side_sampled = True
         if stale or focused != self._focused:
-            self._cancel()
+            self._cancel("input_timeout" if stale else "focus_lost" if not focused else None)
         self._focused = focused
         shift_held = focused and bool(keys & self.shift_keys)
         shift_presses = (self._pending_shift_presses if self._shift_event_mode
@@ -144,24 +206,35 @@ class CourseKeyboardCommands:
         self._pending_shift_presses = 0
         if not focused:
             self._shift_event_keys.clear()
+            self._side_event_keys.clear()
         self._shift_held = shift_held
         if focused and 256 in keys:
             self._stopped = True
-        if self._stopped or not focused or self._fallen or ord("X") in keys or ord("R") in keys:
-            self._cancel()
+        if (self._stopped or not focused or self._fallen or ord("X") in keys
+                or ord("R") in keys or self._cancel_event_pending):
+            reason = ("stopped" if self._stopped else "focus_lost" if not focused else
+                      "fallen" if self._fallen else "x" if ord("X") in keys
+                      or self._cancel_event_pending else "reset_requested")
+            self._cancel_event_pending = False
+            self._cancel(reason)
             self.message = "Fallen: press R for simulation reset" if self._fallen else "Motion cancelled"
             return
         if shift_presses:
             self.gear = (self.gear - 1 + shift_presses) % len(self.forward_gears_mps) + 1
         was_side = bool(self.side_direction) or self.side_active
-        self.side_direction = int(ord("A") in keys)-int(ord("D") in keys)
-        if self.side_direction or self.side_active:
+        self.side_direction = self.raw_side_direction
+        if self.side_direction or self.side_active or (
+            self.side_input_mode == "commit_cycle_v1" and self._pending_side_press
+        ):
             if not was_side:
                 self.goal_yaw_rad = self._actual_yaw
             self.requested_forward_mps = 0.0
             self._command = D1MotionCommand(0.0, 0.0, self._clearance)
-            self.message = ("Side step: hold A/D on flat ground"
-                            if self.side_direction else "Landing before returning to wheel driving")
+            if self.side_input_mode == "commit_cycle_v1":
+                self.message = "Complete current side step; release stops repeats; X safely cancels"
+            else:
+                self.message = ("Side step: hold A/D on flat ground"
+                                if self.side_direction else "Landing before returning to wheel driving")
             return
         forward = int(ord("W") in keys)-int(ord("S") in keys)
         target = (self.forward_gears_mps[self.gear-1] if forward > 0
@@ -194,7 +267,7 @@ class CourseKeyboardCommands:
             if now < self._last_update:
                 raise ValueError("input clock moved backwards")
             if now-self._last_update >= self._timeout:
-                self._cancel()
+                self._cancel("input_timeout")
         return self._command
 
     @property

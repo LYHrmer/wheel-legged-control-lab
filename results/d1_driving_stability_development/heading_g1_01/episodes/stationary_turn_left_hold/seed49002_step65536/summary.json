@@ -1,0 +1,359 @@
+{
+  "actions": {
+    "box_boundary_occupancy_by_channel": [
+      0.0,
+      0.0,
+      0.9375,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "max_by_channel": [
+      -0.5553048849105835,
+      0.11030495166778564,
+      -0.935342013835907,
+      0.3611395061016083,
+      0.07639925181865692,
+      0.07681015133857727,
+      0.3639039695262909,
+      0.4124450981616974
+    ],
+    "mean_by_channel": [
+      -0.6369703616201877,
+      -0.019515525684400927,
+      -0.9978278721868992,
+      0.311982560120523,
+      -0.022230886565230323,
+      0.04013076142524369,
+      0.34723737861961124,
+      0.37868227750062944
+    ],
+    "min_by_channel": [
+      -0.7474058270454407,
+      -0.07950687408447266,
+      -1.0,
+      0.2788552939891815,
+      -0.05520987883210182,
+      -0.018506668508052826,
+      0.27593138813972473,
+      0.35186028480529785
+    ],
+    "near_boundary_0p98_occupancy_by_channel": [
+      0.0,
+      0.0,
+      0.93875,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "actual_observed_physics_substeps": 4000,
+  "actual_perturbed_control_intervals": 0,
+  "actual_seconds": 7.999999999999341,
+  "actual_signed_yaw_impulse_nms": 0.0,
+  "actual_transitions": 800,
+  "case": "stationary_turn_left_hold",
+  "classification": "fixed development command-domain probe; not unseen-terrain generalization",
+  "completed_duration": true,
+  "cross_track_final_m": 0.08842845426041686,
+  "cross_track_peak_m": 0.08842845426041686,
+  "cross_track_rmse_m": 0.04619702722552343,
+  "expected_observed_yaw_impulse_nms": 0.0,
+  "final_reference_delta_rad": 0.30000000000000016,
+  "gates": {
+    "checks": {
+      "actual_roll_pitch": true,
+      "complete_duration": true,
+      "heading_peak": false,
+      "height_rmse": true,
+      "no_boundary_or_fall": true,
+      "no_nonwheel_contact": true,
+      "turn_late_heading": true,
+      "turn_late_speed": false,
+      "turn_planar_displacement": false,
+      "turn_reference": true
+    },
+    "failed": [
+      "heading_peak",
+      "turn_late_speed",
+      "turn_planar_displacement"
+    ],
+    "passed": false
+  },
+  "heading_peak_rad": 0.1545017091364948,
+  "heading_return": -0.5115595257920887,
+  "heading_rmse_rad": 0.04287775086531537,
+  "height_rmse_m": 0.008876452219246829,
+  "initial_state_observation_sha256": "b204a7a8e43302d0cc2b2df936d5f89f7a8ddb2114acbd0d1dfa1158bdd99ed0",
+  "max_abs_actual_roll_pitch_rad": 0.0634459688812137,
+  "max_abs_ground_relative_roll_pitch_rad": 0.06344596888121376,
+  "model": "seed49002_step65536",
+  "model_selected_or_training_performed": false,
+  "nonwheel_contact_steps": 0,
+  "phase_metrics": {
+    "before_turn": {
+      "actions": {
+        "box_boundary_occupancy_by_channel": [
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_by_channel": [
+          -0.6741480827331543,
+          0.07771918922662735,
+          -1.0,
+          0.3611395061016083,
+          0.030634837225079536,
+          0.02292090281844139,
+          0.3639039695262909,
+          0.4124450981616974
+        ],
+        "mean_by_channel": [
+          -0.7177509021759033,
+          0.030302585987374186,
+          -1.0,
+          0.3491861979663372,
+          -0.002388771555852145,
+          0.0018179700965993107,
+          0.3554389314353466,
+          0.40555598482489585
+        ],
+        "min_by_channel": [
+          -0.7459325790405273,
+          0.0006930108647793531,
+          -1.0,
+          0.3355900049209595,
+          -0.019258959218859673,
+          -0.018506668508052826,
+          0.3277503550052643,
+          0.3671417236328125
+        ],
+        "near_boundary_0p98_occupancy_by_channel": [
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "actual_seconds": 2.0000000000000013,
+      "actual_transitions": 200,
+      "cross_track_final_m": 0.012253742066749259,
+      "cross_track_peak_m": 0.033900530285995954,
+      "cross_track_rmse_m": 0.019804016675416567,
+      "heading_peak_rad": 0.02525431188735822,
+      "heading_return": -0.006608587392402746,
+      "heading_rmse_rad": 0.007186396260231151,
+      "height_rmse_m": 0.006560449175638626,
+      "reward_terms_return": {
+        "action_change": -0.002300248978106727,
+        "attitude": -0.013809809257485416,
+        "heading_goal": -0.006608587392402746,
+        "height": -0.03443159470891005,
+        "mechanical_power": -0.004563682765686899,
+        "termination": 0.0,
+        "tracking_velocity": 1.8842617885374822,
+        "tracking_yaw": 1.7515183886258323
+      },
+      "servo_return": 3.5806748414531255,
+      "task_return": 3.5740662540607224,
+      "user_yaw_rate_rmse_rps": 0.06691401635056358,
+      "velocity_rmse_mps": 0.04914952902814694
+    },
+    "heading_hold": {
+      "actions": {
+        "box_boundary_occupancy_by_channel": [
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_by_channel": [
+          -0.5553048849105835,
+          0.021323291584849358,
+          -1.0,
+          0.330480694770813,
+          0.006113214418292046,
+          0.07681015133857727,
+          0.35692912340164185,
+          0.39595168828964233
+        ],
+        "mean_by_channel": [
+          -0.5984903342073614,
+          -0.049021024368280035,
+          -1.0,
+          0.29836107644167814,
+          -0.03770475839730352,
+          0.05780613952739672,
+          0.3498862678354437,
+          0.3669982131502845
+        ],
+        "min_by_channel": [
+          -0.6869273781776428,
+          -0.07950687408447266,
+          -1.0,
+          0.2788552939891815,
+          -0.05520987883210182,
+          0.019513394683599472,
+          0.3378428518772125,
+          0.35186028480529785
+        ],
+        "near_boundary_0p98_occupancy_by_channel": [
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "actual_seconds": 5.499999999999395,
+      "actual_transitions": 550,
+      "cross_track_final_m": 0.08842845426041686,
+      "cross_track_peak_m": 0.08842845426041686,
+      "cross_track_rmse_m": 0.05433199168113812,
+      "heading_peak_rad": 0.1516544522504735,
+      "heading_return": -0.3549881939107327,
+      "heading_rmse_rad": 0.042251528593411275,
+      "height_rmse_m": 0.009770300832062682,
+      "reward_terms_return": {
+        "action_change": -3.493977653032421e-05,
+        "attitude": -0.056332430322527015,
+        "heading_goal": -0.3549881939107327,
+        "height": -0.2100093123677873,
+        "mechanical_power": -0.014289057286668273,
+        "termination": 0.0,
+        "tracking_velocity": 5.153568373885322,
+        "tracking_yaw": 5.390742406037509
+      },
+      "servo_return": 10.263645040169312,
+      "task_return": 9.908656846258575,
+      "user_yaw_rate_rmse_rps": 0.053123083017281136,
+      "velocity_rmse_mps": 0.051169115676618186
+    },
+    "turn": {
+      "actions": {
+        "box_boundary_occupancy_by_channel": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_by_channel": [
+          -0.7246924638748169,
+          0.11030495166778564,
+          -0.935342013835907,
+          0.31771746277809143,
+          0.07639925181865692,
+          0.00286969356238842,
+          0.2909674048423767,
+          0.40669912099838257
+        ],
+        "mean_by_channel": [
+          -0.7371285009384155,
+          0.10577251315116883,
+          -0.965245954990387,
+          0.31300432920455934,
+          0.06861324355006218,
+          -0.0010472323838621378,
+          0.2852933859825134,
+          0.39971215605735777
+        ],
+        "min_by_channel": [
+          -0.7474058270454407,
+          0.09854833781719208,
+          -0.9906477332115173,
+          0.3058330714702606,
+          0.06434602290391922,
+          -0.003142856527119875,
+          0.27593138813972473,
+          0.39267393946647644
+        ],
+        "near_boundary_0p98_occupancy_by_channel": [
+          0.0,
+          0.0,
+          0.02,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "actual_seconds": 0.49999999999994493,
+      "actual_transitions": 50,
+      "cross_track_final_m": 0.008940007805245877,
+      "cross_track_peak_m": 0.012200726687030473,
+      "cross_track_rmse_m": 0.010306811595224284,
+      "heading_peak_rad": 0.1545017091364948,
+      "heading_return": -0.14996274448895297,
+      "heading_rmse_rad": 0.09783832986194235,
+      "height_rmse_m": 0.006201445688349538,
+      "reward_terms_return": {
+        "action_change": -3.27530948038237e-05,
+        "attitude": -0.003916612590960494,
+        "heading_goal": -0.14996274448895297,
+        "height": -0.007691585725108967,
+        "mechanical_power": -0.0015524800255689638,
+        "termination": 0.0,
+        "tracking_velocity": 0.4302446671498866,
+        "tracking_yaw": 0.00039174832410157997
+      },
+      "servo_return": 0.4174429840375459,
+      "task_return": 0.26748023954859296,
+      "user_yaw_rate_rmse_rps": 0.33233089709449715,
+      "velocity_rmse_mps": 0.07755911772802587
+    }
+  },
+  "planar_origin_displacement_peak_m": 0.39757048910537424,
+  "reward_terms_return": {
+    "action_change": -0.0023679418494408776,
+    "attitude": -0.07405885217097292,
+    "heading_goal": -0.5115595257920887,
+    "height": -0.25213249280180616,
+    "mechanical_power": -0.02040522007792413,
+    "termination": 0.0,
+    "tracking_velocity": 7.468074829572692,
+    "tracking_yaw": 7.142652542987438
+  },
+  "servo_return": 14.261762865659978,
+  "task_return": 13.750203339867896,
+  "terminal_reason": "time_limit",
+  "terminal_state": {
+    "actual_roll_pitch_rad": [
+      -0.05042591579631915,
+      -0.049722097524630963
+    ],
+    "clearance_m": 0.4453769946006507,
+    "nonwheel_contacts": 0,
+    "x_boundary": false,
+    "y_boundary": false
+  },
+  "turn_late_max_abs_body_vx_mps": 0.06416779220970978,
+  "turn_late_max_abs_heading_error_rad": 0.014645395833532915,
+  "user_yaw_rate_rmse_rps": 0.09981121209004955,
+  "velocity_rmse_mps": 0.052725221637693755,
+  "wrench_zero_after_episode": true
+}
