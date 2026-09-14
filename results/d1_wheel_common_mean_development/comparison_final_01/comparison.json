@@ -1,0 +1,2637 @@
+{
+  "case_weight": 0.5,
+  "cases": [
+    "final_right_offset_slow",
+    "final_diagonal_gentle_turn"
+  ],
+  "common_prefix_comparisons": [
+    {
+      "case": "final_right_offset_slow",
+      "common_transitions": 2771,
+      "planned_transitions": 3200,
+      "policies": {
+        "bounded": {
+          "actual_transitions": 2771,
+          "cumulative_return": 50.79487189941209,
+          "cumulative_reward_terms": {
+            "action_change": -0.000854397803853198,
+            "attitude": -0.6071691431104834,
+            "height": -0.4697434079740894,
+            "mechanical_power": -0.10326413773833591,
+            "termination": -2.0,
+            "tracking_velocity": 27.099705435891316,
+            "tracking_yaw": 26.876197550147598
+          },
+          "final_x_m": 1.7087154567041354,
+          "geometric_nonflat_exposure": {
+            "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+            "nonflat_fraction": 0.7376398412125587,
+            "nonflat_now": false,
+            "nonflat_path_m": 4.623797691521097,
+            "nonflat_steps": 2044,
+            "path_m": 6.149324990125317,
+            "unique_nonflat_0p25m_cells": 25
+          },
+          "height_rmse_m": 0.006510016488880967,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 27.70999999999552,
+          "original_actual_transitions": 2771,
+          "pitch_rmse_rad": 0.09626767133399564,
+          "policy": "seed48001/bounded",
+          "roll_rmse_rad": 0.02434613850062016,
+          "signed_forward_progress_m": 5.508715456704135,
+          "terminal_reason_at_endpoint": "map_boundary",
+          "terminated_at_endpoint": true,
+          "truncated_at_endpoint": false,
+          "velocity_rmse_mps": 0.031097457067903404,
+          "yaw_rate_rmse_rps": 0.03539985783369799
+        },
+        "unbounded": {
+          "actual_transitions": 2771,
+          "cumulative_return": 51.95604073215659,
+          "cumulative_reward_terms": {
+            "action_change": -0.0009148057883521908,
+            "attitude": -0.6278457365544465,
+            "height": -0.8910792617629214,
+            "mechanical_power": -0.14392650670134785,
+            "termination": 0.0,
+            "tracking_velocity": 26.532054877704834,
+            "tracking_yaw": 27.087752165258888
+          },
+          "final_x_m": 2.718956859150579,
+          "geometric_nonflat_exposure": {
+            "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+            "nonflat_fraction": 0.7982677733670155,
+            "nonflat_now": true,
+            "nonflat_path_m": 5.622875670283391,
+            "nonflat_steps": 2212,
+            "path_m": 6.931401967279998,
+            "unique_nonflat_0p25m_cells": 28
+          },
+          "height_rmse_m": 0.008966230712740317,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 27.70999999999552,
+          "original_actual_transitions": 2993,
+          "pitch_rmse_rad": 0.07944693621019426,
+          "policy": "seed48001/unbounded",
+          "roll_rmse_rad": 0.06232305711415017,
+          "signed_forward_progress_m": 6.518956859150579,
+          "terminal_reason_at_endpoint": null,
+          "terminated_at_endpoint": false,
+          "truncated_at_endpoint": false,
+          "velocity_rmse_mps": 0.042463840172914956,
+          "yaw_rate_rmse_rps": 0.03099682929548151
+        },
+        "zero": {
+          "actual_transitions": 2771,
+          "cumulative_return": 52.934181585784806,
+          "cumulative_reward_terms": {
+            "action_change": 0.0,
+            "attitude": -0.017550246738392304,
+            "height": -1.3499409656213681,
+            "mechanical_power": -0.046152860987686214,
+            "termination": 0.0,
+            "tracking_velocity": 26.683378365500815,
+            "tracking_yaw": 27.664447293631422
+          },
+          "final_x_m": 1.864494577082178,
+          "geometric_nonflat_exposure": {
+            "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+            "nonflat_fraction": 0.7199566943341754,
+            "nonflat_now": true,
+            "nonflat_path_m": 4.235416334301909,
+            "nonflat_steps": 1995,
+            "path_m": 5.6818505191804,
+            "unique_nonflat_0p25m_cells": 22
+          },
+          "height_rmse_m": 0.011035934896600982,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 27.70999999999552,
+          "original_actual_transitions": 3200,
+          "pitch_rmse_rad": 0.016296623128112628,
+          "policy": "zero",
+          "roll_rmse_rad": 0.0044078900584494825,
+          "signed_forward_progress_m": 5.664494577082178,
+          "terminal_reason_at_endpoint": null,
+          "terminated_at_endpoint": false,
+          "truncated_at_endpoint": false,
+          "velocity_rmse_mps": 0.041408442151475336,
+          "yaw_rate_rmse_rps": 0.008127698506517601
+        }
+      },
+      "seed": 48001
+    },
+    {
+      "case": "final_right_offset_slow",
+      "common_transitions": 887,
+      "planned_transitions": 3200,
+      "policies": {
+        "bounded": {
+          "actual_transitions": 887,
+          "cumulative_return": 14.963564206688975,
+          "cumulative_reward_terms": {
+            "action_change": -0.0012465865471941787,
+            "attitude": -0.07082208744136043,
+            "height": -1.9455314849769545,
+            "mechanical_power": -0.05157605572710357,
+            "termination": 0.0,
+            "tracking_velocity": 8.241265892554832,
+            "tracking_yaw": 8.79147452882677
+          },
+          "final_x_m": -2.3011911775985316,
+          "geometric_nonflat_exposure": {
+            "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+            "nonflat_fraction": 0.007891770011273957,
+            "nonflat_now": true,
+            "nonflat_path_m": 0.011847177719415208,
+            "nonflat_steps": 7,
+            "path_m": 1.5092996507936605,
+            "unique_nonflat_0p25m_cells": 1
+          },
+          "height_rmse_m": 0.023416788108664797,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 8.869999999999632,
+          "original_actual_transitions": 3200,
+          "pitch_rmse_rad": 0.059153938063530906,
+          "policy": "seed48002/bounded",
+          "roll_rmse_rad": 0.009685810256558371,
+          "signed_forward_progress_m": 1.4988088224014682,
+          "terminal_reason_at_endpoint": null,
+          "terminated_at_endpoint": false,
+          "truncated_at_endpoint": false,
+          "velocity_rmse_mps": 0.05530064464404464,
+          "yaw_rate_rmse_rps": 0.018929943169849105
+        },
+        "unbounded": {
+          "actual_transitions": 887,
+          "cumulative_return": 9.952598003423274,
+          "cumulative_reward_terms": {
+            "action_change": -0.0013179665041448696,
+            "attitude": -0.4098919151799922,
+            "height": -3.22382089057217,
+            "mechanical_power": -0.07601178286561466,
+            "termination": -2.0,
+            "tracking_velocity": 7.089880784652279,
+            "tracking_yaw": 8.573759773892935
+          },
+          "final_x_m": -1.5585828144195617,
+          "geometric_nonflat_exposure": {
+            "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+            "nonflat_fraction": 0.22322435174746336,
+            "nonflat_now": true,
+            "nonflat_path_m": 0.7241439953913507,
+            "nonflat_steps": 198,
+            "path_m": 2.2537879275423798,
+            "unique_nonflat_0p25m_cells": 6
+          },
+          "height_rmse_m": 0.030143497892777014,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 8.869999999999632,
+          "original_actual_transitions": 887,
+          "pitch_rmse_rad": 0.1406418142190437,
+          "policy": "seed48002/unbounded",
+          "roll_rmse_rad": 0.03185667285077514,
+          "signed_forward_progress_m": 2.2414171855804383,
+          "terminal_reason_at_endpoint": "fall_or_body_contact",
+          "terminated_at_endpoint": true,
+          "truncated_at_endpoint": false,
+          "velocity_rmse_mps": 0.1501589738572141,
+          "yaw_rate_rmse_rps": 0.04291362236476496
+        },
+        "zero": {
+          "actual_transitions": 887,
+          "cumulative_return": 17.33703473396063,
+          "cumulative_reward_terms": {
+            "action_change": 0.0,
+            "attitude": -0.0021104683364881398,
+            "height": -0.08614233224894535,
+            "mechanical_power": -0.015520028074398973,
+            "termination": 0.0,
+            "tracking_velocity": 8.60608213762537,
+            "tracking_yaw": 8.834725424995067
+          },
+          "final_x_m": -2.1649308207082236,
+          "geometric_nonflat_exposure": {
+            "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+            "nonflat_fraction": 0.12514092446448705,
+            "nonflat_now": true,
+            "nonflat_path_m": 0.20564380878661026,
+            "nonflat_steps": 111,
+            "path_m": 1.6520779936651055,
+            "unique_nonflat_0p25m_cells": 4
+          },
+          "height_rmse_m": 0.004927385116234874,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 8.869999999999632,
+          "original_actual_transitions": 3200,
+          "pitch_rmse_rad": 0.010344748248266724,
+          "policy": "zero",
+          "roll_rmse_rad": 0.00023699563090751768,
+          "signed_forward_progress_m": 1.6350691792917762,
+          "terminal_reason_at_endpoint": null,
+          "terminated_at_endpoint": false,
+          "truncated_at_endpoint": false,
+          "velocity_rmse_mps": 0.035933992821782244,
+          "yaw_rate_rmse_rps": 0.012647217362122985
+        }
+      },
+      "seed": 48002
+    },
+    {
+      "case": "final_right_offset_slow",
+      "common_transitions": 2724,
+      "planned_transitions": 3200,
+      "policies": {
+        "bounded": {
+          "actual_transitions": 2724,
+          "cumulative_return": 47.28643941146854,
+          "cumulative_reward_terms": {
+            "action_change": -0.0010243823718918907,
+            "attitude": -0.2154721261636805,
+            "height": -0.9254331549134949,
+            "mechanical_power": -0.17715141049839975,
+            "termination": -2.0,
+            "tracking_velocity": 25.395494017925458,
+            "tracking_yaw": 25.21002646749062
+          },
+          "final_x_m": -0.16825738588690514,
+          "geometric_nonflat_exposure": {
+            "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+            "nonflat_fraction": 0.7110866372980911,
+            "nonflat_now": false,
+            "nonflat_path_m": 3.3503880638246226,
+            "nonflat_steps": 1937,
+            "path_m": 4.678040987165558,
+            "unique_nonflat_0p25m_cells": 20
+          },
+          "height_rmse_m": 0.009215926024266354,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 27.23999999999578,
+          "original_actual_transitions": 2724,
+          "pitch_rmse_rad": 0.05754262614267849,
+          "policy": "seed48003/bounded",
+          "roll_rmse_rad": 0.015760955940939434,
+          "signed_forward_progress_m": 3.6317426141130946,
+          "terminal_reason_at_endpoint": "map_boundary",
+          "terminated_at_endpoint": true,
+          "truncated_at_endpoint": false,
+          "velocity_rmse_mps": 0.05359183531447557,
+          "yaw_rate_rmse_rps": 0.058229870030370424
+        },
+        "unbounded": {
+          "actual_transitions": 2724,
+          "cumulative_return": 51.724641303264676,
+          "cumulative_reward_terms": {
+            "action_change": -0.0005248073619566131,
+            "attitude": -0.048535274226167886,
+            "height": -0.3567372794170986,
+            "mechanical_power": -0.13077372881256794,
+            "termination": 0.0,
+            "tracking_velocity": 26.057661774319623,
+            "tracking_yaw": 26.20355061876302
+          },
+          "final_x_m": 0.8070121719342354,
+          "geometric_nonflat_exposure": {
+            "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+            "nonflat_fraction": 0.7202643171806168,
+            "nonflat_now": true,
+            "nonflat_path_m": 3.7645124187683288,
+            "nonflat_steps": 1962,
+            "path_m": 5.1739421820275195,
+            "unique_nonflat_0p25m_cells": 20
+          },
+          "height_rmse_m": 0.005721905760018385,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 27.23999999999578,
+          "original_actual_transitions": 3112,
+          "pitch_rmse_rad": 0.026239538018790535,
+          "policy": "seed48003/unbounded",
+          "roll_rmse_rad": 0.01064334638661756,
+          "signed_forward_progress_m": 4.607012171934235,
+          "terminal_reason_at_endpoint": null,
+          "terminated_at_endpoint": false,
+          "truncated_at_endpoint": false,
+          "velocity_rmse_mps": 0.04431066965882781,
+          "yaw_rate_rmse_rps": 0.04073455554299979
+        },
+        "zero": {
+          "actual_transitions": 2724,
+          "cumulative_return": 52.03573275008242,
+          "cumulative_reward_terms": {
+            "action_change": 0.0,
+            "attitude": -0.017529682314546307,
+            "height": -1.316477497157482,
+            "mechanical_power": -0.045452027996223415,
+            "termination": 0.0,
+            "tracking_velocity": 26.220211470754386,
+            "tracking_yaw": 27.19498048679625
+          },
+          "final_x_m": 1.77231617034462,
+          "geometric_nonflat_exposure": {
+            "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+            "nonflat_fraction": 0.7151248164464024,
+            "nonflat_now": true,
+            "nonflat_path_m": 4.143231678362384,
+            "nonflat_steps": 1948,
+            "path_m": 5.589665863240875,
+            "unique_nonflat_0p25m_cells": 22
+          },
+          "height_rmse_m": 0.010991910225917449,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 27.23999999999578,
+          "original_actual_transitions": 3200,
+          "pitch_rmse_rad": 0.01642872517549317,
+          "policy": "zero",
+          "roll_rmse_rad": 0.004436693815626298,
+          "signed_forward_progress_m": 5.57231617034462,
+          "terminal_reason_at_endpoint": null,
+          "terminated_at_endpoint": false,
+          "truncated_at_endpoint": false,
+          "velocity_rmse_mps": 0.04164284595600507,
+          "yaw_rate_rmse_rps": 0.008149559098170037
+        }
+      },
+      "seed": 48003
+    },
+    {
+      "case": "final_diagonal_gentle_turn",
+      "common_transitions": 2253,
+      "planned_transitions": 3200,
+      "policies": {
+        "bounded": {
+          "actual_transitions": 2253,
+          "cumulative_return": 39.579745259554855,
+          "cumulative_reward_terms": {
+            "action_change": -0.0008559016851664194,
+            "attitude": -0.5099398289972236,
+            "height": -0.5185221731358671,
+            "mechanical_power": -0.10076618998282762,
+            "termination": -2.0,
+            "tracking_velocity": 21.358007271404865,
+            "tracking_yaw": 21.351822081951084
+          },
+          "final_x_m": 1.5995214016969221,
+          "geometric_nonflat_exposure": {
+            "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+            "nonflat_fraction": 0.7581003106968487,
+            "nonflat_now": true,
+            "nonflat_path_m": 4.756977787230819,
+            "nonflat_steps": 1708,
+            "path_m": 6.099874069768145,
+            "unique_nonflat_0p25m_cells": 26
+          },
+          "height_rmse_m": 0.007585305463915378,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 22.52999999999839,
+          "original_actual_transitions": 2253,
+          "pitch_rmse_rad": 0.09794589639808302,
+          "policy": "seed48001/bounded",
+          "roll_rmse_rad": 0.024327302981061737,
+          "signed_forward_progress_m": 5.399521401696922,
+          "terminal_reason_at_endpoint": "map_boundary",
+          "terminated_at_endpoint": true,
+          "truncated_at_endpoint": false,
+          "velocity_rmse_mps": 0.048387564859732383,
+          "yaw_rate_rmse_rps": 0.05420895676905878
+        },
+        "unbounded": {
+          "actual_transitions": 2253,
+          "cumulative_return": 41.68269265803857,
+          "cumulative_reward_terms": {
+            "action_change": -0.0009158544908089805,
+            "attitude": -0.6067509324653955,
+            "height": -0.6527977963683108,
+            "mechanical_power": -0.13963761688967247,
+            "termination": 0.0,
+            "tracking_velocity": 21.405489347590184,
+            "tracking_yaw": 21.677305510662737
+          },
+          "final_x_m": 2.4669894119094584,
+          "geometric_nonflat_exposure": {
+            "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+            "nonflat_fraction": 0.7851753217931646,
+            "nonflat_now": true,
+            "nonflat_path_m": 5.425775917330857,
+            "nonflat_steps": 1769,
+            "path_m": 6.738938029679533,
+            "unique_nonflat_0p25m_cells": 28
+          },
+          "height_rmse_m": 0.00851096389821606,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 22.52999999999839,
+          "original_actual_transitions": 2402,
+          "pitch_rmse_rad": 0.09322969674569322,
+          "policy": "seed48001/unbounded",
+          "roll_rmse_rad": 0.05854130006918029,
+          "signed_forward_progress_m": 6.266989411909458,
+          "terminal_reason_at_endpoint": null,
+          "terminated_at_endpoint": false,
+          "truncated_at_endpoint": false,
+          "velocity_rmse_mps": 0.04625960784002053,
+          "yaw_rate_rmse_rps": 0.043549888521726456
+        },
+        "zero": {
+          "actual_transitions": 2253,
+          "cumulative_return": 42.07413174200036,
+          "cumulative_reward_terms": {
+            "action_change": 0.0,
+            "attitude": -0.020815281685629676,
+            "height": -1.0737104264642419,
+            "mechanical_power": -0.0482458806594886,
+            "termination": 0.0,
+            "tracking_velocity": 21.134020985888295,
+            "tracking_yaw": 22.082882344921394
+          },
+          "final_x_m": 1.8860191714178511,
+          "geometric_nonflat_exposure": {
+            "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+            "nonflat_fraction": 0.7181535730137595,
+            "nonflat_now": true,
+            "nonflat_path_m": 4.299956319655539,
+            "nonflat_steps": 1618,
+            "path_m": 5.728973425874869,
+            "unique_nonflat_0p25m_cells": 22
+          },
+          "height_rmse_m": 0.010915232571651907,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 22.52999999999839,
+          "original_actual_transitions": 3200,
+          "pitch_rmse_rad": 0.019480713539741422,
+          "policy": "zero",
+          "roll_rmse_rad": 0.006021054611140709,
+          "signed_forward_progress_m": 5.6860191714178505,
+          "terminal_reason_at_endpoint": null,
+          "terminated_at_endpoint": false,
+          "truncated_at_endpoint": false,
+          "velocity_rmse_mps": 0.05373332796979595,
+          "yaw_rate_rmse_rps": 0.028772931075484356
+        }
+      },
+      "seed": 48001
+    },
+    {
+      "case": "final_diagonal_gentle_turn",
+      "common_transitions": 3200,
+      "planned_transitions": 3200,
+      "policies": {
+        "bounded": {
+          "actual_transitions": 3200,
+          "cumulative_return": 34.83621083995948,
+          "cumulative_reward_terms": {
+            "action_change": -0.001257879304136539,
+            "attitude": -0.6262596623658768,
+            "height": -14.411696733586389,
+            "mechanical_power": -0.24004056664042858,
+            "termination": 0.0,
+            "tracking_velocity": 21.418451574540008,
+            "tracking_yaw": 28.69701410731622
+          },
+          "final_x_m": 2.6718196480032743,
+          "geometric_nonflat_exposure": {
+            "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+            "nonflat_fraction": 0.7825,
+            "nonflat_now": true,
+            "nonflat_path_m": 6.4954270813483515,
+            "nonflat_steps": 2504,
+            "path_m": 7.982668406501815,
+            "unique_nonflat_0p25m_cells": 27
+          },
+          "height_rmse_m": 0.03355463913249063,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 31.999999999993143,
+          "original_actual_transitions": 3200,
+          "pitch_rmse_rad": 0.0888782130736332,
+          "policy": "seed48002/bounded",
+          "roll_rmse_rad": 0.03012374051904367,
+          "signed_forward_progress_m": 6.471819648003274,
+          "terminal_reason_at_endpoint": "time_limit",
+          "terminated_at_endpoint": false,
+          "truncated_at_endpoint": true,
+          "velocity_rmse_mps": 0.18320363186414368,
+          "yaw_rate_rmse_rps": 0.08612961593294706
+        },
+        "unbounded": {
+          "actual_transitions": 3200,
+          "cumulative_return": 11.161113163807158,
+          "cumulative_reward_terms": {
+            "action_change": -0.0013301745657853278,
+            "attitude": -2.405648929734945,
+            "height": -29.252118097537455,
+            "mechanical_power": -0.30994836784537466,
+            "termination": 0.0,
+            "tracking_velocity": 15.354639309426041,
+            "tracking_yaw": 27.775519424064722
+          },
+          "final_x_m": 4.486856319272557,
+          "geometric_nonflat_exposure": {
+            "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+            "nonflat_fraction": 0.7334375,
+            "nonflat_now": false,
+            "nonflat_path_m": 7.381224946000248,
+            "nonflat_steps": 2347,
+            "path_m": 9.882266242697252,
+            "unique_nonflat_0p25m_cells": 30
+          },
+          "height_rmse_m": 0.047805038713202117,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 31.999999999993143,
+          "original_actual_transitions": 3200,
+          "pitch_rmse_rad": 0.18004493514398442,
+          "policy": "seed48002/unbounded",
+          "roll_rmse_rad": 0.037593342541013146,
+          "signed_forward_progress_m": 8.286856319272557,
+          "terminal_reason_at_endpoint": "time_limit",
+          "terminated_at_endpoint": false,
+          "truncated_at_endpoint": true,
+          "velocity_rmse_mps": 0.24229672441940114,
+          "yaw_rate_rmse_rps": 0.10295917218405835
+        },
+        "zero": {
+          "actual_transitions": 3200,
+          "cumulative_return": 60.14267399908583,
+          "cumulative_reward_terms": {
+            "action_change": 0.0,
+            "attitude": -0.025792742465687576,
+            "height": -1.8221624870952169,
+            "mechanical_power": -0.06493270701113989,
+            "termination": 0.0,
+            "tracking_velocity": 30.51301667620038,
+            "tracking_yaw": 31.542545259457423
+          },
+          "final_x_m": 4.295084878379239,
+          "geometric_nonflat_exposure": {
+            "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+            "nonflat_fraction": 0.7334375,
+            "nonflat_now": false,
+            "nonflat_path_m": 6.1901370614696685,
+            "nonflat_steps": 2347,
+            "path_m": 8.182382067325706,
+            "unique_nonflat_0p25m_cells": 30
+          },
+          "height_rmse_m": 0.011931321984774219,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 31.999999999993143,
+          "original_actual_transitions": 3200,
+          "pitch_rmse_rad": 0.01781731199830237,
+          "policy": "zero",
+          "roll_rmse_rad": 0.006727097002345937,
+          "signed_forward_progress_m": 8.09508487837924,
+          "terminal_reason_at_endpoint": "time_limit",
+          "terminated_at_endpoint": false,
+          "truncated_at_endpoint": true,
+          "velocity_rmse_mps": 0.04636964038486608,
+          "yaw_rate_rmse_rps": 0.02440958675184769
+        }
+      },
+      "seed": 48002
+    },
+    {
+      "case": "final_diagonal_gentle_turn",
+      "common_transitions": 2368,
+      "planned_transitions": 3200,
+      "policies": {
+        "bounded": {
+          "actual_transitions": 2368,
+          "cumulative_return": 39.529365277273854,
+          "cumulative_reward_terms": {
+            "action_change": -0.0010276406215654927,
+            "attitude": -0.2864343699226208,
+            "height": -1.7503818962594049,
+            "mechanical_power": -0.15607205657379164,
+            "termination": -2.0,
+            "tracking_velocity": 21.428919235638553,
+            "tracking_yaw": 22.294362005012676
+          },
+          "final_x_m": 0.16913718535582717,
+          "geometric_nonflat_exposure": {
+            "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+            "nonflat_fraction": 0.6959459459459459,
+            "nonflat_now": false,
+            "nonflat_path_m": 3.4081847054627503,
+            "nonflat_steps": 1648,
+            "path_m": 4.924495916801137,
+            "unique_nonflat_0p25m_cells": 20
+          },
+          "height_rmse_m": 0.013593946667806459,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 23.679999999997754,
+          "original_actual_transitions": 2368,
+          "pitch_rmse_rad": 0.07096541173833752,
+          "policy": "seed48003/bounded",
+          "roll_rmse_rad": 0.020177488669821574,
+          "signed_forward_progress_m": 3.969137185355827,
+          "terminal_reason_at_endpoint": "map_boundary",
+          "terminated_at_endpoint": true,
+          "truncated_at_endpoint": false,
+          "velocity_rmse_mps": 0.06369059241303458,
+          "yaw_rate_rmse_rps": 0.05028441167793505
+        },
+        "unbounded": {
+          "actual_transitions": 2368,
+          "cumulative_return": 44.14261217417091,
+          "cumulative_reward_terms": {
+            "action_change": -0.0005253335818591012,
+            "attitude": -0.04715282471470698,
+            "height": -0.28397440703274296,
+            "mechanical_power": -0.13338319354647715,
+            "termination": 0.0,
+            "tracking_velocity": 22.257062596630135,
+            "tracking_yaw": 22.35058533641673
+          },
+          "final_x_m": 1.0440548259227562,
+          "geometric_nonflat_exposure": {
+            "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+            "nonflat_fraction": 0.7369087837837838,
+            "nonflat_now": true,
+            "nonflat_path_m": 4.224110223655894,
+            "nonflat_steps": 1745,
+            "path_m": 5.633954372472049,
+            "unique_nonflat_0p25m_cells": 23
+          },
+          "height_rmse_m": 0.005475436617100208,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 23.679999999997754,
+          "original_actual_transitions": 2482,
+          "pitch_rmse_rad": 0.02590196094052839,
+          "policy": "seed48003/unbounded",
+          "roll_rmse_rad": 0.015005045454725887,
+          "signed_forward_progress_m": 4.844054825922756,
+          "terminal_reason_at_endpoint": null,
+          "terminated_at_endpoint": false,
+          "truncated_at_endpoint": false,
+          "velocity_rmse_mps": 0.05181515964699565,
+          "yaw_rate_rmse_rps": 0.05229453804023812
+        },
+        "zero": {
+          "actual_transitions": 2368,
+          "cumulative_return": 44.27129113453509,
+          "cumulative_reward_terms": {
+            "action_change": 0.0,
+            "attitude": -0.021763208852395473,
+            "height": -1.1719784246496534,
+            "mechanical_power": -0.04962296154705509,
+            "termination": 0.0,
+            "tracking_velocity": 22.282227761417722,
+            "tracking_yaw": 23.232427968166437
+          },
+          "final_x_m": 2.1885747744438344,
+          "geometric_nonflat_exposure": {
+            "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+            "nonflat_fraction": 0.7318412162162162,
+            "nonflat_now": true,
+            "nonflat_path_m": 4.606035683574726,
+            "nonflat_steps": 1733,
+            "path_m": 6.035052789794055,
+            "unique_nonflat_0p25m_cells": 23
+          },
+          "height_rmse_m": 0.011123436083562175,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 23.679999999997754,
+          "original_actual_transitions": 3200,
+          "pitch_rmse_rad": 0.019253280092467236,
+          "policy": "zero",
+          "roll_rmse_rad": 0.006548717296603186,
+          "signed_forward_progress_m": 5.988574774443834,
+          "terminal_reason_at_endpoint": null,
+          "terminated_at_endpoint": false,
+          "truncated_at_endpoint": false,
+          "velocity_rmse_mps": 0.05244128453891711,
+          "yaw_rate_rmse_rps": 0.02807924541787137
+        }
+      },
+      "seed": 48003
+    }
+  ],
+  "definitions": {
+    "common_prefix": "For each seed/case, K=min(actual steps of zero, unbounded, bounded); recompute all three on recorded transitions 1..K inclusive, retaining endpoint termination penalties.",
+    "common_prefix_limit": "Equal duration does not imply equal trajectory or terrain exposure. Cutoff uses observed termination; this is a diagnostic, not an independent success metric.",
+    "completed_count": "Runs reaching the planned horizon by time_limit truncation, without termination; not terrain traversal proof.",
+    "equal_case_mean_full_episode": "Arithmetic mean of each case's full observed metric. Different terminal durations remain different; no pooling or padding.",
+    "signed_progress": "Endpoint world x minus initial world x, not path length or command-integrated distance.",
+    "zero_reuse": "One zero run per case is reused in each seed comparison; copies are not independent replications."
+  },
+  "full_metrics_recomputed_from_traces": [
+    {
+      "case": "final_right_offset_slow",
+      "policy": "zero",
+      "recomputed_full_metrics": {
+        "actual_transitions": 3200,
+        "cumulative_return": 61.13949774010638,
+        "cumulative_reward_terms": {
+          "action_change": 0.0,
+          "attitude": -0.017994915547971967,
+          "height": -1.6696156064896568,
+          "mechanical_power": -0.05258767990371055,
+          "termination": 0.0,
+          "tracking_velocity": 30.966196077046902,
+          "tracking_yaw": 31.913499865000762
+        },
+        "final_x_m": 2.783557257621636,
+        "geometric_nonflat_exposure": {
+          "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+          "nonflat_fraction": 0.7575,
+          "nonflat_now": true,
+          "nonflat_path_m": 5.158593318923611,
+          "nonflat_steps": 2424,
+          "path_m": 6.605027503802102,
+          "unique_nonflat_0p25m_cells": 27
+        },
+        "height_rmse_m": 0.011420977158590423,
+        "initial_x_m": -3.8,
+        "integrated_duration_s": 31.999999999993143,
+        "pitch_rmse_rad": 0.015236542217596039,
+        "roll_rmse_rad": 0.004571791896485653,
+        "signed_forward_progress_m": 6.583557257621636,
+        "terminal_reason_at_endpoint": "time_limit",
+        "terminated_at_endpoint": false,
+        "truncated_at_endpoint": true,
+        "velocity_rmse_mps": 0.038649479494709905,
+        "yaw_rate_rmse_rps": 0.010435974983597041
+      }
+    },
+    {
+      "case": "final_right_offset_slow",
+      "policy": "seed48001/unbounded",
+      "recomputed_full_metrics": {
+        "actual_transitions": 2993,
+        "cumulative_return": 54.18128818174074,
+        "cumulative_reward_terms": {
+          "action_change": -0.0009148586191576607,
+          "attitude": -0.6906384821097696,
+          "height": -0.967000774948359,
+          "mechanical_power": -0.1559153593402073,
+          "termination": -2.0,
+          "tracking_velocity": 28.71276720975897,
+          "tracking_yaw": 29.282990446999317
+        },
+        "final_x_m": 3.1719041774551426,
+        "geometric_nonflat_exposure": {
+          "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+          "nonflat_fraction": 0.8128967591045774,
+          "nonflat_now": true,
+          "nonflat_path_m": 6.169187734454538,
+          "nonflat_steps": 2433,
+          "path_m": 7.480297034746969,
+          "unique_nonflat_0p25m_cells": 32
+        },
+        "height_rmse_m": 0.008987316929918119,
+        "initial_x_m": -3.8,
+        "integrated_duration_s": 29.92999999999429,
+        "pitch_rmse_rad": 0.07960697502220823,
+        "roll_rmse_rad": 0.06361238590394322,
+        "signed_forward_progress_m": 6.9719041774551425,
+        "terminal_reason_at_endpoint": "map_boundary",
+        "terminated_at_endpoint": true,
+        "truncated_at_endpoint": false,
+        "velocity_rmse_mps": 0.041502897010812584,
+        "yaw_rate_rmse_rps": 0.030380266866625365
+      }
+    },
+    {
+      "case": "final_right_offset_slow",
+      "policy": "seed48001/bounded",
+      "recomputed_full_metrics": {
+        "actual_transitions": 2771,
+        "cumulative_return": 50.79487189941209,
+        "cumulative_reward_terms": {
+          "action_change": -0.000854397803853198,
+          "attitude": -0.6071691431104834,
+          "height": -0.4697434079740894,
+          "mechanical_power": -0.10326413773833591,
+          "termination": -2.0,
+          "tracking_velocity": 27.099705435891316,
+          "tracking_yaw": 26.876197550147598
+        },
+        "final_x_m": 1.7087154567041354,
+        "geometric_nonflat_exposure": {
+          "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+          "nonflat_fraction": 0.7376398412125587,
+          "nonflat_now": false,
+          "nonflat_path_m": 4.623797691521097,
+          "nonflat_steps": 2044,
+          "path_m": 6.149324990125317,
+          "unique_nonflat_0p25m_cells": 25
+        },
+        "height_rmse_m": 0.006510016488880967,
+        "initial_x_m": -3.8,
+        "integrated_duration_s": 27.70999999999552,
+        "pitch_rmse_rad": 0.09626767133399564,
+        "roll_rmse_rad": 0.02434613850062016,
+        "signed_forward_progress_m": 5.508715456704135,
+        "terminal_reason_at_endpoint": "map_boundary",
+        "terminated_at_endpoint": true,
+        "truncated_at_endpoint": false,
+        "velocity_rmse_mps": 0.031097457067903404,
+        "yaw_rate_rmse_rps": 0.03539985783369799
+      }
+    },
+    {
+      "case": "final_right_offset_slow",
+      "policy": "seed48002/unbounded",
+      "recomputed_full_metrics": {
+        "actual_transitions": 887,
+        "cumulative_return": 9.952598003423274,
+        "cumulative_reward_terms": {
+          "action_change": -0.0013179665041448696,
+          "attitude": -0.4098919151799922,
+          "height": -3.22382089057217,
+          "mechanical_power": -0.07601178286561466,
+          "termination": -2.0,
+          "tracking_velocity": 7.089880784652279,
+          "tracking_yaw": 8.573759773892935
+        },
+        "final_x_m": -1.5585828144195617,
+        "geometric_nonflat_exposure": {
+          "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+          "nonflat_fraction": 0.22322435174746336,
+          "nonflat_now": true,
+          "nonflat_path_m": 0.7241439953913507,
+          "nonflat_steps": 198,
+          "path_m": 2.2537879275423798,
+          "unique_nonflat_0p25m_cells": 6
+        },
+        "height_rmse_m": 0.030143497892777014,
+        "initial_x_m": -3.8,
+        "integrated_duration_s": 8.869999999999632,
+        "pitch_rmse_rad": 0.1406418142190437,
+        "roll_rmse_rad": 0.03185667285077514,
+        "signed_forward_progress_m": 2.2414171855804383,
+        "terminal_reason_at_endpoint": "fall_or_body_contact",
+        "terminated_at_endpoint": true,
+        "truncated_at_endpoint": false,
+        "velocity_rmse_mps": 0.1501589738572141,
+        "yaw_rate_rmse_rps": 0.04291362236476496
+      }
+    },
+    {
+      "case": "final_right_offset_slow",
+      "policy": "seed48002/bounded",
+      "recomputed_full_metrics": {
+        "actual_transitions": 3200,
+        "cumulative_return": 51.941884808582245,
+        "cumulative_reward_terms": {
+          "action_change": -0.0012546930482454286,
+          "attitude": -0.34680589943353674,
+          "height": -8.126926988165414,
+          "mechanical_power": -0.2100856148654435,
+          "termination": 0.0,
+          "tracking_velocity": 29.092516440078548,
+          "tracking_yaw": 31.534441564016248
+        },
+        "final_x_m": 1.35568461745394,
+        "geometric_nonflat_exposure": {
+          "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+          "nonflat_fraction": 0.7190625,
+          "nonflat_now": true,
+          "nonflat_path_m": 3.919063958301803,
+          "nonflat_steps": 2301,
+          "path_m": 5.431349575684607,
+          "unique_nonflat_0p25m_cells": 21
+        },
+        "height_rmse_m": 0.02519754295463257,
+        "initial_x_m": -3.8,
+        "integrated_duration_s": 31.999999999993143,
+        "pitch_rmse_rad": 0.06819187987214147,
+        "roll_rmse_rad": 0.015060726419689592,
+        "signed_forward_progress_m": 5.1556846174539395,
+        "terminal_reason_at_endpoint": "time_limit",
+        "terminated_at_endpoint": false,
+        "truncated_at_endpoint": true,
+        "velocity_rmse_mps": 0.06338676134369804,
+        "yaw_rate_rmse_rps": 0.024601805591201644
+      }
+    },
+    {
+      "case": "final_right_offset_slow",
+      "policy": "seed48003/unbounded",
+      "recomputed_full_metrics": {
+        "actual_transitions": 3112,
+        "cumulative_return": 57.183436620202926,
+        "cumulative_reward_terms": {
+          "action_change": -0.0005263767170428558,
+          "attitude": -0.051394983533271196,
+          "height": -0.3632662034356202,
+          "mechanical_power": -0.15078993216521133,
+          "termination": -2.0,
+          "tracking_velocity": 29.8288699106921,
+          "tracking_yaw": 29.92054420536221
+        },
+        "final_x_m": 1.2442877152635057,
+        "geometric_nonflat_exposure": {
+          "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+          "nonflat_fraction": 0.7551413881748072,
+          "nonflat_now": true,
+          "nonflat_path_m": 4.487974580699631,
+          "nonflat_steps": 2350,
+          "path_m": 5.897404343958822,
+          "unique_nonflat_0p25m_cells": 24
+        },
+        "height_rmse_m": 0.005402101099703838,
+        "initial_x_m": -3.8,
+        "integrated_duration_s": 31.11999999999363,
+        "pitch_rmse_rad": 0.024907498454855338,
+        "roll_rmse_rad": 0.011081331592337335,
+        "signed_forward_progress_m": 5.044287715263506,
+        "terminal_reason_at_endpoint": "map_boundary",
+        "terminated_at_endpoint": true,
+        "truncated_at_endpoint": false,
+        "velocity_rmse_mps": 0.04313459172010236,
+        "yaw_rate_rmse_rps": 0.04085705146169131
+      }
+    },
+    {
+      "case": "final_right_offset_slow",
+      "policy": "seed48003/bounded",
+      "recomputed_full_metrics": {
+        "actual_transitions": 2724,
+        "cumulative_return": 47.28643941146854,
+        "cumulative_reward_terms": {
+          "action_change": -0.0010243823718918907,
+          "attitude": -0.2154721261636805,
+          "height": -0.9254331549134949,
+          "mechanical_power": -0.17715141049839975,
+          "termination": -2.0,
+          "tracking_velocity": 25.395494017925458,
+          "tracking_yaw": 25.21002646749062
+        },
+        "final_x_m": -0.16825738588690514,
+        "geometric_nonflat_exposure": {
+          "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+          "nonflat_fraction": 0.7110866372980911,
+          "nonflat_now": false,
+          "nonflat_path_m": 3.3503880638246226,
+          "nonflat_steps": 1937,
+          "path_m": 4.678040987165558,
+          "unique_nonflat_0p25m_cells": 20
+        },
+        "height_rmse_m": 0.009215926024266354,
+        "initial_x_m": -3.8,
+        "integrated_duration_s": 27.23999999999578,
+        "pitch_rmse_rad": 0.05754262614267849,
+        "roll_rmse_rad": 0.015760955940939434,
+        "signed_forward_progress_m": 3.6317426141130946,
+        "terminal_reason_at_endpoint": "map_boundary",
+        "terminated_at_endpoint": true,
+        "truncated_at_endpoint": false,
+        "velocity_rmse_mps": 0.05359183531447557,
+        "yaw_rate_rmse_rps": 0.058229870030370424
+      }
+    },
+    {
+      "case": "final_diagonal_gentle_turn",
+      "policy": "zero",
+      "recomputed_full_metrics": {
+        "actual_transitions": 3200,
+        "cumulative_return": 60.14267399908583,
+        "cumulative_reward_terms": {
+          "action_change": 0.0,
+          "attitude": -0.025792742465687576,
+          "height": -1.8221624870952169,
+          "mechanical_power": -0.06493270701113989,
+          "termination": 0.0,
+          "tracking_velocity": 30.51301667620038,
+          "tracking_yaw": 31.542545259457423
+        },
+        "final_x_m": 4.295084878379239,
+        "geometric_nonflat_exposure": {
+          "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+          "nonflat_fraction": 0.7334375,
+          "nonflat_now": false,
+          "nonflat_path_m": 6.1901370614696685,
+          "nonflat_steps": 2347,
+          "path_m": 8.182382067325706,
+          "unique_nonflat_0p25m_cells": 30
+        },
+        "height_rmse_m": 0.011931321984774219,
+        "initial_x_m": -3.8,
+        "integrated_duration_s": 31.999999999993143,
+        "pitch_rmse_rad": 0.01781731199830237,
+        "roll_rmse_rad": 0.006727097002345937,
+        "signed_forward_progress_m": 8.09508487837924,
+        "terminal_reason_at_endpoint": "time_limit",
+        "terminated_at_endpoint": false,
+        "truncated_at_endpoint": true,
+        "velocity_rmse_mps": 0.04636964038486608,
+        "yaw_rate_rmse_rps": 0.02440958675184769
+      }
+    },
+    {
+      "case": "final_diagonal_gentle_turn",
+      "policy": "seed48001/unbounded",
+      "recomputed_full_metrics": {
+        "actual_transitions": 2402,
+        "cumulative_return": 42.4713532386882,
+        "cumulative_reward_terms": {
+          "action_change": -0.0009158856626299782,
+          "attitude": -0.6539997271268255,
+          "height": -0.7372202886712702,
+          "mechanical_power": -0.14846309003409477,
+          "termination": -2.0,
+          "tracking_velocity": 22.856087530952927,
+          "tracking_yaw": 23.155864699230264
+        },
+        "final_x_m": 2.8198123055383992,
+        "geometric_nonflat_exposure": {
+          "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+          "nonflat_fraction": 0.7985012489592007,
+          "nonflat_now": true,
+          "nonflat_path_m": 5.878383789065178,
+          "nonflat_steps": 1918,
+          "path_m": 7.191545901413853,
+          "unique_nonflat_0p25m_cells": 31
+        },
+        "height_rmse_m": 0.008759556982965438,
+        "initial_x_m": -3.8,
+        "integrated_duration_s": 24.019999999997566,
+        "pitch_rmse_rad": 0.09339196478517596,
+        "roll_rmse_rad": 0.059415701291735706,
+        "signed_forward_progress_m": 6.6198123055383995,
+        "terminal_reason_at_endpoint": "map_boundary",
+        "terminated_at_endpoint": true,
+        "truncated_at_endpoint": false,
+        "velocity_rmse_mps": 0.045539059070970195,
+        "yaw_rate_rmse_rps": 0.04240455115631011
+      }
+    },
+    {
+      "case": "final_diagonal_gentle_turn",
+      "policy": "seed48001/bounded",
+      "recomputed_full_metrics": {
+        "actual_transitions": 2253,
+        "cumulative_return": 39.579745259554855,
+        "cumulative_reward_terms": {
+          "action_change": -0.0008559016851664194,
+          "attitude": -0.5099398289972236,
+          "height": -0.5185221731358671,
+          "mechanical_power": -0.10076618998282762,
+          "termination": -2.0,
+          "tracking_velocity": 21.358007271404865,
+          "tracking_yaw": 21.351822081951084
+        },
+        "final_x_m": 1.5995214016969221,
+        "geometric_nonflat_exposure": {
+          "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+          "nonflat_fraction": 0.7581003106968487,
+          "nonflat_now": true,
+          "nonflat_path_m": 4.756977787230819,
+          "nonflat_steps": 1708,
+          "path_m": 6.099874069768145,
+          "unique_nonflat_0p25m_cells": 26
+        },
+        "height_rmse_m": 0.007585305463915378,
+        "initial_x_m": -3.8,
+        "integrated_duration_s": 22.52999999999839,
+        "pitch_rmse_rad": 0.09794589639808302,
+        "roll_rmse_rad": 0.024327302981061737,
+        "signed_forward_progress_m": 5.399521401696922,
+        "terminal_reason_at_endpoint": "map_boundary",
+        "terminated_at_endpoint": true,
+        "truncated_at_endpoint": false,
+        "velocity_rmse_mps": 0.048387564859732383,
+        "yaw_rate_rmse_rps": 0.05420895676905878
+      }
+    },
+    {
+      "case": "final_diagonal_gentle_turn",
+      "policy": "seed48002/unbounded",
+      "recomputed_full_metrics": {
+        "actual_transitions": 3200,
+        "cumulative_return": 11.161113163807158,
+        "cumulative_reward_terms": {
+          "action_change": -0.0013301745657853278,
+          "attitude": -2.405648929734945,
+          "height": -29.252118097537455,
+          "mechanical_power": -0.30994836784537466,
+          "termination": 0.0,
+          "tracking_velocity": 15.354639309426041,
+          "tracking_yaw": 27.775519424064722
+        },
+        "final_x_m": 4.486856319272557,
+        "geometric_nonflat_exposure": {
+          "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+          "nonflat_fraction": 0.7334375,
+          "nonflat_now": false,
+          "nonflat_path_m": 7.381224946000248,
+          "nonflat_steps": 2347,
+          "path_m": 9.882266242697252,
+          "unique_nonflat_0p25m_cells": 30
+        },
+        "height_rmse_m": 0.047805038713202117,
+        "initial_x_m": -3.8,
+        "integrated_duration_s": 31.999999999993143,
+        "pitch_rmse_rad": 0.18004493514398442,
+        "roll_rmse_rad": 0.037593342541013146,
+        "signed_forward_progress_m": 8.286856319272557,
+        "terminal_reason_at_endpoint": "time_limit",
+        "terminated_at_endpoint": false,
+        "truncated_at_endpoint": true,
+        "velocity_rmse_mps": 0.24229672441940114,
+        "yaw_rate_rmse_rps": 0.10295917218405835
+      }
+    },
+    {
+      "case": "final_diagonal_gentle_turn",
+      "policy": "seed48002/bounded",
+      "recomputed_full_metrics": {
+        "actual_transitions": 3200,
+        "cumulative_return": 34.83621083995948,
+        "cumulative_reward_terms": {
+          "action_change": -0.001257879304136539,
+          "attitude": -0.6262596623658768,
+          "height": -14.411696733586389,
+          "mechanical_power": -0.24004056664042858,
+          "termination": 0.0,
+          "tracking_velocity": 21.418451574540008,
+          "tracking_yaw": 28.69701410731622
+        },
+        "final_x_m": 2.6718196480032743,
+        "geometric_nonflat_exposure": {
+          "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+          "nonflat_fraction": 0.7825,
+          "nonflat_now": true,
+          "nonflat_path_m": 6.4954270813483515,
+          "nonflat_steps": 2504,
+          "path_m": 7.982668406501815,
+          "unique_nonflat_0p25m_cells": 27
+        },
+        "height_rmse_m": 0.03355463913249063,
+        "initial_x_m": -3.8,
+        "integrated_duration_s": 31.999999999993143,
+        "pitch_rmse_rad": 0.0888782130736332,
+        "roll_rmse_rad": 0.03012374051904367,
+        "signed_forward_progress_m": 6.471819648003274,
+        "terminal_reason_at_endpoint": "time_limit",
+        "terminated_at_endpoint": false,
+        "truncated_at_endpoint": true,
+        "velocity_rmse_mps": 0.18320363186414368,
+        "yaw_rate_rmse_rps": 0.08612961593294706
+      }
+    },
+    {
+      "case": "final_diagonal_gentle_turn",
+      "policy": "seed48003/unbounded",
+      "recomputed_full_metrics": {
+        "actual_transitions": 2482,
+        "cumulative_return": 44.343574986468504,
+        "cumulative_reward_terms": {
+          "action_change": -0.0005259015473101425,
+          "attitude": -0.04744414041550348,
+          "height": -0.2867254566011711,
+          "mechanical_power": -0.13972874949822114,
+          "termination": -2.0,
+          "tracking_velocity": 23.361370098075607,
+          "tracking_yaw": 23.456629136455305
+        },
+        "final_x_m": 1.1964196295494662,
+        "geometric_nonflat_exposure": {
+          "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+          "nonflat_fraction": 0.7224012892828364,
+          "nonflat_now": true,
+          "nonflat_path_m": 4.336687103822107,
+          "nonflat_steps": 1793,
+          "path_m": 5.902950839990286,
+          "unique_nonflat_0p25m_cells": 24
+        },
+        "height_rmse_m": 0.005374056675661304,
+        "initial_x_m": -3.8,
+        "integrated_duration_s": 24.819999999997123,
+        "pitch_rmse_rad": 0.025310285120049125,
+        "roll_rmse_rad": 0.014818142507026958,
+        "signed_forward_progress_m": 4.996419629549466,
+        "terminal_reason_at_endpoint": "map_boundary",
+        "terminated_at_endpoint": true,
+        "truncated_at_endpoint": false,
+        "velocity_rmse_mps": 0.05118768700636387,
+        "yaw_rate_rmse_rps": 0.05162454410731194
+      }
+    },
+    {
+      "case": "final_diagonal_gentle_turn",
+      "policy": "seed48003/bounded",
+      "recomputed_full_metrics": {
+        "actual_transitions": 2368,
+        "cumulative_return": 39.529365277273854,
+        "cumulative_reward_terms": {
+          "action_change": -0.0010276406215654927,
+          "attitude": -0.2864343699226208,
+          "height": -1.7503818962594049,
+          "mechanical_power": -0.15607205657379164,
+          "termination": -2.0,
+          "tracking_velocity": 21.428919235638553,
+          "tracking_yaw": 22.294362005012676
+        },
+        "final_x_m": 0.16913718535582717,
+        "geometric_nonflat_exposure": {
+          "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+          "nonflat_fraction": 0.6959459459459459,
+          "nonflat_now": false,
+          "nonflat_path_m": 3.4081847054627503,
+          "nonflat_steps": 1648,
+          "path_m": 4.924495916801137,
+          "unique_nonflat_0p25m_cells": 20
+        },
+        "height_rmse_m": 0.013593946667806459,
+        "initial_x_m": -3.8,
+        "integrated_duration_s": 23.679999999997754,
+        "pitch_rmse_rad": 0.07096541173833752,
+        "roll_rmse_rad": 0.020177488669821574,
+        "signed_forward_progress_m": 3.969137185355827,
+        "terminal_reason_at_endpoint": "map_boundary",
+        "terminated_at_endpoint": true,
+        "truncated_at_endpoint": false,
+        "velocity_rmse_mps": 0.06369059241303458,
+        "yaw_rate_rmse_rps": 0.05028441167793505
+      }
+    }
+  ],
+  "full_results": [
+    {
+      "actual_transitions": 3200,
+      "case": "final_right_offset_slow",
+      "cumulative_return": 61.13949774010638,
+      "cumulative_reward_terms": {
+        "action_change": 0.0,
+        "attitude": -0.017994915547971967,
+        "height": -1.6696156064896568,
+        "mechanical_power": -0.05258767990371055,
+        "termination": 0.0,
+        "tracking_velocity": 30.966196077046902,
+        "tracking_yaw": 31.913499865000762
+      },
+      "final_x_m": 2.783557257621636,
+      "geometric_nonflat_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.7575,
+        "nonflat_now": true,
+        "nonflat_path_m": 5.158593318923611,
+        "nonflat_steps": 2424,
+        "path_m": 6.605027503802102,
+        "unique_nonflat_0p25m_cells": 27
+      },
+      "height_rmse_m": 0.011420977158590421,
+      "initial_state_observation_metadata_same": true,
+      "initial_x_m": -3.8,
+      "integrated_duration_s": 31.999999999993143,
+      "maximum_undesired_ground_contacts": 0,
+      "mean_deterministic_box_clipped_fraction": 0.0,
+      "mean_torque_input_clipped_fraction": 0.0,
+      "minimum_clearance_m": 0.45150034581356857,
+      "pitch_rmse_rad": 0.015236542217596035,
+      "policy": "zero",
+      "roll_rmse_rad": 0.0045717918964856535,
+      "signed_forward_progress_m": 6.583557257621636,
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true,
+      "velocity_rmse_mps": 0.038649479494709926,
+      "wall_seconds": 11.294657075000032,
+      "wheel_common_mean_statistics": {
+        "box_clipped_wheel_common_mean": {
+          "max": 0.0,
+          "max_abs": 0.0,
+          "mean": 0.0,
+          "min": 0.0
+        },
+        "executed_wheel_common_mean": {
+          "max": 0.0,
+          "max_abs": 0.0,
+          "mean": 0.0,
+          "min": 0.0
+        },
+        "raw_net_wheel_common_mean": {
+          "max": 0.0,
+          "max_abs": 0.0,
+          "mean": 0.0,
+          "min": 0.0
+        },
+        "transformed_gaussian_wheel_common_mean": {
+          "max": 0.0,
+          "max_abs": 0.0,
+          "mean": 0.0,
+          "min": 0.0
+        }
+      },
+      "yaw_rate_rmse_rps": 0.010435974983597045
+    },
+    {
+      "actual_transitions": 2993,
+      "case": "final_right_offset_slow",
+      "cumulative_return": 54.18128818174074,
+      "cumulative_reward_terms": {
+        "action_change": -0.0009148586191576607,
+        "attitude": -0.6906384821097696,
+        "height": -0.967000774948359,
+        "mechanical_power": -0.1559153593402073,
+        "termination": -2.0,
+        "tracking_velocity": 28.71276720975897,
+        "tracking_yaw": 29.282990446999317
+      },
+      "final_x_m": 3.1719041774551426,
+      "geometric_nonflat_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.8128967591045774,
+        "nonflat_now": true,
+        "nonflat_path_m": 6.169187734454538,
+        "nonflat_steps": 2433,
+        "path_m": 7.480297034746969,
+        "unique_nonflat_0p25m_cells": 32
+      },
+      "height_rmse_m": 0.008987316929918122,
+      "initial_state_observation_metadata_same": true,
+      "initial_x_m": -3.8,
+      "integrated_duration_s": 29.92999999999429,
+      "maximum_undesired_ground_contacts": 0,
+      "mean_deterministic_box_clipped_fraction": 0.0,
+      "mean_torque_input_clipped_fraction": 0.0,
+      "minimum_clearance_m": 0.43990689502698244,
+      "pitch_rmse_rad": 0.07960697502220816,
+      "policy": "seed48001/unbounded",
+      "roll_rmse_rad": 0.06361238590394329,
+      "signed_forward_progress_m": 6.9719041774551425,
+      "terminal_reason": "map_boundary",
+      "terminated": true,
+      "truncated": false,
+      "velocity_rmse_mps": 0.04150289701081261,
+      "wall_seconds": 12.514530645999912,
+      "wheel_common_mean_statistics": {
+        "box_clipped_wheel_common_mean": {
+          "max": 0.1541038453578949,
+          "max_abs": 0.1541038453578949,
+          "mean": 0.15135026209596564,
+          "min": 0.12499846518039703
+        },
+        "executed_wheel_common_mean": {
+          "max": 0.1541038446011953,
+          "max_abs": 0.1541038446011953,
+          "mean": 0.1513502620600842,
+          "min": 0.12499846471473575
+        },
+        "raw_net_wheel_common_mean": {
+          "max": 0.1541038453578949,
+          "max_abs": 0.1541038453578949,
+          "mean": 0.15135026209596564,
+          "min": 0.12499846518039703
+        },
+        "transformed_gaussian_wheel_common_mean": {
+          "max": 0.1541038453578949,
+          "max_abs": 0.1541038453578949,
+          "mean": 0.15135026209596564,
+          "min": 0.12499846518039703
+        }
+      },
+      "yaw_rate_rmse_rps": 0.030380266866625386
+    },
+    {
+      "actual_transitions": 2771,
+      "case": "final_right_offset_slow",
+      "cumulative_return": 50.79487189941209,
+      "cumulative_reward_terms": {
+        "action_change": -0.000854397803853198,
+        "attitude": -0.6071691431104834,
+        "height": -0.4697434079740894,
+        "mechanical_power": -0.10326413773833591,
+        "termination": -2.0,
+        "tracking_velocity": 27.099705435891316,
+        "tracking_yaw": 26.876197550147598
+      },
+      "final_x_m": 1.7087154567041354,
+      "geometric_nonflat_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.7376398412125587,
+        "nonflat_now": false,
+        "nonflat_path_m": 4.623797691521097,
+        "nonflat_steps": 2044,
+        "path_m": 6.149324990125317,
+        "unique_nonflat_0p25m_cells": 25
+      },
+      "height_rmse_m": 0.006510016488880961,
+      "initial_state_observation_metadata_same": true,
+      "initial_x_m": -3.8,
+      "integrated_duration_s": 27.70999999999552,
+      "maximum_undesired_ground_contacts": 0,
+      "mean_deterministic_box_clipped_fraction": 0.0,
+      "mean_torque_input_clipped_fraction": 0.0,
+      "minimum_clearance_m": 0.45431662914643367,
+      "pitch_rmse_rad": 0.0962676713339956,
+      "policy": "seed48001/bounded",
+      "roll_rmse_rad": 0.02434613850062017,
+      "signed_forward_progress_m": 5.508715456704135,
+      "terminal_reason": "map_boundary",
+      "terminated": true,
+      "truncated": false,
+      "velocity_rmse_mps": 0.031097457067903386,
+      "wall_seconds": 11.402275927000119,
+      "wheel_common_mean_statistics": {
+        "box_clipped_wheel_common_mean": {
+          "max": 0.04849625006318092,
+          "max_abs": 0.04849625006318092,
+          "mean": 0.04830618547655451,
+          "min": 0.04637324810028076
+        },
+        "executed_wheel_common_mean": {
+          "max": 0.04849624913185835,
+          "max_abs": 0.04849624913185835,
+          "mean": 0.04830618543555078,
+          "min": 0.04637324810028076
+        },
+        "raw_net_wheel_common_mean": {
+          "max": 0.10455141961574554,
+          "max_abs": 0.10455141961574554,
+          "mean": 0.10183727390088143,
+          "min": 0.08199724555015564
+        },
+        "transformed_gaussian_wheel_common_mean": {
+          "max": 0.04849625006318092,
+          "max_abs": 0.04849625006318092,
+          "mean": 0.04830618547655451,
+          "min": 0.04637324810028076
+        }
+      },
+      "yaw_rate_rmse_rps": 0.03539985783369796
+    },
+    {
+      "actual_transitions": 887,
+      "case": "final_right_offset_slow",
+      "cumulative_return": 9.952598003423274,
+      "cumulative_reward_terms": {
+        "action_change": -0.0013179665041448696,
+        "attitude": -0.4098919151799922,
+        "height": -3.22382089057217,
+        "mechanical_power": -0.07601178286561466,
+        "termination": -2.0,
+        "tracking_velocity": 7.089880784652279,
+        "tracking_yaw": 8.573759773892935
+      },
+      "final_x_m": -1.5585828144195617,
+      "geometric_nonflat_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.22322435174746336,
+        "nonflat_now": true,
+        "nonflat_path_m": 0.7241439953913507,
+        "nonflat_steps": 198,
+        "path_m": 2.2537879275423798,
+        "unique_nonflat_0p25m_cells": 6
+      },
+      "height_rmse_m": 0.030143497892777017,
+      "initial_state_observation_metadata_same": true,
+      "initial_x_m": -3.8,
+      "integrated_duration_s": 8.869999999999632,
+      "maximum_undesired_ground_contacts": 0,
+      "mean_deterministic_box_clipped_fraction": 0.0,
+      "mean_torque_input_clipped_fraction": 0.0,
+      "minimum_clearance_m": 0.45528465349536534,
+      "pitch_rmse_rad": 0.14064181421904376,
+      "policy": "seed48002/unbounded",
+      "roll_rmse_rad": 0.03185667285077513,
+      "signed_forward_progress_m": 2.2414171855804383,
+      "terminal_reason": "fall_or_body_contact",
+      "terminated": true,
+      "truncated": false,
+      "velocity_rmse_mps": 0.15015897385721413,
+      "wall_seconds": 3.6982169709999653,
+      "wheel_common_mean_statistics": {
+        "box_clipped_wheel_common_mean": {
+          "max": 0.24544277787208557,
+          "max_abs": 0.24544277787208557,
+          "mean": 0.23838551720476203,
+          "min": 0.17616255581378937
+        },
+        "executed_wheel_common_mean": {
+          "max": 0.24544278346002102,
+          "max_abs": 0.24544278346002102,
+          "mean": 0.2383855169275702,
+          "min": 0.17616255767643452
+        },
+        "raw_net_wheel_common_mean": {
+          "max": 0.24544277787208557,
+          "max_abs": 0.24544277787208557,
+          "mean": 0.23838551720476203,
+          "min": 0.17616255581378937
+        },
+        "transformed_gaussian_wheel_common_mean": {
+          "max": 0.24544277787208557,
+          "max_abs": 0.24544277787208557,
+          "mean": 0.23838551720476203,
+          "min": 0.17616255581378937
+        }
+      },
+      "yaw_rate_rmse_rps": 0.042913622364764974
+    },
+    {
+      "actual_transitions": 3200,
+      "case": "final_right_offset_slow",
+      "cumulative_return": 51.941884808582245,
+      "cumulative_reward_terms": {
+        "action_change": -0.0012546930482454286,
+        "attitude": -0.34680589943353674,
+        "height": -8.126926988165414,
+        "mechanical_power": -0.2100856148654435,
+        "termination": 0.0,
+        "tracking_velocity": 29.092516440078548,
+        "tracking_yaw": 31.534441564016248
+      },
+      "final_x_m": 1.35568461745394,
+      "geometric_nonflat_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.7190625,
+        "nonflat_now": true,
+        "nonflat_path_m": 3.919063958301803,
+        "nonflat_steps": 2301,
+        "path_m": 5.431349575684607,
+        "unique_nonflat_0p25m_cells": 21
+      },
+      "height_rmse_m": 0.025197542954632588,
+      "initial_state_observation_metadata_same": true,
+      "initial_x_m": -3.8,
+      "integrated_duration_s": 31.999999999993143,
+      "maximum_undesired_ground_contacts": 0,
+      "mean_deterministic_box_clipped_fraction": 0.0,
+      "mean_torque_input_clipped_fraction": 0.0,
+      "minimum_clearance_m": 0.45533429381568646,
+      "pitch_rmse_rad": 0.0681918798721414,
+      "policy": "seed48002/bounded",
+      "roll_rmse_rad": 0.015060726419689597,
+      "signed_forward_progress_m": 5.1556846174539395,
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true,
+      "velocity_rmse_mps": 0.06338676134369799,
+      "wall_seconds": 13.43315598199979,
+      "wheel_common_mean_statistics": {
+        "box_clipped_wheel_common_mean": {
+          "max": 0.0498034730553627,
+          "max_abs": 0.0498034730553627,
+          "mean": 0.049783806619234386,
+          "min": 0.0490705668926239
+        },
+        "executed_wheel_common_mean": {
+          "max": 0.0498034730553627,
+          "max_abs": 0.0498034730553627,
+          "mean": 0.04978380654065404,
+          "min": 0.04907056875526905
+        },
+        "raw_net_wheel_common_mean": {
+          "max": 0.15575188398361206,
+          "max_abs": 0.15575188398361206,
+          "mean": 0.15367014373652638,
+          "min": 0.11672511696815491
+        },
+        "transformed_gaussian_wheel_common_mean": {
+          "max": 0.0498034730553627,
+          "max_abs": 0.0498034730553627,
+          "mean": 0.049783806619234386,
+          "min": 0.0490705668926239
+        }
+      },
+      "yaw_rate_rmse_rps": 0.02460180559120167
+    },
+    {
+      "actual_transitions": 3112,
+      "case": "final_right_offset_slow",
+      "cumulative_return": 57.183436620202926,
+      "cumulative_reward_terms": {
+        "action_change": -0.0005263767170428558,
+        "attitude": -0.051394983533271196,
+        "height": -0.3632662034356202,
+        "mechanical_power": -0.15078993216521133,
+        "termination": -2.0,
+        "tracking_velocity": 29.8288699106921,
+        "tracking_yaw": 29.92054420536221
+      },
+      "final_x_m": 1.2442877152635057,
+      "geometric_nonflat_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.7551413881748072,
+        "nonflat_now": true,
+        "nonflat_path_m": 4.487974580699631,
+        "nonflat_steps": 2350,
+        "path_m": 5.897404343958822,
+        "unique_nonflat_0p25m_cells": 24
+      },
+      "height_rmse_m": 0.005402101099703841,
+      "initial_state_observation_metadata_same": true,
+      "initial_x_m": -3.8,
+      "integrated_duration_s": 31.11999999999363,
+      "maximum_undesired_ground_contacts": 0,
+      "mean_deterministic_box_clipped_fraction": 0.0,
+      "mean_torque_input_clipped_fraction": 0.0,
+      "minimum_clearance_m": 0.4519886215019934,
+      "pitch_rmse_rad": 0.024907498454855327,
+      "policy": "seed48003/unbounded",
+      "roll_rmse_rad": 0.011081331592337332,
+      "signed_forward_progress_m": 5.044287715263506,
+      "terminal_reason": "map_boundary",
+      "terminated": true,
+      "truncated": false,
+      "velocity_rmse_mps": 0.043134591720102276,
+      "wall_seconds": 12.800348578000012,
+      "wheel_common_mean_statistics": {
+        "box_clipped_wheel_common_mean": {
+          "max": 0.02194608747959137,
+          "max_abs": 0.02194608747959137,
+          "mean": 0.019788674928504103,
+          "min": 0.00023661740124225616
+        },
+        "executed_wheel_common_mean": {
+          "max": 0.021946088410913944,
+          "max_abs": 0.021946088410913944,
+          "mean": 0.019788674915037035,
+          "min": 0.00023661740124225616
+        },
+        "raw_net_wheel_common_mean": {
+          "max": 0.02194608747959137,
+          "max_abs": 0.02194608747959137,
+          "mean": 0.019788674928504103,
+          "min": 0.00023661740124225616
+        },
+        "transformed_gaussian_wheel_common_mean": {
+          "max": 0.02194608747959137,
+          "max_abs": 0.02194608747959137,
+          "mean": 0.019788674928504103,
+          "min": 0.00023661740124225616
+        }
+      },
+      "yaw_rate_rmse_rps": 0.04085705146169131
+    },
+    {
+      "actual_transitions": 2724,
+      "case": "final_right_offset_slow",
+      "cumulative_return": 47.28643941146854,
+      "cumulative_reward_terms": {
+        "action_change": -0.0010243823718918907,
+        "attitude": -0.2154721261636805,
+        "height": -0.9254331549134949,
+        "mechanical_power": -0.17715141049839975,
+        "termination": -2.0,
+        "tracking_velocity": 25.395494017925458,
+        "tracking_yaw": 25.21002646749062
+      },
+      "final_x_m": -0.16825738588690514,
+      "geometric_nonflat_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.7110866372980911,
+        "nonflat_now": false,
+        "nonflat_path_m": 3.3503880638246226,
+        "nonflat_steps": 1937,
+        "path_m": 4.678040987165558,
+        "unique_nonflat_0p25m_cells": 20
+      },
+      "height_rmse_m": 0.00921592602426635,
+      "initial_state_observation_metadata_same": true,
+      "initial_x_m": -3.8,
+      "integrated_duration_s": 27.23999999999578,
+      "maximum_undesired_ground_contacts": 0,
+      "mean_deterministic_box_clipped_fraction": 0.0,
+      "mean_torque_input_clipped_fraction": 0.0,
+      "minimum_clearance_m": 0.43659472818840867,
+      "pitch_rmse_rad": 0.057542626142678466,
+      "policy": "seed48003/bounded",
+      "roll_rmse_rad": 0.01576095594093942,
+      "signed_forward_progress_m": 3.6317426141130946,
+      "terminal_reason": "map_boundary",
+      "terminated": true,
+      "truncated": false,
+      "velocity_rmse_mps": 0.05359183531447557,
+      "wall_seconds": 11.770500303000063,
+      "wheel_common_mean_statistics": {
+        "box_clipped_wheel_common_mean": {
+          "max": 0.0488668754696846,
+          "max_abs": 0.0488668754696846,
+          "mean": 0.048784816256080166,
+          "min": 0.047128476202487946
+        },
+        "executed_wheel_common_mean": {
+          "max": 0.04886687360703945,
+          "max_abs": 0.04886687360703945,
+          "mean": 0.04878481628685074,
+          "min": 0.047128476202487946
+        },
+        "raw_net_wheel_common_mean": {
+          "max": 0.11171950399875641,
+          "max_abs": 0.11171950399875641,
+          "mean": 0.11003411870870997,
+          "min": 0.08802971988916397
+        },
+        "transformed_gaussian_wheel_common_mean": {
+          "max": 0.0488668754696846,
+          "max_abs": 0.0488668754696846,
+          "mean": 0.048784816256080166,
+          "min": 0.047128476202487946
+        }
+      },
+      "yaw_rate_rmse_rps": 0.05822987003037038
+    },
+    {
+      "actual_transitions": 3200,
+      "case": "final_diagonal_gentle_turn",
+      "cumulative_return": 60.14267399908583,
+      "cumulative_reward_terms": {
+        "action_change": 0.0,
+        "attitude": -0.025792742465687576,
+        "height": -1.8221624870952169,
+        "mechanical_power": -0.06493270701113989,
+        "termination": 0.0,
+        "tracking_velocity": 30.51301667620038,
+        "tracking_yaw": 31.542545259457423
+      },
+      "final_x_m": 4.295084878379239,
+      "geometric_nonflat_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.7334375,
+        "nonflat_now": false,
+        "nonflat_path_m": 6.1901370614696685,
+        "nonflat_steps": 2347,
+        "path_m": 8.182382067325706,
+        "unique_nonflat_0p25m_cells": 30
+      },
+      "height_rmse_m": 0.011931321984774224,
+      "initial_state_observation_metadata_same": true,
+      "initial_x_m": -3.8,
+      "integrated_duration_s": 31.999999999993143,
+      "maximum_undesired_ground_contacts": 0,
+      "mean_deterministic_box_clipped_fraction": 0.0,
+      "mean_torque_input_clipped_fraction": 0.0,
+      "minimum_clearance_m": 0.4495628543498033,
+      "pitch_rmse_rad": 0.017817311998302377,
+      "policy": "zero",
+      "roll_rmse_rad": 0.006727097002345939,
+      "signed_forward_progress_m": 8.09508487837924,
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true,
+      "velocity_rmse_mps": 0.04636964038486609,
+      "wall_seconds": 11.325333605000196,
+      "wheel_common_mean_statistics": {
+        "box_clipped_wheel_common_mean": {
+          "max": 0.0,
+          "max_abs": 0.0,
+          "mean": 0.0,
+          "min": 0.0
+        },
+        "executed_wheel_common_mean": {
+          "max": 0.0,
+          "max_abs": 0.0,
+          "mean": 0.0,
+          "min": 0.0
+        },
+        "raw_net_wheel_common_mean": {
+          "max": 0.0,
+          "max_abs": 0.0,
+          "mean": 0.0,
+          "min": 0.0
+        },
+        "transformed_gaussian_wheel_common_mean": {
+          "max": 0.0,
+          "max_abs": 0.0,
+          "mean": 0.0,
+          "min": 0.0
+        }
+      },
+      "yaw_rate_rmse_rps": 0.024409586751847685
+    },
+    {
+      "actual_transitions": 2402,
+      "case": "final_diagonal_gentle_turn",
+      "cumulative_return": 42.4713532386882,
+      "cumulative_reward_terms": {
+        "action_change": -0.0009158856626299782,
+        "attitude": -0.6539997271268255,
+        "height": -0.7372202886712702,
+        "mechanical_power": -0.14846309003409477,
+        "termination": -2.0,
+        "tracking_velocity": 22.856087530952927,
+        "tracking_yaw": 23.155864699230264
+      },
+      "final_x_m": 2.8198123055383992,
+      "geometric_nonflat_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.7985012489592007,
+        "nonflat_now": true,
+        "nonflat_path_m": 5.878383789065178,
+        "nonflat_steps": 1918,
+        "path_m": 7.191545901413853,
+        "unique_nonflat_0p25m_cells": 31
+      },
+      "height_rmse_m": 0.00875955698296545,
+      "initial_state_observation_metadata_same": true,
+      "initial_x_m": -3.8,
+      "integrated_duration_s": 24.019999999997566,
+      "maximum_undesired_ground_contacts": 0,
+      "mean_deterministic_box_clipped_fraction": 0.0,
+      "mean_torque_input_clipped_fraction": 0.0,
+      "minimum_clearance_m": 0.4367855988656265,
+      "pitch_rmse_rad": 0.09339196478517602,
+      "policy": "seed48001/unbounded",
+      "roll_rmse_rad": 0.059415701291735755,
+      "signed_forward_progress_m": 6.6198123055383995,
+      "terminal_reason": "map_boundary",
+      "terminated": true,
+      "truncated": false,
+      "velocity_rmse_mps": 0.04553905907097014,
+      "wall_seconds": 9.55320017699978,
+      "wheel_common_mean_statistics": {
+        "box_clipped_wheel_common_mean": {
+          "max": 0.1545015275478363,
+          "max_abs": 0.1545015275478363,
+          "mean": 0.1507588946179089,
+          "min": 0.12499846518039703
+        },
+        "executed_wheel_common_mean": {
+          "max": 0.15450152033008635,
+          "max_abs": 0.15450152033008635,
+          "mean": 0.15075889451826888,
+          "min": 0.12499846471473575
+        },
+        "raw_net_wheel_common_mean": {
+          "max": 0.1545015275478363,
+          "max_abs": 0.1545015275478363,
+          "mean": 0.1507588946179089,
+          "min": 0.12499846518039703
+        },
+        "transformed_gaussian_wheel_common_mean": {
+          "max": 0.1545015275478363,
+          "max_abs": 0.1545015275478363,
+          "mean": 0.1507588946179089,
+          "min": 0.12499846518039703
+        }
+      },
+      "yaw_rate_rmse_rps": 0.04240455115631014
+    },
+    {
+      "actual_transitions": 2253,
+      "case": "final_diagonal_gentle_turn",
+      "cumulative_return": 39.579745259554855,
+      "cumulative_reward_terms": {
+        "action_change": -0.0008559016851664194,
+        "attitude": -0.5099398289972236,
+        "height": -0.5185221731358671,
+        "mechanical_power": -0.10076618998282762,
+        "termination": -2.0,
+        "tracking_velocity": 21.358007271404865,
+        "tracking_yaw": 21.351822081951084
+      },
+      "final_x_m": 1.5995214016969221,
+      "geometric_nonflat_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.7581003106968487,
+        "nonflat_now": true,
+        "nonflat_path_m": 4.756977787230819,
+        "nonflat_steps": 1708,
+        "path_m": 6.099874069768145,
+        "unique_nonflat_0p25m_cells": 26
+      },
+      "height_rmse_m": 0.007585305463915372,
+      "initial_state_observation_metadata_same": true,
+      "initial_x_m": -3.8,
+      "integrated_duration_s": 22.52999999999839,
+      "maximum_undesired_ground_contacts": 0,
+      "mean_deterministic_box_clipped_fraction": 0.0,
+      "mean_torque_input_clipped_fraction": 0.0,
+      "minimum_clearance_m": 0.4495802876582117,
+      "pitch_rmse_rad": 0.09794589639808302,
+      "policy": "seed48001/bounded",
+      "roll_rmse_rad": 0.024327302981061727,
+      "signed_forward_progress_m": 5.399521401696922,
+      "terminal_reason": "map_boundary",
+      "terminated": true,
+      "truncated": false,
+      "velocity_rmse_mps": 0.04838756485973242,
+      "wall_seconds": 9.288945352000155,
+      "wheel_common_mean_statistics": {
+        "box_clipped_wheel_common_mean": {
+          "max": 0.048475950956344604,
+          "max_abs": 0.048475950956344604,
+          "mean": 0.04825118913108965,
+          "min": 0.04637324810028076
+        },
+        "executed_wheel_common_mean": {
+          "max": 0.04847595002502203,
+          "max_abs": 0.04847595002502203,
+          "mean": 0.04825118898020961,
+          "min": 0.04637324810028076
+        },
+        "raw_net_wheel_common_mean": {
+          "max": 0.10421086847782135,
+          "max_abs": 0.10421086847782135,
+          "mean": 0.10103605519624693,
+          "min": 0.08199724555015564
+        },
+        "transformed_gaussian_wheel_common_mean": {
+          "max": 0.048475950956344604,
+          "max_abs": 0.048475950956344604,
+          "mean": 0.04825118913108965,
+          "min": 0.04637324810028076
+        }
+      },
+      "yaw_rate_rmse_rps": 0.05420895676905878
+    },
+    {
+      "actual_transitions": 3200,
+      "case": "final_diagonal_gentle_turn",
+      "cumulative_return": 11.161113163807158,
+      "cumulative_reward_terms": {
+        "action_change": -0.0013301745657853278,
+        "attitude": -2.405648929734945,
+        "height": -29.252118097537455,
+        "mechanical_power": -0.30994836784537466,
+        "termination": 0.0,
+        "tracking_velocity": 15.354639309426041,
+        "tracking_yaw": 27.775519424064722
+      },
+      "final_x_m": 4.486856319272557,
+      "geometric_nonflat_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.7334375,
+        "nonflat_now": false,
+        "nonflat_path_m": 7.381224946000248,
+        "nonflat_steps": 2347,
+        "path_m": 9.882266242697252,
+        "unique_nonflat_0p25m_cells": 30
+      },
+      "height_rmse_m": 0.04780503871320217,
+      "initial_state_observation_metadata_same": true,
+      "initial_x_m": -3.8,
+      "integrated_duration_s": 31.999999999993143,
+      "maximum_undesired_ground_contacts": 0,
+      "mean_deterministic_box_clipped_fraction": 0.0,
+      "mean_torque_input_clipped_fraction": 0.0,
+      "minimum_clearance_m": 0.45528465473334445,
+      "pitch_rmse_rad": 0.18004493514398445,
+      "policy": "seed48002/unbounded",
+      "roll_rmse_rad": 0.03759334254101312,
+      "signed_forward_progress_m": 8.286856319272557,
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true,
+      "velocity_rmse_mps": 0.24229672441940123,
+      "wall_seconds": 12.66213622100031,
+      "wheel_common_mean_statistics": {
+        "box_clipped_wheel_common_mean": {
+          "max": 0.24539943039417267,
+          "max_abs": 0.24539943039417267,
+          "mean": 0.233826269893907,
+          "min": 0.17616255581378937
+        },
+        "executed_wheel_common_mean": {
+          "max": 0.24539943039417267,
+          "max_abs": 0.24539943039417267,
+          "mean": 0.2338262700283667,
+          "min": 0.17616255767643452
+        },
+        "raw_net_wheel_common_mean": {
+          "max": 0.24539943039417267,
+          "max_abs": 0.24539943039417267,
+          "mean": 0.233826269893907,
+          "min": 0.17616255581378937
+        },
+        "transformed_gaussian_wheel_common_mean": {
+          "max": 0.24539943039417267,
+          "max_abs": 0.24539943039417267,
+          "mean": 0.233826269893907,
+          "min": 0.17616255581378937
+        }
+      },
+      "yaw_rate_rmse_rps": 0.10295917218405853
+    },
+    {
+      "actual_transitions": 3200,
+      "case": "final_diagonal_gentle_turn",
+      "cumulative_return": 34.83621083995948,
+      "cumulative_reward_terms": {
+        "action_change": -0.001257879304136539,
+        "attitude": -0.6262596623658768,
+        "height": -14.411696733586389,
+        "mechanical_power": -0.24004056664042858,
+        "termination": 0.0,
+        "tracking_velocity": 21.418451574540008,
+        "tracking_yaw": 28.69701410731622
+      },
+      "final_x_m": 2.6718196480032743,
+      "geometric_nonflat_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.7825,
+        "nonflat_now": true,
+        "nonflat_path_m": 6.4954270813483515,
+        "nonflat_steps": 2504,
+        "path_m": 7.982668406501815,
+        "unique_nonflat_0p25m_cells": 27
+      },
+      "height_rmse_m": 0.03355463913249064,
+      "initial_state_observation_metadata_same": true,
+      "initial_x_m": -3.8,
+      "integrated_duration_s": 31.999999999993143,
+      "maximum_undesired_ground_contacts": 0,
+      "mean_deterministic_box_clipped_fraction": 0.0,
+      "mean_torque_input_clipped_fraction": 0.0,
+      "minimum_clearance_m": 0.4553343083768949,
+      "pitch_rmse_rad": 0.0888782130736331,
+      "policy": "seed48002/bounded",
+      "roll_rmse_rad": 0.03012374051904362,
+      "signed_forward_progress_m": 6.471819648003274,
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true,
+      "velocity_rmse_mps": 0.18320363186414373,
+      "wall_seconds": 13.063288656999703,
+      "wheel_common_mean_statistics": {
+        "box_clipped_wheel_common_mean": {
+          "max": 0.049800269305706024,
+          "max_abs": 0.049800269305706024,
+          "mean": 0.049754447157029064,
+          "min": 0.0490705668926239
+        },
+        "executed_wheel_common_mean": {
+          "max": 0.049800269305706024,
+          "max_abs": 0.049800269305706024,
+          "mean": 0.04975444718322251,
+          "min": 0.04907056875526905
+        },
+        "raw_net_wheel_common_mean": {
+          "max": 0.15535029768943787,
+          "max_abs": 0.15535029768943787,
+          "mean": 0.1506491934042424,
+          "min": 0.11672511696815491
+        },
+        "transformed_gaussian_wheel_common_mean": {
+          "max": 0.049800269305706024,
+          "max_abs": 0.049800269305706024,
+          "mean": 0.049754447157029064,
+          "min": 0.0490705668926239
+        }
+      },
+      "yaw_rate_rmse_rps": 0.08612961593294703
+    },
+    {
+      "actual_transitions": 2482,
+      "case": "final_diagonal_gentle_turn",
+      "cumulative_return": 44.343574986468504,
+      "cumulative_reward_terms": {
+        "action_change": -0.0005259015473101425,
+        "attitude": -0.04744414041550348,
+        "height": -0.2867254566011711,
+        "mechanical_power": -0.13972874949822114,
+        "termination": -2.0,
+        "tracking_velocity": 23.361370098075607,
+        "tracking_yaw": 23.456629136455305
+      },
+      "final_x_m": 1.1964196295494662,
+      "geometric_nonflat_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.7224012892828364,
+        "nonflat_now": true,
+        "nonflat_path_m": 4.336687103822107,
+        "nonflat_steps": 1793,
+        "path_m": 5.902950839990286,
+        "unique_nonflat_0p25m_cells": 24
+      },
+      "height_rmse_m": 0.005374056675661303,
+      "initial_state_observation_metadata_same": true,
+      "initial_x_m": -3.8,
+      "integrated_duration_s": 24.819999999997123,
+      "maximum_undesired_ground_contacts": 0,
+      "mean_deterministic_box_clipped_fraction": 0.0,
+      "mean_torque_input_clipped_fraction": 0.0,
+      "minimum_clearance_m": 0.44073089020195855,
+      "pitch_rmse_rad": 0.025310285120049146,
+      "policy": "seed48003/unbounded",
+      "roll_rmse_rad": 0.01481814250702696,
+      "signed_forward_progress_m": 4.996419629549466,
+      "terminal_reason": "map_boundary",
+      "terminated": true,
+      "truncated": false,
+      "velocity_rmse_mps": 0.051187687006363905,
+      "wall_seconds": 10.09678710099979,
+      "wheel_common_mean_statistics": {
+        "box_clipped_wheel_common_mean": {
+          "max": 0.024354668334126472,
+          "max_abs": 0.024354668334126472,
+          "mean": 0.02009577769035658,
+          "min": 0.00023661740124225616
+        },
+        "executed_wheel_common_mean": {
+          "max": 0.024354668334126472,
+          "max_abs": 0.024354668334126472,
+          "mean": 0.02009577770086304,
+          "min": 0.00023661740124225616
+        },
+        "raw_net_wheel_common_mean": {
+          "max": 0.024354668334126472,
+          "max_abs": 0.024354668334126472,
+          "mean": 0.02009577769035658,
+          "min": 0.00023661740124225616
+        },
+        "transformed_gaussian_wheel_common_mean": {
+          "max": 0.024354668334126472,
+          "max_abs": 0.024354668334126472,
+          "mean": 0.02009577769035658,
+          "min": 0.00023661740124225616
+        }
+      },
+      "yaw_rate_rmse_rps": 0.051624544107311945
+    },
+    {
+      "actual_transitions": 2368,
+      "case": "final_diagonal_gentle_turn",
+      "cumulative_return": 39.529365277273854,
+      "cumulative_reward_terms": {
+        "action_change": -0.0010276406215654927,
+        "attitude": -0.2864343699226208,
+        "height": -1.7503818962594049,
+        "mechanical_power": -0.15607205657379164,
+        "termination": -2.0,
+        "tracking_velocity": 21.428919235638553,
+        "tracking_yaw": 22.294362005012676
+      },
+      "final_x_m": 0.16913718535582717,
+      "geometric_nonflat_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.6959459459459459,
+        "nonflat_now": false,
+        "nonflat_path_m": 3.4081847054627503,
+        "nonflat_steps": 1648,
+        "path_m": 4.924495916801137,
+        "unique_nonflat_0p25m_cells": 20
+      },
+      "height_rmse_m": 0.013593946667806459,
+      "initial_state_observation_metadata_same": true,
+      "initial_x_m": -3.8,
+      "integrated_duration_s": 23.679999999997754,
+      "maximum_undesired_ground_contacts": 0,
+      "mean_deterministic_box_clipped_fraction": 0.0,
+      "mean_torque_input_clipped_fraction": 0.0,
+      "minimum_clearance_m": 0.4256733358128792,
+      "pitch_rmse_rad": 0.07096541173833748,
+      "policy": "seed48003/bounded",
+      "roll_rmse_rad": 0.020177488669821574,
+      "signed_forward_progress_m": 3.969137185355827,
+      "terminal_reason": "map_boundary",
+      "terminated": true,
+      "truncated": false,
+      "velocity_rmse_mps": 0.06369059241303456,
+      "wall_seconds": 10.060003117000178,
+      "wheel_common_mean_statistics": {
+        "box_clipped_wheel_common_mean": {
+          "max": 0.04896833002567291,
+          "max_abs": 0.04896833002567291,
+          "mean": 0.04882318263313406,
+          "min": 0.047128476202487946
+        },
+        "executed_wheel_common_mean": {
+          "max": 0.04896833002567291,
+          "max_abs": 0.04896833002567291,
+          "mean": 0.04882318264729268,
+          "min": 0.047128476202487946
+        },
+        "raw_net_wheel_common_mean": {
+          "max": 0.11409009248018265,
+          "max_abs": 0.11409009248018265,
+          "mean": 0.11089898013774105,
+          "min": 0.08802971988916397
+        },
+        "transformed_gaussian_wheel_common_mean": {
+          "max": 0.04896833002567291,
+          "max_abs": 0.04896833002567291,
+          "mean": 0.04882318263313406,
+          "min": 0.047128476202487946
+        }
+      },
+      "yaw_rate_rmse_rps": 0.05028441167793506
+    }
+  ],
+  "input_records_unchanged": true,
+  "input_root": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/rl_improvement_20260914/final_01",
+  "per_seed_equal_case_means": [
+    {
+      "case_count": 2,
+      "completed_count": 2,
+      "durations_and_termination": [
+        {
+          "actual_transitions": 3200,
+          "case": "final_right_offset_slow",
+          "completed": true,
+          "integrated_duration_s": 31.999999999993143,
+          "planned_transitions": 3200,
+          "terminal_reason": "time_limit",
+          "terminated": false,
+          "truncated": true
+        },
+        {
+          "actual_transitions": 3200,
+          "case": "final_diagonal_gentle_turn",
+          "completed": true,
+          "integrated_duration_s": 31.999999999993143,
+          "planned_transitions": 3200,
+          "terminal_reason": "time_limit",
+          "terminated": false,
+          "truncated": true
+        }
+      ],
+      "equal_case_mean_common_prefix": {
+        "cumulative_return": 47.50415666389259,
+        "height_rmse_m": 0.010975583734126444,
+        "pitch_rmse_rad": 0.017888668333927025,
+        "roll_rmse_rad": 0.005214472334795096,
+        "signed_forward_progress_m": 5.675256874250014,
+        "velocity_rmse_mps": 0.04757088506063564,
+        "yaw_rate_rmse_rps": 0.01845031479100098
+      },
+      "equal_case_mean_full_episode": {
+        "cumulative_return": 60.641085869596104,
+        "height_rmse_m": 0.011676149571682323,
+        "pitch_rmse_rad": 0.016526927107949205,
+        "roll_rmse_rad": 0.005649444449415796,
+        "signed_forward_progress_m": 7.339321068000437,
+        "velocity_rmse_mps": 0.04250955993978801,
+        "yaw_rate_rmse_rps": 0.017422780867722365
+      },
+      "policy": "zero",
+      "seed": 48001,
+      "variant": "zero"
+    },
+    {
+      "case_count": 2,
+      "completed_count": 0,
+      "durations_and_termination": [
+        {
+          "actual_transitions": 2993,
+          "case": "final_right_offset_slow",
+          "completed": false,
+          "integrated_duration_s": 29.92999999999429,
+          "planned_transitions": 3200,
+          "terminal_reason": "map_boundary",
+          "terminated": true,
+          "truncated": false
+        },
+        {
+          "actual_transitions": 2402,
+          "case": "final_diagonal_gentle_turn",
+          "completed": false,
+          "integrated_duration_s": 24.019999999997566,
+          "planned_transitions": 3200,
+          "terminal_reason": "map_boundary",
+          "terminated": true,
+          "truncated": false
+        }
+      ],
+      "equal_case_mean_common_prefix": {
+        "cumulative_return": 46.81936669509758,
+        "height_rmse_m": 0.008738597305478189,
+        "pitch_rmse_rad": 0.08633831647794374,
+        "roll_rmse_rad": 0.060432178591665234,
+        "signed_forward_progress_m": 6.392973135530019,
+        "velocity_rmse_mps": 0.04436172400646774,
+        "yaw_rate_rmse_rps": 0.03727335890860398
+      },
+      "equal_case_mean_full_episode": {
+        "cumulative_return": 48.326320710214475,
+        "height_rmse_m": 0.008873436956441785,
+        "pitch_rmse_rad": 0.08649946990369209,
+        "roll_rmse_rad": 0.06151404359783952,
+        "signed_forward_progress_m": 6.795858241496771,
+        "velocity_rmse_mps": 0.043520978040891375,
+        "yaw_rate_rmse_rps": 0.03639240901146776
+      },
+      "policy": "seed48001/unbounded",
+      "seed": 48001,
+      "variant": "unbounded"
+    },
+    {
+      "case_count": 2,
+      "completed_count": 0,
+      "durations_and_termination": [
+        {
+          "actual_transitions": 2771,
+          "case": "final_right_offset_slow",
+          "completed": false,
+          "integrated_duration_s": 27.70999999999552,
+          "planned_transitions": 3200,
+          "terminal_reason": "map_boundary",
+          "terminated": true,
+          "truncated": false
+        },
+        {
+          "actual_transitions": 2253,
+          "case": "final_diagonal_gentle_turn",
+          "completed": false,
+          "integrated_duration_s": 22.52999999999839,
+          "planned_transitions": 3200,
+          "terminal_reason": "map_boundary",
+          "terminated": true,
+          "truncated": false
+        }
+      ],
+      "equal_case_mean_common_prefix": {
+        "cumulative_return": 45.18730857948347,
+        "height_rmse_m": 0.007047660976398173,
+        "pitch_rmse_rad": 0.09710678386603933,
+        "roll_rmse_rad": 0.02433672074084095,
+        "signed_forward_progress_m": 5.454118429200529,
+        "velocity_rmse_mps": 0.039742510963817895,
+        "yaw_rate_rmse_rps": 0.044804407301378385
+      },
+      "equal_case_mean_full_episode": {
+        "cumulative_return": 45.18730857948347,
+        "height_rmse_m": 0.007047660976398166,
+        "pitch_rmse_rad": 0.0971067838660393,
+        "roll_rmse_rad": 0.02433672074084095,
+        "signed_forward_progress_m": 5.454118429200529,
+        "velocity_rmse_mps": 0.0397425109638179,
+        "yaw_rate_rmse_rps": 0.04480440730137837
+      },
+      "policy": "seed48001/bounded",
+      "seed": 48001,
+      "variant": "bounded"
+    },
+    {
+      "case_count": 2,
+      "completed_count": 2,
+      "durations_and_termination": [
+        {
+          "actual_transitions": 3200,
+          "case": "final_right_offset_slow",
+          "completed": true,
+          "integrated_duration_s": 31.999999999993143,
+          "planned_transitions": 3200,
+          "terminal_reason": "time_limit",
+          "terminated": false,
+          "truncated": true
+        },
+        {
+          "actual_transitions": 3200,
+          "case": "final_diagonal_gentle_turn",
+          "completed": true,
+          "integrated_duration_s": 31.999999999993143,
+          "planned_transitions": 3200,
+          "terminal_reason": "time_limit",
+          "terminated": false,
+          "truncated": true
+        }
+      ],
+      "equal_case_mean_common_prefix": {
+        "cumulative_return": 38.73985436652323,
+        "height_rmse_m": 0.008429353550504547,
+        "pitch_rmse_rad": 0.014081030123284547,
+        "roll_rmse_rad": 0.0034820463166267274,
+        "signed_forward_progress_m": 4.865077028835508,
+        "velocity_rmse_mps": 0.04115181660332416,
+        "yaw_rate_rmse_rps": 0.018528402056985336
+      },
+      "equal_case_mean_full_episode": {
+        "cumulative_return": 60.641085869596104,
+        "height_rmse_m": 0.011676149571682323,
+        "pitch_rmse_rad": 0.016526927107949205,
+        "roll_rmse_rad": 0.005649444449415796,
+        "signed_forward_progress_m": 7.339321068000437,
+        "velocity_rmse_mps": 0.04250955993978801,
+        "yaw_rate_rmse_rps": 0.017422780867722365
+      },
+      "policy": "zero",
+      "seed": 48002,
+      "variant": "zero"
+    },
+    {
+      "case_count": 2,
+      "completed_count": 1,
+      "durations_and_termination": [
+        {
+          "actual_transitions": 887,
+          "case": "final_right_offset_slow",
+          "completed": false,
+          "integrated_duration_s": 8.869999999999632,
+          "planned_transitions": 3200,
+          "terminal_reason": "fall_or_body_contact",
+          "terminated": true,
+          "truncated": false
+        },
+        {
+          "actual_transitions": 3200,
+          "case": "final_diagonal_gentle_turn",
+          "completed": true,
+          "integrated_duration_s": 31.999999999993143,
+          "planned_transitions": 3200,
+          "terminal_reason": "time_limit",
+          "terminated": false,
+          "truncated": true
+        }
+      ],
+      "equal_case_mean_common_prefix": {
+        "cumulative_return": 10.556855583615217,
+        "height_rmse_m": 0.03897426830298956,
+        "pitch_rmse_rad": 0.16034337468151405,
+        "roll_rmse_rad": 0.03472500769589414,
+        "signed_forward_progress_m": 5.264136752426498,
+        "velocity_rmse_mps": 0.19622784913830763,
+        "yaw_rate_rmse_rps": 0.07293639727441166
+      },
+      "equal_case_mean_full_episode": {
+        "cumulative_return": 10.556855583615217,
+        "height_rmse_m": 0.0389742683029896,
+        "pitch_rmse_rad": 0.1603433746815141,
+        "roll_rmse_rad": 0.03472500769589412,
+        "signed_forward_progress_m": 5.264136752426498,
+        "velocity_rmse_mps": 0.19622784913830768,
+        "yaw_rate_rmse_rps": 0.07293639727441176
+      },
+      "policy": "seed48002/unbounded",
+      "seed": 48002,
+      "variant": "unbounded"
+    },
+    {
+      "case_count": 2,
+      "completed_count": 2,
+      "durations_and_termination": [
+        {
+          "actual_transitions": 3200,
+          "case": "final_right_offset_slow",
+          "completed": true,
+          "integrated_duration_s": 31.999999999993143,
+          "planned_transitions": 3200,
+          "terminal_reason": "time_limit",
+          "terminated": false,
+          "truncated": true
+        },
+        {
+          "actual_transitions": 3200,
+          "case": "final_diagonal_gentle_turn",
+          "completed": true,
+          "integrated_duration_s": 31.999999999993143,
+          "planned_transitions": 3200,
+          "terminal_reason": "time_limit",
+          "terminated": false,
+          "truncated": true
+        }
+      ],
+      "equal_case_mean_common_prefix": {
+        "cumulative_return": 24.899887523324225,
+        "height_rmse_m": 0.02848571362057771,
+        "pitch_rmse_rad": 0.07401607556858206,
+        "roll_rmse_rad": 0.01990477538780102,
+        "signed_forward_progress_m": 3.985314235202371,
+        "velocity_rmse_mps": 0.11925213825409416,
+        "yaw_rate_rmse_rps": 0.05252977955139808
+      },
+      "equal_case_mean_full_episode": {
+        "cumulative_return": 43.38904782427086,
+        "height_rmse_m": 0.029376091043561613,
+        "pitch_rmse_rad": 0.07853504647288725,
+        "roll_rmse_rad": 0.022592233469366608,
+        "signed_forward_progress_m": 5.813752132728607,
+        "velocity_rmse_mps": 0.12329519660392085,
+        "yaw_rate_rmse_rps": 0.05536571076207435
+      },
+      "policy": "seed48002/bounded",
+      "seed": 48002,
+      "variant": "bounded"
+    },
+    {
+      "case_count": 2,
+      "completed_count": 2,
+      "durations_and_termination": [
+        {
+          "actual_transitions": 3200,
+          "case": "final_right_offset_slow",
+          "completed": true,
+          "integrated_duration_s": 31.999999999993143,
+          "planned_transitions": 3200,
+          "terminal_reason": "time_limit",
+          "terminated": false,
+          "truncated": true
+        },
+        {
+          "actual_transitions": 3200,
+          "case": "final_diagonal_gentle_turn",
+          "completed": true,
+          "integrated_duration_s": 31.999999999993143,
+          "planned_transitions": 3200,
+          "terminal_reason": "time_limit",
+          "terminated": false,
+          "truncated": true
+        }
+      ],
+      "equal_case_mean_common_prefix": {
+        "cumulative_return": 48.153511942308754,
+        "height_rmse_m": 0.011057673154739812,
+        "pitch_rmse_rad": 0.017841002633980203,
+        "roll_rmse_rad": 0.005492705556114742,
+        "signed_forward_progress_m": 5.780445472394227,
+        "velocity_rmse_mps": 0.04704206524746109,
+        "yaw_rate_rmse_rps": 0.018114402258020704
+      },
+      "equal_case_mean_full_episode": {
+        "cumulative_return": 60.641085869596104,
+        "height_rmse_m": 0.011676149571682323,
+        "pitch_rmse_rad": 0.016526927107949205,
+        "roll_rmse_rad": 0.005649444449415796,
+        "signed_forward_progress_m": 7.339321068000437,
+        "velocity_rmse_mps": 0.04250955993978801,
+        "yaw_rate_rmse_rps": 0.017422780867722365
+      },
+      "policy": "zero",
+      "seed": 48003,
+      "variant": "zero"
+    },
+    {
+      "case_count": 2,
+      "completed_count": 0,
+      "durations_and_termination": [
+        {
+          "actual_transitions": 3112,
+          "case": "final_right_offset_slow",
+          "completed": false,
+          "integrated_duration_s": 31.11999999999363,
+          "planned_transitions": 3200,
+          "terminal_reason": "map_boundary",
+          "terminated": true,
+          "truncated": false
+        },
+        {
+          "actual_transitions": 2482,
+          "case": "final_diagonal_gentle_turn",
+          "completed": false,
+          "integrated_duration_s": 24.819999999997123,
+          "planned_transitions": 3200,
+          "terminal_reason": "map_boundary",
+          "terminated": true,
+          "truncated": false
+        }
+      ],
+      "equal_case_mean_common_prefix": {
+        "cumulative_return": 47.93362673871779,
+        "height_rmse_m": 0.005598671188559296,
+        "pitch_rmse_rad": 0.026070749479659462,
+        "roll_rmse_rad": 0.012824195920671723,
+        "signed_forward_progress_m": 4.725533498928495,
+        "velocity_rmse_mps": 0.04806291465291173,
+        "yaw_rate_rmse_rps": 0.046514546791618955
+      },
+      "equal_case_mean_full_episode": {
+        "cumulative_return": 50.76350580333572,
+        "height_rmse_m": 0.0053880788876825726,
+        "pitch_rmse_rad": 0.025108891787452237,
+        "roll_rmse_rad": 0.012949737049682147,
+        "signed_forward_progress_m": 5.020353672406486,
+        "velocity_rmse_mps": 0.04716113936323309,
+        "yaw_rate_rmse_rps": 0.04624079778450163
+      },
+      "policy": "seed48003/unbounded",
+      "seed": 48003,
+      "variant": "unbounded"
+    },
+    {
+      "case_count": 2,
+      "completed_count": 0,
+      "durations_and_termination": [
+        {
+          "actual_transitions": 2724,
+          "case": "final_right_offset_slow",
+          "completed": false,
+          "integrated_duration_s": 27.23999999999578,
+          "planned_transitions": 3200,
+          "terminal_reason": "map_boundary",
+          "terminated": true,
+          "truncated": false
+        },
+        {
+          "actual_transitions": 2368,
+          "case": "final_diagonal_gentle_turn",
+          "completed": false,
+          "integrated_duration_s": 23.679999999997754,
+          "planned_transitions": 3200,
+          "terminal_reason": "map_boundary",
+          "terminated": true,
+          "truncated": false
+        }
+      ],
+      "equal_case_mean_common_prefix": {
+        "cumulative_return": 43.407902344371195,
+        "height_rmse_m": 0.011404936346036405,
+        "pitch_rmse_rad": 0.064254018940508,
+        "roll_rmse_rad": 0.017969222305380506,
+        "signed_forward_progress_m": 3.800439899734461,
+        "velocity_rmse_mps": 0.05864121386375508,
+        "yaw_rate_rmse_rps": 0.05425714085415274
+      },
+      "equal_case_mean_full_episode": {
+        "cumulative_return": 43.407902344371195,
+        "height_rmse_m": 0.011404936346036405,
+        "pitch_rmse_rad": 0.06425401894050797,
+        "roll_rmse_rad": 0.0179692223053805,
+        "signed_forward_progress_m": 3.800439899734461,
+        "velocity_rmse_mps": 0.058641213863755065,
+        "yaw_rate_rmse_rps": 0.05425714085415272
+      },
+      "policy": "seed48003/bounded",
+      "seed": 48003,
+      "variant": "bounded"
+    }
+  ],
+  "schema": "d1-wheel-common-mean-comparison-v1",
+  "seeds": [
+    48001,
+    48002,
+    48003
+  ],
+  "selected_split": "final",
+  "skill_improvement_established": false,
+  "unequal_full_episode_durations_present": true
+}

@@ -1,0 +1,180 @@
+{
+  "schema": "astra-common-observed-duration-diagnostic-v1",
+  "classification": "Secondary post-development diagnostic; original final evaluation protocol and primary outcome remain unchanged.",
+  "rule": "Per seed/case take the minimum physical step count of zero and both variants; compare their prefixes without padding, restarting or imputing post-termination states. Terminal penalty remains included when it occurs within that prefix.",
+  "limitation": "Equal observed duration does not equal spatial terrain exposure after yaw/path divergence, and cannot establish performance beyond the earliest termination.",
+  "results": [
+    {
+      "case": "dev_flat",
+      "results": [
+        {
+          "policy": "zero",
+          "observed_full_steps": 600,
+          "common_steps": 600,
+          "common_seconds": 6.0,
+          "full_terminated": false,
+          "full_terminal_reason": "time_limit",
+          "full_duration_s": 5.999999999999561,
+          "common_cumulative_return": 11.62740602852294,
+          "common_cumulative_reward_terms": {
+            "action_change": 0.0,
+            "attitude": -0.000372783916115411,
+            "height": -0.04405779128956083,
+            "mechanical_power": -0.011011471429757823,
+            "termination": 0.0,
+            "tracking_velocity": 5.768486639022806,
+            "tracking_yaw": 5.91436143613556
+          },
+          "common_net_x_m": 1.2185293137552824,
+          "common_final_y_m": 0.00010156459445665617,
+          "common_final_yaw_rad": -0.001273213037027373,
+          "common_geometric_nonflat_steps": 0,
+          "trace_sha256": "ae05ea0009079abbae4e214e8d3f3aba9456b13a7ca549e064b0d44f4d50eff7",
+          "common_velocity_rmse_mps": 0.04122600752925663,
+          "common_yaw_rate_rmse_rps": 0.024120012748867097,
+          "common_height_rmse_m": 0.00428455517379791
+        },
+        {
+          "policy": "seed48001/unbounded",
+          "observed_full_steps": 600,
+          "common_steps": 600,
+          "common_seconds": 6.0,
+          "full_terminated": false,
+          "full_terminal_reason": "time_limit",
+          "full_duration_s": 5.999999999999561,
+          "common_cumulative_return": 11.083194733610439,
+          "common_cumulative_reward_terms": {
+            "action_change": -0.000913484786005463,
+            "attitude": -0.06616565353431848,
+            "height": -0.21139495298076555,
+            "mechanical_power": -0.024735798075588133,
+            "termination": 0.0,
+            "tracking_velocity": 5.554720982972964,
+            "tracking_yaw": 5.831683640014157
+          },
+          "common_net_x_m": 1.5628767084359443,
+          "common_final_y_m": 0.051794964464052656,
+          "common_final_yaw_rad": 0.12623844237314447,
+          "common_geometric_nonflat_steps": 0,
+          "trace_sha256": "c61176d6041c4d0d928970cffef0ebbf01c701ee729960d3dab98d1862f42127",
+          "common_velocity_rmse_mps": 0.05738454129957232,
+          "common_yaw_rate_rmse_rps": 0.034417821588229494,
+          "common_height_rmse_m": 0.009385160116303788
+        },
+        {
+          "policy": "seed48001/bounded",
+          "observed_full_steps": 600,
+          "common_steps": 600,
+          "common_seconds": 6.0,
+          "full_terminated": false,
+          "full_terminal_reason": "time_limit",
+          "full_duration_s": 5.999999999999561,
+          "common_cumulative_return": 11.291517585112471,
+          "common_cumulative_reward_terms": {
+            "action_change": -0.0008518224161408342,
+            "attitude": -0.06965678006674994,
+            "height": -0.1407521581244048,
+            "mechanical_power": -0.018178881245366048,
+            "termination": 0.0,
+            "tracking_velocity": 5.689205622669964,
+            "tracking_yaw": 5.831751604295178
+          },
+          "common_net_x_m": 1.3859754930587505,
+          "common_final_y_m": 0.08569889801073143,
+          "common_final_yaw_rad": 0.16328553862981096,
+          "common_geometric_nonflat_steps": 0,
+          "trace_sha256": "6bc7d115d6fd62babe580dda819218c8e73133dfb0e665aad58701976a7865ee",
+          "common_velocity_rmse_mps": 0.048439692462367887,
+          "common_yaw_rate_rmse_rps": 0.03390127973660072,
+          "common_height_rmse_m": 0.007658115469999178
+        }
+      ]
+    },
+    {
+      "case": "dev_straight_road",
+      "results": [
+        {
+          "policy": "zero",
+          "observed_full_steps": 3200,
+          "common_steps": 2630,
+          "common_seconds": 26.3,
+          "full_terminated": false,
+          "full_terminal_reason": "time_limit",
+          "full_duration_s": 31.999999999993143,
+          "common_cumulative_return": 50.36540755883853,
+          "common_cumulative_reward_terms": {
+            "action_change": 0.0,
+            "attitude": -0.007649397743791994,
+            "height": -1.1407830121711713,
+            "mechanical_power": -0.04412559915566478,
+            "termination": 0.0,
+            "tracking_velocity": 25.413089969703616,
+            "tracking_yaw": 26.144875598205548
+          },
+          "common_net_x_m": 6.136691623995009,
+          "common_final_y_m": -0.010633971137333817,
+          "common_final_yaw_rad": -0.0006135439764949641,
+          "common_geometric_nonflat_steps": 1930,
+          "trace_sha256": "b2073da9c35c92c9d1de775197c2d1565bc4796e35fbfb9962d4ce5740a0dd63",
+          "common_velocity_rmse_mps": 0.03831421482271055,
+          "common_yaw_rate_rmse_rps": 0.015499547725045757,
+          "common_height_rmse_m": 0.010413426421029126
+        },
+        {
+          "policy": "seed48001/unbounded",
+          "observed_full_steps": 2950,
+          "common_steps": 2630,
+          "common_seconds": 26.3,
+          "full_terminated": true,
+          "full_terminal_reason": "map_boundary",
+          "full_duration_s": 29.49999999999453,
+          "common_cumulative_return": 49.571423520547576,
+          "common_cumulative_reward_terms": {
+            "action_change": -0.0009142157785971514,
+            "attitude": -0.632796992352284,
+            "height": -0.8208824473151887,
+            "mechanical_power": -0.14545479743277842,
+            "termination": 0.0,
+            "tracking_velocity": 25.28561077539459,
+            "tracking_yaw": 25.88586119803177
+          },
+          "common_net_x_m": 6.9861491915336575,
+          "common_final_y_m": 1.8375172264846305,
+          "common_final_yaw_rad": 0.5205981244030856,
+          "common_geometric_nonflat_steps": 1974,
+          "trace_sha256": "47762422a0b87bc1c43a947bde34d304d1b6f2aba5cafc71695b07eeaaeefb6c",
+          "common_velocity_rmse_mps": 0.04043262132760534,
+          "common_yaw_rate_rmse_rps": 0.025459259021480607,
+          "common_height_rmse_m": 0.008833495960574922
+        },
+        {
+          "policy": "seed48001/bounded",
+          "observed_full_steps": 2630,
+          "common_steps": 2630,
+          "common_seconds": 26.3,
+          "full_terminated": true,
+          "full_terminal_reason": "map_boundary",
+          "full_duration_s": 26.299999999996302,
+          "common_cumulative_return": 48.48987803662664,
+          "common_cumulative_reward_terms": {
+            "action_change": -0.0008524275794958126,
+            "attitude": -0.5912261402606037,
+            "height": -0.3801717970420599,
+            "mechanical_power": -0.09979909768032041,
+            "termination": -2.0,
+            "tracking_velocity": 25.90558147258452,
+            "tracking_yaw": 25.656346026604567
+          },
+          "common_net_x_m": 6.004031833870606,
+          "common_final_y_m": 2.3011103787612495,
+          "common_final_yaw_rad": 0.7602256917232985,
+          "common_geometric_nonflat_steps": 1744,
+          "trace_sha256": "c5ca1a0036651019157a56f6bf238d7fc863a323e37e6bfbd3ba6ca0401f9aa1",
+          "common_velocity_rmse_mps": 0.025687129622287024,
+          "common_yaw_rate_rmse_rps": 0.03158007145601444,
+          "common_height_rmse_m": 0.006011489293104757
+        }
+      ]
+    }
+  ]
+}

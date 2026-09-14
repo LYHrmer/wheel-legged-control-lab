@@ -1,0 +1,1831 @@
+{
+  "audit_script_sha256": "7558a947552fb81f1ee098ef1523e379023f77c7d3de9dd915b90fca734e8490",
+  "checks": 4726,
+  "failures": [],
+  "passed": true,
+  "physical_steps_executed": 0,
+  "repo": "/home/lyh/wheel-legged-control-lab",
+  "schema": "d1-wheel-common-mean-readonly-audit-v1",
+  "studies": [
+    {
+      "checks": 210,
+      "exposure_scope": "Reaggregated episode records; no per-transition training states were stored, so terrain-contact exposure cannot be independently reconstructed.",
+      "failures": [],
+      "input": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/rl_improvement_20260914/smoke_01",
+      "manifest_count": 3,
+      "manifest_entries_checked": 28,
+      "mode": "smoke",
+      "paired_initialization": {
+        "48999": true
+      },
+      "passed": true,
+      "source_hashes_checked": 73,
+      "training": [
+        {
+          "actual_transitions": 64,
+          "episodes": 1,
+          "final_parameter_sha256": "54594df969090bdaf0702ba92b5348c89045c19f3e3e62c43efe9af2b3a08a04",
+          "geometric_nonflat_steps_by_level": {
+            "0": 0
+          },
+          "initial_parameter_sha256": "f618b18cfb073b6654bcb30f6c983e949e15948d12ff3465b2e11a301ba398a8",
+          "model_sha256": "4db5f1e51a314128aad217006140c1d6d564dabbf0a9b0dbc8cc87b5ded07cab",
+          "optimization_epochs": 2,
+          "optimizer_steps": [
+            2.0
+          ],
+          "ppo_num_timesteps": 64,
+          "seed": 48999,
+          "termination_counts": {
+            "budget_cut": 1
+          },
+          "transitions_by_level": {
+            "0": 64
+          },
+          "variant": "bounded"
+        },
+        {
+          "actual_transitions": 64,
+          "episodes": 1,
+          "final_parameter_sha256": "d3ae5dfe4a95478a956277644d787fd23079bd12234914e3dcec8f69a9b9f645",
+          "geometric_nonflat_steps_by_level": {
+            "0": 0
+          },
+          "initial_parameter_sha256": "f618b18cfb073b6654bcb30f6c983e949e15948d12ff3465b2e11a301ba398a8",
+          "model_sha256": "9ccda8013803d061e16fe2fb410ae38b79eee817e0cea11c1901df1f562e759d",
+          "optimization_epochs": 2,
+          "optimizer_steps": [
+            2.0
+          ],
+          "ppo_num_timesteps": 64,
+          "seed": 48999,
+          "termination_counts": {
+            "budget_cut": 1
+          },
+          "transitions_by_level": {
+            "0": 64
+          },
+          "variant": "unbounded"
+        }
+      ]
+    },
+    {
+      "checks": 260,
+      "exposure_scope": "Reaggregated episode records; no per-transition training states were stored, so terrain-contact exposure cannot be independently reconstructed.",
+      "failures": [],
+      "input": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/rl_improvement_20260914/train_seed48001",
+      "manifest_count": 3,
+      "manifest_entries_checked": 28,
+      "mode": "train",
+      "paired_initialization": {
+        "48001": true
+      },
+      "passed": true,
+      "source_hashes_checked": 73,
+      "training": [
+        {
+          "actual_transitions": 16384,
+          "episodes": 6,
+          "final_parameter_sha256": "46bcc4ff2a5f6188d1263a426ac154cfabc757f39ff56c55750dc6d6c5dfe2b6",
+          "geometric_nonflat_steps_by_level": {
+            "0": 0,
+            "1": 2262,
+            "2": 1650,
+            "3": 2452
+          },
+          "initial_parameter_sha256": "9cf8ab9b3b574c952fa683b9cca0663da7f1ca8c4c9ccf4d8fe56952dad43c1f",
+          "model_sha256": "ccbf538373739a5e2ef292a42cfe34918c81cd8487561a11911e4f0f73742ba9",
+          "optimization_epochs": 512,
+          "optimizer_steps": [
+            512.0
+          ],
+          "ppo_num_timesteps": 16384,
+          "seed": 48001,
+          "termination_counts": {
+            "budget_cut": 1,
+            "map_boundary": 2,
+            "time_limit": 3
+          },
+          "transitions_by_level": {
+            "0": 6400,
+            "1": 3200,
+            "2": 2691,
+            "3": 4093
+          },
+          "variant": "bounded"
+        },
+        {
+          "actual_transitions": 16384,
+          "episodes": 6,
+          "final_parameter_sha256": "28faaa89fbb17644c6d999c5b8fa2af5c93933b51dfa5291939fc5693aaf95c1",
+          "geometric_nonflat_steps_by_level": {
+            "0": 0,
+            "1": 1916,
+            "2": 3770,
+            "3": 779
+          },
+          "initial_parameter_sha256": "9cf8ab9b3b574c952fa683b9cca0663da7f1ca8c4c9ccf4d8fe56952dad43c1f",
+          "model_sha256": "5b440e6f196004a09b75a4d71015decd5fe60ca4ecb5ff6abaa0fe461e957ee6",
+          "optimization_epochs": 512,
+          "optimizer_steps": [
+            512.0
+          ],
+          "ppo_num_timesteps": 16384,
+          "seed": 48001,
+          "termination_counts": {
+            "budget_cut": 1,
+            "map_boundary": 3,
+            "time_limit": 2
+          },
+          "transitions_by_level": {
+            "0": 6400,
+            "1": 2878,
+            "2": 5801,
+            "3": 1305
+          },
+          "variant": "unbounded"
+        }
+      ]
+    },
+    {
+      "checks": 456,
+      "exposure_scope": "Reaggregated episode records; no per-transition training states were stored, so terrain-contact exposure cannot be independently reconstructed.",
+      "failures": [],
+      "input": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/rl_improvement_20260914/train_seeds48002_48003",
+      "manifest_count": 5,
+      "manifest_entries_checked": 54,
+      "mode": "train",
+      "paired_initialization": {
+        "48002": true,
+        "48003": true
+      },
+      "passed": true,
+      "source_hashes_checked": 73,
+      "training": [
+        {
+          "actual_transitions": 16384,
+          "episodes": 6,
+          "final_parameter_sha256": "8a0fe7390f57c3ca6a8294241457724de504651a5a0fd3af4252b29f39b5fedb",
+          "geometric_nonflat_steps_by_level": {
+            "0": 0,
+            "1": 2097,
+            "2": 2319,
+            "3": 1958
+          },
+          "initial_parameter_sha256": "feb8fe4b99c94088d0460a234b689eebce4cd0d395671d8df1d71b2a76d72dfc",
+          "model_sha256": "16f027b52d977cc9a49705493558956ecc23cd7760d69e9c8f8d13f619833269",
+          "optimization_epochs": 512,
+          "optimizer_steps": [
+            512.0
+          ],
+          "ppo_num_timesteps": 16384,
+          "seed": 48002,
+          "termination_counts": {
+            "budget_cut": 1,
+            "fall_or_body_contact": 1,
+            "time_limit": 4
+          },
+          "transitions_by_level": {
+            "0": 6400,
+            "1": 3200,
+            "2": 3200,
+            "3": 3584
+          },
+          "variant": "bounded"
+        },
+        {
+          "actual_transitions": 16384,
+          "episodes": 7,
+          "final_parameter_sha256": "a2dbe579521eb4cc8e693936e23af4ba7e3cf52acebf70619c10faef3ab11995",
+          "geometric_nonflat_steps_by_level": {
+            "0": 0,
+            "1": 2407,
+            "2": 2299,
+            "3": 1820
+          },
+          "initial_parameter_sha256": "feb8fe4b99c94088d0460a234b689eebce4cd0d395671d8df1d71b2a76d72dfc",
+          "model_sha256": "2269dd0a9513195242b415e149fa705394205ff8d2cb41359e942de742cba375",
+          "optimization_epochs": 512,
+          "optimizer_steps": [
+            512.0
+          ],
+          "ppo_num_timesteps": 16384,
+          "seed": 48002,
+          "termination_counts": {
+            "budget_cut": 1,
+            "fall_or_body_contact": 2,
+            "time_limit": 4
+          },
+          "transitions_by_level": {
+            "0": 6400,
+            "1": 3200,
+            "2": 3200,
+            "3": 3584
+          },
+          "variant": "unbounded"
+        },
+        {
+          "actual_transitions": 16384,
+          "episodes": 7,
+          "final_parameter_sha256": "56d2a687673576a4e08f04acccff5ba3581a742fcd96b72da9c4e7c682376af6",
+          "geometric_nonflat_steps_by_level": {
+            "0": 0,
+            "1": 2380,
+            "2": 1485,
+            "3": 2287
+          },
+          "initial_parameter_sha256": "adbb7676c24e830fff2caf5448ffbe4c7f14e25f45e73e5e56226745ca8a7a33",
+          "model_sha256": "454deee62fc71f8c8119c04519fc99d0cc7ebc4db886567688c20abc73ec171c",
+          "optimization_epochs": 512,
+          "optimizer_steps": [
+            512.0
+          ],
+          "ppo_num_timesteps": 16384,
+          "seed": 48003,
+          "termination_counts": {
+            "budget_cut": 1,
+            "map_boundary": 5,
+            "time_limit": 1
+          },
+          "transitions_by_level": {
+            "0": 5534,
+            "1": 4696,
+            "2": 2352,
+            "3": 3802
+          },
+          "variant": "bounded"
+        },
+        {
+          "actual_transitions": 16384,
+          "episodes": 7,
+          "final_parameter_sha256": "836ac14586ef6be82a96605e54042bca7468f3508de6aa2a19d603ada87ec0b9",
+          "geometric_nonflat_steps_by_level": {
+            "0": 0,
+            "1": 2698,
+            "2": 1524,
+            "3": 1750
+          },
+          "initial_parameter_sha256": "adbb7676c24e830fff2caf5448ffbe4c7f14e25f45e73e5e56226745ca8a7a33",
+          "model_sha256": "e7a25a1c48620173fd67ecfada6023a8eb8efe1ece3233447573b8f259d490d7",
+          "optimization_epochs": 512,
+          "optimizer_steps": [
+            512.0
+          ],
+          "ppo_num_timesteps": 16384,
+          "seed": 48003,
+          "termination_counts": {
+            "budget_cut": 1,
+            "map_boundary": 5,
+            "time_limit": 1
+          },
+          "transitions_by_level": {
+            "0": 5626,
+            "1": 4946,
+            "2": 2542,
+            "3": 3270
+          },
+          "variant": "unbounded"
+        }
+      ]
+    },
+    {
+      "checks": 788,
+      "evaluation_limits": "No physical episodes were rerun. Ground contact and actuator-substep truth are not stored; their saved aggregate metrics can be checked for consistency but not independently regenerated.",
+      "evaluations": [
+        {
+          "actual_transitions": 600,
+          "case": "dev_flat",
+          "cumulative_return": 11.291517585112476,
+          "final_x_m": -2.4140245069412494,
+          "geometric_nonflat_steps": 0,
+          "height_rmse_m": 0.007658115469999181,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 5.999999999999561,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.45504289067085746,
+          "pitch_rmse_rad": 0.07050586321542707,
+          "policy": "seed48001/bounded",
+          "roll_rmse_rad": 0.015911686185134246,
+          "signed_forward_progress_m": 1.3859754930587505,
+          "source_checkpoint_sha256": "ccbf538373739a5e2ef292a42cfe34918c81cd8487561a11911e4f0f73742ba9",
+          "terminal_reason": "time_limit",
+          "terminated": false,
+          "truncated": true,
+          "velocity_rmse_mps": 0.04843969246236786,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.048328882083296776,
+              "max_abs": 0.048328882083296776,
+              "mean": 0.04789278043123583,
+              "min": 0.04637324810028076
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.048328882083296776,
+              "max_abs": 0.048328882083296776,
+              "mean": 0.04789278043123583,
+              "min": 0.04637324810028076
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.10187040641903877,
+              "max_abs": 0.10187040641903877,
+              "mean": 0.09647108731558546,
+              "min": 0.08199725020676851
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.048328882083296776,
+              "max_abs": 0.048328882083296776,
+              "mean": 0.04789278043123583,
+              "min": 0.04637324810028076
+            }
+          },
+          "yaw_rate_rmse_rps": 0.033901279736600703
+        },
+        {
+          "actual_transitions": 600,
+          "case": "dev_flat",
+          "cumulative_return": 11.083194733610448,
+          "final_x_m": -2.2371232915640555,
+          "geometric_nonflat_steps": 0,
+          "height_rmse_m": 0.009385160116303783,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 5.999999999999561,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.4550762772755216,
+          "pitch_rmse_rad": 0.06659654533141687,
+          "policy": "seed48001/unbounded",
+          "roll_rmse_rad": 0.022963539905573874,
+          "signed_forward_progress_m": 1.5628767084359443,
+          "source_checkpoint_sha256": "5b440e6f196004a09b75a4d71015decd5fe60ca4ecb5ff6abaa0fe461e957ee6",
+          "terminal_reason": "time_limit",
+          "terminated": false,
+          "truncated": true,
+          "velocity_rmse_mps": 0.05738454129957235,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.15149965323507786,
+              "max_abs": 0.15149965323507786,
+              "mean": 0.14485289326500303,
+              "min": 0.12499846518039703
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.15149965323507786,
+              "max_abs": 0.15149965323507786,
+              "mean": 0.14485289326500303,
+              "min": 0.12499846518039703
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.15149965323507786,
+              "max_abs": 0.15149965323507786,
+              "mean": 0.14485289326500303,
+              "min": 0.12499846518039703
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.15149965323507786,
+              "max_abs": 0.15149965323507786,
+              "mean": 0.14485289326500303,
+              "min": 0.12499846518039703
+            }
+          },
+          "yaw_rate_rmse_rps": 0.034417821588229494
+        },
+        {
+          "actual_transitions": 600,
+          "case": "dev_flat",
+          "cumulative_return": 11.627406028522932,
+          "final_x_m": -2.5814706862447174,
+          "geometric_nonflat_steps": 0,
+          "height_rmse_m": 0.00428455517379791,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 5.999999999999561,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.4548870012248537,
+          "pitch_rmse_rad": 0.005274097151382939,
+          "policy": "zero",
+          "roll_rmse_rad": 0.00037774719910354333,
+          "signed_forward_progress_m": 1.2185293137552824,
+          "source_checkpoint_sha256": null,
+          "terminal_reason": "time_limit",
+          "terminated": false,
+          "truncated": true,
+          "velocity_rmse_mps": 0.041226007529256634,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            }
+          },
+          "yaw_rate_rmse_rps": 0.024120012748867103
+        },
+        {
+          "actual_transitions": 2630,
+          "case": "dev_straight_road",
+          "cumulative_return": 48.489878036626614,
+          "final_x_m": 2.2040318338706055,
+          "geometric_nonflat_steps": 1744,
+          "height_rmse_m": 0.006011489293104753,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 26.299999999996302,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.4550324918426125,
+          "pitch_rmse_rad": 0.09648376515229536,
+          "policy": "seed48001/bounded",
+          "roll_rmse_rad": 0.028406331731975813,
+          "signed_forward_progress_m": 6.004031833870606,
+          "source_checkpoint_sha256": "ccbf538373739a5e2ef292a42cfe34918c81cd8487561a11911e4f0f73742ba9",
+          "terminal_reason": "map_boundary",
+          "terminated": true,
+          "truncated": false,
+          "velocity_rmse_mps": 0.025687129622287034,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.04848766606301069,
+              "max_abs": 0.04848766606301069,
+              "mean": 0.048306926091275966,
+              "min": 0.04637324810028076
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.04848766606301069,
+              "max_abs": 0.04848766606301069,
+              "mean": 0.048306926091275966,
+              "min": 0.04637324810028076
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.10440680850297213,
+              "max_abs": 0.10440680850297213,
+              "mean": 0.10186066958688539,
+              "min": 0.08199725020676851
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.04848766606301069,
+              "max_abs": 0.04848766606301069,
+              "mean": 0.048306926091275966,
+              "min": 0.04637324810028076
+            }
+          },
+          "yaw_rate_rmse_rps": 0.03158007145601447
+        },
+        {
+          "actual_transitions": 2950,
+          "case": "dev_straight_road",
+          "cumulative_return": 53.72735927795816,
+          "final_x_m": 3.952313364352263,
+          "geometric_nonflat_steps": 2052,
+          "height_rmse_m": 0.008531760589308943,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 29.49999999999453,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.43783241437281,
+          "pitch_rmse_rad": 0.07860050891362007,
+          "policy": "seed48001/unbounded",
+          "roll_rmse_rad": 0.06868516129924396,
+          "signed_forward_progress_m": 7.752313364352263,
+          "source_checkpoint_sha256": "5b440e6f196004a09b75a4d71015decd5fe60ca4ecb5ff6abaa0fe461e957ee6",
+          "terminal_reason": "map_boundary",
+          "terminated": true,
+          "truncated": false,
+          "velocity_rmse_mps": 0.03934873295184434,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.1543030438479036,
+              "max_abs": 0.1543030438479036,
+              "mean": 0.15133509518573715,
+              "min": 0.12499846518039703
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.1543030438479036,
+              "max_abs": 0.1543030438479036,
+              "mean": 0.15133509518573715,
+              "min": 0.12499846518039703
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.1543030438479036,
+              "max_abs": 0.1543030438479036,
+              "mean": 0.15133509518573715,
+              "min": 0.12499846518039703
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.1543030438479036,
+              "max_abs": 0.1543030438479036,
+              "mean": 0.15133509518573715,
+              "min": 0.12499846518039703
+            }
+          },
+          "yaw_rate_rmse_rps": 0.025151666663992992
+        },
+        {
+          "actual_transitions": 3200,
+          "case": "dev_straight_road",
+          "cumulative_return": 61.053415690821886,
+          "final_x_m": 3.719811286390173,
+          "geometric_nonflat_steps": 2401,
+          "height_rmse_m": 0.01104956994233692,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 31.999999999993143,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.45488833125679523,
+          "pitch_rmse_rad": 0.012011076641131598,
+          "policy": "zero",
+          "roll_rmse_rad": 0.003246522872220253,
+          "signed_forward_progress_m": 7.519811286390173,
+          "source_checkpoint_sha256": null,
+          "terminal_reason": "time_limit",
+          "terminated": false,
+          "truncated": true,
+          "velocity_rmse_mps": 0.03971918517222135,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            }
+          },
+          "yaw_rate_rmse_rps": 0.014141791811380627
+        }
+      ],
+      "failures": [],
+      "input": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/rl_improvement_20260914/dev_seed48001",
+      "manifest_count": 7,
+      "manifest_entries_checked": 56,
+      "mode": "evaluate",
+      "passed": true,
+      "source_hashes_checked": 73
+    },
+    {
+      "checks": 1265,
+      "evaluation_limits": "No physical episodes were rerun. Ground contact and actuator-substep truth are not stored; their saved aggregate metrics can be checked for consistency but not independently regenerated.",
+      "evaluations": [
+        {
+          "actual_transitions": 600,
+          "case": "dev_flat",
+          "cumulative_return": 10.128100803303422,
+          "final_x_m": -2.6393691476851044,
+          "geometric_nonflat_steps": 0,
+          "height_rmse_m": 0.022719359980963413,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 5.999999999999561,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.45533429628900884,
+          "pitch_rmse_rad": 0.05268844435161752,
+          "policy": "seed48002/bounded",
+          "roll_rmse_rad": 0.009164351163543166,
+          "signed_forward_progress_m": 1.1606308523148954,
+          "source_checkpoint_sha256": "16f027b52d977cc9a49705493558956ecc23cd7760d69e9c8f8d13f619833269",
+          "terminal_reason": "time_limit",
+          "terminated": false,
+          "truncated": true,
+          "velocity_rmse_mps": 0.06157899099066351,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.0497969426214695,
+              "max_abs": 0.0497969426214695,
+              "mean": 0.04974028195254505,
+              "min": 0.04907056875526905
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.0497969426214695,
+              "max_abs": 0.0497969426214695,
+              "mean": 0.04974028195254505,
+              "min": 0.04907056875526905
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.1549331359565258,
+              "max_abs": 0.1549331359565258,
+              "mean": 0.14979455072976028,
+              "min": 0.11672511929646134
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.0497969426214695,
+              "max_abs": 0.0497969426214695,
+              "mean": 0.04974028195254505,
+              "min": 0.04907056875526905
+            }
+          },
+          "yaw_rate_rmse_rps": 0.017857428229142196
+        },
+        {
+          "actual_transitions": 600,
+          "case": "dev_flat",
+          "cumulative_return": 10.195731154947083,
+          "final_x_m": -2.3422151122202557,
+          "geometric_nonflat_steps": 0,
+          "height_rmse_m": 0.019458021393252846,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 5.999999999999561,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.45528465519065997,
+          "pitch_rmse_rad": 0.06734676824272565,
+          "policy": "seed48002/unbounded",
+          "roll_rmse_rad": 0.004240821827497549,
+          "signed_forward_progress_m": 1.4577848877797441,
+          "source_checkpoint_sha256": "2269dd0a9513195242b415e149fa705394205ff8d2cb41359e942de742cba375",
+          "terminal_reason": "time_limit",
+          "terminated": false,
+          "truncated": true,
+          "velocity_rmse_mps": 0.07869118169550435,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.24423223733901978,
+              "max_abs": 0.24423223733901978,
+              "mean": 0.23823764841382702,
+              "min": 0.17616255767643452
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.24423223733901978,
+              "max_abs": 0.24423223733901978,
+              "mean": 0.23823764841382702,
+              "min": 0.17616255767643452
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.24423223733901978,
+              "max_abs": 0.24423223733901978,
+              "mean": 0.23823764841382702,
+              "min": 0.17616255767643452
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.24423223733901978,
+              "max_abs": 0.24423223733901978,
+              "mean": 0.23823764841382702,
+              "min": 0.17616255767643452
+            }
+          },
+          "yaw_rate_rmse_rps": 0.011562635145289102
+        },
+        {
+          "actual_transitions": 600,
+          "case": "dev_flat",
+          "cumulative_return": 11.07339706195966,
+          "final_x_m": -2.683290390364319,
+          "geometric_nonflat_steps": 0,
+          "height_rmse_m": 0.004799059490796762,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 5.999999999999561,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.45503629327004874,
+          "pitch_rmse_rad": 0.03464382208832867,
+          "policy": "seed48003/bounded",
+          "roll_rmse_rad": 0.01423136207491298,
+          "signed_forward_progress_m": 1.1167096096356808,
+          "source_checkpoint_sha256": "454deee62fc71f8c8119c04519fc99d0cc7ebc4db886567688c20abc73ec171c",
+          "terminal_reason": "time_limit",
+          "terminated": false,
+          "truncated": true,
+          "velocity_rmse_mps": 0.05582984882691248,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.048810455948114395,
+              "max_abs": 0.048810455948114395,
+              "mean": 0.04868104460028311,
+              "min": 0.047128476202487946
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.048810455948114395,
+              "max_abs": 0.048810455948114395,
+              "mean": 0.04868104460028311,
+              "min": 0.047128476202487946
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.11049074213951826,
+              "max_abs": 0.11049074213951826,
+              "mean": 0.1081121124777322,
+              "min": 0.08802972082048655
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.048810455948114395,
+              "max_abs": 0.048810455948114395,
+              "mean": 0.04868104460028311,
+              "min": 0.047128476202487946
+            }
+          },
+          "yaw_rate_rmse_rps": 0.05207942382819038
+        },
+        {
+          "actual_transitions": 600,
+          "case": "dev_flat",
+          "cumulative_return": 11.526178680849547,
+          "final_x_m": -2.60131013718657,
+          "geometric_nonflat_steps": 0,
+          "height_rmse_m": 0.005708741947138292,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 5.999999999999561,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.45489792763171677,
+          "pitch_rmse_rad": 0.042118453191496284,
+          "policy": "seed48003/unbounded",
+          "roll_rmse_rad": 0.013602634499058392,
+          "signed_forward_progress_m": 1.19868986281343,
+          "source_checkpoint_sha256": "e7a25a1c48620173fd67ecfada6023a8eb8efe1ece3233447573b8f259d490d7",
+          "terminal_reason": "time_limit",
+          "terminated": false,
+          "truncated": true,
+          "velocity_rmse_mps": 0.042690603262893825,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.01981966197490692,
+              "max_abs": 0.01981966197490692,
+              "mean": 0.016140956959376732,
+              "min": 0.00023661740124225616
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.01981966197490692,
+              "max_abs": 0.01981966197490692,
+              "mean": 0.016140956959376732,
+              "min": 0.00023661740124225616
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.01981966197490692,
+              "max_abs": 0.01981966197490692,
+              "mean": 0.016140956959376732,
+              "min": 0.00023661740124225616
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.01981966197490692,
+              "max_abs": 0.01981966197490692,
+              "mean": 0.016140956959376732,
+              "min": 0.00023661740124225616
+            }
+          },
+          "yaw_rate_rmse_rps": 0.0243053115510652
+        },
+        {
+          "actual_transitions": 600,
+          "case": "dev_flat",
+          "cumulative_return": 11.627406028522932,
+          "final_x_m": -2.5814706862447174,
+          "geometric_nonflat_steps": 0,
+          "height_rmse_m": 0.00428455517379791,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 5.999999999999561,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.4548870012248537,
+          "pitch_rmse_rad": 0.005274097151382939,
+          "policy": "zero",
+          "roll_rmse_rad": 0.00037774719910354333,
+          "signed_forward_progress_m": 1.2185293137552824,
+          "source_checkpoint_sha256": null,
+          "terminal_reason": "time_limit",
+          "terminated": false,
+          "truncated": true,
+          "velocity_rmse_mps": 0.041226007529256634,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            }
+          },
+          "yaw_rate_rmse_rps": 0.024120012748867103
+        },
+        {
+          "actual_transitions": 3200,
+          "case": "dev_straight_road",
+          "cumulative_return": 39.83474942392168,
+          "final_x_m": 2.5425135635389755,
+          "geometric_nonflat_steps": 2391,
+          "height_rmse_m": 0.03455844548857419,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 31.999999999993143,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.4553342941971585,
+          "pitch_rmse_rad": 0.12847989123656828,
+          "policy": "seed48002/bounded",
+          "roll_rmse_rad": 0.021655836466561624,
+          "signed_forward_progress_m": 6.342513563538976,
+          "source_checkpoint_sha256": "16f027b52d977cc9a49705493558956ecc23cd7760d69e9c8f8d13f619833269",
+          "terminal_reason": "time_limit",
+          "terminated": false,
+          "truncated": true,
+          "velocity_rmse_mps": 0.12256915593672797,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.04980245605111122,
+              "max_abs": 0.04980245605111122,
+              "mean": 0.049766049291356466,
+              "min": 0.04907056875526905
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.04980245605111122,
+              "max_abs": 0.04980245605111122,
+              "mean": 0.049766049291356466,
+              "min": 0.04907056875526905
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.15562573075294495,
+              "max_abs": 0.15562573075294495,
+              "mean": 0.15216450983585672,
+              "min": 0.11672511929646134
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.04980245605111122,
+              "max_abs": 0.04980245605111122,
+              "mean": 0.049766049291356466,
+              "min": 0.04907056875526905
+            }
+          },
+          "yaw_rate_rmse_rps": 0.059495091261480615
+        },
+        {
+          "actual_transitions": 2159,
+          "case": "dev_straight_road",
+          "cumulative_return": 28.097501459991953,
+          "final_x_m": 2.1337425840220563,
+          "geometric_nonflat_steps": 1459,
+          "height_rmse_m": 0.029100932793346905,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 21.589999999998913,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.4552846532774858,
+          "pitch_rmse_rad": 0.1176411926049649,
+          "policy": "seed48002/unbounded",
+          "roll_rmse_rad": 0.007674749123927736,
+          "signed_forward_progress_m": 5.933742584022056,
+          "source_checkpoint_sha256": "2269dd0a9513195242b415e149fa705394205ff8d2cb41359e942de742cba375",
+          "terminal_reason": "fall_or_body_contact",
+          "terminated": true,
+          "truncated": false,
+          "velocity_rmse_mps": 0.14242247288410828,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.24635698273777962,
+              "max_abs": 0.24635698273777962,
+              "mean": 0.24144492850256302,
+              "min": 0.17616255767643452
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.24635698273777962,
+              "max_abs": 0.24635698273777962,
+              "mean": 0.24144492850256302,
+              "min": 0.17616255767643452
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.24635698273777962,
+              "max_abs": 0.24635698273777962,
+              "mean": 0.24144492850256302,
+              "min": 0.17616255767643452
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.24635698273777962,
+              "max_abs": 0.24635698273777962,
+              "mean": 0.24144492850256302,
+              "min": 0.17616255767643452
+            }
+          },
+          "yaw_rate_rmse_rps": 0.0552569181361669
+        },
+        {
+          "actual_transitions": 2673,
+          "case": "dev_straight_road",
+          "cumulative_return": 45.38985029537356,
+          "final_x_m": 0.3467154548691838,
+          "geometric_nonflat_steps": 1801,
+          "height_rmse_m": 0.012122344675323013,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 26.729999999996064,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.4322687482770446,
+          "pitch_rmse_rad": 0.06772884614430365,
+          "policy": "seed48003/bounded",
+          "roll_rmse_rad": 0.019314034568073655,
+          "signed_forward_progress_m": 4.146715454869184,
+          "source_checkpoint_sha256": "454deee62fc71f8c8119c04519fc99d0cc7ebc4db886567688c20abc73ec171c",
+          "terminal_reason": "map_boundary",
+          "terminated": true,
+          "truncated": false,
+          "velocity_rmse_mps": 0.06217485424823622,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.04895428568124771,
+              "max_abs": 0.04895428568124771,
+              "mean": 0.04880465601117612,
+              "min": 0.047128476202487946
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.04895428568124771,
+              "max_abs": 0.04895428568124771,
+              "mean": 0.04880465601117612,
+              "min": 0.047128476202487946
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.11374879721552134,
+              "max_abs": 0.11374879721552134,
+              "mean": 0.11047416857279645,
+              "min": 0.08802972082048655
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.04895428568124771,
+              "max_abs": 0.04895428568124771,
+              "mean": 0.04880465601117612,
+              "min": 0.047128476202487946
+            }
+          },
+          "yaw_rate_rmse_rps": 0.05048238767502124
+        },
+        {
+          "actual_transitions": 2862,
+          "case": "dev_straight_road",
+          "cumulative_return": 52.99146565831906,
+          "final_x_m": 1.6864376172278814,
+          "geometric_nonflat_steps": 1885,
+          "height_rmse_m": 0.005249372154535909,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 28.619999999995017,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.4548962448279997,
+          "pitch_rmse_rad": 0.022443690626009424,
+          "policy": "seed48003/unbounded",
+          "roll_rmse_rad": 0.014784339217603224,
+          "signed_forward_progress_m": 5.486437617227882,
+          "source_checkpoint_sha256": "e7a25a1c48620173fd67ecfada6023a8eb8efe1ece3233447573b8f259d490d7",
+          "terminal_reason": "map_boundary",
+          "terminated": true,
+          "truncated": false,
+          "velocity_rmse_mps": 0.03286390872373298,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.021382495760917664,
+              "max_abs": 0.021382495760917664,
+              "mean": 0.019574615256672114,
+              "min": 0.00023661740124225616
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.021382495760917664,
+              "max_abs": 0.021382495760917664,
+              "mean": 0.019574615256672114,
+              "min": 0.00023661740124225616
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.021382495760917664,
+              "max_abs": 0.021382495760917664,
+              "mean": 0.019574615256672114,
+              "min": 0.00023661740124225616
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.021382495760917664,
+              "max_abs": 0.021382495760917664,
+              "mean": 0.019574615256672114,
+              "min": 0.00023661740124225616
+            }
+          },
+          "yaw_rate_rmse_rps": 0.03778432031237991
+        },
+        {
+          "actual_transitions": 3200,
+          "case": "dev_straight_road",
+          "cumulative_return": 61.053415690821886,
+          "final_x_m": 3.719811286390173,
+          "geometric_nonflat_steps": 2401,
+          "height_rmse_m": 0.01104956994233692,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 31.999999999993143,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.45488833125679523,
+          "pitch_rmse_rad": 0.012011076641131598,
+          "policy": "zero",
+          "roll_rmse_rad": 0.003246522872220253,
+          "signed_forward_progress_m": 7.519811286390173,
+          "source_checkpoint_sha256": null,
+          "terminal_reason": "time_limit",
+          "terminated": false,
+          "truncated": true,
+          "velocity_rmse_mps": 0.03971918517222135,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            }
+          },
+          "yaw_rate_rmse_rps": 0.014141791811380627
+        }
+      ],
+      "failures": [],
+      "input": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/rl_improvement_20260914/dev_seeds48002_48003",
+      "manifest_count": 11,
+      "manifest_entries_checked": 92,
+      "mode": "evaluate",
+      "passed": true,
+      "source_hashes_checked": 73
+    },
+    {
+      "checks": 1747,
+      "evaluation_limits": "No physical episodes were rerun. Ground contact and actuator-substep truth are not stored; their saved aggregate metrics can be checked for consistency but not independently regenerated.",
+      "evaluations": [
+        {
+          "actual_transitions": 2771,
+          "case": "final_right_offset_slow",
+          "cumulative_return": 50.7948718994121,
+          "final_x_m": 1.7087154567041354,
+          "geometric_nonflat_steps": 2044,
+          "height_rmse_m": 0.006510016488880961,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 27.70999999999552,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.45431662914643367,
+          "pitch_rmse_rad": 0.0962676713339956,
+          "policy": "seed48001/bounded",
+          "roll_rmse_rad": 0.02434613850062017,
+          "signed_forward_progress_m": 5.508715456704135,
+          "source_checkpoint_sha256": "ccbf538373739a5e2ef292a42cfe34918c81cd8487561a11911e4f0f73742ba9",
+          "terminal_reason": "map_boundary",
+          "terminated": true,
+          "truncated": false,
+          "velocity_rmse_mps": 0.031097457067903386,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.04849624913185835,
+              "max_abs": 0.04849624913185835,
+              "mean": 0.04830618543555078,
+              "min": 0.04637324810028076
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.04849624913185835,
+              "max_abs": 0.04849624913185835,
+              "mean": 0.04830618543555078,
+              "min": 0.04637324810028076
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.10455141682177782,
+              "max_abs": 0.10455141682177782,
+              "mean": 0.10183727392121526,
+              "min": 0.08199725020676851
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.04849624913185835,
+              "max_abs": 0.04849624913185835,
+              "mean": 0.04830618543555078,
+              "min": 0.04637324810028076
+            }
+          },
+          "yaw_rate_rmse_rps": 0.03539985783369796
+        },
+        {
+          "actual_transitions": 2993,
+          "case": "final_right_offset_slow",
+          "cumulative_return": 54.1812881817408,
+          "final_x_m": 3.1719041774551426,
+          "geometric_nonflat_steps": 2433,
+          "height_rmse_m": 0.008987316929918122,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 29.92999999999429,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.43990689502698244,
+          "pitch_rmse_rad": 0.07960697502220816,
+          "policy": "seed48001/unbounded",
+          "roll_rmse_rad": 0.06361238590394329,
+          "signed_forward_progress_m": 6.9719041774551425,
+          "source_checkpoint_sha256": "5b440e6f196004a09b75a4d71015decd5fe60ca4ecb5ff6abaa0fe461e957ee6",
+          "terminal_reason": "map_boundary",
+          "terminated": true,
+          "truncated": false,
+          "velocity_rmse_mps": 0.04150289701081261,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.1541038446011953,
+              "max_abs": 0.1541038446011953,
+              "mean": 0.1513502620600842,
+              "min": 0.12499846471473575
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.1541038446011953,
+              "max_abs": 0.1541038446011953,
+              "mean": 0.1513502620600842,
+              "min": 0.12499846471473575
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.1541038446011953,
+              "max_abs": 0.1541038446011953,
+              "mean": 0.1513502620600842,
+              "min": 0.12499846471473575
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.1541038446011953,
+              "max_abs": 0.1541038446011953,
+              "mean": 0.1513502620600842,
+              "min": 0.12499846471473575
+            }
+          },
+          "yaw_rate_rmse_rps": 0.030380266866625386
+        },
+        {
+          "actual_transitions": 3200,
+          "case": "final_right_offset_slow",
+          "cumulative_return": 51.941884808582174,
+          "final_x_m": 1.35568461745394,
+          "geometric_nonflat_steps": 2301,
+          "height_rmse_m": 0.025197542954632588,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 31.999999999993143,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.45533429381568646,
+          "pitch_rmse_rad": 0.0681918798721414,
+          "policy": "seed48002/bounded",
+          "roll_rmse_rad": 0.015060726419689597,
+          "signed_forward_progress_m": 5.1556846174539395,
+          "source_checkpoint_sha256": "16f027b52d977cc9a49705493558956ecc23cd7760d69e9c8f8d13f619833269",
+          "terminal_reason": "time_limit",
+          "terminated": false,
+          "truncated": true,
+          "velocity_rmse_mps": 0.06338676134369799,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.0498034730553627,
+              "max_abs": 0.0498034730553627,
+              "mean": 0.04978380654065404,
+              "min": 0.04907056875526905
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.0498034730553627,
+              "max_abs": 0.0498034730553627,
+              "mean": 0.04978380654065404,
+              "min": 0.04907056875526905
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.1557518895715475,
+              "max_abs": 0.1557518895715475,
+              "mean": 0.15367014368021045,
+              "min": 0.11672511929646134
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.0498034730553627,
+              "max_abs": 0.0498034730553627,
+              "mean": 0.04978380654065404,
+              "min": 0.04907056875526905
+            }
+          },
+          "yaw_rate_rmse_rps": 0.02460180559120167
+        },
+        {
+          "actual_transitions": 887,
+          "case": "final_right_offset_slow",
+          "cumulative_return": 9.952598003423278,
+          "final_x_m": -1.5585828144195617,
+          "geometric_nonflat_steps": 198,
+          "height_rmse_m": 0.030143497892777017,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 8.869999999999632,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.45528465349536534,
+          "pitch_rmse_rad": 0.14064181421904376,
+          "policy": "seed48002/unbounded",
+          "roll_rmse_rad": 0.03185667285077513,
+          "signed_forward_progress_m": 2.2414171855804383,
+          "source_checkpoint_sha256": "2269dd0a9513195242b415e149fa705394205ff8d2cb41359e942de742cba375",
+          "terminal_reason": "fall_or_body_contact",
+          "terminated": true,
+          "truncated": false,
+          "velocity_rmse_mps": 0.15015897385721413,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.24544278346002102,
+              "max_abs": 0.24544278346002102,
+              "mean": 0.2383855169275702,
+              "min": 0.17616255767643452
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.24544278346002102,
+              "max_abs": 0.24544278346002102,
+              "mean": 0.2383855169275702,
+              "min": 0.17616255767643452
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.24544278346002102,
+              "max_abs": 0.24544278346002102,
+              "mean": 0.2383855169275702,
+              "min": 0.17616255767643452
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.24544278346002102,
+              "max_abs": 0.24544278346002102,
+              "mean": 0.2383855169275702,
+              "min": 0.17616255767643452
+            }
+          },
+          "yaw_rate_rmse_rps": 0.042913622364764974
+        },
+        {
+          "actual_transitions": 2724,
+          "case": "final_right_offset_slow",
+          "cumulative_return": 47.28643941146852,
+          "final_x_m": -0.16825738588690514,
+          "geometric_nonflat_steps": 1937,
+          "height_rmse_m": 0.00921592602426635,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 27.23999999999578,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.43659472818840867,
+          "pitch_rmse_rad": 0.057542626142678466,
+          "policy": "seed48003/bounded",
+          "roll_rmse_rad": 0.01576095594093942,
+          "signed_forward_progress_m": 3.6317426141130946,
+          "source_checkpoint_sha256": "454deee62fc71f8c8119c04519fc99d0cc7ebc4db886567688c20abc73ec171c",
+          "terminal_reason": "map_boundary",
+          "terminated": true,
+          "truncated": false,
+          "velocity_rmse_mps": 0.05359183531447557,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.04886687360703945,
+              "max_abs": 0.04886687360703945,
+              "mean": 0.04878481628685074,
+              "min": 0.047128476202487946
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.04886687360703945,
+              "max_abs": 0.04886687360703945,
+              "mean": 0.04878481628685074,
+              "min": 0.047128476202487946
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.1117195151746273,
+              "max_abs": 0.1117195151746273,
+              "mean": 0.11003411870905186,
+              "min": 0.08802972082048655
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.04886687360703945,
+              "max_abs": 0.04886687360703945,
+              "mean": 0.04878481628685074,
+              "min": 0.047128476202487946
+            }
+          },
+          "yaw_rate_rmse_rps": 0.05822987003037038
+        },
+        {
+          "actual_transitions": 3112,
+          "case": "final_right_offset_slow",
+          "cumulative_return": 57.18343662020308,
+          "final_x_m": 1.2442877152635057,
+          "geometric_nonflat_steps": 2350,
+          "height_rmse_m": 0.005402101099703841,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 31.11999999999363,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.4519886215019934,
+          "pitch_rmse_rad": 0.024907498454855327,
+          "policy": "seed48003/unbounded",
+          "roll_rmse_rad": 0.011081331592337332,
+          "signed_forward_progress_m": 5.044287715263506,
+          "source_checkpoint_sha256": "e7a25a1c48620173fd67ecfada6023a8eb8efe1ece3233447573b8f259d490d7",
+          "terminal_reason": "map_boundary",
+          "terminated": true,
+          "truncated": false,
+          "velocity_rmse_mps": 0.043134591720102276,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.021946088410913944,
+              "max_abs": 0.021946088410913944,
+              "mean": 0.019788674915037035,
+              "min": 0.00023661740124225616
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.021946088410913944,
+              "max_abs": 0.021946088410913944,
+              "mean": 0.019788674915037035,
+              "min": 0.00023661740124225616
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.021946088410913944,
+              "max_abs": 0.021946088410913944,
+              "mean": 0.019788674915037035,
+              "min": 0.00023661740124225616
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.021946088410913944,
+              "max_abs": 0.021946088410913944,
+              "mean": 0.019788674915037035,
+              "min": 0.00023661740124225616
+            }
+          },
+          "yaw_rate_rmse_rps": 0.04085705146169131
+        },
+        {
+          "actual_transitions": 3200,
+          "case": "final_right_offset_slow",
+          "cumulative_return": 61.13949774010631,
+          "final_x_m": 2.783557257621636,
+          "geometric_nonflat_steps": 2424,
+          "height_rmse_m": 0.011420977158590421,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 31.999999999993143,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.45150034581356857,
+          "pitch_rmse_rad": 0.015236542217596035,
+          "policy": "zero",
+          "roll_rmse_rad": 0.0045717918964856535,
+          "signed_forward_progress_m": 6.583557257621636,
+          "source_checkpoint_sha256": null,
+          "terminal_reason": "time_limit",
+          "terminated": false,
+          "truncated": true,
+          "velocity_rmse_mps": 0.038649479494709926,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            }
+          },
+          "yaw_rate_rmse_rps": 0.010435974983597045
+        },
+        {
+          "actual_transitions": 2253,
+          "case": "final_diagonal_gentle_turn",
+          "cumulative_return": 39.579745259554926,
+          "final_x_m": 1.5995214016969221,
+          "geometric_nonflat_steps": 1708,
+          "height_rmse_m": 0.007585305463915372,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 22.52999999999839,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.4495802876582117,
+          "pitch_rmse_rad": 0.09794589639808302,
+          "policy": "seed48001/bounded",
+          "roll_rmse_rad": 0.024327302981061727,
+          "signed_forward_progress_m": 5.399521401696922,
+          "source_checkpoint_sha256": "ccbf538373739a5e2ef292a42cfe34918c81cd8487561a11911e4f0f73742ba9",
+          "terminal_reason": "map_boundary",
+          "terminated": true,
+          "truncated": false,
+          "velocity_rmse_mps": 0.04838756485973242,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.04847595002502203,
+              "max_abs": 0.04847595002502203,
+              "mean": 0.04825118898020961,
+              "min": 0.04637324810028076
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.04847595002502203,
+              "max_abs": 0.04847595002502203,
+              "mean": 0.04825118898020961,
+              "min": 0.04637324810028076
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.10421087313443422,
+              "max_abs": 0.10421087313443422,
+              "mean": 0.10103605517702524,
+              "min": 0.08199725020676851
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.04847595002502203,
+              "max_abs": 0.04847595002502203,
+              "mean": 0.04825118898020961,
+              "min": 0.04637324810028076
+            }
+          },
+          "yaw_rate_rmse_rps": 0.05420895676905878
+        },
+        {
+          "actual_transitions": 2402,
+          "case": "final_diagonal_gentle_turn",
+          "cumulative_return": 42.47135323868831,
+          "final_x_m": 2.8198123055383992,
+          "geometric_nonflat_steps": 1918,
+          "height_rmse_m": 0.00875955698296545,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 24.019999999997566,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.4367855988656265,
+          "pitch_rmse_rad": 0.09339196478517602,
+          "policy": "seed48001/unbounded",
+          "roll_rmse_rad": 0.059415701291735755,
+          "signed_forward_progress_m": 6.6198123055383995,
+          "source_checkpoint_sha256": "5b440e6f196004a09b75a4d71015decd5fe60ca4ecb5ff6abaa0fe461e957ee6",
+          "terminal_reason": "map_boundary",
+          "terminated": true,
+          "truncated": false,
+          "velocity_rmse_mps": 0.04553905907097014,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.15450152033008635,
+              "max_abs": 0.15450152033008635,
+              "mean": 0.15075889451826888,
+              "min": 0.12499846471473575
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.15450152033008635,
+              "max_abs": 0.15450152033008635,
+              "mean": 0.15075889451826888,
+              "min": 0.12499846471473575
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.15450152033008635,
+              "max_abs": 0.15450152033008635,
+              "mean": 0.15075889451826888,
+              "min": 0.12499846471473575
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.15450152033008635,
+              "max_abs": 0.15450152033008635,
+              "mean": 0.15075889451826888,
+              "min": 0.12499846471473575
+            }
+          },
+          "yaw_rate_rmse_rps": 0.04240455115631014
+        },
+        {
+          "actual_transitions": 3200,
+          "case": "final_diagonal_gentle_turn",
+          "cumulative_return": 34.83621083995948,
+          "final_x_m": 2.6718196480032743,
+          "geometric_nonflat_steps": 2504,
+          "height_rmse_m": 0.03355463913249064,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 31.999999999993143,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.4553343083768949,
+          "pitch_rmse_rad": 0.0888782130736331,
+          "policy": "seed48002/bounded",
+          "roll_rmse_rad": 0.03012374051904362,
+          "signed_forward_progress_m": 6.471819648003274,
+          "source_checkpoint_sha256": "16f027b52d977cc9a49705493558956ecc23cd7760d69e9c8f8d13f619833269",
+          "terminal_reason": "time_limit",
+          "terminated": false,
+          "truncated": true,
+          "velocity_rmse_mps": 0.18320363186414373,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.049800269305706024,
+              "max_abs": 0.049800269305706024,
+              "mean": 0.04975444718322251,
+              "min": 0.04907056875526905
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.049800269305706024,
+              "max_abs": 0.049800269305706024,
+              "mean": 0.04975444718322251,
+              "min": 0.04907056875526905
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.15535029396414757,
+              "max_abs": 0.15535029396414757,
+              "mean": 0.15064919368087432,
+              "min": 0.11672511929646134
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.049800269305706024,
+              "max_abs": 0.049800269305706024,
+              "mean": 0.04975444718322251,
+              "min": 0.04907056875526905
+            }
+          },
+          "yaw_rate_rmse_rps": 0.08612961593294703
+        },
+        {
+          "actual_transitions": 3200,
+          "case": "final_diagonal_gentle_turn",
+          "cumulative_return": 11.161113163807165,
+          "final_x_m": 4.486856319272557,
+          "geometric_nonflat_steps": 2347,
+          "height_rmse_m": 0.04780503871320217,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 31.999999999993143,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.45528465473334445,
+          "pitch_rmse_rad": 0.18004493514398445,
+          "policy": "seed48002/unbounded",
+          "roll_rmse_rad": 0.03759334254101312,
+          "signed_forward_progress_m": 8.286856319272557,
+          "source_checkpoint_sha256": "2269dd0a9513195242b415e149fa705394205ff8d2cb41359e942de742cba375",
+          "terminal_reason": "time_limit",
+          "terminated": false,
+          "truncated": true,
+          "velocity_rmse_mps": 0.24229672441940123,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.24539943039417267,
+              "max_abs": 0.24539943039417267,
+              "mean": 0.2338262700283667,
+              "min": 0.17616255767643452
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.24539943039417267,
+              "max_abs": 0.24539943039417267,
+              "mean": 0.2338262700283667,
+              "min": 0.17616255767643452
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.24539943039417267,
+              "max_abs": 0.24539943039417267,
+              "mean": 0.2338262700283667,
+              "min": 0.17616255767643452
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.24539943039417267,
+              "max_abs": 0.24539943039417267,
+              "mean": 0.2338262700283667,
+              "min": 0.17616255767643452
+            }
+          },
+          "yaw_rate_rmse_rps": 0.10295917218405853
+        },
+        {
+          "actual_transitions": 2368,
+          "case": "final_diagonal_gentle_turn",
+          "cumulative_return": 39.52936527727384,
+          "final_x_m": 0.16913718535582717,
+          "geometric_nonflat_steps": 1648,
+          "height_rmse_m": 0.013593946667806459,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 23.679999999997754,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.4256733358128792,
+          "pitch_rmse_rad": 0.07096541173833748,
+          "policy": "seed48003/bounded",
+          "roll_rmse_rad": 0.020177488669821574,
+          "signed_forward_progress_m": 3.969137185355827,
+          "source_checkpoint_sha256": "454deee62fc71f8c8119c04519fc99d0cc7ebc4db886567688c20abc73ec171c",
+          "terminal_reason": "map_boundary",
+          "terminated": true,
+          "truncated": false,
+          "velocity_rmse_mps": 0.06369059241303456,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.04896833002567291,
+              "max_abs": 0.04896833002567291,
+              "mean": 0.04882318264729268,
+              "min": 0.047128476202487946
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.04896833002567291,
+              "max_abs": 0.04896833002567291,
+              "mean": 0.04882318264729268,
+              "min": 0.047128476202487946
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.11409010086208582,
+              "max_abs": 0.11409010086208582,
+              "mean": 0.1108989800614418,
+              "min": 0.08802972082048655
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.04896833002567291,
+              "max_abs": 0.04896833002567291,
+              "mean": 0.04882318264729268,
+              "min": 0.047128476202487946
+            }
+          },
+          "yaw_rate_rmse_rps": 0.05028441167793506
+        },
+        {
+          "actual_transitions": 2482,
+          "case": "final_diagonal_gentle_turn",
+          "cumulative_return": 44.343574986468724,
+          "final_x_m": 1.1964196295494662,
+          "geometric_nonflat_steps": 1793,
+          "height_rmse_m": 0.005374056675661303,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 24.819999999997123,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.44073089020195855,
+          "pitch_rmse_rad": 0.025310285120049146,
+          "policy": "seed48003/unbounded",
+          "roll_rmse_rad": 0.01481814250702696,
+          "signed_forward_progress_m": 4.996419629549466,
+          "source_checkpoint_sha256": "e7a25a1c48620173fd67ecfada6023a8eb8efe1ece3233447573b8f259d490d7",
+          "terminal_reason": "map_boundary",
+          "terminated": true,
+          "truncated": false,
+          "velocity_rmse_mps": 0.051187687006363905,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.024354668334126472,
+              "max_abs": 0.024354668334126472,
+              "mean": 0.02009577770086304,
+              "min": 0.00023661740124225616
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.024354668334126472,
+              "max_abs": 0.024354668334126472,
+              "mean": 0.02009577770086304,
+              "min": 0.00023661740124225616
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.024354668334126472,
+              "max_abs": 0.024354668334126472,
+              "mean": 0.02009577770086304,
+              "min": 0.00023661740124225616
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.024354668334126472,
+              "max_abs": 0.024354668334126472,
+              "mean": 0.02009577770086304,
+              "min": 0.00023661740124225616
+            }
+          },
+          "yaw_rate_rmse_rps": 0.051624544107311945
+        },
+        {
+          "actual_transitions": 3200,
+          "case": "final_diagonal_gentle_turn",
+          "cumulative_return": 60.14267399908583,
+          "final_x_m": 4.295084878379239,
+          "geometric_nonflat_steps": 2347,
+          "height_rmse_m": 0.011931321984774224,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 31.999999999993143,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.4495628543498033,
+          "pitch_rmse_rad": 0.017817311998302377,
+          "policy": "zero",
+          "roll_rmse_rad": 0.006727097002345939,
+          "signed_forward_progress_m": 8.09508487837924,
+          "source_checkpoint_sha256": null,
+          "terminal_reason": "time_limit",
+          "terminated": false,
+          "truncated": true,
+          "velocity_rmse_mps": 0.04636964038486609,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            }
+          },
+          "yaw_rate_rmse_rps": 0.024409586751847685
+        }
+      ],
+      "failures": [],
+      "input": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/rl_improvement_20260914/final_01",
+      "manifest_count": 15,
+      "manifest_entries_checked": 128,
+      "mode": "evaluate",
+      "passed": true,
+      "source_hashes_checked": 73
+    }
+  ]
+}

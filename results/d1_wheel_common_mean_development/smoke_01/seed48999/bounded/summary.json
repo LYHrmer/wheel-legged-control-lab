@@ -1,0 +1,73 @@
+{
+  "actual_transitions": 64,
+  "definition": "Geometric exposure is not verified obstacle traversal.",
+  "episodes_by_level": {
+    "0": 1
+  },
+  "final_policy_parameter_sha256": "54594df969090bdaf0702ba92b5348c89045c19f3e3e62c43efe9af2b3a08a04",
+  "geometric_nonflat_steps_by_level": {
+    "0": 0
+  },
+  "initialization_state_dict_sha256": "f618b18cfb073b6654bcb30f6c983e949e15948d12ff3465b2e11a301ba398a8",
+  "pipeline_smoke_only": true,
+  "ppo_actual_hyperparameters": {
+    "activation_function": "Tanh",
+    "batch_size": 32,
+    "clip_range": 0.2,
+    "clip_range_vf": null,
+    "device": "cpu",
+    "ent_coef": 0.0,
+    "gae_lambda": 0.95,
+    "gamma": 0.9950124791926823,
+    "learning_rate": 0.0003,
+    "max_grad_norm": 0.5,
+    "n_epochs": 1,
+    "n_steps": 32,
+    "normalize_advantage": true,
+    "num_envs": 1,
+    "optimizer_class": "Adam",
+    "optimizer_defaults": {
+      "amsgrad": false,
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "capturable": false,
+      "decoupled_weight_decay": false,
+      "differentiable": false,
+      "eps": 1e-05,
+      "foreach": null,
+      "fused": null,
+      "lr": 0.0003,
+      "maximize": false,
+      "weight_decay": 0
+    },
+    "policy_kwargs": {
+      "log_std_init": -2.0,
+      "net_arch": [
+        64,
+        64
+      ],
+      "wheel_common_mean_limit": 0.05
+    },
+    "sde_sample_freq": -1,
+    "target_kl": null,
+    "torch_threads": 1,
+    "use_sde": false,
+    "vf_coef": 0.5
+  },
+  "ppo_num_timesteps": 64,
+  "ppo_optimization_epochs": 2,
+  "ppo_updates_definition": "SB3 _n_updates counts completed optimization epochs.",
+  "reload_check_physical_steps": 1,
+  "reloaded_action_exact": true,
+  "reloaded_physics_step_finite": true,
+  "rollout_train_calls": 2,
+  "seed": 48999,
+  "transitions_by_level": {
+    "0": 64
+  },
+  "variant": "bounded",
+  "wall_seconds": 0.38039624900011404,
+  "wheel_common_mean_limit": 0.05
+}

@@ -1,0 +1,464 @@
+{
+  "audit_script_sha256": "3697166a340faf0f1ee80140b97e044c6847766b34a5de782af73ac37ebc31dc",
+  "checks": 1180,
+  "failures": [],
+  "passed": true,
+  "physical_steps_executed": 0,
+  "repo": "/home/lyh/wheel-legged-control-lab",
+  "schema": "d1-wheel-common-mean-readonly-audit-v1",
+  "studies": [
+    {
+      "checks": 210,
+      "exposure_scope": "Reaggregated episode records; no per-transition training states were stored, so terrain-contact exposure cannot be independently reconstructed.",
+      "failures": [],
+      "input": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/rl_improvement_20260914/smoke_01",
+      "manifest_count": 3,
+      "manifest_entries_checked": 28,
+      "mode": "smoke",
+      "paired_initialization": {
+        "48999": true
+      },
+      "passed": true,
+      "source_hashes_checked": 73,
+      "training": [
+        {
+          "actual_transitions": 64,
+          "episodes": 1,
+          "final_parameter_sha256": "54594df969090bdaf0702ba92b5348c89045c19f3e3e62c43efe9af2b3a08a04",
+          "geometric_nonflat_steps_by_level": {
+            "0": 0
+          },
+          "initial_parameter_sha256": "f618b18cfb073b6654bcb30f6c983e949e15948d12ff3465b2e11a301ba398a8",
+          "model_sha256": "4db5f1e51a314128aad217006140c1d6d564dabbf0a9b0dbc8cc87b5ded07cab",
+          "optimization_epochs": 2,
+          "optimizer_steps": [
+            2.0
+          ],
+          "ppo_num_timesteps": 64,
+          "seed": 48999,
+          "termination_counts": {
+            "budget_cut": 1
+          },
+          "transitions_by_level": {
+            "0": 64
+          },
+          "variant": "bounded"
+        },
+        {
+          "actual_transitions": 64,
+          "episodes": 1,
+          "final_parameter_sha256": "d3ae5dfe4a95478a956277644d787fd23079bd12234914e3dcec8f69a9b9f645",
+          "geometric_nonflat_steps_by_level": {
+            "0": 0
+          },
+          "initial_parameter_sha256": "f618b18cfb073b6654bcb30f6c983e949e15948d12ff3465b2e11a301ba398a8",
+          "model_sha256": "9ccda8013803d061e16fe2fb410ae38b79eee817e0cea11c1901df1f562e759d",
+          "optimization_epochs": 2,
+          "optimizer_steps": [
+            2.0
+          ],
+          "ppo_num_timesteps": 64,
+          "seed": 48999,
+          "termination_counts": {
+            "budget_cut": 1
+          },
+          "transitions_by_level": {
+            "0": 64
+          },
+          "variant": "unbounded"
+        }
+      ]
+    },
+    {
+      "checks": 260,
+      "exposure_scope": "Reaggregated episode records; no per-transition training states were stored, so terrain-contact exposure cannot be independently reconstructed.",
+      "failures": [],
+      "input": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/rl_improvement_20260914/train_seed48001",
+      "manifest_count": 3,
+      "manifest_entries_checked": 28,
+      "mode": "train",
+      "paired_initialization": {
+        "48001": true
+      },
+      "passed": true,
+      "source_hashes_checked": 73,
+      "training": [
+        {
+          "actual_transitions": 16384,
+          "episodes": 6,
+          "final_parameter_sha256": "46bcc4ff2a5f6188d1263a426ac154cfabc757f39ff56c55750dc6d6c5dfe2b6",
+          "geometric_nonflat_steps_by_level": {
+            "0": 0,
+            "1": 2262,
+            "2": 1650,
+            "3": 2452
+          },
+          "initial_parameter_sha256": "9cf8ab9b3b574c952fa683b9cca0663da7f1ca8c4c9ccf4d8fe56952dad43c1f",
+          "model_sha256": "ccbf538373739a5e2ef292a42cfe34918c81cd8487561a11911e4f0f73742ba9",
+          "optimization_epochs": 512,
+          "optimizer_steps": [
+            512.0
+          ],
+          "ppo_num_timesteps": 16384,
+          "seed": 48001,
+          "termination_counts": {
+            "budget_cut": 1,
+            "map_boundary": 2,
+            "time_limit": 3
+          },
+          "transitions_by_level": {
+            "0": 6400,
+            "1": 3200,
+            "2": 2691,
+            "3": 4093
+          },
+          "variant": "bounded"
+        },
+        {
+          "actual_transitions": 16384,
+          "episodes": 6,
+          "final_parameter_sha256": "28faaa89fbb17644c6d999c5b8fa2af5c93933b51dfa5291939fc5693aaf95c1",
+          "geometric_nonflat_steps_by_level": {
+            "0": 0,
+            "1": 1916,
+            "2": 3770,
+            "3": 779
+          },
+          "initial_parameter_sha256": "9cf8ab9b3b574c952fa683b9cca0663da7f1ca8c4c9ccf4d8fe56952dad43c1f",
+          "model_sha256": "5b440e6f196004a09b75a4d71015decd5fe60ca4ecb5ff6abaa0fe461e957ee6",
+          "optimization_epochs": 512,
+          "optimizer_steps": [
+            512.0
+          ],
+          "ppo_num_timesteps": 16384,
+          "seed": 48001,
+          "termination_counts": {
+            "budget_cut": 1,
+            "map_boundary": 3,
+            "time_limit": 2
+          },
+          "transitions_by_level": {
+            "0": 6400,
+            "1": 2878,
+            "2": 5801,
+            "3": 1305
+          },
+          "variant": "unbounded"
+        }
+      ]
+    },
+    {
+      "checks": 710,
+      "evaluation_limits": "No physical episodes were rerun. Ground contact and actuator-substep truth are not stored; their saved aggregate metrics can be checked for consistency but not independently regenerated.",
+      "evaluations": [
+        {
+          "actual_transitions": 600,
+          "case": "dev_flat",
+          "cumulative_return": 11.291517585112476,
+          "final_x_m": -2.4140245069412494,
+          "geometric_nonflat_steps": 0,
+          "height_rmse_m": 0.007658115469999181,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 5.999999999999561,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.45504289067085746,
+          "pitch_rmse_rad": 0.07050586321542707,
+          "policy": "seed48001/bounded",
+          "roll_rmse_rad": 0.015911686185134246,
+          "signed_forward_progress_m": 1.3859754930587505,
+          "source_checkpoint_sha256": "ccbf538373739a5e2ef292a42cfe34918c81cd8487561a11911e4f0f73742ba9",
+          "terminal_reason": "time_limit",
+          "terminated": false,
+          "truncated": true,
+          "velocity_rmse_mps": 0.04843969246236786,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.048328882083296776,
+              "max_abs": 0.048328882083296776,
+              "mean": 0.04789278043123583,
+              "min": 0.04637324810028076
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.048328882083296776,
+              "max_abs": 0.048328882083296776,
+              "mean": 0.04789278043123583,
+              "min": 0.04637324810028076
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.10187040641903877,
+              "max_abs": 0.10187040641903877,
+              "mean": 0.09647108731558546,
+              "min": 0.08199725020676851
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.048328882083296776,
+              "max_abs": 0.048328882083296776,
+              "mean": 0.04789278043123583,
+              "min": 0.04637324810028076
+            }
+          },
+          "yaw_rate_rmse_rps": 0.033901279736600703
+        },
+        {
+          "actual_transitions": 600,
+          "case": "dev_flat",
+          "cumulative_return": 11.083194733610448,
+          "final_x_m": -2.2371232915640555,
+          "geometric_nonflat_steps": 0,
+          "height_rmse_m": 0.009385160116303783,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 5.999999999999561,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.4550762772755216,
+          "pitch_rmse_rad": 0.06659654533141687,
+          "policy": "seed48001/unbounded",
+          "roll_rmse_rad": 0.022963539905573874,
+          "signed_forward_progress_m": 1.5628767084359443,
+          "source_checkpoint_sha256": "5b440e6f196004a09b75a4d71015decd5fe60ca4ecb5ff6abaa0fe461e957ee6",
+          "terminal_reason": "time_limit",
+          "terminated": false,
+          "truncated": true,
+          "velocity_rmse_mps": 0.05738454129957235,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.15149965323507786,
+              "max_abs": 0.15149965323507786,
+              "mean": 0.14485289326500303,
+              "min": 0.12499846518039703
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.15149965323507786,
+              "max_abs": 0.15149965323507786,
+              "mean": 0.14485289326500303,
+              "min": 0.12499846518039703
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.15149965323507786,
+              "max_abs": 0.15149965323507786,
+              "mean": 0.14485289326500303,
+              "min": 0.12499846518039703
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.15149965323507786,
+              "max_abs": 0.15149965323507786,
+              "mean": 0.14485289326500303,
+              "min": 0.12499846518039703
+            }
+          },
+          "yaw_rate_rmse_rps": 0.034417821588229494
+        },
+        {
+          "actual_transitions": 600,
+          "case": "dev_flat",
+          "cumulative_return": 11.627406028522932,
+          "final_x_m": -2.5814706862447174,
+          "geometric_nonflat_steps": 0,
+          "height_rmse_m": 0.00428455517379791,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 5.999999999999561,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.4548870012248537,
+          "pitch_rmse_rad": 0.005274097151382939,
+          "policy": "zero",
+          "roll_rmse_rad": 0.00037774719910354333,
+          "signed_forward_progress_m": 1.2185293137552824,
+          "source_checkpoint_sha256": null,
+          "terminal_reason": "time_limit",
+          "terminated": false,
+          "truncated": true,
+          "velocity_rmse_mps": 0.041226007529256634,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            }
+          },
+          "yaw_rate_rmse_rps": 0.024120012748867103
+        },
+        {
+          "actual_transitions": 2630,
+          "case": "dev_straight_road",
+          "cumulative_return": 48.489878036626614,
+          "final_x_m": 2.2040318338706055,
+          "geometric_nonflat_steps": 1744,
+          "height_rmse_m": 0.006011489293104753,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 26.299999999996302,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.4550324918426125,
+          "pitch_rmse_rad": 0.09648376515229536,
+          "policy": "seed48001/bounded",
+          "roll_rmse_rad": 0.028406331731975813,
+          "signed_forward_progress_m": 6.004031833870606,
+          "source_checkpoint_sha256": "ccbf538373739a5e2ef292a42cfe34918c81cd8487561a11911e4f0f73742ba9",
+          "terminal_reason": "map_boundary",
+          "terminated": true,
+          "truncated": false,
+          "velocity_rmse_mps": 0.025687129622287034,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.04848766606301069,
+              "max_abs": 0.04848766606301069,
+              "mean": 0.048306926091275966,
+              "min": 0.04637324810028076
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.04848766606301069,
+              "max_abs": 0.04848766606301069,
+              "mean": 0.048306926091275966,
+              "min": 0.04637324810028076
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.10440680850297213,
+              "max_abs": 0.10440680850297213,
+              "mean": 0.10186066958688539,
+              "min": 0.08199725020676851
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.04848766606301069,
+              "max_abs": 0.04848766606301069,
+              "mean": 0.048306926091275966,
+              "min": 0.04637324810028076
+            }
+          },
+          "yaw_rate_rmse_rps": 0.03158007145601447
+        },
+        {
+          "actual_transitions": 2950,
+          "case": "dev_straight_road",
+          "cumulative_return": 53.72735927795816,
+          "final_x_m": 3.952313364352263,
+          "geometric_nonflat_steps": 2052,
+          "height_rmse_m": 0.008531760589308943,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 29.49999999999453,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.43783241437281,
+          "pitch_rmse_rad": 0.07860050891362007,
+          "policy": "seed48001/unbounded",
+          "roll_rmse_rad": 0.06868516129924396,
+          "signed_forward_progress_m": 7.752313364352263,
+          "source_checkpoint_sha256": "5b440e6f196004a09b75a4d71015decd5fe60ca4ecb5ff6abaa0fe461e957ee6",
+          "terminal_reason": "map_boundary",
+          "terminated": true,
+          "truncated": false,
+          "velocity_rmse_mps": 0.03934873295184434,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.1543030438479036,
+              "max_abs": 0.1543030438479036,
+              "mean": 0.15133509518573715,
+              "min": 0.12499846518039703
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.1543030438479036,
+              "max_abs": 0.1543030438479036,
+              "mean": 0.15133509518573715,
+              "min": 0.12499846518039703
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.1543030438479036,
+              "max_abs": 0.1543030438479036,
+              "mean": 0.15133509518573715,
+              "min": 0.12499846518039703
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.1543030438479036,
+              "max_abs": 0.1543030438479036,
+              "mean": 0.15133509518573715,
+              "min": 0.12499846518039703
+            }
+          },
+          "yaw_rate_rmse_rps": 0.025151666663992992
+        },
+        {
+          "actual_transitions": 3200,
+          "case": "dev_straight_road",
+          "cumulative_return": 61.053415690821886,
+          "final_x_m": 3.719811286390173,
+          "geometric_nonflat_steps": 2401,
+          "height_rmse_m": 0.01104956994233692,
+          "initial_x_m": -3.8,
+          "integrated_duration_s": 31.999999999993143,
+          "maximum_undesired_ground_contacts": 0,
+          "mean_deterministic_box_clipped_fraction": 0.0,
+          "mean_torque_input_clipped_fraction": 0.0,
+          "minimum_clearance_m": 0.45488833125679523,
+          "pitch_rmse_rad": 0.012011076641131598,
+          "policy": "zero",
+          "roll_rmse_rad": 0.003246522872220253,
+          "signed_forward_progress_m": 7.519811286390173,
+          "source_checkpoint_sha256": null,
+          "terminal_reason": "time_limit",
+          "terminated": false,
+          "truncated": true,
+          "velocity_rmse_mps": 0.03971918517222135,
+          "wheel_common_mean_statistics": {
+            "box_clipped_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            },
+            "executed_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            },
+            "raw_net_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            },
+            "transformed_gaussian_wheel_common_mean": {
+              "max": 0.0,
+              "max_abs": 0.0,
+              "mean": 0.0,
+              "min": 0.0
+            }
+          },
+          "yaw_rate_rmse_rps": 0.014141791811380627
+        }
+      ],
+      "failures": [],
+      "input": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/rl_improvement_20260914/dev_seed48001",
+      "manifest_count": 7,
+      "manifest_entries_checked": 56,
+      "mode": "evaluate",
+      "passed": true,
+      "source_hashes_checked": 73
+    }
+  ]
+}

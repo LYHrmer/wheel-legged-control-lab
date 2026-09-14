@@ -1,0 +1,465 @@
+{
+  "discount_efold_seconds": 2.0000000000000027,
+  "fresh_policy": {
+    "construction_only": true,
+    "first_observation_deterministic_action": [
+      -0.0008189097861759365,
+      -0.002916187047958374,
+      0.0008484441787004471,
+      0.006725560873746872,
+      0.001602135831490159,
+      0.004861356690526009,
+      0.0038249180652201176,
+      0.0012572151608765125
+    ],
+    "gradient_updates": 0,
+    "max_abs_mean_action_on_zero_reference": 0.0075505576096475124,
+    "mean_action_rms_on_zero_reference": 0.0033081246074289083,
+    "num_timesteps": 0,
+    "seed": 47000,
+    "std": [
+      0.1353352814912796,
+      0.1353352814912796,
+      0.1353352814912796,
+      0.1353352814912796,
+      0.1353352814912796,
+      0.1353352814912796,
+      0.1353352814912796,
+      0.1353352814912796
+    ]
+  },
+  "gae_efold_seconds": 0.17764105136848293,
+  "optimizer_updates": 0,
+  "physics_steps": 0,
+  "policies": {
+    "curriculum": {
+      "actor_inference_max_abs_error": 1.1920928955078125e-07,
+      "checkpoint_actual_timesteps": 16384,
+      "checkpoint_actual_updates": 512,
+      "clip_range_vf": null,
+      "command_slice_exact": true,
+      "critic_diagnostic_limit": "Deterministic evaluation trace; not reconstructed stochastic training targets or training advantage values.",
+      "critic_value_max": 3.4517061710357666,
+      "critic_value_mean_on_own_deterministic_trace": 3.3961219787597656,
+      "critic_value_min": 3.097816228866577,
+      "episode_exposure": [
+        {
+          "level": 0,
+          "nonflat_steps": 0,
+          "steps": 3200,
+          "terminal_reason": "time_limit",
+          "terrain_index": 0
+        },
+        {
+          "level": 0,
+          "nonflat_steps": 0,
+          "steps": 3200,
+          "terminal_reason": "time_limit",
+          "terrain_index": 3
+        },
+        {
+          "level": 1,
+          "nonflat_steps": 2324,
+          "steps": 3200,
+          "terminal_reason": "time_limit",
+          "terrain_index": 3
+        },
+        {
+          "level": 2,
+          "nonflat_steps": 2279,
+          "steps": 3200,
+          "terminal_reason": "time_limit",
+          "terrain_index": 0
+        },
+        {
+          "level": 3,
+          "nonflat_steps": 2230,
+          "steps": 3200,
+          "terminal_reason": "time_limit",
+          "terrain_index": 1
+        },
+        {
+          "level": 3,
+          "nonflat_steps": 0,
+          "steps": 384,
+          "terminal_reason": "budget_cut",
+          "terrain_index": 3
+        }
+      ],
+      "first_observation_deterministic_action": [
+        -0.11193592101335526,
+        0.4232914447784424,
+        0.08446527272462845,
+        -0.4535990059375763,
+        -0.09596520662307739,
+        -0.3210156559944153,
+        -0.20224261283874512,
+        -0.09432310611009598
+      ],
+      "gae_lambda": 0.95,
+      "gamma": 0.9950124791926823,
+      "mean_action_rms_on_common_zero_obs": 0.28595998883247375,
+      "normalize_advantage": true,
+      "own_trace_discounted_bootstrapped_return_rmse": 0.18415989570602542,
+      "own_trace_one_step_td_rmse": 0.003039354591947309,
+      "policy_parameter_delta_l2_from_seed_reconstruction": 1.7720605466705182,
+      "policy_raw_applied_actions_identical": true,
+      "previous_action_slice_max_error": 0.0,
+      "recorded_steps": 3200,
+      "reward_per_tick_max": 0.019742386577432634,
+      "reward_per_tick_mean": 0.01775440570659795,
+      "reward_per_tick_min": 0.013979513220845672,
+      "std": [
+        0.13188385963439941,
+        0.13294076919555664,
+        0.13507875800132751,
+        0.13336554169654846,
+        0.13349802792072296,
+        0.1338745802640915,
+        0.1347595602273941,
+        0.13471734523773193
+      ],
+      "target_kl": null,
+      "training_log_statistics": {
+        "last_logged_updates": 508,
+        "negative_explained_variance_count": 118,
+        "train/approx_kl": {
+          "count": 127,
+          "last": 0.017096039,
+          "max": 0.045619965,
+          "mean": 0.016227846987401574,
+          "min": 0.0035967743
+        },
+        "train/clip_fraction": {
+          "count": 127,
+          "last": 0.10546875,
+          "max": 0.232421875,
+          "mean": 0.08406126968503937,
+          "min": 0.00390625
+        },
+        "train/explained_variance": {
+          "count": 127,
+          "last": -0.8054481744766235,
+          "max": 0.9222090244293213,
+          "mean": -7.038549992981858,
+          "min": -39.89008331298828
+        },
+        "train/std": {
+          "count": 127,
+          "last": 0.13377916812896729,
+          "max": 0.13531510531902313,
+          "mean": 0.13472672487337758,
+          "min": 0.13377916812896729
+        },
+        "train/value_loss": {
+          "count": 127,
+          "last": 0.001114887127187103,
+          "max": 0.07830352429300547,
+          "mean": 0.005991531491611203,
+          "min": 0.0001975752275029663
+        }
+      },
+      "vf_coef": 0.5
+    },
+    "flat": {
+      "actor_inference_max_abs_error": 1.7881393432617188e-07,
+      "checkpoint_actual_timesteps": 16384,
+      "checkpoint_actual_updates": 512,
+      "clip_range_vf": null,
+      "command_slice_exact": true,
+      "critic_diagnostic_limit": "Deterministic evaluation trace; not reconstructed stochastic training targets or training advantage values.",
+      "critic_value_max": 3.493288278579712,
+      "critic_value_mean_on_own_deterministic_trace": 3.4339449405670166,
+      "critic_value_min": 3.11623215675354,
+      "episode_exposure": [
+        {
+          "level": 0,
+          "nonflat_steps": 0,
+          "steps": 3200,
+          "terminal_reason": "time_limit",
+          "terrain_index": 0
+        },
+        {
+          "level": 0,
+          "nonflat_steps": 0,
+          "steps": 3200,
+          "terminal_reason": "time_limit",
+          "terrain_index": 3
+        },
+        {
+          "level": 0,
+          "nonflat_steps": 0,
+          "steps": 3200,
+          "terminal_reason": "time_limit",
+          "terrain_index": 3
+        },
+        {
+          "level": 0,
+          "nonflat_steps": 0,
+          "steps": 3200,
+          "terminal_reason": "time_limit",
+          "terrain_index": 0
+        },
+        {
+          "level": 0,
+          "nonflat_steps": 0,
+          "steps": 3200,
+          "terminal_reason": "time_limit",
+          "terrain_index": 1
+        },
+        {
+          "level": 0,
+          "nonflat_steps": 0,
+          "steps": 384,
+          "terminal_reason": "budget_cut",
+          "terrain_index": 3
+        }
+      ],
+      "first_observation_deterministic_action": [
+        -0.040310077369213104,
+        0.4379202127456665,
+        0.1900198757648468,
+        -0.4780401885509491,
+        -0.09527627378702164,
+        -0.29338061809539795,
+        -0.18094001710414886,
+        -0.00565665028989315
+      ],
+      "gae_lambda": 0.95,
+      "gamma": 0.9950124791926823,
+      "mean_action_rms_on_common_zero_obs": 0.29207393527030945,
+      "normalize_advantage": true,
+      "own_trace_discounted_bootstrapped_return_rmse": 0.13971537766775646,
+      "own_trace_one_step_td_rmse": 0.003619630614322513,
+      "policy_parameter_delta_l2_from_seed_reconstruction": 1.8010535765739981,
+      "policy_raw_applied_actions_identical": true,
+      "previous_action_slice_max_error": 0.0,
+      "recorded_steps": 3200,
+      "reward_per_tick_max": 0.019616700771314357,
+      "reward_per_tick_mean": 0.017776851203684645,
+      "reward_per_tick_min": 0.014167270879739133,
+      "std": [
+        0.1318855881690979,
+        0.1326877921819687,
+        0.1353503167629242,
+        0.133959099650383,
+        0.13357026875019073,
+        0.1338106393814087,
+        0.13346055150032043,
+        0.13435542583465576
+      ],
+      "target_kl": null,
+      "training_log_statistics": {
+        "last_logged_updates": 508,
+        "negative_explained_variance_count": 121,
+        "train/approx_kl": {
+          "count": 127,
+          "last": 0.01789788,
+          "max": 0.03621761,
+          "mean": 0.015434246368503936,
+          "min": 0.005075156
+        },
+        "train/clip_fraction": {
+          "count": 127,
+          "last": 0.107421875,
+          "max": 0.2265625,
+          "mean": 0.08010888287401575,
+          "min": 0.005859375
+        },
+        "train/explained_variance": {
+          "count": 127,
+          "last": -1.0685734748840332,
+          "max": 0.9046849012374878,
+          "mean": -8.003216741122598,
+          "min": -39.89008331298828
+        },
+        "train/std": {
+          "count": 127,
+          "last": 0.133649542927742,
+          "max": 0.13531510531902313,
+          "mean": 0.13470876193422032,
+          "min": 0.133649542927742
+        },
+        "train/value_loss": {
+          "count": 127,
+          "last": 0.001138022926170379,
+          "max": 0.07830352429300547,
+          "mean": 0.0059662402868060046,
+          "min": 0.0001935235741257202
+        }
+      },
+      "vf_coef": 0.5
+    },
+    "mixed": {
+      "actor_inference_max_abs_error": 1.7881393432617188e-07,
+      "checkpoint_actual_timesteps": 16384,
+      "checkpoint_actual_updates": 512,
+      "clip_range_vf": null,
+      "command_slice_exact": true,
+      "critic_diagnostic_limit": "Deterministic evaluation trace; not reconstructed stochastic training targets or training advantage values.",
+      "critic_value_max": 3.574749231338501,
+      "critic_value_mean_on_own_deterministic_trace": 3.5250940322875977,
+      "critic_value_min": 3.1737396717071533,
+      "episode_exposure": [
+        {
+          "level": 2,
+          "nonflat_steps": 2433,
+          "steps": 3200,
+          "terminal_reason": "time_limit",
+          "terrain_index": 0
+        },
+        {
+          "level": 2,
+          "nonflat_steps": 2416,
+          "steps": 3200,
+          "terminal_reason": "time_limit",
+          "terrain_index": 3
+        },
+        {
+          "level": 2,
+          "nonflat_steps": 2345,
+          "steps": 3200,
+          "terminal_reason": "time_limit",
+          "terrain_index": 3
+        },
+        {
+          "level": 3,
+          "nonflat_steps": 2276,
+          "steps": 3200,
+          "terminal_reason": "time_limit",
+          "terrain_index": 0
+        },
+        {
+          "level": 3,
+          "nonflat_steps": 2311,
+          "steps": 3200,
+          "terminal_reason": "time_limit",
+          "terrain_index": 1
+        },
+        {
+          "level": 0,
+          "nonflat_steps": 0,
+          "steps": 384,
+          "terminal_reason": "budget_cut",
+          "terrain_index": 3
+        }
+      ],
+      "first_observation_deterministic_action": [
+        -0.052147138863801956,
+        0.44020164012908936,
+        0.18276265263557434,
+        -0.553932785987854,
+        -0.08328711986541748,
+        -0.2292221337556839,
+        -0.16341744363307953,
+        0.024256061762571335
+      ],
+      "gae_lambda": 0.95,
+      "gamma": 0.9950124791926823,
+      "mean_action_rms_on_common_zero_obs": 0.2986050844192505,
+      "normalize_advantage": true,
+      "own_trace_discounted_bootstrapped_return_rmse": 0.16872709188011925,
+      "own_trace_one_step_td_rmse": 0.0033544921395378393,
+      "policy_parameter_delta_l2_from_seed_reconstruction": 1.8244048121406902,
+      "policy_raw_applied_actions_identical": true,
+      "previous_action_slice_max_error": 0.0,
+      "recorded_steps": 3200,
+      "reward_per_tick_max": 0.01979904301237066,
+      "reward_per_tick_mean": 0.018370292953137635,
+      "reward_per_tick_min": 0.014293105378375262,
+      "std": [
+        0.13301165401935577,
+        0.1333414912223816,
+        0.13473889231681824,
+        0.13395769894123077,
+        0.1330847144126892,
+        0.13349415361881256,
+        0.13396063446998596,
+        0.13336218893527985
+      ],
+      "target_kl": null,
+      "training_log_statistics": {
+        "last_logged_updates": 508,
+        "negative_explained_variance_count": 118,
+        "train/approx_kl": {
+          "count": 127,
+          "last": 0.020705555,
+          "max": 0.046758622,
+          "mean": 0.01594838753464567,
+          "min": 0.0042898958
+        },
+        "train/clip_fraction": {
+          "count": 127,
+          "last": 0.125,
+          "max": 0.2421875,
+          "mean": 0.08338459645669291,
+          "min": 0.005859375
+        },
+        "train/explained_variance": {
+          "count": 127,
+          "last": -1.4579999446868896,
+          "max": 0.9112915396690369,
+          "mean": -6.100464018311087,
+          "min": -48.252098083496094
+        },
+        "train/std": {
+          "count": 127,
+          "last": 0.13363969326019287,
+          "max": 0.13533779978752136,
+          "mean": 0.13477073903158893,
+          "min": 0.13363969326019287
+        },
+        "train/value_loss": {
+          "count": 127,
+          "last": 0.0008143512823153287,
+          "max": 0.07840421423316002,
+          "mean": 0.0059068251826743575,
+          "min": 0.00015301636813092045
+        }
+      },
+      "vf_coef": 0.5
+    },
+    "zero": {
+      "command_slice_exact": true,
+      "policy_raw_applied_actions_identical": true,
+      "previous_action_slice_max_error": 0.0,
+      "recorded_steps": 3200,
+      "reward_per_tick_max": 0.019984739315605966,
+      "reward_per_tick_mean": 0.01907919240338184,
+      "reward_per_tick_min": 0.01566118835670602
+    }
+  },
+  "rollout_seconds": 1.28,
+  "source_training_records_and_models_unchanged": true,
+  "status": "passed",
+  "timeout_bootstrap_replay": [
+    {
+      "actual_buffer_reward": 3.4443459510803223,
+      "expected_buffer_reward": 3.444345837436094,
+      "parameter_updates": 0,
+      "physics_steps": 0,
+      "raw_recorded_reward": 0.016693024746740913,
+      "replay_calls": {
+        "replayed_step": 1,
+        "reset": 2
+      },
+      "terminal_observation_used_instead_of_reset_observation": true,
+      "terminal_value": 3.444833993911743,
+      "truncated": true
+    },
+    {
+      "actual_buffer_reward": 0.016693023964762688,
+      "expected_buffer_reward": 0.016693024746740913,
+      "parameter_updates": 0,
+      "physics_steps": 0,
+      "raw_recorded_reward": 0.016693024746740913,
+      "replay_calls": {
+        "replayed_step": 1,
+        "reset": 2
+      },
+      "terminal_observation_used_instead_of_reset_observation": false,
+      "terminal_value": 3.444833993911743,
+      "truncated": false
+    }
+  ]
+}

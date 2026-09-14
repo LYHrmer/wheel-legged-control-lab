@@ -1,0 +1,64 @@
+{
+  "all_passed": true,
+  "checks": [
+    {
+      "check": "reject_nonfinite_NaN",
+      "passed": true,
+      "error": "input contains nonstandard JSON constant NaN"
+    },
+    {
+      "check": "reject_nonfinite_Infinity",
+      "passed": true,
+      "error": "input contains nonstandard JSON constant Infinity"
+    },
+    {
+      "check": "reject_nonfinite_-Infinity",
+      "passed": true,
+      "error": "input contains nonstandard JSON constant -Infinity"
+    },
+    {
+      "check": "reject_nonfinite_1e309",
+      "passed": true,
+      "error": "input contains a nonfinite number"
+    },
+    {
+      "check": "no_overwrite",
+      "passed": true,
+      "error": "output must be a new directory without symlink ancestors"
+    },
+    {
+      "check": "missing_pair_is_error",
+      "passed": true,
+      "error": "each declared case must contain zero and both variants for every seed"
+    },
+    {
+      "check": "missing_transition_is_error",
+      "passed": true,
+      "error": "trace length or requested prefixes are incomplete: /tmp/d1_summary_checks_gdwexucs/short.jsonl"
+    },
+    {
+      "check": "early_terminal_followed_by_declared_records_is_error",
+      "passed": true,
+      "error": "records continue after termination in /tmp/d1_summary_checks_gdwexucs/early.jsonl"
+    },
+    {
+      "check": "metric_error_is_crosschecked_against_command",
+      "passed": true,
+      "error": "inconsistent /tmp/d1_summary_checks_gdwexucs/wrong.jsonl:1 error: -0.00043377677802730396 != 0.0995662232219727"
+    },
+    {
+      "check": "comparison_dev48001_01",
+      "passed": true,
+      "all_full_episode_metrics_verified": 6,
+      "common_prefix_triplets": 2
+    },
+    {
+      "check": "comparison_dev48002_48003_01",
+      "passed": true,
+      "all_full_episode_metrics_verified": 10,
+      "common_prefix_triplets": 4
+    }
+  ],
+  "helper_sha256": "22a9ea3252bb366667826b4368763a7d5551d3de7543a4e6b61745883d71f457",
+  "physics_steps": 0
+}
