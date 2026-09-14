@@ -17,7 +17,10 @@ def wrap_angle(value):
 
 
 class CourseKeyboardCommands:
-    key_codes = frozenset(map(ord, "WASDQERXTG")) | {32, 256}
+    shift_keys = frozenset({340, 344})  # GLFW left/right Shift
+    key_codes = frozenset(map(ord, "WASDQERXTG")) | {32, 256} | shift_keys
+    forward_gears_mps = (0.30, 0.40, 0.50)
+    reverse_gears_mps = (0.20, 0.35, 0.50)
     heading_rate_rps = 0.60
     heading_gain = 2.0
     heading_damping = 0.4
@@ -40,12 +43,17 @@ class CourseKeyboardCommands:
         self._fallen = False
         self.side_direction = 0
         self.side_active = False
+        self.gear = 1
+        self._shift_held = False
+        self._shift_event_mode = False
+        self._shift_event_keys = set()
+        self._pending_shift_presses = 0
         self.position_xy = (0.0, 0.0)
         self.goal_yaw_rad = 0.0
         self.requested_forward_mps = 0.0
         self._clearance = 0.455
         self._command = D1MotionCommand(0.0, 0.0, self._clearance)
-        self.message = "Q/E set heading; Space jump; R simulation reset"
+        self.message = "Shift cycles speed gears; Q/E set heading; Space jump; R simulation reset"
 
     @staticmethod
     def _finite(*values):
@@ -81,6 +89,8 @@ class CourseKeyboardCommands:
         self._last_update = None
         self._focused = False
         self.side_active = False
+        self.gear = 1
+        self._pending_shift_presses = 0
         self._cancel()
         self.message = "Simulation reset: upright at this zone's start"
 
@@ -94,6 +104,23 @@ class CourseKeyboardCommands:
         if type(active) is not bool:
             raise TypeError("side active flag must be boolean")
         self.side_active = active
+
+    def handle_key_event(self, key, action):
+        """Keep short Shift taps even when PRESS/RELEASE share one GLFW poll.
+
+        Held-state sampling remains available to headless input adapters. Once
+        Shift events arrive, only those events count presses; polling cannot
+        count the same press twice. Both Shift keys act as one held button.
+        """
+        if key not in self.shift_keys:
+            return
+        self._shift_event_mode = True
+        if action == 1:  # GLFW PRESS; REPEAT does not shift.
+            if not self._shift_event_keys:
+                self._pending_shift_presses += 1
+            self._shift_event_keys.add(key)
+        elif action == 0:  # GLFW RELEASE
+            self._shift_event_keys.discard(key)
 
     def update_pressed(self, keys, focused=True):
         if not isinstance(keys, (set, frozenset)) or any(type(k) is not int for k in keys):
@@ -111,12 +138,21 @@ class CourseKeyboardCommands:
         if stale or focused != self._focused:
             self._cancel()
         self._focused = focused
+        shift_held = focused and bool(keys & self.shift_keys)
+        shift_presses = (self._pending_shift_presses if self._shift_event_mode
+                         else int(shift_held and not self._shift_held))
+        self._pending_shift_presses = 0
+        if not focused:
+            self._shift_event_keys.clear()
+        self._shift_held = shift_held
         if focused and 256 in keys:
             self._stopped = True
         if self._stopped or not focused or self._fallen or ord("X") in keys or ord("R") in keys:
             self._cancel()
             self.message = "Fallen: press R for simulation reset" if self._fallen else "Motion cancelled"
             return
+        if shift_presses:
+            self.gear = (self.gear - 1 + shift_presses) % len(self.forward_gears_mps) + 1
         was_side = bool(self.side_direction) or self.side_active
         self.side_direction = int(ord("A") in keys)-int(ord("D") in keys)
         if self.side_direction or self.side_active:
@@ -128,7 +164,8 @@ class CourseKeyboardCommands:
                             if self.side_direction else "Landing before returning to wheel driving")
             return
         forward = int(ord("W") in keys)-int(ord("S") in keys)
-        target = 0.30 if forward > 0 else -0.20 if forward < 0 else 0.0
+        target = (self.forward_gears_mps[self.gear-1] if forward > 0
+                  else -self.reverse_gears_mps[self.gear-1] if forward < 0 else 0.0)
         if target == 0:
             self.requested_forward_mps = 0.0
         else:

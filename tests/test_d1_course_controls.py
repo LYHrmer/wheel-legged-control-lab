@@ -16,11 +16,11 @@ def controller(yaw=0.0):
     return commands, clock
 
 
-def tick(commands, clock, keys=(), yaw=0.0, velocity=0.0, focused=True):
+def tick(commands, clock, keys=(), yaw=0.0, velocity=0.0, focused=True, extra_keys=()):
     clock[0] += 0.01
     commands.set_state(yaw_rad=yaw, position_xy=(0, 0), forward_velocity_mps=velocity,
                        simulation_time_s=clock[0])
-    commands.update_pressed(set(map(ord, keys)), focused=focused)
+    commands.update_pressed(set(map(ord, keys)) | set(extra_keys), focused=focused)
     return commands(clock[0])
 
 
@@ -44,6 +44,48 @@ def test_space_does_not_stop_and_height_uses_tg_not_r():
     assert command.forward_velocity_mps > 0 and command.clearance_m > 0.47
     assert tick(commands, clock, "R").forward_velocity_mps == 0
     assert commands.requested_forward_mps == 0
+
+
+def test_shift_cycles_speed_once_per_press_and_accelerates_gradually():
+    commands, clock = controller()
+    first = tick(commands, clock, "W", extra_keys={340})
+    assert commands.gear == 2 and first.forward_velocity_mps <= .0051
+    for _ in range(130):
+        command = tick(commands, clock, "W", extra_keys={340})
+    assert commands.gear == 2 and command.forward_velocity_mps == pytest.approx(.40)
+    tick(commands, clock, "W", extra_keys={340, 344})
+    assert commands.gear == 2
+    tick(commands, clock, "W")
+    tick(commands, clock, "W", extra_keys={344})
+    assert commands.gear == 3
+    for _ in range(60):
+        command = tick(commands, clock, "W", extra_keys={344})
+    assert command.forward_velocity_mps == pytest.approx(.5)
+    tick(commands, clock, "W")
+    tick(commands, clock, "W", extra_keys={340})
+    assert commands.gear == 1
+    for _ in range(110):
+        command = tick(commands, clock, "W")
+    assert command.forward_velocity_mps == pytest.approx(.3)
+    assert tick(commands, clock).forward_velocity_mps == 0
+
+
+def test_gear_reset_focus_and_side_step_preserve_motion_cancellation():
+    commands, clock = controller()
+    tick(commands, clock, "S", extra_keys={340})
+    for _ in range(100):
+        command = tick(commands, clock, "S", extra_keys={340})
+    assert command.forward_velocity_mps == pytest.approx(-.35)
+    assert tick(commands, clock, "W", extra_keys={340}, focused=False).forward_velocity_mps == 0
+    tick(commands, clock, "AW")
+    assert commands.side_direction == 1 and commands.requested_forward_mps == 0
+    commands.set_side_active(True)
+    tick(commands, clock, "W", extra_keys={340})
+    assert commands.gear == 3 and commands.requested_forward_mps == 0
+    commands.reset(0.0, (0.0, 0.0), simulation_time_s=clock[0])
+    assert commands.gear == 1
+    tick(commands, clock, extra_keys={340})
+    assert commands.gear == 1  # Reset cannot turn a held Shift into a fresh press.
 
 
 def test_focus_stop_watchdog_and_escape_cancel_goals():

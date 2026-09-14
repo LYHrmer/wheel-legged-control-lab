@@ -2,6 +2,7 @@ from types import SimpleNamespace
 
 import pytest
 
+from scripts.d1_course_controls import CourseKeyboardCommands
 from scripts.d1_keyboard_viewer import KeyboardViewer
 
 
@@ -85,3 +86,64 @@ def test_focus_callback_stops_without_waiting_for_next_render():
     assert samples == [(set(), False)]
     assert viewer.events[-1]["type"] == "focus"
     assert viewer.events[-1]["focused"] is False
+
+
+def test_shift_quick_taps_survive_one_poll_and_do_not_repeat_or_double_count():
+    viewer, states, _, _ = make_viewer()
+    viewer.commands = CourseKeyboardCommands(clock=lambda: 0.0)
+    states.clear()
+    # A complete tap can arrive during a slow rendered frame.
+    for action in (1, 0):
+        viewer._on_key(viewer.window, 340, 0, action, 0)
+    viewer.poll(0.0)
+    assert viewer.commands.gear == 2
+    for _ in range(5):
+        viewer.poll(0.0)
+    assert viewer.commands.gear == 2
+    # Several complete taps in one event batch retain their count.
+    for _ in range(2):
+        for action in (1, 0):
+            viewer._on_key(viewer.window, 344, 0, action, 0)
+    viewer.poll(0.0)
+    assert viewer.commands.gear == 1
+    states[340] = 1
+    viewer._on_key(viewer.window, 340, 0, 1, 0)
+    viewer.poll(0.0)
+    for _ in range(5):
+        viewer._on_key(viewer.window, 340, 0, 2, 0)
+        viewer.poll(0.0)
+    assert viewer.commands.gear == 2
+    # Overlapping left/right Shift is one press until both are released.
+    states[344] = 1
+    viewer._on_key(viewer.window, 344, 0, 1, 0)
+    viewer.poll(0.0)
+    del states[340]
+    viewer._on_key(viewer.window, 340, 0, 0, 0)
+    viewer.poll(0.0)
+    assert viewer.commands.gear == 2
+    states.clear()
+    viewer._on_key(viewer.window, 344, 0, 0, 0)
+    viewer.poll(0.0)
+    viewer._on_key(viewer.window, 344, 0, 1, 0)
+    viewer.poll(0.0)
+    assert viewer.commands.gear == 3
+
+
+def test_shift_events_cancel_on_focus_loss_and_reset_does_not_shift_again():
+    viewer, states, focus, _ = make_viewer()
+    viewer.commands = CourseKeyboardCommands(clock=lambda: 0.0)
+    states.clear()
+    viewer._on_key(viewer.window, 340, 0, 1, 0)
+    viewer._on_focus(viewer.window, False)
+    focus[0] = False
+    viewer.poll(0.0)
+    assert viewer.commands.gear == 1
+    focus[0] = True
+    viewer._on_focus(viewer.window, True)
+    viewer._on_key(viewer.window, 344, 0, 1, 0)
+    states[344] = 1
+    viewer.poll(0.0)
+    assert viewer.commands.gear == 2
+    viewer.commands.reset(0.0, (0.0, 0.0))
+    viewer.poll(0.0)
+    assert viewer.commands.gear == 1

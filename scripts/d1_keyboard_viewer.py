@@ -80,6 +80,9 @@ class KeyboardViewer:
 
     def _on_key(self, _window, key, _scancode, action, _mods):
         self._record(type="key", key=int(key), action=int(action))
+        handler = getattr(self.commands, "handle_key_event", None)
+        if handler is not None:
+            handler(int(key), int(action))
         # Driving keys are polled as states. No native Simulate shortcuts run.
         if action == self.glfw.PRESS and key == self.glfw.KEY_C:
             self.reset_camera()

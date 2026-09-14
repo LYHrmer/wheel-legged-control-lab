@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "command": "rtk proxy env PYTHONPATH=.local-deps:src:. OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 python3 -B -m pytest tests/test_d1_course_controls.py tests/test_d1_course_drive.py tests/test_d1_keyboard_viewer.py -q",
+      "exit_code": 0,
+      "output": "....................                                                     [100%]\n"
+    },
+    {
+      "command": "rtk proxy env PYTHONPATH=.local-deps python3 -B -m ruff check scripts/d1_course_controls.py scripts/run_d1_course_drive.py scripts/d1_keyboard_viewer.py tests/test_d1_course_controls.py tests/test_d1_keyboard_viewer.py",
+      "exit_code": 0,
+      "output": "All checks passed!\n"
+    },
+    {
+      "command": "rtk git diff --check",
+      "exit_code": 0,
+      "output": "\n"
+    }
+  ],
+  "pytest_count": 20
+}

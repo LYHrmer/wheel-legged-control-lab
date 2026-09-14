@@ -1,0 +1,121 @@
+{
+  "cases": [
+    [
+      "flat",
+      "start",
+      1,
+      1
+    ],
+    [
+      "flat",
+      "start",
+      2,
+      1
+    ],
+    [
+      "flat",
+      "start",
+      3,
+      1
+    ],
+    [
+      "flat",
+      "start",
+      1,
+      -1
+    ],
+    [
+      "flat",
+      "start",
+      2,
+      -1
+    ],
+    [
+      "flat",
+      "start",
+      3,
+      -1
+    ],
+    [
+      "course",
+      "rough",
+      1,
+      1
+    ],
+    [
+      "course",
+      "rough",
+      2,
+      1
+    ],
+    [
+      "course",
+      "rough",
+      3,
+      1
+    ],
+    [
+      "course",
+      "ramp",
+      1,
+      1
+    ],
+    [
+      "course",
+      "ramp",
+      2,
+      1
+    ],
+    [
+      "course",
+      "ramp",
+      3,
+      1
+    ],
+    [
+      "course",
+      "stairs",
+      1,
+      1
+    ],
+    [
+      "course",
+      "stairs",
+      2,
+      1
+    ],
+    [
+      "course",
+      "stairs",
+      3,
+      1
+    ]
+  ],
+  "course_acceptance": "no traversal certification; report actual progress and failures",
+  "course_drive_seconds": 12,
+  "flat_acceptance": [
+    "finite; no fall; max abs roll/pitch < .30 rad",
+    "last 2s mean world vx within 25% of signed target",
+    "release immediately clears target; last 1s abs vx mean < .05 m/s",
+    "all applied torques within unchanged model limits"
+  ],
+  "flat_drive_seconds": 8,
+  "forward_gears_mps": [
+    0.3,
+    0.55,
+    0.8
+  ],
+  "gui": "none; injected viewer provides input without any GLFW/X11 calls",
+  "input_clock": "simulation time; keys updated once per existing 0.01s control tick",
+  "model_changes": "none; standard flat/course arenas and named spawn resets only",
+  "policy": "none; default LQR/VMC course path and oracle state",
+  "probe_sha256": "40c3cf11a050f7b15f49630005aca4e48c3b7c2a0c3fc033705abb8c807e56f7",
+  "release_seconds": 4,
+  "reverse_gears_mps": [
+    0.2,
+    0.35,
+    0.5
+  ],
+  "schema": "d1-course-gear-probe-v1",
+  "settle_seconds": 2
+}

@@ -1,0 +1,653 @@
+{
+  "status": "audit_complete",
+  "human_acceptance": "failed_user_feedback",
+  "user_feedback": "整体运行慢；W 不能直接过台阶；跳跃太矮；要求 Shift 加速。原始 summary 未修改。",
+  "summary": {
+    "changed_source_files": [],
+    "integrated_duration_s": 71.72,
+    "jump_phases_observed": [
+      "crouch",
+      "flight",
+      "landing",
+      "ready",
+      "thrust"
+    ],
+    "note": "course controller demonstration; reset segments are discontinuous; no PPO or obstacle-traversal success claim",
+    "schema": "d1-course-held-driving-summary-v1",
+    "segments": 1,
+    "source_unchanged": true,
+    "steps": 7172,
+    "stop_reason": "viewer_closed",
+    "wall_seconds": 78.96133957500001
+  },
+  "render_quality": "normal",
+  "integrity": {
+    "manifest_files": 8,
+    "archived_source_files": 49,
+    "finite_states_and_torques": true,
+    "single_segment_contiguous_001s": true,
+    "input_sha256": {
+      "keyboard_events.jsonl": "accecaab360caedb49e9c952135bc7b61dd61d722a332aa166eb86b38a5c9208",
+      "model.mjb": "cd86bda3ec35dab81b84e5bd3414aec80035c7925e00f78f6353f1654f5f29b0",
+      "protocol.json": "d77111699a430d0e722c5d62e35863fea210371e7d2b26e55e05ec2be6e8fa3e",
+      "segments.json": "c1233b4720648a421658858dad301a88b4db56bb35fb74d6263b3f38f1ff46ba",
+      "source.tar.gz": "46bf5f1338e8a130754d47fa28bc1774c963a37cc7d19e0bb49fbbca531be3d3",
+      "states.npz": "d4f61540e8dfbf4e613a4321b9091f7ab9620d7da491b7b1e42fe763d3777526",
+      "summary.json": "91ceaf843435521050c5f5e41a92b6ab9f12651f9f96f9039f1f68b5080bd42d",
+      "telemetry.csv": "f37ed3774fdd970f8566e100fdc5abae2b6f06da6fc5f3a4362e4f22f843a3ee"
+    }
+  },
+  "source": "Root launched the normal-quality desktop runner without the automated key harness. Keyboard events are GLFW observations; event records alone cannot identify the physical person or distinguish all possible external event sources.",
+  "key_press_counts": {
+    "280": 1,
+    "340": 1,
+    "W": 4,
+    " ": 5,
+    "D": 2,
+    "S": 1,
+    "Q": 2,
+    "E": 1,
+    "J": 10
+  },
+  "focus_loss_events": [],
+  "key_intervals": [
+    {
+      "key": "W",
+      "start_s": 7.26,
+      "end_s": 14.07,
+      "wall_hold_s": 7.54208986499998,
+      "position_start_m": [
+        -0.0053070338067830545,
+        4.699781342923921e-06,
+        0.4654223417730073
+      ],
+      "position_end_m": [
+        0.4710535867385268,
+        0.0010673024859964573,
+        0.48009546662820746
+      ],
+      "mean_actual_forward_mps": 0.07052286902628792,
+      "peak_requested_forward_mps": 0.3,
+      "side_controller_ticks": 0
+    },
+    {
+      "key": "W",
+      "start_s": 14.370000000000001,
+      "end_s": 18.01,
+      "wall_hold_s": 3.975144911999905,
+      "position_start_m": [
+        0.46776706153295705,
+        0.0009130117735739569,
+        0.481444396628633
+      ],
+      "position_end_m": [
+        0.5036367329046608,
+        0.00010688969884456876,
+        0.4758445284958013
+      ],
+      "mean_actual_forward_mps": 0.011229300534609184,
+      "peak_requested_forward_mps": 0.3,
+      "side_controller_ticks": 0
+    },
+    {
+      "key": "D",
+      "start_s": 18.22,
+      "end_s": 30.72,
+      "wall_hold_s": 13.935855790999994,
+      "position_start_m": [
+        0.4800802816377361,
+        -0.0004990367008290745,
+        0.4913235253206643
+      ],
+      "position_end_m": [
+        0.4767580594886677,
+        -0.0004977176369334182,
+        0.4903611679672396
+      ],
+      "mean_actual_forward_mps": -0.0003298584944778486,
+      "peak_requested_forward_mps": 0.0,
+      "side_controller_ticks": 1225
+    },
+    {
+      "key": "S",
+      "start_s": 30.85,
+      "end_s": 32.730000000000004,
+      "wall_hold_s": 2.0582271979999405,
+      "position_start_m": [
+        0.46978021610822535,
+        -0.0033761809046582753,
+        0.4901670339912946
+      ],
+      "position_end_m": [
+        0.11060960343771896,
+        -0.032128982147060905,
+        0.4811385210897436
+      ],
+      "mean_actual_forward_mps": -0.19188687076098546,
+      "peak_requested_forward_mps": 0.0,
+      "side_controller_ticks": 33
+    },
+    {
+      "key": "Q",
+      "start_s": 32.99,
+      "end_s": 33.980000000000004,
+      "wall_hold_s": 1.0977254599999924,
+      "position_start_m": [
+        0.03342186062219825,
+        -0.04529112825552563,
+        0.4786366987320985
+      ],
+      "position_end_m": [
+        -0.12114117835256565,
+        -0.061709492686952507,
+        0.4774413266827246
+      ],
+      "mean_actual_forward_mps": -0.15407746663749125,
+      "peak_requested_forward_mps": 0.0,
+      "side_controller_ticks": 0
+    },
+    {
+      "key": "E",
+      "start_s": 34.09,
+      "end_s": 35.47,
+      "wall_hold_s": 1.5461076599999615,
+      "position_start_m": [
+        -0.13192762900678262,
+        -0.06241994111476057,
+        0.476138235275387
+      ],
+      "position_end_m": [
+        -0.2367353946305899,
+        -0.10435214711526637,
+        0.4789169876513757
+      ],
+      "mean_actual_forward_mps": -0.08123098779180546,
+      "peak_requested_forward_mps": 0.0,
+      "side_controller_ticks": 0
+    },
+    {
+      "key": "W",
+      "start_s": 38.11,
+      "end_s": 59.96,
+      "wall_hold_s": 23.730302402000007,
+      "position_start_m": [
+        -0.28237877054573457,
+        -0.10067959914394592,
+        0.4826278152831171
+      ],
+      "position_end_m": [
+        2.8754714898743075,
+        1.342101729597182,
+        0.46845339119751106
+      ],
+      "mean_actual_forward_mps": 0.24252857972925665,
+      "peak_requested_forward_mps": 0.3,
+      "side_controller_ticks": 0
+    },
+    {
+      "key": "Q",
+      "start_s": 50.42,
+      "end_s": 53.980000000000004,
+      "wall_hold_s": 3.7812183999999434,
+      "position_start_m": [
+        2.196857515718429,
+        -0.7280803960766907,
+        0.48818311033225303
+      ],
+      "position_end_m": [
+        2.950984644248431,
+        -0.503611561979645,
+        0.4450943840397711
+      ],
+      "mean_actual_forward_mps": 0.23908530186600555,
+      "peak_requested_forward_mps": 0.3,
+      "side_controller_ticks": 0
+    },
+    {
+      "key": "W",
+      "start_s": 63.690000000000005,
+      "end_s": 69.47,
+      "wall_hold_s": 6.343424735000099,
+      "position_start_m": [
+        2.8778363718798663,
+        1.3024505106756592,
+        0.4685905140006723
+      ],
+      "position_end_m": [
+        2.8301251228890574,
+        1.3448244551445994,
+        0.4786379803054046
+      ],
+      "mean_actual_forward_mps": 0.010638931686630116,
+      "peak_requested_forward_mps": 0.3,
+      "side_controller_ticks": 0
+    },
+    {
+      "key": "D",
+      "start_s": 68.25,
+      "end_s": 69.55,
+      "wall_hold_s": 1.4569773089999671,
+      "position_start_m": [
+        2.8291296141014044,
+        1.343385607537841,
+        0.472957161512471
+      ],
+      "position_end_m": [
+        2.831856293737158,
+        1.3430826267262044,
+        0.4792253936004004
+      ],
+      "mean_actual_forward_mps": -0.0003441409313301041,
+      "peak_requested_forward_mps": 0.0,
+      "side_controller_ticks": 0
+    }
+  ],
+  "successful_side_cycles": [
+    {
+      "entry_tick": 1848,
+      "done_tick": 2816,
+      "duration_s": 9.69,
+      "lateral_m": -0.03583925156325796,
+      "forward_m": -0.005015293734470495,
+      "yaw_delta_rad": -0.0007037094709977743,
+      "done_wheel_contacts": 4,
+      "done_speed_mps": 0.03208300506700538
+    }
+  ],
+  "side_cancel": {
+    "start_tick": 3073,
+    "done_tick": 3118,
+    "handoff_tick": 3119,
+    "control_intervals": 46,
+    "contacts_at_done": 4,
+    "speed_at_done_mps": 0.002936950243574998,
+    "cause": "D release observed at 30.72 s; no focus loss or X/R event.",
+    "stale_cancelled_rows_after_handoff": 4054,
+    "retained_lateral_from_first_cycle_entry_m": -0.004595816790848417,
+    "retained_forward_from_first_cycle_entry_m": -0.0028228792937570087
+  },
+  "second_d_request": {
+    "reconstruction_only": "Integrated before-step states, not the legacy_mixed final-substep cache; gate reasons below are diagnostic evidence, not a replay of exact runtime internals.",
+    "first_before_state": 6825,
+    "last_before_state": 6954,
+    "four_contact_states": 130,
+    "linear_speed_over_004_states": 96,
+    "angular_speed_over_008_states": 123,
+    "absolute_world_wheel_bottom_over_001_states": 0,
+    "attitude_over_012_states": 20,
+    "speed_minmax_mps": [
+      0.021546406069210815,
+      0.13113793945006197
+    ],
+    "terrain_contact_state_counts": {
+      "floor": 130,
+      "terrain_stair_4": 59,
+      "terrain_stair_5": 81
+    },
+    "all_reconstructed_entry_gates_satisfied_states": 0
+  },
+  "jumps": [
+    {
+      "number": 1,
+      "start_s": 12.16,
+      "end_s": 13.36,
+      "phases": [
+        "crouch",
+        "flight",
+        "landing",
+        "thrust"
+      ],
+      "completed_counter_after": 1,
+      "initial_base_z_m": 0.4583334701753732,
+      "peak_base_z_m": 0.5251281405123353,
+      "base_z_gain_m": 0.06679467033696207,
+      "all_wheels_no_contact_s": 0.04,
+      "peak_min_wheel_clearance_m": 0.0022333483590797503,
+      "wheel_clearance_at_peak_m": [
+        0.006311788092824256,
+        0.0064826655648355,
+        0.0022333483590797503,
+        0.002292703709759176
+      ],
+      "peak_clearance_state_index": 1258,
+      "terrain_contact_state_counts": {
+        "floor": 116,
+        "terrain_rough_2_0": 57,
+        "terrain_rough_4_0": 55,
+        "terrain_rough_3_0": 10
+      }
+    },
+    {
+      "number": 2,
+      "start_s": 15.74,
+      "end_s": 16.94,
+      "phases": [
+        "crouch",
+        "flight",
+        "landing",
+        "thrust"
+      ],
+      "completed_counter_after": 2,
+      "initial_base_z_m": 0.4795652312418325,
+      "peak_base_z_m": 0.5360593527856143,
+      "base_z_gain_m": 0.05649412154378186,
+      "all_wheels_no_contact_s": 0.04,
+      "peak_min_wheel_clearance_m": 0.002310765858579233,
+      "wheel_clearance_at_peak_m": [
+        0.014717723863090913,
+        0.015090756286637412,
+        0.0024123038150790895,
+        0.002310765858579233
+      ],
+      "peak_clearance_state_index": 1617,
+      "terrain_contact_state_counts": {
+        "floor": 116,
+        "terrain_rough_4_0": 69,
+        "terrain_rough_2_0": 48
+      }
+    },
+    {
+      "number": 3,
+      "start_s": 17.240000000000002,
+      "end_s": 18.44,
+      "phases": [
+        "crouch",
+        "flight",
+        "landing",
+        "thrust"
+      ],
+      "completed_counter_after": 3,
+      "initial_base_z_m": 0.4749141525464111,
+      "peak_base_z_m": 0.5386233469448627,
+      "base_z_gain_m": 0.06370919439845157,
+      "all_wheels_no_contact_s": 0.09,
+      "peak_min_wheel_clearance_m": 0.014033899099525859,
+      "wheel_clearance_at_peak_m": [
+        0.014470194835410056,
+        0.014033899099525859,
+        0.014094999871087623,
+        0.014241497922089173
+      ],
+      "peak_clearance_state_index": 1769,
+      "terrain_contact_state_counts": {
+        "floor": 111,
+        "terrain_rough_2_0": 41,
+        "terrain_rough_4_0": 43
+      }
+    },
+    {
+      "number": 4,
+      "start_s": 36.29,
+      "end_s": 37.49,
+      "phases": [
+        "crouch",
+        "flight",
+        "landing",
+        "thrust"
+      ],
+      "completed_counter_after": 4,
+      "initial_base_z_m": 0.477104649774768,
+      "peak_base_z_m": 0.5334905390965327,
+      "base_z_gain_m": 0.05638588932176464,
+      "all_wheels_no_contact_s": 0.01,
+      "peak_min_wheel_clearance_m": 0.00131397969223231,
+      "wheel_clearance_at_peak_m": [
+        0.007545618157470858,
+        0.006728719217121938,
+        0.00131397969223231,
+        0.004060338888571073
+      ],
+      "peak_clearance_state_index": 3671,
+      "terrain_contact_state_counts": {
+        "floor": 119
+      }
+    },
+    {
+      "number": 5,
+      "start_s": 39.75,
+      "end_s": 40.95,
+      "phases": [
+        "crouch",
+        "flight",
+        "landing",
+        "thrust"
+      ],
+      "completed_counter_after": 5,
+      "initial_base_z_m": 0.48131834925277384,
+      "peak_base_z_m": 0.5386929356841591,
+      "base_z_gain_m": 0.057374586431385266,
+      "all_wheels_no_contact_s": 0.08,
+      "peak_min_wheel_clearance_m": 0.006576748945019882,
+      "wheel_clearance_at_peak_m": [
+        0.012856390198167913,
+        0.013330713796148934,
+        0.006576748945019882,
+        0.009858047168974647
+      ],
+      "peak_clearance_state_index": 4020,
+      "terrain_contact_state_counts": {
+        "floor": 112
+      }
+    },
+    {
+      "number": 6,
+      "start_s": 41.480000000000004,
+      "end_s": 42.68,
+      "phases": [
+        "crouch",
+        "flight",
+        "landing",
+        "thrust"
+      ],
+      "completed_counter_after": 6,
+      "initial_base_z_m": 0.48280256976690256,
+      "peak_base_z_m": 0.5418934223219446,
+      "base_z_gain_m": 0.05909085255504204,
+      "all_wheels_no_contact_s": 0.07,
+      "peak_min_wheel_clearance_m": 0.005470833891290255,
+      "wheel_clearance_at_peak_m": [
+        0.02171032709164892,
+        0.015665577533651956,
+        0.009568647217390732,
+        0.005470833891290255
+      ],
+      "peak_clearance_state_index": 4193,
+      "terrain_contact_state_counts": {
+        "floor": 113,
+        "terrain_rough_2_0": 99,
+        "terrain_rough_0_0": 72,
+        "terrain_rough_1_0": 9
+      }
+    },
+    {
+      "number": 7,
+      "start_s": 43.26,
+      "end_s": 44.46,
+      "phases": [
+        "crouch",
+        "flight",
+        "landing",
+        "thrust"
+      ],
+      "completed_counter_after": 7,
+      "initial_base_z_m": 0.4822487958367829,
+      "peak_base_z_m": 0.5461825450844183,
+      "base_z_gain_m": 0.06393374924763545,
+      "all_wheels_no_contact_s": 0.01,
+      "peak_min_wheel_clearance_m": 0.0010638458305465507,
+      "wheel_clearance_at_peak_m": [
+        0.006423741007048952,
+        0.005574694691058642,
+        0.0010638458305465507,
+        0.003122202017991127
+      ],
+      "peak_clearance_state_index": 4368,
+      "terrain_contact_state_counts": {
+        "floor": 119,
+        "terrain_rough_0_0": 104,
+        "terrain_rough_2_0": 49,
+        "terrain_rough_2_1": 89,
+        "terrain_rough_1_0": 9,
+        "terrain_rough_0_1": 12
+      }
+    },
+    {
+      "number": 8,
+      "start_s": 65.64,
+      "end_s": 66.84,
+      "phases": [
+        "crouch",
+        "flight",
+        "landing",
+        "thrust"
+      ],
+      "completed_counter_after": 8,
+      "initial_base_z_m": 0.462744821751731,
+      "peak_base_z_m": 0.5316822948631025,
+      "base_z_gain_m": 0.0689374731113715,
+      "all_wheels_no_contact_s": 0.03,
+      "peak_min_wheel_clearance_m": 0.001979105473870111,
+      "wheel_clearance_at_peak_m": [
+        0.010763955414219399,
+        0.00947565964143308,
+        0.0022215882347076275,
+        0.001979105473870111
+      ],
+      "peak_clearance_state_index": 6606,
+      "terrain_contact_state_counts": {
+        "floor": 117,
+        "terrain_stair_5": 74,
+        "terrain_stair_4": 6
+      }
+    },
+    {
+      "number": 9,
+      "start_s": 66.85,
+      "end_s": 68.05,
+      "phases": [
+        "crouch",
+        "flight",
+        "landing",
+        "thrust"
+      ],
+      "completed_counter_after": 9,
+      "initial_base_z_m": 0.48484210182296056,
+      "peak_base_z_m": 0.5380479776204388,
+      "base_z_gain_m": 0.05320587579747821,
+      "all_wheels_no_contact_s": 0.04,
+      "peak_min_wheel_clearance_m": 0.002299950376562166,
+      "wheel_clearance_at_peak_m": [
+        0.013270551155324037,
+        0.013662449198495387,
+        0.004674836196805417,
+        0.002299950376562166
+      ],
+      "peak_clearance_state_index": 6728,
+      "terrain_contact_state_counts": {
+        "floor": 116,
+        "terrain_stair_5": 90
+      }
+    }
+  ],
+  "stalls": [
+    {
+      "first_tick": 1068,
+      "last_tick": 1216,
+      "start_s": 10.67,
+      "duration_s": 1.49,
+      "position_start_m": [
+        0.5710944432018434,
+        -0.00030171675960408064,
+        0.458340232751206
+      ],
+      "delta_xy_m": [
+        -0.0005536544636119967,
+        0.0004945815610726065
+      ],
+      "mean_forward_mps": -0.00027650187788175597,
+      "terrain_contact_state_counts": {
+        "floor": 149,
+        "terrain_rough_2_0": 149,
+        "terrain_rough_4_0": 149
+      }
+    }
+  ],
+  "physical_summary": {
+    "min_base_z_m": 0.4349329162785424,
+    "max_base_z_m": 0.5461825450844183,
+    "max_abs_roll_pitch_rad": [
+      0.11828864233063423,
+      0.1330690682407493
+    ],
+    "fallen_state_count": 0,
+    "nonwheel_contact_state_count": 0,
+    "nonwheel_contact_body_counts": {},
+    "terrain_contact_state_counts": {
+      "floor": 7032,
+      "terrain_rough_4_0": 436,
+      "terrain_rough_2_0": 707,
+      "terrain_rough_3_0": 10,
+      "terrain_rough_0_0": 322,
+      "terrain_rough_1_0": 47,
+      "terrain_rough_2_1": 249,
+      "terrain_rough_0_1": 225,
+      "terrain_rough_1_1": 38,
+      "terrain_rough_1_2": 126,
+      "terrain_rough_0_2": 110,
+      "terrain_rough_1_3": 183,
+      "terrain_rough_0_3": 12,
+      "terrain_rough_1_4": 118,
+      "terrain_rough_0_5": 148,
+      "terrain_rough_0_6": 249,
+      "terrain_rough_0_7": 129,
+      "terrain_rough_1_5": 47,
+      "terrain_rough_0_8": 318,
+      "terrain_rough_1_6": 47,
+      "terrain_ramp_up": 314,
+      "terrain_stair_5": 1171,
+      "terrain_stair_4": 180
+    },
+    "actual_forward_minmax_mps": [
+      -0.35373403382596996,
+      0.5869862579019521
+    ],
+    "full_forward_ready_mean_mps": 0.20916408178879467,
+    "full_forward_ready_stalled_fraction": 0.12219644238205724
+  },
+  "methods": [
+    "All geometry uses a separate reloaded MjModel/MjData with mj_forward; no mj_step or original file changes.",
+    "Wheel lowest point accounts for cylinder camber using radius 0.087 m and half-width 0.020 m.",
+    "Ground elevation is a vertical downward terrain-only ray at each wheel center; clearance is lowest point minus that elevation. Near a step edge this is local vertical clearance, not swept-volume obstacle clearance.",
+    "All-wheels-no-contact uses active wheel/terrain geometric contacts at recorded control states, not a flight label.",
+    "Stall means requested forward >0.25 m/s, jump ready, and actual body-frame forward speed magnitude <0.03 m/s for at least 0.5 s.",
+    "Fall criterion matches existing D1StateEstimate: world z<0.22 m or |roll|/|pitch|>0.85 rad."
+  ],
+  "limitations": "One manual session with explicit negative user feedback. A/R, other spawn zones, physical self-righting and higher-speed/height candidates are not validated here.",
+  "stair_approach_w": {
+    "start_s": 63.69,
+    "end_s": 68.25,
+    "duration_s": 4.56,
+    "body_start_xyz_m": [
+      2.8778363718798663,
+      1.3024505106756592,
+      0.4685905140006723
+    ],
+    "body_end_xyz_m": [
+      2.8291296141014044,
+      1.343385607537841,
+      0.472957161512471
+    ],
+    "net_forward_from_initial_heading_m": 0.05455991420540561,
+    "mean_actual_body_forward_mps": 0.01307994331909956,
+    "peak_requested_mps": 0.3,
+    "includes_two_jump_cycles": true,
+    "obstacle_description": "Recorded contacts with terrain_stair_4/5; these boxes are 7.5/6.0 cm high with southern edge y=1.58 m. Robot approaches from y about 1.30-1.34, rather than from the 1.5 cm first step along +x."
+  },
+  "jump_requests": {
+    "space_presses": 5,
+    "j_presses": 10,
+    "started_cycles": 9,
+    "completed_cycles": 9,
+    "busy_phase_presses_discarded": 6
+  }
+}

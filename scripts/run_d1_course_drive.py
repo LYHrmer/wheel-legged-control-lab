@@ -173,7 +173,12 @@ def run(
         "state_mode": simulation.teleop.state_mode,
         "policy": "none",
         "contact_allocation": simulation.teleop.contact_allocation,
-        "controls": "W/S forward; A/D hold for side steps; Q/E desired heading; Space guarded jump; R simulation reset; X cancel; T/G height; 1..6 zones; Esc exit",
+        "controls": "W/S forward; Shift cycles speed gears; A/D hold for side steps; Q/E desired heading; Space guarded jump; R simulation reset; X cancel; T/G height; 1..6 zones; Esc exit",
+        "speed_gears": {
+            "forward_mps": getattr(commands, "forward_gears_mps", None),
+            "reverse_mps": getattr(commands, "reverse_gears_mps", None),
+            "shift_behavior": "left or right Shift rising press cycles 1/2/3; held/repeat does not cycle; reset selects 1",
+        },
         "lateral_motion": "experimental torque-only four-leg side stepping on flat z=0 ground; release completes landing before wheel-controller handoff; no PPO",
         "side_step_controller": side_factory.__name__,
         "side_step_profile": side_step_profile,
@@ -250,8 +255,8 @@ def run(
                 display_model, display_data, commands, terrain_label=f"Course: {zone}", **quality
             )
             viewer.controls_help = (
-                "W / S\nQ / E\nSpace\nR\nX\nT / G\nA / D\nC / Esc",
-                "Forward / reverse\nSet heading left / right\nGuarded jump\nReset upright at this zone's start\nCancel motion and heading\nRaise / lower body\nHold for flat-ground side steps\nReset camera / exit",
+                "W / S\nShift\nQ / E\nSpace\nR\nX\nT / G\nA / D\nC / Esc",
+                "Forward / reverse\nCycle speed gear 1 / 2 / 3\nSet heading left / right\nGuarded jump\nReset upright at this zone's start\nCancel motion and heading\nRaise / lower body\nHold for flat-ground side steps\nReset camera / exit",
             )
         with (
             nullcontext(None) if viewer is None else viewer,
@@ -305,6 +310,7 @@ def run(
                     "requested_yaw_rps": requested.yaw_rate_rps,
                     "requested_height_m": requested.clearance_m,
                     "operator_forward_mps": getattr(commands, "requested_forward_mps", requested.forward_velocity_mps),
+                    "speed_gear": getattr(commands, "gear", None),
                     "heading_target_rad": getattr(commands, "goal_yaw_rad", float(simulation.teleop._state.base_rpy[2])),
                     "actual_heading_rad": float(simulation.teleop._state.base_rpy[2]),
                     "input_status": getattr(commands, "message", "legacy input"),
@@ -338,11 +344,12 @@ def run(
                     side_hint = (
                         "Side step needs a stopped robot on flat ground; press 1 for start"
                         if getattr(commands, "side_direction", 0) and not drive.active
-                        and not side_status["done"]
                         else f"Side: {side_status['phase']} | {side_status['failure'] or ''}"
                     )
                     viewer.extra_help = (
                         "1 start | 2 rough | 3 ramp | 4 stairs | 5 bumps | 6 jump zone\n"
+                        f"Gear {getattr(commands, 'gear', 1)} | Shift cycles speed | "
+                        f"W target {getattr(commands, 'forward_gears_mps', (0.3,))[getattr(commands, 'gear', 1)-1]:.2f} m/s\n"
                         f"Space jump: {status.jump_phase} | Safety: {status.safety_mode}\n"
                         f"Heading: {math.degrees(float(simulation.teleop._state.base_rpy[2])):+.1f} deg"
                         f" -> {math.degrees(getattr(commands, 'goal_yaw_rad', 0.0)):+.1f} deg\n"
@@ -421,7 +428,8 @@ def main(argv=None):
         baseline=args.baseline, arena="course", state_mode="oracle"
     )
     print(
-        "Course LQR/MPC with oracle state, no PPO. W/S drive; Q/E set heading; Space jump; "
+        "Course LQR/MPC with oracle state, no PPO. W/S drive; Shift cycles speed gears 1/2/3; "
+        "Q/E set heading; Space jump; "
         "R resets upright at current zone; X cancels; T/G height; hold A/D for flat-ground side steps; "
         "1..6 zones; Esc exits.",
         flush=True,

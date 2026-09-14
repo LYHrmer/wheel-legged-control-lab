@@ -1,0 +1,175 @@
+{
+  "status": "passed",
+  "display": ":123",
+  "desktop_used": false,
+  "physics_stepped": false,
+  "input_transport": "XSendEvent to own GLFW window on private Xvfb",
+  "checks": [
+    {
+      "case": "press_release_in_one_poll",
+      "gear": 2,
+      "expected": 2,
+      "passed": true
+    },
+    {
+      "case": "right_shift_press",
+      "gear": 3,
+      "expected": 3,
+      "passed": true
+    },
+    {
+      "case": "held_shift_does_not_cycle",
+      "gear": 3,
+      "expected": 3,
+      "passed": true
+    },
+    {
+      "case": "repeated_press_does_not_cycle",
+      "gear": 3,
+      "expected": 3,
+      "passed": true
+    },
+    {
+      "case": "both_shifts_overlap_is_one_press",
+      "gear": 3,
+      "expected": 3,
+      "passed": true
+    },
+    {
+      "case": "release_keeps_gear",
+      "gear": 3,
+      "expected": 3,
+      "passed": true
+    },
+    {
+      "case": "two_taps_in_one_poll",
+      "gear": 2,
+      "expected": 2,
+      "passed": true
+    },
+    {
+      "case": "held_before_reset",
+      "gear": 3,
+      "expected": 3,
+      "passed": true
+    },
+    {
+      "case": "reset_with_shift_still_held",
+      "gear": 1,
+      "expected": 1,
+      "passed": true
+    },
+    {
+      "case": "release_after_reset",
+      "gear": 1,
+      "expected": 1,
+      "passed": true
+    }
+  ],
+  "events": [
+    {
+      "wall_time_s": 0.4658559540000624,
+      "simulation_time_s": 0.0,
+      "type": "focus",
+      "focused": false
+    },
+    {
+      "wall_time_s": 0.4659161130000484,
+      "simulation_time_s": 0.0,
+      "type": "focus",
+      "focused": true
+    },
+    {
+      "wall_time_s": 0.4664852299999893,
+      "simulation_time_s": 0.0,
+      "type": "key",
+      "key": 340,
+      "action": 1
+    },
+    {
+      "wall_time_s": 0.46649225700002717,
+      "simulation_time_s": 0.0,
+      "type": "key",
+      "key": 340,
+      "action": 0
+    },
+    {
+      "wall_time_s": 0.4665786410000692,
+      "simulation_time_s": 0.0,
+      "type": "key",
+      "key": 344,
+      "action": 1
+    },
+    {
+      "wall_time_s": 0.46702172400000563,
+      "simulation_time_s": 0.0,
+      "type": "key",
+      "key": 344,
+      "action": 2
+    },
+    {
+      "wall_time_s": 0.4671129959999689,
+      "simulation_time_s": 0.0,
+      "type": "key",
+      "key": 340,
+      "action": 1
+    },
+    {
+      "wall_time_s": 0.4672084480000649,
+      "simulation_time_s": 0.0,
+      "type": "key",
+      "key": 344,
+      "action": 0
+    },
+    {
+      "wall_time_s": 0.46721125299995947,
+      "simulation_time_s": 0.0,
+      "type": "key",
+      "key": 340,
+      "action": 0
+    },
+    {
+      "wall_time_s": 0.4672994420000123,
+      "simulation_time_s": 0.0,
+      "type": "key",
+      "key": 340,
+      "action": 1
+    },
+    {
+      "wall_time_s": 0.4673021860000972,
+      "simulation_time_s": 0.0,
+      "type": "key",
+      "key": 340,
+      "action": 0
+    },
+    {
+      "wall_time_s": 0.46730369700003394,
+      "simulation_time_s": 0.0,
+      "type": "key",
+      "key": 340,
+      "action": 1
+    },
+    {
+      "wall_time_s": 0.4673054750001029,
+      "simulation_time_s": 0.0,
+      "type": "key",
+      "key": 340,
+      "action": 0
+    },
+    {
+      "wall_time_s": 0.4675241400000232,
+      "simulation_time_s": 0.0,
+      "type": "key",
+      "key": 340,
+      "action": 1
+    },
+    {
+      "wall_time_s": 0.4676267279999138,
+      "simulation_time_s": 0.0,
+      "type": "key",
+      "key": 340,
+      "action": 0
+    }
+  ],
+  "probe_sha256": "0ee6ba6e4679ca0cd0fe4d079aaf6835a68d548462e1b14042a3778b54a33f7a"
+}
