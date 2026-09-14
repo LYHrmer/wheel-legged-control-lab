@@ -1,0 +1,196 @@
+{
+  "all_seeds_completed": true,
+  "results": [
+    {
+      "actual_transitions": 256,
+      "additional_reload_check_physical_steps": 2,
+      "checkpoints": [
+        {
+          "actual_transitions": 32,
+          "budget": 32,
+          "completed_train_calls": 1,
+          "directory": "checkpoints/step32",
+          "exposure": {
+            "active_episode": {
+              "completed": false,
+              "condition": "curriculum",
+              "end_total_transitions": 32,
+              "episode_index": 0,
+              "episode_seed": 1032251849,
+              "last_terrain_exposure": {
+                "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+                "nonflat_fraction": 0.0,
+                "nonflat_now": false,
+                "nonflat_path_m": 0.0,
+                "nonflat_steps": 0,
+                "path_m": 0.002445090404392125,
+                "unique_nonflat_0p25m_cells": 0
+              },
+              "level": 0,
+              "reward_sum": 0.6172184308337654,
+              "start_total_transitions": 0,
+              "terminal_reason": "active_checkpoint_snapshot",
+              "terrain_index": 1,
+              "terrain_parameters": {
+                "cross_slope_deg": 0.0,
+                "layout": "flat",
+                "phase_x_rad": 0.0,
+                "phase_y_rad": 0.0,
+                "ripple_amplitude_m": 0.0,
+                "schema": "d1-fixed-2d-road-v1",
+                "slope_deg": 0.0,
+                "step_height_m": 0.0,
+                "wavelength_x_m": 0.8,
+                "wavelength_y_m": 1.2
+              },
+              "transitions": 32
+            },
+            "actual_transitions": 32,
+            "completed_episodes": [],
+            "definition": "Geometric exposure is not verified obstacle traversal.",
+            "episodes_by_level": {
+              "0": 1
+            },
+            "geometric_nonflat_steps_by_level": {
+              "0": 0
+            },
+            "transitions_by_level": {
+              "0": 32
+            }
+          },
+          "metadata_sha256": "a24dff084ba983dd144014d8ece8a8899d1db052d017a087257c8c51a9697b5c",
+          "model_sha256": "72240781236f8fe2ec685cea54ae74e4af5aed3d8e191096d0630ad4f7e172e8",
+          "optimization_epochs": 1,
+          "parameter_sha256": "1305e39bf2386cd25373b1dce88c73e677053b03fef2b7026b34b2091b980188",
+          "ppo_num_timesteps": 32,
+          "saved_after_completed_update": true
+        },
+        {
+          "actual_transitions": 256,
+          "budget": 256,
+          "completed_train_calls": 8,
+          "directory": "checkpoints/step256",
+          "exposure": {
+            "active_episode": {
+              "completed": false,
+              "condition": "curriculum",
+              "end_total_transitions": 256,
+              "episode_index": 0,
+              "episode_seed": 1032251849,
+              "last_terrain_exposure": {
+                "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+                "nonflat_fraction": 0.0,
+                "nonflat_now": false,
+                "nonflat_path_m": 0.0,
+                "nonflat_steps": 0,
+                "path_m": 0.41061141755135083,
+                "unique_nonflat_0p25m_cells": 0
+              },
+              "level": 0,
+              "reward_sum": 4.680880378275026,
+              "start_total_transitions": 0,
+              "terminal_reason": "active_checkpoint_snapshot",
+              "terrain_index": 1,
+              "terrain_parameters": {
+                "cross_slope_deg": 0.0,
+                "layout": "flat",
+                "phase_x_rad": 0.0,
+                "phase_y_rad": 0.0,
+                "ripple_amplitude_m": 0.0,
+                "schema": "d1-fixed-2d-road-v1",
+                "slope_deg": 0.0,
+                "step_height_m": 0.0,
+                "wavelength_x_m": 0.8,
+                "wavelength_y_m": 1.2
+              },
+              "transitions": 256
+            },
+            "actual_transitions": 256,
+            "completed_episodes": [],
+            "definition": "Geometric exposure is not verified obstacle traversal.",
+            "episodes_by_level": {
+              "0": 1
+            },
+            "geometric_nonflat_steps_by_level": {
+              "0": 0
+            },
+            "transitions_by_level": {
+              "0": 256
+            }
+          },
+          "metadata_sha256": "738523064fd2e65192fdc2bea8adc1d34a702d46c24ea2e1cd40d2729334d751",
+          "model_sha256": "9559b4b80aab3b13a06c51cb0ca4bf21457460a53d1fc2b719ed00cff61f0147",
+          "optimization_epochs": 8,
+          "parameter_sha256": "42f24281bf73d7cd29d6beb6ed41883bd27d5cbfa84438f05f3e9a7e9b809a90",
+          "ppo_num_timesteps": 256,
+          "saved_after_completed_update": true
+        }
+      ],
+      "completed_train_calls": 8,
+      "curriculum_steps": 16384,
+      "definition": "Geometric exposure is not verified obstacle traversal.",
+      "episodes_by_level": {
+        "0": 1
+      },
+      "final_parameter_sha256": "42f24281bf73d7cd29d6beb6ed41883bd27d5cbfa84438f05f3e9a7e9b809a90",
+      "geometric_nonflat_steps_by_level": {
+        "0": 0
+      },
+      "optimization_epochs": 8,
+      "pipeline_smoke_only": true,
+      "ppo_actual_hyperparameters": {
+        "activation_function": "Tanh",
+        "batch_size": 32,
+        "clip_range": 0.2,
+        "device": "cpu",
+        "ent_coef": 0.0,
+        "gae_lambda": 0.95,
+        "gamma": 0.9950124791926823,
+        "learning_rate": 0.0003,
+        "max_grad_norm": 0.5,
+        "n_epochs": 1,
+        "n_steps": 32,
+        "normalize_advantage": true,
+        "num_envs": 1,
+        "optimizer_class": "Adam",
+        "optimizer_defaults": {
+          "amsgrad": false,
+          "betas": [
+            0.9,
+            0.999
+          ],
+          "capturable": false,
+          "decoupled_weight_decay": false,
+          "differentiable": false,
+          "eps": 1e-05,
+          "foreach": null,
+          "fused": null,
+          "lr": 0.0003,
+          "maximize": false,
+          "weight_decay": 0
+        },
+        "policy_kwargs": {
+          "log_std_init": -2.0,
+          "net_arch": [
+            64,
+            64
+          ]
+        },
+        "sde_sample_freq": -1,
+        "target_kl": null,
+        "use_sde": false,
+        "vf_coef": 0.5
+      },
+      "ppo_num_timesteps": 256,
+      "seed": 49999,
+      "single_uninterrupted_learn_call": true,
+      "training_budget_steps": 256,
+      "transitions_by_level": {
+        "0": 256
+      },
+      "wall_seconds": 2.5439824490003957
+    }
+  ],
+  "schema": "d1-heading-hold-training-study-v1",
+  "source_and_evaluation_identity_unchanged": true
+}

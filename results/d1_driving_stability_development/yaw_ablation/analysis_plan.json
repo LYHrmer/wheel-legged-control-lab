@@ -1,0 +1,24 @@
+{
+  "schema": "d1-yaw-action-ablation-analysis-plan-v1",
+  "classification": "Development diagnostic; closed-loop inference interventions on fixed checkpoints, not newly trained policies.",
+  "case": "dev_straight_road",
+  "models": ["seed48001/unbounded", "seed48001/bounded", "seed48002/unbounded", "seed48002/bounded", "seed48003/unbounded", "seed48003/bounded"],
+  "modes": {
+    "zero": "One shared 8D zero-residual baseline episode.",
+    "full": "Unchanged deterministic prediction from this branch's current observation.",
+    "zero_legs": "Set only prediction[:4] to zero.",
+    "common_wheels": "Replace prediction[4:] by their common average; preserve prediction[:4]."
+  },
+  "episodes": 19,
+  "comparison": "For each saved model compare zero/full/zero_legs/common_wheels at their minimum recorded duration, retaining separate full-duration termination and completion statistics.",
+  "checks": [
+    "All model and metadata hashes agree with the original development evaluation copies.",
+    "All 77 frozen source hashes agree before and after execution.",
+    "All branches start from identical observations, qpos, qvel and episode metadata.",
+    "Replay each fixed policy on the saved observations from its own branch and validate the saved predictions.",
+    "Validate action intervention, executed action, and subsequent previous-action observation.",
+    "Check fresh full-mode observations, state arrays and predictions against the previous same-condition full episodes.",
+    "Recompute common-prefix velocity, yaw-rate, height, heading and lateral-displacement metrics from original recorded data."
+  ],
+  "interpretation": "A branch improvement can implicate the removed action component in this closed-loop setting. Coupled state changes prevent interpreting the contrasts as additive independent physical contributions. No training or final-evaluation claim follows from this diagnostic."
+}

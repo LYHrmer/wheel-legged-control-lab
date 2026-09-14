@@ -1,0 +1,141 @@
+{
+  "schema": "d1-heading-task-independent-review-v1",
+  "reviewer": "GPT-6-astra / ultra",
+  "date": "2026-09-14",
+  "scope": "Independent read-only product-code review against heading_task_contract.md, one initial one-step reproduction plus one fixed-version physical step. No code edits or training performed by this review.",
+  "verdict": "PASS after root repaired the public configuration consistency defect; no remaining blocker found for the frozen straight heading-hold development training protocol.",
+  "source_sha256": {
+    "scripts/d1_heading_tracking_env.py": "91cbb3bcf697cab21f9b2c6b02480cf73d41811e4dd3cad51f1ae9554c4177ec",
+    "scripts/d1_heading_reference.py": "42c9de0c2099e7ec6e6b3281e3ece008649e176b24148adcb8ffe522399af44d",
+    "tests/test_d1_heading_tracking_env.py": "92f5d3a0ed17fb80c1ddc8a3ea0446bbe59c3afa3ab183d2467f2d6d9318de1d",
+    "scripts/d1_heading_curriculum.py": "d50c7b3648eec71261178a38d9718b0f9ba04a990f6f87b7bc9b682624cf56ea",
+    "scripts/run_d1_heading_study.py": "02e365cf4def1f073f365cbcaee7d0131bec267a79cba21d690f47acd95a93e5"
+  },
+  "contract": {
+    "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260914/heading_task_contract.md",
+    "sha256": "08fad8f7157da8ea310cc4add3360133ad10c8e75b311cfb767c4da3a7218c36"
+  },
+  "resolved_finding": {
+    "severity": "configuration and checkpoint compatibility defect; fix required before full training",
+    "description": "The reviewed initial candidate exposed writable outer-loop and reward parameters while heading_task_config and episode metadata retained their constructor-time values. The loader could therefore validate a configuration different from runtime behavior.",
+    "initial_candidate_sha256": "888651e634b327a9de1a73956e753c185142e2c5b2e484fe6ae2da84b6a8e853",
+    "reproduction": {
+      "operation": "Construct weight .5, reset seed2 with user yaw rate .2, assign heading_reward_weight=0, execute one zero-action transition. Also assign heading_kp=3.",
+      "runtime_reward_weight": 0.0,
+      "recorded_weight": 0.5,
+      "heading_error_rad": -0.002082025150809513,
+      "actual_heading_reward": -0.0,
+      "runtime_kp": 3.0,
+      "recorded_kp": 2.0
+    },
+    "root_fix": "Store validated reward parameters privately; expose five getter-only public properties; retain copied immutable task identity for checkpoint compatibility.",
+    "followup": "All five public assignments raise AttributeError; mutating returned nested config does not mutate the environment; reset metadata matches runtime; one physical step exactly matches reward calculated from recorded weight and sigma.",
+    "evidence_files": [
+      "heading_config_mutation_review.json",
+      "heading_env_readonly_followup.json"
+    ],
+    "scope_of_old_results": "The defect does not alter default instances whose public parameters were never reassigned. It is not evidence that previous unchanged-parameter physics traces were wrong."
+  },
+  "verified_semantics": [
+    {
+      "topic": "thin inheritance",
+      "result": "Base reset and step are called once. No copied base physics, actuator chain, action mapping or original reward implementation."
+    },
+    {
+      "topic": "same-tick command and observation",
+      "result": "A successful (loop identity, tick) context is cached. Repeated prepare does not consume another user command or integrate reference twice. The appended state is read from the same published provider cache used to prepare servo command."
+    },
+    {
+      "topic": "left-hold reference and reward",
+      "result": "Reference integrates the previously held user yaw rate. Completed-interval heading reward uses actual receipt duration and the pre-step user/reference, not the newly latched command."
+    },
+    {
+      "topic": "truth boundary",
+      "result": "The three actor additions use published estimated yaw and user command; endpoint truth is restricted to reward and labelled metrics. Default oracle explicitly supplies truth as its published source; the noisy-provider test checks that no alternate truth read enters appended observation."
+    },
+    {
+      "topic": "terminal observations",
+      "result": "If base rejects next preparation and returns last_executable_decision, the old 82-vector is extended with the pre-step heading context. It remains terminated without bootstrap. Normal timeout retains the successfully prepared next 85-vector."
+    },
+    {
+      "topic": "reward labels",
+      "result": "Original tracking-yaw reward still targets servo yaw rate. New heading_goal is nonpositive and bounded in [-actual_dt*weight,0]. User-rate error has its own explicit field. Cross-task servo or total returns cannot serve as shared operator-goal scores."
+    },
+    {
+      "topic": "metadata and loader",
+      "result": "New task/observation/reward schemas reject old82 models. Additional heading config is compared before model deserialization, including gains, reward and observation normalization/timing. Episode-specific seed/terrain/reference initial state are not inappropriate compatibility constraints."
+    },
+    {
+      "topic": "training checkpoint timing",
+      "result": "AfterUpdatePPO.train first completes stock PPO.train, then saves. 16384/65536 checkpoints include completed optimization updates. Count fields distinguish rollout/train calls from optimization epochs."
+    },
+    {
+      "topic": "fixed curriculum and live exposure",
+      "result": "D1HeadingCurriculumEnv fixes inherited total_steps to16384 independently of final65536. Terrain selection occurs only at reset; checkpoint exposure snapshots do not reset or finalize the active episode."
+    }
+  ],
+  "verification": {
+    "independent_followup_checks": 11,
+    "independent_followup_all_passed": true,
+    "review_physical_steps": 2,
+    "review_physical_steps_note": "one pre-fix reproduction and one post-fix verification; these are not training transitions",
+    "root_targeted_test_artifact": {
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260914/heading_env_tests_03.xml",
+      "sha256": "19ab065877b6c867182bcb5f895b9eaeaf4f30435aae09c43d72fe9aa7c7c0fc",
+      "tests": 27,
+      "failures": 0,
+      "errors": 0
+    },
+    "targeted_tests_note": "The 27-test root artifact includes new env and evaluator coverage. The earlier 3218-test full suite predates this new module and is not claimed as coverage of it.",
+    "frozen_sources": {
+      "manifest": "results/d1_budget_study/protocol.json",
+      "entries": 77,
+      "changed": []
+    },
+    "new_source_identity": "Post-fix reviewed source hashes above were unchanged during the independent physical check; later edits require normal re-verification."
+  },
+  "remaining_limits": [
+    "Only zero user yaw is in this first training command distribution. The new user-yaw observation has no nonzero training support; arbitrary turns are not learned or validated.",
+    "Heading error is not cross-track path error. Cross-track remains an independent acceptance metric; heading improvement alone cannot complete G1.",
+    "One opened development road cannot validate stopping, turning, perturbations, GUI adoption, reliable stairs or jumping.",
+    "For performance comparisons preserve all terminations and actual duration; compute common-prefix metrics without padding. X-boundary, Y-boundary and fall require separate interpretation.",
+    "Existing roll/pitch error metrics may be relative to local ground. Actual body tilt for G1 must use the recorded qpos quaternion across the trajectory rather than relabeling ground-relative error.",
+    "85-input task, outer-loop target and heading reward differ together from old82 PPO. This is a task-definition intervention, not isolated attribution to one observation or reward term."
+  ],
+  "frozen_training_protocol": {
+    "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260914/heading_training_protocol.json",
+    "sha256": "7396add8527646ef7e1c08bab1b1d01b54ea5f714e4d0c2e554eeee04f397580",
+    "seeds": [
+      49001,
+      49002,
+      49003
+    ],
+    "steps_per_seed": 65536,
+    "total_training_steps": 196608,
+    "checkpoints": [
+      16384,
+      65536
+    ],
+    "evaluation": "all six checkpoints and zero on previously opened dev_straight_road only"
+  },
+  "code_references": {
+    "scripts/d1_heading_tracking_env.py": {
+      "    def heading_reward_weight(self) -> float:": 295,
+      "    def _prepare(self):": 375,
+      "    def _extend(self, observation, context: _HeadingDecision) -> np.ndarray:": 459,
+      "    def reset(self, *, seed=None, options=None):": 493,
+      "    def step(self, action):": 512,
+      "def load_heading_policy(model_path, metadata_path, env):": 616
+    },
+    "scripts/d1_heading_curriculum.py": {
+      "        super().__init__(condition=\"curriculum\", total_steps=CURRICULUM_STEPS,": 23,
+      "    def _build_env(self, terrain):": 27
+    },
+    "scripts/run_d1_heading_study.py": {
+      "    def train(self):": 84,
+      "def exposure_snapshot(env):": 116,
+      "        def after_update(learner):": 210,
+      "        model.learn(total_timesteps=steps, callback=RecordInitialEpisode(env, output))": 258
+    }
+  }
+}

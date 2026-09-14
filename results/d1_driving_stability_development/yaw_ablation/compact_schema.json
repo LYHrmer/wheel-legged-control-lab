@@ -1,0 +1,57 @@
+{
+  "schema": "d1-yaw-ablation-exact-compact-v1",
+  "episode_count": 19,
+  "state_arrays": "observation(float32), qpos(float64), qvel(float64), time_s(float64) have N+1 rows; row0 is reset, rowk+1 follows transitionk.",
+  "step_arrays": "All other arrays have N rows; transition_index is zero-based. Metrics columns carry units in their names; terminal empty strings mean None.",
+  "preservation": "All state and numeric trace values retain their original dtype or exact float64 JSON values. String metadata is stored once, not repeated per step.",
+  "cached_terminal": "If terminal_observation_source is last_executable_decision, the final observation is cached; qpos/qvel/time remain the actual endpoint.",
+  "intervention_definitions": {
+    "full": "No change to deterministic prediction",
+    "zero_legs": "action[:4]=0; other entries unchanged",
+    "common_wheels": "action[4:]=mean(prediction[4:]); legs unchanged",
+    "zero": "Shared zero-residual baseline, run once"
+  },
+  "index_defined_left_right_note": "((a4+a6)-(a5+a7))/2; diagnostic indexes only, not an anatomical sign assertion.",
+  "metrics_columns": [
+    "clearance_m",
+    "ground_height_m",
+    "height_error_m",
+    "measurement_age_s",
+    "mechanical_power_w",
+    "pitch_error_rad",
+    "roll_error_rad",
+    "time_s",
+    "torque_input_clipped_fraction",
+    "undesired_ground_contacts",
+    "velocity_error_mps",
+    "velocity_mps",
+    "x_m",
+    "y_m",
+    "yaw_rad",
+    "yaw_rate_error_rps",
+    "yaw_rate_rps",
+    "z_m"
+  ],
+  "reward_terms_columns": [
+    "action_change",
+    "attitude",
+    "height",
+    "mechanical_power",
+    "termination",
+    "tracking_velocity",
+    "tracking_yaw"
+  ],
+  "command_columns": [
+    "clearance_m",
+    "forward_velocity_mps",
+    "yaw_rate_rps"
+  ],
+  "terrain_exposure_columns": [
+    "nonflat_fraction",
+    "nonflat_now",
+    "nonflat_path_m",
+    "nonflat_steps",
+    "path_m",
+    "unique_nonflat_0p25m_cells"
+  ]
+}

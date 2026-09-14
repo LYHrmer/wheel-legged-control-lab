@@ -1,0 +1,31 @@
+{
+  "schema": "d1-course-braking-final-verification-v1",
+  "verified_utc": "2026-09-14T06:48:28.389977+00:00",
+  "selected_default": "legacy",
+  "experimental_opt_in": "release_reanchor_experimental",
+  "half_reanchor_selected": false,
+  "decision_reason": "Full and half reanchoring add uphill backward travel despite flat/stairs improvements. Retain original behavior by default; optional full candidate remains explicit and recorded.",
+  "test_command": "PYTHONPATH=.local-deps:src:. OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 python3 -B -m pytest -q -o addopts= tests/test_d1_course_braking.py tests/test_d1_course_side_step.py tests/test_d1_course_drive.py tests/test_d1_course_controls.py",
+  "test_exit_code": 0,
+  "tests_passed": 44,
+  "tests_wall_seconds": 47.89,
+  "new_braking_tests_passed": 19,
+  "ruff_owned_code_passed": true,
+  "git_diff_check_passed": true,
+  "formal_source_files_unchanged": 77,
+  "source_sha256": {
+    "scripts/d1_course_braking.py": "b7f04bb848c8d1cb10e75e5c2d78896d456060b2d8596da0ababfda3377cc379",
+    "scripts/d1_course_side_step.py": "1131329fa04e7a3b5435b3bfbc900807b3cb5319f2bb515d34b66a94c761d562",
+    "scripts/run_d1_course_drive.py": "22c922e1390b4ca92d7292a6b081f4347757647e30566b62463834e02e9144c5",
+    "tests/test_d1_course_braking.py": "d0ab0113dc95ef2f93b12c017a2a6a9d619422f319ee174846758610c37e8548",
+    "docs/interactive_course.md": "5237910e4e03d9f0d0803aab625d7fa02cf557a62a8ea3f347dba0f43efd4585"
+  },
+  "independent_review": "policy_review read final mode wiring, CLI/defaults/protocol/telemetry and tests: no blocker, no additional physics. Earlier pure mock checks verified six ownership/safety conditions.",
+  "actual_opus_model": "claude-opus-5",
+  "actual_opus_session": "5465a063-4174-4139-8820-42e2c14f2f92",
+  "actual_opus_cost_usd": 0.095835,
+  "recorded_physics_runs": 49,
+  "recorded_physics_control_transitions": 81800,
+  "pytest_physics_is_additional_to_archived_49_runs": true,
+  "gui_windows_created": 0
+}

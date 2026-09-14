@@ -1,0 +1,41 @@
+{
+  "schema": "d1-heading-runner-local-integration-v1",
+  "scope": "Only new curriculum/runner and corresponding tests; original environment/core source unchanged by this integration. Root integrated the actual Claude Opus task environment separately.",
+  "implementation_files": [
+    "scripts/d1_heading_curriculum.py",
+    "scripts/run_d1_heading_study.py",
+    "tests/test_d1_heading_curriculum.py",
+    "tests/test_d1_heading_study.py"
+  ],
+  "fixes": [
+    {
+      "stage": "first 32-step smoke reload verification",
+      "problem": "PyTorch does not support deepcopy of SB3 policy cached non-leaf tensors.",
+      "change": "After learn finishes, reconstruct reference policy from its constructor parameters and load the parameter snapshot captured after the saved update.",
+      "training_algorithm_changed": false,
+      "failed_run_preserved": "heading_smoke32_01"
+    },
+    {
+      "stage": "curriculum test fixture",
+      "problem": "Test omitted the inherited scheduler level_draw argument.",
+      "change": "Pass both 0 and 3 to verify curriculum level is independent of the random mixed-mode draw.",
+      "production_code_changed": false
+    }
+  ],
+  "tested": {
+    "new_tests_passed": 15,
+    "ruff_passed": true,
+    "read_only_validation_checks": 195,
+    "read_only_validation_failures": 0,
+    "successful_training_transitions": 288,
+    "successful_reload_check_physical_steps": 3,
+    "failed_attempt_training_transitions": 32,
+    "failed_attempt_reload_check_physical_steps": 0,
+    "first_32_parameter_and_exposure_exact_across_final_budgets": true
+  },
+  "limits": [
+    "Smoke uses n_steps=32, batch_size=32 and n_epochs=1; it is pipeline validation, not formal PPO performance evidence.",
+    "Only the scheduler test simulates count boundaries; actual smoke exposure remains level 0. Formal level exposure must come from the later training episode records.",
+    "These smoke runs do not evaluate the development road or a held-out scene."
+  ]
+}

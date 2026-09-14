@@ -1,0 +1,182 @@
+{
+  "physics_cases_total": 21,
+  "physics_transitions_total": 34600,
+  "paired_pre_release_checks": [
+    {
+      "case": "flat_start_gear3",
+      "identical": {
+        "qpos": true,
+        "qvel": true,
+        "segment_time_s": true,
+        "applied_torque_before_release": true
+      }
+    },
+    {
+      "case": "course_ramp_gear2",
+      "identical": {
+        "qpos": true,
+        "qvel": true,
+        "segment_time_s": true,
+        "applied_torque_before_release": true
+      }
+    }
+  ],
+  "repeatability_checks": [
+    {
+      "case": "flat_start_gear3",
+      "unchanged_replay_identical_to_forward_02": {
+        "qpos": true,
+        "qvel": true,
+        "segment_time_s": true,
+        "applied_torque_nm": true
+      }
+    },
+    {
+      "case": "course_ramp_gear2",
+      "unchanged_replay_identical_to_forward_02": {
+        "qpos": true,
+        "qvel": true,
+        "segment_time_s": true,
+        "applied_torque_nm": true
+      }
+    },
+    {
+      "case": "flat_start_gear1",
+      "first_replay_identical": {
+        "qpos": true,
+        "qvel": true,
+        "segment_time_s": true,
+        "applied_torque_nm": true
+      }
+    }
+  ],
+  "source_checks": [
+    {
+      "run": "forward_01/flat_start_gear1",
+      "source_files": 49,
+      "unchanged": true,
+      "transitions": 1400
+    },
+    {
+      "run": "forward_02/course_ramp_gear1",
+      "source_files": 49,
+      "unchanged": true,
+      "transitions": 1800
+    },
+    {
+      "run": "forward_02/course_ramp_gear2",
+      "source_files": 49,
+      "unchanged": true,
+      "transitions": 1800
+    },
+    {
+      "run": "forward_02/course_ramp_gear3",
+      "source_files": 49,
+      "unchanged": true,
+      "transitions": 1800
+    },
+    {
+      "run": "forward_02/course_rough_gear1",
+      "source_files": 49,
+      "unchanged": true,
+      "transitions": 1800
+    },
+    {
+      "run": "forward_02/course_rough_gear2",
+      "source_files": 49,
+      "unchanged": true,
+      "transitions": 1800
+    },
+    {
+      "run": "forward_02/course_rough_gear3",
+      "source_files": 49,
+      "unchanged": true,
+      "transitions": 1800
+    },
+    {
+      "run": "forward_02/course_stairs_gear1",
+      "source_files": 49,
+      "unchanged": true,
+      "transitions": 1800
+    },
+    {
+      "run": "forward_02/course_stairs_gear2",
+      "source_files": 49,
+      "unchanged": true,
+      "transitions": 1800
+    },
+    {
+      "run": "forward_02/course_stairs_gear3",
+      "source_files": 49,
+      "unchanged": true,
+      "transitions": 1800
+    },
+    {
+      "run": "forward_02/flat_start_gear1",
+      "source_files": 49,
+      "unchanged": true,
+      "transitions": 1400
+    },
+    {
+      "run": "forward_02/flat_start_gear2",
+      "source_files": 49,
+      "unchanged": true,
+      "transitions": 1400
+    },
+    {
+      "run": "forward_02/flat_start_gear3",
+      "source_files": 49,
+      "unchanged": true,
+      "transitions": 1400
+    },
+    {
+      "run": "side_01/course_start_A_one_cycle",
+      "source_files": 49,
+      "unchanged": true,
+      "transitions": 2200
+    },
+    {
+      "run": "side_01/course_start_A_short",
+      "source_files": 49,
+      "unchanged": true,
+      "transitions": 1000
+    },
+    {
+      "run": "side_01/course_start_D_one_cycle",
+      "source_files": 49,
+      "unchanged": true,
+      "transitions": 2200
+    },
+    {
+      "run": "side_01/course_start_D_short",
+      "source_files": 49,
+      "unchanged": true,
+      "transitions": 1000
+    },
+    {
+      "run": "release_reference_01/course_ramp_gear2_anchor_once_at_release",
+      "source_files": 49,
+      "unchanged": true,
+      "transitions": 1800
+    },
+    {
+      "run": "release_reference_01/course_ramp_gear2_unchanged",
+      "source_files": 49,
+      "unchanged": true,
+      "transitions": 1800
+    },
+    {
+      "run": "release_reference_01/flat_start_gear3_anchor_once_at_release",
+      "source_files": 49,
+      "unchanged": true,
+      "transitions": 1400
+    },
+    {
+      "run": "release_reference_01/flat_start_gear3_unchanged",
+      "source_files": 49,
+      "unchanged": true,
+      "transitions": 1400
+    }
+  ],
+  "all_passed": true
+}

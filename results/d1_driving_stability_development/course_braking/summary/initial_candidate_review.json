@@ -1,0 +1,29 @@
+{
+  "schema": "d1-braking-initial-candidates-v1",
+  "selected_final_default": false,
+  "code_currently_contains": "initial full-reanchor candidate; root reviewing final profile before commit",
+  "actual_opus_session": "5465a063-4174-4139-8820-42e2c14f2f92",
+  "actual_opus_cost_usd": 0.095835,
+  "failed_opus_call_01": "FailedToOpenSocket; is_error true; exit1; zero tokens/cost; no implementation contribution",
+  "local_core_review_changes": [
+    "validate controller memory and proposal before consuming edge; reject nonfinite subtraction",
+    "modern typing and correct reset doc; natural slots order"
+  ],
+  "targeted_tests_passed": 42,
+  "new_braking_tests": 17,
+  "red_regression": "regression_red.json",
+  "primary_before_after_audit": "braking_comparison.json",
+  "fraction_audit": "braking_fraction_analysis.json",
+  "formal_frozen_sources_unchanged": 77,
+  "complete_recorded_physics_cases": 49,
+  "complete_recorded_physics_control_transitions": 81800,
+  "test_physics_excluded_from_recorded_count": true,
+  "important_limit": "alpha=.5 rough3 netdx -0.000796m hides 0.087601m retreat from prior peak; alpha=1 retreats0.199769m; oldalpha0retreat0.009138m. Neither candidate is certified slope stopping.",
+  "source_owner_files": [
+    "scripts/d1_course_braking.py",
+    "scripts/d1_course_side_step.py",
+    "scripts/run_d1_course_drive.py",
+    "tests/test_d1_course_braking.py",
+    "docs/interactive_course.md"
+  ]
+}

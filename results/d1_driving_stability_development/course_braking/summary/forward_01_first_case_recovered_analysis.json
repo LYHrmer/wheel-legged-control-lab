@@ -1,0 +1,78 @@
+{
+  "after_release_xyz_displacement_m": [
+    0.14846873740506306,
+    -2.9745100886685176e-06,
+    0.0004481270128136039
+  ],
+  "case": {
+    "arena": "flat",
+    "duration_seconds": 14.0,
+    "gear": 1,
+    "key": "W",
+    "kind": "forward",
+    "name": "flat_start_gear1",
+    "release_seconds": 10.0,
+    "target_mps": 0.3,
+    "zone": "start"
+  },
+  "diagnostic_checks": {
+    "attitude_below_0p3_rad": true,
+    "finite_and_torque_limits": true,
+    "last_second_abs_vx_below_0p05": true,
+    "lateral_drift_below_0p10_m": true,
+    "no_recovery": true,
+    "release_immediately_zero": true,
+    "steady_vx_within_25_percent": true,
+    "yaw_drift_below_0p15_rad": true
+  },
+  "drive_world_vx_tracking_rmse_mps": 0.04423763535165187,
+  "drive_world_x_progress_m": 2.241932408390871,
+  "final_lateral_from_initial_m": 1.5774848705481942e-05,
+  "final_position_m": [
+    2.382762011350393,
+    1.5774848705481942e-05,
+    0.4661640904118795
+  ],
+  "finite": true,
+  "first_recovery_time_s": null,
+  "initial_position_m": [
+    0.0,
+    0.0,
+    0.455
+  ],
+  "integrated_duration_s": 14.000000000001345,
+  "last_second_mean_abs_world_velocity_mps": [
+    0.0019992892177260733,
+    5.541391712756219e-07,
+    5.5777099543222994e-05
+  ],
+  "max_abs_lateral_from_initial_m": 2.013697314045934e-05,
+  "max_abs_roll_pitch_rad": 0.019939314035573367,
+  "max_abs_yaw_from_initial_rad": 2.2681316921088566e-05,
+  "raw_manifest_sha256": "6baf2dd0cf08f6e9a9e258bb1a49367dbac3a3d884f26dfb5a551c77d97a69bf",
+  "release_position_m": [
+    2.23429327394533,
+    1.874935879415046e-05,
+    0.4657159633990659
+  ],
+  "release_time_s": 10.0,
+  "requested_forward_zero_after_release": true,
+  "side_transition_events": [
+    {
+      "applied_controller": "legacy",
+      "before_time_s": 0.0,
+      "side_done": "False",
+      "side_failure": "",
+      "side_phase": "idle",
+      "side_success": "False",
+      "tick": 1
+    }
+  ],
+  "steady_last_2s_world_vx_mps": 0.3107642818912413,
+  "steps": 1400,
+  "straight_and_brake_diagnostic_pass": true,
+  "time_to_vx_below_0p05_for_0p2s_s": 0.770000000000266,
+  "torque_saturation_fraction": 0.0,
+  "torques_within_limits": true,
+  "traction_boost_ticks": 0
+}

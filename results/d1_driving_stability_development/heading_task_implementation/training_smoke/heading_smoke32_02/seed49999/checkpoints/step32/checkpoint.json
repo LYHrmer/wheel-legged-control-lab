@@ -1,0 +1,60 @@
+{
+  "actual_transitions": 32,
+  "budget": 32,
+  "completed_train_calls": 1,
+  "directory": "checkpoints/step32",
+  "exposure": {
+    "active_episode": {
+      "completed": false,
+      "condition": "curriculum",
+      "end_total_transitions": 32,
+      "episode_index": 0,
+      "episode_seed": 1032251849,
+      "last_terrain_exposure": {
+        "definition": "body/wheel-center ground: |z|>1mm or local slope>0.25deg; geometric exposure, not contact or traversal proof",
+        "nonflat_fraction": 0.0,
+        "nonflat_now": false,
+        "nonflat_path_m": 0.0,
+        "nonflat_steps": 0,
+        "path_m": 0.002445090404392125,
+        "unique_nonflat_0p25m_cells": 0
+      },
+      "level": 0,
+      "reward_sum": 0.6172184308337654,
+      "start_total_transitions": 0,
+      "terminal_reason": "active_checkpoint_snapshot",
+      "terrain_index": 1,
+      "terrain_parameters": {
+        "cross_slope_deg": 0.0,
+        "layout": "flat",
+        "phase_x_rad": 0.0,
+        "phase_y_rad": 0.0,
+        "ripple_amplitude_m": 0.0,
+        "schema": "d1-fixed-2d-road-v1",
+        "slope_deg": 0.0,
+        "step_height_m": 0.0,
+        "wavelength_x_m": 0.8,
+        "wavelength_y_m": 1.2
+      },
+      "transitions": 32
+    },
+    "actual_transitions": 32,
+    "completed_episodes": [],
+    "definition": "Geometric exposure is not verified obstacle traversal.",
+    "episodes_by_level": {
+      "0": 1
+    },
+    "geometric_nonflat_steps_by_level": {
+      "0": 0
+    },
+    "transitions_by_level": {
+      "0": 32
+    }
+  },
+  "metadata_sha256": "71336e3015465eeebe89a34b6895610032e739054a4e8ba9719de4002e1d1c04",
+  "model_sha256": "b9d545dc8a1c733fbc0d07be81a5bbed1e3d44bfd270c3b76f2c549588b60869",
+  "optimization_epochs": 1,
+  "parameter_sha256": "1305e39bf2386cd25373b1dce88c73e677053b03fef2b7026b34b2091b980188",
+  "ppo_num_timesteps": 32,
+  "saved_after_completed_update": true
+}

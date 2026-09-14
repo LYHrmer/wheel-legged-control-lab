@@ -1,0 +1,61 @@
+{
+  "source_sha256": {
+    "scripts/d1_heading_tracking_env.py": "91cbb3bcf697cab21f9b2c6b02480cf73d41811e4dd3cad51f1ae9554c4177ec",
+    "scripts/d1_heading_reference.py": "42c9de0c2099e7ec6e6b3281e3ece008649e176b24148adcb8ffe522399af44d",
+    "tests/test_d1_heading_tracking_env.py": "92f5d3a0ed17fb80c1ddc8a3ea0446bbe59c3afa3ab183d2467f2d6d9318de1d",
+    "scripts/d1_heading_curriculum.py": "d50c7b3648eec71261178a38d9718b0f9ba04a990f6f87b7bc9b682624cf56ea",
+    "scripts/run_d1_heading_study.py": "02e365cf4def1f073f365cbcaee7d0131bec267a79cba21d690f47acd95a93e5"
+  },
+  "additional_physical_transitions": 1,
+  "checks": [
+    {
+      "name": "reject_public_assignment_heading_reward_weight",
+      "passed": true
+    },
+    {
+      "name": "reject_public_assignment_heading_sigma_rad",
+      "passed": true
+    },
+    {
+      "name": "reject_public_assignment_heading_kp",
+      "passed": true
+    },
+    {
+      "name": "reject_public_assignment_heading_kd",
+      "passed": true
+    },
+    {
+      "name": "reject_public_assignment_heading_limit_rps",
+      "passed": true
+    },
+    {
+      "name": "config_deepcopy_isolation",
+      "passed": true
+    },
+    {
+      "name": "actual_reset_metadata_matches_runtime",
+      "passed": true
+    },
+    {
+      "name": "actual_step_consumes_recorded_weight_sigma",
+      "passed": true,
+      "actual": -2.8452707914544685e-06,
+      "expected": -2.8452707914544685e-06
+    },
+    {
+      "name": "finite_85_step",
+      "passed": true
+    },
+    {
+      "name": "frozen_source_manifest_77_exact",
+      "passed": true,
+      "entries": 77,
+      "changed": []
+    },
+    {
+      "name": "review_input_sources_unchanged",
+      "passed": true
+    }
+  ],
+  "all_passed": true
+}

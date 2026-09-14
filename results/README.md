@@ -5,6 +5,7 @@
 
 | 记录 | 可以检查什么 |
 |---|---|
+| [驾驶稳定性开发](d1_driving_stability_development/README.md) | 偏航消融、航向外环、制动回归和真实跳跃净空；独立85维学习任务与Opus实现出处，尚未完成驾驶验收 |
 | [六模型开发/留出报告](d1_v3_locomotion_report/README.md) | 零残差与 PPO；三训练 seed；速度收益与高度、机械活动量代价 |
 | [动作探针](d1_v3_action_probes/README.md) | 单腿与单轮动作含义、零残差启停和转向 |
 | [延迟诊断](d1_v3_delay_diagnosis/README.md) | 同 seed 地面表示对照、反馈缩放、完整道路仍失败 |

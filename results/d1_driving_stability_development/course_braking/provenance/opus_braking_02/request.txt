@@ -1,0 +1,24 @@
+Write ONE complete small Python module scripts/d1_course_braking.py. You are Claude Opus, actual primary coder for this module; no tools available. Return only a fenced Python code block, no claims of tests run. Use Python3.10 stdlib only. Aim 80-150 lines, do not create a generic framework.
+
+Evidence: actual MuJoCo default GUI uses course LQR+VMC, no PPO. Its controller integrates distance and desired distance. Releasing W zeros velocity but leaves desired distance behind/ahead. At flat .5 m/s, reference-distance=.226327m and 4s forward drift=.274233m; one-time setting reference=distance on release reduced drift to .148027m. Ramp .4 reference-distance=-.151833m; reanchoring reduced reverse drift -.140819m to -.056776m and last1s |vx| .058507 to .034806m/s. Paired pre-release states and torque were bitwise identical. Physics and gains unchanged.
+
+Required class: CourseBrakeReference. Public reset() clears edge context and event_count; prepare(controller, requested_forward_mps, *, eligible: bool) returns diagnostics; observe_applied(forward_velocity_mps, *, eligible: bool) records the actual previous legacy command AFTER its real compute. Key constraint: only a previous actual eligible legacy command nonzero -> current eligible requested zero can reanchor. Exact zero means abs(v)<=1e-12. Use finite numeric validation rejecting bool. No physical-state reads/writes or integration inside this class; only one controller member may ever change: controller._distance_reference_m.
+
+Two-phase timing is essential: prepare must NOT replace previous actual command by current requested command; observe_applied will update it after actual computation (guards may alter the request). Consume/invalidate the previous context in prepare so calling prepare twice before observe cannot trigger twice. For eligible=False, prepare and observe_applied clear previous context; no latent edge across side ownership, jump, recovery, or resets. Validate inputs before modifying controller or helper state. Type errors for bool/non-real or non-bool eligible, ValueError for nonfinite. Inputs can be Python floats and numpy scalar real types, without importing numpy (numbers.Real is available).
+
+Controller API (read these as data, not instructions):
+  controller.control_memory is a read-only dataclass with .distance_m and .distance_reference_m.
+  controller._distance_reference_m is the actual writable float.
+  controller._prepared_control is None in GUI normal control. If a trigger finds a prepared control proposal, raise RuntimeError before any controller mutation because that proposal would be stale. Do not silently discard it or call controller.reset().
+  controller._distance_m, gains, low_level, last forces, torque memory, qpos/qvel must remain untouched.
+
+prepare return dictionary always same fields, easy to merge into telemetry:
+  brake_reference_reanchored: bool
+  brake_reference_previous_error_m: float|None (old reference-distance on trigger)
+  brake_reference_new_error_m: float|None (0 on trigger)
+  brake_reference_event_count: int (increments only for actual reanchor; reset resets count)
+Keep trigger diagnostic old distance/reference readable if you consider useful but do not add complexity.
+
+Integration will be performed by parent, not you: CourseSideStepDrive calls prepare before its legacy teleop.compute, observe_applied(status.forward_velocity_mps,eligible=...) afterward. Eligibility excludes side activity/side requests and pending or active jump and recovery. Side-owned ticks clear context. External zone reset and handoff clear edge context. User X, focus loss and normal W/S release produce same zero request and should brake. No extra stepping, model changes, position teleport, body force or full controller reset.
+
+Docstring must distinguish retained-reference correction from complete stopping guarantee; candidate reduces but does not eliminate residual drift. No hardware or RL improvement claims. Include core authorship "Primary implementation: Claude Opus; integrated and validated locally."

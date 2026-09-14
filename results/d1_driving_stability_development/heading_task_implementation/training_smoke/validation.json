@@ -1,0 +1,811 @@
+{
+  "schema": "d1-heading-runner-validation-v1",
+  "read_only_validation": true,
+  "additional_physical_steps_in_this_audit": 0,
+  "tests": {
+    "new_curriculum_and_runner_tests": 15,
+    "passed": 15,
+    "ruff": "pass"
+  },
+  "smokes": {
+    "heading_smoke32_02": {
+      "training_transitions": 32,
+      "reload_physical_steps": 1
+    },
+    "heading_smoke256_01": {
+      "training_transitions": 256,
+      "reload_physical_steps": 2
+    }
+  },
+  "preserved_failed_attempt": {
+    "directory": "heading_smoke32_01",
+    "training_transitions": 32,
+    "explanation": "Post-training validator attempted deepcopy of an SB3 policy holding non-leaf tensors. Replaced by construction from saved constructor parameters and captured state_dict; no training algorithm change. Failed artifact is preserved."
+  },
+  "checks": [
+    {
+      "name": "heading_smoke32_02:manifest:protocol.json",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:manifest:seed49999/checkpoints/step32/checkpoint.json",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:manifest:seed49999/checkpoints/step32/manifest.json",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:manifest:seed49999/checkpoints/step32/model.metadata.json",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:manifest:seed49999/checkpoints/step32/model.zip",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:manifest:seed49999/checkpoints/step32/reload_check.json",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:manifest:seed49999/episodes.json",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:manifest:seed49999/first_episode_metadata.json",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:manifest:seed49999/initial_policy.json",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:manifest:seed49999/manifest.json",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:manifest:seed49999/progress.csv",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:manifest:seed49999/summary.json",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:manifest:summary.json",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:pyproject.toml",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:scripts/d1_course_curriculum.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:scripts/d1_heading_curriculum.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:scripts/d1_heading_reference.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:scripts/d1_heading_tracking_env.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:scripts/run_d1_course_curriculum.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:scripts/run_d1_heading_study.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:scripts/run_d1_locomotion_experiment.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/actuator_bench.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/actuator_identification.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/assets/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/assets/wheel_legged_planar.xml",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/controllers.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/actuator_channel.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/assets/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/assets/meshes/L_calf.STL",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/assets/meshes/L_foot.STL",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/assets/meshes/L_hip.STL",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/assets/meshes/L_thigh.STL",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/assets/meshes/R_calf.STL",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/assets/meshes/R_foot.STL",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/assets/meshes/R_hip.STL",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/assets/meshes/R_thigh.STL",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/assets/meshes/base_link.STL",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/assets/meshes/docking_Link.STL",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/assets/meshes/funtion_Link.STL",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/assets/urdf/robot.urdf",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/budget_checkpoints.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/contact_allocation.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/contact_audit.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/continuous_task.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/control_context.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/control_loop.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/control_primitives.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/controllers.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/env.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/experiments.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/hierarchical.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/interactive.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/inverse_dynamics.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/linear_model.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/locomotion_checkpoint.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/locomotion_commands.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/locomotion_env.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/locomotion_observation.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/locomotion_rewards.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/locomotion_terrain.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/model.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/observation_history.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/policy.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/ppo_action_policies.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/ppo_update_audit.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/residual_action_env.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/rewards.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/sensor_estimation.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/state_estimation.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/state_provider.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/terrain.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/terrain_env.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/terrain_tracking_env.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/training_terrain.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/d1/wheel_leg_controller.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/encoder_identification.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/encoder_velocity.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/env.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/experiments.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/model.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/ppo_learning.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/ppo_update.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/provenance.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/rewards.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/train.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:source:src/wheel_legged_control/wheel_control.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:counts",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:curriculum",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:epochs",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:loaded:32",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke32_02:metadata:32",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:manifest:protocol.json",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:manifest:seed49999/checkpoints/step256/checkpoint.json",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:manifest:seed49999/checkpoints/step256/manifest.json",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:manifest:seed49999/checkpoints/step256/model.metadata.json",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:manifest:seed49999/checkpoints/step256/model.zip",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:manifest:seed49999/checkpoints/step256/reload_check.json",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:manifest:seed49999/checkpoints/step32/checkpoint.json",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:manifest:seed49999/checkpoints/step32/manifest.json",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:manifest:seed49999/checkpoints/step32/model.metadata.json",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:manifest:seed49999/checkpoints/step32/model.zip",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:manifest:seed49999/checkpoints/step32/reload_check.json",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:manifest:seed49999/episodes.json",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:manifest:seed49999/first_episode_metadata.json",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:manifest:seed49999/initial_policy.json",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:manifest:seed49999/manifest.json",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:manifest:seed49999/progress.csv",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:manifest:seed49999/summary.json",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:manifest:summary.json",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:pyproject.toml",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:scripts/d1_course_curriculum.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:scripts/d1_heading_curriculum.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:scripts/d1_heading_reference.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:scripts/d1_heading_tracking_env.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:scripts/run_d1_course_curriculum.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:scripts/run_d1_heading_study.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:scripts/run_d1_locomotion_experiment.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/actuator_bench.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/actuator_identification.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/assets/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/assets/wheel_legged_planar.xml",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/controllers.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/actuator_channel.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/assets/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/assets/meshes/L_calf.STL",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/assets/meshes/L_foot.STL",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/assets/meshes/L_hip.STL",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/assets/meshes/L_thigh.STL",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/assets/meshes/R_calf.STL",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/assets/meshes/R_foot.STL",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/assets/meshes/R_hip.STL",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/assets/meshes/R_thigh.STL",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/assets/meshes/base_link.STL",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/assets/meshes/docking_Link.STL",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/assets/meshes/funtion_Link.STL",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/assets/urdf/robot.urdf",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/budget_checkpoints.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/contact_allocation.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/contact_audit.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/continuous_task.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/control_context.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/control_loop.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/control_primitives.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/controllers.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/env.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/experiments.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/hierarchical.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/interactive.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/inverse_dynamics.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/linear_model.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/locomotion_checkpoint.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/locomotion_commands.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/locomotion_env.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/locomotion_observation.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/locomotion_rewards.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/locomotion_terrain.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/model.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/observation_history.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/policy.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/ppo_action_policies.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/ppo_update_audit.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/residual_action_env.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/rewards.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/sensor_estimation.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/state_estimation.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/state_provider.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/terrain.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/terrain_env.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/terrain_tracking_env.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/training_terrain.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/d1/wheel_leg_controller.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/encoder_identification.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/encoder_velocity.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/env.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/experiments.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/model.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/ppo_learning.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/ppo_update.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/provenance.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/rewards.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/train.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:source:src/wheel_legged_control/wheel_control.py",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:counts",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:curriculum",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:epochs",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:loaded:32",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:metadata:32",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:loaded:256",
+      "passed": true
+    },
+    {
+      "name": "heading_smoke256_01:metadata:256",
+      "passed": true
+    },
+    {
+      "name": "32step_policy_identical_despite_different_final_budgets",
+      "passed": true
+    },
+    {
+      "name": "32step_exposure_identical_despite_different_final_budgets",
+      "passed": true
+    }
+  ],
+  "check_count": 195,
+  "failures": 0,
+  "formal_training_started_by_this_validation": false,
+  "formal_training_status_at_packaging": "Parent separately started the fixed protocol training after these smoke checks passed; not part of this validation."
+}

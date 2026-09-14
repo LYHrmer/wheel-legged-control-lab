@@ -12,8 +12,10 @@ from wheel_legged_control.d1.control_loop import D1MotionCommand
 from wheel_legged_control.d1.interactive import D1TeleopStatus
 
 if __package__:
+    from .d1_course_braking import CourseBrakeReference
     from .d1_side_step import SideStepController
 else:
+    from d1_course_braking import CourseBrakeReference
     from d1_side_step import SideStepController
 
 
@@ -26,11 +28,16 @@ class CourseSideStepDrive:
     calling it during flight would discard the landing controller's memory.
     """
 
-    def __init__(self, simulation, *, side_controller_factory=SideStepController):
+    def __init__(self, simulation, *, side_controller_factory=SideStepController,
+                 brake_reference_mode="legacy"):
+        if brake_reference_mode not in ("legacy", "release_reanchor_experimental"):
+            raise ValueError("unsupported course brake reference mode")
         self.simulation = simulation
         self.plant = simulation.plant
         self.teleop = simulation.teleop
         self.side = side_controller_factory(self.plant)
+        self.braking = CourseBrakeReference()
+        self.brake_reference_mode = brake_reference_mode
         self._active = False
         self._blocked_until_release = False
 
@@ -41,6 +48,7 @@ class CourseSideStepDrive:
     def reset(self) -> None:
         """Clear adapter memory after the caller has reset the simulation."""
         self.side.reset()
+        self.braking.reset()
         self._active = False
         self._blocked_until_release = False
 
@@ -55,6 +63,8 @@ class CourseSideStepDrive:
         teleop._stuck_steps = 0
         teleop._boost_steps_remaining = 0
         teleop.controller.longitudinal_force_limit_n = 180.0
+        # A side-owned interval cannot be the previous wheel-driving command.
+        self.braking.observe_applied(0.0, eligible=False)
 
     def _side_teleop_status(self, torque) -> D1TeleopStatus:
         """Describe this controller without reusing legacy force diagnostics.
@@ -133,6 +143,15 @@ class CourseSideStepDrive:
 
         side_tick = self.active
         jump_discarded = bool(side_tick and jump_pending)
+        brake_eligible = (
+            self.brake_reference_mode == "release_reanchor_experimental"
+            and not side_tick and direction == 0 and not jump_pending
+            and teleop._jump_step is None and not teleop._state.has_fallen()
+            and teleop._state.base_position[2] >= 0.28
+        )
+        braking_info = self.braking.prepare(
+            teleop.controller, requested.forward_velocity_mps, eligible=bool(brake_eligible)
+        )
         if side_tick:
             if direction != self.side.direction or jump_discarded:
                 self.side.cancel()
@@ -142,6 +161,13 @@ class CourseSideStepDrive:
             status = self._side_teleop_status(torque)
         else:
             torque, status = teleop.compute()
+            # Record the command actually accepted by teleop guards, not merely
+            # the request; jumping and recovery cannot synthesize release edges.
+            self.braking.observe_applied(
+                status.forward_velocity_mps,
+                eligible=bool(brake_eligible and status.jump_phase == "ready"
+                              and status.safety_mode != "recovery"),
+            )
 
         # The plant applies this same bound itself; return exactly that vector,
         # not an unclipped request or the previous controller's cached torque.
@@ -166,5 +192,9 @@ class CourseSideStepDrive:
             state_source="simulator_truth" if side_tick else teleop.state_mode,
             blocked_until_release=self._blocked_until_release,
             jump_request_discarded=jump_discarded,
+            brake_reference_mode=self.brake_reference_mode,
+            braking_profile=("legacy_release_reference_edge_v1" if self.brake_reference_mode
+                             == "release_reanchor_experimental" else "legacy_retained_reference"),
+            **braking_info,
         )
         return status, torque.copy(), info

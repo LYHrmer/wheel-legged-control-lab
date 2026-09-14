@@ -122,6 +122,7 @@ QP 原型没有接 PPO，也没有取代默认控制器。模型来源与许可�
 - [ATEC 项目参考方案](atec_reference.md)：视觉导航、课程训练与动作接口的适配边界
 - [ATEC 课程用于 D1 强化学习](atec_rl_curriculum.md)：Astra 方案、Opus 课程环境、实际训练入口与后续技能任务
 - [PPO 减速诊断与共同轮速均值实验](d1_wheel_common_mean_study.md)：单变量策略参数化、配对训练与新的评测命令
+- [稳定直行、越障与速度优化](driving_optimization.md)：实际偏航干预、航向保持和制动结果，以及后续验收
 - [地形课程驾驶](interactive_course.md)：Q/E 目标朝向、空格跳跃、R 仿真扶正复位
 - [PPO 逐次更新诊断](budget_learning_lab.md#ppo更新时发生了什么)：六条训练轨迹的日志口径与手算练习
 - [主线演示与手动试驾](demo_showcase.md)：同条件对照片和自动按键；两次人工试驾反馈均保留为未通过

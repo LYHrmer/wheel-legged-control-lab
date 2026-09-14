@@ -190,6 +190,7 @@ python scripts/run_d1_locomotion.py --keyboard --source sensor \
 - [ATEC 项目参考方案](docs/atec_reference.md)：视觉导航与课程训练可借鉴之处，及权重不能直接加载的原因。
 - [ATEC 课程用于 D1 强化学习](docs/atec_rl_curriculum.md)：任务拆分、课程晋级条件及实施顺序。
 - [PPO 减速诊断与共同轮速均值实验](docs/d1_wheel_common_mean_study.md)：闭环动作干预、Opus 策略模块及配对训练。
+- [稳定直行、越障与速度优化](docs/driving_optimization.md)：偏航来源、真实航向外环和松键制动改进，记录尚未通过的能力。
 
 ## 模型来源与许可
 

@@ -1,0 +1,4314 @@
+{
+  "all_passed": true,
+  "formal_source_files_unchanged": 77,
+  "forward": [
+    {
+      "braking_events": [
+        {
+          "brake_reference_event_count": "1",
+          "brake_reference_new_error_m": "0.0",
+          "brake_reference_previous_error_m": "0.0797936283150511",
+          "segment_before_time_s": "10.000000000000009",
+          "tick": "1001"
+        }
+      ],
+      "case": "flat_start_gear1",
+      "compiled_model_identical": true,
+      "current_source_files": 50,
+      "new_full_summary": {
+        "after_release_xyz_displacement_m": [
+          0.1054918093547994,
+          -1.6207726638799718e-06,
+          0.0004328703541071066
+        ],
+        "case": {
+          "arena": "flat",
+          "duration_seconds": 14.0,
+          "gear": 1,
+          "key": "W",
+          "kind": "forward",
+          "name": "flat_start_gear1",
+          "release_seconds": 10.0,
+          "target_mps": 0.3,
+          "zone": "start"
+        },
+        "diagnostic_checks": {
+          "attitude_below_0p3_rad": true,
+          "finite_and_torque_limits": true,
+          "last_second_abs_vx_below_0p05": true,
+          "lateral_drift_below_0p10_m": true,
+          "no_recovery": true,
+          "release_immediately_zero": true,
+          "steady_vx_within_25_percent": true,
+          "yaw_drift_below_0p15_rad": true
+        },
+        "drive_world_vx_tracking_rmse_mps": 0.04423763535165187,
+        "drive_world_x_progress_m": 2.241932408390871,
+        "final_lateral_from_initial_m": 1.7128586130270488e-05,
+        "final_position_m": [
+          2.3397850833001295,
+          1.7128586130270488e-05,
+          0.466148833753173
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          0.0,
+          0.0,
+          0.455
+        ],
+        "integrated_duration_s": 14.000000000001345,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.005552482825785719,
+          4.922152867751925e-07,
+          0.00021688718563160324
+        ],
+        "max_abs_lateral_from_initial_m": 2.029132008353178e-05,
+        "max_abs_roll_pitch_rad": 0.020809480967383623,
+        "max_abs_yaw_from_initial_rad": 2.2765283017426704e-05,
+        "raw_manifest_sha256": "e06d0b401c4f9f09fa9de955f957a36dacbcea89bfc0ef98ae3b3200a08fd590",
+        "release_position_m": [
+          2.23429327394533,
+          1.874935879415046e-05,
+          0.4657159633990659
+        ],
+        "release_time_s": 10.0,
+        "requested_forward_zero_after_release": true,
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          }
+        ],
+        "steady_last_2s_world_vx_mps": 0.3107642818912413,
+        "steps": 1400,
+        "straight_and_brake_diagnostic_pass": true,
+        "time_to_vx_below_0p05_for_0p2s_s": 0.680000000000236,
+        "torque_saturation_fraction": 0.0,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 0
+      },
+      "old_full_summary": {
+        "after_release_xyz_displacement_m": [
+          0.14846873740506306,
+          -2.9745100886685176e-06,
+          0.0004481270128136039
+        ],
+        "case": {
+          "arena": "flat",
+          "duration_seconds": 14.0,
+          "gear": 1,
+          "key": "W",
+          "kind": "forward",
+          "name": "flat_start_gear1",
+          "release_seconds": 10.0,
+          "target_mps": 0.3,
+          "zone": "start"
+        },
+        "diagnostic_checks": {
+          "attitude_below_0p3_rad": true,
+          "finite_and_torque_limits": true,
+          "last_second_abs_vx_below_0p05": true,
+          "lateral_drift_below_0p10_m": true,
+          "no_recovery": true,
+          "release_immediately_zero": true,
+          "steady_vx_within_25_percent": true,
+          "yaw_drift_below_0p15_rad": true
+        },
+        "drive_world_vx_tracking_rmse_mps": 0.04423763535165187,
+        "drive_world_x_progress_m": 2.241932408390871,
+        "final_lateral_from_initial_m": 1.5774848705481942e-05,
+        "final_position_m": [
+          2.382762011350393,
+          1.5774848705481942e-05,
+          0.4661640904118795
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          0.0,
+          0.0,
+          0.455
+        ],
+        "integrated_duration_s": 14.000000000001345,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.0019992892177260733,
+          5.541391712756219e-07,
+          5.5777099543222994e-05
+        ],
+        "max_abs_lateral_from_initial_m": 2.013697314045934e-05,
+        "max_abs_roll_pitch_rad": 0.019939314035573367,
+        "max_abs_yaw_from_initial_rad": 2.2681316921088566e-05,
+        "raw_manifest_sha256": "786b759587d8fd434e8008c3a266f4053333f5bf391930779367dbe6b5f61c21",
+        "release_position_m": [
+          2.23429327394533,
+          1.874935879415046e-05,
+          0.4657159633990659
+        ],
+        "release_time_s": 10.0,
+        "requested_forward_zero_after_release": true,
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          }
+        ],
+        "steady_last_2s_world_vx_mps": 0.3107642818912413,
+        "steps": 1400,
+        "straight_and_brake_diagnostic_pass": true,
+        "time_to_vx_below_0p05_for_0p2s_s": 0.770000000000266,
+        "torque_saturation_fraction": 0.0,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 0
+      },
+      "source_unchanged": true,
+      "unchanged_physics_checks": {
+        "pre_release_torque": true,
+        "qpos": true,
+        "qvel": true,
+        "segment_time_s": true
+      }
+    },
+    {
+      "braking_events": [
+        {
+          "brake_reference_event_count": "1",
+          "brake_reference_new_error_m": "0.0",
+          "brake_reference_previous_error_m": "0.10752275002909695",
+          "segment_before_time_s": "10.000000000000009",
+          "tick": "1001"
+        }
+      ],
+      "case": "flat_start_gear2",
+      "compiled_model_identical": true,
+      "current_source_files": 50,
+      "new_full_summary": {
+        "after_release_xyz_displacement_m": [
+          0.12907568058361196,
+          -1.8324269265941564e-06,
+          0.0004951105206500994
+        ],
+        "case": {
+          "arena": "flat",
+          "duration_seconds": 14.0,
+          "gear": 2,
+          "key": "W",
+          "kind": "forward",
+          "name": "flat_start_gear2",
+          "release_seconds": 10.0,
+          "target_mps": 0.4,
+          "zone": "start"
+        },
+        "diagnostic_checks": {
+          "attitude_below_0p3_rad": true,
+          "finite_and_torque_limits": true,
+          "last_second_abs_vx_below_0p05": true,
+          "lateral_drift_below_0p10_m": true,
+          "no_recovery": true,
+          "release_immediately_zero": true,
+          "steady_vx_within_25_percent": true,
+          "yaw_drift_below_0p15_rad": true
+        },
+        "drive_world_vx_tracking_rmse_mps": 0.054818572305471096,
+        "drive_world_x_progress_m": 2.945524106805875,
+        "final_lateral_from_initial_m": 2.1812681600286717e-05,
+        "final_position_m": [
+          3.066960652943946,
+          2.1812681600286717e-05,
+          0.46620737553652114
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          0.0,
+          0.0,
+          0.455
+        ],
+        "integrated_duration_s": 14.000000000001345,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.009446695376698023,
+          3.7684994100260594e-07,
+          0.00021807122939680387
+        ],
+        "max_abs_lateral_from_initial_m": 2.493044518924603e-05,
+        "max_abs_roll_pitch_rad": 0.02653950723536977,
+        "max_abs_yaw_from_initial_rad": 3.387079800067035e-05,
+        "raw_manifest_sha256": "86b63add9ff0df5b04c594088a14c26a9e3ea670334cf2f05825108c76936659",
+        "release_position_m": [
+          2.937884972360334,
+          2.3645108526880873e-05,
+          0.46571226501587104
+        ],
+        "release_time_s": 10.0,
+        "requested_forward_zero_after_release": true,
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          }
+        ],
+        "steady_last_2s_world_vx_mps": 0.41251364740001967,
+        "steps": 1400,
+        "straight_and_brake_diagnostic_pass": true,
+        "time_to_vx_below_0p05_for_0p2s_s": 0.7200000000002493,
+        "torque_saturation_fraction": 0.0,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 0
+      },
+      "old_full_summary": {
+        "after_release_xyz_displacement_m": [
+          0.18567673234491178,
+          -1.4634876676470916e-06,
+          0.00045699826297540547
+        ],
+        "case": {
+          "arena": "flat",
+          "duration_seconds": 14.0,
+          "gear": 2,
+          "key": "W",
+          "kind": "forward",
+          "name": "flat_start_gear2",
+          "release_seconds": 10.0,
+          "target_mps": 0.4,
+          "zone": "start"
+        },
+        "diagnostic_checks": {
+          "attitude_below_0p3_rad": true,
+          "finite_and_torque_limits": true,
+          "last_second_abs_vx_below_0p05": true,
+          "lateral_drift_below_0p10_m": true,
+          "no_recovery": true,
+          "release_immediately_zero": true,
+          "steady_vx_within_25_percent": true,
+          "yaw_drift_below_0p15_rad": true
+        },
+        "drive_world_vx_tracking_rmse_mps": 0.054818572305471096,
+        "drive_world_x_progress_m": 2.945524106805875,
+        "final_lateral_from_initial_m": 2.2181620859233782e-05,
+        "final_position_m": [
+          3.1235617047052457,
+          2.2181620859233782e-05,
+          0.46616926327884645
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          0.0,
+          0.0,
+          0.455
+        ],
+        "integrated_duration_s": 14.000000000001345,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.0010133108142801276,
+          2.2051969717505e-07,
+          5.885782432233619e-05
+        ],
+        "max_abs_lateral_from_initial_m": 2.496872074352199e-05,
+        "max_abs_roll_pitch_rad": 0.02550901612060992,
+        "max_abs_yaw_from_initial_rad": 3.364797843305941e-05,
+        "raw_manifest_sha256": "dc64a6fb4dca58543591e8f8f514fd4c9fb7e5930e224b487f532f0b0460536b",
+        "release_position_m": [
+          2.937884972360334,
+          2.3645108526880873e-05,
+          0.46571226501587104
+        ],
+        "release_time_s": 10.0,
+        "requested_forward_zero_after_release": true,
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          }
+        ],
+        "steady_last_2s_world_vx_mps": 0.41251364740001967,
+        "steps": 1400,
+        "straight_and_brake_diagnostic_pass": true,
+        "time_to_vx_below_0p05_for_0p2s_s": 0.8300000000002861,
+        "torque_saturation_fraction": 0.0,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 0
+      },
+      "source_unchanged": true,
+      "unchanged_physics_checks": {
+        "pre_release_torque": true,
+        "qpos": true,
+        "qvel": true,
+        "segment_time_s": true
+      }
+    },
+    {
+      "braking_events": [
+        {
+          "brake_reference_event_count": "1",
+          "brake_reference_new_error_m": "0.0",
+          "brake_reference_previous_error_m": "0.22632655226732457",
+          "segment_before_time_s": "10.000000000000009",
+          "tick": "1001"
+        }
+      ],
+      "case": "flat_start_gear3",
+      "compiled_model_identical": true,
+      "current_source_files": 50,
+      "new_full_summary": {
+        "after_release_xyz_displacement_m": [
+          0.14802712025217568,
+          -1.6172118267395172e-06,
+          0.00046310779589586737
+        ],
+        "case": {
+          "arena": "flat",
+          "duration_seconds": 14.0,
+          "gear": 3,
+          "key": "W",
+          "kind": "forward",
+          "name": "flat_start_gear3",
+          "release_seconds": 10.0,
+          "target_mps": 0.5,
+          "zone": "start"
+        },
+        "diagnostic_checks": {
+          "attitude_below_0p3_rad": true,
+          "finite_and_torque_limits": true,
+          "last_second_abs_vx_below_0p05": true,
+          "lateral_drift_below_0p10_m": true,
+          "no_recovery": true,
+          "release_immediately_zero": true,
+          "steady_vx_within_25_percent": true,
+          "yaw_drift_below_0p15_rad": true
+        },
+        "drive_world_vx_tracking_rmse_mps": 0.06265342980220462,
+        "drive_world_x_progress_m": 3.5379172281014295,
+        "final_lateral_from_initial_m": 2.6387091525374878e-05,
+        "final_position_m": [
+          3.678305213908064,
+          2.6387091525374878e-05,
+          0.4661963871922213
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          0.0,
+          0.0,
+          0.455
+        ],
+        "integrated_duration_s": 14.000000000001345,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.013388191490827121,
+          1.248661715959379e-07,
+          0.0002265680294087156
+        ],
+        "max_abs_lateral_from_initial_m": 3.059966971330699e-05,
+        "max_abs_roll_pitch_rad": 0.03131200180914758,
+        "max_abs_yaw_from_initial_rad": 4.4026972637448e-05,
+        "raw_manifest_sha256": "d8a23a3002f524d7bf03d6b599cd0276c04f8f79452b16a129653e38e4e8e55d",
+        "release_position_m": [
+          3.5302780936558884,
+          2.8004303352114395e-05,
+          0.4657332793963254
+        ],
+        "release_time_s": 10.0,
+        "requested_forward_zero_after_release": true,
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          }
+        ],
+        "steady_last_2s_world_vx_mps": 0.49851205122188236,
+        "steps": 1400,
+        "straight_and_brake_diagnostic_pass": true,
+        "time_to_vx_below_0p05_for_0p2s_s": 0.7600000000002627,
+        "torque_saturation_fraction": 0.0,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 0
+      },
+      "old_full_summary": {
+        "after_release_xyz_displacement_m": [
+          0.27423349795058805,
+          -7.55076442575977e-06,
+          0.0004655456075786657
+        ],
+        "case": {
+          "arena": "flat",
+          "duration_seconds": 14.0,
+          "gear": 3,
+          "key": "W",
+          "kind": "forward",
+          "name": "flat_start_gear3",
+          "release_seconds": 10.0,
+          "target_mps": 0.5,
+          "zone": "start"
+        },
+        "diagnostic_checks": {
+          "attitude_below_0p3_rad": true,
+          "finite_and_torque_limits": true,
+          "last_second_abs_vx_below_0p05": true,
+          "lateral_drift_below_0p10_m": true,
+          "no_recovery": true,
+          "release_immediately_zero": true,
+          "steady_vx_within_25_percent": true,
+          "yaw_drift_below_0p15_rad": true
+        },
+        "drive_world_vx_tracking_rmse_mps": 0.06265342980220462,
+        "drive_world_x_progress_m": 3.5379172281014295,
+        "final_lateral_from_initial_m": 2.0453538926354625e-05,
+        "final_position_m": [
+          3.8045115916064765,
+          2.0453538926354625e-05,
+          0.4661988250039041
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          0.0,
+          0.0,
+          0.455
+        ],
+        "integrated_duration_s": 14.000000000001345,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.010861806785044259,
+          6.167320913499167e-08,
+          9.061186773736996e-05
+        ],
+        "max_abs_lateral_from_initial_m": 2.9143760029693276e-05,
+        "max_abs_roll_pitch_rad": 0.028816030141355777,
+        "max_abs_yaw_from_initial_rad": 3.814968097297576e-05,
+        "raw_manifest_sha256": "512c6289ede7cf89ca62d1ce8093fee96a8c89bcebe06006e934f21dfb419bad",
+        "release_position_m": [
+          3.5302780936558884,
+          2.8004303352114395e-05,
+          0.4657332793963254
+        ],
+        "release_time_s": 10.0,
+        "requested_forward_zero_after_release": true,
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          }
+        ],
+        "steady_last_2s_world_vx_mps": 0.49851205122188236,
+        "steps": 1400,
+        "straight_and_brake_diagnostic_pass": true,
+        "time_to_vx_below_0p05_for_0p2s_s": 1.0100000000003462,
+        "torque_saturation_fraction": 0.0,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 0
+      },
+      "source_unchanged": true,
+      "unchanged_physics_checks": {
+        "pre_release_torque": true,
+        "qpos": true,
+        "qvel": true,
+        "segment_time_s": true
+      }
+    },
+    {
+      "braking_events": [
+        {
+          "brake_reference_event_count": "1",
+          "brake_reference_new_error_m": "0.0",
+          "brake_reference_previous_error_m": "0.55",
+          "segment_before_time_s": "14.000000000001345",
+          "tick": "1401"
+        }
+      ],
+      "case": "course_rough_gear1",
+      "compiled_model_identical": true,
+      "current_source_files": 50,
+      "new_full_summary": {
+        "after_release_xyz_displacement_m": [
+          -0.025344923798918728,
+          -0.001025115534953622,
+          0.006509485251711078
+        ],
+        "case": {
+          "arena": "course",
+          "duration_seconds": 18.0,
+          "gear": 1,
+          "key": "W",
+          "kind": "forward",
+          "name": "course_rough_gear1",
+          "release_seconds": 14.0,
+          "target_mps": 0.3,
+          "zone": "rough"
+        },
+        "diagnostic_checks": {
+          "attitude_below_0p3_rad": true,
+          "finite_and_torque_limits": true,
+          "last_second_abs_vx_below_0p05": true,
+          "lateral_drift_below_0p10_m": true,
+          "no_recovery": true,
+          "release_immediately_zero": true,
+          "steady_vx_within_25_percent": false,
+          "yaw_drift_below_0p15_rad": true
+        },
+        "drive_world_vx_tracking_rmse_mps": 0.2824687183621188,
+        "drive_world_x_progress_m": 0.23188342446253052,
+        "final_lateral_from_initial_m": 0.00044939493225295337,
+        "final_position_m": [
+          0.5488993662310823,
+          0.00044939493225295337,
+          0.46469430380347004
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          0.35,
+          0.0,
+          0.455
+        ],
+        "integrated_duration_s": 18.000000000000902,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.004832235230227703,
+          0.00012594077958525264,
+          0.000427791132728687
+        ],
+        "max_abs_lateral_from_initial_m": 0.004112270017501798,
+        "max_abs_roll_pitch_rad": 0.07216001612872212,
+        "max_abs_yaw_from_initial_rad": 0.01397209054906897,
+        "raw_manifest_sha256": "68dc652036cc99ff85b50948d04941e92c2612b1f3c99450386d3719a5cfb251",
+        "release_position_m": [
+          0.574244290030001,
+          0.0014745104672065754,
+          0.45818481855175897
+        ],
+        "release_time_s": 14.0,
+        "requested_forward_zero_after_release": true,
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          }
+        ],
+        "steady_last_2s_world_vx_mps": 0.00016616454172690975,
+        "steps": 1800,
+        "straight_and_brake_diagnostic_pass": false,
+        "time_to_vx_below_0p05_for_0p2s_s": 0.980000000001672,
+        "torque_saturation_fraction": 0.0006597222222222222,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 1050
+      },
+      "old_full_summary": {
+        "after_release_xyz_displacement_m": [
+          -0.01869293376779213,
+          -0.00047881020548320996,
+          0.004903409099372147
+        ],
+        "case": {
+          "arena": "course",
+          "duration_seconds": 18.0,
+          "gear": 1,
+          "key": "W",
+          "kind": "forward",
+          "name": "course_rough_gear1",
+          "release_seconds": 14.0,
+          "target_mps": 0.3,
+          "zone": "rough"
+        },
+        "diagnostic_checks": {
+          "attitude_below_0p3_rad": true,
+          "finite_and_torque_limits": true,
+          "last_second_abs_vx_below_0p05": true,
+          "lateral_drift_below_0p10_m": true,
+          "no_recovery": true,
+          "release_immediately_zero": true,
+          "steady_vx_within_25_percent": false,
+          "yaw_drift_below_0p15_rad": true
+        },
+        "drive_world_vx_tracking_rmse_mps": 0.2824687183621188,
+        "drive_world_x_progress_m": 0.23188342446253052,
+        "final_lateral_from_initial_m": 0.0009957002617233654,
+        "final_position_m": [
+          0.5555513562622089,
+          0.0009957002617233654,
+          0.4630882276511311
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          0.35,
+          0.0,
+          0.455
+        ],
+        "integrated_duration_s": 18.000000000000902,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.0004999890211400675,
+          3.280536278045777e-05,
+          9.135172798068814e-05
+        ],
+        "max_abs_lateral_from_initial_m": 0.004112270017501798,
+        "max_abs_roll_pitch_rad": 0.07216001612872212,
+        "max_abs_yaw_from_initial_rad": 0.01424519861098992,
+        "raw_manifest_sha256": "e9f7d1a3c1c6f43dcc022ee95dba90d66413c889d72d83d6895577e15427e12b",
+        "release_position_m": [
+          0.574244290030001,
+          0.0014745104672065754,
+          0.45818481855175897
+        ],
+        "release_time_s": 14.0,
+        "requested_forward_zero_after_release": true,
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          }
+        ],
+        "steady_last_2s_world_vx_mps": 0.00016616454172690975,
+        "steps": 1800,
+        "straight_and_brake_diagnostic_pass": false,
+        "time_to_vx_below_0p05_for_0p2s_s": 1.3447021274259896e-12,
+        "torque_saturation_fraction": 0.00038194444444444446,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 1050
+      },
+      "source_unchanged": true,
+      "unchanged_physics_checks": {
+        "pre_release_torque": true,
+        "qpos": true,
+        "qvel": true,
+        "segment_time_s": true
+      }
+    },
+    {
+      "braking_events": [
+        {
+          "brake_reference_event_count": "1",
+          "brake_reference_new_error_m": "0.0",
+          "brake_reference_previous_error_m": "0.5500000000000003",
+          "segment_before_time_s": "14.000000000001345",
+          "tick": "1401"
+        }
+      ],
+      "case": "course_rough_gear2",
+      "compiled_model_identical": true,
+      "current_source_files": 50,
+      "new_full_summary": {
+        "after_release_xyz_displacement_m": [
+          -0.04294173542817559,
+          0.00017965637808369309,
+          -0.0029360525540649274
+        ],
+        "case": {
+          "arena": "course",
+          "duration_seconds": 18.0,
+          "gear": 2,
+          "key": "W",
+          "kind": "forward",
+          "name": "course_rough_gear2",
+          "release_seconds": 14.0,
+          "target_mps": 0.4,
+          "zone": "rough"
+        },
+        "diagnostic_checks": {
+          "attitude_below_0p3_rad": true,
+          "finite_and_torque_limits": true,
+          "last_second_abs_vx_below_0p05": true,
+          "lateral_drift_below_0p10_m": true,
+          "no_recovery": true,
+          "release_immediately_zero": true,
+          "steady_vx_within_25_percent": false,
+          "yaw_drift_below_0p15_rad": true
+        },
+        "drive_world_vx_tracking_rmse_mps": 0.19747803789756152,
+        "drive_world_x_progress_m": 2.938620932441928,
+        "final_lateral_from_initial_m": 0.00238138604675704,
+        "final_position_m": [
+          3.2380400625812227,
+          0.00238138604675704,
+          0.4877309975111102
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          0.35,
+          0.0,
+          0.455
+        ],
+        "integrated_duration_s": 18.000000000000902,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.011555399090429314,
+          0.00012935692643505667,
+          0.0008336770972770146
+        ],
+        "max_abs_lateral_from_initial_m": 0.03799993631450909,
+        "max_abs_roll_pitch_rad": 0.15186376167841403,
+        "max_abs_yaw_from_initial_rad": 0.09759196032726608,
+        "raw_manifest_sha256": "277347f83d44a185116e86cdbb75e9245f65e07db229093c6cb12b778f9d1cc9",
+        "release_position_m": [
+          3.2809817980093983,
+          0.002201729668673347,
+          0.49066705006517514
+        ],
+        "release_time_s": 14.0,
+        "requested_forward_zero_after_release": true,
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          }
+        ],
+        "steady_last_2s_world_vx_mps": 0.2359269551744479,
+        "steps": 1800,
+        "straight_and_brake_diagnostic_pass": false,
+        "time_to_vx_below_0p05_for_0p2s_s": 0.3600000000014649,
+        "torque_saturation_fraction": 0.0008333333333333334,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 150
+      },
+      "old_full_summary": {
+        "after_release_xyz_displacement_m": [
+          0.239715320047603,
+          -0.0005634569815219834,
+          0.028964024604162197
+        ],
+        "case": {
+          "arena": "course",
+          "duration_seconds": 18.0,
+          "gear": 2,
+          "key": "W",
+          "kind": "forward",
+          "name": "course_rough_gear2",
+          "release_seconds": 14.0,
+          "target_mps": 0.4,
+          "zone": "rough"
+        },
+        "diagnostic_checks": {
+          "attitude_below_0p3_rad": true,
+          "finite_and_torque_limits": true,
+          "last_second_abs_vx_below_0p05": true,
+          "lateral_drift_below_0p10_m": true,
+          "no_recovery": true,
+          "release_immediately_zero": true,
+          "steady_vx_within_25_percent": false,
+          "yaw_drift_below_0p15_rad": true
+        },
+        "drive_world_vx_tracking_rmse_mps": 0.19747803789756152,
+        "drive_world_x_progress_m": 2.938620932441928,
+        "final_lateral_from_initial_m": 0.0016382726871513637,
+        "final_position_m": [
+          3.5206971180570013,
+          0.0016382726871513637,
+          0.5196310746693373
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          0.35,
+          0.0,
+          0.455
+        ],
+        "integrated_duration_s": 18.000000000000902,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.037051434365111484,
+          8.732386025123794e-05,
+          0.004231491459158476
+        ],
+        "max_abs_lateral_from_initial_m": 0.03799993631450909,
+        "max_abs_roll_pitch_rad": 0.15186376167841403,
+        "max_abs_yaw_from_initial_rad": 0.09759196032726608,
+        "raw_manifest_sha256": "5a7bd6e395c05796a1a2a958f1fa155dee684cc1f96fbfa291d6a5b009ce80eb",
+        "release_position_m": [
+          3.2809817980093983,
+          0.002201729668673347,
+          0.49066705006517514
+        ],
+        "release_time_s": 14.0,
+        "requested_forward_zero_after_release": true,
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          }
+        ],
+        "steady_last_2s_world_vx_mps": 0.2359269551744479,
+        "steps": 1800,
+        "straight_and_brake_diagnostic_pass": false,
+        "time_to_vx_below_0p05_for_0p2s_s": 2.3600000000018113,
+        "torque_saturation_fraction": 0.0008333333333333334,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 150
+      },
+      "source_unchanged": true,
+      "unchanged_physics_checks": {
+        "pre_release_torque": true,
+        "qpos": true,
+        "qvel": true,
+        "segment_time_s": true
+      }
+    },
+    {
+      "braking_events": [
+        {
+          "brake_reference_event_count": "1",
+          "brake_reference_new_error_m": "0.0",
+          "brake_reference_previous_error_m": "0.5500000000000003",
+          "segment_before_time_s": "14.000000000001345",
+          "tick": "1401"
+        }
+      ],
+      "case": "course_rough_gear3",
+      "compiled_model_identical": true,
+      "current_source_files": 50,
+      "new_full_summary": {
+        "after_release_xyz_displacement_m": [
+          -0.12459952039204181,
+          0.000530050079460842,
+          -0.01586672360756014
+        ],
+        "case": {
+          "arena": "course",
+          "duration_seconds": 18.0,
+          "gear": 3,
+          "key": "W",
+          "kind": "forward",
+          "name": "course_rough_gear3",
+          "release_seconds": 14.0,
+          "target_mps": 0.5,
+          "zone": "rough"
+        },
+        "diagnostic_checks": {
+          "attitude_below_0p3_rad": true,
+          "finite_and_torque_limits": true,
+          "last_second_abs_vx_below_0p05": true,
+          "lateral_drift_below_0p10_m": true,
+          "no_recovery": true,
+          "release_immediately_zero": true,
+          "steady_vx_within_25_percent": false,
+          "yaw_drift_below_0p15_rad": true
+        },
+        "drive_world_vx_tracking_rmse_mps": 0.22449953423290409,
+        "drive_world_x_progress_m": 3.46375811904415,
+        "final_lateral_from_initial_m": 0.0016187967810690931,
+        "final_position_m": [
+          3.6815194642195785,
+          0.0016187967810690931,
+          0.5371881456955518
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          0.35,
+          0.0,
+          0.455
+        ],
+        "integrated_duration_s": 18.000000000000902,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.04367291942939855,
+          0.00019729150644423937,
+          0.0051523899679866945
+        ],
+        "max_abs_lateral_from_initial_m": 0.022801769436318786,
+        "max_abs_roll_pitch_rad": 0.148177012438472,
+        "max_abs_yaw_from_initial_rad": 0.11880787820863357,
+        "raw_manifest_sha256": "ff8fd7f547dfffc0c1f00e7deaad065622684753e1d0309b6e1b9b552cf82d1f",
+        "release_position_m": [
+          3.8061189846116203,
+          0.0010887467016082511,
+          0.553054869303112
+        ],
+        "release_time_s": 14.0,
+        "requested_forward_zero_after_release": true,
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          }
+        ],
+        "steady_last_2s_world_vx_mps": 0.2813384686420645,
+        "steps": 1800,
+        "straight_and_brake_diagnostic_pass": false,
+        "time_to_vx_below_0p05_for_0p2s_s": 0.44000000000149164,
+        "torque_saturation_fraction": 0.0016666666666666668,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 100
+      },
+      "old_full_summary": {
+        "after_release_xyz_displacement_m": [
+          0.1175744676830246,
+          -0.00037760830302183753,
+          0.012190091790224455
+        ],
+        "case": {
+          "arena": "course",
+          "duration_seconds": 18.0,
+          "gear": 3,
+          "key": "W",
+          "kind": "forward",
+          "name": "course_rough_gear3",
+          "release_seconds": 14.0,
+          "target_mps": 0.5,
+          "zone": "rough"
+        },
+        "diagnostic_checks": {
+          "attitude_below_0p3_rad": true,
+          "finite_and_torque_limits": true,
+          "last_second_abs_vx_below_0p05": true,
+          "lateral_drift_below_0p10_m": true,
+          "no_recovery": true,
+          "release_immediately_zero": true,
+          "steady_vx_within_25_percent": false,
+          "yaw_drift_below_0p15_rad": true
+        },
+        "drive_world_vx_tracking_rmse_mps": 0.22449953423290409,
+        "drive_world_x_progress_m": 3.46375811904415,
+        "final_lateral_from_initial_m": 0.0007111383985864136,
+        "final_position_m": [
+          3.923693452294645,
+          0.0007111383985864136,
+          0.5652449610933364
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          0.35,
+          0.0,
+          0.455
+        ],
+        "integrated_duration_s": 18.000000000000902,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.005883469691788585,
+          4.09602669178294e-05,
+          0.001090112012971205
+        ],
+        "max_abs_lateral_from_initial_m": 0.022801769436318786,
+        "max_abs_roll_pitch_rad": 0.148177012438472,
+        "max_abs_yaw_from_initial_rad": 0.11880787820863357,
+        "raw_manifest_sha256": "b471fa39b2d4a0272985a564f594304a1aa017cf6a4c9511689a6b9f610227b8",
+        "release_position_m": [
+          3.8061189846116203,
+          0.0010887467016082511,
+          0.553054869303112
+        ],
+        "release_time_s": 14.0,
+        "requested_forward_zero_after_release": true,
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          }
+        ],
+        "steady_last_2s_world_vx_mps": 0.2813384686420645,
+        "steps": 1800,
+        "straight_and_brake_diagnostic_pass": false,
+        "time_to_vx_below_0p05_for_0p2s_s": 0.7700000000016018,
+        "torque_saturation_fraction": 0.0016666666666666668,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 100
+      },
+      "source_unchanged": true,
+      "unchanged_physics_checks": {
+        "pre_release_torque": true,
+        "qpos": true,
+        "qvel": true,
+        "segment_time_s": true
+      }
+    },
+    {
+      "braking_events": [
+        {
+          "brake_reference_event_count": "1",
+          "brake_reference_new_error_m": "0.0",
+          "brake_reference_previous_error_m": "-0.4256381630848285",
+          "segment_before_time_s": "14.000000000001345",
+          "tick": "1401"
+        }
+      ],
+      "case": "course_ramp_gear1",
+      "compiled_model_identical": true,
+      "current_source_files": 50,
+      "new_full_summary": {
+        "after_release_xyz_displacement_m": [
+          0.1775533032287555,
+          6.497750513494486e-05,
+          -0.022805534166401187
+        ],
+        "case": {
+          "arena": "course",
+          "duration_seconds": 18.0,
+          "gear": 1,
+          "key": "W",
+          "kind": "forward",
+          "name": "course_ramp_gear1",
+          "release_seconds": 14.0,
+          "target_mps": 0.3,
+          "zone": "ramp"
+        },
+        "diagnostic_checks": {
+          "attitude_below_0p3_rad": true,
+          "finite_and_torque_limits": true,
+          "last_second_abs_vx_below_0p05": true,
+          "lateral_drift_below_0p10_m": true,
+          "no_recovery": true,
+          "release_immediately_zero": true,
+          "steady_vx_within_25_percent": false,
+          "yaw_drift_below_0p15_rad": true
+        },
+        "drive_world_vx_tracking_rmse_mps": 0.17516262035445943,
+        "drive_world_x_progress_m": 3.891640440975966,
+        "final_lateral_from_initial_m": 0.001255371767914727,
+        "final_position_m": [
+          6.790137422824091,
+          0.001255371767914727,
+          0.4836044608404255
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          2.75,
+          0.0,
+          0.455
+        ],
+        "integrated_duration_s": 18.000000000000902,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.0037820926188854988,
+          8.28185916888837e-06,
+          0.0008012935169952048
+        ],
+        "max_abs_lateral_from_initial_m": 0.0012807750342517885,
+        "max_abs_roll_pitch_rad": 0.17852155111981202,
+        "max_abs_yaw_from_initial_rad": 0.010242168664777191,
+        "raw_manifest_sha256": "1d37d8b1a76618e28cb3b05c3e3b01d196e160040e34d02b1858c22dbd843604",
+        "release_position_m": [
+          6.612584119595335,
+          0.001190394262779782,
+          0.5064099950068267
+        ],
+        "release_time_s": 14.0,
+        "requested_forward_zero_after_release": true,
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          }
+        ],
+        "steady_last_2s_world_vx_mps": 0.606108764039576,
+        "steps": 1800,
+        "straight_and_brake_diagnostic_pass": false,
+        "time_to_vx_below_0p05_for_0p2s_s": 1.070000000001702,
+        "torque_saturation_fraction": 0.0,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 50
+      },
+      "old_full_summary": {
+        "after_release_xyz_displacement_m": [
+          0.1735083345860957,
+          7.013625685730381e-05,
+          -0.02140527593025615
+        ],
+        "case": {
+          "arena": "course",
+          "duration_seconds": 18.0,
+          "gear": 1,
+          "key": "W",
+          "kind": "forward",
+          "name": "course_ramp_gear1",
+          "release_seconds": 14.0,
+          "target_mps": 0.3,
+          "zone": "ramp"
+        },
+        "diagnostic_checks": {
+          "attitude_below_0p3_rad": true,
+          "finite_and_torque_limits": true,
+          "last_second_abs_vx_below_0p05": true,
+          "lateral_drift_below_0p10_m": true,
+          "no_recovery": true,
+          "release_immediately_zero": true,
+          "steady_vx_within_25_percent": false,
+          "yaw_drift_below_0p15_rad": true
+        },
+        "drive_world_vx_tracking_rmse_mps": 0.17516262035445943,
+        "drive_world_x_progress_m": 3.891640440975966,
+        "final_lateral_from_initial_m": 0.001260530519637086,
+        "final_position_m": [
+          6.786092454181431,
+          0.001260530519637086,
+          0.48500471907657056
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          2.75,
+          0.0,
+          0.455
+        ],
+        "integrated_duration_s": 18.000000000000902,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.0011842803234409682,
+          1.3860804490320247e-06,
+          0.0003857622135565093
+        ],
+        "max_abs_lateral_from_initial_m": 0.0012666103094758061,
+        "max_abs_roll_pitch_rad": 0.17852155111981202,
+        "max_abs_yaw_from_initial_rad": 0.010242168664777191,
+        "raw_manifest_sha256": "5fe9aa96b91ab07d5ae65b78c026e4ec1938f579f7dec402a47f0bf9455c7cfb",
+        "release_position_m": [
+          6.612584119595335,
+          0.001190394262779782,
+          0.5064099950068267
+        ],
+        "release_time_s": 14.0,
+        "requested_forward_zero_after_release": true,
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          }
+        ],
+        "steady_last_2s_world_vx_mps": 0.606108764039576,
+        "steps": 1800,
+        "straight_and_brake_diagnostic_pass": false,
+        "time_to_vx_below_0p05_for_0p2s_s": 1.0800000000017054,
+        "torque_saturation_fraction": 0.0,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 50
+      },
+      "source_unchanged": true,
+      "unchanged_physics_checks": {
+        "pre_release_torque": true,
+        "qpos": true,
+        "qvel": true,
+        "segment_time_s": true
+      }
+    },
+    {
+      "braking_events": [
+        {
+          "brake_reference_event_count": "1",
+          "brake_reference_new_error_m": "0.0",
+          "brake_reference_previous_error_m": "-0.15183324875771298",
+          "segment_before_time_s": "14.000000000001345",
+          "tick": "1401"
+        }
+      ],
+      "case": "course_ramp_gear2",
+      "compiled_model_identical": true,
+      "current_source_files": 50,
+      "new_full_summary": {
+        "after_release_xyz_displacement_m": [
+          -0.05677579032017288,
+          -1.676223913309985e-05,
+          0.00273213085841173
+        ],
+        "case": {
+          "arena": "course",
+          "duration_seconds": 18.0,
+          "gear": 2,
+          "key": "W",
+          "kind": "forward",
+          "name": "course_ramp_gear2",
+          "release_seconds": 14.0,
+          "target_mps": 0.4,
+          "zone": "ramp"
+        },
+        "diagnostic_checks": {
+          "attitude_below_0p3_rad": true,
+          "finite_and_torque_limits": true,
+          "last_second_abs_vx_below_0p05": true,
+          "lateral_drift_below_0p10_m": true,
+          "no_recovery": true,
+          "release_immediately_zero": true,
+          "steady_vx_within_25_percent": true,
+          "yaw_drift_below_0p15_rad": true
+        },
+        "drive_world_vx_tracking_rmse_mps": 0.1768052012620015,
+        "drive_world_x_progress_m": 4.333175477673494,
+        "final_lateral_from_initial_m": 0.0014200968709408895,
+        "final_position_m": [
+          6.99734336597269,
+          0.0014200968709408895,
+          0.47158893301312177
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          2.75,
+          0.0,
+          0.455
+        ],
+        "integrated_duration_s": 18.000000000000902,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.034805976455823985,
+          5.6919762188748984e-06,
+          0.0020138949378640312
+        ],
+        "max_abs_lateral_from_initial_m": 0.001444118712429344,
+        "max_abs_roll_pitch_rad": 0.1742173402670431,
+        "max_abs_yaw_from_initial_rad": 0.010242168664777191,
+        "raw_manifest_sha256": "c37de3f1d6f4f4600d15b178c8a941bd21a0f3d5d57c108ed57560d1e171dac5",
+        "release_position_m": [
+          7.054119156292863,
+          0.0014368591100739894,
+          0.46885680215471004
+        ],
+        "release_time_s": 14.0,
+        "requested_forward_zero_after_release": true,
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          }
+        ],
+        "steady_last_2s_world_vx_mps": 0.49830592908607996,
+        "steps": 1800,
+        "straight_and_brake_diagnostic_pass": true,
+        "time_to_vx_below_0p05_for_0p2s_s": 0.3600000000014649,
+        "torque_saturation_fraction": 0.0,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 50
+      },
+      "old_full_summary": {
+        "after_release_xyz_displacement_m": [
+          -0.14081906232186459,
+          -2.6584030375864437e-05,
+          0.007107240528022696
+        ],
+        "case": {
+          "arena": "course",
+          "duration_seconds": 18.0,
+          "gear": 2,
+          "key": "W",
+          "kind": "forward",
+          "name": "course_ramp_gear2",
+          "release_seconds": 14.0,
+          "target_mps": 0.4,
+          "zone": "ramp"
+        },
+        "diagnostic_checks": {
+          "attitude_below_0p3_rad": true,
+          "finite_and_torque_limits": true,
+          "last_second_abs_vx_below_0p05": false,
+          "lateral_drift_below_0p10_m": true,
+          "no_recovery": true,
+          "release_immediately_zero": true,
+          "steady_vx_within_25_percent": true,
+          "yaw_drift_below_0p15_rad": true
+        },
+        "drive_world_vx_tracking_rmse_mps": 0.1768052012620015,
+        "drive_world_x_progress_m": 4.333175477673494,
+        "final_lateral_from_initial_m": 0.001410275079698125,
+        "final_position_m": [
+          6.9133000939709985,
+          0.001410275079698125,
+          0.47596404268273274
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          2.75,
+          0.0,
+          0.455
+        ],
+        "integrated_duration_s": 18.000000000000902,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.058506799596469004,
+          8.869549914763936e-06,
+          0.0031098984616840268
+        ],
+        "max_abs_lateral_from_initial_m": 0.001442368287573547,
+        "max_abs_roll_pitch_rad": 0.1742173402670431,
+        "max_abs_yaw_from_initial_rad": 0.010242168664777191,
+        "raw_manifest_sha256": "2ab8312ba10ce0e46b2abfcf4f4f4ac745ab0ccb9160b11e44ac6449883818c4",
+        "release_position_m": [
+          7.054119156292863,
+          0.0014368591100739894,
+          0.46885680215471004
+        ],
+        "release_time_s": 14.0,
+        "requested_forward_zero_after_release": true,
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          }
+        ],
+        "steady_last_2s_world_vx_mps": 0.49830592908607996,
+        "steps": 1800,
+        "straight_and_brake_diagnostic_pass": false,
+        "time_to_vx_below_0p05_for_0p2s_s": 0.3300000000014549,
+        "torque_saturation_fraction": 0.0,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 50
+      },
+      "source_unchanged": true,
+      "unchanged_physics_checks": {
+        "pre_release_torque": true,
+        "qpos": true,
+        "qvel": true,
+        "segment_time_s": true
+      }
+    },
+    {
+      "braking_events": [
+        {
+          "brake_reference_event_count": "1",
+          "brake_reference_new_error_m": "0.0",
+          "brake_reference_previous_error_m": "0.21079836818322306",
+          "segment_before_time_s": "14.000000000001345",
+          "tick": "1401"
+        }
+      ],
+      "case": "course_ramp_gear3",
+      "compiled_model_identical": true,
+      "current_source_files": 50,
+      "new_full_summary": {
+        "after_release_xyz_displacement_m": [
+          0.09472304471757997,
+          7.869794029695051e-06,
+          0.0028111422198222047
+        ],
+        "case": {
+          "arena": "course",
+          "duration_seconds": 18.0,
+          "gear": 3,
+          "key": "W",
+          "kind": "forward",
+          "name": "course_ramp_gear3",
+          "release_seconds": 14.0,
+          "target_mps": 0.5,
+          "zone": "ramp"
+        },
+        "diagnostic_checks": {
+          "attitude_below_0p3_rad": true,
+          "finite_and_torque_limits": true,
+          "last_second_abs_vx_below_0p05": true,
+          "lateral_drift_below_0p10_m": true,
+          "no_recovery": true,
+          "release_immediately_zero": true,
+          "steady_vx_within_25_percent": true,
+          "yaw_drift_below_0p15_rad": true
+        },
+        "drive_world_vx_tracking_rmse_mps": 0.1922387338012324,
+        "drive_world_x_progress_m": 4.601122964612328,
+        "final_lateral_from_initial_m": 0.0015332122947384,
+        "final_position_m": [
+          7.416789687949277,
+          0.0015332122947384,
+          0.4650890835892948
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          2.75,
+          0.0,
+          0.455
+        ],
+        "integrated_duration_s": 18.000000000000902,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.02012780984919577,
+          4.6371891414204194e-06,
+          0.0002695053861371638
+        ],
+        "max_abs_lateral_from_initial_m": 0.0015506581401056791,
+        "max_abs_roll_pitch_rad": 0.17336133607642207,
+        "max_abs_yaw_from_initial_rad": 0.010242168664777191,
+        "raw_manifest_sha256": "5030849427f1a8c4f9e7fc8926cc0c2f541af2b4eef042c213727075a5c739b8",
+        "release_position_m": [
+          7.322066643231697,
+          0.001525342500708705,
+          0.4622779413694726
+        ],
+        "release_time_s": 14.0,
+        "requested_forward_zero_after_release": true,
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          }
+        ],
+        "steady_last_2s_world_vx_mps": 0.4827719980803717,
+        "steps": 1800,
+        "straight_and_brake_diagnostic_pass": true,
+        "time_to_vx_below_0p05_for_0p2s_s": 0.7000000000015785,
+        "torque_saturation_fraction": 0.0,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 50
+      },
+      "old_full_summary": {
+        "after_release_xyz_displacement_m": [
+          0.2110570748229108,
+          3.0172124786252696e-05,
+          0.002831407150004406
+        ],
+        "case": {
+          "arena": "course",
+          "duration_seconds": 18.0,
+          "gear": 3,
+          "key": "W",
+          "kind": "forward",
+          "name": "course_ramp_gear3",
+          "release_seconds": 14.0,
+          "target_mps": 0.5,
+          "zone": "ramp"
+        },
+        "diagnostic_checks": {
+          "attitude_below_0p3_rad": true,
+          "finite_and_torque_limits": true,
+          "last_second_abs_vx_below_0p05": true,
+          "lateral_drift_below_0p10_m": true,
+          "no_recovery": true,
+          "release_immediately_zero": true,
+          "steady_vx_within_25_percent": true,
+          "yaw_drift_below_0p15_rad": true
+        },
+        "drive_world_vx_tracking_rmse_mps": 0.1922387338012324,
+        "drive_world_x_progress_m": 4.601122964612328,
+        "final_lateral_from_initial_m": 0.0015555146254949577,
+        "final_position_m": [
+          7.533123718054608,
+          0.0015555146254949577,
+          0.465109348519477
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          2.75,
+          0.0,
+          0.455
+        ],
+        "integrated_duration_s": 18.000000000000902,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.0029910154264428594,
+          1.3221502776556346e-06,
+          0.00020441918928016056
+        ],
+        "max_abs_lateral_from_initial_m": 0.0015577657525533597,
+        "max_abs_roll_pitch_rad": 0.17336133607642207,
+        "max_abs_yaw_from_initial_rad": 0.010242168664777191,
+        "raw_manifest_sha256": "43557a52bfc67543a6b8124dc56068eb280bf6de0c075f834769ee7a37ea96f5",
+        "release_position_m": [
+          7.322066643231697,
+          0.001525342500708705,
+          0.4622779413694726
+        ],
+        "release_time_s": 14.0,
+        "requested_forward_zero_after_release": true,
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          }
+        ],
+        "steady_last_2s_world_vx_mps": 0.4827719980803717,
+        "steps": 1800,
+        "straight_and_brake_diagnostic_pass": true,
+        "time_to_vx_below_0p05_for_0p2s_s": 0.8800000000016386,
+        "torque_saturation_fraction": 0.0,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 50
+      },
+      "source_unchanged": true,
+      "unchanged_physics_checks": {
+        "pre_release_torque": true,
+        "qpos": true,
+        "qvel": true,
+        "segment_time_s": true
+      }
+    },
+    {
+      "braking_events": [
+        {
+          "brake_reference_event_count": "1",
+          "brake_reference_new_error_m": "0.0",
+          "brake_reference_previous_error_m": "0.5500000000000002",
+          "segment_before_time_s": "14.000000000001345",
+          "tick": "1401"
+        }
+      ],
+      "case": "course_stairs_gear1",
+      "compiled_model_identical": true,
+      "current_source_files": 50,
+      "new_full_summary": {
+        "after_release_xyz_displacement_m": [
+          -0.033480197968627556,
+          -1.8702829235550666e-05,
+          0.008484989805600085
+        ],
+        "case": {
+          "arena": "course",
+          "duration_seconds": 18.0,
+          "gear": 1,
+          "key": "W",
+          "kind": "forward",
+          "name": "course_stairs_gear1",
+          "release_seconds": 14.0,
+          "target_mps": 0.3,
+          "zone": "stairs"
+        },
+        "diagnostic_checks": {
+          "attitude_below_0p3_rad": true,
+          "finite_and_torque_limits": true,
+          "last_second_abs_vx_below_0p05": true,
+          "lateral_drift_below_0p10_m": true,
+          "no_recovery": true,
+          "release_immediately_zero": true,
+          "steady_vx_within_25_percent": false,
+          "yaw_drift_below_0p15_rad": true
+        },
+        "drive_world_vx_tracking_rmse_mps": 0.268584427158083,
+        "drive_world_x_progress_m": 0.5493734978013105,
+        "final_lateral_from_initial_m": 1.3628396092091322e-05,
+        "final_position_m": [
+          0.8582541653861147,
+          2.2000136283960923,
+          0.4671693879201198
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          0.35,
+          2.2,
+          0.455
+        ],
+        "integrated_duration_s": 18.000000000000902,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.0058053122953226595,
+          1.8252332214540146e-06,
+          0.002453206525666635
+        ],
+        "max_abs_lateral_from_initial_m": 6.537841826625979e-05,
+        "max_abs_roll_pitch_rad": 0.05744710200798221,
+        "max_abs_yaw_from_initial_rad": 0.000291364014146106,
+        "raw_manifest_sha256": "09fee78ccc3f73edf7adf7e31921c904f39bbce07c28b1ffe7667c63ee3f3a1c",
+        "release_position_m": [
+          0.8917343633547422,
+          2.200032331225328,
+          0.4586843981145197
+        ],
+        "release_time_s": 14.0,
+        "requested_forward_zero_after_release": true,
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          }
+        ],
+        "steady_last_2s_world_vx_mps": 2.1407479807992806e-05,
+        "steps": 1800,
+        "straight_and_brake_diagnostic_pass": false,
+        "time_to_vx_below_0p05_for_0p2s_s": 0.9700000000016686,
+        "torque_saturation_fraction": 0.0006944444444444445,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 950
+      },
+      "old_full_summary": {
+        "after_release_xyz_displacement_m": [
+          -0.020317400604206615,
+          -2.474045165978822e-05,
+          0.0046897710371747725
+        ],
+        "case": {
+          "arena": "course",
+          "duration_seconds": 18.0,
+          "gear": 1,
+          "key": "W",
+          "kind": "forward",
+          "name": "course_stairs_gear1",
+          "release_seconds": 14.0,
+          "target_mps": 0.3,
+          "zone": "stairs"
+        },
+        "diagnostic_checks": {
+          "attitude_below_0p3_rad": true,
+          "finite_and_torque_limits": true,
+          "last_second_abs_vx_below_0p05": true,
+          "lateral_drift_below_0p10_m": true,
+          "no_recovery": true,
+          "release_immediately_zero": true,
+          "steady_vx_within_25_percent": false,
+          "yaw_drift_below_0p15_rad": true
+        },
+        "drive_world_vx_tracking_rmse_mps": 0.268584427158083,
+        "drive_world_x_progress_m": 0.5493734978013105,
+        "final_lateral_from_initial_m": 7.590773667853767e-06,
+        "final_position_m": [
+          0.8714169627505356,
+          2.200007590773668,
+          0.4633741691516945
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          0.35,
+          2.2,
+          0.455
+        ],
+        "integrated_duration_s": 18.000000000000902,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.002973692808116417,
+          6.553103063304004e-06,
+          0.0002472976627780604
+        ],
+        "max_abs_lateral_from_initial_m": 6.537841826625979e-05,
+        "max_abs_roll_pitch_rad": 0.05744710200798221,
+        "max_abs_yaw_from_initial_rad": 0.000291364014146106,
+        "raw_manifest_sha256": "0b9e4b74bac985e30fc30ba0790648393b3d1d15e265c951a6c8185555a2b1d0",
+        "release_position_m": [
+          0.8917343633547422,
+          2.200032331225328,
+          0.4586843981145197
+        ],
+        "release_time_s": 14.0,
+        "requested_forward_zero_after_release": true,
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          }
+        ],
+        "steady_last_2s_world_vx_mps": 2.1407479807992806e-05,
+        "steps": 1800,
+        "straight_and_brake_diagnostic_pass": false,
+        "time_to_vx_below_0p05_for_0p2s_s": 1.3447021274259896e-12,
+        "torque_saturation_fraction": 0.0004166666666666667,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 950
+      },
+      "source_unchanged": true,
+      "unchanged_physics_checks": {
+        "pre_release_torque": true,
+        "qpos": true,
+        "qvel": true,
+        "segment_time_s": true
+      }
+    },
+    {
+      "braking_events": [
+        {
+          "brake_reference_event_count": "1",
+          "brake_reference_new_error_m": "0.0",
+          "brake_reference_previous_error_m": "0.55",
+          "segment_before_time_s": "14.000000000001345",
+          "tick": "1401"
+        }
+      ],
+      "case": "course_stairs_gear2",
+      "compiled_model_identical": true,
+      "current_source_files": 50,
+      "new_full_summary": {
+        "after_release_xyz_displacement_m": [
+          -0.06885903786261371,
+          3.079602404731929e-05,
+          -0.0008964999316709577
+        ],
+        "case": {
+          "arena": "course",
+          "duration_seconds": 18.0,
+          "gear": 2,
+          "key": "W",
+          "kind": "forward",
+          "name": "course_stairs_gear2",
+          "release_seconds": 14.0,
+          "target_mps": 0.4,
+          "zone": "stairs"
+        },
+        "diagnostic_checks": {
+          "attitude_below_0p3_rad": true,
+          "finite_and_torque_limits": true,
+          "last_second_abs_vx_below_0p05": true,
+          "lateral_drift_below_0p10_m": true,
+          "no_recovery": true,
+          "release_immediately_zero": true,
+          "steady_vx_within_25_percent": false,
+          "yaw_drift_below_0p15_rad": true
+        },
+        "drive_world_vx_tracking_rmse_mps": 0.34074847041622525,
+        "drive_world_x_progress_m": 0.9215159876865799,
+        "final_lateral_from_initial_m": 0.00010829236099318962,
+        "final_position_m": [
+          1.1950178153773978,
+          2.2001082923609934,
+          0.4737409917115196
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          0.35,
+          2.2,
+          0.455
+        ],
+        "integrated_duration_s": 18.000000000000902,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.027851133671254257,
+          1.2242126758106441e-05,
+          0.004824894673685253
+        ],
+        "max_abs_lateral_from_initial_m": 0.00025126442014444805,
+        "max_abs_roll_pitch_rad": 0.09145737372226283,
+        "max_abs_yaw_from_initial_rad": 0.0007382720842923312,
+        "raw_manifest_sha256": "8f3960e784cccaeadebe6079c777d6e51ce22ceef310d78849327666d6ee7741",
+        "release_position_m": [
+          1.2638768532400115,
+          2.200077496336946,
+          0.4746374916431906
+        ],
+        "release_time_s": 14.0,
+        "requested_forward_zero_after_release": true,
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          }
+        ],
+        "steady_last_2s_world_vx_mps": 0.009194738413627094,
+        "steps": 1800,
+        "straight_and_brake_diagnostic_pass": false,
+        "time_to_vx_below_0p05_for_0p2s_s": 1.3600000000017989,
+        "torque_saturation_fraction": 0.007430555555555556,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 828
+      },
+      "old_full_summary": {
+        "after_release_xyz_displacement_m": [
+          -0.07838162148249395,
+          6.756543696484485e-05,
+          -0.0023229049076228248
+        ],
+        "case": {
+          "arena": "course",
+          "duration_seconds": 18.0,
+          "gear": 2,
+          "key": "W",
+          "kind": "forward",
+          "name": "course_stairs_gear2",
+          "release_seconds": 14.0,
+          "target_mps": 0.4,
+          "zone": "stairs"
+        },
+        "diagnostic_checks": {
+          "attitude_below_0p3_rad": true,
+          "finite_and_torque_limits": true,
+          "last_second_abs_vx_below_0p05": false,
+          "lateral_drift_below_0p10_m": true,
+          "no_recovery": true,
+          "release_immediately_zero": true,
+          "steady_vx_within_25_percent": false,
+          "yaw_drift_below_0p15_rad": true
+        },
+        "drive_world_vx_tracking_rmse_mps": 0.34074847041622525,
+        "drive_world_x_progress_m": 0.9215159876865799,
+        "final_lateral_from_initial_m": 0.00014506177391071517,
+        "final_position_m": [
+          1.1854952317575176,
+          2.200145061773911,
+          0.47231458673556775
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          0.35,
+          2.2,
+          0.455
+        ],
+        "integrated_duration_s": 18.000000000000902,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.0538751977143571,
+          1.391305071641529e-05,
+          0.01040023980313308
+        ],
+        "max_abs_lateral_from_initial_m": 0.00025126442014444805,
+        "max_abs_roll_pitch_rad": 0.09145737372226283,
+        "max_abs_yaw_from_initial_rad": 0.0007382720842923312,
+        "raw_manifest_sha256": "88d925f2c6e0043f62a0458a05bb6ef69b3819fb487163f166ca726a97f7c4f9",
+        "release_position_m": [
+          1.2638768532400115,
+          2.200077496336946,
+          0.4746374916431906
+        ],
+        "release_time_s": 14.0,
+        "requested_forward_zero_after_release": true,
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          }
+        ],
+        "steady_last_2s_world_vx_mps": 0.009194738413627094,
+        "steps": 1800,
+        "straight_and_brake_diagnostic_pass": false,
+        "time_to_vx_below_0p05_for_0p2s_s": 1.3447021274259896e-12,
+        "torque_saturation_fraction": 0.007222222222222222,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 828
+      },
+      "source_unchanged": true,
+      "unchanged_physics_checks": {
+        "pre_release_torque": true,
+        "qpos": true,
+        "qvel": true,
+        "segment_time_s": true
+      }
+    },
+    {
+      "braking_events": [
+        {
+          "brake_reference_event_count": "1",
+          "brake_reference_new_error_m": "0.0",
+          "brake_reference_previous_error_m": "0.5499999999999998",
+          "segment_before_time_s": "14.000000000001345",
+          "tick": "1401"
+        }
+      ],
+      "case": "course_stairs_gear3",
+      "compiled_model_identical": true,
+      "current_source_files": 50,
+      "new_full_summary": {
+        "after_release_xyz_displacement_m": [
+          0.11751162359773604,
+          -0.00013696776078564454,
+          -0.011851662648703243
+        ],
+        "case": {
+          "arena": "course",
+          "duration_seconds": 18.0,
+          "gear": 3,
+          "key": "W",
+          "kind": "forward",
+          "name": "course_stairs_gear3",
+          "release_seconds": 14.0,
+          "target_mps": 0.5,
+          "zone": "stairs"
+        },
+        "diagnostic_checks": {
+          "attitude_below_0p3_rad": true,
+          "finite_and_torque_limits": true,
+          "last_second_abs_vx_below_0p05": true,
+          "lateral_drift_below_0p10_m": true,
+          "no_recovery": true,
+          "release_immediately_zero": true,
+          "steady_vx_within_25_percent": true,
+          "yaw_drift_below_0p15_rad": true
+        },
+        "drive_world_vx_tracking_rmse_mps": 0.2508626774652066,
+        "drive_world_x_progress_m": 3.4425732192889655,
+        "final_lateral_from_initial_m": 0.0007590249691515893,
+        "final_position_m": [
+          3.9024457084401334,
+          2.2007590249691518,
+          0.48522382026185856
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          0.35,
+          2.2,
+          0.455
+        ],
+        "integrated_duration_s": 18.000000000000902,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.02538848292195247,
+          3.530778566409334e-05,
+          0.00018892592452701064
+        ],
+        "max_abs_lateral_from_initial_m": 0.0018309401107066137,
+        "max_abs_roll_pitch_rad": 0.09361551743721243,
+        "max_abs_yaw_from_initial_rad": 0.0038119280103312437,
+        "raw_manifest_sha256": "7bc332e0d10418a68b79bfbc7360d47567e557c36a0d046fedc513d5639d8153",
+        "release_position_m": [
+          3.7849340848423974,
+          2.2008959927299374,
+          0.4970754829105618
+        ],
+        "release_time_s": 14.0,
+        "requested_forward_zero_after_release": true,
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          }
+        ],
+        "steady_last_2s_world_vx_mps": 0.47075016982266066,
+        "steps": 1800,
+        "straight_and_brake_diagnostic_pass": true,
+        "time_to_vx_below_0p05_for_0p2s_s": 0.7000000000015785,
+        "torque_saturation_fraction": 0.0021875,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 139
+      },
+      "old_full_summary": {
+        "after_release_xyz_displacement_m": [
+          0.49714478349403857,
+          -3.0104816906018073e-05,
+          -0.02658146777128173
+        ],
+        "case": {
+          "arena": "course",
+          "duration_seconds": 18.0,
+          "gear": 3,
+          "key": "W",
+          "kind": "forward",
+          "name": "course_stairs_gear3",
+          "release_seconds": 14.0,
+          "target_mps": 0.5,
+          "zone": "stairs"
+        },
+        "diagnostic_checks": {
+          "attitude_below_0p3_rad": true,
+          "finite_and_torque_limits": true,
+          "last_second_abs_vx_below_0p05": false,
+          "lateral_drift_below_0p10_m": true,
+          "no_recovery": true,
+          "release_immediately_zero": true,
+          "steady_vx_within_25_percent": true,
+          "yaw_drift_below_0p15_rad": true
+        },
+        "drive_world_vx_tracking_rmse_mps": 0.2508626774652066,
+        "drive_world_x_progress_m": 3.4425732192889655,
+        "final_lateral_from_initial_m": 0.0008658879130312158,
+        "final_position_m": [
+          4.282078868336436,
+          2.2008658879130314,
+          0.4704940151392801
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          0.35,
+          2.2,
+          0.455
+        ],
+        "integrated_duration_s": 18.000000000000902,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.13294533498492006,
+          0.0003174945396559698,
+          0.020921150608268043
+        ],
+        "max_abs_lateral_from_initial_m": 0.0018309401107066137,
+        "max_abs_roll_pitch_rad": 0.09361551743721243,
+        "max_abs_yaw_from_initial_rad": 0.0038119280103312437,
+        "raw_manifest_sha256": "9697562ca6ca44f495c20d186d89c0f525a8a06505e4ccbdde7e24ff99c8b679",
+        "release_position_m": [
+          3.7849340848423974,
+          2.2008959927299374,
+          0.4970754829105618
+        ],
+        "release_time_s": 14.0,
+        "requested_forward_zero_after_release": true,
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          }
+        ],
+        "steady_last_2s_world_vx_mps": 0.47075016982266066,
+        "steps": 1800,
+        "straight_and_brake_diagnostic_pass": false,
+        "time_to_vx_below_0p05_for_0p2s_s": 2.1500000000019277,
+        "torque_saturation_fraction": 0.0021875,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 139
+      },
+      "source_unchanged": true,
+      "unchanged_physics_checks": {
+        "pre_release_torque": true,
+        "qpos": true,
+        "qvel": true,
+        "segment_time_s": true
+      }
+    }
+  ],
+  "input_sha256": {
+    "forward_02/course_ramp_gear1/manifest.json": "5fe9aa96b91ab07d5ae65b78c026e4ec1938f579f7dec402a47f0bf9455c7cfb",
+    "forward_02/course_ramp_gear1/protocol.json": "9121d3b890ec215ad0b76d1ee829f43ac3db99d4e18cf974079d6d7078e6b1b8",
+    "forward_02/course_ramp_gear1/states.npz": "cb51505d2f5836231f539efd143159b41ce736d7fe6445722716ec9887595a25",
+    "forward_02/course_ramp_gear1/summary.json": "8cbc05f4d128506ddace1b6869828a8c03184aa84eb323eb4c0a4a0b921bc9dd",
+    "forward_02/course_ramp_gear1/telemetry.csv": "1fc3582391ca0b88eb14ca2fe0618249d04cb651e901257c83fa75f9b09d2169",
+    "forward_02/course_ramp_gear2/manifest.json": "2ab8312ba10ce0e46b2abfcf4f4f4ac745ab0ccb9160b11e44ac6449883818c4",
+    "forward_02/course_ramp_gear2/protocol.json": "9121d3b890ec215ad0b76d1ee829f43ac3db99d4e18cf974079d6d7078e6b1b8",
+    "forward_02/course_ramp_gear2/states.npz": "a9f1e8bd40a0b87eca86ab8e9968bf443827c26dd9ac08ddd50404cd0557b0fe",
+    "forward_02/course_ramp_gear2/summary.json": "cae726997305290a6b1593e1df77ca99dcdb72b83baffb13fab3312666061908",
+    "forward_02/course_ramp_gear2/telemetry.csv": "1e59cce8c6b5f94b485f2fdfc768f30b4968aefd4be7c8f0b665bb38076172e7",
+    "forward_02/course_ramp_gear3/manifest.json": "43557a52bfc67543a6b8124dc56068eb280bf6de0c075f834769ee7a37ea96f5",
+    "forward_02/course_ramp_gear3/protocol.json": "9121d3b890ec215ad0b76d1ee829f43ac3db99d4e18cf974079d6d7078e6b1b8",
+    "forward_02/course_ramp_gear3/states.npz": "36bd4bbaeae5aabac860f6445393845b97e2e041b5526ae4173e986291efc5a6",
+    "forward_02/course_ramp_gear3/summary.json": "fd19f51a2650a3ec69f1014f59cc0188be6638cf2a0095b31a7a6ee58e70ba4e",
+    "forward_02/course_ramp_gear3/telemetry.csv": "d8f256476091698345d3719f5517b0efab6153f8d7ac916c4384e4201655df03",
+    "forward_02/course_rough_gear1/manifest.json": "e9f7d1a3c1c6f43dcc022ee95dba90d66413c889d72d83d6895577e15427e12b",
+    "forward_02/course_rough_gear1/protocol.json": "d3f21c13233591f0ef8861d27e6ae4dbb327b818026df7fc1738a87d097a2802",
+    "forward_02/course_rough_gear1/states.npz": "f0fee5e4e0f4bf62ac56aae7ea529467a0c993228ff60cd46c6e30f63789923d",
+    "forward_02/course_rough_gear1/summary.json": "7998818d5978cc20e95e62ec1e4b21c9c30971bd36833a1ffacbfeed88b0ba8e",
+    "forward_02/course_rough_gear1/telemetry.csv": "51dc626c025b4c2c581a82312bf87fded96354fdb7c7e9f426f21e8fabfe11ed",
+    "forward_02/course_rough_gear2/manifest.json": "5a7bd6e395c05796a1a2a958f1fa155dee684cc1f96fbfa291d6a5b009ce80eb",
+    "forward_02/course_rough_gear2/protocol.json": "d3f21c13233591f0ef8861d27e6ae4dbb327b818026df7fc1738a87d097a2802",
+    "forward_02/course_rough_gear2/states.npz": "1927e1747f547a35e86ead20939d7c6a3641b288076ff56c18482aa8d5bd4e52",
+    "forward_02/course_rough_gear2/summary.json": "cb8cbc1b87e62f46ef21858db4341831d18d25b85112482ea50a24781b357b60",
+    "forward_02/course_rough_gear2/telemetry.csv": "85ec3a2b09dd79f09b8a9e0dcbe327479eff8f8ca3d8a44fa0c8917e1daade11",
+    "forward_02/course_rough_gear3/manifest.json": "b471fa39b2d4a0272985a564f594304a1aa017cf6a4c9511689a6b9f610227b8",
+    "forward_02/course_rough_gear3/protocol.json": "d3f21c13233591f0ef8861d27e6ae4dbb327b818026df7fc1738a87d097a2802",
+    "forward_02/course_rough_gear3/states.npz": "4eb2b9c1d3ff01d2a06e2b9f4393b3b1f7b1a99f333dee948a2b9f1105a5c0f3",
+    "forward_02/course_rough_gear3/summary.json": "3f21b660af9ad6aca85f19cbf42d0babf424a11fc1e6600a6fc59fe4f81f0f1f",
+    "forward_02/course_rough_gear3/telemetry.csv": "15d5bc5c1f327bb03121b452580d4dd33b2467927c1ba5ae41f0426463f54d14",
+    "forward_02/course_stairs_gear1/manifest.json": "0b9e4b74bac985e30fc30ba0790648393b3d1d15e265c951a6c8185555a2b1d0",
+    "forward_02/course_stairs_gear1/protocol.json": "d34c09c6d45f6fc74d311e2a8f372d976a567a265eb82533ab660fcbf53b1f24",
+    "forward_02/course_stairs_gear1/states.npz": "f0622f9a6ce5a830464cfbcfb58a1ca53804433d421306028b7877641a5d1472",
+    "forward_02/course_stairs_gear1/summary.json": "6b6b34b35122de5cd344ee73de6d6aac167a0fc3be8b9b056afbf669032ab394",
+    "forward_02/course_stairs_gear1/telemetry.csv": "ef00d8bdc730bf3ce6cd7f66a6bf9a657a5949f805c019962d2b07cdb08ed98d",
+    "forward_02/course_stairs_gear2/manifest.json": "88d925f2c6e0043f62a0458a05bb6ef69b3819fb487163f166ca726a97f7c4f9",
+    "forward_02/course_stairs_gear2/protocol.json": "d34c09c6d45f6fc74d311e2a8f372d976a567a265eb82533ab660fcbf53b1f24",
+    "forward_02/course_stairs_gear2/states.npz": "569bc169275a7814982785f65cbb89dd577d0b0fe68ca77c09b194eef2b8c4f1",
+    "forward_02/course_stairs_gear2/summary.json": "7460266c168a90d1b8512cdc1e111c88288c5fc7942bd4e5594aa0475df3e5f5",
+    "forward_02/course_stairs_gear2/telemetry.csv": "cdfada90b2d58009db2ff1ef6d91a773023ee83742afbf009d753b8b896559e8",
+    "forward_02/course_stairs_gear3/manifest.json": "9697562ca6ca44f495c20d186d89c0f525a8a06505e4ccbdde7e24ff99c8b679",
+    "forward_02/course_stairs_gear3/protocol.json": "d34c09c6d45f6fc74d311e2a8f372d976a567a265eb82533ab660fcbf53b1f24",
+    "forward_02/course_stairs_gear3/states.npz": "3818036409afbf6fa7291d32e39a09f9e871eb93d290aa66d80b86b2e37b1b81",
+    "forward_02/course_stairs_gear3/summary.json": "c09da6cc9c48eda81a9c6b038fb9e9519d6d294fd021a7de0bd6ca511b0dc0f3",
+    "forward_02/course_stairs_gear3/telemetry.csv": "6b966bab99f2a9f28a91f001219a8414e42ba399741d0dd597faffc4dad7ec9a",
+    "forward_02/flat_start_gear1/manifest.json": "786b759587d8fd434e8008c3a266f4053333f5bf391930779367dbe6b5f61c21",
+    "forward_02/flat_start_gear1/protocol.json": "0d4688b16a27fddfd65335b350987fc6c5ad5ea65cd43619204eb268c8589c97",
+    "forward_02/flat_start_gear1/states.npz": "1b1fff75d8b29ef85bb340cf7b68c1e66e893128bb8e291bd26e6cdd45de04a0",
+    "forward_02/flat_start_gear1/summary.json": "5b9f667c584489c0c902746889dbd2922f6c2daf78f800cc550b6d8b58c091be",
+    "forward_02/flat_start_gear1/telemetry.csv": "7d2b5f16756bd81442b25d4f102a7b3e4344c8fdac4598e1ea144b3150233633",
+    "forward_02/flat_start_gear2/manifest.json": "dc64a6fb4dca58543591e8f8f514fd4c9fb7e5930e224b487f532f0b0460536b",
+    "forward_02/flat_start_gear2/protocol.json": "0d4688b16a27fddfd65335b350987fc6c5ad5ea65cd43619204eb268c8589c97",
+    "forward_02/flat_start_gear2/states.npz": "7d71d77d6e2b606b618eb78473e93c2c4242552653e2379bd2ba15530b3b693a",
+    "forward_02/flat_start_gear2/summary.json": "0402c773b765c244dfb4f5b178a5f346950b9be12b44d6b884dafe221262b596",
+    "forward_02/flat_start_gear2/telemetry.csv": "735cf52e0d7121f3c7997ca01c884f51a317c6584c81db081fa47f7c902f28fb",
+    "forward_02/flat_start_gear3/manifest.json": "512c6289ede7cf89ca62d1ce8093fee96a8c89bcebe06006e934f21dfb419bad",
+    "forward_02/flat_start_gear3/protocol.json": "0d4688b16a27fddfd65335b350987fc6c5ad5ea65cd43619204eb268c8589c97",
+    "forward_02/flat_start_gear3/states.npz": "4313922b05c324eee3086630b1ed04375aefdc0b5222c525f1ef05558f5dd9bf",
+    "forward_02/flat_start_gear3/summary.json": "d6a4d2241746d7c0f26644dac3251cfa03b70135b8fa731bffde75f58fcd7c98",
+    "forward_02/flat_start_gear3/telemetry.csv": "3f5352ac4b522cd15ccf26c7e10a8ede8642cd43dbd27b22c0eea9aeb2fa5317",
+    "forward_braking_01/course_ramp_gear1/manifest.json": "1d37d8b1a76618e28cb3b05c3e3b01d196e160040e34d02b1858c22dbd843604",
+    "forward_braking_01/course_ramp_gear1/protocol.json": "bc85e12994d43e329e732decfa43404a16dde08981d098a19b2366acdaccf067",
+    "forward_braking_01/course_ramp_gear1/states.npz": "29cc142b34ce2e583b019942d1509542b95941f094f17f00390018a848d39be4",
+    "forward_braking_01/course_ramp_gear1/summary.json": "4f619ce52fae864d1c5305d86997050cbf4fd1964da75272b48381ae3244d9fa",
+    "forward_braking_01/course_ramp_gear1/telemetry.csv": "7e1e73e7a1a39fb85a2c4be3b19363ae577694ceb6c9020fe60cca20933e4942",
+    "forward_braking_01/course_ramp_gear2/manifest.json": "c37de3f1d6f4f4600d15b178c8a941bd21a0f3d5d57c108ed57560d1e171dac5",
+    "forward_braking_01/course_ramp_gear2/protocol.json": "bc85e12994d43e329e732decfa43404a16dde08981d098a19b2366acdaccf067",
+    "forward_braking_01/course_ramp_gear2/states.npz": "b865e9f308e93ba0db0d68d7bf909f82618198c34b494e6356c6579bad2e72e4",
+    "forward_braking_01/course_ramp_gear2/summary.json": "5f5a2387fbc62552025fbdd179d9933047c8be053cfd738e625ce47e53457faf",
+    "forward_braking_01/course_ramp_gear2/telemetry.csv": "05746ef58489d30072b4c5c4ea8efb8a9dd296d335834ec0c87f32dea127560e",
+    "forward_braking_01/course_ramp_gear3/manifest.json": "5030849427f1a8c4f9e7fc8926cc0c2f541af2b4eef042c213727075a5c739b8",
+    "forward_braking_01/course_ramp_gear3/protocol.json": "bc85e12994d43e329e732decfa43404a16dde08981d098a19b2366acdaccf067",
+    "forward_braking_01/course_ramp_gear3/states.npz": "4f155cb4922ab408a799393faf3af0104275452657c66ece0e051fa8e2a42db0",
+    "forward_braking_01/course_ramp_gear3/summary.json": "29ade8e221dc12ab02835e2aeb8e9977ddbc3006cabef7163ba3980ad478de0b",
+    "forward_braking_01/course_ramp_gear3/telemetry.csv": "db79c3e6e7b92a460f273af429c680bcdf6727025ef672b2d9241a7ce6076f8a",
+    "forward_braking_01/course_rough_gear1/manifest.json": "68dc652036cc99ff85b50948d04941e92c2612b1f3c99450386d3719a5cfb251",
+    "forward_braking_01/course_rough_gear1/protocol.json": "b5bc2b4bb689e6f23231e1d7c13f3b4c5d8691cc90a9ebc82167bdfc13ed6d90",
+    "forward_braking_01/course_rough_gear1/states.npz": "a577382e5dcfd72d41f1165ce9af871b4f789a71eab99d198509196a2970c12b",
+    "forward_braking_01/course_rough_gear1/summary.json": "5f2c8c477dc517bca907a2d02e31e42f2edf465754f2c8c85eeb9e6fc7467667",
+    "forward_braking_01/course_rough_gear1/telemetry.csv": "6e4b7bfb61d3288777eeb819b884dafcbe784126a82c373827487f4272f14596",
+    "forward_braking_01/course_rough_gear2/manifest.json": "277347f83d44a185116e86cdbb75e9245f65e07db229093c6cb12b778f9d1cc9",
+    "forward_braking_01/course_rough_gear2/protocol.json": "b5bc2b4bb689e6f23231e1d7c13f3b4c5d8691cc90a9ebc82167bdfc13ed6d90",
+    "forward_braking_01/course_rough_gear2/states.npz": "a1b45337ef124ac1cfcfd01103efb05a20f8fec0e7f464a0095ffca6bcbb29aa",
+    "forward_braking_01/course_rough_gear2/summary.json": "e0a6a98c30671874cfeec75d79ba315b929fc149dcb39946251ba9bb0f02ffbd",
+    "forward_braking_01/course_rough_gear2/telemetry.csv": "c90bf8e7f244defee10dd17c4d4fd2e429ee28b047e87df84911e57b72d42b2f",
+    "forward_braking_01/course_rough_gear3/manifest.json": "ff8fd7f547dfffc0c1f00e7deaad065622684753e1d0309b6e1b9b552cf82d1f",
+    "forward_braking_01/course_rough_gear3/protocol.json": "b5bc2b4bb689e6f23231e1d7c13f3b4c5d8691cc90a9ebc82167bdfc13ed6d90",
+    "forward_braking_01/course_rough_gear3/states.npz": "3cf34e6c4ba6a64c8a678a90bb8a5116c7ee5429ac2f8729d5311fecc40620f1",
+    "forward_braking_01/course_rough_gear3/summary.json": "4959a99a7f1fc52834aae51c51a884b6e9fc88a6b7c4aadbd5df9c145f517e89",
+    "forward_braking_01/course_rough_gear3/telemetry.csv": "7a022d154b35bbbc50aeee2218e0230d2fdc56a42c5032a4b69b61dcb4c76f6f",
+    "forward_braking_01/course_stairs_gear1/manifest.json": "09fee78ccc3f73edf7adf7e31921c904f39bbce07c28b1ffe7667c63ee3f3a1c",
+    "forward_braking_01/course_stairs_gear1/protocol.json": "e0d53896789cbad3b61cae24dd2943a56ffa8224a64c9b4ea8dafbdeabd8f5c4",
+    "forward_braking_01/course_stairs_gear1/states.npz": "4e428c14c41c809874cb9d3d5b8cbfb874dd4dca6026b6aa30effce75594abcd",
+    "forward_braking_01/course_stairs_gear1/summary.json": "ca8afdd216637496561a9572dbca330fe2a3f51992e3e2d5abdd000a3a2dd54f",
+    "forward_braking_01/course_stairs_gear1/telemetry.csv": "1c564c443751f969c58a71bcc375957aff2eb47ef5b2275f320248bb60796dab",
+    "forward_braking_01/course_stairs_gear2/manifest.json": "8f3960e784cccaeadebe6079c777d6e51ce22ceef310d78849327666d6ee7741",
+    "forward_braking_01/course_stairs_gear2/protocol.json": "e0d53896789cbad3b61cae24dd2943a56ffa8224a64c9b4ea8dafbdeabd8f5c4",
+    "forward_braking_01/course_stairs_gear2/states.npz": "f15a655254ac8309aecfb559371cf6a9fbdbd73eae749845b9ef2854c938a28e",
+    "forward_braking_01/course_stairs_gear2/summary.json": "f57d7a43b624e13eec5b22938379037367b76053b34a3df046cff53f9c635302",
+    "forward_braking_01/course_stairs_gear2/telemetry.csv": "43feee979ef99709bf2969fdaac7f289bf8360dc604f6dc6a36308b7dffe3f3b",
+    "forward_braking_01/course_stairs_gear3/manifest.json": "7bc332e0d10418a68b79bfbc7360d47567e557c36a0d046fedc513d5639d8153",
+    "forward_braking_01/course_stairs_gear3/protocol.json": "e0d53896789cbad3b61cae24dd2943a56ffa8224a64c9b4ea8dafbdeabd8f5c4",
+    "forward_braking_01/course_stairs_gear3/states.npz": "41dcbab68ac56e38b6bca76861c733639ef313903bcb06f99e052d8b8d9e1a7e",
+    "forward_braking_01/course_stairs_gear3/summary.json": "f590d09b69463979cdd65b2664d451e5c16ea8aa3b59afddb6293c47843f7aee",
+    "forward_braking_01/course_stairs_gear3/telemetry.csv": "e9774df2f79eeeb743bf8a9b6a4d3b8e8613b4a67c8b5ae37e78694fd34cec44",
+    "forward_braking_01/flat_start_gear1/manifest.json": "e06d0b401c4f9f09fa9de955f957a36dacbcea89bfc0ef98ae3b3200a08fd590",
+    "forward_braking_01/flat_start_gear1/protocol.json": "60eaa4ca1c8ec493fd6ca99960795ff2a10dad24cc9e59fad2dfb0a5604b0782",
+    "forward_braking_01/flat_start_gear1/states.npz": "2e5e62cf982ff5810bcf1d2992d2bc3505f1641cf9fba2e2f83342d6b46919dc",
+    "forward_braking_01/flat_start_gear1/summary.json": "06f882a6e7075adeb3ae221a1009951dd3e786d3135ef17b96b6282081bdfc59",
+    "forward_braking_01/flat_start_gear1/telemetry.csv": "ea0cde3b51fbf2e346c8bf6dba59cd620694662612c0a08a13c4346a61c0861d",
+    "forward_braking_01/flat_start_gear2/manifest.json": "86b63add9ff0df5b04c594088a14c26a9e3ea670334cf2f05825108c76936659",
+    "forward_braking_01/flat_start_gear2/protocol.json": "60eaa4ca1c8ec493fd6ca99960795ff2a10dad24cc9e59fad2dfb0a5604b0782",
+    "forward_braking_01/flat_start_gear2/states.npz": "8b4e1dd9f7e856b7defe43ae18e960a695635718c93f9f3c20bb10e402780d97",
+    "forward_braking_01/flat_start_gear2/summary.json": "a5ed4798f6cfc555fac8e905076cca75295f45a86404344a6e428b317f5deaa0",
+    "forward_braking_01/flat_start_gear2/telemetry.csv": "3e206957a5dea78e6bb59f360c2f29b23e96f74649c8ddc89762d86955866d15",
+    "forward_braking_01/flat_start_gear3/manifest.json": "d8a23a3002f524d7bf03d6b599cd0276c04f8f79452b16a129653e38e4e8e55d",
+    "forward_braking_01/flat_start_gear3/protocol.json": "60eaa4ca1c8ec493fd6ca99960795ff2a10dad24cc9e59fad2dfb0a5604b0782",
+    "forward_braking_01/flat_start_gear3/states.npz": "3e913528a599d323a68be3d78e0868d056b0359e76ee3c92e03fdd5216071220",
+    "forward_braking_01/flat_start_gear3/summary.json": "5442d68b7d1c341492fb5a70a449af4d7c529765d217cfdd39ab525d1f8d78fc",
+    "forward_braking_01/flat_start_gear3/telemetry.csv": "473f9fff339fafec23977dfcdfb5494fe05c021d21839dd286e7894d4b65ac0d",
+    "side_01/course_start_A_one_cycle/manifest.json": "d351155eb0d6251eea195cdb97915c5618d59ef910f6fa27c6d0c34062d33866",
+    "side_01/course_start_A_one_cycle/protocol.json": "fcdf28ee1828ef425f4e71e78333fc63a939a66c3db47180d075e358deb1de1d",
+    "side_01/course_start_A_one_cycle/states.npz": "6fa8d1b916562ee0e1b206ef8b13314dc8a924e97d5a3e411b14f2390474b2ac",
+    "side_01/course_start_A_one_cycle/summary.json": "c4bbe8ce04d31e0f8d66376d3a31171d988c66d38a683fcd372b964483d63abc",
+    "side_01/course_start_A_one_cycle/telemetry.csv": "aad4b5d2eb160a008377274eb90e37a3e785c61a89d5a617d57e567d46221029",
+    "side_01/course_start_A_short/manifest.json": "cf58787eb8e663136f57ef79ce20172de664d6ce008725bef7532700cce9c24e",
+    "side_01/course_start_A_short/protocol.json": "81ba2b0f8b0000d8084a76bcc09d3739e746b28b6591115b2ca3fbc3bf4c5b76",
+    "side_01/course_start_A_short/states.npz": "08b6ecab9cf40d8b53684a8ad7579fc187765ec94385a993dbaea980365e31e0",
+    "side_01/course_start_A_short/summary.json": "69117d354039ea197f1b9fb1935491bf8f82237af7e8d8b810434c9b54aadd22",
+    "side_01/course_start_A_short/telemetry.csv": "cac9daaab3a42c56612107ac8bd00133dc684d252d172573fdbc1fa8b3627e31",
+    "side_01/course_start_D_one_cycle/manifest.json": "48ab498204779862a3725451828cd1f267001831ea601d9043ce6d50978cb34d",
+    "side_01/course_start_D_one_cycle/protocol.json": "fcdf28ee1828ef425f4e71e78333fc63a939a66c3db47180d075e358deb1de1d",
+    "side_01/course_start_D_one_cycle/states.npz": "adf3fd11b334b6270023be93589848fd4c3bb6fecad1c0667df5927e33f93ede",
+    "side_01/course_start_D_one_cycle/summary.json": "14cc663923d90d94c3700e8d6a9ceed8ddc4e0569e921c0a562195aa967fb4a5",
+    "side_01/course_start_D_one_cycle/telemetry.csv": "d166893944fc88d2b60d1fa89defe91da67cf0476b54f9ee2d28d60c34030fed",
+    "side_01/course_start_D_short/manifest.json": "966443e9e418897cd7c1cc04fc925de106f545bff3f6af582b9087faef0ea287",
+    "side_01/course_start_D_short/protocol.json": "81ba2b0f8b0000d8084a76bcc09d3739e746b28b6591115b2ca3fbc3bf4c5b76",
+    "side_01/course_start_D_short/states.npz": "db5dcb59f4bd68c68183de0be27887f9a86cc01c6da16b13adf9f289fc3b87cc",
+    "side_01/course_start_D_short/summary.json": "d6c8179e250db6164d8965473552f1d886f9ab1ad85bee797f592639248efe18",
+    "side_01/course_start_D_short/telemetry.csv": "32fa3a697336ff5d6b1428852ae0f1764852ac42c9dc75880cc60be1a61cebfe",
+    "side_braking_01/course_start_A_one_cycle/manifest.json": "0421a414893e73e6086627aeab86e1e75db0907cb1a565405f9c973fd3377b1b",
+    "side_braking_01/course_start_A_one_cycle/protocol.json": "ca547a0fc7f2a97ce0b181f6270c7135b92f1f178a042cf853f3c7f45901a29d",
+    "side_braking_01/course_start_A_one_cycle/states.npz": "6fa8d1b916562ee0e1b206ef8b13314dc8a924e97d5a3e411b14f2390474b2ac",
+    "side_braking_01/course_start_A_one_cycle/summary.json": "5108097e74b4e26338c1c2d10b6a7d80ac5556e1c14f8198b79ac0b57491d21e",
+    "side_braking_01/course_start_A_one_cycle/telemetry.csv": "cb7109de0a20edacc9767fb9d34b36e0cc929ece46b971113633f628174ea7d8",
+    "side_braking_01/course_start_A_short/manifest.json": "235da5f55ed82936898ae96803515a0aa6ced69aad70c9f2d0a0a4728dc26f0b",
+    "side_braking_01/course_start_A_short/protocol.json": "64be366c0df12ed3f79055e95e0ebf37dcbf4882823d1ad78a23af62cb6bf537",
+    "side_braking_01/course_start_A_short/states.npz": "08b6ecab9cf40d8b53684a8ad7579fc187765ec94385a993dbaea980365e31e0",
+    "side_braking_01/course_start_A_short/summary.json": "2bacc1843a4c70f6cc170d2d8a6902484f6615f43869a75feb54603cc8389120",
+    "side_braking_01/course_start_A_short/telemetry.csv": "1fb8e0c4e636c0b174296a43bc434d1aab3481d420b662d30297544e8845d414",
+    "side_braking_01/course_start_D_one_cycle/manifest.json": "2b601387c2729be26c7030ea75dbf481cd36760f1ff771915cc632c1e654ccab",
+    "side_braking_01/course_start_D_one_cycle/protocol.json": "ca547a0fc7f2a97ce0b181f6270c7135b92f1f178a042cf853f3c7f45901a29d",
+    "side_braking_01/course_start_D_one_cycle/states.npz": "adf3fd11b334b6270023be93589848fd4c3bb6fecad1c0667df5927e33f93ede",
+    "side_braking_01/course_start_D_one_cycle/summary.json": "1311eb9337a522a3f5d434372d50528f48545f69cc1c95a54454e0c6b7e07c19",
+    "side_braking_01/course_start_D_one_cycle/telemetry.csv": "00dcbbb321b9d2a340f502d15382ec5db50fb8f10545298000532c91191ce14a",
+    "side_braking_01/course_start_D_short/manifest.json": "8fb77ea0cd852b0d457ea6141c97480c046f2284438029532f35369f498c790b",
+    "side_braking_01/course_start_D_short/protocol.json": "64be366c0df12ed3f79055e95e0ebf37dcbf4882823d1ad78a23af62cb6bf537",
+    "side_braking_01/course_start_D_short/states.npz": "db5dcb59f4bd68c68183de0be27887f9a86cc01c6da16b13adf9f289fc3b87cc",
+    "side_braking_01/course_start_D_short/summary.json": "de100b038f76baac2f0c17d2feb00fd002f35cc0c01705e4288ebac1f661f28f",
+    "side_braking_01/course_start_D_short/telemetry.csv": "e8f72f58a25542bbda730a22e565d7ba430ee42133d6a5c8dec3c60681073f9b"
+  },
+  "side": [
+    {
+      "braking_events": [],
+      "case": "course_start_A_short",
+      "compiled_model_identical": true,
+      "current_source_files": 50,
+      "new_full_summary": {
+        "after_release_xyz_displacement_m": [
+          -0.009688188799024538,
+          0.028187513440217842,
+          -4.119791865997424e-05
+        ],
+        "case": {
+          "arena": "course",
+          "duration_seconds": 10.0,
+          "gear": 1,
+          "key": "A",
+          "kind": "side",
+          "name": "course_start_A_short",
+          "release_mode": "short",
+          "release_seconds": 3.0,
+          "zone": "start"
+        },
+        "final_lateral_from_initial_m": -0.00013298243517972255,
+        "final_position_m": [
+          0.012766108727383617,
+          -0.00013298243517972255,
+          0.4655762494710004
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          0.0,
+          0.0,
+          0.455
+        ],
+        "integrated_duration_s": 10.000000000000009,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.003070658569154781,
+          1.0332513200942751e-05,
+          0.00011350182648685679
+        ],
+        "max_abs_lateral_from_initial_m": 0.028643510535794947,
+        "max_abs_roll_pitch_rad": 0.007793149961732836,
+        "max_abs_yaw_from_initial_rad": 0.023468932257183116,
+        "raw_manifest_sha256": "235da5f55ed82936898ae96803515a0aa6ced69aad70c9f2d0a0a4728dc26f0b",
+        "release_position_m": [
+          0.022454297526408155,
+          -0.028320495875397565,
+          0.4656174473896604
+        ],
+        "release_time_s": 3.0,
+        "requested_forward_zero_after_release": true,
+        "side_handoffs": [
+          {
+            "all_motor_torque_jump_l2_nm": 15.652406664864124,
+            "failure": "cancelled",
+            "measured_after_seconds": 3.99999999999956,
+            "phase": "failed",
+            "position_m": [
+              0.02520123941212588,
+              -0.028643510535794947,
+              0.4654516430060015
+            ],
+            "retention_fraction": 0.004579976372306914,
+            "signed_lateral_at_handoff_m": -0.028647182765092694,
+            "signed_lateral_retained_m": -0.0001312034201972824,
+            "success": "False",
+            "time_s": 3.4799999999998383,
+            "wheel_torque_jump_nm": [
+              -3.9337641119153757,
+              -3.9353989219835968,
+              -3.932312933260858,
+              -3.9014679542499744
+            ],
+            "world_xy_displacement_after_handoff_m": [
+              -0.018421606845245266,
+              0.02851597934489541
+            ]
+          }
+        ],
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 2.0000000000000013,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "shift",
+            "side_success": "False",
+            "tick": 201
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 2.819999999999911,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "unload",
+            "side_success": "False",
+            "tick": 283
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 2.9499999999998967,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lift",
+            "side_success": "False",
+            "tick": 296
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 2.999999999999891,
+            "side_done": "False",
+            "side_failure": "cancelled",
+            "side_phase": "abort_land",
+            "side_success": "False",
+            "tick": 301
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 3.1699999999998725,
+            "side_done": "False",
+            "side_failure": "cancelled",
+            "side_phase": "abort_hold",
+            "side_success": "False",
+            "tick": 318
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 3.4699999999998394,
+            "side_done": "True",
+            "side_failure": "cancelled",
+            "side_phase": "failed",
+            "side_success": "False",
+            "tick": 348
+          },
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 3.4799999999998383,
+            "side_done": "True",
+            "side_failure": "cancelled",
+            "side_phase": "failed",
+            "side_success": "False",
+            "tick": 349
+          }
+        ],
+        "steps": 1000,
+        "time_to_vx_below_0p05_for_0p2s_s": -1.0880185641326534e-13,
+        "torque_saturation_fraction": 0.0,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 0
+      },
+      "old_full_summary": {
+        "after_release_xyz_displacement_m": [
+          -0.009688188799024538,
+          0.028187513440217842,
+          -4.119791865997424e-05
+        ],
+        "case": {
+          "arena": "course",
+          "duration_seconds": 10.0,
+          "gear": 1,
+          "key": "A",
+          "kind": "side",
+          "name": "course_start_A_short",
+          "release_mode": "short",
+          "release_seconds": 3.0,
+          "zone": "start"
+        },
+        "final_lateral_from_initial_m": -0.00013298243517972255,
+        "final_position_m": [
+          0.012766108727383617,
+          -0.00013298243517972255,
+          0.4655762494710004
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          0.0,
+          0.0,
+          0.455
+        ],
+        "integrated_duration_s": 10.000000000000009,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.003070658569154781,
+          1.0332513200942751e-05,
+          0.00011350182648685679
+        ],
+        "max_abs_lateral_from_initial_m": 0.028643510535794947,
+        "max_abs_roll_pitch_rad": 0.007793149961732836,
+        "max_abs_yaw_from_initial_rad": 0.023468932257183116,
+        "raw_manifest_sha256": "cf58787eb8e663136f57ef79ce20172de664d6ce008725bef7532700cce9c24e",
+        "release_position_m": [
+          0.022454297526408155,
+          -0.028320495875397565,
+          0.4656174473896604
+        ],
+        "release_time_s": 3.0,
+        "requested_forward_zero_after_release": true,
+        "side_handoffs": [
+          {
+            "all_motor_torque_jump_l2_nm": 15.652406664864124,
+            "failure": "cancelled",
+            "measured_after_seconds": 3.99999999999956,
+            "phase": "failed",
+            "position_m": [
+              0.02520123941212588,
+              -0.028643510535794947,
+              0.4654516430060015
+            ],
+            "retention_fraction": 0.004579976372306914,
+            "signed_lateral_at_handoff_m": -0.028647182765092694,
+            "signed_lateral_retained_m": -0.0001312034201972824,
+            "success": "False",
+            "time_s": 3.4799999999998383,
+            "wheel_torque_jump_nm": [
+              -3.9337641119153757,
+              -3.9353989219835968,
+              -3.932312933260858,
+              -3.9014679542499744
+            ],
+            "world_xy_displacement_after_handoff_m": [
+              -0.018421606845245266,
+              0.02851597934489541
+            ]
+          }
+        ],
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 2.0000000000000013,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "shift",
+            "side_success": "False",
+            "tick": 201
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 2.819999999999911,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "unload",
+            "side_success": "False",
+            "tick": 283
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 2.9499999999998967,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lift",
+            "side_success": "False",
+            "tick": 296
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 2.999999999999891,
+            "side_done": "False",
+            "side_failure": "cancelled",
+            "side_phase": "abort_land",
+            "side_success": "False",
+            "tick": 301
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 3.1699999999998725,
+            "side_done": "False",
+            "side_failure": "cancelled",
+            "side_phase": "abort_hold",
+            "side_success": "False",
+            "tick": 318
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 3.4699999999998394,
+            "side_done": "True",
+            "side_failure": "cancelled",
+            "side_phase": "failed",
+            "side_success": "False",
+            "tick": 348
+          },
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 3.4799999999998383,
+            "side_done": "True",
+            "side_failure": "cancelled",
+            "side_phase": "failed",
+            "side_success": "False",
+            "tick": 349
+          }
+        ],
+        "steps": 1000,
+        "time_to_vx_below_0p05_for_0p2s_s": -1.0880185641326534e-13,
+        "torque_saturation_fraction": 0.0,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 0
+      },
+      "source_unchanged": true,
+      "unchanged_physics_checks": {
+        "applied_torque_nm": true,
+        "qpos": true,
+        "qvel": true,
+        "segment_id": true,
+        "segment_time_s": true,
+        "total_time_s": true
+      }
+    },
+    {
+      "braking_events": [],
+      "case": "course_start_A_one_cycle",
+      "compiled_model_identical": true,
+      "current_source_files": 50,
+      "new_full_summary": {
+        "after_release_xyz_displacement_m": [
+          0.036278881520641605,
+          -0.0006097136150102073,
+          0.0009250202188681445
+        ],
+        "case": {
+          "arena": "course",
+          "duration_seconds": 22.0,
+          "gear": 1,
+          "key": "A",
+          "kind": "side",
+          "name": "course_start_A_one_cycle",
+          "release_mode": "one_cycle",
+          "release_seconds": null,
+          "zone": "start"
+        },
+        "final_lateral_from_initial_m": 0.036425524982284865,
+        "final_position_m": [
+          0.022616582103557766,
+          0.036425524982284865,
+          0.46582450473215836
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          0.0,
+          0.0,
+          0.455
+        ],
+        "integrated_duration_s": 21.999999999998685,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.003946791883747716,
+          8.863017335677319e-07,
+          0.0001297879628525842
+        ],
+        "max_abs_lateral_from_initial_m": 0.08743416946793893,
+        "max_abs_roll_pitch_rad": 0.01974439076690004,
+        "max_abs_yaw_from_initial_rad": 0.006443956370988298,
+        "raw_manifest_sha256": "0421a414893e73e6086627aeab86e1e75db0907cb1a565405f9c973fd3377b1b",
+        "release_position_m": [
+          -0.013662299417083837,
+          0.03703523859729507,
+          0.4648994845132902
+        ],
+        "release_time_s": 12.56,
+        "requested_forward_zero_after_release": true,
+        "side_handoffs": [
+          {
+            "all_motor_torque_jump_l2_nm": 9.003724311762841,
+            "failure": "",
+            "measured_after_seconds": 4.000000000000837,
+            "phase": "done",
+            "position_m": [
+              -0.013662299417083837,
+              0.03703523859729507,
+              0.4648994845132902
+            ],
+            "retention_fraction": 0.983026723211094,
+            "signed_lateral_at_handoff_m": 0.03703156636799733,
+            "signed_lateral_retained_m": 0.03640301934210657,
+            "success": "True",
+            "time_s": 12.560000000000864,
+            "wheel_torque_jump_nm": [
+              -3.5637393213485793,
+              -3.778197707055748,
+              -3.4681591717627622,
+              -3.6981060678956523
+            ],
+            "world_xy_displacement_after_handoff_m": [
+              0.024616505328461335,
+              -0.0006285470258907619
+            ]
+          }
+        ],
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 2.0000000000000013,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "shift",
+            "side_success": "False",
+            "tick": 201
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 2.819999999999911,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "unload",
+            "side_success": "False",
+            "tick": 283
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 2.9499999999998967,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lift",
+            "side_success": "False",
+            "tick": 296
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 3.209999999999868,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "swing",
+            "side_success": "False",
+            "tick": 322
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 3.5699999999998284,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lower",
+            "side_success": "False",
+            "tick": 358
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 3.8499999999997976,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "load",
+            "side_success": "False",
+            "tick": 386
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 3.999999999999781,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "shift",
+            "side_success": "False",
+            "tick": 401
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 5.1899999999996504,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "unload",
+            "side_success": "False",
+            "tick": 520
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 5.319999999999636,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lift",
+            "side_success": "False",
+            "tick": 533
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 5.5799999999996075,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "swing",
+            "side_success": "False",
+            "tick": 559
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 5.939999999999568,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lower",
+            "side_success": "False",
+            "tick": 595
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 6.219999999999537,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "load",
+            "side_success": "False",
+            "tick": 623
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 6.3699999999995205,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "shift",
+            "side_success": "False",
+            "tick": 638
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 7.699999999999374,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "unload",
+            "side_success": "False",
+            "tick": 771
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 7.82999999999936,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lift",
+            "side_success": "False",
+            "tick": 784
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 8.089999999999371,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "swing",
+            "side_success": "False",
+            "tick": 810
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 8.449999999999491,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lower",
+            "side_success": "False",
+            "tick": 846
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 8.739999999999588,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "load",
+            "side_success": "False",
+            "tick": 875
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 8.889999999999638,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "shift",
+            "side_success": "False",
+            "tick": 890
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 10.150000000000059,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "unload",
+            "side_success": "False",
+            "tick": 1016
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 10.280000000000102,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lift",
+            "side_success": "False",
+            "tick": 1029
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 10.54000000000019,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "swing",
+            "side_success": "False",
+            "tick": 1055
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 10.90000000000031,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lower",
+            "side_success": "False",
+            "tick": 1091
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 11.160000000000396,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "load",
+            "side_success": "False",
+            "tick": 1117
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 11.310000000000446,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "recenter",
+            "side_success": "False",
+            "tick": 1132
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 12.55000000000086,
+            "side_done": "True",
+            "side_failure": "",
+            "side_phase": "done",
+            "side_success": "True",
+            "tick": 1256
+          },
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 12.560000000000864,
+            "side_done": "True",
+            "side_failure": "",
+            "side_phase": "done",
+            "side_success": "True",
+            "tick": 1257
+          }
+        ],
+        "steps": 2200,
+        "time_to_vx_below_0p05_for_0p2s_s": 8.633094239485217e-13,
+        "torque_saturation_fraction": 0.0,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 0
+      },
+      "old_full_summary": {
+        "after_release_xyz_displacement_m": [
+          0.036278881520641605,
+          -0.0006097136150102073,
+          0.0009250202188681445
+        ],
+        "case": {
+          "arena": "course",
+          "duration_seconds": 22.0,
+          "gear": 1,
+          "key": "A",
+          "kind": "side",
+          "name": "course_start_A_one_cycle",
+          "release_mode": "one_cycle",
+          "release_seconds": null,
+          "zone": "start"
+        },
+        "final_lateral_from_initial_m": 0.036425524982284865,
+        "final_position_m": [
+          0.022616582103557766,
+          0.036425524982284865,
+          0.46582450473215836
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          0.0,
+          0.0,
+          0.455
+        ],
+        "integrated_duration_s": 21.999999999998685,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.003946791883747716,
+          8.863017335677319e-07,
+          0.0001297879628525842
+        ],
+        "max_abs_lateral_from_initial_m": 0.08743416946793893,
+        "max_abs_roll_pitch_rad": 0.01974439076690004,
+        "max_abs_yaw_from_initial_rad": 0.006443956370988298,
+        "raw_manifest_sha256": "d351155eb0d6251eea195cdb97915c5618d59ef910f6fa27c6d0c34062d33866",
+        "release_position_m": [
+          -0.013662299417083837,
+          0.03703523859729507,
+          0.4648994845132902
+        ],
+        "release_time_s": 12.56,
+        "requested_forward_zero_after_release": true,
+        "side_handoffs": [
+          {
+            "all_motor_torque_jump_l2_nm": 9.003724311762841,
+            "failure": "",
+            "measured_after_seconds": 4.000000000000837,
+            "phase": "done",
+            "position_m": [
+              -0.013662299417083837,
+              0.03703523859729507,
+              0.4648994845132902
+            ],
+            "retention_fraction": 0.983026723211094,
+            "signed_lateral_at_handoff_m": 0.03703156636799733,
+            "signed_lateral_retained_m": 0.03640301934210657,
+            "success": "True",
+            "time_s": 12.560000000000864,
+            "wheel_torque_jump_nm": [
+              -3.5637393213485793,
+              -3.778197707055748,
+              -3.4681591717627622,
+              -3.6981060678956523
+            ],
+            "world_xy_displacement_after_handoff_m": [
+              0.024616505328461335,
+              -0.0006285470258907619
+            ]
+          }
+        ],
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 2.0000000000000013,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "shift",
+            "side_success": "False",
+            "tick": 201
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 2.819999999999911,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "unload",
+            "side_success": "False",
+            "tick": 283
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 2.9499999999998967,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lift",
+            "side_success": "False",
+            "tick": 296
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 3.209999999999868,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "swing",
+            "side_success": "False",
+            "tick": 322
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 3.5699999999998284,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lower",
+            "side_success": "False",
+            "tick": 358
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 3.8499999999997976,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "load",
+            "side_success": "False",
+            "tick": 386
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 3.999999999999781,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "shift",
+            "side_success": "False",
+            "tick": 401
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 5.1899999999996504,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "unload",
+            "side_success": "False",
+            "tick": 520
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 5.319999999999636,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lift",
+            "side_success": "False",
+            "tick": 533
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 5.5799999999996075,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "swing",
+            "side_success": "False",
+            "tick": 559
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 5.939999999999568,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lower",
+            "side_success": "False",
+            "tick": 595
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 6.219999999999537,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "load",
+            "side_success": "False",
+            "tick": 623
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 6.3699999999995205,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "shift",
+            "side_success": "False",
+            "tick": 638
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 7.699999999999374,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "unload",
+            "side_success": "False",
+            "tick": 771
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 7.82999999999936,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lift",
+            "side_success": "False",
+            "tick": 784
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 8.089999999999371,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "swing",
+            "side_success": "False",
+            "tick": 810
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 8.449999999999491,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lower",
+            "side_success": "False",
+            "tick": 846
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 8.739999999999588,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "load",
+            "side_success": "False",
+            "tick": 875
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 8.889999999999638,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "shift",
+            "side_success": "False",
+            "tick": 890
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 10.150000000000059,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "unload",
+            "side_success": "False",
+            "tick": 1016
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 10.280000000000102,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lift",
+            "side_success": "False",
+            "tick": 1029
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 10.54000000000019,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "swing",
+            "side_success": "False",
+            "tick": 1055
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 10.90000000000031,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lower",
+            "side_success": "False",
+            "tick": 1091
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 11.160000000000396,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "load",
+            "side_success": "False",
+            "tick": 1117
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 11.310000000000446,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "recenter",
+            "side_success": "False",
+            "tick": 1132
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 12.55000000000086,
+            "side_done": "True",
+            "side_failure": "",
+            "side_phase": "done",
+            "side_success": "True",
+            "tick": 1256
+          },
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 12.560000000000864,
+            "side_done": "True",
+            "side_failure": "",
+            "side_phase": "done",
+            "side_success": "True",
+            "tick": 1257
+          }
+        ],
+        "steps": 2200,
+        "time_to_vx_below_0p05_for_0p2s_s": 8.633094239485217e-13,
+        "torque_saturation_fraction": 0.0,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 0
+      },
+      "source_unchanged": true,
+      "unchanged_physics_checks": {
+        "applied_torque_nm": true,
+        "qpos": true,
+        "qvel": true,
+        "segment_id": true,
+        "segment_time_s": true,
+        "total_time_s": true
+      }
+    },
+    {
+      "braking_events": [],
+      "case": "course_start_D_short",
+      "compiled_model_identical": true,
+      "current_source_files": 50,
+      "new_full_summary": {
+        "after_release_xyz_displacement_m": [
+          -0.009240860335292679,
+          -0.028121807214350106,
+          -2.6645295147842418e-05
+        ],
+        "case": {
+          "arena": "course",
+          "duration_seconds": 10.0,
+          "gear": 1,
+          "key": "D",
+          "kind": "side",
+          "name": "course_start_D_short",
+          "release_mode": "short",
+          "release_seconds": 3.0,
+          "zone": "start"
+        },
+        "final_lateral_from_initial_m": 0.00013643611356428887,
+        "final_position_m": [
+          0.013143095519500124,
+          0.00013643611356428887,
+          0.4655889740529953
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          0.0,
+          0.0,
+          0.455
+        ],
+        "integrated_duration_s": 10.000000000000009,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.0030391817865302994,
+          1.1644467661025345e-05,
+          0.00011807677723170646
+        ],
+        "max_abs_lateral_from_initial_m": 0.028577741360940444,
+        "max_abs_roll_pitch_rad": 0.007773455399092627,
+        "max_abs_yaw_from_initial_rad": 0.023251663810241012,
+        "raw_manifest_sha256": "8fb77ea0cd852b0d457ea6141c97480c046f2284438029532f35369f498c790b",
+        "release_position_m": [
+          0.022383955854792803,
+          0.028258243327914396,
+          0.46561561934814316
+        ],
+        "release_time_s": 3.0,
+        "requested_forward_zero_after_release": true,
+        "side_handoffs": [
+          {
+            "all_motor_torque_jump_l2_nm": 15.631419707486716,
+            "failure": "cancelled",
+            "measured_after_seconds": 3.99999999999956,
+            "phase": "failed",
+            "position_m": [
+              0.025108349158332103,
+              0.028577741360940444,
+              0.46545124121419656
+            ],
+            "retention_fraction": 0.004487617884616023,
+            "signed_lateral_at_handoff_m": -0.028574069131642697,
+            "signed_lateral_retained_m": -0.0001282295036714144,
+            "success": "False",
+            "time_s": 3.4799999999998383,
+            "wheel_torque_jump_nm": [
+              -3.935268477774132,
+              -3.9334535186364867,
+              -3.9014738017276045,
+              -3.931891468563792
+            ],
+            "world_xy_displacement_after_handoff_m": [
+              -0.01786093948095327,
+              -0.028445839627971283
+            ]
+          }
+        ],
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 2.0000000000000013,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "shift",
+            "side_success": "False",
+            "tick": 201
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 2.819999999999911,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "unload",
+            "side_success": "False",
+            "tick": 283
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 2.9499999999998967,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lift",
+            "side_success": "False",
+            "tick": 296
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 2.999999999999891,
+            "side_done": "False",
+            "side_failure": "cancelled",
+            "side_phase": "abort_land",
+            "side_success": "False",
+            "tick": 301
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 3.1699999999998725,
+            "side_done": "False",
+            "side_failure": "cancelled",
+            "side_phase": "abort_hold",
+            "side_success": "False",
+            "tick": 318
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 3.4699999999998394,
+            "side_done": "True",
+            "side_failure": "cancelled",
+            "side_phase": "failed",
+            "side_success": "False",
+            "tick": 348
+          },
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 3.4799999999998383,
+            "side_done": "True",
+            "side_failure": "cancelled",
+            "side_phase": "failed",
+            "side_success": "False",
+            "tick": 349
+          }
+        ],
+        "steps": 1000,
+        "time_to_vx_below_0p05_for_0p2s_s": -1.0880185641326534e-13,
+        "torque_saturation_fraction": 0.0,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 0
+      },
+      "old_full_summary": {
+        "after_release_xyz_displacement_m": [
+          -0.009240860335292679,
+          -0.028121807214350106,
+          -2.6645295147842418e-05
+        ],
+        "case": {
+          "arena": "course",
+          "duration_seconds": 10.0,
+          "gear": 1,
+          "key": "D",
+          "kind": "side",
+          "name": "course_start_D_short",
+          "release_mode": "short",
+          "release_seconds": 3.0,
+          "zone": "start"
+        },
+        "final_lateral_from_initial_m": 0.00013643611356428887,
+        "final_position_m": [
+          0.013143095519500124,
+          0.00013643611356428887,
+          0.4655889740529953
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          0.0,
+          0.0,
+          0.455
+        ],
+        "integrated_duration_s": 10.000000000000009,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.0030391817865302994,
+          1.1644467661025345e-05,
+          0.00011807677723170646
+        ],
+        "max_abs_lateral_from_initial_m": 0.028577741360940444,
+        "max_abs_roll_pitch_rad": 0.007773455399092627,
+        "max_abs_yaw_from_initial_rad": 0.023251663810241012,
+        "raw_manifest_sha256": "966443e9e418897cd7c1cc04fc925de106f545bff3f6af582b9087faef0ea287",
+        "release_position_m": [
+          0.022383955854792803,
+          0.028258243327914396,
+          0.46561561934814316
+        ],
+        "release_time_s": 3.0,
+        "requested_forward_zero_after_release": true,
+        "side_handoffs": [
+          {
+            "all_motor_torque_jump_l2_nm": 15.631419707486716,
+            "failure": "cancelled",
+            "measured_after_seconds": 3.99999999999956,
+            "phase": "failed",
+            "position_m": [
+              0.025108349158332103,
+              0.028577741360940444,
+              0.46545124121419656
+            ],
+            "retention_fraction": 0.004487617884616023,
+            "signed_lateral_at_handoff_m": -0.028574069131642697,
+            "signed_lateral_retained_m": -0.0001282295036714144,
+            "success": "False",
+            "time_s": 3.4799999999998383,
+            "wheel_torque_jump_nm": [
+              -3.935268477774132,
+              -3.9334535186364867,
+              -3.9014738017276045,
+              -3.931891468563792
+            ],
+            "world_xy_displacement_after_handoff_m": [
+              -0.01786093948095327,
+              -0.028445839627971283
+            ]
+          }
+        ],
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 2.0000000000000013,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "shift",
+            "side_success": "False",
+            "tick": 201
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 2.819999999999911,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "unload",
+            "side_success": "False",
+            "tick": 283
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 2.9499999999998967,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lift",
+            "side_success": "False",
+            "tick": 296
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 2.999999999999891,
+            "side_done": "False",
+            "side_failure": "cancelled",
+            "side_phase": "abort_land",
+            "side_success": "False",
+            "tick": 301
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 3.1699999999998725,
+            "side_done": "False",
+            "side_failure": "cancelled",
+            "side_phase": "abort_hold",
+            "side_success": "False",
+            "tick": 318
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 3.4699999999998394,
+            "side_done": "True",
+            "side_failure": "cancelled",
+            "side_phase": "failed",
+            "side_success": "False",
+            "tick": 348
+          },
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 3.4799999999998383,
+            "side_done": "True",
+            "side_failure": "cancelled",
+            "side_phase": "failed",
+            "side_success": "False",
+            "tick": 349
+          }
+        ],
+        "steps": 1000,
+        "time_to_vx_below_0p05_for_0p2s_s": -1.0880185641326534e-13,
+        "torque_saturation_fraction": 0.0,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 0
+      },
+      "source_unchanged": true,
+      "unchanged_physics_checks": {
+        "applied_torque_nm": true,
+        "qpos": true,
+        "qvel": true,
+        "segment_id": true,
+        "segment_time_s": true,
+        "total_time_s": true
+      }
+    },
+    {
+      "braking_events": [],
+      "case": "course_start_D_one_cycle",
+      "compiled_model_identical": true,
+      "current_source_files": 50,
+      "new_full_summary": {
+        "after_release_xyz_displacement_m": [
+          0.036472245478908066,
+          0.0006206003278139555,
+          0.0009419771337946803
+        ],
+        "case": {
+          "arena": "course",
+          "duration_seconds": 22.0,
+          "gear": 1,
+          "key": "D",
+          "kind": "side",
+          "name": "course_start_D_one_cycle",
+          "release_mode": "one_cycle",
+          "release_seconds": null,
+          "zone": "start"
+        },
+        "final_lateral_from_initial_m": -0.03641776904199958,
+        "final_position_m": [
+          0.02278840293013461,
+          -0.03641776904199958,
+          0.46583843853629475
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          0.0,
+          0.0,
+          0.455
+        ],
+        "integrated_duration_s": 21.999999999998685,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.0036488028056602243,
+          4.705784427685824e-07,
+          0.00012947891729332938
+        ],
+        "max_abs_lateral_from_initial_m": 0.08751843165158664,
+        "max_abs_roll_pitch_rad": 0.019747362020049158,
+        "max_abs_yaw_from_initial_rad": 0.006484660634798925,
+        "raw_manifest_sha256": "2b601387c2729be26c7030ea75dbf481cd36760f1ff771915cc632c1e654ccab",
+        "release_position_m": [
+          -0.013683842548773452,
+          -0.037038369369813536,
+          0.46489646140250007
+        ],
+        "release_time_s": 12.56,
+        "requested_forward_zero_after_release": true,
+        "side_handoffs": [
+          {
+            "all_motor_torque_jump_l2_nm": 9.050433728496587,
+            "failure": "",
+            "measured_after_seconds": 4.000000000000837,
+            "phase": "done",
+            "position_m": [
+              -0.013683842548773452,
+              -0.037038369369813536,
+              0.46489646140250007
+            ],
+            "retention_fraction": 0.9829391714758595,
+            "signed_lateral_at_handoff_m": 0.03704204159911128,
+            "signed_lateral_retained_m": 0.03641007367920476,
+            "success": "True",
+            "time_s": 12.560000000000864,
+            "wheel_torque_jump_nm": [
+              -3.8058584762526526,
+              -3.591129774406055,
+              -3.7256455964366797,
+              -3.495395615343364
+            ],
+            "world_xy_displacement_after_handoff_m": [
+              0.02489325137375145,
+              0.0006319679199065162
+            ]
+          }
+        ],
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 2.0000000000000013,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "shift",
+            "side_success": "False",
+            "tick": 201
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 2.819999999999911,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "unload",
+            "side_success": "False",
+            "tick": 283
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 2.9499999999998967,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lift",
+            "side_success": "False",
+            "tick": 296
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 3.209999999999868,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "swing",
+            "side_success": "False",
+            "tick": 322
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 3.5699999999998284,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lower",
+            "side_success": "False",
+            "tick": 358
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 3.8499999999997976,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "load",
+            "side_success": "False",
+            "tick": 386
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 3.999999999999781,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "shift",
+            "side_success": "False",
+            "tick": 401
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 5.1899999999996504,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "unload",
+            "side_success": "False",
+            "tick": 520
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 5.319999999999636,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lift",
+            "side_success": "False",
+            "tick": 533
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 5.5799999999996075,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "swing",
+            "side_success": "False",
+            "tick": 559
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 5.939999999999568,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lower",
+            "side_success": "False",
+            "tick": 595
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 6.219999999999537,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "load",
+            "side_success": "False",
+            "tick": 623
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 6.3699999999995205,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "shift",
+            "side_success": "False",
+            "tick": 638
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 7.699999999999374,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "unload",
+            "side_success": "False",
+            "tick": 771
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 7.82999999999936,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lift",
+            "side_success": "False",
+            "tick": 784
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 8.089999999999371,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "swing",
+            "side_success": "False",
+            "tick": 810
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 8.449999999999491,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lower",
+            "side_success": "False",
+            "tick": 846
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 8.739999999999588,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "load",
+            "side_success": "False",
+            "tick": 875
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 8.889999999999638,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "shift",
+            "side_success": "False",
+            "tick": 890
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 10.150000000000059,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "unload",
+            "side_success": "False",
+            "tick": 1016
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 10.280000000000102,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lift",
+            "side_success": "False",
+            "tick": 1029
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 10.54000000000019,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "swing",
+            "side_success": "False",
+            "tick": 1055
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 10.90000000000031,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lower",
+            "side_success": "False",
+            "tick": 1091
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 11.160000000000396,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "load",
+            "side_success": "False",
+            "tick": 1117
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 11.310000000000446,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "recenter",
+            "side_success": "False",
+            "tick": 1132
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 12.55000000000086,
+            "side_done": "True",
+            "side_failure": "",
+            "side_phase": "done",
+            "side_success": "True",
+            "tick": 1256
+          },
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 12.560000000000864,
+            "side_done": "True",
+            "side_failure": "",
+            "side_phase": "done",
+            "side_success": "True",
+            "tick": 1257
+          }
+        ],
+        "steps": 2200,
+        "time_to_vx_below_0p05_for_0p2s_s": 8.633094239485217e-13,
+        "torque_saturation_fraction": 0.0,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 0
+      },
+      "old_full_summary": {
+        "after_release_xyz_displacement_m": [
+          0.036472245478908066,
+          0.0006206003278139555,
+          0.0009419771337946803
+        ],
+        "case": {
+          "arena": "course",
+          "duration_seconds": 22.0,
+          "gear": 1,
+          "key": "D",
+          "kind": "side",
+          "name": "course_start_D_one_cycle",
+          "release_mode": "one_cycle",
+          "release_seconds": null,
+          "zone": "start"
+        },
+        "final_lateral_from_initial_m": -0.03641776904199958,
+        "final_position_m": [
+          0.02278840293013461,
+          -0.03641776904199958,
+          0.46583843853629475
+        ],
+        "finite": true,
+        "first_recovery_time_s": null,
+        "initial_position_m": [
+          0.0,
+          0.0,
+          0.455
+        ],
+        "integrated_duration_s": 21.999999999998685,
+        "last_second_mean_abs_world_velocity_mps": [
+          0.0036488028056602243,
+          4.705784427685824e-07,
+          0.00012947891729332938
+        ],
+        "max_abs_lateral_from_initial_m": 0.08751843165158664,
+        "max_abs_roll_pitch_rad": 0.019747362020049158,
+        "max_abs_yaw_from_initial_rad": 0.006484660634798925,
+        "raw_manifest_sha256": "48ab498204779862a3725451828cd1f267001831ea601d9043ce6d50978cb34d",
+        "release_position_m": [
+          -0.013683842548773452,
+          -0.037038369369813536,
+          0.46489646140250007
+        ],
+        "release_time_s": 12.56,
+        "requested_forward_zero_after_release": true,
+        "side_handoffs": [
+          {
+            "all_motor_torque_jump_l2_nm": 9.050433728496587,
+            "failure": "",
+            "measured_after_seconds": 4.000000000000837,
+            "phase": "done",
+            "position_m": [
+              -0.013683842548773452,
+              -0.037038369369813536,
+              0.46489646140250007
+            ],
+            "retention_fraction": 0.9829391714758595,
+            "signed_lateral_at_handoff_m": 0.03704204159911128,
+            "signed_lateral_retained_m": 0.03641007367920476,
+            "success": "True",
+            "time_s": 12.560000000000864,
+            "wheel_torque_jump_nm": [
+              -3.8058584762526526,
+              -3.591129774406055,
+              -3.7256455964366797,
+              -3.495395615343364
+            ],
+            "world_xy_displacement_after_handoff_m": [
+              0.02489325137375145,
+              0.0006319679199065162
+            ]
+          }
+        ],
+        "side_transition_events": [
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 0.0,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "idle",
+            "side_success": "False",
+            "tick": 1
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 2.0000000000000013,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "shift",
+            "side_success": "False",
+            "tick": 201
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 2.819999999999911,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "unload",
+            "side_success": "False",
+            "tick": 283
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 2.9499999999998967,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lift",
+            "side_success": "False",
+            "tick": 296
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 3.209999999999868,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "swing",
+            "side_success": "False",
+            "tick": 322
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 3.5699999999998284,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lower",
+            "side_success": "False",
+            "tick": 358
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 3.8499999999997976,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "load",
+            "side_success": "False",
+            "tick": 386
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 3.999999999999781,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "shift",
+            "side_success": "False",
+            "tick": 401
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 5.1899999999996504,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "unload",
+            "side_success": "False",
+            "tick": 520
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 5.319999999999636,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lift",
+            "side_success": "False",
+            "tick": 533
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 5.5799999999996075,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "swing",
+            "side_success": "False",
+            "tick": 559
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 5.939999999999568,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lower",
+            "side_success": "False",
+            "tick": 595
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 6.219999999999537,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "load",
+            "side_success": "False",
+            "tick": 623
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 6.3699999999995205,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "shift",
+            "side_success": "False",
+            "tick": 638
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 7.699999999999374,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "unload",
+            "side_success": "False",
+            "tick": 771
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 7.82999999999936,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lift",
+            "side_success": "False",
+            "tick": 784
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 8.089999999999371,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "swing",
+            "side_success": "False",
+            "tick": 810
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 8.449999999999491,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lower",
+            "side_success": "False",
+            "tick": 846
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 8.739999999999588,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "load",
+            "side_success": "False",
+            "tick": 875
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 8.889999999999638,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "shift",
+            "side_success": "False",
+            "tick": 890
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 10.150000000000059,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "unload",
+            "side_success": "False",
+            "tick": 1016
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 10.280000000000102,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lift",
+            "side_success": "False",
+            "tick": 1029
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 10.54000000000019,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "swing",
+            "side_success": "False",
+            "tick": 1055
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 10.90000000000031,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "lower",
+            "side_success": "False",
+            "tick": 1091
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 11.160000000000396,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "load",
+            "side_success": "False",
+            "tick": 1117
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 11.310000000000446,
+            "side_done": "False",
+            "side_failure": "",
+            "side_phase": "recenter",
+            "side_success": "False",
+            "tick": 1132
+          },
+          {
+            "applied_controller": "d1_fast_side_step",
+            "before_time_s": 12.55000000000086,
+            "side_done": "True",
+            "side_failure": "",
+            "side_phase": "done",
+            "side_success": "True",
+            "tick": 1256
+          },
+          {
+            "applied_controller": "legacy",
+            "before_time_s": 12.560000000000864,
+            "side_done": "True",
+            "side_failure": "",
+            "side_phase": "done",
+            "side_success": "True",
+            "tick": 1257
+          }
+        ],
+        "steps": 2200,
+        "time_to_vx_below_0p05_for_0p2s_s": 8.633094239485217e-13,
+        "torque_saturation_fraction": 0.0,
+        "torques_within_limits": true,
+        "traction_boost_ticks": 0
+      },
+      "source_unchanged": true,
+      "unchanged_physics_checks": {
+        "applied_torque_nm": true,
+        "qpos": true,
+        "qvel": true,
+        "segment_id": true,
+        "segment_time_s": true,
+        "total_time_s": true
+      }
+    }
+  ]
+}

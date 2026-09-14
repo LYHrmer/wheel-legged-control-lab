@@ -1,0 +1,180 @@
+{
+  "schema": "d1-heading-evaluator-independent-review-v1",
+  "read_only_source_review": true,
+  "additional_physical_steps": 0,
+  "source_sha256": {
+    "scripts/evaluate_d1_heading_study.py": "145f6c8834c122d9d6e0f538008cdf82ea3a80f2a8d038fdd012e865846b63c2",
+    "scripts/d1_heading_tracking_env.py": "91cbb3bcf697cab21f9b2c6b02480cf73d41811e4dd3cad51f1ae9554c4177ec",
+    "scripts/run_d1_heading_study.py": "02e365cf4def1f073f365cbcaee7d0131bec267a79cba21d690f47acd95a93e5",
+    "tests/test_d1_heading_study_evaluation.py": "4658f0bce68387aa2ffb23ba49a537fe99276137868e80285ce147a7566aa833"
+  },
+  "blockers": [],
+  "reviewed_behavior": [
+    "Each branch predicts deterministically from its own newly returned 85-value observation.",
+    "Original applied actions, qpos/qvel and all observations are retained; first terminated/truncated immediately ends the case.",
+    "Velocity and height use unchanged user target channels; user-yaw-rate error is explicitly separated from the servo reward.",
+    "Cross track is endpoint world y minus initial world y; the only accepted development case has zero user yaw and the base spawn heading is zero.",
+    "Heading RMSE uses wrapped endpoint reference error provided by the separately tested task environment.",
+    "Terminal summary separates actual world roll/pitch, clearance, contact count and x/y boundary predicates.",
+    "Protocol binds source, opened development protocol, training protocol, every checkpoint and sidecar SHA before evaluation; final check verifies unchanged inputs.",
+    "Common-prefix comparisons use the shorter actual trace without padding, including zero-vs-model and within-seed 16k-vs-65k pairs."
+  ],
+  "limitations": [
+    "This reviews the implementation and independently verifies synthetic prefix arithmetic; it does not audit completed formal evaluation records.",
+    "The road is an already opened development case; these metrics do not establish turning, braking, G1 or held-out performance.",
+    "If execution raises an exception instead of returning an environment termination, the gzip trace prefix is retained but final NPZ and episode summary are not written; an incomplete directory cannot be treated as a complete case.",
+    "The evaluator hashes generated input checkpoints but does not itself reconstruct training provenance or validate their budget counters; use the separately recorded training checkpoint metadata and counts for that audit."
+  ],
+  "checks": [
+    {
+      "name": "zero_reference_and_16k_vs_65k_pairs_present",
+      "passed": true
+    },
+    {
+      "name": "zero:seed49001_step16384:actual_common_steps",
+      "passed": true
+    },
+    {
+      "name": "zero:seed49001_step16384:actual_common_time",
+      "passed": true
+    },
+    {
+      "name": "zero:seed49001_step16384:zero:velocity_rmse_mps",
+      "passed": true
+    },
+    {
+      "name": "zero:seed49001_step16384:zero:height_rmse_m",
+      "passed": true
+    },
+    {
+      "name": "zero:seed49001_step16384:zero:heading_rmse_rad",
+      "passed": true
+    },
+    {
+      "name": "zero:seed49001_step16384:zero:cross_track_rmse_m",
+      "passed": true
+    },
+    {
+      "name": "zero:seed49001_step16384:zero:last_shared_sample",
+      "passed": true
+    },
+    {
+      "name": "zero:seed49001_step16384:seed49001_step16384:velocity_rmse_mps",
+      "passed": true
+    },
+    {
+      "name": "zero:seed49001_step16384:seed49001_step16384:height_rmse_m",
+      "passed": true
+    },
+    {
+      "name": "zero:seed49001_step16384:seed49001_step16384:heading_rmse_rad",
+      "passed": true
+    },
+    {
+      "name": "zero:seed49001_step16384:seed49001_step16384:cross_track_rmse_m",
+      "passed": true
+    },
+    {
+      "name": "zero:seed49001_step16384:seed49001_step16384:last_shared_sample",
+      "passed": true
+    },
+    {
+      "name": "zero:seed49001_step65536:actual_common_steps",
+      "passed": true
+    },
+    {
+      "name": "zero:seed49001_step65536:actual_common_time",
+      "passed": true
+    },
+    {
+      "name": "zero:seed49001_step65536:zero:velocity_rmse_mps",
+      "passed": true
+    },
+    {
+      "name": "zero:seed49001_step65536:zero:height_rmse_m",
+      "passed": true
+    },
+    {
+      "name": "zero:seed49001_step65536:zero:heading_rmse_rad",
+      "passed": true
+    },
+    {
+      "name": "zero:seed49001_step65536:zero:cross_track_rmse_m",
+      "passed": true
+    },
+    {
+      "name": "zero:seed49001_step65536:zero:last_shared_sample",
+      "passed": true
+    },
+    {
+      "name": "zero:seed49001_step65536:seed49001_step65536:velocity_rmse_mps",
+      "passed": true
+    },
+    {
+      "name": "zero:seed49001_step65536:seed49001_step65536:height_rmse_m",
+      "passed": true
+    },
+    {
+      "name": "zero:seed49001_step65536:seed49001_step65536:heading_rmse_rad",
+      "passed": true
+    },
+    {
+      "name": "zero:seed49001_step65536:seed49001_step65536:cross_track_rmse_m",
+      "passed": true
+    },
+    {
+      "name": "zero:seed49001_step65536:seed49001_step65536:last_shared_sample",
+      "passed": true
+    },
+    {
+      "name": "seed49001_step16384:seed49001_step65536:actual_common_steps",
+      "passed": true
+    },
+    {
+      "name": "seed49001_step16384:seed49001_step65536:actual_common_time",
+      "passed": true
+    },
+    {
+      "name": "seed49001_step16384:seed49001_step65536:seed49001_step16384:velocity_rmse_mps",
+      "passed": true
+    },
+    {
+      "name": "seed49001_step16384:seed49001_step65536:seed49001_step16384:height_rmse_m",
+      "passed": true
+    },
+    {
+      "name": "seed49001_step16384:seed49001_step65536:seed49001_step16384:heading_rmse_rad",
+      "passed": true
+    },
+    {
+      "name": "seed49001_step16384:seed49001_step65536:seed49001_step16384:cross_track_rmse_m",
+      "passed": true
+    },
+    {
+      "name": "seed49001_step16384:seed49001_step65536:seed49001_step16384:last_shared_sample",
+      "passed": true
+    },
+    {
+      "name": "seed49001_step16384:seed49001_step65536:seed49001_step65536:velocity_rmse_mps",
+      "passed": true
+    },
+    {
+      "name": "seed49001_step16384:seed49001_step65536:seed49001_step65536:height_rmse_m",
+      "passed": true
+    },
+    {
+      "name": "seed49001_step16384:seed49001_step65536:seed49001_step65536:heading_rmse_rad",
+      "passed": true
+    },
+    {
+      "name": "seed49001_step16384:seed49001_step65536:seed49001_step65536:cross_track_rmse_m",
+      "passed": true
+    },
+    {
+      "name": "seed49001_step16384:seed49001_step65536:seed49001_step65536:last_shared_sample",
+      "passed": true
+    }
+  ],
+  "check_count": 37,
+  "failures": 0
+}

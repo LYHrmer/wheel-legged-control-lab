@@ -1,0 +1,169 @@
+{
+  "schema": "d1-heading-hold-development-training-protocol-v1",
+  "planner": "GPT-6-astra / ultra",
+  "date": "2026-09-14",
+  "status": "frozen_before_first_full_training_seed",
+  "scope": "Fresh 85-observation heading-hold task development; task/observation/reward change together. This is not a single-factor PPO algorithm benefit experiment and does not complete G1.",
+  "task": {
+    "environment": "scripts.d1_heading_tracking_env.D1HeadingTrackingEnv",
+    "task_schema": "d1-heading-reference-task-v1",
+    "observation_schema": "d1-proprio-servo82-heading85-v1",
+    "reward_schema": "d1-heading-goal-servo-rate-v1",
+    "observation_size": 85,
+    "action_size": 8,
+    "baseline": "wheel_leg",
+    "action_mode": "independent8",
+    "provider": "default oracle; actual source schema and full provider configuration recorded from reset",
+    "heading_outer_loop": {
+      "kp": 2.0,
+      "kd": 0.4,
+      "limit_rps": 1.0
+    },
+    "heading_reward": {
+      "weight": 0.5,
+      "sigma_rad": 0.08726646259971647,
+      "formula": "actual_dt * weight * (exp(-(wrap(truth_heading_end - reference_heading_end) / sigma_rad)^2) - 1)"
+    },
+    "other_rewards": "unchanged frozen base servo rewards",
+    "additional_changes": "No PI, action transform, terrain preview, path feedback, path reward, GAE change, critic pretraining or BC initialization."
+  },
+  "training": {
+    "runner": "scripts/run_d1_heading_study.py",
+    "runner_schema": "d1-heading-hold-training-study-v1",
+    "seeds": [
+      49001,
+      49002,
+      49003
+    ],
+    "fresh_policy_per_seed": true,
+    "steps_per_seed": 65536,
+    "total_training_transitions": 196608,
+    "checkpoint_steps": [
+      16384,
+      65536
+    ],
+    "checkpoint_timing": "after full PPO.train update has returned; no save at pre-update rollout callback",
+    "checkpoint_continuity": "one uninterrupted learn(65536) call per seed; do not reload weights, reset the active environment, or evaluate in the training process during learning",
+    "episode_seconds": 32.0,
+    "control_dt_s": 0.01,
+    "max_episode_transitions": 3200,
+    "user_command": {
+      "target_forward_mps": 0.25,
+      "target_yaw_rps": 0.0,
+      "settle_seconds": 0.5,
+      "ramp_seconds": 0.5,
+      "height_m": 0.455
+    },
+    "command_identity": "scripts.run_d1_course_curriculum.forward_command",
+    "command_support": "straight forward only; user yaw rate is always zero, so arbitrary turns are outside trained support",
+    "policy": "stock SB3 MlpPolicy; fresh 85-input actor and critic",
+    "ppo": {
+      "learning_rate": 0.0003,
+      "n_steps": 128,
+      "batch_size": 128,
+      "n_epochs": 4,
+      "gamma": 0.9950124791926823,
+      "gae_lambda": 0.95,
+      "clip_range": 0.2,
+      "ent_coef": 0.0,
+      "net_arch": [
+        64,
+        64
+      ],
+      "log_std_init": -2.0,
+      "num_envs": 1,
+      "device": "cpu",
+      "torch_threads": 1,
+      "remaining_defaults": "record instantiated PPO settings and installed dependency versions"
+    },
+    "counting": {
+      "16384": {
+        "rollout_and_train_calls": 128,
+        "optimization_epochs": 512
+      },
+      "65536": {
+        "rollout_and_train_calls": 512,
+        "optimization_epochs": 2048
+      },
+      "definition": "PPO _n_updates counts optimization epochs, not independent 128-transition rollouts. Saved checkpoint steps are subsets of the final budget, not additional samples."
+    },
+    "curriculum": {
+      "wrapper": "scripts.d1_heading_curriculum.D1HeadingCurriculumEnv",
+      "absolute_denominator_steps": 16384,
+      "rule": "at reset: min(3, (4 * actual_transitions) // 16384); maintain active episode terrain until its next reset",
+      "terrain_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "terrain_source": "the first four frozen locomotion_terrain_configs(train)",
+      "level_zero": "default flat terrain regardless of terrain index",
+      "nonzero_level": "multiply slope, cross-slope, ripple amplitude and step height by level/3; keep other terrain parameters",
+      "rng": "three independent SeedSequence(seed).spawn(3) streams for level draw, terrain index and episode seed; no evaluation draws during training"
+    },
+    "exposure": "record actual transitions per level, complete and nonempty partial episodes, termination reasons, and geometric nonflat exposure separately; zero-step automatic resets and reload probes are not training transitions",
+    "stopping_rule": "do not stop or change seeds/parameters for poor performance at 16384; stop only for implementation, numerical, source-identity or counting failures and record every partial run without replacing it silently",
+    "prelaunch_checks": "all 77 source_sha256 entries in results/d1_budget_study/protocol.json match; targeted environment/runner tests and actual small PPO save/reload smoke pass; record current new source and model/metadata hashes before and after each run",
+    "reload_checks": "all six checkpoints: exact weights and deterministic action match, valid 85-observation actual step in a separate environment after learning; six extra physics steps reported separately"
+  },
+  "development_evaluation": {
+    "runner": "scripts/evaluate_d1_heading_study.py",
+    "runner_schema": "d1-heading-task-development-evaluation-v1",
+    "separate_process": true,
+    "all_checkpoints": true,
+    "models": 6,
+    "zero_action_baseline": true,
+    "nominal_episodes": 7,
+    "maximum_evaluation_transitions": 22400,
+    "case_origin": {
+      "path": "/home/lyh/wheel-legged-control-lab/results/d1_wheel_common_mean_development/evaluation_protocol.json",
+      "sha256": "dab3336f6977dacaf5766fa2b159ca1a782dd151e1eee73515f4a68e0ef08d75"
+    },
+    "cases": [
+      {
+        "name": "dev_straight_road",
+        "split": "dev",
+        "seed": 55101,
+        "episode_seconds": 32.0,
+        "terrain": {
+          "layout": "straight",
+          "slope_deg": 1.0,
+          "cross_slope_deg": 0.5,
+          "ripple_amplitude_m": 0.005,
+          "wavelength_x_m": 0.6,
+          "wavelength_y_m": 0.9,
+          "phase_x_rad": 0.0,
+          "phase_y_rad": 0.2,
+          "step_height_m": 0.005,
+          "schema": "d1-fixed-2d-road-v1"
+        },
+        "command": {
+          "target_forward_mps": 0.25,
+          "target_yaw_rps": 0.0,
+          "settle_seconds": 0.5,
+          "ramp_seconds": 0.5,
+          "height_m": 0.455
+        }
+      }
+    ],
+    "holdout_policy": "Only this previously opened development road is evaluated now. No newly frozen holdout is opened; prior final cases are not treated as unseen.",
+    "policy_execution": "each policy predicts deterministically from its own current live 85-observation; no replaying another policy actions; first termination ends evaluation without reset or padding",
+    "required_metrics": [
+      "actual transitions and duration",
+      "completion and exact termination reason",
+      "final x/y and separate x-boundary/y-boundary/fall diagnosis",
+      "user forward velocity RMSE",
+      "user yaw rate RMSE",
+      "heading error RMSE and peak",
+      "cross-track absolute peak and signed final offset",
+      "height RMSE",
+      "maximum absolute roll/pitch",
+      "nonwheel contact steps",
+      "new task return, servo return and heading-goal contribution separately"
+    ],
+    "comparison": "report all seeds and both budgets, with every failure retained. For each policy-versus-zero and same-seed 16k-versus-65k comparison also report strict common observable prefix metrics using raw traces; do not pad after termination, compare only surviving trials, or select the best checkpoint.",
+    "gate_interpretation": "Use previously proposed G1 straight-road thresholds as development indicators only. This one road does not validate stopping, turning, disturbances, GUI integration or full G1. Do not claim causal gain from the three added observations or reward alone."
+  },
+  "next_decision": "After all six development checkpoints, inspect completion, heading and cross-track together with speed and height. Continue targeted fixes or broader G1 validation based on remaining failures; do not automatically increase to 262144 or start jump/speed claims."
+}

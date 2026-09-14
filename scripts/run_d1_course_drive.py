@@ -99,7 +99,7 @@ def _snapshot(output):
     paths = {Path(__file__).resolve(), ROOT / "pyproject.toml"}
     paths.update(
         ROOT / "scripts" / name
-        for name in ("d1_course_controls.py", "d1_course_side_step.py", "d1_side_step.py", "d1_fast_side_step.py", "d1_keyboard_commands.py",
+        for name in ("d1_course_controls.py", "d1_course_braking.py", "d1_course_side_step.py", "d1_side_step.py", "d1_fast_side_step.py", "d1_keyboard_commands.py",
                      "d1_keyboard_viewer.py", "d1_terrain_display.py")
     )
     for module in tuple(sys.modules.values()):
@@ -127,6 +127,7 @@ def run(
     realtime=True,
     side_step_profile="fast",
     render_quality="normal",
+    brake_reference_mode="legacy",
 ):
     """Record commands before step, integrated states after step, and every reset.
 
@@ -148,6 +149,8 @@ def run(
         raise ValueError("side step profile must be fast or conservative")
     if render_quality not in ("normal", "low"):
         raise ValueError("render quality must be normal or low")
+    if brake_reference_mode not in ("legacy", "release_reanchor_experimental"):
+        raise ValueError("unsupported course brake reference mode")
     commands = CourseKeyboardCommands() if commands is None else commands
     if isinstance(commands, CourseKeyboardCommands):
         simulation.teleop.controller.low_level.wheel_velocity_gain = commands.wheel_velocity_gain
@@ -157,12 +160,13 @@ def run(
         commands.reset(float(state.base_rpy[2]), state.base_position[:2])
     plant = simulation.plant
     side_factory = FastSideStepController if side_step_profile == "fast" else SideStepController
-    drive = CourseSideStepDrive(simulation, side_controller_factory=side_factory)
+    drive = CourseSideStepDrive(simulation, side_controller_factory=side_factory,
+                               brake_reference_mode=brake_reference_mode)
     output.mkdir(parents=True, exist_ok=False)
     hashes = _snapshot(output)
     mujoco.mj_saveModel(plant.model, str(output / "model.mjb"), None)
     protocol = {
-        "schema": "d1-course-side-stepping-v3",
+        "schema": "d1-course-side-stepping-v4",
         "arena": "course",
         "initial_zone": zone,
         "requested_seconds": seconds,
@@ -185,7 +189,14 @@ def run(
         "side_step_distance_m": 0.03,
         "recovery": "R explicitly resets simulator to current zone spawn; not physical self-righting",
         "command_adapter": type(commands).__name__,
-        "course_profile": "heading_with_wheel_speed_feedback_v2",
+        "course_profile": ("heading_wheel_speed_release_reference_v3" if brake_reference_mode
+                           == "release_reanchor_experimental" else "heading_with_wheel_speed_feedback_v2"),
+        "brake_reference_mode": brake_reference_mode,
+        "braking_profile": ("legacy_release_reference_edge_v1" if brake_reference_mode
+                            == "release_reanchor_experimental" else "legacy_retained_reference"),
+        "braking_reference": ("Experimental: only a previous actual legacy nonzero forward command followed by a zero request reanchors integrated distance reference once; side, jump and recovery clear edge context. Less flat-ground drift can accompany greater uphill rollback."
+                              if brake_reference_mode == "release_reanchor_experimental" else
+                              "Original controller behavior: a zero velocity request retains the integrated distance reference; no reference reanchoring."),
         "wheel_velocity_gain": simulation.teleop.controller.low_level.wheel_velocity_gain,
         "heading_feedback": {name: getattr(commands, name, None) for name in
                              ("heading_rate_rps", "heading_gain", "heading_damping",
@@ -323,6 +334,12 @@ def run(
                     "side_done": side_status["done"],
                     "side_success": side_status["success"],
                     "side_failure": side_status["failure"],
+                    "braking_profile": side_status["braking_profile"],
+                    "brake_reference_mode": side_status["brake_reference_mode"],
+                    "brake_reference_reanchored": side_status["brake_reference_reanchored"],
+                    "brake_reference_previous_error_m": side_status["brake_reference_previous_error_m"],
+                    "brake_reference_new_error_m": side_status["brake_reference_new_error_m"],
+                    "brake_reference_event_count": side_status["brake_reference_event_count"],
                     **asdict(status),
                 }
                 jump_phases.add(status.jump_phase)
@@ -409,6 +426,10 @@ def main(argv=None):
     parser.add_argument("--baseline", choices=("lqr", "mpc"), default="lqr")
     parser.add_argument("--side-step-profile", choices=("fast", "conservative"), default="fast")
     parser.add_argument(
+        "--brake-reference-mode", choices=("legacy", "release_reanchor_experimental"),
+        default="legacy", help="Default retains original braking; experimental reanchoring can increase uphill rollback",
+    )
+    parser.add_argument(
         "--render-quality", choices=("normal", "low"), default="normal",
         help="low disables MSAA and shadow/reflection scene flags; geometry and timing unchanged",
     )
@@ -443,6 +464,7 @@ def main(argv=None):
         realtime=not args.headless,
         side_step_profile=args.side_step_profile,
         render_quality=args.render_quality,
+        brake_reference_mode=args.brake_reference_mode,
     )
     print(json.dumps(summary, indent=2, allow_nan=False))
     return 0 if summary["source_unchanged"] else 1
