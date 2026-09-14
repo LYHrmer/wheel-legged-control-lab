@@ -1,0 +1,61 @@
+{
+  "all_3200_commands_identical_across_policies": true,
+  "audit_source_sha256": "74ddb101f3ee9f64ef1460d34715ef08cf045373a6cc0cea8dfb93549c455caa",
+  "checkpoint_and_metadata_files_verified": 6,
+  "initial_observation_state_metadata_identical": true,
+  "manifest_files_verified": 22,
+  "physics_steps_performed_by_audit": 0,
+  "policies": [
+    {
+      "metrics_recomputed": {
+        "height_rmse_m": 0.01104956994233692,
+        "velocity_rmse_mps": 0.03971918517222135,
+        "yaw_rate_rmse_rps": 0.014141791811380627
+      },
+      "nonflat_steps": 2401,
+      "policy": "zero",
+      "signed_progress_from_integrated_qpos_m": 7.519811286390173,
+      "summary_matches_trace_and_state": true,
+      "transitions": 3200
+    },
+    {
+      "metrics_recomputed": {
+        "height_rmse_m": 0.007729853110794744,
+        "velocity_rmse_mps": 0.08979231219126582,
+        "yaw_rate_rmse_rps": 0.02423558352570739
+      },
+      "nonflat_steps": 2249,
+      "policy": "flat",
+      "signed_progress_from_integrated_qpos_m": 4.901399432999074,
+      "summary_matches_trace_and_state": true,
+      "transitions": 3200
+    },
+    {
+      "metrics_recomputed": {
+        "height_rmse_m": 0.008565094429713361,
+        "velocity_rmse_mps": 0.07201515765258062,
+        "yaw_rate_rmse_rps": 0.020652165780319684
+      },
+      "nonflat_steps": 2313,
+      "policy": "mixed",
+      "signed_progress_from_integrated_qpos_m": 5.620251983346548,
+      "summary_matches_trace_and_state": true,
+      "transitions": 3200
+    },
+    {
+      "metrics_recomputed": {
+        "height_rmse_m": 0.00836653673761672,
+        "velocity_rmse_mps": 0.09054028298982592,
+        "yaw_rate_rmse_rps": 0.02059475837629057
+      },
+      "nonflat_steps": 2206,
+      "policy": "curriculum",
+      "signed_progress_from_integrated_qpos_m": 4.83404197754441,
+      "summary_matches_trace_and_state": true,
+      "transitions": 3200
+    }
+  ],
+  "primary_manifest_sha256": "95dd4e19f4937872b37355b6485773c892d45bae3cefc1c992bb3396b9e97eb8",
+  "source_files_verified": 71,
+  "status": "passed"
+}

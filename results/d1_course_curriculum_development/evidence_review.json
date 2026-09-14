@@ -1,0 +1,285 @@
+{
+  "all_available_checks_passed": true,
+  "all_requested_runs_complete": true,
+  "created_utc": "2026-09-14T02:29:04.411585+00:00",
+  "development": {
+    "conditions": {
+      "curriculum": {
+        "actual_transitions": 16384,
+        "completed_optimisation_epochs": 512,
+        "episode_final_x_m": [
+          3.2417953883024415,
+          2.7365028796263555,
+          2.5621166712317587,
+          1.4229033108912228,
+          1.188451979471612,
+          -3.3810181372154977
+        ],
+        "final_csv_logged_epochs": 508,
+        "geometric_nonflat_steps_by_level": {
+          "0": 0,
+          "1": 2324,
+          "2": 2279,
+          "3": 2230
+        },
+        "model_sha256_verified": "5a2c4b0f6902dbfa4c8956ed52d9bb5deded4c96a2cc636af21601313d93ae70",
+        "nonzero_episode_records": 6,
+        "rollout_train_calls": 128,
+        "sidecar_contract_loaded_and_finite_physics_step": true,
+        "source_of_training_metrics": "episode records; no independent raw step trace retained for training",
+        "stored_pre_save_post_load_equality_claim": true,
+        "terminal_reasons": {
+          "budget_cut": 1,
+          "time_limit": 5
+        },
+        "transitions_by_level": {
+          "0": 6400,
+          "1": 3200,
+          "2": 3200,
+          "3": 3584
+        }
+      },
+      "flat": {
+        "actual_transitions": 16384,
+        "completed_optimisation_epochs": 512,
+        "episode_final_x_m": [
+          3.2417953883024415,
+          2.7365028796263555,
+          2.5675366581155465,
+          1.827399692382503,
+          1.3574744689962746,
+          -3.3426008319560907
+        ],
+        "final_csv_logged_epochs": 508,
+        "geometric_nonflat_steps_by_level": {
+          "0": 0
+        },
+        "model_sha256_verified": "d1a8ee2ea90685e780f45aea6f2755658240d0a64bf484d05e9be91231397f18",
+        "nonzero_episode_records": 6,
+        "rollout_train_calls": 128,
+        "sidecar_contract_loaded_and_finite_physics_step": true,
+        "source_of_training_metrics": "episode records; no independent raw step trace retained for training",
+        "stored_pre_save_post_load_equality_claim": true,
+        "terminal_reasons": {
+          "budget_cut": 1,
+          "time_limit": 5
+        },
+        "transitions_by_level": {
+          "0": 16384
+        }
+      },
+      "mixed": {
+        "actual_transitions": 16384,
+        "completed_optimisation_epochs": 512,
+        "episode_final_x_m": [
+          3.3407411333036903,
+          2.7796079995823115,
+          2.6391488749696146,
+          1.621294235938323,
+          1.719395042830178,
+          -3.29272102625008
+        ],
+        "final_csv_logged_epochs": 508,
+        "geometric_nonflat_steps_by_level": {
+          "0": 0,
+          "2": 7194,
+          "3": 4587
+        },
+        "model_sha256_verified": "22eb24ab65d3e0cc46a6cc3e9d0038ca94487e1ab4479f13d43c9875a08e4d34",
+        "nonzero_episode_records": 6,
+        "rollout_train_calls": 128,
+        "sidecar_contract_loaded_and_finite_physics_step": true,
+        "source_of_training_metrics": "episode records; no independent raw step trace retained for training",
+        "stored_pre_save_post_load_equality_claim": true,
+        "terminal_reasons": {
+          "budget_cut": 1,
+          "time_limit": 5
+        },
+        "transitions_by_level": {
+          "0": 384,
+          "2": 9600,
+          "3": 6400
+        }
+      }
+    },
+    "paired_episode_prefix_length": 6,
+    "paired_terrain_and_seed_streams": true,
+    "source": {
+      "count": 71,
+      "mismatches": [],
+      "old_runner_snapshot_used": false
+    },
+    "status": "completed",
+    "total_actual_training_transitions": 49152
+  },
+  "formal_frozen_sources": {
+    "count": 77,
+    "mismatches": [],
+    "old_runner_snapshot_used": false
+  },
+  "interpretation": "Pipeline/development evidence, not paired final-policy performance or course benefit; geometric exposure is not traversal proof.",
+  "issues": [],
+  "probe": {
+    "all_terrain_and_episode_seeds_paired": true,
+    "cases": [
+      {
+        "actual_transitions": 1200,
+        "final_x_m": -0.9669241021104312,
+        "forward_progress_m": 2.8330758978895685,
+        "geometric_nonflat_steps": 0,
+        "level": 0,
+        "recomputed_velocity_rmse_mps": 0.03938080890056712,
+        "terminal_reason": "time_limit"
+      },
+      {
+        "actual_transitions": 1200,
+        "final_x_m": -0.948239744441329,
+        "forward_progress_m": 2.8517602555586707,
+        "geometric_nonflat_steps": 589,
+        "level": 1,
+        "recomputed_velocity_rmse_mps": 0.0390789711171493,
+        "terminal_reason": "time_limit"
+      },
+      {
+        "actual_transitions": 1200,
+        "final_x_m": -0.9381442541593222,
+        "forward_progress_m": 2.8618557458406775,
+        "geometric_nonflat_steps": 589,
+        "level": 2,
+        "recomputed_velocity_rmse_mps": 0.03921519303016047,
+        "terminal_reason": "time_limit"
+      },
+      {
+        "actual_transitions": 1200,
+        "final_x_m": -0.9358069808194542,
+        "forward_progress_m": 2.8641930191805454,
+        "geometric_nonflat_steps": 589,
+        "level": 3,
+        "recomputed_velocity_rmse_mps": 0.03993480026833199,
+        "terminal_reason": "time_limit"
+      }
+    ],
+    "limitation": "Nonzero levels expose the slope; body never reaches straight ripple start x=0.5 or step x=3.0.",
+    "source": {
+      "count": 58,
+      "mismatches": [],
+      "old_runner_snapshot_used": true
+    }
+  },
+  "reviewer": "gpt-6-astra ultra",
+  "runner_version_difference": "Independent diff: robot asset hash coverage, protocol command metadata and optimisation-epoch naming only; no training algorithm change.",
+  "schema": "d1-course-evidence-independent-review-v1",
+  "smoke": {
+    "conditions": {
+      "curriculum": {
+        "actual_transitions": 256,
+        "completed_optimisation_epochs": 8,
+        "episode_final_x_m": [
+          -3.7999026943764336,
+          -3.8014720998807117,
+          -3.8002244299052936,
+          -3.8005943324988385,
+          -3.8002537822058713,
+          -3.8012585729263826,
+          -3.8003039643234633,
+          -3.79899643492471
+        ],
+        "final_csv_logged_epochs": 7,
+        "geometric_nonflat_steps_by_level": {
+          "0": 0,
+          "1": 0,
+          "2": 0,
+          "3": 0
+        },
+        "model_sha256_verified": "46c03c936d65f2352c6ffa7dc65c21ed985278784f930a8fbc1d00b8195fd223",
+        "nonzero_episode_records": 8,
+        "rollout_train_calls": 8,
+        "sidecar_contract_loaded_and_finite_physics_step": true,
+        "source_of_training_metrics": "episode records; no independent raw step trace retained for training",
+        "stored_pre_save_post_load_equality_claim": true,
+        "terminal_reasons": {
+          "time_limit": 8
+        },
+        "transitions_by_level": {
+          "0": 64,
+          "1": 64,
+          "2": 64,
+          "3": 64
+        }
+      },
+      "flat": {
+        "actual_transitions": 256,
+        "completed_optimisation_epochs": 8,
+        "episode_final_x_m": [
+          -3.7999026943764336,
+          -3.8014720998807117,
+          -3.8004275973338153,
+          -3.8006096256685353,
+          -3.800260152137825,
+          -3.801617759807431,
+          -3.8011587723036095,
+          -3.7989456469777343
+        ],
+        "final_csv_logged_epochs": 7,
+        "geometric_nonflat_steps_by_level": {
+          "0": 0
+        },
+        "model_sha256_verified": "8f4fe689f3bf262c9e0c189ee2c6c4ca0a54b5ca67f4f5224cca5c9660442897",
+        "nonzero_episode_records": 8,
+        "rollout_train_calls": 8,
+        "sidecar_contract_loaded_and_finite_physics_step": true,
+        "source_of_training_metrics": "episode records; no independent raw step trace retained for training",
+        "stored_pre_save_post_load_equality_claim": true,
+        "terminal_reasons": {
+          "time_limit": 8
+        },
+        "transitions_by_level": {
+          "0": 256
+        }
+      },
+      "mixed": {
+        "actual_transitions": 256,
+        "completed_optimisation_epochs": 8,
+        "episode_final_x_m": [
+          -3.799874982006482,
+          -3.801431994089736,
+          -3.8001637873709093,
+          -3.8008688793691148,
+          -3.799983417441041,
+          -3.8017182263436324,
+          -3.8005053859276297,
+          -3.7985551962377895
+        ],
+        "final_csv_logged_epochs": 7,
+        "geometric_nonflat_steps_by_level": {
+          "0": 0,
+          "2": 0,
+          "3": 0
+        },
+        "model_sha256_verified": "2249912bcada4c1ef068a730eabb6bd52582f00397983e041d0fc7d0ef27c65b",
+        "nonzero_episode_records": 8,
+        "rollout_train_calls": 8,
+        "sidecar_contract_loaded_and_finite_physics_step": true,
+        "source_of_training_metrics": "episode records; no independent raw step trace retained for training",
+        "stored_pre_save_post_load_equality_claim": true,
+        "terminal_reasons": {
+          "time_limit": 8
+        },
+        "transitions_by_level": {
+          "0": 32,
+          "2": 160,
+          "3": 64
+        }
+      }
+    },
+    "paired_episode_prefix_length": 8,
+    "paired_terrain_and_seed_streams": true,
+    "source": {
+      "count": 58,
+      "mismatches": [],
+      "old_runner_snapshot_used": true
+    },
+    "status": "completed",
+    "total_actual_training_transitions": 768
+  }
+}

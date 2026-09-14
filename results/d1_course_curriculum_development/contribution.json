@@ -1,0 +1,35 @@
+{
+  "planner": {
+    "model": "gpt-6-astra",
+    "reasoning_effort": "ultra",
+    "artifact": "astra_plan.md"
+  },
+  "implementation": {
+    "requested_model": "opus",
+    "reported_model": "claude-opus-5",
+    "session_id": "7590a2c7-cc43-4c8c-a56b-3a3b9d0fdc29",
+    "cost_usd": 0.2633475,
+    "prompt_sha256": "985c0d393208583ea4c704e27943e5db5068c520a116b4aa3181ca56a746a15e",
+    "adopted_scope": "Gymnasium course terrain scheduling/lifecycle/episode logging core",
+    "execution": "Candidate code returned as text; Codex integrated and ran tests/physics/PPO locally.",
+    "local_corrections": [
+      "level zero is flat; training terrain index zero is not flat",
+      "validate schedule before finalizing or changing reset state",
+      "strict numerical episode length and 10ms grid",
+      "reject malformed actions before physics; failed physical step requires reset",
+      "imports and formatting"
+    ]
+  },
+  "rejected_attempt": {
+    "session_id": "c444a3fe-ded2-4796-a351-fd1579db5a13",
+    "reported_model": "claude-opus-5",
+    "cost_usd": 0.09891625000000001,
+    "reason": "Returned simulated tool text and incorrect terrain source, not the requested implementation; no code adopted."
+  },
+  "test_summary": {
+    "targeted_tests": 56,
+    "result": "passed",
+    "ruff_scope": "src tests examples scripts",
+    "ruff_result": "passed"
+  }
+}

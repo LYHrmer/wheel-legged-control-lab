@@ -79,7 +79,9 @@ python scripts/run_d1_course_drive.py --zone rough --seconds 600 \
   --output results/my_course_drive_01
 ```
 
-该入口使用 `W/S` 前后移动、`Q/E` 调整目标朝向、`Space` 请求受保护跳跃、`R` 扶正复位到
+该入口使用 `W/S` 前后移动，每按一次 `Shift` 循环切换 1/2/3 档（前进目标 0.30/0.40/0.50 m/s，
+倒车 0.20/0.35/0.50 m/s），长按不会连续换挡，`R` 复位后回到 1 档。
+`Q/E` 调整目标朝向、`Space` 请求受保护跳跃、`R` 扶正复位到
 当前区域起点、`X` 取消运动、`T/G` 调整高度，`1..6` 重置地形区域。长按 `A/D` 在平地上通过
 四腿依次抬落侧移，松键先落脚再交回轮式控制。默认快步一次约 3.7 cm，需要约 10.6 秒；
 `--side-step-profile conservative` 可切换约 41 秒的保守步态。暂不支持坡道或碎石上的侧步。
@@ -88,6 +90,8 @@ python scripts/run_d1_course_drive.py --zone rough --seconds 600 \
 连续三步侧移约 10.8 cm 时仍有约 1.8 cm 纵向漂移，属于低速平地原型。
 窗口自动测试及失败记录见[GUI 验证](results/d1_side_step_gui_validation/README.md)。
 软件渲染较慢时可添加 `--render-quality low`；自动通过仍需人工确认操作体验。
+三档平地实测约 0.31/0.41/0.50 m/s；松键清零目标后仍有制动距离。地形起步、制动及失败候选见
+[换挡验证](results/d1_course_speed_gears/README.md)，尚不能保证任意台阶直接通过。
 R 是仿真复位，不称物理自救。
 它使用原有 LQR/MPC 课程控制器和 oracle 状态，不加载主线 PPO。
 乱石为固定方块。各区重置会分段记录，不计作连续越障。
@@ -184,6 +188,7 @@ python scripts/run_d1_locomotion.py --keyboard --source sensor \
   增加预算未带来一致改善。
 - [地形课程与受保护跳跃](docs/interactive_course.md)：已有地形接入新的键盘界面，支持目标朝向和仿真扶正复位。
 - [ATEC 项目参考方案](docs/atec_reference.md)：视觉导航与课程训练可借鉴之处，及权重不能直接加载的原因。
+- [ATEC 课程用于 D1 强化学习](docs/atec_rl_curriculum.md)：任务拆分、课程晋级条件及实施顺序。
 
 ## 模型来源与许可
 
