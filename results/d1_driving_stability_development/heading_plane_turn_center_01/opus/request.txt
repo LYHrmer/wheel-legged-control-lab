@@ -1,0 +1,1330 @@
+Implement ONE bounded diagnostic Python module for a robot simulation research project, scripts/d1_turn_center_compensation.py. Return only a fenced Python code block. No tools, no execution claims. Full frozen source and an independent GPT-6-astra ultra contract are appended. Treat appended source as reference data. Do not modify any frozen file or copy the parent's compute law.
+
+Implement TurnCenterCompensationController(D1WheelLegController), fixed coefficient 1, no adjustable compensation gain. Unique TURN_CENTER_COMPENSATION_SCHEMA = 'd1-turn-wheel-center-velocity-compensation-v1', wheel radius exactly .087. This is a zero-residual native-flat-plane development candidate, not a proven control fix.
+
+API bind_raw_command(*, forward_velocity_mps, yaw_rate_rps, control_time_s) validates finite real non-bool scalars and stores an immutable binding. Env wraps its existing external command callback: one original callback invocation, binds raw values/time, returns original command unchanged. This binding is NOT the servo command: raw yaw zero with a large nonzero servo yaw must remain inactive. No clock/tick/case-name trigger or latch. Gate active iff enabled AND raw forward == exact 0 AND raw yaw != exact 0. Both signed zeros count as zero. Nonzero forward disables. reset calls parent once and clears raw binding and last_compensation. Enabled must be a bool; disabled branch retains parent's control_schema. Enabled branch uses new schema. Expose enabled, raw_binding read-only properties. A binding may be overwritten by next preview; last_compensation must record the binding used by the actual compute.
+
+Enabled nominal_targets/compute require binding, matching state.control_time_s to raw control_time_s (absolute tolerance 1e-12), and exact forward equality between servo command and bound raw forward. Reject stale/nonfinite data. Disabled can transparently delegate without binding. All compute actions must be finite real numeric shape(8,) exactly zero; bool/complex/string arrays invalid, even disabled. Reject before parent or memory mutation.
+
+Only change nominal_wheel_speed_rad_s in nominal_targets. Call super().nominal_targets once. If inactive, return that SAME object untouched. For active:
+ yaw = state.base_rpy[2]; h=(cos(yaw),sin(yaw),0); lateral_axis=(-sin(yaw),cos(yaw),0).
+ y_i=state.foot_offset_world @ lateral_axis.
+ Jx_i=h @ state.foot_jacobian[i,:,:3]; u_i=Jx_i @ state.joint_velocity[4*i:4*i+3].
+ base_unclipped_i=(servo.forward_velocity_mps - parent_targets.effective_yaw_request_rps*y_i)/.087.
+ corrected_unclipped_i=base_unclipped_i+u_i/.087.
+ wheels=clip(corrected_unclipped_i,-30,30), using ONE final clip after sum. Do not add after the parent's clipping.
+ Return dataclasses.replace(parent_targets, nominal_wheel_speed_rad_s=wheels).
+ Preserve nominal leg target, extension, effective yaw request and all other fields. Preview is pure: no PI/latch/gate/last_compensation/result mutations and idempotent. Formula is wheel-CENTER longitudinal correction only; it omits carrier angular motion/contact Jacobian differences. It is not exact contact inverse, passive damping, or a promise of stability. Added differential target may imply yaw above .6 while the parent's effective yaw cap remains .6; document this distinction.
+
+compute calls super().compute exactly once; dynamic dispatch to this pure nominal_targets is the only control change. Do not reimplement wheel PI, antiwindup, support, leg PD, residual scaling or torque/position/speed protections. Return the exact parent torque result. Save a frozen dataclass TurnCenterCompensationRecord AFTER super().compute, before env prepares another decision. Recompute only algebraic diagnostics from the same immutable pre-step state and result effective_yaw_request; do not call parent compute or nominal_targets a second time.
+
+Record fields: schema:str, enabled:bool, active:bool, control_time_s:float, raw_forward_mps:float, raw_yaw_rate_rps:float, servo_forward_mps:float, servo_yaw_rate_rps:float, leg_center_forward_mps:shape4, correction_unclipped_rad_s:shape4, base_unclipped_rad_s:shape4, corrected_unclipped_rad_s:shape4, base_target_rad_s:shape4, corrected_target_rad_s:shape4, target_clipped:bool shape4, effective_yaw_request_rps:float, target_equivalent_yaw_rps:float. Arrays immutable finite copied. Inactive leg_center_forward_mps may still record the measured u, but correction must be exactly zeros and corrected targets equal parent targets. For disabled/unbound diagnostic binding record use raw forward/yaw from command, state.control_time_s, active false. target_equivalent_yaw = -dot(y-mean(y), .087*corrected_target_rad_s)/dot(y-mean(y),y-mean(y)); reject degenerate spread <1e-12. This is just a geometric target fit, not body motion. last_compensation initially/reset None. No plant, model, truth, ground-contact access, no new imports not present in supplied repository, no filesystem/network.
+
+Use public frozen imports: wheel_legged_control.d1.wheel_leg_controller.D1WheelLegController, wheel_legged_control.d1.controllers.D1Command, wheel_legged_control.d1.state_estimation.D1StateEstimate; standard library, NumPy. Keep module focused, no environment, runner, CLI, training, gain sweeps, extra safety limits, or unrelated changes. Parent's safety stays authoritative.
+
+
+INDEPENDENT PLAN / CONTRACT:
+
+# 拟定合同：纯转向脉冲轮中心运动学校正，固定3200步
+
+gpt-6-astra / ultra，2026-09-20。仅规划及离线证据；本文件没有执行物理或授权额外预算。真实Opus负责新的有界实现，root独立集成/前检/执行。只测试以下一个机制，不叠加已另行通过的停车腿阻尼，不调整yaw cap或增益。
+
+## 决定和证据范围
+
+新plane左右转向均完整800步，唯一失败项是heading peak：endpoint250，raw参考±.300rad时实际yaw仅+.065866/−.065787rad，绝对误差.234134/.234213rad。原脉冲是执行tick200..249、raw yaw±.6rad/s，保持原样。
+
+同相位pulse端点201..250：轮中心r*qdot的几何yaw-fit约±.469，实际body yaw均值仅±.133；完整接触点速度分解的轮自转fit约±.4536，其中wheel/body gap约±.3207，腿项约±.3129，滑移项仅±.00784。轮中心相对纵向速度约解释该完整gap的76.66%，其余包含腿关节带动轮体转动和接触几何。实际native法向竖直、normal load约472N，驱动与侧向摩擦yaw moment抵消；没有原轮力矩饱和。
+
+这使系数1的轮中心补偿成为可证伪候选，但不证明heading gate会通过。`report.json`同时保留全接触点剩余项、晚段滑移和实际native opposing moments，不把所有wheel/body差距归于可消除的轮中心平移。
+
+## 唯一公式：水平heading轴，原effective-yaw保持
+
+只在当前raw用户命令 `forward_velocity_mps == 0.0 and yaw_rate_rps != 0.0` 时启用。零比较为精确比较，+0/−0均为零；不引入epsilon、timer、case/tick判断、历史latch、速度阈值或渐入渐出。
+
+使用当前同一个已发布 `D1StateEstimate`：
+
+```text
+ex_h = [cos(psi), sin(psi), 0]          # 原yaw/lateral使用的水平heading frame
+ey_h = [-sin(psi), cos(psi), 0]
+y_i = foot_offset_world[i] dot ey_h
+u_i = ex_h dot (foot_jacobian[i,:,:3] @ qdot_leg_i)
+r_eff = clip(servo_yaw + 4*(servo_yaw - measured_body_yaw_rate), -.6, +.6)
+omega_target_i = clip((servo_forward - r_eff*y_i + u_i)/.087, -30, +30)
+```
+
+系数严格为1，来自滚动近似 `r*omega_i ≈ v_body - yaw_rate*y_i + u_i`，符号必须 **+u_i**。保留原forward/heading servo输入；不能把raw yaw代替servo yaw用于r_eff。由于wheel与body间有腿运动，补偿后轮差动的等效yaw目标可以超过.6；必须分别记录它和仍限于±.6的body effective-yaw request。不能将其宣传为“轮差限幅完全不变”，也不能把它直接当实际body yaw。
+
+完整四腿u都使用，不另加mean removal、空间投影、contact weighting、full-contact inverse、增益乘子、filter、轮轴补偿或接触flag切换。mean(u)必须记录以观察共同前向运动；它目前pulse RMS约.00253m/s。轮中心近似遗漏的wheel-carrier/contact/roll-pitch项保持可见，禁止乘1.29或用结果拟合其比例。数据支持的是这个固定近似的试验依据。
+
+gate=false时原样返回父类nominal result，不重新计算等价公式或加零；gate=true只替换 `D1WheelLegTargets.nominal_wheel_speed_rad_s`，保留joint targets、extension、effective yaw。compute复用原父类恰一次，原PI/积分限值±4、轮±12Nm/腿80Nm、关节限位/速度外向保护均保持；本任务control_dt=.01、physics_dt=.002、5子步，不改变采样率。controller本身不得读取plant/contact真值或运行MuJoCo。
+
+## 时序与最窄接缝
+
+新增controller子类，只扩展pure `nominal_targets`及有界raw-decision信息/诊断；compute可薄包装一次父compute保存当前gate/目标/PI收据。保留旧文件；不更改冻结controller、heading `_prepare`、模型或全局factory。
+
+新增candidate env继承已验证的native-plane heading环境（或其现有diagnostic子类），首次reset前仅替换controller adapter。不要实例化停车damper。明确要求传入external `command_source`，拒绝schedule-only入口：原G1 runner本来就使用该callback。
+
+包装callback每次只调用原callback一次，校验并**原样返回同一个D1MotionCommand**，同时把该次raw command及time绑定到candidate controller的当前decision信息。之后原heading `_prepare`照旧计算reference/servo并preview；nominal_targets对preview和compute看到相同gate。重复 `_prepare`沿原缓存返回，不再次调用source，不重复改变reference。不能另行query callback，也不能复制整个 `_prepare`或monkeypatch模块级 `_servo_command`。
+
+绑定信息是当前准备决策的stateless输入，不是控制模式latch。reset清空；preview不得更新PI、integral或compute计数。compute检查输入时间与published state/decision一致，并保存不可变**执行时gate快照**。`env.step`返回前已经准备下一拍：执行tick199后当前flag会指向tick200=true，执行tick249后会指向tick250=false；日志必须读取保存的compute记录，不能读取这个已更新flag错标区间。
+
+启用执行tick200..249恰50拍；tick250立即恢复原nominal公式，保留该关断瞬态。不得因关断后反弹改为latch、延长脉冲或加斜坡。原raw参考±.300rad、左保持积分、原score窗口完全不变。
+
+candidate单独task_schema/controller_schema/config块，同时保留actual plane身份与原编码/source/reward意义。`_build_heading_task_config`须在super返回后显式设置candidate task_schema（plane父方法使用常量），构造中只读取已预置常量。旧heading、plane-zero、stop-damper checkpoint经两层metadata检查均拒绝反序列化；runner无checkpoint/PPO路径，action严格zero8。
+
+## 前检：不积分，不假称被动或已稳定
+
+单元测试须guard`mj_step/mj_step1/mj_step2`并检查time0。包括：水平heading旋转共变；左右符号；u=0；pure preview幂等；原compute一次；raw gate正负零/正反yaw/非零forward；**raw yaw=0但servo yaw明显非零**仍不启用；callback每拍一次和缓存；reset；first/last pulse decision与compute快照；zero8拒绝；目标±30及原PI/antiwindup/保护；inactive原对象/数值逐位透传；metadata与三类旧checkpoint拒绝；T/T+1及partial异常归档。
+
+先在原保存状态进行单拍目标/PI代数核对。当前100个左右pulse样本的影子目标最大2.52409/2.52287rad/s，增量最大1.02553/1.02439rad/s，同一原PI memory下单拍请求最大3.34747/3.34303Nm，无目标clip、积分clip/reject或±12Nm超限。它们不是反馈轨迹：每拍重新使用原baseline memory，不把候选memory传给下一拍，不能用于预测gates或未来饱和。
+
+补偿是轮—腿交叉速度反馈。未保护新增轮力矩近似 `(2.2 + 3*.01)*u/.087`；它与wheel velocity的功没有固定符号，**不是阻尼，也没有被动性保证**。腿—轮惯性耦合、轮PI、支撑摩擦、10ms sample/hold可使该反馈放大运动；不能靠单拍力矩余量或名义公式宣称离散稳定。当前oracle同步无延迟，未来估计器/延迟不在合同内。若非物理检查失败则停止，不改系数/采样率/滤波继续。
+
+## 固定四条candidate，复用对应plane-zero
+
+基线只引用完整封存的`flat_plane_02`相同case；两停车carry provenance继续保留。不要把`plane_stop_damping`通过轨迹当inactive基线。核对case/seed55101/raw profile/gates/plant/source/default controller/模型输入以及complete manifests。原baseline不重跑。
+
+| 新candidate case | 控制步上限 | native子步上限 | 用途 |
+|---|---:|---:|---|
+| stationary_turn_left_hold | 800 | 4000 | 正转唯一机制 |
+| stationary_turn_right_hold | 800 | 4000 | 反转唯一机制 |
+| flat_forward_stop | 800 | 4000 | 全程gate=false noop |
+| flat_reverse_stop | 800 | 4000 | 全程gate=false noop |
+| 新增合计 | **3200** | **16000** | 训练0、参数扫描0 |
+
+不新增impulse物理；其raw yaw=0而servo yaw可大的gate区别由上述纯测试明确覆盖。本合同不声称已执行新candidate的扰动/延迟/GUI泛化验证。两停车仍是原plane-zero控制，预期原3失败项不变；它们验证隔离性，不要求凭空变成通过。
+
+第一次termination/truncation结束case，不补跑。原门槛失败可依固定列表继续；数值、plant、日志或逐位隔离检查失败则停止剩余批次，保留失败区间已经进入的native步和末态，禁止reset重试。修复后如需物理须另立补充合同并计入已用预算。
+
+## 精确配对与评分
+
+同case reset qpos/qvel/obs/PI memory与baseline逐位一致，不引入跨正反初态的signed-zero豁免。
+
+两turn：
+
+- 执行tick0..199的raw/servo/action、原unlimited/safe请求、每拍5个实际torque、PI before/after、native ctrl/wrench逐位相同，gate=false。
+- qpos/qvel/body-origin truth position的状态0..200（201项）逐位相同。
+- observation只要求0..199（200项）逐位相同。**obs200已preview候选目标，允许不同**，即使本次增量很小也不能把该项塞入严格prefix。tick200才开始不同物理。
+- 活跃50拍逐拍验证原公式+u/.087（clip前/后分别记），原effective-yaw表达式/限幅仍相同；这里“公式相同”不要求candidate在不同state上得到与baseline相同数值。tick250起gate=false，但轨迹已经分岔，无后缀逐位要求。
+
+两stop：全800转移原请求/实际5子步torque/PI/actions/raw/servo/native ctrl/wrench、801状态/观察逐位相同；gate始终false、目标增量严格0；原gates、failed名单和metrics完全相同。其原velocity_rmse/late_speed/late_path失败保留，不能因新停车damper通过而替换基线或掩盖失败。
+
+两turn成功条件：全部原turn gates通过，包括8秒完整、无翻倒/非轮接触/边界、roll/pitch≤10°、height RMS≤.015m、**全程heading peak≤5°**、最终参考±.300rad、endpoint450..799 heading error≤3°和|COM body-vx|≤.03m/s、全程平面原点位移≤.1m。原raw与reference不变，不以reward、晚段最终到达或candidate轮差拟合替代heading峰值门槛。
+
+记录T转移/T+1状态、raw/servo、计算时gate/time、u_i/mean(u)、原nominal和修正wheel target、effective body yaw与等效wheel差动yaw分列、误差/PI/请求/安全/实际5子步torque、actual body yaw和全Jacobian中心/接触分解、真实native normal/tangent force和yaw moment、接触样本相位。native只读observer不得额外forward；缺接触不记零滑移。native force与另相位endpoint velocity不得相乘算能量。
+
+最终分别报告plant/执行证据/隔离配对、两turn原gates、两noop stop原失败保留。机制预测是：腿中心运动出现后，新增目标让wheel PI继续看见body yaw缺口，增加同向驱动并减小原raw heading lag；若只增加wheel spin、腿形变或滑移而body yaw/原heading峰值不改善，即不支持该机制。改善但仍超5°依然失败。
+
+失败即封存，不追加cap/系数扫描、latch、filter、yaw腿阻尼或训练。即使两turn通过，也不自动合并停车damper；组合需要独立合同/验证，再进入人工驾驶、真实净空与落地稳定的跳跃/台阶阶段，最后提速。旧heightfield障碍几何还需单独审计，不能用平地plane结果代替障碍证据。
+
+
+REFERENCE SOURCE src/wheel_legged_control/d1/wheel_leg_controller.py
+
+"""Eight physical wheel/leg targets with one standalone low-level torque law.
+
+There is no LQR/VMC object hidden inside this controller. Leg position PD is
+combined once with nominal gravity/attitude support; wheel joints receive only
+wheel-speed feedback. Runtime feedback is exclusively a D1StateEstimate.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass, fields
+from functools import lru_cache
+from numbers import Real
+
+import mujoco
+import numpy as np
+
+from .control_context import D1ControllerMemory
+from .controllers import D1Command
+from .model import (
+    JOINT_POSITION_HIGH,
+    JOINT_POSITION_LOW,
+    JOINT_TORQUE_LIMIT,
+    JOINT_VELOCITY_LIMIT,
+    NOMINAL_JOINT_POSITION,
+    D1Plant,
+)
+from .state_estimation import D1StateEstimate
+
+WHEEL_INDICES = np.asarray((3, 7, 11, 15))
+LEG_INDICES = np.asarray([i for i in range(16) if i % 4 != 3])
+NOMINAL_LEG_KP = np.tile((80.0, 80.0, 80.0, 0.0), 4)
+NOMINAL_LEG_KD = np.tile((3.0, 3.0, 3.0, 0.0), 4)
+for _array in (NOMINAL_LEG_KP, NOMINAL_LEG_KD):
+    _array.setflags(write=False)
+NOMINAL_ROLL_PITCH_KP = 180.0
+NOMINAL_ROLL_PITCH_KD = 24.0
+# Strictly positive: a zero here would silently delete a feedback law instead of
+# retuning it, and the wheel loop has no other proportional term.
+_POSITIVE_FIELDS = ("wheel_kp", "leg_feedback_scale", "attitude_feedback_scale")
+
+
+class D1ControlEnvelopeError(ValueError):
+    """A finite nominal reference lies outside the controller's supported domain.
+
+    This does not represent malformed/nonfinite input or a numerical failure.
+    A task may terminate after a completed step if its next preview raises it;
+    rejecting an initial configuration or an unexecuted action still raises.
+    """
+
+
+@dataclass(frozen=True)
+class D1WheelLegControlConfig:
+    """Fixed episode gains; synthetic tuning, not identified hardware gains."""
+
+    wheel_kp: float = 2.2
+    wheel_ki: float = 3.0
+    yaw_feedback_gain: float = 4.0
+    leg_feedback_scale: float = 1.0
+    attitude_feedback_scale: float = 1.0
+
+    def __post_init__(self):
+        for field in fields(self):
+            value = getattr(self, field.name)
+            if isinstance(value, (bool, np.bool_)) or not isinstance(value, Real):
+                raise TypeError(f"{field.name} must be a real scalar")
+            positive = field.name in _POSITIVE_FIELDS
+            if not np.isfinite(value) or value < 0 or (positive and value == 0):
+                raise ValueError(
+                    f"{field.name} must be finite and nonnegative; "
+                    "wheel_kp and the feedback scales must be positive"
+                )
+            object.__setattr__(self, field.name, float(value))
+
+    @property
+    def feedback_scaled(self) -> bool:
+        """True when either bandwidth scale leaves its historical value of one."""
+        return self.leg_feedback_scale != 1.0 or self.attitude_feedback_scale != 1.0
+
+
+def _freeze_arrays(instance) -> None:
+    for field in fields(instance):
+        value = getattr(instance, field.name)
+        if isinstance(value, np.ndarray):
+            value = np.ascontiguousarray(value)
+            object.__setattr__(
+                instance,
+                field.name,
+                np.frombuffer(value.tobytes(), dtype=value.dtype).reshape(value.shape),
+            )
+
+
+@dataclass(frozen=True)
+class D1WheelLegTargets:
+    nominal_joint_target_rad: np.ndarray
+    nominal_wheel_speed_rad_s: np.ndarray
+    leg_extension_target_m: np.ndarray
+    effective_yaw_request_rps: float
+
+    def __post_init__(self):
+        _freeze_arrays(self)
+
+
+@dataclass(frozen=True)
+class D1WheelLegResult:
+    nominal_joint_target_rad: np.ndarray
+    nominal_wheel_speed_rad_s: np.ndarray
+    joint_target_rad: np.ndarray
+    wheel_speed_target_rad_s: np.ndarray
+    leg_extension_target_m: np.ndarray
+    requested_extension_m: np.ndarray
+    clipped_action: np.ndarray
+    leg_pd_nm: np.ndarray
+    support_nm: np.ndarray
+    wheel_nm: np.ndarray
+    requested_torque_nm: np.ndarray
+    torque_nm: np.ndarray
+    support_force_n: np.ndarray
+    joint_target_rate_limited: np.ndarray
+    torque_limited: np.ndarray
+    memory_before: D1ControllerMemory
+    memory_after: D1ControllerMemory
+    effective_yaw_request_rps: float
+
+    def __post_init__(self):
+        _freeze_arrays(self)
+
+
+def build_leg_extension_table(plant):
+    """Build body-origin wheel IK, warm-starting outward from the nominal pose.
+
+    The DLS/precompute implementation was drafted by Claude Opus and checked
+    locally; public validation is recorded in results/d1_v3_action_probes.
+    Only caller-owned nominal scratch data is modified.
+    """
+    model, data = plant.model, plant.data
+    qadr = np.asarray(plant.qpos_addresses).reshape(4, 4)
+    vadr = np.asarray(plant.dof_addresses).reshape(4, 4)
+    base = plant.base_body_id
+    bodies = plant.wheel_body_ids_by_leg
+    low, high = JOINT_POSITION_LOW[:3], JOINT_POSITION_HIGH[:3]
+    grid = np.linspace(-0.08, 0.08, 161)
+    table = np.zeros((4, len(grid), 3))
+    q_backup, v_backup = data.qpos.copy(), data.qvel.copy()
+    jacp, jacr = np.zeros((3, model.nv)), np.zeros((3, model.nv))
+
+    def fk(leg, q):
+        data.qpos[qadr[leg, :3]] = q
+        data.qpos[qadr[leg, 3]] = 0.0
+        mujoco.mj_forward(model, data)
+        rotation = data.xmat[base].reshape(3, 3).copy()
+        return rotation.T @ (data.xpos[bodies[leg]] - data.xpos[base]), rotation
+
+    def solve(leg, extension, seed):
+        target = offsets[leg].copy()
+        target[2] -= extension
+        q = np.clip(seed.copy(), low, high)
+        for _ in range(60):
+            current, rotation = fk(leg, q)
+            error = target - current
+            if np.linalg.norm(error) <= 1e-8:
+                break
+            mujoco.mj_jacBody(model, data, jacp, jacr, bodies[leg])
+            jacobian = rotation.T @ jacp[:, vadr[leg, :3]]
+            delta = jacobian.T @ np.linalg.solve(jacobian @ jacobian.T + 1e-6 * np.eye(3), error)
+            candidate = np.clip(q + np.clip(delta, -0.15, 0.15), low, high)
+            if np.max(np.abs(candidate - q)) < 1e-14:
+                break
+            q = candidate
+        current, _ = fk(leg, q)
+        residual = float(np.linalg.norm(target - current))
+        if not np.isfinite(residual) or residual > 1e-5:
+            raise RuntimeError(f"leg {leg} extension {extension} m IK residual {residual} m")
+        return q, residual
+
+    try:
+        data.qpos[plant.qpos_addresses] = NOMINAL_JOINT_POSITION
+        data.qvel[:] = 0.0
+        mujoco.mj_forward(model, data)
+        rotation = data.xmat[base].reshape(3, 3)
+        offsets = (data.xpos[np.asarray(bodies)] - data.xpos[base]) @ rotation
+        max_error = 0.0
+        zero = int(np.argmin(np.abs(grid)))
+        for leg in range(4):
+            q_zero, error = solve(leg, grid[zero], NOMINAL_JOINT_POSITION[:3])
+            table[leg, zero] = q_zero
+            max_error = max(max_error, error)
+            for indices in (range(zero + 1, len(grid)), range(zero - 1, -1, -1)):
+                seed = q_zero.copy()
+                for index in indices:
+                    seed, error = solve(leg, grid[index], seed)
+                    table[leg, index] = seed
+                    max_error = max(max_error, error)
+        return grid, table, offsets.copy(), max_error
+    finally:
+        data.qpos[:] = q_backup
+        data.qvel[:] = v_backup
+        mujoco.mj_forward(model, data)
+
+
+@lru_cache(maxsize=1)
+def _nominal_geometry():
+    plant = D1Plant()
+    grid, table, offsets, error = build_leg_extension_table(plant)
+    mass = plant.nominal_total_mass_kg
+    rotation = plant.data.xmat[plant.base_body_id].reshape(3, 3)
+    com = (
+        np.sum(plant.model.body_mass[:, None] * plant.data.xipos, axis=0) / mass
+        - plant.data.xpos[plant.base_body_id]
+    ) @ rotation
+    for array in (grid, table, offsets, com):
+        array.setflags(write=False)
+    return grid, table, offsets, mass, com, error
+
+
+class D1WheelLegController:
+    """Map [four extension, four wheel-speed] residuals to 16 ordered torques.
+
+    Positive leg action extends the leg (wheel moves down in the body frame).
+    Positive wheel action increases forward rolling speed. Commands keep the
+    existing world-z height contract; ground_height_m is supplied by the caller.
+    Four wheel integral torques are explicitly exposed through control_memory.
+    Call compute exactly once per control tick; nominal_targets is pure and safe
+    before policy inference. reset clears all integrals and diagnostics.
+
+    Joint reference increments are bounded relative to measured q by the rated
+    speed times dt. Outward torque is removed at position/speed boundaries. This
+    does not guarantee actual speed under external impacts; probes report it.
+
+    leg_feedback_scale and attitude_feedback_scale multiply the nominal leg PD
+    pair (80/3) and the nominal body attitude pair (180/24). They only retune
+    feedback bandwidth: gravity support, the wheel PI law, the yaw feedback and
+    the IK targets are unchanged, and any scale other than one selects its own
+    control schema so recorded policies cannot load against a different law.
+    """
+
+    action_schema = "d1-wheel-leg-extension-speed-v1"
+    control_schema = "d1-wheel-leg-joint-pd-wheel-pi-yaw-feedback-v2"
+    leg_action_scale_m = 0.04
+    wheel_action_scale_rad_s = 4.0
+
+    def __init__(
+        self,
+        *,
+        control_dt: float = 0.01,
+        yaw_feedback_gain: float = 4.0,
+        wheel_kp: float = 2.2,
+        wheel_ki: float = 3.0,
+        leg_feedback_scale: float = 1.0,
+        attitude_feedback_scale: float = 1.0,
+    ):
+        if not np.isfinite(control_dt) or not 0 < control_dt <= 0.02:
+            raise ValueError("control_dt must be finite and in (0, .02] s")
+        gains = D1WheelLegControlConfig(
+            wheel_kp, wheel_ki, yaw_feedback_gain, leg_feedback_scale, attitude_feedback_scale
+        )
+        if gains.feedback_scaled:
+            # Scaled position/attitude bandwidth is a different control law, so
+            # old checkpoints must not silently load against it.
+            self.control_schema = "d1-wheel-leg-joint-pd-wheel-pi-yaw-feedback-configured-v4"
+        elif gains != D1WheelLegControlConfig():
+            self.control_schema = "d1-wheel-leg-joint-pd-wheel-pi-yaw-feedback-configured-v3"
+        self.control_dt = float(control_dt)
+        self._grid, self._table, self._offsets, self._mass, self._com, self.ik_max_error_m = (
+            _nominal_geometry()
+        )
+        # One scale moves the whole leg PD pair, and one moves the whole body
+        # attitude pair; gravity support, wheel PI and the IK stay untouched.
+        self.leg_feedback_scale = gains.leg_feedback_scale
+        self.attitude_feedback_scale = gains.attitude_feedback_scale
+        self.leg_kp = self.leg_feedback_scale * NOMINAL_LEG_KP
+        self.leg_kd = self.leg_feedback_scale * NOMINAL_LEG_KD
+        self.wheel_kp = gains.wheel_kp
+        self.wheel_ki = gains.wheel_ki
+        self.yaw_feedback_gain = gains.yaw_feedback_gain
+        self.yaw_request_limit_rps = 0.6
+        self._wheel_integral_nm = np.zeros(4)
+        self.roll_pitch_kp = self.attitude_feedback_scale * NOMINAL_ROLL_PITCH_KP
+        self.roll_pitch_kd = self.attitude_feedback_scale * NOMINAL_ROLL_PITCH_KD
+        self.last_result: D1WheelLegResult | None = None
+
+    def reset(self):
+        self.last_result = None
+        self._wheel_integral_nm[:] = 0.0
+
+    @property
+    def control_memory(self) -> D1ControllerMemory:
+        return D1ControllerMemory(wheel_integral_nm=self._wheel_integral_nm)
+
+    def _extension(self, command: D1Command, ground_height_m: float) -> np.ndarray:
+        values = np.asarray(
+            (
+                command.forward_velocity_mps,
+                command.yaw_rate_rps,
+                command.base_height_m,
+                command.roll_rad,
+                command.pitch_rad,
+                command.base_vertical_velocity_mps,
+                ground_height_m,
+            )
+        )
+        if not np.isfinite(values).all():
+            raise ValueError("command and ground height must be finite")
+        if command.base_vertical_velocity_mps != 0:
+            raise ValueError(
+                "nonzero vertical velocity is not implemented by the v3 position controller"
+            )
+        clearance = command.base_height_m - ground_height_m
+        if not np.isfinite(clearance):
+            raise ValueError("nominal clearance must be finite")
+        if (
+            not 0.32 <= clearance <= 0.56
+            or max(abs(command.roll_rad), abs(command.pitch_rad)) > 0.3
+        ):
+            raise D1ControlEnvelopeError(
+                "nominal clearance must be .32-.56 m and attitude commands within .3 rad"
+            )
+        # Small commanded attitude tilts the desired support geometry. Measured
+        # attitude feedback is handled by the support moments, not a second PD.
+        return (
+            (clearance - 0.455)
+            + self._offsets[:, 1] * np.tan(command.roll_rad)
+            - self._offsets[:, 0] * np.tan(command.pitch_rad)
+        )
+
+    def _joint_targets(self, extension: np.ndarray) -> np.ndarray:
+        target = NOMINAL_JOINT_POSITION.copy()
+        for leg in range(4):
+            for joint in range(3):
+                target[4 * leg + joint] = np.interp(
+                    extension[leg], self._grid, self._table[leg, :, joint]
+                )
+        return target
+
+    def nominal_targets(
+        self, command: D1Command, state: D1StateEstimate, *, ground_height_m: float = 0.0
+    ) -> D1WheelLegTargets:
+        extension = np.clip(
+            self._extension(command, ground_height_m), self._grid[0], self._grid[-1]
+        )
+        yaw = float(state.base_rpy[2])
+        lateral_world = np.asarray((-np.sin(yaw), np.cos(yaw), 0.0))
+        lateral = state.foot_offset_world @ lateral_world
+        effective_yaw = float(
+            np.clip(
+                command.yaw_rate_rps
+                + self.yaw_feedback_gain
+                * (command.yaw_rate_rps - state.base_angular_velocity_body[2]),
+                -self.yaw_request_limit_rps,
+                self.yaw_request_limit_rps,
+            )
+        )
+        wheels = np.clip(
+            (command.forward_velocity_mps - effective_yaw * lateral) / 0.087, -30.0, 30.0
+        )
+        return D1WheelLegTargets(self._joint_targets(extension), wheels, extension, effective_yaw)
+
+    def compute(
+        self,
+        command: D1Command,
+        state: D1StateEstimate,
+        action: np.ndarray,
+        *,
+        ground_height_m: float = 0.0,
+    ) -> np.ndarray:
+        action = np.asarray(action, dtype=np.float64)
+        if action.shape != (8,) or not np.isfinite(action).all():
+            raise ValueError("action must contain eight finite values")
+        clipped = np.clip(action, -1.0, 1.0)
+        memory_before = self.control_memory
+        nominal = self.nominal_targets(command, state, ground_height_m=ground_height_m)
+        requested_extension = (
+            self._extension(command, ground_height_m) + self.leg_action_scale_m * clipped[:4]
+        )
+        extension = np.clip(requested_extension, self._grid[0], self._grid[-1])
+        geometric_target = self._joint_targets(extension)
+        target = np.clip(
+            geometric_target,
+            state.joint_position - JOINT_VELOCITY_LIMIT * self.control_dt,
+            state.joint_position + JOINT_VELOCITY_LIMIT * self.control_dt,
+        )
+        target = np.clip(target, JOINT_POSITION_LOW, JOINT_POSITION_HIGH)
+        target[WHEEL_INDICES] = state.joint_position[WHEEL_INDICES]
+        wheel_target = np.clip(
+            nominal.nominal_wheel_speed_rad_s + self.wheel_action_scale_rad_s * clipped[4:],
+            -30.0,
+            30.0,
+        )
+        leg_pd = self.leg_kp * (target - state.joint_position) - self.leg_kd * state.joint_velocity
+        leg_pd[WHEEL_INDICES] = 0.0
+
+        roll, pitch, yaw = state.base_rpy
+        heading = np.asarray(
+            ((np.cos(yaw), -np.sin(yaw), 0.0), (np.sin(yaw), np.cos(yaw), 0.0), (0.0, 0.0, 1.0))
+        )
+        angular = heading.T @ state.base_angular_velocity_world
+        feedback = (
+            self.roll_pitch_kp * (np.asarray((command.roll_rad, command.pitch_rad)) - (roll, pitch))
+            - self.roll_pitch_kd * angular[:2]
+        )
+        upward = self._mass * 9.81
+        moment = (
+            np.cross(state.base_rotation @ self._com, np.asarray((0.0, 0.0, upward)))
+            + heading @ np.r_[feedback, 0.0]
+        )
+        offsets = state.foot_offset_world
+        allocation = np.vstack((np.ones(4), offsets[:, 1], -offsets[:, 0]))
+        forces = np.clip(
+            np.linalg.lstsq(allocation, np.r_[upward, moment[:2]], rcond=None)[0], 0, 0.65 * upward
+        )
+        support = np.zeros(16)
+        for leg in range(4):
+            support[4 * leg : 4 * leg + 3] = -state.foot_jacobian[leg, 2, :3] * forces[leg]
+        wheels = np.zeros(16)
+        wheel_error = wheel_target - state.joint_velocity[WHEEL_INDICES]
+        candidate = np.clip(
+            self._wheel_integral_nm + self.wheel_ki * wheel_error * self.control_dt, -4.0, 4.0
+        )
+        wheel_request = self.wheel_kp * wheel_error + candidate
+        within_torque = np.abs(wheel_request) <= JOINT_TORQUE_LIMIT[WHEEL_INDICES]
+        unwinding = wheel_request * wheel_error < 0
+        self._wheel_integral_nm = np.where(
+            within_torque | unwinding, candidate, self._wheel_integral_nm
+        )
+        wheels[WHEEL_INDICES] = self.wheel_kp * wheel_error + self._wheel_integral_nm
+        request = leg_pd + support + wheels
+        torque = np.clip(request, -JOINT_TORQUE_LIMIT, JOINT_TORQUE_LIMIT)
+        upper_outward = (state.joint_position >= JOINT_POSITION_HIGH) & (torque > 0)
+        lower_outward = (state.joint_position <= JOINT_POSITION_LOW) & (torque < 0)
+        speed_outward = (np.abs(state.joint_velocity) >= JOINT_VELOCITY_LIMIT) & (
+            torque * state.joint_velocity > 0
+        )
+        torque[upper_outward | lower_outward | speed_outward] = 0.0
+        self.last_result = D1WheelLegResult(
+            nominal.nominal_joint_target_rad,
+            nominal.nominal_wheel_speed_rad_s,
+            target,
+            wheel_target,
+            extension,
+            requested_extension,
+            clipped,
+            leg_pd,
+            support,
+            wheels,
+            request,
+            torque,
+            forces,
+            target != geometric_target,
+            torque != request,
+            memory_before,
+            self.control_memory,
+            nominal.effective_yaw_request_rps,
+        )
+        return torque.copy()
+
+
+REFERENCE SOURCE src/wheel_legged_control/d1/controllers.py
+
+"""Low-level joint and virtual-model control for the full-body D1 plant."""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+
+import numpy as np
+
+from .contact_allocation import (
+    D1AllocationStatus,
+    D1ContactAllocationRequest,
+    D1ContactAllocator,
+    D1WrenchTrackingStatus,
+)
+from .model import (
+    D1_JOINT_NAMES,
+    JOINT_TORQUE_LIMIT,
+    LEG_PREFIXES,
+    NOMINAL_JOINT_POSITION,
+    D1Plant,
+)
+from .state_estimation import D1StateEstimate
+
+
+def _heading_rotation(yaw_rad: float) -> np.ndarray:
+    """Map yaw-aligned horizontal-frame vectors into the world frame."""
+
+    cos_yaw = np.cos(yaw_rad)
+    sin_yaw = np.sin(yaw_rad)
+    return np.asarray(
+        ((cos_yaw, -sin_yaw, 0.0), (sin_yaw, cos_yaw, 0.0), (0.0, 0.0, 1.0)),
+        dtype=np.float64,
+    )
+
+
+@dataclass(frozen=True)
+class D1Command:
+    """Body command; height and vertical velocity are world-z references.
+
+    Nonzero vertical-velocity feedforward is supported by inverse dynamics only.
+    Legacy VMC paths reject it rather than silently ignoring a requested motion.
+    """
+
+    forward_velocity_mps: float = 0.0
+    yaw_rate_rps: float = 0.0
+    base_height_m: float = 0.455
+    roll_rad: float = 0.0
+    pitch_rad: float = 0.0
+
+
+REFERENCE SOURCE src/wheel_legged_control/d1/state_estimation.py
+
+"""Control-ready D1 state snapshots and MuJoCo estimator-channel sources.
+
+The noisy source in this first version perturbs and delays complete MuJoCo truth
+snapshots.  It is an estimator-channel model for robustness experiments, not a
+sensor-fusion algorithm, observer, or EKF.
+"""
+
+from __future__ import annotations
+
+from collections import deque
+from dataclasses import dataclass, replace
+
+import mujoco
+import numpy as np
+
+from .model import (
+    D1_JOINT_NAMES,
+    JOINT_POSITION_HIGH,
+    JOINT_POSITION_LOW,
+    LEG_PREFIXES,
+    D1Plant,
+)
+
+
+def _immutable_array(
+    value: np.ndarray,
+    *,
+    shape: tuple[int, ...],
+    dtype: np.dtype | type = np.float64,
+) -> np.ndarray:
+    """Copy an array into immutable byte-backed storage and validate it once."""
+
+    array = np.asarray(value, dtype=dtype)
+    if array.shape != shape:
+        raise ValueError(f"expected shape {shape}, got {array.shape}")
+    if np.issubdtype(array.dtype, np.floating) and not np.isfinite(array).all():
+        raise ValueError("state arrays must contain only finite values")
+    contiguous = np.ascontiguousarray(array)
+    return np.frombuffer(contiguous.tobytes(), dtype=contiguous.dtype).reshape(shape)
+
+
+@dataclass(frozen=True, slots=True)
+class D1StateEstimate:
+    """Immutable, control-ready estimate using explicit world and body frames.
+
+    ``base_rotation`` maps body-frame vectors into the world frame.  Base
+    velocities are stored in both the visible ``base_link`` and world frames.
+    Linear velocities refer to the base inertial COM, while ``base_position``
+    refers to the visible body origin (a legacy convention preserved for control).
+    Foot positions and translational Jacobians are expressed in the world frame;
+    each Jacobian contains the four columns for that leg in D1 joint order.
+    Contact-point rows are zero when the corresponding contact flag is false.
+    """
+
+    sequence: int
+    control_time_s: float
+    measurement_time_s: float
+    base_position: np.ndarray
+    base_rotation: np.ndarray
+    base_linear_velocity_body: np.ndarray
+    base_angular_velocity_body: np.ndarray
+    base_linear_velocity_world: np.ndarray
+    base_angular_velocity_world: np.ndarray
+    joint_position: np.ndarray
+    joint_velocity: np.ndarray
+    foot_position: np.ndarray
+    foot_jacobian: np.ndarray
+    wheel_contact: np.ndarray
+    wheel_contact_point: np.ndarray
+    wheel_contact_normal: np.ndarray
+    wheel_contact_jacobian: np.ndarray
+    undesired_ground_contacts: int
+
+    def __post_init__(self) -> None:
+        if self.sequence < 0:
+            raise ValueError("sequence must be non-negative")
+        times = np.asarray((self.control_time_s, self.measurement_time_s))
+        if not np.isfinite(times).all():
+            raise ValueError("state times must be finite")
+        if self.measurement_time_s > self.control_time_s + 1e-12:
+            raise ValueError("measurement time cannot be later than control time")
+        if self.undesired_ground_contacts < 0:
+            raise ValueError("undesired_ground_contacts must be non-negative")
+
+        specifications = {
+            "base_position": ((3,), np.float64),
+            "base_rotation": ((3, 3), np.float64),
+            "base_linear_velocity_body": ((3,), np.float64),
+            "base_angular_velocity_body": ((3,), np.float64),
+            "base_linear_velocity_world": ((3,), np.float64),
+            "base_angular_velocity_world": ((3,), np.float64),
+            "joint_position": ((len(D1_JOINT_NAMES),), np.float64),
+            "joint_velocity": ((len(D1_JOINT_NAMES),), np.float64),
+            "foot_position": ((len(LEG_PREFIXES), 3), np.float64),
+            "foot_jacobian": ((len(LEG_PREFIXES), 3, 4), np.float64),
+            "wheel_contact": ((len(LEG_PREFIXES),), np.bool_),
+            "wheel_contact_point": ((len(LEG_PREFIXES), 3), np.float64),
+            "wheel_contact_normal": ((len(LEG_PREFIXES), 3), np.float64),
+            "wheel_contact_jacobian": ((len(LEG_PREFIXES), 3, 4), np.float64),
+        }
+        for name, (shape, dtype) in specifications.items():
+            object.__setattr__(
+                self,
+                name,
+                _immutable_array(getattr(self, name), shape=shape, dtype=dtype),
+            )
+
+        rotation = self.base_rotation
+        if not np.allclose(
+            rotation.T @ rotation, np.eye(3), atol=1e-8, rtol=1e-8
+        ) or not np.isclose(np.linalg.det(rotation), 1.0, atol=1e-8, rtol=1e-8):
+            raise ValueError("base_rotation must be a proper orthonormal rotation")
+        for body_velocity, world_velocity in (
+            (self.base_linear_velocity_body, self.base_linear_velocity_world),
+            (self.base_angular_velocity_body, self.base_angular_velocity_world),
+        ):
+            if not np.allclose(
+                rotation @ body_velocity,
+                world_velocity,
+                atol=1e-8,
+                rtol=1e-8,
+            ):
+                raise ValueError("body- and world-frame velocities must agree")
+
+    @property
+    def age_s(self) -> float:
+        return float(self.control_time_s - self.measurement_time_s)
+
+    @property
+    def base_rpy(self) -> np.ndarray:
+        rotation = self.base_rotation
+        pitch = np.arcsin(-np.clip(rotation[2, 0], -1.0, 1.0))
+        roll = np.arctan2(rotation[2, 1], rotation[2, 2])
+        yaw = np.arctan2(rotation[1, 0], rotation[0, 0])
+        return np.asarray((roll, pitch, yaw), dtype=np.float64)
+
+    @property
+    def projected_gravity_body(self) -> np.ndarray:
+        return self.base_rotation.T @ np.asarray((0.0, 0.0, -1.0))
+
+    @property
+    def foot_offset_world(self) -> np.ndarray:
+        return self.foot_position - self.base_position
+
+    @property
+    def wheel_ground_contacts(self) -> int:
+        return int(np.count_nonzero(self.wheel_contact))
+
+    def base_velocity(self, *, local: bool = False) -> tuple[np.ndarray, np.ndarray]:
+        """Return copied linear and angular velocity in body or world frame."""
+
+        if local:
+            return (
+                self.base_linear_velocity_body.copy(),
+                self.base_angular_velocity_body.copy(),
+            )
+        return (
+            self.base_linear_velocity_world.copy(),
+            self.base_angular_velocity_world.copy(),
+        )
+
+    def reduced_state(self) -> np.ndarray:
+        """Return ``[x, pitch, z, vx, pitch_rate, vz]`` in world coordinates."""
+
+        linear = self.base_linear_velocity_world
+        angular = self.base_angular_velocity_world
+        return np.asarray(
+            (
+                self.base_position[0],
+                self.base_rpy[1],
+                self.base_position[2],
+                linear[0],
+                angular[1],
+                linear[2],
+            ),
+            dtype=np.float64,
+        )
+
+    def base_origin_velocity(
+        self, com_offset_body_m: np.ndarray, *, local: bool = False
+    ) -> np.ndarray:
+        """Convert measured COM velocity to the visible origin's derivative.
+
+        The offset is an explicit nominal model parameter, not live truth.
+        Pass it in base_link axes; rotational motion contributes omega cross r.
+        """
+
+        offset = _immutable_array(com_offset_body_m, shape=(3,))
+        world = self.base_linear_velocity_world - np.cross(
+            self.base_angular_velocity_world, self.base_rotation @ offset
+        )
+        return self.base_rotation.T @ world if local else world
+
+    def has_fallen(self) -> bool:
+        roll, pitch, _ = self.base_rpy
+        return bool(self.base_position[2] < 0.22 or abs(roll) > 0.85 or abs(pitch) > 0.85)
+
+
+class D1MujocoTruthStateSource:
+    """Read exact D1 state snapshots from a caller-owned MuJoCo plant."""
+
+    def __init__(self, plant: D1Plant) -> None:
+        self.plant = plant
+        self._foot_body_ids = tuple(
+            mujoco.mj_name2id(
+                plant.model,
+                mujoco.mjtObj.mjOBJ_BODY,
+                f"{leg}_foot",
+            )
+            for leg in LEG_PREFIXES
+        )
+        self._body_to_foot_index = {
+            body_id: index for index, body_id in enumerate(self._foot_body_ids)
+        }
+        self._leg_dof_addresses = tuple(
+            plant.dof_addresses[
+                np.asarray(
+                    [index for index, name in enumerate(D1_JOINT_NAMES) if name.startswith(leg)],
+                    dtype=np.int32,
+                )
+            ]
+            for leg in LEG_PREFIXES
+        )
+        self._sequence = -1
+        self._was_reset = False
+
+    def _contact_point_jacobian(self, foot_index: int, point_world_m: np.ndarray) -> np.ndarray:
+        translation = np.zeros((3, self.plant.model.nv), dtype=np.float64)
+        rotation = np.zeros_like(translation)
+        mujoco.mj_jac(
+            self.plant.model,
+            self.plant.measurement_data,
+            translation,
+            rotation,
+            point_world_m,
+            self._foot_body_ids[foot_index],
+        )
+        return translation[:, self._leg_dof_addresses[foot_index]]
+
+    def _capture(self) -> D1StateEstimate:
+        plant = self.plant
+        foot_position = np.asarray(
+            [plant.measurement_data.xpos[body_id] for body_id in self._foot_body_ids],
+            dtype=np.float64,
+        )
+        foot_jacobian = np.empty((len(LEG_PREFIXES), 3, 4), dtype=np.float64)
+        for index, (body_id, dof_addresses) in enumerate(
+            zip(self._foot_body_ids, self._leg_dof_addresses, strict=True)
+        ):
+            translation = np.zeros((3, plant.model.nv), dtype=np.float64)
+            rotation = np.zeros_like(translation)
+            jacobian_function = (
+                mujoco.mj_jacBody
+                if plant.sampling_mode == "synchronized"
+                else mujoco.mj_jacBodyCom
+            )
+            jacobian_function(
+                plant.model,
+                plant.measurement_data,
+                translation,
+                rotation,
+                body_id,
+            )
+            foot_jacobian[index] = translation[:, dof_addresses]
+
+        contact_points: list[list[np.ndarray]] = [[] for _ in range(len(LEG_PREFIXES))]
+        contact_normals: list[list[np.ndarray]] = [[] for _ in range(len(LEG_PREFIXES))]
+        for contact in plant.measurement_data.contact:
+            if int(contact.efc_address) < 0:
+                continue
+            geom1 = int(contact.geom1)
+            geom2 = int(contact.geom2)
+            if geom1 in plant.terrain_geom_ids:
+                wheel_geom = geom2
+            elif geom2 in plant.terrain_geom_ids:
+                wheel_geom = geom1
+            else:
+                continue
+            foot_index = self._body_to_foot_index.get(int(plant.model.geom_bodyid[wheel_geom]))
+            if foot_index is not None:
+                point = np.asarray(contact.pos).copy()
+                normal = np.asarray(contact.frame).reshape(3, 3)[0].copy()
+                if np.dot(normal, foot_position[foot_index] - point) < 0.0:
+                    normal *= -1.0
+                contact_points[foot_index].append(point)
+                contact_normals[foot_index].append(normal)
+
+        wheel_contact = np.asarray(
+            [bool(points) for points in contact_points],
+            dtype=np.bool_,
+        )
+        wheel_contact_point = np.zeros((len(LEG_PREFIXES), 3), dtype=np.float64)
+        wheel_contact_normal = np.zeros((len(LEG_PREFIXES), 3), dtype=np.float64)
+        wheel_contact_jacobian = np.zeros((len(LEG_PREFIXES), 3, 4), dtype=np.float64)
+        for index, points in enumerate(contact_points):
+            if points:
+                wheel_contact_point[index] = np.mean(points, axis=0)
+                mean_normal = np.mean(contact_normals[index], axis=0)
+                wheel_contact_normal[index] = mean_normal / np.linalg.norm(mean_normal)
+                wheel_contact_jacobian[index] = self._contact_point_jacobian(
+                    index,
+                    wheel_contact_point[index],
+                )
+
+        linear_body, angular_body = plant.base_velocity(local=True)
+        linear_world, angular_world = plant.base_velocity(local=False)
+        time_s = float(plant.measurement_data.time)
+        return D1StateEstimate(
+            sequence=self._sequence,
+            control_time_s=time_s,
+            measurement_time_s=time_s,
+            base_position=plant.base_position,
+            base_rotation=plant.measurement_data.xmat[plant.base_body_id].reshape(3, 3),
+            base_linear_velocity_body=linear_body,
+            base_angular_velocity_body=angular_body,
+            base_linear_velocity_world=linear_world,
+            base_angular_velocity_world=angular_world,
+            joint_position=plant.joint_position,
+            joint_velocity=plant.joint_velocity,
+            foot_position=foot_position,
+            foot_jacobian=foot_jacobian,
+            wheel_contact=wheel_contact,
+            wheel_contact_point=wheel_contact_point,
+            wheel_contact_normal=wheel_contact_normal,
+            wheel_contact_jacobian=wheel_contact_jacobian,
+            undesired_ground_contacts=plant.undesired_ground_contacts,
+        )
+
+    def reset(self, *, seed: int | None = None) -> D1StateEstimate:
+        """Reset source-local ordering; the caller remains responsible for plant reset."""
+
+        del seed
+        self._sequence = 0
+        self._was_reset = True
+        return self._capture()
+
+    def read(self) -> D1StateEstimate:
+        if not self._was_reset:
+            raise RuntimeError("D1 state source must be reset before read")
+        self._sequence += 1
+        return self._capture()
+
+
+@dataclass(frozen=True, slots=True)
+class D1EstimatorImpairments:
+    """Field-level noise and integer-step delay for the estimator channel."""
+
+    delay_steps: int = 0
+    base_position_std_m: float = 0.0
+    base_rotation_std_rad: float = 0.0
+    base_linear_velocity_std_mps: float = 0.0
+    base_angular_velocity_std_radps: float = 0.0
+    joint_position_std_rad: float = 0.0
+    joint_velocity_std_radps: float = 0.0
+    foot_position_std_m: float = 0.0
+    foot_jacobian_std: float = 0.0
+    contact_point_std_m: float = 0.0
+    contact_normal_std_rad: float = 0.0
+    contact_jacobian_std: float = 0.0
+    contact_flip_probability: float = 0.0
+
+    def __post_init__(self) -> None:
+        if isinstance(self.delay_steps, bool) or not isinstance(self.delay_steps, int):
+            raise TypeError("delay_steps must be an integer")
+        if self.delay_steps < 0:
+            raise ValueError("delay_steps must be non-negative")
+        standard_deviations = (
+            self.base_position_std_m,
+            self.base_rotation_std_rad,
+            self.base_linear_velocity_std_mps,
+            self.base_angular_velocity_std_radps,
+            self.joint_position_std_rad,
+            self.joint_velocity_std_radps,
+            self.foot_position_std_m,
+            self.foot_jacobian_std,
+            self.contact_point_std_m,
+            self.contact_normal_std_rad,
+            self.contact_jacobian_std,
+        )
+        if not np.isfinite(standard_deviations).all() or any(
+            value < 0.0 for value in standard_deviations
+        ):
+            raise ValueError("noise standard deviations must be finite and non-negative")
+        probability = self.contact_flip_probability
+        if not np.isfinite(probability) or not 0.0 <= probability <= 1.0:
+            raise ValueError("contact_flip_probability must be in [0, 1]")
+
+
+def make_default_d1_estimator_impairments(
+    *,
+    delay_steps: int = 0,
+    noise_scale: float = 1.0,
+) -> D1EstimatorImpairments:
+    """Return the shared D1 robustness profile used by training and teleoperation."""
+
+    if not np.isfinite(noise_scale) or noise_scale < 0.0:
+        raise ValueError("noise_scale must be finite and non-negative")
+    scale = float(noise_scale)
+    return D1EstimatorImpairments(
+        delay_steps=delay_steps,
+        base_position_std_m=0.002 * scale,
+        base_rotation_std_rad=0.004 * scale,
+        base_linear_velocity_std_mps=0.020 * scale,
+        base_angular_velocity_std_radps=0.010 * scale,
+        joint_position_std_rad=0.001 * scale,
+        joint_velocity_std_radps=0.010 * scale,
+        foot_position_std_m=0.001 * scale,
+        foot_jacobian_std=0.001 * scale,
+        contact_point_std_m=0.002 * scale,
+        contact_normal_std_rad=0.004 * scale,
+        contact_jacobian_std=0.001 * scale,
+        contact_flip_probability=min(0.005 * scale, 1.0),
+    )
+
+
+def _rotation_from_vector(rotation_vector: np.ndarray) -> np.ndarray:
+    angle = float(np.linalg.norm(rotation_vector))
+    if angle == 0.0:
+        return np.eye(3, dtype=np.float64)
+    x, y, z = rotation_vector / angle
+    skew = np.asarray(((0.0, -z, y), (z, 0.0, -x), (-y, x, 0.0)))
+    return np.eye(3) + np.sin(angle) * skew + (1.0 - np.cos(angle)) * (skew @ skew)
+
+
+@dataclass(frozen=True, slots=True)
+class D1LatencyCompensationResult:
+    """State plus provenance for one short-horizon latency compensation step."""
+
+    control_state: D1StateEstimate
+    method: str
+    source_age_s: float
+    applied_horizon_s: float
+    estimate_time_s: float
+    status: str
+
+
+def compensate_d1_state_constant_velocity(
+    measured: D1StateEstimate,
+    *,
+    max_horizon_s: float = 0.05,
+    max_leg_joint_delta_rad: float = 0.35,
+) -> D1LatencyCompensationResult:
+    """Extrapolate a delayed snapshot with constant body twist and joint velocity.
+
+    Contact flags and contact points remain measured values.  The function is a
+    short-horizon latency compensator, not a sensor observer or contact predictor.
+    """
+
+    if not np.isfinite(max_horizon_s) or max_horizon_s <= 0.0:
+        raise ValueError("max_horizon_s must be finite and positive")
+    if not np.isfinite(max_leg_joint_delta_rad) or max_leg_joint_delta_rad <= 0.0:
+        raise ValueError("max_leg_joint_delta_rad must be finite and positive")
+    age_s = measured.age_s
+    common = {
+        "method": "constant_body_twist_first_order",
+        "source_age_s": age_s,
+    }
+    if age_s <= 1e-12:
+        return D1LatencyCompensationResult(
+            control_state=measured,
+            applied_horizon_s=0.0,
+            estimate_time_s=measured.measurement_time_s,
+            status="bypassed",
+            **common,
+        )
+    if age_s > max_horizon_s + 1e-12:
+        return D1LatencyCompensationResult(
+            control_state=measured,
+            applied_horizon_s=0.0,
+            estimate_time_s=measured.measurement_time_s,
+            status="horizon_exceeded",
+            **common,
+        )
+
+    leg_indices = np.asarray(
+        [index for index in range(len(D1_JOINT_NAMES)) if index % 4 != 3],
+        dtype=np.int32,
+    )
+    joint_delta = measured.joint_velocity * age_s
+    predicted_joint_position = measured.joint_position + joint_delta
+    invalid_leg_prediction = bool(
+        np.any(np.abs(joint_delta[leg_indices]) > max_leg_joint_delta_rad)
+        or np.any(predicted_joint_position[leg_indices] < JOINT_POSITION_LOW[leg_indices])
+        or np.any(predicted_joint_position[leg_indices] > JOINT_POSITION_HIGH[leg_indices])
+    )
+    if invalid_leg_prediction:
+        return D1LatencyCompensationResult(
+            control_state=measured,
+            applied_horizon_s=0.0,
+            estimate_time_s=measured.measurement_time_s,
+            status="kinematic_horizon_exceeded",
+            **common,
+        )
+
+    rotation = measured.base_rotation
+    angular_step = measured.base_angular_velocity_body * age_s
+    predicted_rotation = rotation @ _rotation_from_vector(angular_step)
+    midpoint_rotation = rotation @ _rotation_from_vector(0.5 * angular_step)
+    predicted_position = (
+        measured.base_position + midpoint_rotation @ measured.base_linear_velocity_body * age_s
+    )
+
+    predicted_foot_position = np.empty_like(measured.foot_position)
+    predicted_foot_jacobian = np.empty_like(measured.foot_jacobian)
+    for leg_index in range(len(LEG_PREFIXES)):
+        joint_slice = slice(4 * leg_index, 4 * (leg_index + 1))
+        foot_offset_body = rotation.T @ (measured.foot_position[leg_index] - measured.base_position)
+        jacobian_body = rotation.T @ measured.foot_jacobian[leg_index]
+        predicted_offset_body = (
+            foot_offset_body + (jacobian_body @ measured.joint_velocity[joint_slice]) * age_s
+        )
+        predicted_foot_position[leg_index] = (
+            predicted_position + predicted_rotation @ predicted_offset_body
+        )
+        predicted_foot_jacobian[leg_index] = predicted_rotation @ jacobian_body
+
+    control_state = replace(
+        measured,
+        base_position=predicted_position,
+        base_rotation=predicted_rotation,
+        base_linear_velocity_world=(predicted_rotation @ measured.base_linear_velocity_body),
+        base_angular_velocity_world=(predicted_rotation @ measured.base_angular_velocity_body),
+        joint_position=predicted_joint_position,
+        foot_position=predicted_foot_position,
+        foot_jacobian=predicted_foot_jacobian,
+    )
+    return D1LatencyCompensationResult(
+        control_state=control_state,
+        applied_horizon_s=age_s,
+        estimate_time_s=measured.control_time_s,
+        status="applied",
+        **common,
+    )
+
+
+def prepare_d1_control_state(
+    measured: D1StateEstimate,
+    *,
+    latency_compensation: str = "none",
+) -> D1LatencyCompensationResult:
+    """Apply the configured latency treatment with one shared mode switch."""
+
+    if latency_compensation == "none":
+        return D1LatencyCompensationResult(
+            control_state=measured,
+            method="none",
+            source_age_s=measured.age_s,
+            applied_horizon_s=0.0,
+            estimate_time_s=measured.measurement_time_s,
+            status="disabled",
+        )
+    if latency_compensation == "constant_velocity":
+        return compensate_d1_state_constant_velocity(measured)
+    raise ValueError("latency_compensation must be 'none' or 'constant_velocity'")
+
+
+class D1NoisyDelayedStateSource:
+    """Delay and perturb complete truth snapshots as an estimator-channel model.
+
+    This Adapter is intentionally not presented as an EKF or a realistic IMU
+    and encoder fusion pipeline.  It is a deterministic robustness-test seam
+    until a proprioceptive estimator is implemented.
+    """
+
+    def __init__(
+        self,
+        plant: D1Plant,
+        *,
+        impairments: D1EstimatorImpairments | None = None,
+        seed: int | None = None,
+    ) -> None:
+        self.truth_source = D1MujocoTruthStateSource(plant)
+        self.impairments = D1EstimatorImpairments() if impairments is None else impairments
+        self.seed = seed
+        self._rng = np.random.default_rng(seed)
+        self._delay_buffer: deque[D1StateEstimate] = deque()
+        self._sequence = -1
+        self._was_reset = False
+
+    def _normal(self, shape: tuple[int, ...], standard_deviation: float) -> np.ndarray:
+        if standard_deviation == 0.0:
+            return np.zeros(shape, dtype=np.float64)
+        return self._rng.normal(0.0, standard_deviation, size=shape)
+
+    def _perturb(self, state: D1StateEstimate) -> D1StateEstimate:
+        config = self.impairments
+        rotation_noise = _rotation_from_vector(self._normal((3,), config.base_rotation_std_rad))
+        wheel_contact = state.wheel_contact.copy()
+        if config.contact_flip_probability > 0.0:
+            wheel_contact ^= self._rng.random(len(LEG_PREFIXES)) < config.contact_flip_probability
+
+        contact_point = state.wheel_contact_point.copy()
+        contact_point += self._normal(contact_point.shape, config.contact_point_std_m)
+        contact_normal = state.wheel_contact_normal.copy()
+        contact_jacobian = state.wheel_contact_jacobian.copy()
+        newly_contacting = wheel_contact & ~state.wheel_contact
+        contact_normal[newly_contacting] = np.asarray((0.0, 0.0, 1.0))
+        contact_point[newly_contacting] = (
+            state.foot_position[newly_contacting]
+            - self.truth_source.plant.wheel_radius_m * contact_normal[newly_contacting]
+        )
+        contact_jacobian[newly_contacting] = state.foot_jacobian[newly_contacting]
+        for index in np.flatnonzero(newly_contacting):
+            contact_jacobian[index] = self.truth_source._contact_point_jacobian(
+                int(index),
+                contact_point[index],
+            )
+        for index in np.flatnonzero(wheel_contact):
+            contact_normal[index] = _rotation_from_vector(
+                self._normal((3,), config.contact_normal_std_rad)
+            ) @ contact_normal[index]
+            contact_normal[index] /= np.linalg.norm(contact_normal[index])
+            if np.dot(
+                contact_normal[index],
+                state.foot_position[index] - contact_point[index],
+            ) < 0.0:
+                contact_normal[index] *= -1.0
+            contact_jacobian[index] += self._normal(
+                (3, 4),
+                config.contact_jacobian_std,
+            )
+        contact_point[~wheel_contact] = 0.0
+        contact_normal[~wheel_contact] = 0.0
+        contact_jacobian[~wheel_contact] = 0.0
+
+        base_rotation = state.base_rotation @ rotation_noise
+        linear_body = state.base_linear_velocity_body + self._normal(
+            (3,), config.base_linear_velocity_std_mps
+        )
+        angular_body = state.base_angular_velocity_body + self._normal(
+            (3,), config.base_angular_velocity_std_radps
+        )
+        return D1StateEstimate(
+            sequence=state.sequence,
+            control_time_s=state.control_time_s,
+            measurement_time_s=state.measurement_time_s,
+            base_position=state.base_position + self._normal((3,), config.base_position_std_m),
+            base_rotation=base_rotation,
+            base_linear_velocity_body=linear_body,
+            base_angular_velocity_body=angular_body,
+            base_linear_velocity_world=base_rotation @ linear_body,
+            base_angular_velocity_world=base_rotation @ angular_body,
+            joint_position=state.joint_position
+            + self._normal(state.joint_position.shape, config.joint_position_std_rad),
+            joint_velocity=state.joint_velocity
+            + self._normal(state.joint_velocity.shape, config.joint_velocity_std_radps),
+            foot_position=state.foot_position
+            + self._normal(state.foot_position.shape, config.foot_position_std_m),
+            foot_jacobian=state.foot_jacobian
+            + self._normal(state.foot_jacobian.shape, config.foot_jacobian_std),
+            wheel_contact=wheel_contact,
+            wheel_contact_point=contact_point,
+            wheel_contact_normal=contact_normal,
+            wheel_contact_jacobian=contact_jacobian,
+            undesired_ground_contacts=state.undesired_ground_contacts,
+        )
+
+    def reset(self, *, seed: int | None = None) -> D1StateEstimate:
+        effective_seed = self.seed if seed is None else seed
+        self._rng = np.random.default_rng(effective_seed)
+        measurement = self._perturb(self.truth_source.reset())
+        self._delay_buffer = deque([measurement] * self.impairments.delay_steps)
+        self._sequence = 0
+        self._was_reset = True
+        return replace(measurement, sequence=0)
+
+    def read(self) -> D1StateEstimate:
+        if not self._was_reset:
+            raise RuntimeError("D1 state source must be reset before read")
+        truth = self.truth_source.read()
+        measurement = self._perturb(truth)
+        if self.impairments.delay_steps:
+            self._delay_buffer.append(measurement)
+            delivered = self._delay_buffer.popleft()
+        else:
+            delivered = measurement
+        self._sequence += 1
+        return replace(
+            delivered,
+            sequence=self._sequence,
+            control_time_s=truth.control_time_s,
+        )
+
+
+def make_d1_state_source(
+    plant: D1Plant,
+    *,
+    impairments: D1EstimatorImpairments | None = None,
+    seed: int | None = None,
+) -> D1MujocoTruthStateSource | D1NoisyDelayedStateSource:
+    """Build the simple truth source by default, or the channel model on request."""
+
+    if impairments is None:
+        return D1MujocoTruthStateSource(plant)
+    return D1NoisyDelayedStateSource(
+        plant,
+        impairments=impairments,
+        seed=seed,
+    )

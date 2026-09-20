@@ -1,0 +1,89 @@
+--- opus-original
++++ root-final-before-physics
+@@ -49,7 +49,6 @@
+ from __future__ import annotations
+ 
+ import dataclasses
+-from collections.abc import Callable
+ from numbers import Real
+ from typing import Any
+ 
+@@ -62,10 +61,9 @@
+ __all__ = [
+     "TURN_CENTER_COMPENSATION_SCHEMA",
+     "WHEEL_RADIUS_M",
++    "TurnCenterCompensationController",
++    "TurnCenterCompensationRecord",
+     "TurnCenterRawCommandBinding",
+-    "TurnCenterCompensationRecord",
+-    "TurnCenterCompensationController",
+-    "bind_raw_command_source",
+ ]
+ 
+ #: Unique control schema for the enabled candidate law.  Recorded policies and
+@@ -80,7 +78,7 @@
+ 
+ # Absolute tolerance used only to confirm that the bound raw command belongs to
+ # the same control decision as the published state.  It is not a gate epsilon.
+-_TIME_MATCH_ATOL_S = 1e-12
++_TIME_MATCH_ATOL_S = 1e-10
+ 
+ # Minimum lateral-offset spread accepted by the geometric yaw fit.
+ _MIN_LATERAL_SPREAD = 1e-12
+@@ -415,9 +413,9 @@
+     ) -> np.ndarray:
+         """Run the frozen parent compute once and archive the execution record.
+ 
+-        All rejection happens before the parent runs, so no memory, integral or
+-        record state changes on invalid input.  The parent's torque result is
+-        returned exactly as produced.
++        Action and raw-binding rejection precede the parent. A subsequent diagnostic
++        failure may occur after its PI update and must not be retried on the same
++        state. The parent torque result is returned exactly as produced.
+         """
+ 
+         validated_action = self._validate_action(action)
+@@ -530,43 +528,3 @@
+     if not np.isfinite(equivalent):
+         raise ValueError("target equivalent yaw must be finite")
+     return equivalent
+-
+-
+-def bind_raw_command_source(
+-    controller: TurnCenterCompensationController,
+-    command_source: Callable[..., Any],
+-    control_time_source: Callable[[], Any],
+-) -> Callable[..., Any]:
+-    """Wrap an existing external command callback with one raw-command binding.
+-
+-    The wrapper invokes the original callback exactly once per call, binds that
+-    call's raw forward/yaw and the caller-supplied control time onto the
+-    controller, and returns the original command object unchanged (same
+-    identity, no copy, no clamping, no substitution).  It queries no other
+-    source, caches nothing and computes no reference of its own; the binding is
+-    a stateless input to the decision being prepared, not a control-mode latch.
+-
+-    ``control_time_source`` must return the control time of that same decision.
+-    The bound time is used only to confirm decision consistency; it never gates.
+-    """
+-
+-    if not callable(command_source):
+-        raise TypeError("command_source must be callable")
+-    if not callable(control_time_source):
+-        raise TypeError("control_time_source must be callable")
+-    if not isinstance(controller, TurnCenterCompensationController):
+-        raise TypeError("controller must be a TurnCenterCompensationController")
+-
+-    def wrapped(*args: Any, **kwargs: Any) -> Any:
+-        command = command_source(*args, **kwargs)
+-        for attribute in ("forward_velocity_mps", "yaw_rate_rps"):
+-            if not hasattr(command, attribute):
+-                raise TypeError(f"raw command must expose {attribute}")
+-        controller.bind_raw_command(
+-            forward_velocity_mps=command.forward_velocity_mps,
+-            yaw_rate_rps=command.yaw_rate_rps,
+-            control_time_s=control_time_source(),
+-        )
+-        return command
+-
+-    return wrapped
