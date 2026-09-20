@@ -1,0 +1,2772 @@
+{
+  "call": "mj_fwdPosition only on newly allocated snapshot MjData; no mj_step or time integration",
+  "floor_position": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "grid_dx_m": 0.05,
+  "grid_dy_m": 0.05,
+  "hfield_cols": 241,
+  "hfield_data_all_zero": true,
+  "hfield_rows": 121,
+  "hfield_size": [
+    6.0,
+    3.0,
+    1.0,
+    0.1
+  ],
+  "input_sha256": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/heading_turn_limit_02/stationary_turn_left_hold/limit0p6/states.npz": "36fc374d59455750040fbf17a49a1a635e930cbabebaad8c6e3861f6b4d8cd6d",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/heading_turn_limit_02/stationary_turn_left_hold/limit0p6/turn_diagnostics.jsonl.gz": "88fcaa3dc046455d1c5c7b64f039dcda62380c6cdbd771d05ccede59da59512c",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/heading_turn_limit_02/stationary_turn_left_hold/limit1p0/states.npz": "1a419d36b6070fa2cd78acc4fa99cc853d3635284251ce1e46216557ff6402be",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/heading_turn_limit_02/stationary_turn_left_hold/limit1p0/turn_diagnostics.jsonl.gz": "ec253abbfde6c8c4a864cec702614f18ea61b1f3c301023f46a7a1018a9fb4a4",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/heading_turn_limit_02/stationary_turn_right_hold/limit0p6/states.npz": "b34f196ab6e8654b66834716f24efe86bbf2abfefea4d0671317d28e3d53b188",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/heading_turn_limit_02/stationary_turn_right_hold/limit0p6/turn_diagnostics.jsonl.gz": "474525daa5eaab7dcb40bfd83e9aef3dc181e15213b82a1ad4a12223de42bb58",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/heading_turn_limit_02/stationary_turn_right_hold/limit1p0/states.npz": "4fc964cd4d7a0fb8f7bdf6c33f65fc69e9b0f2462aa59f453c47aa4ff5c75a3f",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/heading_turn_limit_02/stationary_turn_right_hold/limit1p0/turn_diagnostics.jsonl.gz": "281e6718d3a089dba611197cbfab85711daa3bbfd4e7efb8c4fdd0e0957c6f96",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/turn_contact_diagnosis_01/audit_flat_collision.py": "5ca72277607fb598ca861fbc1e3d7fdf34c91fccb14da7abe6d03409d2c566ae"
+  },
+  "inputs_unchanged": true,
+  "limit": "Plane is tested only for contacts at already-observed hfield poses; no plane trajectory or control outcome is inferred.",
+  "mujoco_version": "3.12.0",
+  "new_physics_steps": 0,
+  "plant_instantiated": false,
+  "position_collision_calls": 18,
+  "schema": "d1-flat-hfield-plane-offline-collision-v1",
+  "snapshots": [
+    {
+      "condition": "limit0p6",
+      "endpoint": 200,
+      "hfield": {
+        "active_contact_count": 13,
+        "contact_count": 13,
+        "contacts": [
+          {
+            "dist": -0.00012251850042339013,
+            "efc_address": 16,
+            "index": 0,
+            "nearest_hfield_x_gridline_distance_m": 0.00989335048072384,
+            "nearest_hfield_y_gridline_distance_m": 0.009879081338058883,
+            "normal": [
+              0.11646047087290363,
+              -0.11646994553379707,
+              0.9863425928709638
+            ],
+            "pos": [
+              -3.659893350480724,
+              0.24012091866194119,
+              0.0009395773923088551
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": -0.0007763548252934094,
+            "efc_address": 20,
+            "index": 1,
+            "nearest_hfield_x_gridline_distance_m": 4.599714844744086e-06,
+            "nearest_hfield_y_gridline_distance_m": 0.009931089284196304,
+            "normal": [
+              0.01184951698555633,
+              6.792717962403893e-13,
+              0.9999297920090235
+            ],
+            "pos": [
+              -3.6500045997148445,
+              0.24006891071580344,
+              0.0006118498405095786
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": -0.0007799800487900843,
+            "efc_address": 24,
+            "index": 2,
+            "nearest_hfield_x_gridline_distance_m": 0.0007969493227491854,
+            "nearest_hfield_y_gridline_distance_m": 0.009930889832106972,
+            "normal": [
+              3.58845216519939e-07,
+              1.8819758002088328e-08,
+              0.9999999999999355
+            ],
+            "pos": [
+              -3.649203050677251,
+              0.24006911016789376,
+              0.0006100099756049831
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": -0.0007696670657453001,
+            "efc_address": 28,
+            "index": 3,
+            "nearest_hfield_x_gridline_distance_m": 0.0008653163650272689,
+            "nearest_hfield_y_gridline_distance_m": 0.0008651619765181807,
+            "normal": [
+              -0.0001969324983309022,
+              0.0002042500785663729,
+              0.9999999597497474
+            ],
+            "pos": [
+              -3.6491346836349727,
+              0.20086516197651813,
+              0.0006151664826169967
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": -0.0006981642398050666,
+            "efc_address": 32,
+            "index": 4,
+            "nearest_hfield_x_gridline_distance_m": 6.9419184601216e-05,
+            "nearest_hfield_y_gridline_distance_m": 3.90871537483406e-05,
+            "normal": [
+              0.04344542650350161,
+              -0.04344539122639354,
+              0.9981107117434992
+            ],
+            "pos": [
+              -3.650069419184601,
+              -0.20003908715374796,
+              0.0006515773968471489
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": -0.0007083263864080467,
+            "efc_address": 36,
+            "index": 5,
+            "nearest_hfield_x_gridline_distance_m": 1.624740411401149e-05,
+            "nearest_hfield_y_gridline_distance_m": 0.009952031025925479,
+            "normal": [
+              0.045875473298697206,
+              -6.911668489190868e-06,
+              0.9989471662214422
+            ],
+            "pos": [
+              -3.650016247404114,
+              -0.24004796897407427,
+              0.0006462096817689124
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": -0.0008099815475629942,
+            "efc_address": 40,
+            "index": 6,
+            "nearest_hfield_x_gridline_distance_m": 0.004200765229657222,
+            "nearest_hfield_y_gridline_distance_m": 0.009953186807521774,
+            "normal": [
+              1.3241506766471942e-07,
+              6.692330132756202e-11,
+              0.9999999999999912
+            ],
+            "pos": [
+              -3.6457992347703425,
+              -0.24004681319247817,
+              0.0005950092262185065
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": -0.0006184603074622845,
+            "efc_address": 44,
+            "index": 7,
+            "nearest_hfield_x_gridline_distance_m": 0.009980895690665292,
+            "nearest_hfield_y_gridline_distance_m": 0.009941369640177555,
+            "normal": [
+              -0.06391040779059312,
+              0.06391040795848361,
+              0.9959070837837335
+            ],
+            "pos": [
+              -3.6400191043093346,
+              -0.24005863035982222,
+              0.0006920354993796296
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": -0.000634055863274726,
+            "efc_address": 48,
+            "index": 8,
+            "nearest_hfield_x_gridline_distance_m": 0.024555835315529254,
+            "nearest_hfield_y_gridline_distance_m": 0.009971493525677744,
+            "normal": [
+              3.4156346432423602e-06,
+              -2.5088949661559536e-06,
+              0.9999999999910194
+            ],
+            "pos": [
+              -4.025444164684471,
+              0.2400285064743227,
+              0.0006829720683654841
+            ],
+            "robot_body": "RL_foot",
+            "robot_geom": 58
+          },
+          {
+            "dist": -0.000631966094153338,
+            "efc_address": 52,
+            "index": 9,
+            "nearest_hfield_x_gridline_distance_m": 0.02476482100949795,
+            "nearest_hfield_y_gridline_distance_m": 0.0247647362003562,
+            "normal": [
+              -0.00013787445629741987,
+              0.000130523301052295,
+              0.9999999819771509
+            ],
+            "pos": [
+              -4.025235178990502,
+              0.2247647362003562,
+              0.0006840169586182456
+            ],
+            "robot_body": "RL_foot",
+            "robot_geom": 58
+          },
+          {
+            "dist": -0.0007287464190948927,
+            "efc_address": 56,
+            "index": 10,
+            "nearest_hfield_x_gridline_distance_m": 0.02468335056986533,
+            "nearest_hfield_y_gridline_distance_m": 0.024683786808703447,
+            "normal": [
+              0.0005984729956669351,
+              -0.0005987578284207693,
+              0.9999996416595041
+            ],
+            "pos": [
+              -4.025316649430135,
+              -0.22531621319129636,
+              0.0006356269210222303
+            ],
+            "robot_body": "RR_foot",
+            "robot_geom": 66
+          },
+          {
+            "dist": -0.0007373672224445428,
+            "efc_address": 60,
+            "index": 11,
+            "nearest_hfield_x_gridline_distance_m": 0.02477207391172094,
+            "nearest_hfield_y_gridline_distance_m": 0.010030743001514963,
+            "normal": [
+              -4.6775982999459806e-06,
+              3.5835073830537306e-06,
+              0.9999999999826394
+            ],
+            "pos": [
+              -4.025227926088279,
+              -0.23996925699848504,
+              0.0006313163887841292
+            ],
+            "robot_body": "RR_foot",
+            "robot_geom": 66
+          },
+          {
+            "dist": -0.0005323946243930832,
+            "efc_address": 64,
+            "index": 12,
+            "nearest_hfield_x_gridline_distance_m": 0.020220603952318686,
+            "nearest_hfield_y_gridline_distance_m": 0.00026619688771916116,
+            "normal": [
+              -1.0535243707490137e-05,
+              -0.9999984054020448,
+              0.0017858002062886215
+            ],
+            "pos": [
+              -4.0202206039523185,
+              -0.1997338031122809,
+              0.0009995246247849663
+            ],
+            "robot_body": "RR_foot",
+            "robot_geom": 66
+          }
+        ],
+        "max_horizontal_normal": 0.9999984054575405
+      },
+      "hfield_reproduces_saved_contact_geometry": true,
+      "plane": {
+        "active_contact_count": 8,
+        "contact_count": 8,
+        "contacts": [
+          {
+            "dist": 0.0007200189136510743,
+            "efc_address": 16,
+            "index": 0,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -3.6492121750443034,
+              0.2400691396054468,
+              0.0003600094568255343
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": 0.0007304712677372732,
+            "efc_address": 20,
+            "index": 1,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -3.649201119953076,
+              0.20006914249878127,
+              0.00036523563386863943
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": 0.0006900172011985173,
+            "efc_address": 24,
+            "index": 2,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -3.645806318752783,
+              -0.2400468174517104,
+              0.000345008600599257
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": 0.0006983111195125735,
+            "efc_address": 28,
+            "index": 3,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -3.6458173498409834,
+              -0.2000468198326353,
+              0.0003491555597562884
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": 0.0008658349083421057,
+            "efc_address": 32,
+            "index": 4,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -4.025390105029329,
+              0.24002810529504015,
+              0.0004329174541710504
+            ],
+            "robot_body": "RL_foot",
+            "robot_geom": 58
+          },
+          {
+            "dist": 0.0008710497675246953,
+            "efc_address": 36,
+            "index": 5,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -4.025379056644033,
+              0.20002810716080993,
+              0.00043552488376235015
+            ],
+            "robot_body": "RL_foot",
+            "robot_geom": 58
+          },
+          {
+            "dist": 0.0007624692493809482,
+            "efc_address": 40,
+            "index": 6,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -4.025284096588597,
+              -0.23996885601330262,
+              0.00038123462469047745
+            ],
+            "robot_body": "RR_foot",
+            "robot_geom": 66
+          },
+          {
+            "dist": 0.0007864260329086825,
+            "efc_address": 44,
+            "index": 7,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -4.025295107619979,
+              -0.1999688647029322,
+              0.0003932130164543379
+            ],
+            "robot_body": "RR_foot",
+            "robot_geom": 66
+          }
+        ],
+        "max_horizontal_normal": 0.0
+      },
+      "side": "left"
+    },
+    {
+      "condition": "limit0p6",
+      "endpoint": 211,
+      "hfield": {
+        "active_contact_count": 19,
+        "contact_count": 19,
+        "contacts": [
+          {
+            "dist": -0.00035035381833603194,
+            "efc_address": 16,
+            "index": 0,
+            "nearest_hfield_x_gridline_distance_m": 0.015998229912454677,
+            "nearest_hfield_y_gridline_distance_m": 0.0001750770957016812,
+            "normal": [
+              -3.3483733335201686e-06,
+              0.9994302133395716,
+              0.03375275770669386
+            ],
+            "pos": [
+              -3.6659982299124545,
+              0.1998249229042982,
+              0.0009940872962290446
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": -0.00023723773076890403,
+            "efc_address": 20,
+            "index": 1,
+            "nearest_hfield_x_gridline_distance_m": 8.389558113819363e-06,
+            "nearest_hfield_y_gridline_distance_m": 8.656092526315717e-05,
+            "normal": [
+              -0.07072701366988383,
+              0.729739953105177,
+              0.6800568287866787
+            ],
+            "pos": [
+              -3.649991610441886,
+              0.19991343907473713,
+              0.0009193324305723693
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": -0.0002371566890596816,
+            "efc_address": 24,
+            "index": 2,
+            "nearest_hfield_x_gridline_distance_m": 8.86441690539641e-06,
+            "nearest_hfield_y_gridline_distance_m": 8.163832302301444e-05,
+            "normal": [
+              -0.0747557822719362,
+              0.6884758203263359,
+              0.7213962973587332
+            ],
+            "pos": [
+              -3.6499911355830945,
+              0.19991836167697705,
+              0.0009144580213092343
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": -0.0007887163871205633,
+            "efc_address": 28,
+            "index": 3,
+            "nearest_hfield_x_gridline_distance_m": 0.009844679759206089,
+            "nearest_hfield_y_gridline_distance_m": 0.009836350403794825,
+            "normal": [
+              0.010560647491765688,
+              -0.01056064667463487,
+              0.9998884665133247
+            ],
+            "pos": [
+              -3.659844679759206,
+              0.2401636495962054,
+              0.000605685790584048
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": -0.0007920019673075237,
+            "efc_address": 32,
+            "index": 4,
+            "nearest_hfield_x_gridline_distance_m": 0.009100932704157216,
+            "nearest_hfield_y_gridline_distance_m": 0.00983391032048573,
+            "normal": [
+              1.3312889524854072e-05,
+              -1.506201818039987e-05,
+              0.9999999997979514
+            ],
+            "pos": [
+              -3.659100932704157,
+              0.2401660896795142,
+              0.0006039990164262497
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": -0.00031653862598031115,
+            "efc_address": 36,
+            "index": 5,
+            "nearest_hfield_x_gridline_distance_m": 1.654748184556354e-05,
+            "nearest_hfield_y_gridline_distance_m": 0.00018776278299412752,
+            "normal": [
+              -0.10455268638919696,
+              2.721986288666548e-05,
+              0.9945193487448505
+            ],
+            "pos": [
+              -3.6499834525181543,
+              0.20018776278299466,
+              0.0008425981059187065
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": -0.00029831944803279567,
+            "efc_address": 40,
+            "index": 6,
+            "nearest_hfield_x_gridline_distance_m": 0.00018372957099046518,
+            "nearest_hfield_y_gridline_distance_m": 0.00015168319938254628,
+            "normal": [
+              -0.10742300518645274,
+              0.10742300515053939,
+              0.9883929359931396
+            ],
+            "pos": [
+              -3.6498162704290094,
+              0.20015168319938298,
+              0.0008525715824475007
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": -3.7539218951036915e-05,
+            "efc_address": 44,
+            "index": 7,
+            "nearest_hfield_x_gridline_distance_m": 0.00012069410691459837,
+            "nearest_hfield_y_gridline_distance_m": 0.00011572208902848047,
+            "normal": [
+              0.13237800639511957,
+              -0.13251924105670115,
+              0.9823007249170743
+            ],
+            "pos": [
+              -3.6501206941069144,
+              -0.20011572208902856,
+              0.00098156259900579
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": -5.642214294970799e-05,
+            "efc_address": 48,
+            "index": 8,
+            "nearest_hfield_x_gridline_distance_m": 3.674211713899922e-06,
+            "nearest_hfield_y_gridline_distance_m": 0.00017774088573325743,
+            "normal": [
+              0.13024006257555307,
+              4.624113816791705e-11,
+              0.9914824890537988
+            ],
+            "pos": [
+              -3.650003674211714,
+              -0.20017774088573342,
+              0.0009720292166352189
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": -0.0007859799136062474,
+            "efc_address": 52,
+            "index": 9,
+            "nearest_hfield_x_gridline_distance_m": 0.011273160421841767,
+            "nearest_hfield_y_gridline_distance_m": 0.00015112565825177172,
+            "normal": [
+              -1.054315067389058e-08,
+              8.636195021623816e-09,
+              1.0
+            ],
+            "pos": [
+              -3.6387268395781582,
+              -0.20015112565825194,
+              0.0006070100431968765
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": -0.000776478643638405,
+            "efc_address": 56,
+            "index": 10,
+            "nearest_hfield_x_gridline_distance_m": 0.011388244187002884,
+            "nearest_hfield_y_gridline_distance_m": 0.011388052907584623,
+            "normal": [
+              -0.000246349629121631,
+              0.00024633466840128735,
+              0.9999999393155439
+            ],
+            "pos": [
+              -3.638611755812997,
+              -0.23861194709241518,
+              0.0006117607017408896
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": -2.22980752436132e-05,
+            "efc_address": 60,
+            "index": 11,
+            "nearest_hfield_x_gridline_distance_m": 1.281223374860474e-06,
+            "nearest_hfield_y_gridline_distance_m": 4.623676178638903e-06,
+            "normal": [
+              0.11491784482679178,
+              -0.4147152727534603,
+              0.9026655701229489
+            ],
+            "pos": [
+              -3.650001281223375,
+              -0.19999537632382142,
+              0.0009899361475987694
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": -2.2051145324013283e-05,
+            "efc_address": 64,
+            "index": 12,
+            "nearest_hfield_x_gridline_distance_m": 1.3406607788368774e-06,
+            "nearest_hfield_y_gridline_distance_m": 4.121836537152035e-06,
+            "normal": [
+              0.12159556876877615,
+              -0.37384330623918155,
+              0.9194866502760958
+            ],
+            "pos": [
+              -3.6500013406607787,
+              -0.19999587816346256,
+              0.0009898621331256457
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": -0.0003654288680483051,
+            "efc_address": 68,
+            "index": 13,
+            "nearest_hfield_x_gridline_distance_m": 0.018200840141298615,
+            "nearest_hfield_y_gridline_distance_m": 0.00018262812454317157,
+            "normal": [
+              5.74946798855429e-07,
+              -0.9995276263662416,
+              0.030733111302578813
+            ],
+            "pos": [
+              -3.6317991598587014,
+              -0.19981737187545673,
+              0.000994384616962548
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": -9.22221311082173e-05,
+            "efc_address": 72,
+            "index": 14,
+            "nearest_hfield_x_gridline_distance_m": 0.009839224746922072,
+            "nearest_hfield_y_gridline_distance_m": 4.6027508285106934e-05,
+            "normal": [
+              1.1055456638122358e-06,
+              0.998187912862142,
+              0.06017383662937634
+            ],
+            "pos": [
+              -4.040160775253078,
+              0.1999539724917149,
+              0.0009972253202745409
+            ],
+            "robot_body": "RL_foot",
+            "robot_geom": 58
+          },
+          {
+            "dist": -0.0005605588331505423,
+            "efc_address": 76,
+            "index": 15,
+            "nearest_hfield_x_gridline_distance_m": 0.014079417664898841,
+            "nearest_hfield_y_gridline_distance_m": 0.014080716061164367,
+            "normal": [
+              0.00231645425967855,
+              -0.0023160524079578588,
+              0.9999946349560616
+            ],
+            "pos": [
+              -4.035920582335101,
+              0.2140807160611645,
+              0.0007197220871361134
+            ],
+            "robot_body": "RL_foot",
+            "robot_geom": 58
+          },
+          {
+            "dist": -0.0005922878725795449,
+            "efc_address": 80,
+            "index": 16,
+            "nearest_hfield_x_gridline_distance_m": 0.01432426826905271,
+            "nearest_hfield_y_gridline_distance_m": 0.0004179668787621438,
+            "normal": [
+              -3.6918822398072836e-06,
+              9.037022757668397e-06,
+              0.9999999999523512
+            ],
+            "pos": [
+              -4.035675731730947,
+              0.20041796687876284,
+              0.0007038560637243386
+            ],
+            "robot_body": "RL_foot",
+            "robot_geom": 58
+          },
+          {
+            "dist": -0.0005631374086780991,
+            "efc_address": 84,
+            "index": 17,
+            "nearest_hfield_x_gridline_distance_m": 0.01716218503652911,
+            "nearest_hfield_y_gridline_distance_m": 0.01716118966754401,
+            "normal": [
+              0.0017700907533646692,
+              -0.0017649931156747075,
+              0.999996875784133
+            ],
+            "pos": [
+              -4.017162185036529,
+              -0.21716118966754377,
+              0.0007184321753423645
+            ],
+            "robot_body": "RR_foot",
+            "robot_geom": 66
+          },
+          {
+            "dist": -0.0006037722409528018,
+            "efc_address": 88,
+            "index": 18,
+            "nearest_hfield_x_gridline_distance_m": 0.017015519928825995,
+            "nearest_hfield_y_gridline_distance_m": 0.00986722522210819,
+            "normal": [
+              2.7287513592727987e-07,
+              -5.680449355522901e-07,
+              0.9999999999998016
+            ],
+            "pos": [
+              -4.017015519928826,
+              -0.2401327747778917,
+              0.0006981138795236591
+            ],
+            "robot_body": "RR_foot",
+            "robot_geom": 66
+          }
+        ],
+        "max_horizontal_normal": 0.9995276263664069
+      },
+      "hfield_reproduces_saved_contact_geometry": true,
+      "plane": {
+        "active_contact_count": 7,
+        "contact_count": 7,
+        "contacts": [
+          {
+            "dist": 0.0007079712928489412,
+            "efc_address": 16,
+            "index": 0,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -3.659116961498104,
+              0.24016607690231068,
+              0.0003539856464244731
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": 0.0007149599394314365,
+            "efc_address": 20,
+            "index": 1,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -3.6590215438507347,
+              0.20016619131958197,
+              0.0003574799697157158
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": 0.0007140196710150731,
+            "efc_address": 24,
+            "index": 2,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -3.6387340696742347,
+              -0.20015108860502331,
+              0.00035700983550753765
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": 0.0007238951284476575,
+            "efc_address": 28,
+            "index": 3,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -3.6386386517772227,
+              -0.2401509735786113,
+              0.00036194756422382765
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": 0.000907529477313096,
+            "efc_address": 32,
+            "index": 4,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -4.035791896881677,
+              0.20041808389887397,
+              0.00045376473865654495
+            ],
+            "robot_body": "RL_foot",
+            "robot_geom": 58
+          },
+          {
+            "dist": 0.0008962095999851954,
+            "efc_address": 36,
+            "index": 5,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -4.017000189272203,
+              -0.24013303678637538,
+              0.00044810479999259165
+            ],
+            "robot_body": "RR_foot",
+            "robot_geom": 66
+          },
+          {
+            "dist": 0.0009664332017820382,
+            "efc_address": 40,
+            "index": 6,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -4.017095600058354,
+              -0.20013321221891467,
+              0.00048321660089102516
+            ],
+            "robot_body": "RR_foot",
+            "robot_geom": 66
+          }
+        ],
+        "max_horizontal_normal": 0.0
+      },
+      "side": "left"
+    },
+    {
+      "condition": "limit0p6",
+      "endpoint": 230,
+      "hfield": {
+        "active_contact_count": 6,
+        "contact_count": 6,
+        "contacts": [
+          {
+            "dist": -0.0005305496623755622,
+            "efc_address": 16,
+            "index": 0,
+            "nearest_hfield_x_gridline_distance_m": 0.022732314094694672,
+            "nearest_hfield_y_gridline_distance_m": 0.022732429920858267,
+            "normal": [
+              0.00021838103093269696,
+              -0.0002182460038296109,
+              0.9999999523392026
+            ],
+            "pos": [
+              -3.677267685905305,
+              0.22273242992085812,
+              0.000734725181455429
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": -0.0005354436922970087,
+            "efc_address": 20,
+            "index": 1,
+            "nearest_hfield_x_gridline_distance_m": 0.023144652548414513,
+            "nearest_hfield_y_gridline_distance_m": 0.0006794864949732472,
+            "normal": [
+              -8.497053976667624e-09,
+              2.1774305748226327e-06,
+              0.9999999999976293
+            ],
+            "pos": [
+              -3.6768553474515855,
+              0.20067948649497314,
+              0.0007322781538521303
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": -0.00014168456664151222,
+            "efc_address": 24,
+            "index": 2,
+            "nearest_hfield_x_gridline_distance_m": 0.009297600756940128,
+            "nearest_hfield_y_gridline_distance_m": 6.841838297297898e-05,
+            "normal": [
+              -4.6820940162979145e-08,
+              0.965784553596485,
+              0.25934570756894404
+            ],
+            "pos": [
+              -4.05929760075694,
+              0.19993158161702748,
+              0.0009816273579063778
+            ],
+            "robot_body": "RL_foot",
+            "robot_geom": 58
+          },
+          {
+            "dist": -0.0006871968402550079,
+            "efc_address": 28,
+            "index": 3,
+            "nearest_hfield_x_gridline_distance_m": 0.0023394981606184475,
+            "nearest_hfield_y_gridline_distance_m": 0.0004928364741992652,
+            "normal": [
+              4.3557390210360165e-08,
+              3.4489098709177697e-07,
+              0.9999999999999396
+            ],
+            "pos": [
+              -4.0523394981606184,
+              0.2004928364741993,
+              0.0006564015798725168
+            ],
+            "robot_body": "RL_foot",
+            "robot_geom": 58
+          },
+          {
+            "dist": -0.0006558156133168078,
+            "efc_address": 32,
+            "index": 4,
+            "nearest_hfield_x_gridline_distance_m": 8.348547283887343e-06,
+            "nearest_hfield_y_gridline_distance_m": 0.0005402708697914704,
+            "normal": [
+              -0.0254600442955435,
+              -1.8325523207331305e-11,
+              0.9996758405325543
+            ],
+            "pos": [
+              -4.049991651452716,
+              0.20054027086979187,
+              0.0006721984877615751
+            ],
+            "robot_body": "RL_foot",
+            "robot_geom": 58
+          },
+          {
+            "dist": -0.0006389917949254371,
+            "efc_address": 36,
+            "index": 5,
+            "nearest_hfield_x_gridline_distance_m": 0.0005713677832687836,
+            "nearest_hfield_y_gridline_distance_m": 0.0005468683746293834,
+            "normal": [
+              -0.038340699014787184,
+              0.03834075084023777,
+              0.9985289067543635
+            ],
+            "pos": [
+              -4.049428632216731,
+              0.2005468683746297,
+              0.0006809741107940363
+            ],
+            "robot_body": "RL_foot",
+            "robot_geom": 58
+          }
+        ],
+        "max_horizontal_normal": 0.9657845535964862
+      },
+      "hfield_reproduces_saved_contact_geometry": true,
+      "plane": {
+        "active_contact_count": 3,
+        "contact_count": 3,
+        "contacts": [
+          {
+            "dist": 0.0009645533556052605,
+            "efc_address": 16,
+            "index": 0,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -3.6768597800227147,
+              0.20067937499510083,
+              0.00048227667780263467
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": 0.000973387743331014,
+            "efc_address": 20,
+            "index": 1,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -3.677679410178016,
+              0.24067097571777904,
+              0.00048669387166550254
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": 0.0008128007152964911,
+            "efc_address": 24,
+            "index": 2,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -4.052320491133327,
+              0.20049314913403068,
+              0.0004064003576482434
+            ],
+            "robot_body": "RL_foot",
+            "robot_geom": 58
+          }
+        ],
+        "max_horizontal_normal": 0.0
+      },
+      "side": "left"
+    },
+    {
+      "condition": "limit0p6",
+      "endpoint": 245,
+      "hfield": {
+        "active_contact_count": 3,
+        "contact_count": 3,
+        "contacts": [
+          {
+            "dist": -0.0007802134656604297,
+            "efc_address": 16,
+            "index": 0,
+            "nearest_hfield_x_gridline_distance_m": 0.017586628451254784,
+            "nearest_hfield_y_gridline_distance_m": 0.0005567738843765824,
+            "normal": [
+              2.3465906917011047e-05,
+              -2.1152382513269953e-07,
+              0.9999999997246534
+            ],
+            "pos": [
+              -3.617586628451255,
+              -0.20055677388437632,
+              0.0006098932672772
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": -0.0006563981996583657,
+            "efc_address": 20,
+            "index": 1,
+            "nearest_hfield_x_gridline_distance_m": 0.016019164430914758,
+            "nearest_hfield_y_gridline_distance_m": 0.01602413628583399,
+            "normal": [
+              -0.00757444371011037,
+              0.007574454996563052,
+              0.9999426260711098
+            ],
+            "pos": [
+              -3.6160191644309148,
+              -0.21602413628583372,
+              0.0006718197302426316
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": -0.00027428851901352457,
+            "efc_address": 24,
+            "index": 2,
+            "nearest_hfield_x_gridline_distance_m": 0.009265120187708576,
+            "nearest_hfield_y_gridline_distance_m": 0.00012372715499893162,
+            "normal": [
+              -6.338315563223747e-05,
+              -0.9021679466835879,
+              0.4313849695565375
+            ],
+            "pos": [
+              -3.6092651201877084,
+              -0.1998762728450011,
+              0.0009408380277878216
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          }
+        ],
+        "max_horizontal_normal": 0.902167948910127
+      },
+      "hfield_reproduces_saved_contact_geometry": true,
+      "plane": {
+        "active_contact_count": 1,
+        "contact_count": 1,
+        "contacts": [
+          {
+            "dist": 0.0007190188948675708,
+            "efc_address": 16,
+            "index": 0,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -3.617292069553507,
+              -0.20054451865135195,
+              0.00035950944743378755
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          }
+        ],
+        "max_horizontal_normal": 0.0
+      },
+      "side": "left"
+    },
+    {
+      "condition": "limit0p6",
+      "endpoint": 250,
+      "hfield": {
+        "active_contact_count": 8,
+        "contact_count": 8,
+        "contacts": [
+          {
+            "dist": -0.00048615607194494936,
+            "efc_address": 16,
+            "index": 0,
+            "nearest_hfield_x_gridline_distance_m": 1.3279198669735593e-05,
+            "nearest_hfield_y_gridline_distance_m": 0.009350770382129526,
+            "normal": [
+              0.05462936466924438,
+              2.3993700910087662e-05,
+              0.9985067009991156
+            ],
+            "pos": [
+              -3.7000132791986697,
+              0.24064922961787089,
+              0.0007572849522157787
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": -0.000619938499221501,
+            "efc_address": 20,
+            "index": 1,
+            "nearest_hfield_x_gridline_distance_m": 0.006195505753850483,
+            "nearest_hfield_y_gridline_distance_m": 0.0061957454977999765,
+            "normal": [
+              0.00038737112731577523,
+              -0.00038607317753067296,
+              0.9999998504455445
+            ],
+            "pos": [
+              -3.6938044942461494,
+              0.2061957454978003,
+              0.0006900307967465317
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": -0.0006220818697208041,
+            "efc_address": 24,
+            "index": 2,
+            "nearest_hfield_x_gridline_distance_m": 0.006455610559815739,
+            "nearest_hfield_y_gridline_distance_m": 0.0009117307369962192,
+            "normal": [
+              3.034043656714901e-08,
+              5.232502260070829e-06,
+              0.9999999999863101
+            ],
+            "pos": [
+              -3.6935443894401843,
+              0.2009117307369967,
+              0.0006889590651438561
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": -0.00042392484688890964,
+            "efc_address": 28,
+            "index": 3,
+            "nearest_hfield_x_gridline_distance_m": 0.024162713271440952,
+            "nearest_hfield_y_gridline_distance_m": 0.00017373184111839636,
+            "normal": [
+              3.831275303098107e-06,
+              0.8196350951987813,
+              0.5728859491240873
+            ],
+            "pos": [
+              -4.075837286728559,
+              0.19982626815888166,
+              0.0008785697058663794
+            ],
+            "robot_body": "RL_foot",
+            "robot_geom": 58
+          },
+          {
+            "dist": -0.0006797913512469893,
+            "efc_address": 32,
+            "index": 4,
+            "nearest_hfield_x_gridline_distance_m": 0.019632540200279536,
+            "nearest_hfield_y_gridline_distance_m": 0.00036760939282416417,
+            "normal": [
+              -2.808864058516623e-07,
+              7.023188642680156e-07,
+              0.9999999999997141
+            ],
+            "pos": [
+              -4.0696325402002795,
+              0.20036760939282466,
+              0.0006601043243766026
+            ],
+            "robot_body": "RL_foot",
+            "robot_geom": 58
+          },
+          {
+            "dist": -0.00016940247895439817,
+            "efc_address": 36,
+            "index": 5,
+            "nearest_hfield_x_gridline_distance_m": 7.523353630745078e-06,
+            "nearest_hfield_y_gridline_distance_m": 0.010915921216116687,
+            "normal": [
+              0.08882223774689522,
+              -1.7745940989079704e-08,
+              0.9960474938885364
+            ],
+            "pos": [
+              -4.000007523353631,
+              -0.23908407878388302,
+              0.0009156335426894775
+            ],
+            "robot_body": "RR_foot",
+            "robot_geom": 66
+          },
+          {
+            "dist": -0.0005407571165350336,
+            "efc_address": 40,
+            "index": 6,
+            "nearest_hfield_x_gridline_distance_m": 0.008048224306956443,
+            "nearest_hfield_y_gridline_distance_m": 0.011309529988823286,
+            "normal": [
+              -6.632414422859467e-06,
+              6.633545829427383e-06,
+              0.9999999999560035
+            ],
+            "pos": [
+              -3.9919517756930434,
+              -0.23869047001117671,
+              0.0007296214417443787
+            ],
+            "robot_body": "RR_foot",
+            "robot_geom": 66
+          },
+          {
+            "dist": -0.00047254658756004013,
+            "efc_address": 44,
+            "index": 7,
+            "nearest_hfield_x_gridline_distance_m": 0.011480967510888718,
+            "nearest_hfield_y_gridline_distance_m": 0.0114598578747664,
+            "normal": [
+              -0.044672110963528196,
+              0.04467203700147741,
+              0.998002410624444
+            ],
+            "pos": [
+              -3.988519032489111,
+              -0.23854014212523333,
+              0.0007641986832413524
+            ],
+            "robot_body": "RR_foot",
+            "robot_geom": 66
+          }
+        ],
+        "max_horizontal_normal": 0.8196350952077357
+      },
+      "hfield_reproduces_saved_contact_geometry": true,
+      "plane": {
+        "active_contact_count": 4,
+        "contact_count": 4,
+        "contacts": [
+          {
+            "dist": 0.0008779131224300185,
+            "efc_address": 16,
+            "index": 0,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -3.6935487812828076,
+              0.20091155336909677,
+              0.00043895656121501413
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": 0.0008939975799589217,
+            "efc_address": 20,
+            "index": 1,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -3.6954541803228023,
+              0.2408661425396616,
+              0.000446998789979456
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": 0.0008202003841945443,
+            "efc_address": 24,
+            "index": 2,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -4.069641290629204,
+              0.20036694911080516,
+              0.0004101001920972763
+            ],
+            "robot_body": "RL_foot",
+            "robot_geom": 58
+          },
+          {
+            "dist": 0.0009592210114945932,
+            "efc_address": 28,
+            "index": 3,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -3.991963321777259,
+              -0.23869106074220972,
+              0.00047961050574728986
+            ],
+            "robot_body": "RR_foot",
+            "robot_geom": 66
+          }
+        ],
+        "max_horizontal_normal": 0.0
+      },
+      "side": "left"
+    },
+    {
+      "condition": "limit1p0",
+      "endpoint": 211,
+      "hfield": {
+        "active_contact_count": 9,
+        "contact_count": 9,
+        "contacts": [
+          {
+            "dist": -9.310626351796842e-05,
+            "efc_address": 16,
+            "index": 0,
+            "nearest_hfield_x_gridline_distance_m": 0.023142711358760695,
+            "nearest_hfield_y_gridline_distance_m": 4.647934890300576e-05,
+            "normal": [
+              -2.0085695644297391e-07,
+              0.9984150828721536,
+              0.05627896848157706
+            ],
+            "pos": [
+              -3.6731427113587607,
+              0.19995352065109706,
+              0.0009973800377650176
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": -0.0007795263882752931,
+            "efc_address": 20,
+            "index": 1,
+            "nearest_hfield_x_gridline_distance_m": 0.016133739469552568,
+            "nearest_hfield_y_gridline_distance_m": 0.016133281814179414,
+            "normal": [
+              0.0005979327594920023,
+              -0.000576255515512963,
+              0.9999996552029387
+            ],
+            "pos": [
+              -3.6661337394695526,
+              0.23386671818582033,
+              0.0006102369402515575
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": -0.000798685837137075,
+            "efc_address": 24,
+            "index": 2,
+            "nearest_hfield_x_gridline_distance_m": 0.01570017845257752,
+            "nearest_hfield_y_gridline_distance_m": 0.000444827588960095,
+            "normal": [
+              5.447320307538379e-08,
+              -5.964937784219285e-08,
+              0.9999999999999968
+            ],
+            "pos": [
+              -3.6657001784525773,
+              0.20044482758895993,
+              0.0006006570814314637
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": -0.0007990041025887653,
+            "efc_address": 28,
+            "index": 3,
+            "nearest_hfield_x_gridline_distance_m": 0.017526676349647375,
+            "nearest_hfield_y_gridline_distance_m": 0.00033822800306566593,
+            "normal": [
+              4.281053581851546e-07,
+              1.1581682216522046e-07,
+              0.9999999999999016
+            ],
+            "pos": [
+              -3.6324733236503524,
+              -0.2003382280030656,
+              0.0006004979487056568
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": -0.0007729968155785666,
+            "efc_address": 32,
+            "index": 4,
+            "nearest_hfield_x_gridline_distance_m": 0.018015433675051186,
+            "nearest_hfield_y_gridline_distance_m": 0.018014814251050382,
+            "normal": [
+              -0.0008104269156360891,
+              0.0007922291069222854,
+              0.999999357790422
+            ],
+            "pos": [
+              -3.631984566324949,
+              -0.23198518574894952,
+              0.0006135018404236962
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": -0.00019935852280685533,
+            "efc_address": 36,
+            "index": 5,
+            "nearest_hfield_x_gridline_distance_m": 0.024850756918329966,
+            "nearest_hfield_y_gridline_distance_m": 9.949748238895495e-05,
+            "normal": [
+              -1.1539958363475663e-05,
+              -0.9981763607370788,
+              0.06036516157942859
+            ],
+            "pos": [
+              -3.62514924308167,
+              -0.19990050251761107,
+              0.0009939828452792641
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": -0.00019550313936828753,
+            "efc_address": 40,
+            "index": 6,
+            "nearest_hfield_x_gridline_distance_m": 8.760819096664819e-06,
+            "nearest_hfield_y_gridline_distance_m": 0.0005207239481002546,
+            "normal": [
+              0.08962330861382199,
+              -1.0647748050996629e-11,
+              0.9959757339178058
+            ],
+            "pos": [
+              -4.050008760819097,
+              0.2005207239481001,
+              0.0009026418086422283
+            ],
+            "robot_body": "RL_foot",
+            "robot_geom": 58
+          },
+          {
+            "dist": -0.0005151770485312447,
+            "efc_address": 44,
+            "index": 7,
+            "nearest_hfield_x_gridline_distance_m": 0.007363293524039705,
+            "nearest_hfield_y_gridline_distance_m": 0.007365878608378296,
+            "normal": [
+              0.005020287388924794,
+              -0.005015424981551928,
+              0.9999748207963974
+            ],
+            "pos": [
+              -4.04263670647596,
+              0.2073658786083789,
+              0.0007424179616082748
+            ],
+            "robot_body": "RL_foot",
+            "robot_geom": 58
+          },
+          {
+            "dist": -0.0005501611344186582,
+            "efc_address": 48,
+            "index": 8,
+            "nearest_hfield_x_gridline_distance_m": 0.008111440966412432,
+            "nearest_hfield_y_gridline_distance_m": 0.0005653787744542172,
+            "normal": [
+              -8.28157671117474e-06,
+              -3.889552986801873e-06,
+              0.9999999999581435
+            ],
+            "pos": [
+              -4.041888559033588,
+              0.20056537877445432,
+              0.0007249194328021847
+            ],
+            "robot_body": "RL_foot",
+            "robot_geom": 58
+          }
+        ],
+        "max_horizontal_normal": 0.9984150828721738
+      },
+      "hfield_reproduces_saved_contact_geometry": true,
+      "plane": {
+        "active_contact_count": 5,
+        "contact_count": 5,
+        "contacts": [
+          {
+            "dist": 0.0007013120610057932,
+            "efc_address": 16,
+            "index": 0,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -3.665686800111347,
+              0.2004447858559661,
+              0.0003506560305028922
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": 0.0007234017597770592,
+            "efc_address": 20,
+            "index": 1,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -3.6658935517096802,
+              0.2404442454250877,
+              0.00036170087988853406
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": 0.0007009826402634561,
+            "efc_address": 24,
+            "index": 2,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -3.6324694001529134,
+              -0.20033801852495123,
+              0.00035049132013172416
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": 0.0007328412813516066,
+            "efc_address": 28,
+            "index": 3,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -3.632262649821445,
+              -0.24033747151280374,
+              0.0003664206406758072
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": 0.0009492691640044099,
+            "efc_address": 32,
+            "index": 4,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -4.042139746774742,
+              0.20056293951584056,
+              0.00047463458200221046
+            ],
+            "robot_body": "RL_foot",
+            "robot_geom": 58
+          }
+        ],
+        "max_horizontal_normal": 0.0
+      },
+      "side": "left"
+    },
+    {
+      "condition": "limit1p0",
+      "endpoint": 250,
+      "hfield": {
+        "active_contact_count": 14,
+        "contact_count": 14,
+        "contacts": [
+          {
+            "dist": -0.0006520957363924814,
+            "efc_address": 16,
+            "index": 0,
+            "nearest_hfield_x_gridline_distance_m": 0.024415003542904757,
+            "nearest_hfield_y_gridline_distance_m": 0.00014823841765867487,
+            "normal": [
+              4.085720312668239e-06,
+              0.4546523137195961,
+              0.8906690033972917
+            ],
+            "pos": [
+              -3.725584996457095,
+              0.1998517615823413,
+              0.0007095992701738403
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": -0.0007294641768196986,
+            "efc_address": 20,
+            "index": 1,
+            "nearest_hfield_x_gridline_distance_m": 0.023817932603576966,
+            "nearest_hfield_y_gridline_distance_m": 0.023817449359486178,
+            "normal": [
+              0.0006632867726142556,
+              -0.0006616421453094278,
+              0.9999995611400682
+            ],
+            "pos": [
+              -3.723817932603577,
+              0.22618255064051418,
+              0.00063526807165645
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": -0.0007482019835383769,
+            "efc_address": 24,
+            "index": 2,
+            "nearest_hfield_x_gridline_distance_m": 0.02116352161699382,
+            "nearest_hfield_y_gridline_distance_m": 0.0003733974230769377,
+            "normal": [
+              -1.0966677396598334e-06,
+              3.687477106321591e-06,
+              0.9999999999926
+            ],
+            "pos": [
+              -3.721163521616994,
+              0.20037339742307714,
+              0.0006258990082335799
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": -0.0007642463656746231,
+            "efc_address": 28,
+            "index": 3,
+            "nearest_hfield_x_gridline_distance_m": 0.012457062520750385,
+            "nearest_hfield_y_gridline_distance_m": 5.799372458170638e-06,
+            "normal": [
+              -3.4806765023393074e-09,
+              0.015176709287765157,
+              0.9998848271152008
+            ],
+            "pos": [
+              -3.5875429374792493,
+              -0.20000579937245777,
+              0.0006179208273920044
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": -0.0002546102481133157,
+            "efc_address": 32,
+            "index": 4,
+            "nearest_hfield_x_gridline_distance_m": 0.017039121118885704,
+            "nearest_hfield_y_gridline_distance_m": 0.017035608410030535,
+            "normal": [
+              -0.013797187319415623,
+              0.013795644317820025,
+              0.9998096407916505
+            ],
+            "pos": [
+              -3.582960878881114,
+              -0.2329643915899692,
+              0.000872719109645978
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": -0.0003722578389930258,
+            "efc_address": 36,
+            "index": 5,
+            "nearest_hfield_x_gridline_distance_m": 0.0032982047562171604,
+            "nearest_hfield_y_gridline_distance_m": 0.00334434689366141,
+            "normal": [
+              0.12391108329655637,
+              -0.12399309822312547,
+              0.9845160003927332
+            ],
+            "pos": [
+              -3.5967017952437828,
+              -0.19665565310633842,
+              0.0008167531006198575
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": -0.0008272292250688011,
+            "efc_address": 40,
+            "index": 6,
+            "nearest_hfield_x_gridline_distance_m": 0.012421751107598668,
+            "nearest_hfield_y_gridline_distance_m": 0.004213898259019899,
+            "normal": [
+              -1.3733339751559523e-05,
+              9.341105565359176e-09,
+              0.9999999999056978
+            ],
+            "pos": [
+              -3.587578248892401,
+              -0.19578610174098,
+              0.0005863853875046043
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": -0.000305714193824416,
+            "efc_address": 44,
+            "index": 7,
+            "nearest_hfield_x_gridline_distance_m": 0.003869748090154701,
+            "nearest_hfield_y_gridline_distance_m": 0.0038503645480357563,
+            "normal": [
+              0.06340471834768435,
+              -0.06340353924425308,
+              0.9959718032668162
+            ],
+            "pos": [
+              -4.103869748090155,
+              0.1961496354519646,
+              0.000847758641546214
+            ],
+            "robot_body": "RL_foot",
+            "robot_geom": 58
+          },
+          {
+            "dist": -0.0005828442937400863,
+            "efc_address": 48,
+            "index": 8,
+            "nearest_hfield_x_gridline_distance_m": 3.745699662971447e-06,
+            "nearest_hfield_y_gridline_distance_m": 0.005519872788081415,
+            "normal": [
+              0.012853174349007231,
+              -4.335321708129283e-05,
+              0.999917393602918
+            ],
+            "pos": [
+              -4.100003745699663,
+              0.19448012721191854,
+              0.0007086019264635418
+            ],
+            "robot_body": "RL_foot",
+            "robot_geom": 58
+          },
+          {
+            "dist": -0.0005938175041336188,
+            "efc_address": 52,
+            "index": 9,
+            "nearest_hfield_x_gridline_distance_m": 0.0013852794316104424,
+            "nearest_hfield_y_gridline_distance_m": 0.005380752217206109,
+            "normal": [
+              2.444647263156496e-07,
+              4.458405889781323e-08,
+              0.9999999999999691
+            ],
+            "pos": [
+              -4.098614720568389,
+              0.19461924778279416,
+              0.0007030912479331999
+            ],
+            "robot_body": "RL_foot",
+            "robot_geom": 58
+          },
+          {
+            "dist": -0.00020749146826826143,
+            "efc_address": 56,
+            "index": 10,
+            "nearest_hfield_x_gridline_distance_m": 1.7321980593010268e-06,
+            "nearest_hfield_y_gridline_distance_m": 7.07356788893776e-06,
+            "normal": [
+              0.016696571417314246,
+              -0.06818177101668074,
+              0.9975331927329214
+            ],
+            "pos": [
+              -4.100001732198059,
+              0.20000707356788888,
+              0.0008965101865967598
+            ],
+            "robot_body": "RL_foot",
+            "robot_geom": 58
+          },
+          {
+            "dist": -0.000207489364443307,
+            "efc_address": 60,
+            "index": 11,
+            "nearest_hfield_x_gridline_distance_m": 1.5896290626926658e-06,
+            "nearest_hfield_y_gridline_distance_m": 7.087838009312009e-06,
+            "normal": [
+              0.015322511270578048,
+              -0.06832001272317591,
+              0.997545786673408
+            ],
+            "pos": [
+              -4.100001589629063,
+              0.20000708783800952,
+              0.0008965099293600164
+            ],
+            "robot_body": "RL_foot",
+            "robot_geom": 58
+          },
+          {
+            "dist": -0.00021969141891372738,
+            "efc_address": 64,
+            "index": 12,
+            "nearest_hfield_x_gridline_distance_m": 0.0014997131359361761,
+            "nearest_hfield_y_gridline_distance_m": 7.673506348737647e-06,
+            "normal": [
+              -2.1225746377198192e-07,
+              -0.06985713312501997,
+              0.9975570063668083
+            ],
+            "pos": [
+              -4.098500286864064,
+              0.2000076735063489,
+              0.0008904226429119724
+            ],
+            "robot_body": "RL_foot",
+            "robot_geom": 58
+          },
+          {
+            "dist": -0.000759378397295727,
+            "efc_address": 68,
+            "index": 13,
+            "nearest_hfield_x_gridline_distance_m": 0.013582592537592931,
+            "nearest_hfield_y_gridline_distance_m": 0.012309459102603526,
+            "normal": [
+              -2.2650030278434275e-06,
+              -1.0519391939010267e-07,
+              0.9999999999974295
+            ],
+            "pos": [
+              -3.963582592537593,
+              -0.23769054089739622,
+              0.0006203108013531125
+            ],
+            "robot_body": "RR_foot",
+            "robot_geom": 66
+          }
+        ],
+        "max_horizontal_normal": 0.45465231373795423
+      },
+      "hfield_reproduces_saved_contact_geometry": true,
+      "plane": {
+        "active_contact_count": 5,
+        "contact_count": 5,
+        "contacts": [
+          {
+            "dist": 0.000751767243732257,
+            "efc_address": 16,
+            "index": 0,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -3.7211871881032863,
+              0.2003708265029915,
+              0.00037588362186612807
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": 0.0007806420888335913,
+            "efc_address": 20,
+            "index": 1,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -3.7251723243440313,
+              0.2401718045737126,
+              0.0003903210444167961
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": 0.000672249569681635,
+            "efc_address": 24,
+            "index": 2,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -3.587834694527769,
+              -0.1958116288497321,
+              0.00033612478484082355
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": 0.0009061799702228257,
+            "efc_address": 28,
+            "index": 3,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -4.098631436409942,
+              0.19461771993636562,
+              0.0004530899851114137
+            ],
+            "robot_body": "RL_foot",
+            "robot_geom": 58
+          },
+          {
+            "dist": 0.0007405867416162282,
+            "efc_address": 32,
+            "index": 4,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -3.9636063750214947,
+              -0.23769287203021802,
+              0.0003702933708081191
+            ],
+            "robot_body": "RR_foot",
+            "robot_geom": 66
+          }
+        ],
+        "max_horizontal_normal": 0.0
+      },
+      "side": "left"
+    },
+    {
+      "condition": "limit0p6",
+      "endpoint": 211,
+      "hfield": {
+        "active_contact_count": 13,
+        "contact_count": 13,
+        "contacts": [
+          {
+            "dist": -0.0001461993833742619,
+            "efc_address": 16,
+            "index": 0,
+            "nearest_hfield_x_gridline_distance_m": 3.0126979979172577e-06,
+            "nearest_hfield_y_gridline_distance_m": 6.815045500729866e-05,
+            "normal": [
+              0.04121355274610728,
+              0.9322946983021553,
+              0.35934390016770446
+            ],
+            "pos": [
+              -3.6500030126979977,
+              0.19993184954499266,
+              0.000973732071688088
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": -0.00014619560470065002,
+            "efc_address": 20,
+            "index": 1,
+            "nearest_hfield_x_gridline_distance_m": 3.3466305172424885e-06,
+            "nearest_hfield_y_gridline_distance_m": 6.60883567803694e-05,
+            "normal": [
+              0.04578291562801836,
+              0.9041086688719491,
+              0.4248428409508515
+            ],
+            "pos": [
+              -3.650003346630517,
+              0.19993391164321972,
+              0.0009689449219822309
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": -0.00023643636930988595,
+            "efc_address": 24,
+            "index": 2,
+            "nearest_hfield_x_gridline_distance_m": 0.015938840245893007,
+            "nearest_hfield_y_gridline_distance_m": 0.00011812444569159197,
+            "normal": [
+              3.3773010918841843e-08,
+              0.999207068154691,
+              0.03981500910091112
+            ],
+            "pos": [
+              -3.634061159754107,
+              0.19988187555430859,
+              0.0009952931419020703
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": -0.0003424021785398047,
+            "efc_address": 28,
+            "index": 3,
+            "nearest_hfield_x_gridline_distance_m": 1.6447061548774402e-05,
+            "nearest_hfield_y_gridline_distance_m": 0.0003163361528180531,
+            "normal": [
+              0.09606867350710434,
+              2.9084804814495854e-10,
+              0.9953747083237476
+            ],
+            "pos": [
+              -3.6500164470615486,
+              0.20031633615281855,
+              0.0008295907657032756
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": -0.0007883522526793102,
+            "efc_address": 32,
+            "index": 4,
+            "nearest_hfield_x_gridline_distance_m": 0.00890846536187837,
+            "nearest_hfield_y_gridline_distance_m": 0.008909006065148618,
+            "normal": [
+              0.0006857047024400249,
+              -0.0006860254307809621,
+              0.9999995295889742
+            ],
+            "pos": [
+              -3.6410915346381216,
+              0.20890900606514903,
+              0.0006058240590851409
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": -0.0007942290106233518,
+            "efc_address": 36,
+            "index": 5,
+            "nearest_hfield_x_gridline_distance_m": 0.008860769347416309,
+            "nearest_hfield_y_gridline_distance_m": 0.0002870220033486248,
+            "normal": [
+              7.122501315423174e-08,
+              8.264385633368665e-06,
+              0.9999999999658475
+            ],
+            "pos": [
+              -3.6411392306525836,
+              0.2002870220033489,
+              0.0006028854947018865
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": -0.0007960436721243934,
+            "efc_address": 40,
+            "index": 6,
+            "nearest_hfield_x_gridline_distance_m": 0.007204215729734642,
+            "nearest_hfield_y_gridline_distance_m": 0.006061090500568156,
+            "normal": [
+              9.093591724505545e-06,
+              1.723880357745423e-05,
+              0.9999999998100652
+            ],
+            "pos": [
+              -3.6572042157297346,
+              -0.20606109050056776,
+              0.0006019781640134016
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": -0.0007962548558965429,
+            "efc_address": 44,
+            "index": 7,
+            "nearest_hfield_x_gridline_distance_m": 0.007377263425431125,
+            "nearest_hfield_y_gridline_distance_m": 0.024333705808232867,
+            "normal": [
+              9.120975674233189e-06,
+              -4.650475169424991e-06,
+              0.9999999999475905
+            ],
+            "pos": [
+              -3.657377263425431,
+              -0.2256662941917667,
+              0.0006018725720725942
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": -0.0004989534742105264,
+            "efc_address": 48,
+            "index": 8,
+            "nearest_hfield_x_gridline_distance_m": 1.9473054912566568e-05,
+            "nearest_hfield_y_gridline_distance_m": 0.00032188405445232604,
+            "normal": [
+              -0.07805559403638351,
+              -3.237642989270286e-05,
+              0.9969490073175228
+            ],
+            "pos": [
+              -3.6499805269450873,
+              -0.20032188405445217,
+              0.0007512844145940848
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": -0.0005302817364790225,
+            "efc_address": 52,
+            "index": 9,
+            "nearest_hfield_x_gridline_distance_m": 0.016947151089218692,
+            "nearest_hfield_y_gridline_distance_m": 0.00979846800805717,
+            "normal": [
+              -8.016860961209528e-07,
+              8.055120798786563e-07,
+              0.9999999999993543
+            ],
+            "pos": [
+              -4.0169471510892185,
+              0.240201531991943,
+              0.0007348591317606599
+            ],
+            "robot_body": "RL_foot",
+            "robot_geom": 58
+          },
+          {
+            "dist": -0.0005141052552271697,
+            "efc_address": 56,
+            "index": 10,
+            "nearest_hfield_x_gridline_distance_m": 0.01689524022446065,
+            "nearest_hfield_y_gridline_distance_m": 0.016896399774687865,
+            "normal": [
+              -0.0022518975594103645,
+              0.002259047296364497,
+              0.9999949128184077
+            ],
+            "pos": [
+              -4.016895240224461,
+              0.23310360022531254,
+              0.0007429486800598101
+            ],
+            "robot_body": "RL_foot",
+            "robot_geom": 58
+          },
+          {
+            "dist": -0.0005589735808174912,
+            "efc_address": 60,
+            "index": 11,
+            "nearest_hfield_x_gridline_distance_m": 0.014370325253870676,
+            "nearest_hfield_y_gridline_distance_m": 0.0005801781762787783,
+            "normal": [
+              -4.024064241785595e-06,
+              4.023600766316114e-06,
+              0.999999999983809
+            ],
+            "pos": [
+              -4.035629674746129,
+              -0.20058017817627855,
+              0.0007205132095957796
+            ],
+            "robot_body": "RR_foot",
+            "robot_geom": 66
+          },
+          {
+            "dist": -0.0004408963105133377,
+            "efc_address": 64,
+            "index": 12,
+            "nearest_hfield_x_gridline_distance_m": 0.014430052395547578,
+            "nearest_hfield_y_gridline_distance_m": 0.014428564638492248,
+            "normal": [
+              -0.003374409829000143,
+              0.0033743744991113636,
+              0.9999886134126956
+            ],
+            "pos": [
+              -4.035569947604452,
+              -0.23557143536150757,
+              0.0007795543548954957
+            ],
+            "robot_body": "RR_foot",
+            "robot_geom": 66
+          }
+        ],
+        "max_horizontal_normal": 0.9992070681546915
+      },
+      "hfield_reproduces_saved_contact_geometry": true,
+      "plane": {
+        "active_contact_count": 6,
+        "contact_count": 6,
+        "contacts": [
+          {
+            "dist": 0.0007057679561732061,
+            "efc_address": 16,
+            "index": 0,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -3.641138377578823,
+              0.200287002308398,
+              0.0003528839780865997
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": 0.0007329743672074146,
+            "efc_address": 20,
+            "index": 1,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -3.6410045971409657,
+              0.2402867693402901,
+              0.00036648718360371066
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": 0.000703400852148442,
+            "efc_address": 24,
+            "index": 2,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -3.65730952723817,
+              -0.24029757943674074,
+              0.0003517004260742215
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": 0.0007040243414719177,
+            "efc_address": 28,
+            "index": 3,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -3.6571757479797906,
+              -0.20029780315335027,
+              0.0003520121707359583
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": 0.000969712371181472,
+            "efc_address": 32,
+            "index": 4,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -4.016955360278816,
+              0.24020160369111504,
+              0.000484856185590736
+            ],
+            "robot_body": "RL_foot",
+            "robot_geom": 58
+          },
+          {
+            "dist": 0.0009408848127534786,
+            "efc_address": 36,
+            "index": 5,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -4.035760526089064,
+              -0.200579056772504,
+              0.00047044240637674265
+            ],
+            "robot_body": "RR_foot",
+            "robot_geom": 66
+          }
+        ],
+        "max_horizontal_normal": 0.0
+      },
+      "side": "right"
+    },
+    {
+      "condition": "limit1p0",
+      "endpoint": 211,
+      "hfield": {
+        "active_contact_count": 10,
+        "contact_count": 10,
+        "contacts": [
+          {
+            "dist": -0.000176803918416564,
+            "efc_address": 16,
+            "index": 0,
+            "nearest_hfield_x_gridline_distance_m": 0.023126191187127533,
+            "nearest_hfield_y_gridline_distance_m": 8.823793060201979e-05,
+            "normal": [
+              9.01566767533537e-06,
+              0.9981445139060793,
+              0.06088948413243782
+            ],
+            "pos": [
+              -3.6268738088128725,
+              0.19991176206939787,
+              0.000994617250307511
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": -0.0007712568262166629,
+            "efc_address": 20,
+            "index": 1,
+            "nearest_hfield_x_gridline_distance_m": 0.015797738362228843,
+            "nearest_hfield_y_gridline_distance_m": 0.015798756218040923,
+            "normal": [
+              0.0013199231103963496,
+              -0.00131954996266617,
+              0.9999982582939226
+            ],
+            "pos": [
+              -3.634202261637771,
+              0.21579875621804082,
+              0.000614372258543019
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": -0.0007915925053905682,
+            "efc_address": 24,
+            "index": 2,
+            "nearest_hfield_x_gridline_distance_m": 0.015799541507320925,
+            "nearest_hfield_y_gridline_distance_m": 0.0003611909935699487,
+            "normal": [
+              2.418581205753556e-07,
+              4.5052473947190025e-06,
+              0.9999999999898221
+            ],
+            "pos": [
+              -3.634200458492679,
+              0.2003611909935704,
+              0.0006042037473087443
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": -0.0008237370264284272,
+            "efc_address": 28,
+            "index": 3,
+            "nearest_hfield_x_gridline_distance_m": 0.013919623958793537,
+            "nearest_hfield_y_gridline_distance_m": 0.013919505410874323,
+            "normal": [
+              0.0001467321989383235,
+              -0.00014109732744920395,
+              0.9999999792806029
+            ],
+            "pos": [
+              -3.6639196239587934,
+              -0.21391950541087404,
+              0.0005881314953194538
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": -0.0008273790234300972,
+            "efc_address": 32,
+            "index": 4,
+            "nearest_hfield_x_gridline_distance_m": 0.013989941245932514,
+            "nearest_hfield_y_gridline_distance_m": 0.009636055858796412,
+            "normal": [
+              2.862982718029187e-09,
+              -7.412409324331284e-10,
+              1.0
+            ],
+            "pos": [
+              -3.6639899412459322,
+              -0.24036394414120313,
+              0.0005863104882849516
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": -0.0001741086730284195,
+            "efc_address": 36,
+            "index": 5,
+            "nearest_hfield_x_gridline_distance_m": 0.021334951940959714,
+            "nearest_hfield_y_gridline_distance_m": 8.6910534162854e-05,
+            "normal": [
+              4.5903936723279354e-08,
+              -0.9983481310955904,
+              0.05745440921234727
+            ],
+            "pos": [
+              -3.6713349519409597,
+              -0.199913089465837,
+              0.0009949983445262027
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": -9.924336235434747e-05,
+            "efc_address": 40,
+            "index": 6,
+            "nearest_hfield_x_gridline_distance_m": 0.0004920456684178731,
+            "nearest_hfield_y_gridline_distance_m": 0.000482033059361342,
+            "normal": [
+              0.10088945795379961,
+              -0.10088945838785034,
+              0.9897689803484421
+            ],
+            "pos": [
+              -4.050492045668418,
+              -0.20048203305936127,
+              0.0009508859992181139
+            ],
+            "robot_body": "RR_foot",
+            "robot_geom": 66
+          },
+          {
+            "dist": -0.00014681309482414973,
+            "efc_address": 44,
+            "index": 7,
+            "nearest_hfield_x_gridline_distance_m": 6.720012101268935e-06,
+            "nearest_hfield_y_gridline_distance_m": 0.0005285608885298388,
+            "normal": [
+              0.09154513238822855,
+              9.990142368954343e-06,
+              0.9958009282161866
+            ],
+            "pos": [
+              -4.050006720012101,
+              -0.20052856088852958,
+              0.0009269016919498961
+            ],
+            "robot_body": "RR_foot",
+            "robot_geom": 66
+          },
+          {
+            "dist": -0.0005118996550495023,
+            "efc_address": 48,
+            "index": 8,
+            "nearest_hfield_x_gridline_distance_m": 0.00796012772047412,
+            "nearest_hfield_y_gridline_distance_m": 0.0005705503064678653,
+            "normal": [
+              8.608569728902471e-07,
+              -9.57454899555392e-07,
+              0.9999999999991712
+            ],
+            "pos": [
+              -4.042039872279526,
+              -0.20057055030646784,
+              0.0007440501724754612
+            ],
+            "robot_body": "RR_foot",
+            "robot_geom": 66
+          },
+          {
+            "dist": -0.0003112279633121894,
+            "efc_address": 52,
+            "index": 9,
+            "nearest_hfield_x_gridline_distance_m": 0.009421630548172645,
+            "nearest_hfield_y_gridline_distance_m": 0.009415262132715442,
+            "normal": [
+              -0.0204610123152646,
+              0.020463430268986477,
+              0.9995812098057172
+            ],
+            "pos": [
+              -4.040578369451827,
+              -0.24058473786728435,
+              0.0008444511879535151
+            ],
+            "robot_body": "RR_foot",
+            "robot_geom": 66
+          }
+        ],
+        "max_horizontal_normal": 0.9983481310955915
+      },
+      "hfield_reproduces_saved_contact_geometry": true,
+      "plane": {
+        "active_contact_count": 5,
+        "contact_count": 5,
+        "contacts": [
+          {
+            "dist": 0.0007084018398123004,
+            "efc_address": 16,
+            "index": 0,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -3.634188787084361,
+              0.2003610438798717,
+              0.00035420091990614685
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": 0.0007609323769295906,
+            "efc_address": 20,
+            "index": 1,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -3.6339804401004416,
+              0.2403604667766706,
+              0.00038046618846479866
+            ],
+            "robot_body": "FL_foot",
+            "robot_geom": 42
+          },
+          {
+            "dist": 0.0006726208798247535,
+            "efc_address": 24,
+            "index": 2,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -3.6639881232077314,
+              -0.24036396979056365,
+              0.00033631043991237013
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": 0.0006777297634366908,
+            "efc_address": 28,
+            "index": 3,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -3.663779771314038,
+              -0.20036451275190245,
+              0.000338864881718352
+            ],
+            "robot_body": "FR_foot",
+            "robot_geom": 50
+          },
+          {
+            "dist": 0.00098809288982242,
+            "efc_address": 32,
+            "index": 4,
+            "normal": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "pos": [
+              -4.042027296442313,
+              -0.20057061956580724,
+              0.000494046444911215
+            ],
+            "robot_body": "RR_foot",
+            "robot_geom": 66
+          }
+        ],
+        "max_horizontal_normal": 0.0
+      },
+      "side": "right"
+    }
+  ]
+}

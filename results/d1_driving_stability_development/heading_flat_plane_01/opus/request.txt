@@ -1,0 +1,41 @@
+Implement ONE Python 3.10+ module scripts/d1_flat_plane_env.py. Return only its Python source in one code fence. No files/tools/testing claims. This is a bounded module for the gpt-6-astra ultra reviewed plan; root owns integration and physical tests.
+
+Problem: the frozen D1 flat locomotion terrain is an all-zero MuJoCo heightfield. Saved-pose geometry plus executed contact forces revealed loaded nearly horizontal normals at interior grid lines. A same-height native plane has vertical normals. We need an independently versioned, zero-residual-only diagnostic plane environment, not a default change or engine patch. Never modify old/frozen sources, model arrays after construction, controllers, scoring, command schedules, gains, reward, state estimation, actuation, or dynamics. Do not combine release reference shaping or leg damping. Do not import such candidates. No training/model loading/rollout.
+
+Public APIs/constants:
+FLAT_PLANE_SCHEMA='d1-flat-plane-collision-v1'
+FLAT_PLANE_TASK_SCHEMA='d1-heading-flat-plane-zero-task-v1'
+D1FlatPlanePlant(D1Plant)
+D1FlatPlaneHeadingEnv(D1HeadingTrackingEnv)
+
+Use direct known imports, no guessed paths/dynamic imports:
+from scripts.d1_heading_tracking_env import D1HeadingTrackingEnv
+from wheel_legged_control.d1.model import D1Plant
+from wheel_legged_control.d1.locomotion_terrain import D1LocomotionTerrainConfig, LOCOMOTION_MAP_HALF_SIZE_M
+from wheel_legged_control.d1.training_terrain import TrainingGroundReference
+from wheel_legged_control.d1.actuator_channel import ActuatorChannel
+import mujoco, numpy as np; normal stdlib as needed.
+
+D1FlatPlanePlant constructor accept keyword control_dt=.01, ground_friction=.9, sampling_mode='synchronized', actuator_channel=None. Delegate exactly once to super().__init__(control_dt=..., ground_friction=..., sampling_mode=..., actuator_channel=..., arena='flat', training_terrain=None, locomotion_terrain=None). Frozen builder already has a native plane with identical robot/friction/margin/integrator/solver configuration. D1Plant initializes model, data, measurement_data, IDs, nominal arrays and calls its reset() (no time integration); don't copy any builder or reset. Model dims/IDs stay same as hfield, hfield asset absent. Reject unsynchronized sampling early. Do not provide APIs to silently substitute nonflat terrain.
+
+Plant method validate_flat_plane() performs read-only check: floor ID valid, geom type mjGEOM_PLANE, bodyid0, identity quaternion, position exactly(0,0,0), no hfields and exactly one terrain geom ID equal floor. Fail if mutated, never repair. collision_terrain_metadata property return a fresh serializable dict with schema, native plane identity, actual floor height/position/normal, geom ID/type, MuJoCo version, friction/condim/margin/solref/solimp, physics timestep, no-heightfield, physical geometry infinite and evaluation/reference domain finite half sizes [6,3]; don't call it finite collision map. Read actual compiled model values; no stored mutable shared dictionary.
+
+Override locomotion_ground_reference(x,y): reject bool/non-real/nonfinite values, permit exact finite bounds ±6 x ±3, raise ValueError outside; call validate_flat_plane, return TrainingGroundReference(height_m=actual floor z, pitch_rad=0.,roll_rad=0.). Do NOT clamp here or extrapolate. Base env _bounded_ground_query already clamps only to produce terminal-ready publication and terminates on domain exit, while existing safe envelope is unchanged. No use of old hfield interpolation for plane.
+
+D1FlatPlaneHeadingEnv constructor keyword terrain=None, **kwargs; use default D1LocomotionTerrainConfig(layout='flat') if None, require correct class and layout exactly flat before calling super. D1LocomotionTerrainConfig itself rejects active parameters on flat. Set task_schema=FLAT_PLANE_TASK_SCHEMA. Call super().__init__(terrain=terrain, **kwargs) once; frozen constructor builds old unstepped plant and wheel_leg controller, sets loop=None, but does not env.reset or integrate. Before first env.reset, replace self.plant with D1FlatPlanePlant using previous control_dt, actual floor friction[0], sampling_mode='synchronized', actuator_channel=oldplant.actuator_channel. Original wheel_leg controller is independent of plant and retained exactly; do not replace controller, call reset, change physical_action_schema, or monkeypatch globals. Assert old plant time==0 and loop is None before replacement. Do not claim old unstepped plant compilation/reset was a trajectory. Env retains self.terrain legacy requested layout for base bookkeeping, with new collision identity explicitly recorded.
+
+Override _build_heading_task_config: config=super method (returns dict), set config['task_schema']=FLAT_PLANE_TASK_SCHEMA and add config['collision_terrain'] with stable schema/geometry/domain/zero_residual_only fields. This method is called in parent constructor BEFORE plant replacement, so only use stable constants here, never runtime plant metadata. This distinct config ensures existing load_heading_policy rejects all old sidecars before model deserialization. Parent config excludes terrain historically; this new identity is mandatory.
+
+Override reset: call plane validation before super.reset. Delegate once; then add collision_terrain actual metadata into self._episode_metadata, and update returned info['episode_metadata']=self.episode_metadata (deepcopy property). Return original observation and enriched info, no reset/reprepare/step/refresh. task schema already flows through frozen base reset, heading config already distinct. Can include the legacy layout separately but do not relabel its old schema as plane.
+
+Override step: before parent mutation require numeric action array shape(8,), all finite and exactly zero. Raise ValueError otherwise; parent.step called once with original action if valid. No smoothing/clipping/rollout/logging needed (root runner handles logging). This is zero-only diagnostic, not an RL GUI.
+
+Keep readable/minimal. No framework or guessed imports, no unit tests in this module, no real physics calls apart from inherited construction/reset on instantiation. Root tests geometry/metadata/old-policy rejection and runs fixed6cases at most5600 steps separately.
+
+Relevant source API facts (verified by root):
+- D1Plant has floor_geom_id, terrain_geom_ids frozenset, model, data, control_dt, physics_steps, actuator_channel, sampling_mode. Constructor uses build_d1_model with default ground_friction=.9 timestep .002 implicitfast Newton20 ls5. Model floor remains z0 for native plane. D1Plant.locomotion_ground_reference currently delegates old hfield query; override required.
+- TrainingGroundReference is frozen dataclass fields height_m:float,pitch_rad:float,roll_rad:float.
+- D1LocomotionTerrainConfig(layout='flat') already validates schema/numerical constraints and disallows active slope/ripple/step/phase. LOCOMOTION_MAP_HALF_SIZE_M=(6.,3.).
+- D1HeadingTrackingEnv.__init__(...,terrain=None,...) fixes wheel_leg baseline independent8 action, builds _heading_task_config by self._build_heading_task_config() at end. Base env initializes _episode_metadata={} and loop=None. Base reset builds a loop bound to current self.plant and unchanged self._controller.
+- D1HeadingTrackingEnv.reset delegates base, updates self._episode_metadata['heading_task_config']=self.heading_task_config, info['episode_metadata']=self.episode_metadata. Return obs85 float32 and info. episode_metadata property deepcopy.
+- load_heading_policy compares recorded heading_task_config before any zip deserialization, not task_schema alone.

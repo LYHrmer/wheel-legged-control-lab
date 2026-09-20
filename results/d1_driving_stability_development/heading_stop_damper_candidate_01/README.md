@@ -1,0 +1,5 @@
+# Fixed stop leg-damping candidate: no physical qualification here
+
+Claude Opus returned the bounded control module (actual response model `claude-opus-5`); root integrated direct repository imports and added instrumentation/failure archives. The fixed per-leg coefficient is 126.4374005337902 N s/m, derived from the nominal model in `../heading_stop_kinematics_01`. The core adds longitudinal leg-Jacobian damping only after an executed nonzero-to-zero forward command transition; it does not modify wheel torque directly, reset PI, or shape the raw stop command. Its algebraic damping power is nonpositive before torque/position/speed protection; this is not a proof of closed-loop discrete passivity.
+
+The proposed old-heightfield 8000-step qualification was **not executed** because flat collision geometry required investigation. Tests cover the control equation, latch, original safety ordering, single PI update, inactive identity, old-checkpoint rejection and partial-failure evidence. No default was changed. This folder contains code and nonphysical validation, not a successful stopping result. Any later plane comparison needs its own protocol and evidence.

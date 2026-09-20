@@ -1,0 +1,140 @@
+--- opus_original.py
++++ scripts/d1_flat_plane_env.py
+@@ -23,25 +23,27 @@
+ from __future__ import annotations
+ 
+ import numbers
++from dataclasses import asdict
+ from typing import Any
+ 
+ import mujoco
+ import numpy as np
+ 
+ from scripts.d1_heading_tracking_env import D1HeadingTrackingEnv
++from wheel_legged_control.d1.actuator_channel import ActuatorChannel
++from wheel_legged_control.d1.locomotion_env import D1WheelLegControlConfig
++from wheel_legged_control.d1.locomotion_terrain import (
++    LOCOMOTION_MAP_HALF_SIZE_M,
++    D1LocomotionTerrainConfig,
++)
+ from wheel_legged_control.d1.model import D1Plant
+-from wheel_legged_control.d1.locomotion_terrain import (
+-    D1LocomotionTerrainConfig,
+-    LOCOMOTION_MAP_HALF_SIZE_M,
+-)
+ from wheel_legged_control.d1.training_terrain import TrainingGroundReference
+-from wheel_legged_control.d1.actuator_channel import ActuatorChannel
+ 
+ __all__ = [
+     "FLAT_PLANE_SCHEMA",
+     "FLAT_PLANE_TASK_SCHEMA",
++    "D1FlatPlaneHeadingEnv",
+     "D1FlatPlanePlant",
+-    "D1FlatPlaneHeadingEnv",
+ ]
+ 
+ 
+@@ -52,17 +54,13 @@
+ #: that ``load_heading_policy`` rejects old sidecars while comparing the recorded
+ #: ``heading_task_config``, i.e. before any zip deserialization happens.
+ FLAT_PLANE_TASK_SCHEMA = "d1-heading-flat-plane-zero-task-v1"
++FLAT_PLANE_PLANT_SCHEMA = "d1-native-flat-plane-plant-v1"
+ 
+ #: Requested-layout name that this module accepts (and only this one).
+ _REQUIRED_LAYOUT = "flat"
+ 
+ #: Expected number of independent baseline action channels (wheel_leg).
+ _ACTION_DIM = 8
+-
+-#: Tolerance used only to detect mutated orientation; a compiled native plane in a
+-#: freshly built model carries an exactly identity quaternion.
+-_QUAT_ATOL = 1e-12
+-
+ 
+ def _as_float_list(values: Any) -> list[float]:
+     """Return a plain, JSON-serializable list of floats."""
+@@ -156,7 +154,7 @@
+             raise RuntimeError(f"floor plane must be attached to the world body 0; got {body_id}")
+ 
+         quat = np.asarray(model.geom_quat[floor_id], dtype=float)
+-        if not np.allclose(quat, np.array([1.0, 0.0, 0.0, 0.0]), rtol=0.0, atol=_QUAT_ATOL):
++        if not np.array_equal(quat, np.array([1.0, 0.0, 0.0, 0.0])):
+             raise RuntimeError(f"floor plane orientation is not identity; geom_quat={_as_float_list(quat)}")
+ 
+         pos = np.asarray(model.geom_pos[floor_id], dtype=float)
+@@ -165,6 +163,8 @@
+ 
+         if int(model.nhfield) != 0:
+             raise RuntimeError(f"native plane arena must contain no heightfields; nhfield={int(model.nhfield)}")
++        if int(model.geom_dataid[floor_id]) != -1:
++            raise RuntimeError("native plane floor must not reference a geometry asset")
+ 
+         terrain_ids = frozenset(int(g) for g in self.terrain_geom_ids)
+         if terrain_ids != frozenset({floor_id}):
+@@ -197,6 +197,7 @@
+ 
+         return {
+             "schema": FLAT_PLANE_SCHEMA,
++            "plant_schema": FLAT_PLANE_PLANT_SCHEMA,
+             "collision_geometry": "native_mujoco_plane",
+             "geom_type_name": "mjGEOM_PLANE",
+             "geom_type": int(model.geom_type[floor_id]),
+@@ -233,7 +234,7 @@
+     # ------------------------------------------------------------------
+     # ground reference
+     # ------------------------------------------------------------------
+-    def locomotion_ground_reference(self, x, y) -> TrainingGroundReference:  # noqa: D417
++    def locomotion_ground_reference(self, x, y) -> TrainingGroundReference:
+         """Exact analytic ground reference for the native plane.
+ 
+         No heightfield interpolation is used, and no clamping or extrapolation
+@@ -302,6 +303,12 @@
+                 f"D1FlatPlaneHeadingEnv requires layout={_REQUIRED_LAYOUT!r}; "
+                 f"got {terrain.layout!r}"
+             )
++        provider = kwargs.get("provider_config")
++        if provider is not None and provider.kind != "oracle":
++            raise ValueError("flat-plane diagnostic requires the oracle state provider")
++        controller = kwargs.get("wheel_leg_control")
++        if controller is not None and controller != D1WheelLegControlConfig():
++            raise ValueError("flat-plane diagnostic requires the original default controller")
+ 
+         super().__init__(terrain=terrain, **kwargs)
+ 
+@@ -310,8 +317,8 @@
+             raise AssertionError(
+                 f"expected an unstepped plant at time 0.0 before replacement; got {float(old_plant.data.time)!r}"
+             )
+-        if self.loop is not None:
+-            raise AssertionError("expected loop is None before plant replacement")
++        if self.loop is not None or self.decision is not None or self._active:
++            raise AssertionError("expected an inactive unbound environment before plant replacement")
+ 
+         floor_friction = float(
+             np.asarray(old_plant.model.geom_friction[int(old_plant.floor_geom_id)], dtype=float)[0]
+@@ -352,6 +359,7 @@
+         config["task_schema"] = FLAT_PLANE_TASK_SCHEMA
+         config["collision_terrain"] = {
+             "schema": FLAT_PLANE_SCHEMA,
++            "plant_schema": FLAT_PLANE_PLANT_SCHEMA,
+             "collision_geometry": "native_mujoco_plane",
+             "geom_type_name": "mjGEOM_PLANE",
+             "heightfield_present": False,
+@@ -374,6 +382,8 @@
+         obs, info = super().reset(*args, **kwargs)
+ 
+         self._episode_metadata["collision_terrain"] = self.plant.collision_terrain_metadata
++        self._episode_metadata["terrain"] = self.plant.collision_terrain_metadata
++        self._episode_metadata["requested_terrain_config"] = asdict(self.terrain)
+         # Legacy requested layout is recorded separately and keeps its own naming;
+         # its historical schema is never relabelled as a plane schema.
+         self._episode_metadata["requested_terrain_layout"] = str(self.terrain.layout)
+@@ -391,7 +401,7 @@
+     @staticmethod
+     def _require_zero_action(action: Any) -> None:
+         if isinstance(action, (bool, np.bool_)):
+-            raise ValueError("action must be a numeric array of shape (8,), not a bool")
++            raise ValueError("action must be a numeric array of shape (8,), not a bool")  # noqa: TRY004
+         array = np.asarray(action)
+         if array.dtype == np.bool_ or not (
+             np.issubdtype(array.dtype, np.floating) or np.issubdtype(array.dtype, np.integer)

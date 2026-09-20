@@ -1,0 +1,42 @@
+[
+  {
+    "checks": {
+      "observation_shape_dtype_finite": true,
+      "observations_equal_mod_signed_zero": true,
+      "qpos": true,
+      "qvel": true
+    },
+    "comparison": "flat_reverse_stop_initial",
+    "comparison_rule": "initial_observation_exact_zero_canonicalization_v1",
+    "normalization": "exact zero sign only, initial observations only; raw files unchanged",
+    "numeric_difference_indices": [],
+    "passed": true,
+    "raw_observation_signbit_differences": [
+      38,
+      56,
+      58
+    ],
+    "raw_observations_bitwise_equal": false,
+    "signed_zero_difference_indices": [
+      38,
+      56,
+      58
+    ]
+  },
+  {
+    "checks": {
+      "observation_shape_dtype_finite": true,
+      "observations_equal_mod_signed_zero": true,
+      "qpos": true,
+      "qvel": true
+    },
+    "comparison": "stationary_turn_left_hold_initial",
+    "comparison_rule": "initial_observation_exact_zero_canonicalization_v1",
+    "normalization": "exact zero sign only, initial observations only; raw files unchanged",
+    "numeric_difference_indices": [],
+    "passed": true,
+    "raw_observation_signbit_differences": [],
+    "raw_observations_bitwise_equal": true,
+    "signed_zero_difference_indices": []
+  }
+]

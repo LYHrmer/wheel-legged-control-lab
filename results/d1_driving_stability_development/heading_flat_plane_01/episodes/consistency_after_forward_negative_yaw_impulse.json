@@ -1,0 +1,158 @@
+[
+  {
+    "checks": {
+      "observation_shape_dtype_finite": true,
+      "observations_equal_mod_signed_zero": true,
+      "qpos": true,
+      "qvel": true
+    },
+    "comparison": "flat_reverse_stop_initial",
+    "comparison_rule": "initial_observation_exact_zero_canonicalization_v1",
+    "normalization": "exact zero sign only, initial observations only; raw files unchanged",
+    "numeric_difference_indices": [],
+    "passed": true,
+    "raw_observation_signbit_differences": [
+      38,
+      56,
+      58
+    ],
+    "raw_observations_bitwise_equal": false,
+    "signed_zero_difference_indices": [
+      38,
+      56,
+      58
+    ]
+  },
+  {
+    "checks": {
+      "observation_shape_dtype_finite": true,
+      "observations_equal_mod_signed_zero": true,
+      "qpos": true,
+      "qvel": true
+    },
+    "comparison": "stationary_turn_left_hold_initial",
+    "comparison_rule": "initial_observation_exact_zero_canonicalization_v1",
+    "normalization": "exact zero sign only, initial observations only; raw files unchanged",
+    "numeric_difference_indices": [],
+    "passed": true,
+    "raw_observation_signbit_differences": [],
+    "raw_observations_bitwise_equal": true,
+    "signed_zero_difference_indices": []
+  },
+  {
+    "checks": {
+      "observation_shape_dtype_finite": true,
+      "observations_equal_mod_signed_zero": true,
+      "qpos": true,
+      "qvel": true
+    },
+    "comparison": "stationary_turn_right_hold_initial",
+    "comparison_rule": "initial_observation_exact_zero_canonicalization_v1",
+    "normalization": "exact zero sign only, initial observations only; raw files unchanged",
+    "numeric_difference_indices": [],
+    "passed": true,
+    "raw_observation_signbit_differences": [],
+    "raw_observations_bitwise_equal": true,
+    "signed_zero_difference_indices": []
+  },
+  {
+    "checks": {
+      "applied_actions": true,
+      "applied_torque_nm": true,
+      "observations": true,
+      "qpos": true,
+      "qvel": true,
+      "requested_actions": true,
+      "requested_torque_nm": true,
+      "truth_positions_world_m": true,
+      "wheel_integral_after_nm": true,
+      "wheel_integral_before_nm": true
+    },
+    "comparison": "turn_prefix",
+    "passed": true,
+    "transitions": 200
+  },
+  {
+    "checks": {
+      "observation_shape_dtype_finite": true,
+      "observations_equal_mod_signed_zero": true,
+      "qpos": true,
+      "qvel": true
+    },
+    "comparison": "forward_positive_yaw_impulse_initial",
+    "comparison_rule": "initial_observation_exact_zero_canonicalization_v1",
+    "normalization": "exact zero sign only, initial observations only; raw files unchanged",
+    "numeric_difference_indices": [],
+    "passed": true,
+    "raw_observation_signbit_differences": [],
+    "raw_observations_bitwise_equal": true,
+    "signed_zero_difference_indices": []
+  },
+  {
+    "checks": {
+      "applied_actions": true,
+      "applied_torque_nm": true,
+      "observations": true,
+      "qpos": true,
+      "qvel": true,
+      "requested_actions": true,
+      "requested_torque_nm": true,
+      "truth_positions_world_m": true,
+      "wheel_integral_after_nm": true,
+      "wheel_integral_before_nm": true
+    },
+    "comparison": "forward_positive_yaw_impulse_stop_prefix",
+    "passed": true,
+    "transitions": 400
+  },
+  {
+    "checks": {
+      "observation_shape_dtype_finite": true,
+      "observations_equal_mod_signed_zero": true,
+      "qpos": true,
+      "qvel": true
+    },
+    "comparison": "forward_negative_yaw_impulse_initial",
+    "comparison_rule": "initial_observation_exact_zero_canonicalization_v1",
+    "normalization": "exact zero sign only, initial observations only; raw files unchanged",
+    "numeric_difference_indices": [],
+    "passed": true,
+    "raw_observation_signbit_differences": [],
+    "raw_observations_bitwise_equal": true,
+    "signed_zero_difference_indices": []
+  },
+  {
+    "checks": {
+      "applied_actions": true,
+      "applied_torque_nm": true,
+      "observations": true,
+      "qpos": true,
+      "qvel": true,
+      "requested_actions": true,
+      "requested_torque_nm": true,
+      "truth_positions_world_m": true,
+      "wheel_integral_after_nm": true,
+      "wheel_integral_before_nm": true
+    },
+    "comparison": "forward_negative_yaw_impulse_stop_prefix",
+    "passed": true,
+    "transitions": 400
+  },
+  {
+    "checks": {
+      "applied_actions": true,
+      "applied_torque_nm": true,
+      "observations": true,
+      "qpos": true,
+      "qvel": true,
+      "requested_actions": true,
+      "requested_torque_nm": true,
+      "truth_positions_world_m": true,
+      "wheel_integral_after_nm": true,
+      "wheel_integral_before_nm": true
+    },
+    "comparison": "impulse_prefix",
+    "passed": true,
+    "transitions": 600
+  }
+]
