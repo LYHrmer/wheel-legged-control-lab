@@ -135,3 +135,7 @@ readiness env/records/runner及RL task/env已有实际Opus初稿，尚未取得�
 实际Opus初稿已由root接好原生plane、同步接触、wholeCOM、95观测和严格checkpoint接口。发现并修复请求前飞行追认及落地反弹增p两个reward漏洞，保留原稿、错误测试、修改diff和261项非积分测试XML。后三个大代码请求和一个小纯评分请求均超时且无代码；root直接完成必要集成，不能声称Claude完成了这些请求。
 
 至此累计新物理 **40000控制/200000 native**；PPO640 smoke、131072正式及最多6000评估尚未运行。当前训练入口准备中；完整目标仍未完成，R仍仅复位。
+
+## 新 PPO 流程检查完成
+
+[640步新PPO smoke](../results/d1_driving_stability_development/jump_ppo_smoke_01/README.md)完整完成640/3200、5train/5epochs，第一场600步time-limit后自动reset并执行40步hold；root独立核对逐行episode/tick/native计数。第一场progress0/flight_seen false，没有跳跃能力结果。smoke权重已丢弃，正式从零seed62001，131072步，最终checkpoint才进入固定五条件zero/policy评估。源码/frozen77未变，累计40640/203200。训练/评估实现新增9+9项非积分测试通过。
