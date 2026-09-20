@@ -1,0 +1,71 @@
+Implement ONE bounded Python module scripts/d1_release_velocity_governor.py. Do not run tools or tests; return exactly one fenced Python block. Main agent integrates and physically validates. Use a short module docstring noting diagnostic-only release-reference shaping, not a proven stopping fix.
+Required API:
+RELEASE_GOVERNOR_SCHEMA = "d1-release-velocity-governor-v1"
+@dataclass(frozen=True, slots=True) ReleaseVelocityRecord with fields schema:str, simulation_time_s:float, actual_dt_s:float, raw_command:D1MotionCommand, served_command:D1MotionCommand, release_active:bool.
+ReleaseVelocityGovernor(deceleration_mps2=0.5), reset(), advance(raw_command, simulation_time_s)->ReleaseVelocityRecord. Read-only deceleration_mps2 property is useful. No other feature/classes or I/O.
+Import D1MotionCommand from wheel_legged_control.d1.control_loop. Validate D1MotionCommand fields even if a frozen dataclass was forged: call D1MotionCommand.__post_init__(raw_command), reject wrong type. Validate time finite real scalar >=0 rejecting Python/numpy bools; reject backward time. Bad input must never mutate history. Bypass (None) preserves original raw command object as served. Nonzero input passes through exact object. First call has dt=0 and passes through. Duplicate equal-time equal-command returns the identical cached record; conflicting same-time command raises. Changing a command after nonzero elapsed time supersedes any tail immediately. Do not modify raw command. Preserve yaw and clearance via dataclasses.replace only if forward changes. Finite positive deceleration rejecting bools; no configurable tolerances or hidden gains. Keep code small, clear, Python 3.10-compatible. Follow the attached fixed contract; caller adapter and probe are NOT your task.
+
+D1MotionCommand exact source:
+@dataclass(frozen=True, slots=True)
+class D1MotionCommand:
+    """User command: forward m/s, yaw rad/s, clearance above local ground m."""
+
+    forward_velocity_mps: float = 0.0
+    yaw_rate_rps: float = 0.0
+    clearance_m: float = 0.455
+
+    def __post_init__(self):
+        values = (self.forward_velocity_mps, self.yaw_rate_rps, self.clearance_m)
+        if (
+            any(
+                isinstance(value, (bool, np.bool_)) or not isinstance(value, Real)
+                for value in values
+            )
+            or not np.isfinite(values).all()
+        ):
+            raise ValueError("motion command must contain finite real values")
+        if abs(self.forward_velocity_mps) > 1 or abs(self.yaw_rate_rps) > 1:
+            raise ValueError("development command range is +/-1 m/s and +/-1 rad/s")
+        if not 0.38 <= self.clearance_m <= 0.53:
+            raise ValueError("development clearance range is .38-.53 m")
+
+
+
+Fixed experiment contract:
+# Next single-variable stopping experiment for the 85D task
+
+Status: proposed and untested. No new physics, training, source change, or accepted control improvement was produced by this plan. The active goal remains stable straight driving, then obstacles, then speed. Complete the present milestone and continue with the finite experiment below; do not enlarge PPO training.
+
+## Evidence and rejected explanations
+
+The G1 wheel-leg zero-residual controller failed both 8-second forward/reverse stopping cases, as did all three PPO policies. Read `heading_g1_01/{flat_forward_stop,flat_reverse_stop}/zero/{states.npz,trace.jsonl.gz,summary.json}` and the derived read-only `heading_zero_stop_diagnosis.json`.
+
+This is `D1WheelLegController`, **not** the classic course LQR/VMC. `src/wheel_legged_control/d1/wheel_leg_controller.py:335` constructs nominal wheel speed directly from commanded forward velocity and yaw geometry. Lines 414 onward implement wheel-speed PI with kp=2.2, ki=3.0, four integral torques, and antiwindup. There is no longitudinal distance-reference accumulator here. `locomotion_observation.py` exposes this distinction: indices 62/63 distance/yaw memories are absent; indices 64:68 hold wheel integrals. Do not transplant the failed classic distance re-anchoring/velocity-squared reference limiter.
+
+At decision tick 400, both original user and heading-servo forward commands are actually zero. The common nominal wheel target after stopping is essentially zero (maximum equivalent common forward speed below 0.000079 m/s in the examined initial stop interval). Therefore this is not stale W input or a hidden nonzero forward reference. The four-wheel common integral at release is +0.71895 Nm forward / -0.74931 Nm reverse. It has already decayed to +0.06109 / -0.05278 Nm by tick 475, while body velocity still reverses substantially.
+
+The decisive kinematic observation is the difference between body movement and wheel rotation. Forward tick 405: body +0.24253 m/s, average wheel rolling speed only +0.02228 m/s; tick 475: body -0.12097 m/s, wheel rolling speed -0.00159 m/s. During seconds 5–6, body-speed RMS is 0.03907 forward / 0.05338 reverse, while wheel-rotation-equivalent speed RMS is only 0.00466 / 0.00418 m/s. This supports a hypothesis of abrupt wheel arrest exciting the coupled leg/body transient; it does not alone prove the relative contributions of leg motion, contact slip, or PI memory. A single PI-integral reset is therefore not justified by the present evidence.
+
+Independent policy-review agent reconstruction from nominal wheel targets, raw qvel, and next-tick integral gives mean wheel torque at ticks 399→400: +0.80132→-5.84022 Nm forward, and -0.91136→+5.67379 Nm reverse. These are reconstructed controller torques, not directly logged actuator traces. Every wheel remains below 6.21 Nm (12 Nm limit); integral magnitude stays below .864 Nm (4 Nm clamp). The source/trace therefore does not support sustained torque saturation or integrator windup as the principal observed explanation. A transient reference-shaping experiment is a smaller justified next change than resetting all memory or retuning multiple gains.
+
+## Chosen intervention and prediction
+
+Test one release-speed reference governor, fixed deceleration **0.5 m/s²**, only when raw user forward request becomes exactly zero. Preserve the existing nonzero command trajectory exactly, including its already existing 0.5 m/s² start ramp. At a zero request, serve `sign(previous_served_vx) * max(abs(previous_served_vx) - 0.5 * dt, 0)` until zero; first stop tick after +0.25 serves +0.245 at dt=.01, reaches zero after 50 decision intervals. The reverse case is symmetric. Any new nonzero raw request immediately supersedes this release tail and is passed through unchanged. No world-position anchor, terrain branches, integral reset, wheel/leg gain retuning, body-velocity feedback, policy gating, or reward change in this experiment.
+
+Falsifiable prediction: the release tail reduces early body-versus-wheel speed separation and the later reversing body oscillation enough to pass the unchanged stop speed/path gates in both directions, at the cost of a larger explicitly reported initial stopping excursion. It may fail. Do not select a different deceleration after inspecting the result; do not relax the existing gates. A longer stop distance is a real tradeoff and must not be hidden by reporting only final net displacement.
+
+## Bounded implementation contract for actual Opus in the next window
+
+Write a new pure module in scripts, with no changes to the frozen 77 files or old heading env. Suggested `ReleaseVelocityGovernor(deceleration_mps2=0.5)` exposes `reset()` and `advance(raw_command: D1MotionCommand, simulation_time_s: float)` returning an immutable record with raw command, served command, actual dt, release-active flag, and a schema identifier. `deceleration_mps2=None` disables it exactly: preserve the original command object and values. Reject booleans, nonfinite/nonpositive configured deceleration, invalid or backwards time, malformed commands. Initial call records time and passes through; no invented elapsed interval. Duplicate successful calls at the same time with equal raw command return the same cached record without advancing. A different command at an already served timestamp is an error. Reset clears history.
+
+Only replace forward velocity; preserve yaw rate and clearance exactly. Never integrate or servo yaw again. Keep original user intent and served reference distinct in both names and evidence. The thin **zero-policy diagnostic source adapter** calls the raw command source once per prepared tick, then advance once, and returns served command to the unchanged D1HeadingTrackingEnv. The environment's existing heading-task `user_command_before` will then describe the served reference, not the original operator intent; the new probe must label it accordingly and additionally record the immutable original user command for that same decision tick. This distinction is mandatory and prevents a falsely favorable tracking score. Do not load any PPO into this changed command path in this experiment.
+
+The adapter stores records by decision tick, including the extra terminal prepared decision. Count only records whose corresponding interval physically completed. Raw-goal velocity error is endpoint body COM forward velocity minus the original raw command for the executed interval, including exactly zero during the entire stopping phase. Retain the old env reward for diagnostics only; it is evaluated against the served command and cannot be used as the common raw-goal score. Record the governor config/schema and separate raw/served timing in a new output protocol. The live GUI candidate remains unmodified until results and root review support integration.
+
+## Fixed small physical comparison, next window only
+
+Use zero residual only, seed 55101, the same flat terrain/spawn/32-bit observation schema and fixed heading gains as G1. Two conditions: exact bypass and fixed release governor. Four existing G1 profiles: forward stop 800 steps, reverse stop 800, forward positive yaw impulse 1200, forward negative yaw impulse 1200. Maximum 8,000 actual control transitions, no resets to fill a failed episode, no training. Preserve the original torque bridge and all old gates. The impulse profiles have no stop and must have identical raw/served commands and **bitwise identical physical trajectories** across the two conditions. Stop profiles must likewise match exactly before tick 400.
+
+For each stop require all previously frozen gates, now computed against raw user intent: complete 8 seconds; no nonwheel contact/fall/boundary; actual roll/pitch ≤10°; height RMS ≤.015 m; heading peak ≤5° and RMS ≤3°; raw-goal vx RMS ≤.05 m/s; endpoint ticks 500..799 maximum |COM vx| ≤.03 m/s; accumulated planar path between positions 500 and 700 inclusive ≤.05 m. Also report first 0.5-second body/wheel mismatch, integral traces, peak excursion after release, retreat from previous peak, total backwards travel, 4-second net displacement, and served-reference tail duration. The extra monotonic stopping distance is not automatically acceptable merely because later gates pass; root should show its measured size before adopting a UI behavior change.
+
+If either stop still fails, classify this one candidate as failed and keep old behavior. Next reasoning should use the mismatch/signatures to decide whether body/leg damping needs a control-law change; do not expand to a parameter grid or assert wheel PI caused the failure from correlation alone. If the candidate passes, first integrate as an explicitly versioned stop-reference mode with user-visible semantics and independent reset/focus/timeout tests; only then test the PPO task-domain consequences. This is not completion of obstacle or speed stages.

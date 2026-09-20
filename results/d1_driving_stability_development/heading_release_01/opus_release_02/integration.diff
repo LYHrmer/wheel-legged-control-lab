@@ -1,0 +1,50 @@
+--- Opus original
++++ root integrated
+@@ -14,7 +14,6 @@
+ import math
+ from dataclasses import dataclass
+ from numbers import Real
+-from typing import Optional
+ 
+ import numpy as np
+ 
+@@ -24,8 +23,8 @@
+ 
+ __all__ = [
+     "RELEASE_GOVERNOR_SCHEMA",
++    "ReleaseVelocityGovernor",
+     "ReleaseVelocityRecord",
+-    "ReleaseVelocityGovernor",
+ ]
+ 
+ 
+@@ -59,9 +58,9 @@
+ class ReleaseVelocityGovernor:
+     """Shape only the forward-velocity reference after an exact zero request."""
+ 
+-    def __init__(self, deceleration_mps2: Optional[float] = 0.5) -> None:
++    def __init__(self, deceleration_mps2: float | None = 0.5) -> None:
+         if deceleration_mps2 is None:
+-            self._deceleration_mps2: Optional[float] = None
++            self._deceleration_mps2: float | None = None
+         else:
+             value = _as_finite_real(deceleration_mps2, "deceleration_mps2")
+             if value <= 0.0:
+@@ -70,14 +69,14 @@
+         self.reset()
+ 
+     @property
+-    def deceleration_mps2(self) -> Optional[float]:
++    def deceleration_mps2(self) -> float | None:
+         """Configured release deceleration in m/s^2, or ``None`` for exact bypass."""
+         return self._deceleration_mps2
+ 
+     def reset(self) -> None:
+         """Clear all history; the next call behaves like a first call."""
+-        self._last_record: Optional[ReleaseVelocityRecord] = None
+-        self._last_time_s: Optional[float] = None
++        self._last_record: ReleaseVelocityRecord | None = None
++        self._last_time_s: float | None = None
+         self._last_served_vx: float = 0.0
+ 
+     def advance(

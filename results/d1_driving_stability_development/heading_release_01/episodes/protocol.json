@@ -1,0 +1,317 @@
+{
+  "cases": [
+    {
+      "classification": "development_task_domain_probe",
+      "command": {
+        "forward_target_mps": 0.25,
+        "height_m": 0.455,
+        "ramp_ticks": 50,
+        "settle_ticks": 50,
+        "stop_tick": 400,
+        "yaw_pulse": null
+      },
+      "episode_seconds": 8.0,
+      "external_wrench": null,
+      "gate_groups": [
+        "all_cases",
+        "stop_cases"
+      ],
+      "max_transitions": 800,
+      "name": "flat_forward_stop",
+      "seed": 55101,
+      "terrain": {
+        "cross_slope_deg": 0.0,
+        "layout": "flat",
+        "phase_x_rad": 0.0,
+        "phase_y_rad": 0.0,
+        "ripple_amplitude_m": 0.0,
+        "schema": "d1-fixed-2d-road-v1",
+        "slope_deg": 0.0,
+        "step_height_m": 0.0,
+        "wavelength_x_m": 0.8,
+        "wavelength_y_m": 1.2
+      },
+      "training_support": "Forward ramp/hold is represented in training; sustained stop after locomotion is not."
+    },
+    {
+      "classification": "development_task_domain_probe",
+      "command": {
+        "forward_target_mps": -0.25,
+        "height_m": 0.455,
+        "ramp_ticks": 50,
+        "settle_ticks": 50,
+        "stop_tick": 400,
+        "yaw_pulse": null
+      },
+      "episode_seconds": 8.0,
+      "external_wrench": null,
+      "gate_groups": [
+        "all_cases",
+        "stop_cases"
+      ],
+      "max_transitions": 800,
+      "name": "flat_reverse_stop",
+      "seed": 55101,
+      "terrain": {
+        "cross_slope_deg": 0.0,
+        "layout": "flat",
+        "phase_x_rad": 0.0,
+        "phase_y_rad": 0.0,
+        "ripple_amplitude_m": 0.0,
+        "schema": "d1-fixed-2d-road-v1",
+        "slope_deg": 0.0,
+        "step_height_m": 0.0,
+        "wavelength_x_m": 0.8,
+        "wavelength_y_m": 1.2
+      },
+      "training_support": "Nonzero negative forward command and sustained stopping are outside the training command distribution."
+    },
+    {
+      "classification": "development_task_domain_probe",
+      "command": {
+        "forward_target_mps": 0.25,
+        "height_m": 0.455,
+        "ramp_ticks": 50,
+        "settle_ticks": 50,
+        "stop_tick": null,
+        "yaw_pulse": null
+      },
+      "episode_seconds": 12.0,
+      "external_wrench": {
+        "body": "env.plant.base_body_id",
+        "end_tick_exclusive": 620,
+        "force_xyz_n": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "frame": "world",
+        "start_tick": 600,
+        "torque_xyz_nm": [
+          0.0,
+          0.0,
+          0.5
+        ]
+      },
+      "gate_groups": [
+        "all_cases",
+        "forward_and_impulse",
+        "impulse_cases"
+      ],
+      "max_transitions": 1200,
+      "name": "forward_positive_yaw_impulse",
+      "seed": 55101,
+      "terrain": {
+        "cross_slope_deg": 0.0,
+        "layout": "flat",
+        "phase_x_rad": 0.0,
+        "phase_y_rad": 0.0,
+        "ripple_amplitude_m": 0.0,
+        "schema": "d1-fixed-2d-road-v1",
+        "slope_deg": 0.0,
+        "step_height_m": 0.0,
+        "wavelength_x_m": 0.8,
+        "wavelength_y_m": 1.2
+      },
+      "training_support": "Physical yaw disturbance is outside training; forward command remains in training range."
+    },
+    {
+      "classification": "development_task_domain_probe",
+      "command": {
+        "forward_target_mps": 0.25,
+        "height_m": 0.455,
+        "ramp_ticks": 50,
+        "settle_ticks": 50,
+        "stop_tick": null,
+        "yaw_pulse": null
+      },
+      "episode_seconds": 12.0,
+      "external_wrench": {
+        "body": "env.plant.base_body_id",
+        "end_tick_exclusive": 620,
+        "force_xyz_n": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "frame": "world",
+        "start_tick": 600,
+        "torque_xyz_nm": [
+          0.0,
+          0.0,
+          -0.5
+        ]
+      },
+      "gate_groups": [
+        "all_cases",
+        "forward_and_impulse",
+        "impulse_cases"
+      ],
+      "max_transitions": 1200,
+      "name": "forward_negative_yaw_impulse",
+      "seed": 55101,
+      "terrain": {
+        "cross_slope_deg": 0.0,
+        "layout": "flat",
+        "phase_x_rad": 0.0,
+        "phase_y_rad": 0.0,
+        "ripple_amplitude_m": 0.0,
+        "schema": "d1-fixed-2d-road-v1",
+        "slope_deg": 0.0,
+        "step_height_m": 0.0,
+        "wavelength_x_m": 0.8,
+        "wavelength_y_m": 1.2
+      },
+      "training_support": "Physical yaw disturbance is outside training; forward command remains in training range."
+    }
+  ],
+  "conditions": {
+    "bypass": null,
+    "release_0p5": 0.5
+  },
+  "default_behavior_changed": false,
+  "first_termination_ends_episode": true,
+  "g1_protocol_sha256": "cf5dbd51042bfafa163116f4a7fb2a990726d47c5a6000558f28aa6866a664fc",
+  "gates": {
+    "all_cases": {
+      "complete_duration": true,
+      "heading_peak_rad_max": 0.08726646259971647,
+      "height_rmse_m_max": 0.015,
+      "max_abs_actual_roll_pitch_rad": 0.17453292519943295,
+      "no_boundary_or_fall": true,
+      "nonwheel_contact_steps_max": 0
+    },
+    "forward_and_impulse": {
+      "cross_track_final_abs_m_max": 0.1,
+      "cross_track_peak_m_max": 0.15,
+      "heading_rmse_rad_max": 0.05235987755982989,
+      "velocity_rmse_mps_max": 0.05
+    },
+    "impulse_cases": {
+      "max_abs_heading_error_after_recovery_rad": 0.05235987755982989,
+      "recovery_window_end_tick_exclusive": 1200,
+      "recovery_window_start_tick": 820
+    },
+    "stop_cases": {
+      "cumulative_planar_path_after_first_second_m_max": 0.05,
+      "heading_rmse_rad_max": 0.05235987755982989,
+      "max_abs_body_vx_late_mps": 0.03,
+      "release_tick": 400,
+      "speed_window_end_tick_exclusive": 800,
+      "speed_window_start_tick": 500,
+      "stationary_path_window_end_tick_exclusive": 700,
+      "stationary_path_window_start_tick": 500,
+      "velocity_rmse_mps_max": 0.05
+    },
+    "turn_cases": {
+      "expected_final_reference_delta_rad": 0.3,
+      "hold_settling_window_start_tick": 450,
+      "hold_window_end_tick_exclusive": 800,
+      "max_abs_body_vx_after_settle_mps": 0.03,
+      "max_abs_heading_error_after_settle_rad": 0.05235987755982989,
+      "planar_origin_displacement_peak_m_max": 0.1,
+      "sign": "positive left; negative right"
+    }
+  },
+  "governor_schema": "d1-release-velocity-governor-v1",
+  "input_sha256": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260914/heading_g1_protocol.json": "cf5dbd51042bfafa163116f4a7fb2a990726d47c5a6000558f28aa6866a664fc",
+    "/home/lyh/wheel-legged-control-lab/results/d1_driving_stability_development/heading_g1_01/episodes/flat_forward_stop/zero/states.npz": "4a35caca4e0d220b33c5d6f66e14e65d0fd8031cb5122531a618e96fcc44ceb7",
+    "/home/lyh/wheel-legged-control-lab/results/d1_driving_stability_development/heading_g1_01/episodes/flat_reverse_stop/zero/states.npz": "be8957f8138daf3fa01bad4ac661b90db95a2dc9630c89095b7a38c14fe79d36",
+    "/home/lyh/wheel-legged-control-lab/results/d1_driving_stability_development/heading_g1_01/episodes/forward_negative_yaw_impulse/zero/states.npz": "836ba6fac24e99a2b9ed2063dcff96c0fd514a402caa68ed0d48edf042da3517",
+    "/home/lyh/wheel-legged-control-lab/results/d1_driving_stability_development/heading_g1_01/episodes/forward_positive_yaw_impulse/zero/states.npz": "59587453475dd2829abe845dc05ee54bc2d442a4e6d0feb86742441310e43542",
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_release_velocity_governor.py": "8bc74381e147f099bf66397e05263db90223f0aec709b2c4b438e38cb53ec673",
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_heading_g1.py": "a631f443537a7183ca80bbaaca5e2b864b01bd4ac2adf899cb9f26462971cd78",
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_heading_release.py": "4de100582e6d20277a81fa0068d7746232a2b79e0f603e17abb9dfb432c0788a",
+    "pyproject.toml": "0d407410f6ef6c2e3b3f252c79b7df37dd7b05fbe9b42c3fc59153d09086be6c",
+    "scripts/d1_course_curriculum.py": "09f6e79b8c2adf4d7caabcbba9a0f1aff6cfddca893e835f0746a716fcfc8444",
+    "scripts/d1_heading_curriculum.py": "d50c7b3648eec71261178a38d9718b0f9ba04a990f6f87b7bc9b682624cf56ea",
+    "scripts/d1_heading_reference.py": "42c9de0c2099e7ec6e6b3281e3ece008649e176b24148adcb8ffe522399af44d",
+    "scripts/d1_heading_tracking_env.py": "91cbb3bcf697cab21f9b2c6b02480cf73d41811e4dd3cad51f1ae9554c4177ec",
+    "scripts/run_d1_course_curriculum.py": "3007c325972d392f0d2095fd8618990fb1daac9068491f884f3c44c1cfc6ccf8",
+    "scripts/run_d1_heading_study.py": "02e365cf4def1f073f365cbcaee7d0131bec267a79cba21d690f47acd95a93e5",
+    "scripts/run_d1_locomotion_experiment.py": "c1de72b7b2b86aef99e190f2b7dde7c2b908beb79931a509150cc30c8571444b",
+    "src/wheel_legged_control/__init__.py": "27776a51c8ab97c39e51a26dea9db93f0feb566187e1c14d9fd86f5df540da1b",
+    "src/wheel_legged_control/actuator_bench.py": "edb0e7c65076c9cd7dc108797cf695e9d8405b485a576c4a5ae712b420303625",
+    "src/wheel_legged_control/actuator_identification.py": "07af57632b5acfe8dd74a6f363879e072ff12393d4ebe7a2604216108a07c790",
+    "src/wheel_legged_control/assets/__init__.py": "cfb8faf893c8e29d2ba3a6b57e7f1001c286a756cbab15654a884dff5f967073",
+    "src/wheel_legged_control/assets/wheel_legged_planar.xml": "a0153542f4d7211b2adc9894fc0123306d8f4d77c88d14951e7d9163dec46ef3",
+    "src/wheel_legged_control/controllers.py": "9a83b860fad2c27ab017828948ceb7fd925d26f417b8d2379bb6bf5309f1c5b6",
+    "src/wheel_legged_control/d1/__init__.py": "43ccb447aeff86023e04360cc7c2d1129d2c2fcd4bca5e3a1bb88589bd455a92",
+    "src/wheel_legged_control/d1/actuator_channel.py": "e8100e976a7de18bdd39b4743cfdc0df8c5ae89ca11e337f828104cb424e6a0e",
+    "src/wheel_legged_control/d1/assets/__init__.py": "1b61e62d47e4eb7bc328696f7fb770bd634423cfef62dd3bd541e1a59c159524",
+    "src/wheel_legged_control/d1/assets/meshes/L_calf.STL": "e3389a611c0869b002c9ad6c92e5967367e585f31ce67887b47d95f85210599b",
+    "src/wheel_legged_control/d1/assets/meshes/L_foot.STL": "afc74ac83c9286f9d201d43dfc682195895a678464e5f8564763b071368d9eeb",
+    "src/wheel_legged_control/d1/assets/meshes/L_hip.STL": "6bd4d237b585fce86dc97d0d6f52b10811588f9b9fe2b2de8a74763c33f41d90",
+    "src/wheel_legged_control/d1/assets/meshes/L_thigh.STL": "c804473b99df48fe293a7d37e89096313c5421ffbeb1b0141130bfb0ceb4b2ee",
+    "src/wheel_legged_control/d1/assets/meshes/R_calf.STL": "71c9d33c49b3fcf0ce6aecee4f8407dc9872a1d6f8340705ac43df7154f7966b",
+    "src/wheel_legged_control/d1/assets/meshes/R_foot.STL": "11f49126b3fec371ce1277556828a1517309347d777907b57567a50e807dba1f",
+    "src/wheel_legged_control/d1/assets/meshes/R_hip.STL": "91751fa14272761ce4176cfb50cefde6397e43cd639ed5a5dc94d64d3b6f69d1",
+    "src/wheel_legged_control/d1/assets/meshes/R_thigh.STL": "8d5e6772757f64cb691e8f595f914c5b3acf36295d59e3c1c72543f86302ce4b",
+    "src/wheel_legged_control/d1/assets/meshes/base_link.STL": "d13fd7d3a7924e988b957008617744c44de73fbb39b43f3483fbcda989efd92a",
+    "src/wheel_legged_control/d1/assets/meshes/docking_Link.STL": "afe9cfe3f8896ff3d53c8bb3b61e12727973705b21751b94c2e5148743072f2c",
+    "src/wheel_legged_control/d1/assets/meshes/funtion_Link.STL": "ff81ab5dda97f86c083e0410b0a836cfe438df045d25177cc7ac0215fe76fc9b",
+    "src/wheel_legged_control/d1/assets/urdf/robot.urdf": "3ef048898f351134a4e30d21be8918f9fef48c7b508320a8c9a3f21a25391742",
+    "src/wheel_legged_control/d1/budget_checkpoints.py": "b7adb66d8d0473c9dc70beb493c33dfc1d44252ab2177c0373818f8b681c73ab",
+    "src/wheel_legged_control/d1/contact_allocation.py": "e5606d693c9bce185ff8cc824e882bed235bdb099649088481b534bc6108c6d1",
+    "src/wheel_legged_control/d1/contact_audit.py": "94ed115f742b53869678772751f430bfc6ce670ba11eb8b5dc575eed4ad24adf",
+    "src/wheel_legged_control/d1/continuous_task.py": "d6725af7c9a26f53e536418a054e3cb43330d684ce1baba29e35182deb4186ce",
+    "src/wheel_legged_control/d1/control_context.py": "1015eb59eb48a55248c162120bcc4f5531e79a8a82540182eedf7f1335b45a53",
+    "src/wheel_legged_control/d1/control_loop.py": "2d4fe87e635e124816985a6c72cbd8b35412b1f3910d61713eac1087387cdefe",
+    "src/wheel_legged_control/d1/control_primitives.py": "31be86faf68f33c60ec3678fa65fd3d09402eca1f868d31b0114f58ab3fb139d",
+    "src/wheel_legged_control/d1/controllers.py": "8ae4eab5326f0f279576c840febb08e8101f2817fb754ddb6c07d0a60f90c124",
+    "src/wheel_legged_control/d1/env.py": "7063e8a70cfaffa130a66359d6d189ff8617ea5526ec4ef1c95db8ab4c7fe194",
+    "src/wheel_legged_control/d1/experiments.py": "2ba0c071473a905918c04e89d43c7fb81637e226b55695be40e5877e40d3b4a6",
+    "src/wheel_legged_control/d1/hierarchical.py": "cd8de672e3f5b094ed994e6f958c923e1ff83a41c4fd54b831a70a8a056a9172",
+    "src/wheel_legged_control/d1/interactive.py": "8e1ffca89fe1c3ffb038a06103eaaa8d63b2605b68768a8010412361dc2c2a7a",
+    "src/wheel_legged_control/d1/inverse_dynamics.py": "8f80b259a4925ad264143ffac2a896cf40e07cefaf13a0461d45929c1dbc2600",
+    "src/wheel_legged_control/d1/linear_model.py": "f51d4ed60ab626f243de603a1b51c6d186553b0fd57b2eb127db9ec0034c5a01",
+    "src/wheel_legged_control/d1/locomotion_checkpoint.py": "861e26737ac81aa4dc8f890e1944f3f475997ef5f8f9a54ee785c93c18b1943f",
+    "src/wheel_legged_control/d1/locomotion_commands.py": "b8cd6cc9b2443f4f601f8c475f77b8cea102c317f14412fb319d41b08caa885b",
+    "src/wheel_legged_control/d1/locomotion_env.py": "077c48d797f7a40ce142525f3b49f3643e8f78ca3f118ba5f48c1ae9541910ff",
+    "src/wheel_legged_control/d1/locomotion_observation.py": "398bbb2361a35602e7c00bc0e66661c947f3981c8359e39d9137b963c190d25f",
+    "src/wheel_legged_control/d1/locomotion_rewards.py": "ca74044764d6f4309054229cb665d0667d41f7b91a6b55f7ed7bcde91236765d",
+    "src/wheel_legged_control/d1/locomotion_terrain.py": "85f5d55e065678fc0f088962941cf36bc9f7daa43ebcd56315098854bcda66d3",
+    "src/wheel_legged_control/d1/model.py": "0d606a044e8f9b010976ceb7e45b6640b143371887284cc30c17acd1d0c96bc6",
+    "src/wheel_legged_control/d1/observation_history.py": "48f4f0328235a49a2801e77946c50dde7049d48de028ccba8530bcc8a1aabdae",
+    "src/wheel_legged_control/d1/policy.py": "fb81ba914ab5fdda48975ea00120041cfca04ba50d3518e8d7dc2c1f52204c33",
+    "src/wheel_legged_control/d1/ppo_action_policies.py": "64bf8e3f70446f5589b0cf608c9f51a7734ba3546026e16e9c5eec1e09da3b32",
+    "src/wheel_legged_control/d1/ppo_update_audit.py": "1d809acb89e4c74474ce70591c05d85fc56ccbee8ca55913ae19d92bad6d76bb",
+    "src/wheel_legged_control/d1/residual_action_env.py": "4f42d80fa2232b2c460860b2dcc864d19a049cf69868ba25bd7720146ce51fad",
+    "src/wheel_legged_control/d1/rewards.py": "26ad04cac0aff610d2e2a8fdc8acd1d5110ab0858cda82ac563eaf58bff2d692",
+    "src/wheel_legged_control/d1/sensor_estimation.py": "3072d19499a9e20e4161295499f0e51c83bfc85fe010b28e24451a2a0b9722d5",
+    "src/wheel_legged_control/d1/state_estimation.py": "eea9c3969e3064819ef6bc8a7621e5541e1547bacbea741b21e1fa909e2f51b8",
+    "src/wheel_legged_control/d1/state_provider.py": "e3250710355d31a9e4005c036f6f60c9d0f15bdb0fae111ac5679ec1aa77df81",
+    "src/wheel_legged_control/d1/terrain.py": "a72ad8d9c599e87d5587f253b2ade893d26629b55f755a0ca60e55d87c18e6fd",
+    "src/wheel_legged_control/d1/terrain_env.py": "0c90ece3a6d4607fe0c0b977a602a26a2b60e93fde9381882a507ea53d4b355d",
+    "src/wheel_legged_control/d1/terrain_tracking_env.py": "e92927a88edf805fbfc996ea61874bbc7f357553fb978b319b604e952ecfd968",
+    "src/wheel_legged_control/d1/training_terrain.py": "25bf4490be6ea1c6aba0799ac042a1d177ff4343ceb07bc7608432ba0c97dc05",
+    "src/wheel_legged_control/d1/wheel_leg_controller.py": "0c731d366e811a465248cec4b9ce345d6d3c69a8a9c387e314ca6f992ac32156",
+    "src/wheel_legged_control/encoder_identification.py": "03f40895cf1ba4eb351ceef93fdafb21a892cecfc2e3c47905f36744db198d14",
+    "src/wheel_legged_control/encoder_velocity.py": "02882eec63c748758417fce1d54c00cc8eb4e6aff29b2f61e72eb67fc8170aa6",
+    "src/wheel_legged_control/env.py": "0840d9046b12bb187b4dd98bb1d9b2aaf085fd51357f77538f0213c3dc8036af",
+    "src/wheel_legged_control/experiments.py": "5c8a7a273fd3219c549c005a7d6996de66600a4fcf54c409b88c4d3cd49a7ed4",
+    "src/wheel_legged_control/model.py": "92b909eaf5e425a2df29036c7a2053e4ae80695a0a8d1c1964a2554dfdefc91e",
+    "src/wheel_legged_control/ppo_learning.py": "aa05abf6f392bb2dee199f2d09870e0be3f9fb84de290cfe6a457507440c70b5",
+    "src/wheel_legged_control/ppo_update.py": "cac98e17d26ede082a517e842567ef07f1c1dffe27d3643c0f6a9c6f3ee77d50",
+    "src/wheel_legged_control/provenance.py": "2da900d3bc84d4b236e4b1a39a23a931919e8c5497fc1d04f2433359a9706067",
+    "src/wheel_legged_control/rewards.py": "cfecf7b726a08d65d03fc913066059cec5422a3fbf735389360960599130c4da",
+    "src/wheel_legged_control/train.py": "01ba14b6ba39e7a270732923492971561035f14c5dbf04efde8763feacf9c6b7",
+    "src/wheel_legged_control/wheel_control.py": "e46735a96a52a1617f2471cf9be4d357f40212025b835abd6528ea3f683c4129"
+  },
+  "late_speed_endpoint_ticks": [
+    500,
+    800
+  ],
+  "max_actual_control_transitions": 8000,
+  "max_actual_physics_substeps": 40000,
+  "no_parameter_sweep": true,
+  "no_training_or_ppo_loading": true,
+  "original_user_stop_tick": 400,
+  "path_position_ticks_inclusive": [
+    500,
+    700
+  ],
+  "reward_semantics": "served-reference diagnostics only; gates use raw intent",
+  "schema": "d1-heading-release-zero-probe-v1"
+}
