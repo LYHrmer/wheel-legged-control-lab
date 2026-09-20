@@ -1,0 +1,2206 @@
+{
+  "schema": "d1-jump-ppo-failure-file-diagnosis-v1",
+  "new_physics_steps": 0,
+  "new_training_steps": 0,
+  "evaluation": [
+    {
+      "case": "no_jump_hold",
+      "condition": "zero",
+      "window_meaning": "hold postsettling",
+      "request_native": {
+        "executed_window": [
+          200,
+          600
+        ],
+        "native_count": 2000,
+        "maximum_simultaneous_gap_m": 0.0003671116731772256,
+        "maximum_net_gap_m": 0.0,
+        "peak_gap_native_index": 1000,
+        "peak_gap_returned_time_s": 2.002000000000001,
+        "unloaded_native_count": 0,
+        "longest_unloaded_ms": 0,
+        "max_start_com_vz_mps": 0.00025954592899380644,
+        "max_com_vz_native_index": 1000,
+        "sampled_unloaded_runs": []
+      },
+      "control_endpoint_window_max_gap_m": 0.00036687952054648143,
+      "control_endpoint_window_max_net_gap_m": 0.0,
+      "raw_heights_m": [
+        0.455
+      ],
+      "all_raw_v_yaw_zero": true,
+      "actions": {
+        "count": 400,
+        "mean": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rms": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "near_boundary_fraction_abs_ge_0p95": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "actual_boundary_fraction_abs_ge_1": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "leg_common_squared_norm_fraction": null,
+        "common_mode_definition": "Orthogonal projection onto span((1,1,1,1)); accounting, not causal attribution."
+      },
+      "leg_target_clipped_intervals": 0,
+      "leg_target_clipped_axis_intervals": 0,
+      "ik_extension_clipped_intervals": 0,
+      "torque_protected_intervals": 0,
+      "peak_requested_leg_torque_nm": 17.83581368242148,
+      "peak_requested_wheel_torque_nm": 0.0033356476377054242,
+      "peak_planar_displacement_m": 0.0010886624168927033,
+      "peak_abs_roll_pitch_rad": 0.001975536887323277,
+      "peak_heading_error_rad": 4.725652785305497e-05,
+      "total_reward": 11.93074167569071,
+      "reward_terms": {
+        "tracking_velocity": 5.999847096758828,
+        "tracking_yaw": 5.99999899462241,
+        "height": -0.06838702033984334,
+        "attitude": -2.560084259684479e-06,
+        "mechanical_power": -0.00046590888174748006,
+        "action_change": 0.0,
+        "termination": 0.0,
+        "heading_goal": -1.0404524789897426e-07,
+        "clearance_progress": 0.0,
+        "flight_once": 0.0,
+        "stationary_offset": -0.0002488223394308202,
+        "landing_once": 0.0
+      },
+      "score_passed": true,
+      "score_checks": {
+        "execution": true,
+        "late": true,
+        "no_flight_after_settling": true
+      },
+      "late_settled": {
+        "detail": {
+          "checks": {
+            "body_vx": true,
+            "com_vz": true,
+            "height_rmse": true,
+            "per_wheel_positive_load": true,
+            "planar_path": true
+          },
+          "height_rmse_m": 0.005832364060004128,
+          "max_abs_body_vx_mps": 2.1257657563692675e-05,
+          "max_abs_com_vz_mps": 0.00016387352749190422,
+          "per_wheel_positive_load_fraction": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "planar_path_m": 2.8266189145373385e-05,
+          "rmse_reference": "per-tick raw held height command, never a constant 0.455 m"
+        },
+        "passed": true
+      }
+    },
+    {
+      "case": "no_jump_hold",
+      "condition": "final_policy_131072",
+      "window_meaning": "hold postsettling",
+      "request_native": {
+        "executed_window": [
+          200,
+          600
+        ],
+        "native_count": 2000,
+        "maximum_simultaneous_gap_m": 0.00025309897118945546,
+        "maximum_net_gap_m": 0.0,
+        "peak_gap_native_index": 2111,
+        "peak_gap_returned_time_s": 4.223999999999757,
+        "unloaded_native_count": 0,
+        "longest_unloaded_ms": 0,
+        "max_start_com_vz_mps": 0.0007203565779746047,
+        "max_com_vz_native_index": 2300,
+        "sampled_unloaded_runs": []
+      },
+      "control_endpoint_window_max_gap_m": 0.0002530433457095804,
+      "control_endpoint_window_max_net_gap_m": 0.0,
+      "raw_heights_m": [
+        0.455
+      ],
+      "all_raw_v_yaw_zero": true,
+      "actions": {
+        "count": 400,
+        "mean": [
+          0.029377600541338325,
+          -0.8787355983257293,
+          0.1638499142229557,
+          -0.444051545932889,
+          -0.07634987885132433,
+          0.17763280224055053,
+          -0.055594442756846545,
+          0.22202438082545994
+        ],
+        "rms": [
+          0.03232119591635971,
+          0.8829086217626858,
+          0.16398003721713486,
+          0.44557384234452785,
+          0.07635129925706463,
+          0.17835725930351978,
+          0.05641215879709197,
+          0.22509267593990712
+        ],
+        "near_boundary_fraction_abs_ge_0p95": [
+          0.0,
+          0.2775,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "actual_boundary_fraction_abs_ge_1": [
+          0.0,
+          0.125,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "leg_common_squared_norm_fraction": 0.31752494687405614,
+        "common_mode_definition": "Orthogonal projection onto span((1,1,1,1)); accounting, not causal attribution."
+      },
+      "leg_target_clipped_intervals": 0,
+      "leg_target_clipped_axis_intervals": 0,
+      "ik_extension_clipped_intervals": 0,
+      "torque_protected_intervals": 0,
+      "peak_requested_leg_torque_nm": 20.651447320979813,
+      "peak_requested_wheel_torque_nm": 1.658600028007192,
+      "peak_planar_displacement_m": 0.15612731137057875,
+      "peak_abs_roll_pitch_rad": 0.05199832974262171,
+      "peak_heading_error_rad": 0.025012219201876944,
+      "total_reward": 8.689094772603434,
+      "reward_terms": {
+        "tracking_velocity": 5.890620716168384,
+        "tracking_yaw": 5.666335114317699,
+        "height": -0.05525604070479321,
+        "attitude": -0.026241050218119837,
+        "mechanical_power": -0.002461859706551934,
+        "action_change": -0.0012934816482409641,
+        "termination": 0.0,
+        "heading_goal": -0.17339637590375054,
+        "clearance_progress": 0.0,
+        "flight_once": 0.0,
+        "stationary_offset": -2.609212249701193,
+        "landing_once": 0.0
+      },
+      "score_passed": false,
+      "score_checks": {
+        "execution": false,
+        "late": true,
+        "no_flight_after_settling": true
+      },
+      "late_settled": {
+        "detail": {
+          "checks": {
+            "body_vx": true,
+            "com_vz": true,
+            "height_rmse": true,
+            "per_wheel_positive_load": true,
+            "planar_path": true
+          },
+          "height_rmse_m": 0.0034426430836088946,
+          "max_abs_body_vx_mps": 0.026552612243593142,
+          "max_abs_com_vz_mps": 0.0007203565779746047,
+          "per_wheel_positive_load_fraction": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "planar_path_m": 0.04970554166656985,
+          "rmse_reference": "per-tick raw held height command, never a constant 0.455 m"
+        },
+        "passed": true
+      }
+    },
+    {
+      "case": "jump_late_a",
+      "condition": "zero",
+      "window_meaning": "executions [s,s+120), endpoints S[s+1:s+121], native[5s:5(s+120)]",
+      "request_native": {
+        "executed_window": [
+          175,
+          295
+        ],
+        "native_count": 600,
+        "maximum_simultaneous_gap_m": 0.0014918372465764634,
+        "maximum_net_gap_m": 0.0004918372465764634,
+        "peak_gap_native_index": 1081,
+        "peak_gap_returned_time_s": 2.1639999999999833,
+        "unloaded_native_count": 6,
+        "longest_unloaded_ms": 12,
+        "max_start_com_vz_mps": 0.6469514471093155,
+        "max_com_vz_native_index": 1055,
+        "sampled_unloaded_runs": [
+          {
+            "first_native_index": 1078,
+            "end_native_index_exclusive": 1084,
+            "duration_s": 0.011999999999998678,
+            "onset_com_vz_mps": 0.4599981307934262,
+            "last_returned_com_vz_mps": 0.3423685867122423,
+            "net_gap_max_m": 0.0004918372465764634
+          }
+        ]
+      },
+      "control_endpoint_window_max_gap_m": 0.0013942246237844957,
+      "control_endpoint_window_max_net_gap_m": 0.0003942246237844957,
+      "raw_heights_m": [
+        0.405,
+        0.435,
+        0.455,
+        0.5
+      ],
+      "all_raw_v_yaw_zero": true,
+      "actions": {
+        "count": 120,
+        "mean": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rms": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "near_boundary_fraction_abs_ge_0p95": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "actual_boundary_fraction_abs_ge_1": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "leg_common_squared_norm_fraction": null,
+        "common_mode_definition": "Orthogonal projection onto span((1,1,1,1)); accounting, not causal attribution."
+      },
+      "leg_target_clipped_intervals": 30,
+      "leg_target_clipped_axis_intervals": 130,
+      "ik_extension_clipped_intervals": 0,
+      "torque_protected_intervals": 0,
+      "peak_requested_leg_torque_nm": 41.48363835536177,
+      "peak_requested_wheel_torque_nm": 2.203089291744228,
+      "peak_planar_displacement_m": 0.04864032208085792,
+      "peak_abs_roll_pitch_rad": 0.1071585596112884,
+      "peak_heading_error_rad": 8.381205960722716e-05,
+      "total_reward": 11.187361432434374,
+      "reward_terms": {
+        "tracking_velocity": 5.822784911784093,
+        "tracking_yaw": 5.999989051781498,
+        "height": -0.3677125024412399,
+        "attitude": -0.009879290561882423,
+        "mechanical_power": -0.014911181692492661,
+        "action_change": 0.0,
+        "termination": 0.0,
+        "heading_goal": -2.781263419376694e-07,
+        "clearance_progress": 0.0,
+        "flight_once": 0.0,
+        "stationary_offset": -0.24290927830926257,
+        "landing_once": 0.0
+      },
+      "score_passed": false,
+      "score_checks": {
+        "execution": true,
+        "late": true,
+        "loaded_return_before_endpoint400": false,
+        "requested_flight": false,
+        "useful_net_clearance": false
+      },
+      "late_settled": {
+        "detail": {
+          "checks": {
+            "body_vx": true,
+            "com_vz": true,
+            "height_rmse": true,
+            "per_wheel_positive_load": true,
+            "planar_path": true
+          },
+          "height_rmse_m": 0.014611780893416599,
+          "max_abs_body_vx_mps": 0.021082114444929474,
+          "max_abs_com_vz_mps": 0.002796116313361835,
+          "per_wheel_positive_load_fraction": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "planar_path_m": 0.00838591360932187,
+          "rmse_reference": "per-tick raw held height command, never a constant 0.455 m"
+        },
+        "passed": true
+      }
+    },
+    {
+      "case": "jump_late_a",
+      "condition": "final_policy_131072",
+      "window_meaning": "executions [s,s+120), endpoints S[s+1:s+121], native[5s:5(s+120)]",
+      "request_native": {
+        "executed_window": [
+          175,
+          295
+        ],
+        "native_count": 600,
+        "maximum_simultaneous_gap_m": 0.0014677465070854767,
+        "maximum_net_gap_m": 0.0004677465070854767,
+        "peak_gap_native_index": 1080,
+        "peak_gap_returned_time_s": 2.1619999999999835,
+        "unloaded_native_count": 5,
+        "longest_unloaded_ms": 10,
+        "max_start_com_vz_mps": 0.6189651289376052,
+        "max_com_vz_native_index": 1050,
+        "sampled_unloaded_runs": [
+          {
+            "first_native_index": 1079,
+            "end_native_index_exclusive": 1084,
+            "duration_s": 0.009999999999998899,
+            "onset_com_vz_mps": 0.4110487185729766,
+            "last_returned_com_vz_mps": 0.31307836902980907,
+            "net_gap_max_m": 0.0004677465070854767
+          }
+        ]
+      },
+      "control_endpoint_window_max_gap_m": 0.0014236413628427869,
+      "control_endpoint_window_max_net_gap_m": 0.00042364136284278684,
+      "raw_heights_m": [
+        0.405,
+        0.435,
+        0.455,
+        0.5
+      ],
+      "all_raw_v_yaw_zero": true,
+      "actions": {
+        "count": 120,
+        "mean": [
+          -0.16430713719843576,
+          -0.048698530967036885,
+          0.13870665128342807,
+          -0.37620355437199277,
+          0.0021090228731433553,
+          0.06165503636002541,
+          0.10986084626056254,
+          0.016205458901822567
+        ],
+        "rms": [
+          0.1716388578983407,
+          0.17274002927423251,
+          0.14734762996923093,
+          0.41886853489526193,
+          0.03459490754068556,
+          0.11975519063421686,
+          0.12051081218358466,
+          0.0722198002448074
+        ],
+        "near_boundary_fraction_abs_ge_0p95": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "actual_boundary_fraction_abs_ge_1": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "leg_common_squared_norm_fraction": 0.2235329622525751,
+        "common_mode_definition": "Orthogonal projection onto span((1,1,1,1)); accounting, not causal attribution."
+      },
+      "leg_target_clipped_intervals": 32,
+      "leg_target_clipped_axis_intervals": 123,
+      "ik_extension_clipped_intervals": 0,
+      "torque_protected_intervals": 0,
+      "peak_requested_leg_torque_nm": 43.18715933612711,
+      "peak_requested_wheel_torque_nm": 2.820313423045911,
+      "peak_planar_displacement_m": 0.06741409593584594,
+      "peak_abs_roll_pitch_rad": 0.09848736285780214,
+      "peak_heading_error_rad": 0.0544800043483385,
+      "total_reward": 10.396809722211454,
+      "reward_terms": {
+        "tracking_velocity": 5.859511115670088,
+        "tracking_yaw": 5.555974778569741,
+        "height": -0.24174748360647252,
+        "attitude": -0.026405129262857884,
+        "mechanical_power": -0.01670729155830007,
+        "action_change": -0.0024472267579634366,
+        "termination": 0.0,
+        "heading_goal": -0.13571944281709095,
+        "clearance_progress": 0.0,
+        "flight_once": 0.0,
+        "stationary_offset": -0.5956495980256898,
+        "landing_once": 0.0
+      },
+      "score_passed": false,
+      "score_checks": {
+        "execution": true,
+        "late": true,
+        "loaded_return_before_endpoint400": false,
+        "requested_flight": false,
+        "useful_net_clearance": false
+      },
+      "late_settled": {
+        "detail": {
+          "checks": {
+            "body_vx": true,
+            "com_vz": true,
+            "height_rmse": true,
+            "per_wheel_positive_load": true,
+            "planar_path": true
+          },
+          "height_rmse_m": 0.011272069974757413,
+          "max_abs_body_vx_mps": 0.01858731917417927,
+          "max_abs_com_vz_mps": 0.0022795115056267884,
+          "per_wheel_positive_load_fraction": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "planar_path_m": 0.022865668733199545,
+          "rmse_reference": "per-tick raw held height command, never a constant 0.455 m"
+        },
+        "passed": true
+      }
+    },
+    {
+      "case": "jump_late_b",
+      "condition": "zero",
+      "window_meaning": "executions [s,s+120), endpoints S[s+1:s+121], native[5s:5(s+120)]",
+      "request_native": {
+        "executed_window": [
+          225,
+          345
+        ],
+        "native_count": 600,
+        "maximum_simultaneous_gap_m": 0.0014912036909048576,
+        "maximum_net_gap_m": 0.0004912036909048576,
+        "peak_gap_native_index": 1331,
+        "peak_gap_returned_time_s": 2.663999999999928,
+        "unloaded_native_count": 6,
+        "longest_unloaded_ms": 12,
+        "max_start_com_vz_mps": 0.6468821111679289,
+        "max_com_vz_native_index": 1305,
+        "sampled_unloaded_runs": [
+          {
+            "first_native_index": 1328,
+            "end_native_index_exclusive": 1334,
+            "duration_s": 0.011999999999998678,
+            "onset_com_vz_mps": 0.45979980203874693,
+            "last_returned_com_vz_mps": 0.34216923910059,
+            "net_gap_max_m": 0.0004912036909048576
+          }
+        ]
+      },
+      "control_endpoint_window_max_gap_m": 0.0013931328652123653,
+      "control_endpoint_window_max_net_gap_m": 0.0003931328652123653,
+      "raw_heights_m": [
+        0.405,
+        0.435,
+        0.455,
+        0.5
+      ],
+      "all_raw_v_yaw_zero": true,
+      "actions": {
+        "count": 120,
+        "mean": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rms": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "near_boundary_fraction_abs_ge_0p95": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "actual_boundary_fraction_abs_ge_1": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "leg_common_squared_norm_fraction": null,
+        "common_mode_definition": "Orthogonal projection onto span((1,1,1,1)); accounting, not causal attribution."
+      },
+      "leg_target_clipped_intervals": 30,
+      "leg_target_clipped_axis_intervals": 130,
+      "ik_extension_clipped_intervals": 0,
+      "torque_protected_intervals": 0,
+      "peak_requested_leg_torque_nm": 41.47833712018554,
+      "peak_requested_wheel_torque_nm": 2.202493175361928,
+      "peak_planar_displacement_m": 0.048302668476548204,
+      "peak_abs_roll_pitch_rad": 0.10713318327064691,
+      "peak_heading_error_rad": 8.848475292238221e-05,
+      "total_reward": 11.249634881564772,
+      "reward_terms": {
+        "tracking_velocity": 5.823811222800641,
+        "tracking_yaw": 5.999989814781186,
+        "height": -0.3344695307728228,
+        "attitude": -0.00931466977649852,
+        "mechanical_power": -0.01490546635201802,
+        "action_change": 0.0,
+        "termination": 0.0,
+        "heading_goal": -2.993955798263654e-07,
+        "clearance_progress": 0.0,
+        "flight_once": 0.0,
+        "stationary_offset": -0.21547618972013496,
+        "landing_once": 0.0
+      },
+      "score_passed": false,
+      "score_checks": {
+        "execution": true,
+        "late": false,
+        "loaded_return_before_endpoint400": false,
+        "requested_flight": false,
+        "useful_net_clearance": false
+      },
+      "late_settled": {
+        "detail": {
+          "checks": {
+            "body_vx": true,
+            "com_vz": true,
+            "height_rmse": false,
+            "per_wheel_positive_load": true,
+            "planar_path": true
+          },
+          "height_rmse_m": 0.015162251552969672,
+          "max_abs_body_vx_mps": 0.028497641473261136,
+          "max_abs_com_vz_mps": 0.0031874263602829343,
+          "per_wheel_positive_load_fraction": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "planar_path_m": 0.017613505642848186,
+          "rmse_reference": "per-tick raw held height command, never a constant 0.455 m"
+        },
+        "passed": false
+      }
+    },
+    {
+      "case": "jump_late_b",
+      "condition": "final_policy_131072",
+      "window_meaning": "executions [s,s+120), endpoints S[s+1:s+121], native[5s:5(s+120)]",
+      "request_native": {
+        "executed_window": [
+          225,
+          345
+        ],
+        "native_count": 600,
+        "maximum_simultaneous_gap_m": 0.0012776081263740496,
+        "maximum_net_gap_m": 0.0002776081263740496,
+        "peak_gap_native_index": 1329,
+        "peak_gap_returned_time_s": 2.6599999999999286,
+        "unloaded_native_count": 4,
+        "longest_unloaded_ms": 8,
+        "max_start_com_vz_mps": 0.6152047700670418,
+        "max_com_vz_native_index": 1300,
+        "sampled_unloaded_runs": [
+          {
+            "first_native_index": 1329,
+            "end_native_index_exclusive": 1333,
+            "duration_s": 0.007999999999999119,
+            "onset_com_vz_mps": 0.40705704552460414,
+            "last_returned_com_vz_mps": 0.32867574107555897,
+            "net_gap_max_m": 0.0002776081263740496
+          }
+        ]
+      },
+      "control_endpoint_window_max_gap_m": 0.0012776081263740496,
+      "control_endpoint_window_max_net_gap_m": 0.0002776081263740496,
+      "raw_heights_m": [
+        0.405,
+        0.435,
+        0.455,
+        0.5
+      ],
+      "all_raw_v_yaw_zero": true,
+      "actions": {
+        "count": 120,
+        "mean": [
+          -0.17063066957440848,
+          -0.008832593184585373,
+          0.1421464987564832,
+          -0.3911607259263595,
+          0.0027656867362869284,
+          0.07072078100560854,
+          0.1143739646455894,
+          0.0006062412479271492
+        ],
+        "rms": [
+          0.17763667156358515,
+          0.1685244327454082,
+          0.15037428010946693,
+          0.43108580876789243,
+          0.034776685390613314,
+          0.12423760230837544,
+          0.12519150382141914,
+          0.06982592644757318
+        ],
+        "near_boundary_fraction_abs_ge_0p95": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "actual_boundary_fraction_abs_ge_1": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "leg_common_squared_norm_fraction": 0.1968867504122697,
+        "common_mode_definition": "Orthogonal projection onto span((1,1,1,1)); accounting, not causal attribution."
+      },
+      "leg_target_clipped_intervals": 34,
+      "leg_target_clipped_axis_intervals": 125,
+      "ik_extension_clipped_intervals": 0,
+      "torque_protected_intervals": 0,
+      "peak_requested_leg_torque_nm": 43.309055736814244,
+      "peak_requested_wheel_torque_nm": 3.121262348851071,
+      "peak_planar_displacement_m": 0.07571463043752624,
+      "peak_abs_roll_pitch_rad": 0.10048620077332288,
+      "peak_heading_error_rad": 0.05697848494612531,
+      "total_reward": 10.099190316312944,
+      "reward_terms": {
+        "tracking_velocity": 5.852641363175061,
+        "tracking_yaw": 5.52229508449247,
+        "height": -0.2264483491848846,
+        "attitude": -0.028533757155178405,
+        "mechanical_power": -0.016811945418075524,
+        "action_change": -0.002605287325784574,
+        "termination": 0.0,
+        "heading_goal": -0.16341018232445903,
+        "clearance_progress": 0.0,
+        "flight_once": 0.0,
+        "stationary_offset": -0.8379366099462027,
+        "landing_once": 0.0
+      },
+      "score_passed": false,
+      "score_checks": {
+        "execution": true,
+        "late": true,
+        "loaded_return_before_endpoint400": false,
+        "requested_flight": false,
+        "useful_net_clearance": false
+      },
+      "late_settled": {
+        "detail": {
+          "checks": {
+            "body_vx": true,
+            "com_vz": true,
+            "height_rmse": true,
+            "per_wheel_positive_load": true,
+            "planar_path": true
+          },
+          "height_rmse_m": 0.011953600694025507,
+          "max_abs_body_vx_mps": 0.01889633505793125,
+          "max_abs_com_vz_mps": 0.0024457234085069066,
+          "per_wheel_positive_load_fraction": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "planar_path_m": 0.02245074661003267,
+          "rmse_reference": "per-tick raw held height command, never a constant 0.455 m"
+        },
+        "passed": true
+      }
+    },
+    {
+      "case": "jump_lower_friction",
+      "condition": "zero",
+      "window_meaning": "executions [s,s+120), endpoints S[s+1:s+121], native[5s:5(s+120)]",
+      "request_native": {
+        "executed_window": [
+          175,
+          295
+        ],
+        "native_count": 600,
+        "maximum_simultaneous_gap_m": 0.0015612188512980907,
+        "maximum_net_gap_m": 0.0005612188512980907,
+        "peak_gap_native_index": 1081,
+        "peak_gap_returned_time_s": 2.1639999999999833,
+        "unloaded_native_count": 8,
+        "longest_unloaded_ms": 14,
+        "max_start_com_vz_mps": 0.6467052760907948,
+        "max_com_vz_native_index": 1055,
+        "sampled_unloaded_runs": [
+          {
+            "first_native_index": 883,
+            "end_native_index_exclusive": 884,
+            "duration_s": 0.0020000000000000018,
+            "onset_com_vz_mps": -0.11464549938854872,
+            "last_returned_com_vz_mps": -0.13425776933855194,
+            "net_gap_max_m": 3.057471577806812e-05
+          },
+          {
+            "first_native_index": 1078,
+            "end_native_index_exclusive": 1085,
+            "duration_s": 0.013999999999998458,
+            "onset_com_vz_mps": 0.4571133945903739,
+            "last_returned_com_vz_mps": 0.31991791753002974,
+            "net_gap_max_m": 0.0005612188512980907
+          }
+        ]
+      },
+      "control_endpoint_window_max_gap_m": 0.0014684815433648468,
+      "control_endpoint_window_max_net_gap_m": 0.0004684815433648468,
+      "raw_heights_m": [
+        0.405,
+        0.435,
+        0.455,
+        0.5
+      ],
+      "all_raw_v_yaw_zero": true,
+      "actions": {
+        "count": 120,
+        "mean": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rms": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "near_boundary_fraction_abs_ge_0p95": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "actual_boundary_fraction_abs_ge_1": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "leg_common_squared_norm_fraction": null,
+        "common_mode_definition": "Orthogonal projection onto span((1,1,1,1)); accounting, not causal attribution."
+      },
+      "leg_target_clipped_intervals": 30,
+      "leg_target_clipped_axis_intervals": 130,
+      "ik_extension_clipped_intervals": 0,
+      "torque_protected_intervals": 0,
+      "peak_requested_leg_torque_nm": 41.48534771511773,
+      "peak_requested_wheel_torque_nm": 2.199001001383182,
+      "peak_planar_displacement_m": 0.0505109663267476,
+      "peak_abs_roll_pitch_rad": 0.10480200816475022,
+      "peak_heading_error_rad": 7.529520927852275e-05,
+      "total_reward": 11.154686049668413,
+      "reward_terms": {
+        "tracking_velocity": 5.816542220652415,
+        "tracking_yaw": 5.999991200913028,
+        "height": -0.3772958307674528,
+        "attitude": -0.009665832145338274,
+        "mechanical_power": -0.01495697005614381,
+        "action_change": 0.0,
+        "termination": 0.0,
+        "heading_goal": -8.009740253166822e-08,
+        "clearance_progress": 0.0,
+        "flight_once": 0.0,
+        "stationary_offset": -0.2599286588306925,
+        "landing_once": 0.0
+      },
+      "score_passed": false,
+      "score_checks": {
+        "execution": true,
+        "late": true,
+        "loaded_return_before_endpoint400": false,
+        "requested_flight": false,
+        "useful_net_clearance": false
+      },
+      "late_settled": {
+        "detail": {
+          "checks": {
+            "body_vx": true,
+            "com_vz": true,
+            "height_rmse": true,
+            "per_wheel_positive_load": true,
+            "planar_path": true
+          },
+          "height_rmse_m": 0.014837278522353278,
+          "max_abs_body_vx_mps": 0.022200394802812475,
+          "max_abs_com_vz_mps": 0.002932414805930162,
+          "per_wheel_positive_load_fraction": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "planar_path_m": 0.008782504096164552,
+          "rmse_reference": "per-tick raw held height command, never a constant 0.455 m"
+        },
+        "passed": true
+      }
+    },
+    {
+      "case": "jump_lower_friction",
+      "condition": "final_policy_131072",
+      "window_meaning": "executions [s,s+120), endpoints S[s+1:s+121], native[5s:5(s+120)]",
+      "request_native": {
+        "executed_window": [
+          175,
+          295
+        ],
+        "native_count": 600,
+        "maximum_simultaneous_gap_m": 0.001576421793826957,
+        "maximum_net_gap_m": 0.000576421793826957,
+        "peak_gap_native_index": 1080,
+        "peak_gap_returned_time_s": 2.1619999999999835,
+        "unloaded_native_count": 6,
+        "longest_unloaded_ms": 12,
+        "max_start_com_vz_mps": 0.6189069240802273,
+        "max_com_vz_native_index": 1050,
+        "sampled_unloaded_runs": [
+          {
+            "first_native_index": 1079,
+            "end_native_index_exclusive": 1085,
+            "duration_s": 0.011999999999998678,
+            "onset_com_vz_mps": 0.4069925571065015,
+            "last_returned_com_vz_mps": 0.2894554373364912,
+            "net_gap_max_m": 0.000576421793826957
+          }
+        ]
+      },
+      "control_endpoint_window_max_gap_m": 0.0014980604942405745,
+      "control_endpoint_window_max_net_gap_m": 0.0004980604942405745,
+      "raw_heights_m": [
+        0.405,
+        0.435,
+        0.455,
+        0.5
+      ],
+      "all_raw_v_yaw_zero": true,
+      "actions": {
+        "count": 120,
+        "mean": [
+          -0.16363887708478916,
+          -0.051067004616682725,
+          0.13747594670082133,
+          -0.37537027544652424,
+          0.002440895326435566,
+          0.06213814049648742,
+          0.10875762361489857,
+          0.01703037987463176
+        ],
+        "rms": [
+          0.17101977961821274,
+          0.17560087947341482,
+          0.14586742654199678,
+          0.4187294526234018,
+          0.034518157919247554,
+          0.12000094373996362,
+          0.11964524654654816,
+          0.07178786671286326
+        ],
+        "near_boundary_fraction_abs_ge_0p95": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "actual_boundary_fraction_abs_ge_1": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "leg_common_squared_norm_fraction": 0.2261999995615578,
+        "common_mode_definition": "Orthogonal projection onto span((1,1,1,1)); accounting, not causal attribution."
+      },
+      "leg_target_clipped_intervals": 33,
+      "leg_target_clipped_axis_intervals": 123,
+      "ik_extension_clipped_intervals": 0,
+      "torque_protected_intervals": 0,
+      "peak_requested_leg_torque_nm": 43.157426655086844,
+      "peak_requested_wheel_torque_nm": 2.83036887858626,
+      "peak_planar_displacement_m": 0.06592201011544818,
+      "peak_abs_roll_pitch_rad": 0.09592505754139478,
+      "peak_heading_error_rad": 0.05461848629308653,
+      "total_reward": 10.408483512441272,
+      "reward_terms": {
+        "tracking_velocity": 5.857366377958101,
+        "tracking_yaw": 5.56048046987211,
+        "height": -0.24873194146682787,
+        "attitude": -0.026478202177030796,
+        "mechanical_power": -0.016716276030037492,
+        "action_change": -0.0024147134369791328,
+        "termination": 0.0,
+        "heading_goal": -0.14352188509114644,
+        "clearance_progress": 0.0,
+        "flight_once": 0.0,
+        "stationary_offset": -0.571500317186918,
+        "landing_once": 0.0
+      },
+      "score_passed": false,
+      "score_checks": {
+        "execution": true,
+        "late": true,
+        "loaded_return_before_endpoint400": false,
+        "requested_flight": false,
+        "useful_net_clearance": false
+      },
+      "late_settled": {
+        "detail": {
+          "checks": {
+            "body_vx": true,
+            "com_vz": true,
+            "height_rmse": true,
+            "per_wheel_positive_load": true,
+            "planar_path": true
+          },
+          "height_rmse_m": 0.01150235782521686,
+          "max_abs_body_vx_mps": 0.01928212278600315,
+          "max_abs_com_vz_mps": 0.0024742174109524196,
+          "per_wheel_positive_load_fraction": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "planar_path_m": 0.02315724711211864,
+          "rmse_reference": "per-tick raw held height command, never a constant 0.455 m"
+        },
+        "passed": true
+      }
+    },
+    {
+      "case": "jump_higher_friction",
+      "condition": "zero",
+      "window_meaning": "executions [s,s+120), endpoints S[s+1:s+121], native[5s:5(s+120)]",
+      "request_native": {
+        "executed_window": [
+          225,
+          345
+        ],
+        "native_count": 600,
+        "maximum_simultaneous_gap_m": 0.0015814895896289483,
+        "maximum_net_gap_m": 0.0005814895896289482,
+        "peak_gap_native_index": 1331,
+        "peak_gap_returned_time_s": 2.663999999999928,
+        "unloaded_native_count": 6,
+        "longest_unloaded_ms": 12,
+        "max_start_com_vz_mps": 0.6471557737747607,
+        "max_com_vz_native_index": 1305,
+        "sampled_unloaded_runs": [
+          {
+            "first_native_index": 1329,
+            "end_native_index_exclusive": 1335,
+            "duration_s": 0.011999999999998678,
+            "onset_com_vz_mps": 0.44475481299921305,
+            "last_returned_com_vz_mps": 0.3272295699781274,
+            "net_gap_max_m": 0.0005814895896289482
+          }
+        ]
+      },
+      "control_endpoint_window_max_gap_m": 0.0014060267946121863,
+      "control_endpoint_window_max_net_gap_m": 0.00040602679461218625,
+      "raw_heights_m": [
+        0.405,
+        0.435,
+        0.455,
+        0.5
+      ],
+      "all_raw_v_yaw_zero": true,
+      "actions": {
+        "count": 120,
+        "mean": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rms": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "near_boundary_fraction_abs_ge_0p95": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "actual_boundary_fraction_abs_ge_1": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "leg_common_squared_norm_fraction": null,
+        "common_mode_definition": "Orthogonal projection onto span((1,1,1,1)); accounting, not causal attribution."
+      },
+      "leg_target_clipped_intervals": 31,
+      "leg_target_clipped_axis_intervals": 130,
+      "ik_extension_clipped_intervals": 0,
+      "torque_protected_intervals": 0,
+      "peak_requested_leg_torque_nm": 41.48108648600044,
+      "peak_requested_wheel_torque_nm": 2.2026879944650117,
+      "peak_planar_displacement_m": 0.04764873131084151,
+      "peak_abs_roll_pitch_rad": 0.10804273699510009,
+      "peak_heading_error_rad": 8.579337090366637e-05,
+      "total_reward": 11.259938760537308,
+      "reward_terms": {
+        "tracking_velocity": 5.826361499339375,
+        "tracking_yaw": 5.999988820054371,
+        "height": -0.33123770619583626,
+        "attitude": -0.009328598849198145,
+        "mechanical_power": -0.01491042640977697,
+        "action_change": 0.0,
+        "termination": 0.0,
+        "heading_goal": -2.655946951862603e-07,
+        "clearance_progress": 0.0,
+        "flight_once": 0.0,
+        "stationary_offset": -0.21093456180693415,
+        "landing_once": 0.0
+      },
+      "score_passed": false,
+      "score_checks": {
+        "execution": true,
+        "late": false,
+        "loaded_return_before_endpoint400": false,
+        "requested_flight": false,
+        "useful_net_clearance": false
+      },
+      "late_settled": {
+        "detail": {
+          "checks": {
+            "body_vx": true,
+            "com_vz": true,
+            "height_rmse": false,
+            "per_wheel_positive_load": true,
+            "planar_path": true
+          },
+          "height_rmse_m": 0.015085870293459777,
+          "max_abs_body_vx_mps": 0.027877592886977547,
+          "max_abs_com_vz_mps": 0.0031194514311909775,
+          "per_wheel_positive_load_fraction": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "planar_path_m": 0.017227901980864723,
+          "rmse_reference": "per-tick raw held height command, never a constant 0.455 m"
+        },
+        "passed": false
+      }
+    },
+    {
+      "case": "jump_higher_friction",
+      "condition": "final_policy_131072",
+      "window_meaning": "executions [s,s+120), endpoints S[s+1:s+121], native[5s:5(s+120)]",
+      "request_native": {
+        "executed_window": [
+          225,
+          345
+        ],
+        "native_count": 600,
+        "maximum_simultaneous_gap_m": 0.0010706674596030336,
+        "maximum_net_gap_m": 7.066745960303353e-05,
+        "peak_gap_native_index": 1329,
+        "peak_gap_returned_time_s": 2.6599999999999286,
+        "unloaded_native_count": 2,
+        "longest_unloaded_ms": 4,
+        "max_start_com_vz_mps": 0.615295614857555,
+        "max_com_vz_native_index": 1300,
+        "sampled_unloaded_runs": [
+          {
+            "first_native_index": 1329,
+            "end_native_index_exclusive": 1331,
+            "duration_s": 0.0039999999999995595,
+            "onset_com_vz_mps": 0.40392924153023524,
+            "last_returned_com_vz_mps": 0.36472762200424874,
+            "net_gap_max_m": 7.066745960303353e-05
+          }
+        ]
+      },
+      "control_endpoint_window_max_gap_m": 0.0010706674596030336,
+      "control_endpoint_window_max_net_gap_m": 7.066745960303353e-05,
+      "raw_heights_m": [
+        0.405,
+        0.435,
+        0.455,
+        0.5
+      ],
+      "all_raw_v_yaw_zero": true,
+      "actions": {
+        "count": 120,
+        "mean": [
+          -0.17044234469455358,
+          -0.006901805320133765,
+          0.1412117523762087,
+          -0.3920020996282498,
+          0.002878778617984305,
+          0.07105958974764993,
+          0.1140612850819404,
+          -4.2809188986818e-05
+        ],
+        "rms": [
+          0.17753305665620708,
+          0.16888495022285127,
+          0.14961081025710787,
+          0.4319360923936132,
+          0.035283166128649346,
+          0.12453974027540879,
+          0.1248573412263886,
+          0.07022595954987226
+        ],
+        "near_boundary_fraction_abs_ge_0p95": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "actual_boundary_fraction_abs_ge_1": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "leg_common_squared_norm_fraction": 0.1965447618394894,
+        "common_mode_definition": "Orthogonal projection onto span((1,1,1,1)); accounting, not causal attribution."
+      },
+      "leg_target_clipped_intervals": 32,
+      "leg_target_clipped_axis_intervals": 123,
+      "ik_extension_clipped_intervals": 0,
+      "torque_protected_intervals": 0,
+      "peak_requested_leg_torque_nm": 43.31834706408321,
+      "peak_requested_wheel_torque_nm": 3.199903978100161,
+      "peak_planar_displacement_m": 0.07618447346018907,
+      "peak_abs_roll_pitch_rad": 0.10064951361316561,
+      "peak_heading_error_rad": 0.057079048588107764,
+      "total_reward": 10.086366811170569,
+      "reward_terms": {
+        "tracking_velocity": 5.8540147703080825,
+        "tracking_yaw": 5.524053703344015,
+        "height": -0.22336106526828906,
+        "attitude": -0.02886598954364239,
+        "mechanical_power": -0.01682045702849866,
+        "action_change": -0.0024702076535751496,
+        "termination": 0.0,
+        "heading_goal": -0.16891790287485564,
+        "clearance_progress": 0.0,
+        "flight_once": 0.0,
+        "stationary_offset": -0.8512660401126658,
+        "landing_once": 0.0
+      },
+      "score_passed": false,
+      "score_checks": {
+        "execution": true,
+        "late": true,
+        "loaded_return_before_endpoint400": false,
+        "requested_flight": false,
+        "useful_net_clearance": false
+      },
+      "late_settled": {
+        "detail": {
+          "checks": {
+            "body_vx": true,
+            "com_vz": true,
+            "height_rmse": true,
+            "per_wheel_positive_load": true,
+            "planar_path": true
+          },
+          "height_rmse_m": 0.011813383773322243,
+          "max_abs_body_vx_mps": 0.01968190652688838,
+          "max_abs_com_vz_mps": 0.002284400299812688,
+          "per_wheel_positive_load_fraction": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "planar_path_m": 0.022356975458976285,
+          "rmse_reference": "per-tick raw held height command, never a constant 0.455 m"
+        },
+        "passed": true
+      }
+    }
+  ],
+  "training": {
+    "rows": 131072,
+    "stages": {
+      "0.005": {
+        "requested_control_steps": 5280,
+        "fully_unloaded_control_steps": 55,
+        "positive_task_bonus_steps": 11,
+        "flight_event_steps": 11,
+        "clearance_event_steps": 11,
+        "landing_event_steps": 0,
+        "maximum_raw_request_window_gap_m": 0.0037032971199452286,
+        "maximum_window_net_gap_m": 0.0027032971199452286,
+        "protected_request_steps": 0,
+        "rate_flagged_request_steps_all16": 5280,
+        "completed_episodes": 44,
+        "partial_episodes": 0,
+        "flight_episodes": 11,
+        "landing_episodes": 0,
+        "mean_episode_return": 9.471674699171393,
+        "mean_flight_episode_return": 9.729156351830754,
+        "mean_nonflight_episode_return": 9.385847481618276,
+        "complete_episode_reward_sums": {
+          "tracking_velocity": 250.14930187703325,
+          "tracking_yaw": 232.47892479424002,
+          "height": -16.29410504591297,
+          "attitude": -0.3806107909706292,
+          "mechanical_power": -1.042572810676702,
+          "action_change": -9.431541220822705,
+          "termination": 0.0,
+          "heading_goal": -3.5162577762093785,
+          "clearance_progress": 8.915990327733901,
+          "flight_once": 11.0,
+          "stationary_offset": -55.125442590873405,
+          "landing_once": 0.0
+        }
+      },
+      "0.01": {
+        "requested_control_steps": 5280,
+        "fully_unloaded_control_steps": 37,
+        "positive_task_bonus_steps": 2,
+        "flight_event_steps": 2,
+        "clearance_event_steps": 2,
+        "landing_event_steps": 0,
+        "maximum_raw_request_window_gap_m": 0.0038363822619569,
+        "maximum_window_net_gap_m": 0.0028363822619569,
+        "protected_request_steps": 0,
+        "rate_flagged_request_steps_all16": 5280,
+        "completed_episodes": 44,
+        "partial_episodes": 0,
+        "flight_episodes": 2,
+        "landing_episodes": 0,
+        "mean_episode_return": 8.29786966817731,
+        "mean_flight_episode_return": 11.371893216226539,
+        "mean_nonflight_episode_return": 8.151487594460677,
+        "complete_episode_reward_sums": {
+          "tracking_velocity": 237.21412574810802,
+          "tracking_yaw": 236.41128312633458,
+          "height": -12.42013896687478,
+          "attitude": -0.5991262627313474,
+          "mechanical_power": -1.1462425234188545,
+          "action_change": -8.932580278222941,
+          "termination": 0.0,
+          "heading_goal": -2.0924591936429886,
+          "clearance_progress": 0.9258986848816684,
+          "flight_once": 2.0,
+          "stationary_offset": -86.25449493463178,
+          "landing_once": 0.0
+        }
+      },
+      "0.02": {
+        "requested_control_steps": 10512,
+        "fully_unloaded_control_steps": 67,
+        "positive_task_bonus_steps": 3,
+        "flight_event_steps": 3,
+        "clearance_event_steps": 3,
+        "landing_event_steps": 0,
+        "maximum_raw_request_window_gap_m": 0.002977069117186204,
+        "maximum_window_net_gap_m": 0.001977069117186204,
+        "protected_request_steps": 0,
+        "rate_flagged_request_steps_all16": 10512,
+        "completed_episodes": 87,
+        "partial_episodes": 1,
+        "flight_episodes": 3,
+        "landing_episodes": 0,
+        "mean_episode_return": 9.376365367605343,
+        "mean_flight_episode_return": 10.196268901059126,
+        "mean_nonflight_episode_return": 9.347083098553425,
+        "complete_episode_reward_sums": {
+          "tracking_velocity": 488.5192952210065,
+          "tracking_yaw": 472.3656557339909,
+          "height": -12.815744258653233,
+          "attitude": -2.0057128236556148,
+          "mechanical_power": -1.9618787548971788,
+          "action_change": -16.4374850134368,
+          "termination": 0.0,
+          "heading_goal": -8.282674078175534,
+          "clearance_progress": 0.4645947863486296,
+          "flight_once": 3.0,
+          "stationary_offset": -107.10226383086258,
+          "landing_once": 0.0
+        }
+      },
+      "0.0": {
+        "requested_control_steps": 0,
+        "fully_unloaded_control_steps": 0,
+        "positive_task_bonus_steps": 0,
+        "flight_event_steps": 0,
+        "clearance_event_steps": 0,
+        "landing_event_steps": 0,
+        "maximum_raw_request_window_gap_m": null,
+        "maximum_window_net_gap_m": 0.0,
+        "protected_request_steps": 0,
+        "rate_flagged_request_steps_all16": 0,
+        "completed_episodes": 43,
+        "partial_episodes": 0,
+        "flight_episodes": 0,
+        "landing_episodes": 0,
+        "mean_episode_return": 9.76529610558601,
+        "mean_flight_episode_return": null,
+        "mean_nonflight_episode_return": 9.76529610558601,
+        "complete_episode_reward_sums": {
+          "tracking_velocity": 253.89867113171937,
+          "tracking_yaw": 243.54630741243312,
+          "height": -4.447388055458108,
+          "attitude": -0.919412023879856,
+          "mechanical_power": -0.44311517597200983,
+          "action_change": -8.362182672299161,
+          "termination": 0.0,
+          "heading_goal": -1.9352866566482345,
+          "clearance_progress": 0.0,
+          "flight_once": 0.0,
+          "stationary_offset": -61.42986141969661,
+          "landing_once": 0.0
+        }
+      }
+    },
+    "actions": {
+      "0.005_outside_request": {
+        "count": 21120,
+        "mean": [
+          0.06474576510719833,
+          -0.29369734656576124,
+          0.01590535092389914,
+          0.2785610472518756,
+          -0.20780772023339744,
+          0.014666926144557444,
+          0.06566585277489526,
+          0.009229298169810302
+        ],
+        "rms": [
+          0.15978998739935785,
+          0.3521745770458429,
+          0.222329169835749,
+          0.32602200129019676,
+          0.266468492033554,
+          0.18553118599125,
+          0.1895575886957294,
+          0.14941316345953443
+        ],
+        "near_boundary_fraction_abs_ge_0p95": [
+          0.0,
+          9.46969696969697e-05,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "actual_boundary_fraction_abs_ge_1": [
+          0.0,
+          9.46969696969697e-05,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "leg_common_squared_norm_fraction": 0.096095740599118,
+        "common_mode_definition": "Orthogonal projection onto span((1,1,1,1)); accounting, not causal attribution."
+      },
+      "0.005_request": {
+        "count": 5280,
+        "mean": [
+          0.06460315047200614,
+          -0.25784966356586664,
+          0.007179032579270742,
+          0.26844240150495546,
+          -0.19069800383709443,
+          0.01600775898191249,
+          0.06665041668187989,
+          0.025552663693931457
+        ],
+        "rms": [
+          0.15985653658020568,
+          0.318022760940455,
+          0.2105479237052248,
+          0.3147116161919095,
+          0.25338260697446335,
+          0.1826840994915401,
+          0.1909599733893356,
+          0.14893422814325596
+        ],
+        "near_boundary_fraction_abs_ge_0p95": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "actual_boundary_fraction_abs_ge_1": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "leg_common_squared_norm_fraction": 0.1055571768051728,
+        "common_mode_definition": "Orthogonal projection onto span((1,1,1,1)); accounting, not causal attribution."
+      },
+      "0.0_hold": {
+        "count": 25800,
+        "mean": [
+          0.01115166421473169,
+          -0.6876006837750157,
+          0.1083046188298342,
+          -0.050794628495828775,
+          -0.03287625411786852,
+          -0.021451857582153393,
+          0.017074832727382673,
+          0.024796864594668584
+        ],
+        "rms": [
+          0.15253874652064872,
+          0.7513701125249153,
+          0.2911272263697026,
+          0.28295555477619444,
+          0.20251627530194136,
+          0.22225116940527467,
+          0.20013522897145483,
+          0.1828987214673126
+        ],
+        "near_boundary_fraction_abs_ge_0p95": [
+          0.0,
+          0.3791860465116279,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "actual_boundary_fraction_abs_ge_1": [
+          0.0,
+          0.35604651162790696,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "leg_common_squared_norm_fraction": 0.26409704567265113,
+        "common_mode_definition": "Orthogonal projection onto span((1,1,1,1)); accounting, not causal attribution."
+      },
+      "0.01_outside_request": {
+        "count": 21120,
+        "mean": [
+          -0.06613215127045172,
+          -0.32820686513789976,
+          0.28370173383490044,
+          0.07160320049354624,
+          -0.021243166547231917,
+          -0.13944291050140623,
+          0.1721523975532832,
+          0.1637034462903323
+        ],
+        "rms": [
+          0.1987795652190276,
+          0.42387948742039944,
+          0.31844433627127344,
+          0.2583177032027573,
+          0.20828584377307888,
+          0.2572303778735345,
+          0.23777782647724294,
+          0.2227496838822539
+        ],
+        "near_boundary_fraction_abs_ge_0p95": [
+          0.0,
+          0.006818181818181818,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "actual_boundary_fraction_abs_ge_1": [
+          0.0,
+          0.003077651515151515,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "leg_common_squared_norm_fraction": 0.11258532925948882,
+        "common_mode_definition": "Orthogonal projection onto span((1,1,1,1)); accounting, not causal attribution."
+      },
+      "0.01_request": {
+        "count": 5280,
+        "mean": [
+          -0.08311952472184643,
+          -0.25454155556975766,
+          0.23971210801444778,
+          0.12359612246434677,
+          -0.007760853971139472,
+          -0.14361620169978723,
+          0.18040100156266073,
+          0.193653284822887
+        ],
+        "rms": [
+          0.18055229450339527,
+          0.3123989634443132,
+          0.28265556809124703,
+          0.2552040486996346,
+          0.19211532885691782,
+          0.24539327718490028,
+          0.23623797903878577,
+          0.24493523067338868
+        ],
+        "near_boundary_fraction_abs_ge_0p95": [
+          0.0,
+          0.0001893939393939394,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "actual_boundary_fraction_abs_ge_1": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "leg_common_squared_norm_fraction": 0.12331420061086686,
+        "common_mode_definition": "Orthogonal projection onto span((1,1,1,1)); accounting, not causal attribution."
+      },
+      "0.02_outside_request": {
+        "count": 41960,
+        "mean": [
+          -0.10527012637740267,
+          -0.731040515128263,
+          0.08903520896113491,
+          -0.24116997546650643,
+          0.09256853389305719,
+          0.11027167087830717,
+          -0.020310077464238636,
+          -0.0733550924681772
+        ],
+        "rms": [
+          0.19011559845543102,
+          0.7866753264069388,
+          0.2693982095250106,
+          0.30042818070540417,
+          0.1731281871205981,
+          0.24234741745936839,
+          0.19008372194613496,
+          0.19963617073524084
+        ],
+        "near_boundary_fraction_abs_ge_0p95": [
+          0.0,
+          0.3752383222116301,
+          0.0,
+          4.766444232602478e-05,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "actual_boundary_fraction_abs_ge_1": [
+          0.0,
+          0.3397521448999047,
+          0.0,
+          2.383222116301239e-05,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "leg_common_squared_norm_fraction": 0.3422602394400148,
+        "common_mode_definition": "Orthogonal projection onto span((1,1,1,1)); accounting, not causal attribution."
+      },
+      "0.02_request": {
+        "count": 10512,
+        "mean": [
+          -0.13074886141353498,
+          -0.6336202811176181,
+          0.07961200618902643,
+          -0.20950117402266952,
+          0.09633557664302583,
+          0.11095793796116049,
+          -0.0018464629778452784,
+          -0.04495843176475396
+        ],
+        "rms": [
+          0.19505833359266544,
+          0.6831406265150094,
+          0.24510171802713715,
+          0.28085415404343983,
+          0.17013777996306276,
+          0.22768387624587283,
+          0.17965100940721143,
+          0.174738097194849
+        ],
+        "near_boundary_fraction_abs_ge_0p95": [
+          0.0,
+          0.13517884322678844,
+          9.512937595129375e-05,
+          0.00028538812785388126,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "actual_boundary_fraction_abs_ge_1": [
+          0.0,
+          0.0946537290715373,
+          0.0,
+          9.512937595129375e-05,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "leg_common_squared_norm_fraction": 0.3662137829838483,
+        "common_mode_definition": "Orthogonal projection onto span((1,1,1,1)); accounting, not causal attribution."
+      }
+    },
+    "flight_events": [
+      {
+        "episode_index": 13,
+        "total_transition": 8093,
+        "stage_goal_m": 0.005,
+        "offset": 42,
+        "credited_gap_m": 0.001803884779812582,
+        "action": [
+          0.08071330934762955,
+          -0.3331679701805115,
+          -0.03230578824877739,
+          0.22780664265155792,
+          0.11476844549179077,
+          -0.026172488927841187,
+          0.011522899381816387,
+          0.08564543724060059
+        ],
+        "reward": 1.7339684073525505
+      },
+      {
+        "episode_index": 15,
+        "total_transition": 9193,
+        "stage_goal_m": 0.005,
+        "offset": 42,
+        "credited_gap_m": 0.0013264094470364788,
+        "action": [
+          0.33533886075019836,
+          -0.44160592555999756,
+          -0.1112089678645134,
+          0.14986902475357056,
+          -0.08229377120733261,
+          -0.01571100950241089,
+          0.04468446224927902,
+          0.10945393145084381
+        ],
+        "reward": 1.5411483918851356
+      },
+      {
+        "episode_index": 16,
+        "total_transition": 9843,
+        "stage_goal_m": 0.005,
+        "offset": 42,
+        "credited_gap_m": 0.0022820832627295376,
+        "action": [
+          0.07137968391180038,
+          -0.031737565994262695,
+          -0.011695321649312973,
+          0.24957998096942902,
+          0.012429803609848022,
+          -0.008438512682914734,
+          0.2119847536087036,
+          0.3370666205883026
+        ],
+        "reward": 1.9223507046989263
+      },
+      {
+        "episode_index": 17,
+        "total_transition": 10493,
+        "stage_goal_m": 0.005,
+        "offset": 42,
+        "credited_gap_m": 0.002635583339183776,
+        "action": [
+          0.14171208441257477,
+          -0.464172899723053,
+          0.13534818589687347,
+          0.10026347637176514,
+          -0.4003049433231354,
+          0.29018908739089966,
+          0.1740170419216156,
+          -0.10866743326187134
+        ],
+        "reward": 2.063059981500667
+      },
+      {
+        "episode_index": 20,
+        "total_transition": 12243,
+        "stage_goal_m": 0.005,
+        "offset": 42,
+        "credited_gap_m": 0.0016121534549096437,
+        "action": [
+          0.09264141321182251,
+          -0.522708535194397,
+          -0.23183667659759521,
+          0.10908852517604828,
+          -0.2794387936592102,
+          0.22826313972473145,
+          -0.06530933827161789,
+          -0.07255302369594574
+        ],
+        "reward": 1.653242873852578
+      },
+      {
+        "episode_index": 22,
+        "total_transition": 13393,
+        "stage_goal_m": 0.005,
+        "offset": 42,
+        "credited_gap_m": 0.0014562062418782976,
+        "action": [
+          0.20765164494514465,
+          -0.3767487704753876,
+          0.003043234348297119,
+          0.2539350390434265,
+          -0.2526993155479431,
+          0.10016187280416489,
+          0.036511436104774475,
+          -0.011948276311159134
+        ],
+        "reward": 1.5921690542625575
+      },
+      {
+        "episode_index": 23,
+        "total_transition": 14043,
+        "stage_goal_m": 0.005,
+        "offset": 42,
+        "credited_gap_m": 0.002418124671264039,
+        "action": [
+          -0.1303829699754715,
+          -0.3809097707271576,
+          0.06568648666143417,
+          0.3294692635536194,
+          -0.22675476968288422,
+          0.3791431188583374,
+          -0.02431083656847477,
+          -0.051877204328775406
+        ],
+        "reward": 1.9742809013655358
+      },
+      {
+        "episode_index": 25,
+        "total_transition": 15293,
+        "stage_goal_m": 0.005,
+        "offset": 42,
+        "credited_gap_m": 0.002329474953731093,
+        "action": [
+          -0.005609627813100815,
+          -0.6365062594413757,
+          -0.28031793236732483,
+          0.19519691169261932,
+          -0.19438230991363525,
+          0.05149087309837341,
+          -0.019481714814901352,
+          -0.08919376134872437
+        ],
+        "reward": 1.944375492717832
+      },
+      {
+        "episode_index": 26,
+        "total_transition": 15793,
+        "stage_goal_m": 0.005,
+        "offset": 42,
+        "credited_gap_m": 0.0017155990495886378,
+        "action": [
+          0.05018441006541252,
+          -0.5768134593963623,
+          -0.38312995433807373,
+          0.047779202461242676,
+          -0.19912958145141602,
+          0.08633511513471603,
+          -0.21690860390663147,
+          -0.03837556019425392
+        ],
+        "reward": 1.7032891441544045
+      },
+      {
+        "episode_index": 27,
+        "total_transition": 16443,
+        "stage_goal_m": 0.005,
+        "offset": 42,
+        "credited_gap_m": 0.002007159499255438,
+        "action": [
+          0.12646973133087158,
+          -0.2716289758682251,
+          -0.16381093859672546,
+          0.23546342551708221,
+          -0.32962343096733093,
+          0.2235395461320877,
+          0.20028355717658997,
+          -0.3286638557910919
+        ],
+        "reward": 1.8149045214117256
+      },
+      {
+        "episode_index": 28,
+        "total_transition": 17093,
+        "stage_goal_m": 0.005,
+        "offset": 42,
+        "credited_gap_m": 0.0027032971199452286,
+        "action": [
+          0.0795675739645958,
+          -0.4963305592536926,
+          -0.1316157728433609,
+          0.19788165390491486,
+          -0.11825831234455109,
+          0.15949158370494843,
+          0.002149231731891632,
+          -0.2519080936908722
+        ],
+        "reward": 2.092092025074181
+      },
+      {
+        "episode_index": 55,
+        "total_transition": 33293,
+        "stage_goal_m": 0.01,
+        "offset": 42,
+        "credited_gap_m": 0.0028363822619569,
+        "action": [
+          0.07739979028701782,
+          -0.27864179015159607,
+          0.17372283339500427,
+          0.48989301919937134,
+          -0.1674959510564804,
+          -0.16086485981941223,
+          0.2889080345630646,
+          -0.25304412841796875
+        ],
+        "reward": 1.57562573519849
+      },
+      {
+        "episode_index": 58,
+        "total_transition": 35093,
+        "stage_goal_m": 0.01,
+        "offset": 42,
+        "credited_gap_m": 0.001793111162451442,
+        "action": [
+          0.016806377097964287,
+          -0.164033904671669,
+          0.11124733090400696,
+          0.4044685363769531,
+          -0.08443629741668701,
+          -0.11623556166887283,
+          0.13487125933170319,
+          -0.04683995991945267
+        ],
+        "reward": 1.3664825340446518
+      },
+      {
+        "episode_index": 130,
+        "total_transition": 78293,
+        "stage_goal_m": 0.02,
+        "offset": 42,
+        "credited_gap_m": 0.0013822732971127969,
+        "action": [
+          0.08142448961734772,
+          -0.5020462274551392,
+          -0.139419823884964,
+          -0.2065720409154892,
+          0.06509049981832504,
+          -0.18242168426513672,
+          -0.2637988328933716,
+          0.2959136962890625
+        ],
+        "reward": 1.1457031182812685
+      },
+      {
+        "episode_index": 205,
+        "total_transition": 123293,
+        "stage_goal_m": 0.02,
+        "offset": 42,
+        "credited_gap_m": 0.001977069117186204,
+        "action": [
+          -0.18144862353801727,
+          -0.5524135828018188,
+          0.49795883893966675,
+          -0.23447948694229126,
+          0.15489572286605835,
+          0.13553330302238464,
+          -0.08894670754671097,
+          -0.14675606787204742
+        ],
+        "reward": 1.2058765388657535
+      },
+      {
+        "episode_index": 207,
+        "total_transition": 124443,
+        "stage_goal_m": 0.02,
+        "offset": 42,
+        "credited_gap_m": 0.0012866054491872956,
+        "action": [
+          0.09255607426166534,
+          -0.4080711603164673,
+          0.40357327461242676,
+          -0.4127682149410248,
+          0.1695653200149536,
+          0.18760918080806732,
+          -0.4429641366004944,
+          -0.1916942447423935
+        ],
+        "reward": 1.1349699402029994
+      }
+    ],
+    "training_progress_is_control_quantized_not_independent_native_evaluation": true,
+    "rate_flag_warning": "Training compact rate_limited_axes includes wheel slots whose target copies current wheel position; do not interpret it as actual leg slew saturation. Evaluation excludes wheel slots.",
+    "update_first": {
+      "transitions": 128,
+      "train_calls": 1,
+      "optimization_epochs": 4,
+      "elapsed_s": 1.7300702190041193,
+      "logger": {
+        "train/learning_rate": 0.0003,
+        "train/entropy_loss": 4.648455262184143,
+        "train/policy_gradient_loss": -0.027466390281915665,
+        "train/value_loss": 0.07491131033748388,
+        "train/approx_kl": 0.052329108119010925,
+        "train/clip_fraction": 0.314453125,
+        "train/loss": -0.020074089989066124,
+        "train/explained_variance": -0.5858200788497925,
+        "train/std": 0.1353423297405243,
+        "train/n_updates": 4,
+        "train/clip_range": 0.2
+      }
+    },
+    "update_last": {
+      "transitions": 131072,
+      "train_calls": 1024,
+      "optimization_epochs": 4096,
+      "elapsed_s": 868.5013659350006,
+      "logger": {
+        "train/learning_rate": 0.0003,
+        "train/entropy_loss": 5.396294832229614,
+        "train/policy_gradient_loss": -0.01292331237345934,
+        "train/value_loss": 0.000686940795276314,
+        "train/approx_kl": 0.00764439394697547,
+        "train/clip_fraction": 0.033203125,
+        "train/loss": -0.030330840498209,
+        "train/explained_variance": 0.8959758281707764,
+        "train/std": 0.12327606230974197,
+        "train/n_updates": 4096,
+        "train/clip_range": 0.2
+      }
+    }
+  },
+  "limits": [
+    "No rollout or controller/policy reconstruction performed.",
+    "Requested gap statistics exclude reset settling and use [s,s+120) executions; control endpoints and2ms native returned geometry are separately labeled.",
+    "Current reward/action associations and projection fractions are descriptive, not interventions or proof of achievable20mm hops.",
+    "Training event labels are saved control-quantized accounting, not a retrospective physical qualification of all training episodes."
+  ],
+  "input_sha256": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_training_plan_01/evaluation_protocol.json": "56ea6c24a7b353f3fb8c389b9d46a5709dcae1d53d88f924ccc9812c6ca7edcd",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/no_jump_hold__zero/records.json": "eae8fa8cd191a1da1ab124abd7d4b4469a728727a255c9ebe42d1b5fd999ed45",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/no_jump_hold__zero/trace.jsonl.gz": "930fcee78471f8a33d38d9e978a043910ce912b8d6057ae314ab297d1e565572",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/no_jump_hold__zero/physical_score.json": "877f8833b7ee712dd6503c26507ae2b5a5e3c56e144ffd9157006fbc899ffa3d",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/no_jump_hold__final_policy_131072/records.json": "f36030c91949db4151d2b57fd623f89b9eeffdde055933b912cbc104d28e9e03",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/no_jump_hold__final_policy_131072/trace.jsonl.gz": "8917a5ae5fe46b6262bae57325649ae3fe5bdb17bbd54fc7ff49088610554735",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/no_jump_hold__final_policy_131072/physical_score.json": "ae47cdf8daab99d43142b3e9499f9e3164a1b24b3448617321e3930b1af1e7cc",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_late_a__zero/records.json": "961b54307cd3d9baf5501c1b1f10c997172ae712d2d206c7a6c16421daa458dd",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_late_a__zero/trace.jsonl.gz": "42eb17e8b260f7bc43512fce29ba8f25c6a27e76d84d0899884bd5eec03af2a2",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_late_a__zero/physical_score.json": "38a6c6a513ad795d43d07cdee129c494f9e62849f2659eb2365e344e72ac8e28",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_late_a__final_policy_131072/records.json": "67204536dbb5ab4524f22e5ff9bfccc4e71450a5ff2688c13335d3764af8a843",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_late_a__final_policy_131072/trace.jsonl.gz": "c390ec8d9e0f6eb5188beeabb0bf5fef04a9d31c7c15943536a03254bf007f05",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_late_a__final_policy_131072/physical_score.json": "f49c42e011ac1e10e1024c6c3e875634c8c415a336639a56da795f5f58b41fc7",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_late_b__zero/records.json": "e4756b025769138222f20af6fb21aafff454d938e4160b56f81df00443b2069e",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_late_b__zero/trace.jsonl.gz": "2e58c6825c37536f525234a688d07bb465be35865e74e88c581ca4f3e38c66f7",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_late_b__zero/physical_score.json": "517fb19f6c3752eb91ec03a5177cd88e8c9e9a99653174c93b4c486115df3d7c",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_late_b__final_policy_131072/records.json": "0d827ea7ecf9d5e61a0f2d1c1f0c1bb4dc4ee19357a28d7de0665db6243fc0da",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_late_b__final_policy_131072/trace.jsonl.gz": "601ce5bcc15f5a0c27e65c01cdac3bd40e4ff2c8a4949b90de15140b8fc90671",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_late_b__final_policy_131072/physical_score.json": "b2ece3cf7d9d8808e1f9840b5aea24e76bd0bd74444e5f7aabff312031b7c995",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_lower_friction__zero/records.json": "fb620ffd0b3e968a7cbf1fe02b547548fcfb42e220882dbf5187703efe0f2025",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_lower_friction__zero/trace.jsonl.gz": "593768b43bb6b4fcbcefcd8d8ca1ae566145997343b438d9a6f71bb056dfd35f",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_lower_friction__zero/physical_score.json": "2e8f46296d9408454b8b89e55b136620617c480aa89107727a96820492f9505e",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_lower_friction__final_policy_131072/records.json": "c9b9f2011517c77fc7a7da32367534a0b62a3c668a43c0b920d37b1cc7110a27",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_lower_friction__final_policy_131072/trace.jsonl.gz": "5a7b753e7842e1331a173cf6aac868934e2c08d4c499ed0a29daf31f85409f6e",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_lower_friction__final_policy_131072/physical_score.json": "b6087ececebbf5f33c409e57a999319e9c49b35f95390338d8cfa3c37106dc1d",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_higher_friction__zero/records.json": "f8615a4620aac513b3ad66524f94ee5231ba885d2f2daa66b989fdc9d2f19038",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_higher_friction__zero/trace.jsonl.gz": "c93572c0411181525ffa37fbae3812e3c2554d1768d2e35a0f610aba8f229204",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_higher_friction__zero/physical_score.json": "8188be4f1b6dfea108bc9d97017da417476af3f58f265509afbe61b04976b78b",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_higher_friction__final_policy_131072/records.json": "91e788c3cca89cc9669976b181e4d644a3886e98ea2e328be9b165627801a711",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_higher_friction__final_policy_131072/trace.jsonl.gz": "9d9f343f9a17e10562b32493ce043a9e49cb078afddd30e5d3ccc0a40bd1b2fd",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_higher_friction__final_policy_131072/physical_score.json": "ee1ecc8a58a7676f91ef550b3f4cf9d0197bd69552ce92725871c92f415866a8",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_formal_01/training_trace.jsonl.gz": "806ea2207ca20fe5894d14be21e3db1f1303ee8aadd04d04bb456d049ac559e4",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_formal_01/episodes.jsonl.gz": "3f7b4ee5829159ef905fa5bc48003aa81ebb3d90c290de96d2391f97afe97272",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_formal_01/final_snapshot.json": "d90b3ba9a81d7ff81e6d49f8b5a3f244b587692ac6e09933cf711954d4018b92",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_formal_01/updates.jsonl": "37965ff5e88aab34180bb62bf82458658c14bb6ca831c53b90e7e28e0cb58cb2",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_formal_01/receipt.json": "de24d1a68b4a55fb158160024f136fe8d48377033dac3beed018dd234653239b",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_formal_full_log_audit_01.json": "272f55a9fdb3cb2dd006f3f744d9b2542bbd7913af99f456d852e1e973a4b4c7"
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "case": "jump_higher_friction",
+  "checks": {
+    "execution": true,
+    "late": false,
+    "loaded_return_before_endpoint400": false,
+    "requested_flight": false,
+    "useful_net_clearance": false
+  },
+  "execution": {
+    "checks": {
+      "completed_control_intervals": true,
+      "endpoint_count": true,
+      "endpoint_tick_sequence": true,
+      "finite_state": true,
+      "global_heading_error": true,
+      "global_planar_displacement": true,
+      "global_roll_pitch": true,
+      "native_contact_fields_valid": true,
+      "native_endpoints_per_control_interval": true,
+      "native_interval_count": true,
+      "native_time_continuous": true,
+      "no_domain_exit": true,
+      "no_fall": true,
+      "no_nonwheel_contact": true,
+      "no_unknown_wrench": true,
+      "plane_normals_valid": true,
+      "position_within_envelope": true,
+      "protections_intact": true,
+      "rated_torque_within_envelope": true,
+      "single_reset": true,
+      "velocity_within_envelope": true
+    },
+    "passed": true,
+    "protection_occupancy": null,
+    "reasons": []
+  },
+  "extra_flights": 0,
+  "flight_runs": [],
+  "late_settled": {
+    "detail": {
+      "checks": {
+        "body_vx": true,
+        "com_vz": true,
+        "height_rmse": false,
+        "per_wheel_positive_load": true,
+        "planar_path": true
+      },
+      "height_rmse_m": 0.015085870293459777,
+      "max_abs_body_vx_mps": 0.027877592886977547,
+      "max_abs_com_vz_mps": 0.0031194514311909775,
+      "per_wheel_positive_load_fraction": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "planar_path_m": 0.017227901980864723,
+      "rmse_reference": "per-tick raw held height command, never a constant 0.455 m"
+    },
+    "passed": false
+  },
+  "loaded_return": null,
+  "max_qualified_net_gap_m": null,
+  "notes": [
+    "Native solved-contact samples and returned-pose geometry are distinct recorded phases.",
+    "Sampled flight evidence does not prove unsampled continuous-time clearance."
+  ],
+  "passed": false,
+  "peak_per_wheel_normal_load_n": [
+    278.1759986763634,
+    277.92576483769767,
+    226.99641850357057,
+    226.9919865138341
+  ],
+  "requested_qualified_runs": [],
+  "schema": "d1-jump-ppo-physical-score-v1"
+}

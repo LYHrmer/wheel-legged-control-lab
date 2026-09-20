@@ -1,0 +1,85 @@
+{
+  "schema": "d1-jump-ppo-training-runner-review-v1",
+  "decision": "No normal-path blocker found for fixed smoke; address two receipt/integrity findings. Physical readiness and root test/preflight remain separate.",
+  "new_physics_steps": 0,
+  "new_policy_training_steps": 0,
+  "source_sha256": {
+    "/home/lyh/wheel-legged-control-lab/scripts/run_d1_jump_ppo_study.py": "ff2a88b484206ff4517848625604575b0b338b66a9487d50caa9f8377186beec",
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_jump_ppo_env.py": "0037ddc29e4591befa72f820b4dbe8f35435b44d2a9cd3974b9c16e806335c4d",
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_jump_ppo_task.py": "35d0ba5edb77120768563ed305af133b1569dd84977d9459de3dc98ae3148f85",
+    "/home/lyh/wheel-legged-control-lab/scripts/run_d1_heading_study.py": "02e365cf4def1f073f365cbcaee7d0131bec267a79cba21d690f47acd95a93e5",
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/locomotion_checkpoint.py": "861e26737ac81aa4dc8f890e1944f3f475997ef5f8f9a54ee785c93c18b1943f"
+  },
+  "checks": {
+    "import": "PASS under cwdR and PYTHONPATH=.local-deps:src:.",
+    "native_guards": [
+      "mj_step",
+      "mj_step1",
+      "mj_step2"
+    ],
+    "integration_guard_calls": 0,
+    "test": "Real DummyVecEnv and CurriculumLedger with fake Gym state/step and fake native counter, in temporary files; no physical env constructor/step or PPO.learn.",
+    "autoreset_640": "PASS: first600 transitions done/time-limit -> reset before VecEnv returns ->40next transitions; ledger total640 and fakecounter3200; terminal_observation95 retained and TimeLimit.truncated true.",
+    "smoke_episode_seeds": [
+      629990000,
+      629990001
+    ],
+    "formal_first10_requests": [
+      150,
+      200,
+      250,
+      150,
+      null,
+      200,
+      250,
+      150,
+      200,
+      null
+    ],
+    "curriculum_at_totals": {
+      "32767": 0.005,
+      "32768": 0.01,
+      "65535": 0.01,
+      "65536": 0.02
+    },
+    "source_during_review": "Root changed ledger file cleanup to ExitStack during review; final static lines below reflect it. Tested transition/curriculum logic unchanged. Root will run its final source tests."
+  },
+  "confirmed": [
+    "640/128=5smoke updates and131072/128=1024formal updates; n_epochs1/4 gives5/4096epochs. AfterUpdatePPO calls hook after full train returns; hook checks actual ledger/PPO/optimizer counters.",
+    "Formal jump_index arithmetic correctly skips every fifth hold; goals change only at actual reset, with ledger increment before SB3 auto-reset. Early original termination consumes actual transitions without padding.",
+    "Original action8 reaches sole env.step; all info/controller field names used by ledger exist in reviewed repaired env/controller.95obs checks and seed namespaces match frozen protocol.",
+    "Fresh constructor does not load old/smoke weights; fresh num_timesteps/_n_updates/optimizer-state check occurs before learn. One learn call per mode, unchanged128rollout/batch settings and CPU1Torchthread.",
+    "NativeCounter delegates at most steps*5 actual native calls, counts partial failures and restores binding. Completed control check requires5returned calls. No foreign physics permitted while bound.",
+    "Checkpoint saves occur only after completed32768/65536/131072updates. Reload uses strict jump loader and saved95obs/action/hash/counters without reset/env.step; frozen SB3 loader restores completed_train_calls via saved data dictionary. Counter remains installed during reload.",
+    "Valid readiness records, rather than zero jump success, are correctly used as launch condition. No old three65k/G1 replay in this runner."
+  ],
+  "findings": [
+    {
+      "priority": "P1_integrity",
+      "lines": [
+        313,
+        314,
+        315,
+        316
+      ],
+      "issue": "Post-run source/frozen77 mismatch is written to source_after.json but does not change receipt.passed or exit status; current main can return0 despite failed identity checks.",
+      "fix": "Combine postchecks with final execution status and exit code; preserve immutable training receipt and write final execution receipt if needed. No rerun."
+    },
+    {
+      "priority": "P2_failure_receipt",
+      "lines": [
+        201,
+        203,
+        207,
+        272,
+        273,
+        274,
+        275,
+        287
+      ],
+      "issue": "Env/ledger setup occurs before try; final_snapshot/close errors can escape finally, mask original error and prevent final native/counter receipt. This is an exception-path gap, not an observed normal-path failure.",
+      "fix": "Use nested guarded cleanup with separate archival/cleanup errors; attempt original failure/counter receipt independently. Never retry consumed state or silently drop a partial interval."
+    }
+  ],
+  "limits": "This reviewed training entry only, not the forthcoming6000-step evaluation/scorer. No learned task-pass or end-to-end real training claim. Exact final runtime source identity belongs root preflight."
+}

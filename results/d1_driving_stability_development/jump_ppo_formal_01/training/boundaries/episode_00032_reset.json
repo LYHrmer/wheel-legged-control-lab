@@ -1,0 +1,943 @@
+{
+  "actual_seed": 620010032,
+  "episode_finished": false,
+  "episode_index": 32,
+  "episode_reward": 0.0,
+  "episode_transitions": 0,
+  "incoming_seed": null,
+  "last_info": null,
+  "metadata": {
+    "action_mode": "independent8",
+    "action_schema": "d1-wheel-leg-extension-speed-v1",
+    "actuator": {
+      "delay_steps": 0,
+      "gain": 1.0,
+      "n_axes": 16,
+      "physics_dt_s": 0.002,
+      "time_constant_s": 0.0,
+      "torque_limit_nm": [
+        80.0,
+        80.0,
+        80.0,
+        12.0,
+        80.0,
+        80.0,
+        80.0,
+        12.0,
+        80.0,
+        80.0,
+        80.0,
+        12.0,
+        80.0,
+        80.0,
+        80.0,
+        12.0
+      ]
+    },
+    "baseline": "wheel_leg",
+    "collision_terrain": {
+      "collision_geometry": "native_mujoco_plane",
+      "control_dt_s": 0.01,
+      "domain_note": "physical plane geometry is infinite; the finite half sizes bound only the evaluation and ground-reference domain",
+      "evaluation_domain_half_size_m": [
+        6.0,
+        3.0
+      ],
+      "floor_body_id": 0,
+      "floor_geom_id": 0,
+      "floor_height_m": 0.0,
+      "floor_position_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "floor_quat": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "geom_condim": 3,
+      "geom_friction": [
+        0.9,
+        0.005,
+        0.0001
+      ],
+      "geom_gap_m": 0.0,
+      "geom_margin_m": 0.0,
+      "geom_solimp": [
+        0.9,
+        0.95,
+        0.001,
+        0.5,
+        2.0
+      ],
+      "geom_solref": [
+        0.02,
+        1.0
+      ],
+      "geom_type": 0,
+      "geom_type_name": "mjGEOM_PLANE",
+      "heightfield_count": 0,
+      "heightfield_present": false,
+      "mujoco_version": "3.12.0",
+      "physical_geometry_extent": "infinite",
+      "physics_steps_per_control": 5,
+      "physics_timestep_s": 0.002,
+      "plant_schema": "d1-native-flat-plane-plant-v1",
+      "reference_domain_half_size_m": [
+        6.0,
+        3.0
+      ],
+      "schema": "d1-flat-plane-collision-v1",
+      "surface_normal": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "terrain_geom_ids": [
+        0
+      ]
+    },
+    "command_seed": 539378460,
+    "command_source": "external_callback",
+    "control_dt_s": 0.01,
+    "control_schema": "d1-synchronized-control-loop-v1",
+    "controller_parameters": {
+      "attitude_feedback_scale": 1.0,
+      "leg_feedback_scale": 1.0,
+      "wheel_ki": 3.0,
+      "wheel_kp": 2.2,
+      "yaw_feedback_gain": 4.0
+    },
+    "controller_schema": "d1-wheel-leg-joint-pd-wheel-pi-yaw-feedback-v2",
+    "domain": {
+      "actuator_strength_scale": 1.0,
+      "base_mass_scale": 1.0,
+      "damping_scale": 1.0,
+      "friction_scale": 1.0
+    },
+    "duration_s": 6.0,
+    "heading_reference_initial": {
+      "heading_rad": 0.0,
+      "held_user_yaw_rate_rps": 0.0,
+      "measured_heading_rad": 0.0,
+      "measured_yaw_rate_rps": 0.0,
+      "measurement_age_s": 0.0,
+      "reference_schema": "d1-simulation-time-heading-reference-v1",
+      "simulation_time_s": 0.0,
+      "source_schema": "d1-synchronized-oracle-v1"
+    },
+    "heading_task_config": {
+      "action_mode": "independent8",
+      "action_size": 8,
+      "baseline": "wheel_leg",
+      "collision_terrain": {
+        "collision_geometry": "native_mujoco_plane",
+        "heightfield_present": false,
+        "nominal_floor_height_m": 0.0,
+        "nominal_ground_friction": 0.9,
+        "zero_residual_only": false
+      },
+      "heading_prefix": {
+        "observation": {
+          "appended_fields": [
+            "sin_heading_error",
+            "cos_heading_error",
+            "user_yaw_rate_normalized"
+          ],
+          "base_size": 82,
+          "clip_high": 5.0,
+          "clip_low": -5.0,
+          "dtype": "float32",
+          "heading_error_source": "published_state_estimate",
+          "total_size": 85,
+          "user_yaw_rate_scale_rps": 0.5
+        },
+        "observation_schema": "d1-proprio-servo82-heading85-v1",
+        "size": 85,
+        "task_schema": "d1-heading-reference-task-v1"
+      },
+      "jump": {
+        "action": {
+          "dtype": "float32",
+          "high": 1.0,
+          "leg_extension_residual_scale_m": 0.04,
+          "leg_order": [
+            "FL",
+            "FR",
+            "RL",
+            "RR"
+          ],
+          "low": -1.0,
+          "order": "four leg-extension residuals then four wheel-speed residuals",
+          "projection": "none: learned actions reach the original controller unchanged",
+          "size": 8,
+          "wheel_speed_residual_scale_rad_s": 4.0
+        },
+        "action_mode": "independent8",
+        "baseline": "wheel_leg",
+        "episode": {
+          "control_dt_s": 0.01,
+          "duration_s": 6.0,
+          "horizon_ticks": 600,
+          "reset_inside_episode": false
+        },
+        "observation": {
+          "appended_fields": [
+            "request_clock",
+            "requested_net_clearance_normalized",
+            "contact_FL",
+            "contact_FR",
+            "contact_RL",
+            "contact_RR",
+            "clearance_progress_fraction",
+            "airborne_progress",
+            "planar_offset_x_normalized",
+            "planar_offset_y_normalized"
+          ],
+          "clip_high": 5.0,
+          "clip_low": -5.0,
+          "contact_source": "published_oracle_state.wheel_contact",
+          "dtype": "float32",
+          "gate_time": "prepared_decision_tick",
+          "net_clearance_scale_m": 0.04,
+          "parent_size": 85,
+          "planar_offset_scale_m": 0.1,
+          "progress_source": "oracle_task_geometry_and_native_contact_accounting",
+          "request_clock_before_request": -1.0,
+          "request_clock_window_ticks": 120,
+          "total_size": 95
+        },
+        "observation_schema": "d1-jump-oracle-task95-v1",
+        "profile": {
+          "allowed_friction_scales": [
+            0.95,
+            1.0,
+            1.05
+          ],
+          "allowed_net_clearance_m": [
+            0.005,
+            0.01,
+            0.02
+          ],
+          "baseline_clearance_m": 0.455,
+          "hold_condition": "hold",
+          "note": "scaffolded residual hop learning, not an end-to-end discovered jump",
+          "raw_forward_velocity_mps": 0.0,
+          "raw_yaw_rate_rps": 0.0,
+          "relative_segments_m": [
+            {
+              "clearance_m": 0.405,
+              "first_offset": 0,
+              "last_offset": 24
+            },
+            {
+              "clearance_m": 0.5,
+              "first_offset": 25,
+              "last_offset": 39
+            },
+            {
+              "clearance_m": 0.455,
+              "first_offset": 40,
+              "last_offset": 74
+            },
+            {
+              "clearance_m": 0.435,
+              "first_offset": 75,
+              "last_offset": 119
+            }
+          ],
+          "request_condition": "profile",
+          "request_profile_offset_ticks": 200,
+          "scaffolded": true,
+          "source": "scripts.d1_jump_readiness.fixed_height_command"
+        },
+        "progress": {
+          "airborne_native_samples_for_full_progress": 10,
+          "bonus_window_ticks": 120,
+          "certifying_unloaded_intervals": 2,
+          "first_certified_run_uses_run_maximum": true,
+          "hold_or_pre_request_progress": false,
+          "native_samples_per_control_interval": 5,
+          "net_gap_definition": "c = max(0, simultaneous_minimum_gap_m - contact_margin_m)",
+          "progress_monotone": true,
+          "unloaded_definition": "all four active_sample_fraction_by_wheel zero, all four measured wheel force vectors zero and endpoint simultaneous gap strictly above the margin",
+          "upward_onset_required": true
+        },
+        "progress_schema": "d1-jump-clearance-progress-v1",
+        "readiness_helper_schema": "d1-fixed-height-hop-readiness-v1",
+        "reward": {
+          "clearance_progress_weight": 2.0,
+          "fixed_before_training": true,
+          "flight_once_bonus": 1.0,
+          "height_mask_basis": "command_time_predeclared",
+          "height_mask_window_ticks": [
+            25,
+            120
+          ],
+          "landing_once_bonus": 2.0,
+          "landing_once_conditions": {
+            "attitude_limit_rad": 0.17453292519943295,
+            "base_height_m": 0.455,
+            "base_height_tolerance_m": 0.015,
+            "body_vx_limit_mps": 0.03,
+            "com_vz_limit_mps": 0.03,
+            "displacement_limit_m": 0.1,
+            "endpoint_tick": 600,
+            "heading_limit_rad": 0.08726646259971647,
+            "requires_all_wheels_loaded": true,
+            "requires_flight": true,
+            "requires_full_progress": true
+          },
+          "maximum_event_total": 5.0,
+          "parent_height_term": "height",
+          "parent_terms_retained": true,
+          "stationary_offset": {
+            "formula": "-actual_dt * 0.5 * min((|base_xy - initial_xy| / 0.10)^2, 4)",
+            "saturation": 4.0,
+            "scale_m": 0.1,
+            "weight": 0.5
+          }
+        },
+        "reward_schema": "d1-hop-clearance-events-heading-rate-v1",
+        "schema": "d1-jump-task-config-v1",
+        "task_schema": "d1-native-plane-residual-hop-task-v1"
+      },
+      "observation": {
+        "appended_fields": [
+          "request_clock",
+          "net_gap_goal",
+          "contact_fl",
+          "contact_fr",
+          "contact_rl",
+          "contact_rr",
+          "progress",
+          "airborne_progress",
+          "relative_x",
+          "relative_y"
+        ],
+        "base_size": 85,
+        "clip_high": 5.0,
+        "clip_low": -5.0,
+        "dtype": "float32",
+        "state_source": "same_prepared_decision_as_parent85",
+        "total_size": 95
+      },
+      "observation_schema": "d1-jump-oracle-task95-v1",
+      "observation_size": 95,
+      "outer_loop": {
+        "feed_forward": "user_yaw_rate_rps",
+        "kd": 0.4,
+        "kp": 2.0,
+        "limit_rps": 1.0,
+        "servo_substitution": "yaw_rate_only"
+      },
+      "parent_observation_prefix_size": 85,
+      "reference_schema": "d1-simulation-time-heading-reference-v1",
+      "reward": {
+        "bounds": "[-actual_dt * heading_reward_weight, 0]",
+        "formula_version": "heading_goal = actual_dt * w * (exp(-(wrap(psi_truth_end - psi_ref_end) / sigma)^2) - 1); psi_ref_end = wrap(psi_ref_before + actual_dt * user_yaw_rate_before); v1",
+        "heading_reward_weight": 0.5,
+        "heading_sigma_rad": 0.08726646259971647,
+        "target": "simulation_time_heading_reference_endpoint",
+        "term_name": "heading_goal",
+        "truth_source": "last_transition.truth"
+      },
+      "reward_schema": "d1-hop-clearance-events-heading-rate-v1",
+      "schema": "d1-jump-task-config-v1",
+      "task_schema": "d1-native-plane-residual-hop-task-v1",
+      "terminal_reference_handling": "cached-terminal-observation-uses-pre-step-heading-context-v1",
+      "timing_schema": "d1-heading-left-hold-prepare-servo-yaw-rate-v1"
+    },
+    "jump_episode": {
+      "bonus_window_ticks": [
+        250,
+        370
+      ],
+      "condition": "profile",
+      "friction_scale": 1.0,
+      "height_mask_window_ticks": [
+        275,
+        370
+      ],
+      "is_hold": false,
+      "net_clearance_m": 0.005,
+      "request_tick": 250
+    },
+    "jump_task_config": {
+      "action_mode": "independent8",
+      "action_size": 8,
+      "baseline": "wheel_leg",
+      "collision_terrain": {
+        "collision_geometry": "native_mujoco_plane",
+        "heightfield_present": false,
+        "nominal_floor_height_m": 0.0,
+        "nominal_ground_friction": 0.9,
+        "zero_residual_only": false
+      },
+      "heading_prefix": {
+        "observation": {
+          "appended_fields": [
+            "sin_heading_error",
+            "cos_heading_error",
+            "user_yaw_rate_normalized"
+          ],
+          "base_size": 82,
+          "clip_high": 5.0,
+          "clip_low": -5.0,
+          "dtype": "float32",
+          "heading_error_source": "published_state_estimate",
+          "total_size": 85,
+          "user_yaw_rate_scale_rps": 0.5
+        },
+        "observation_schema": "d1-proprio-servo82-heading85-v1",
+        "size": 85,
+        "task_schema": "d1-heading-reference-task-v1"
+      },
+      "jump": {
+        "action": {
+          "dtype": "float32",
+          "high": 1.0,
+          "leg_extension_residual_scale_m": 0.04,
+          "leg_order": [
+            "FL",
+            "FR",
+            "RL",
+            "RR"
+          ],
+          "low": -1.0,
+          "order": "four leg-extension residuals then four wheel-speed residuals",
+          "projection": "none: learned actions reach the original controller unchanged",
+          "size": 8,
+          "wheel_speed_residual_scale_rad_s": 4.0
+        },
+        "action_mode": "independent8",
+        "baseline": "wheel_leg",
+        "episode": {
+          "control_dt_s": 0.01,
+          "duration_s": 6.0,
+          "horizon_ticks": 600,
+          "reset_inside_episode": false
+        },
+        "observation": {
+          "appended_fields": [
+            "request_clock",
+            "requested_net_clearance_normalized",
+            "contact_FL",
+            "contact_FR",
+            "contact_RL",
+            "contact_RR",
+            "clearance_progress_fraction",
+            "airborne_progress",
+            "planar_offset_x_normalized",
+            "planar_offset_y_normalized"
+          ],
+          "clip_high": 5.0,
+          "clip_low": -5.0,
+          "contact_source": "published_oracle_state.wheel_contact",
+          "dtype": "float32",
+          "gate_time": "prepared_decision_tick",
+          "net_clearance_scale_m": 0.04,
+          "parent_size": 85,
+          "planar_offset_scale_m": 0.1,
+          "progress_source": "oracle_task_geometry_and_native_contact_accounting",
+          "request_clock_before_request": -1.0,
+          "request_clock_window_ticks": 120,
+          "total_size": 95
+        },
+        "observation_schema": "d1-jump-oracle-task95-v1",
+        "profile": {
+          "allowed_friction_scales": [
+            0.95,
+            1.0,
+            1.05
+          ],
+          "allowed_net_clearance_m": [
+            0.005,
+            0.01,
+            0.02
+          ],
+          "baseline_clearance_m": 0.455,
+          "hold_condition": "hold",
+          "note": "scaffolded residual hop learning, not an end-to-end discovered jump",
+          "raw_forward_velocity_mps": 0.0,
+          "raw_yaw_rate_rps": 0.0,
+          "relative_segments_m": [
+            {
+              "clearance_m": 0.405,
+              "first_offset": 0,
+              "last_offset": 24
+            },
+            {
+              "clearance_m": 0.5,
+              "first_offset": 25,
+              "last_offset": 39
+            },
+            {
+              "clearance_m": 0.455,
+              "first_offset": 40,
+              "last_offset": 74
+            },
+            {
+              "clearance_m": 0.435,
+              "first_offset": 75,
+              "last_offset": 119
+            }
+          ],
+          "request_condition": "profile",
+          "request_profile_offset_ticks": 200,
+          "scaffolded": true,
+          "source": "scripts.d1_jump_readiness.fixed_height_command"
+        },
+        "progress": {
+          "airborne_native_samples_for_full_progress": 10,
+          "bonus_window_ticks": 120,
+          "certifying_unloaded_intervals": 2,
+          "first_certified_run_uses_run_maximum": true,
+          "hold_or_pre_request_progress": false,
+          "native_samples_per_control_interval": 5,
+          "net_gap_definition": "c = max(0, simultaneous_minimum_gap_m - contact_margin_m)",
+          "progress_monotone": true,
+          "unloaded_definition": "all four active_sample_fraction_by_wheel zero, all four measured wheel force vectors zero and endpoint simultaneous gap strictly above the margin",
+          "upward_onset_required": true
+        },
+        "progress_schema": "d1-jump-clearance-progress-v1",
+        "readiness_helper_schema": "d1-fixed-height-hop-readiness-v1",
+        "reward": {
+          "clearance_progress_weight": 2.0,
+          "fixed_before_training": true,
+          "flight_once_bonus": 1.0,
+          "height_mask_basis": "command_time_predeclared",
+          "height_mask_window_ticks": [
+            25,
+            120
+          ],
+          "landing_once_bonus": 2.0,
+          "landing_once_conditions": {
+            "attitude_limit_rad": 0.17453292519943295,
+            "base_height_m": 0.455,
+            "base_height_tolerance_m": 0.015,
+            "body_vx_limit_mps": 0.03,
+            "com_vz_limit_mps": 0.03,
+            "displacement_limit_m": 0.1,
+            "endpoint_tick": 600,
+            "heading_limit_rad": 0.08726646259971647,
+            "requires_all_wheels_loaded": true,
+            "requires_flight": true,
+            "requires_full_progress": true
+          },
+          "maximum_event_total": 5.0,
+          "parent_height_term": "height",
+          "parent_terms_retained": true,
+          "stationary_offset": {
+            "formula": "-actual_dt * 0.5 * min((|base_xy - initial_xy| / 0.10)^2, 4)",
+            "saturation": 4.0,
+            "scale_m": 0.1,
+            "weight": 0.5
+          }
+        },
+        "reward_schema": "d1-hop-clearance-events-heading-rate-v1",
+        "schema": "d1-jump-task-config-v1",
+        "task_schema": "d1-native-plane-residual-hop-task-v1"
+      },
+      "observation": {
+        "appended_fields": [
+          "request_clock",
+          "net_gap_goal",
+          "contact_fl",
+          "contact_fr",
+          "contact_rl",
+          "contact_rr",
+          "progress",
+          "airborne_progress",
+          "relative_x",
+          "relative_y"
+        ],
+        "base_size": 85,
+        "clip_high": 5.0,
+        "clip_low": -5.0,
+        "dtype": "float32",
+        "state_source": "same_prepared_decision_as_parent85",
+        "total_size": 95
+      },
+      "observation_schema": "d1-jump-oracle-task95-v1",
+      "observation_size": 95,
+      "outer_loop": {
+        "feed_forward": "user_yaw_rate_rps",
+        "kd": 0.4,
+        "kp": 2.0,
+        "limit_rps": 1.0,
+        "servo_substitution": "yaw_rate_only"
+      },
+      "parent_observation_prefix_size": 85,
+      "reference_schema": "d1-simulation-time-heading-reference-v1",
+      "reward": {
+        "bounds": "[-actual_dt * heading_reward_weight, 0]",
+        "formula_version": "heading_goal = actual_dt * w * (exp(-(wrap(psi_truth_end - psi_ref_end) / sigma)^2) - 1); psi_ref_end = wrap(psi_ref_before + actual_dt * user_yaw_rate_before); v1",
+        "heading_reward_weight": 0.5,
+        "heading_sigma_rad": 0.08726646259971647,
+        "target": "simulation_time_heading_reference_endpoint",
+        "term_name": "heading_goal",
+        "truth_source": "last_transition.truth"
+      },
+      "reward_schema": "d1-hop-clearance-events-heading-rate-v1",
+      "schema": "d1-jump-task-config-v1",
+      "task_schema": "d1-native-plane-residual-hop-task-v1",
+      "terminal_reference_handling": "cached-terminal-observation-uses-pre-step-heading-context-v1",
+      "timing_schema": "d1-heading-left-hold-prepare-servo-yaw-rate-v1"
+    },
+    "measurement_seed": 186630764,
+    "observation_schema": "d1-jump-oracle-task95-v1",
+    "parameter_origin": "synthetic simulation settings, not real D1 identification",
+    "physical_action_schema": "d1-wheel-leg-extension-speed-v1",
+    "physical_action_size": 8,
+    "physics_dt_s": 0.002,
+    "policy_action_size": 8,
+    "policy_to_physical_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "provider": {
+      "impairments": null,
+      "initial_position_m": null,
+      "initial_rpy_rad": null,
+      "kind": "oracle",
+      "sensor_delay_steps": 0,
+      "sensor_noise": null
+    },
+    "randomization": {
+      "actuator_delay_steps": null,
+      "actuator_gain": null,
+      "actuator_strength_scale": [
+        1.0,
+        1.0
+      ],
+      "actuator_time_constant_s": null,
+      "base_mass_scale": [
+        1.0,
+        1.0
+      ],
+      "damping_scale": [
+        1.0,
+        1.0
+      ],
+      "friction_scale": [
+        1.0,
+        1.0
+      ],
+      "measurement_delay_steps": null
+    },
+    "requested_terrain_config": {
+      "cross_slope_deg": 0.0,
+      "layout": "flat",
+      "phase_x_rad": 0.0,
+      "phase_y_rad": 0.0,
+      "ripple_amplitude_m": 0.0,
+      "schema": "d1-fixed-2d-road-v1",
+      "slope_deg": 0.0,
+      "step_height_m": 0.0,
+      "wavelength_x_m": 0.8,
+      "wavelength_y_m": 1.2
+    },
+    "reward": {
+      "action_change_scale": 0.1,
+      "action_change_weight": 0.01,
+      "attitude_scale_rad": 0.3,
+      "attitude_weight": 0.2,
+      "height_scale_m": 0.05,
+      "height_weight": 1.0,
+      "mechanical_power_scale_w": 200.0,
+      "power_weight": 0.02,
+      "termination_cost": 2.0,
+      "velocity_sigma_mps": 0.2,
+      "velocity_weight": 1.0,
+      "yaw_sigma_rps": 0.2,
+      "yaw_weight": 1.0
+    },
+    "reward_schema": "d1-hop-clearance-events-heading-rate-v1",
+    "safe_half_size_m": [
+      5.3,
+      2.3
+    ],
+    "schedule": null,
+    "source_schema": "d1-synchronized-oracle-v1",
+    "spawn_position_m": [
+      -3.8,
+      0.0,
+      0.455
+    ],
+    "task_schema": "d1-native-plane-residual-hop-task-v1",
+    "terminal_reference_handling": "finite-envelope-exit-cached-terminal-observation-v1",
+    "terrain": {
+      "collision_geometry": "native_mujoco_plane",
+      "control_dt_s": 0.01,
+      "domain_note": "physical plane geometry is infinite; the finite half sizes bound only the evaluation and ground-reference domain",
+      "evaluation_domain_half_size_m": [
+        6.0,
+        3.0
+      ],
+      "floor_body_id": 0,
+      "floor_geom_id": 0,
+      "floor_height_m": 0.0,
+      "floor_position_m": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "floor_quat": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "geom_condim": 3,
+      "geom_friction": [
+        0.9,
+        0.005,
+        0.0001
+      ],
+      "geom_gap_m": 0.0,
+      "geom_margin_m": 0.0,
+      "geom_solimp": [
+        0.9,
+        0.95,
+        0.001,
+        0.5,
+        2.0
+      ],
+      "geom_solref": [
+        0.02,
+        1.0
+      ],
+      "geom_type": 0,
+      "geom_type_name": "mjGEOM_PLANE",
+      "heightfield_count": 0,
+      "heightfield_present": false,
+      "mujoco_version": "3.12.0",
+      "physical_geometry_extent": "infinite",
+      "physics_steps_per_control": 5,
+      "physics_timestep_s": 0.002,
+      "plant_schema": "d1-native-flat-plane-plant-v1",
+      "reference_domain_half_size_m": [
+        6.0,
+        3.0
+      ],
+      "schema": "d1-flat-plane-collision-v1",
+      "surface_normal": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "terrain_geom_ids": [
+        0
+      ]
+    }
+  },
+  "observation": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    -0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    1.0,
+    0.0,
+    -1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "progress": {
+    "airborne_progress": 0.0,
+    "certified_run_maximum_net_gap_m": 0.0,
+    "completed_intervals": 0,
+    "consecutive_unloaded_intervals": 0,
+    "credited_run_active": false,
+    "flight_seen": false,
+    "progress": 0.0,
+    "run_maximum_net_gap_m": 0.0,
+    "run_upward_onset": false,
+    "schema": "d1-jump-clearance-progress-v1",
+    "unloaded_native_samples": 0
+  },
+  "qacc_warmstart": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "qpos": [
+    -3.8,
+    0.0,
+    0.455,
+    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.8,
+    -1.5,
+    0.0,
+    0.0,
+    0.8,
+    -1.5,
+    0.0,
+    0.0,
+    0.8,
+    -1.5,
+    0.0,
+    0.0,
+    0.8,
+    -1.5,
+    0.0
+  ],
+  "qvel": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "spec": {
+    "bonus_window_ticks": [
+      250,
+      370
+    ],
+    "condition": "profile",
+    "friction_scale": 1.0,
+    "height_mask_window_ticks": [
+      275,
+      370
+    ],
+    "is_hold": false,
+    "net_clearance_m": 0.005,
+    "request_tick": 250
+  },
+  "time_s": 0.0,
+  "total_transitions": 19200
+}

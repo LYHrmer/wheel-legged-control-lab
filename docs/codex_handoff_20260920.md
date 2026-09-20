@@ -139,3 +139,17 @@ readiness env/records/runner及RL task/env已有实际Opus初稿，尚未取得�
 ## 新 PPO 流程检查完成
 
 [640步新PPO smoke](../results/d1_driving_stability_development/jump_ppo_smoke_01/README.md)完整完成640/3200、5train/5epochs，第一场600步time-limit后自动reset并执行40步hold；root独立核对逐行episode/tick/native计数。第一场progress0/flight_seen false，没有跳跃能力结果。smoke权重已丢弃，正式从零seed62001，131072步，最终checkpoint才进入固定五条件zero/policy评估。源码/frozen77未变，累计40640/203200。训练/评估实现新增9+9项非积分测试通过。
+
+## 新 PPO 正式训练及冻结验收完成：能力未通过
+
+[完整公开包](../results/d1_driving_stability_development/jump_ppo_formal_01/README.md)保留全新 seed62001 的131072控制步 /655360 native、1024次完整PPO更新 /4096 optimization epochs、三个checkpoint和严格重载回执。没有复用smoke权重或旧三个65k模型。全训练日志按原gzip字节分成三块，重建后SHA256为 `806ea2207ca20fe5894d14be21e3db1f1303ee8aadd04d04bb456d049ac559e4`；重建脚本已经用真实分块验证。
+
+冻结五条件各zero/final-policy一次，共6000控制 /30000 native，最终策略 **0/5通过**。四场跳跃的请求窗口最大净空（已扣1mm margin）依次为 **0.468、0.278、0.576、0.071 mm**；有效卸载最长 **10、8、12、4 ms**，未达到20mm净空与20ms持续离地。四场策略后段稳定性门槛通过，但没有合格起跳，不能称为成功落地。全场约1.39mm净空峰来自初始settling，不算请求跳跃成绩。无跳跃指令时，策略漂移峰值 **0.156127m**，超过0.10m；zero基线为0.001089m。
+
+218个完整训练episode中175个请求跳跃，16个出现训练定义的flight_once；没有full progress或landing_once。5/10/20mm课程阶段最佳进度为0.54066/0.28364/0.09885。训练没有翻倒终止，不等于冻结能力门槛通过；一次有限预算、单seed实验失败也不证明RL总体无效。
+
+Root独立审计全部131072训练行的计数、奖励、课程和更新记录，以及评估全部30000 native计时/状态链/零外力/原力矩保护。五个zero/policy初态逐位相同，zero hold全600拍qpos/qvel及parent85与先前readiness hold逐位相同。另一个零积分几何审计复算readiness全部1202个control端点与48个指定native姿态；未声称独立重解全部native几何/接触力。所有201项正式输入hash及77冻结文件保持原样。非积分检查总数280（最终评估评分器10项）；软件检查与数据审计通过不改变能力失败结论。
+
+截至此次验收，9月20日新物理累计 **177712控制 /888560 native**。当前RL合同640 smoke +131072正式 +6000评估的全部预算已使用，无运行物理任务。先完成这次失败的任务/动作诊断及有界资格核验，不能自动续训、挑中间checkpoint再验收或重跑旧批次。可靠跳跃、真实台阶越障、提速、GUI和物理自救仍未完成。
+
+[失败诊断与下一合同](../results/d1_driving_stability_development/jump_ppo_formal_01/failure_diagnosis/README.md)由Astra ultra完成。唯一下一候选为请求窗内的标量共同腿伸缩，保持原物理8通道顺序、原尺度和PD/PI；窗口外残差为零，保留previous-action/原PI记忆。先纯模块与固定489保存态、1449次独立同态代数资格核验，新增积分预算0。资格通过仅支持接口正确，后续训练需要另存有限合同。不能把gate结束后的残差归零说成物理状态瞬间回到zero轨迹。
