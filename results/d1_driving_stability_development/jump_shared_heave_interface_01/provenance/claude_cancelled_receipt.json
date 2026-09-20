@@ -1,0 +1,56 @@
+{
+  "status": "cancelled_by_explicit_user_instruction_no_deliverable",
+  "completed_utc": "2026-09-20T14:41:13.240424+00:00",
+  "request_count_started": 1,
+  "retry_count": 0,
+  "reason": "Root conveyed that user reports Claude quota exhausted until refresh; stop this job and issue no further requests.",
+  "termination": {
+    "exec_session": 3334,
+    "method": "targeted session interrupt via write_stdin Ctrl-C",
+    "observed_exit_code": 130,
+    "pid_lookup_note": "A separate sandbox exec could not see PID11 from started.json. That namespace-local ENOENT was not proof the original job had exited; cancellation_request.json preserves that initial probe unchanged. The subsequent direct original-session interrupt returned exit130."
+  },
+  "requested_model": "opus",
+  "requested_effort": "low",
+  "model_names_in_system_events": [
+    "claude-opus-5"
+  ],
+  "actual_provider_final_present": false,
+  "actual_cost_usd": null,
+  "cost_note": "No provider final/result receipt was received; cost and quota error are not inferred as zero or fabricated.",
+  "system_events": 10,
+  "assistant_events": 0,
+  "tool_calls": 0,
+  "outputs": {},
+  "missing_outputs": [
+    "scripts/d1_jump_heave_action.py",
+    "tests/test_d1_jump_heave_action.py"
+  ],
+  "verification_ran": false,
+  "pytest_result": null,
+  "ruff_result": null,
+  "integration_guard_calls": null,
+  "new_physics_steps": 0,
+  "training_started": false,
+  "unexpected_input_changes": [],
+  "raw_logs": {
+    "response.jsonl": {
+      "bytes": 3601,
+      "sha256": "e52d79fdfca3bf2e548aad664881e8562cff05a528a7a34dd26155f8ad7386e1"
+    },
+    "stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "started.json": {
+      "bytes": 860,
+      "sha256": "dc799099de161e0d845ad6acd1e09c241e5db13b9d823aa11f4b690d7898ff14"
+    },
+    "cancellation_request.json": {
+      "bytes": 307,
+      "sha256": "2b599c0fefc0527d699e3b1a0409a1099673563d06f48ea785b9df78ff2dd84e"
+    }
+  },
+  "launcher_receipt_present": false,
+  "handoff": "Root owns remaining pure module and algebraic qualification. No code or successful verification is claimed."
+}
