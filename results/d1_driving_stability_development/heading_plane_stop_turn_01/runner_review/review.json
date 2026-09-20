@@ -1,0 +1,93 @@
+{
+  "schema": "d1-stop-turn-fixed-runner-bounded-readonly-review-v1",
+  "decision": "GO",
+  "blocking_findings": [],
+  "required_source_changes": [],
+  "meaning": "所列最终runner源码未见具体执行阻断项；原固定8case/8400控制步/42000原生子步可在root锁定最终preflight后执行一次。此结论不是物理通过证明。",
+  "new_physics_steps": 0,
+  "new_controller_compute_calls": 0,
+  "new_contact_force_solves": 0,
+  "tests_or_comparison_helper_executions_by_reviewer": 0,
+  "repository_files_modified": false,
+  "resolved_finding": {
+    "kind": "explicit target comparison coverage",
+    "status": "closed",
+    "detail": "初版未直接比较turn日志已有的全精度wheel target/effective yaw/error；root已在非stop日志加载这些float64数组，参与原prefix_check逐位。protocol新增pair_target_evidence，明确旧stop日志无这些字段，不能声称对其进行直接目标字段比较。"
+  },
+  "checks": [
+    {
+      "scope": "source identity / stored baselines",
+      "result": "PASS",
+      "source": "scripts/probe_d1_heading_stop_turn.py:122",
+      "detail": "原G1 SHA固定，plan六原case及原门槛与协议内容严格一致；preflight全部input哈希验证后并入运行input表，旧case完整manifest验证，原stop/turn协议summary和逐文件SHA保留，结束前检查全部输入与77项冻结源。新脚本/合同/审查/测试等最终来源由root preflight完整绑定。"
+    },
+    {
+      "scope": "single fixed execution budget",
+      "result": "PASS",
+      "source": "scripts/probe_d1_heading_stop_turn.py:141",
+      "detail": "精确8场，总max_transitions8400；原六场5600步只从旧文件复用基线，新增combined六场加两个1400步handoff，共最多42000个原生子步。每case run_case/run_archived_g1_episode调用一次，无隐藏bypass、训练、重试或续跑入口。"
+    },
+    {
+      "scope": "six full paired trajectories",
+      "result": "PASS",
+      "source": "scripts/probe_d1_heading_stop_turn.py:176",
+      "detail": "旧stop/impulse从stop-qualified baseline加载，左右turn从authority-qualified baseline加载。全部T执行、T+1 state/obs、raw/servo、PI、unlimited/protected/applied torque、actions和native全entry摘要逐位；整条trace canonical摘要保留全部字段；完整原summary仅排除model。"
+    },
+    {
+      "scope": "target evidence scope",
+      "result": "PASS_WITH_EXPLICIT_ARCHIVE_LIMIT",
+      "source": "scripts/probe_d1_heading_stop_turn.py:30",
+      "detail": "turn来源已有wheel_target_rad_s/effective_yaw_request_rps/wheel_error_before_rad_s，现直接逐位比较。旧stop/impulse及handoff旧stop前缀未存这些float64字段，等价依据限于同态/同raw-servo/PI/请求及已验证不变的inactive目标公式，另有float32观测逐位；该范围已写protocol，不把缺失档案伪装为直接目标比对。"
+    },
+    {
+      "scope": "handoff prefix filtering",
+      "result": "PASS",
+      "source": "scripts/probe_d1_heading_stop_turn.py:40",
+      "detail": "只对handoff删除展示phase；仅执行799排除horizon终止标记和heading_task的下一appended/terminal observation字段。S0..800、obs0..799、R0..799 executed raw/servo/reference/reward/time/physics和4000 native仍严格保留；不把obs800的新目标预览误判成物理差异。"
+    },
+    {
+      "scope": "mode histories / record phase",
+      "result": "PASS",
+      "source": "scripts/probe_d1_heading_stop_turn.py:66",
+      "detail": "按实际固定raw序列逐拍独立重建stop latch与authority gate，核对previous/active/执行索引、callback k+2、固定b、zero wheel delta和authority wheel最终torque快照；检查原yaw公式与实际cap语义。未扩大门控或用已prepared终态作为已执行active拍。"
+    },
+    {
+      "scope": "original G1 and fixed handoff scoring",
+      "result": "PASS",
+      "source": "scripts/probe_d1_heading_stop_turn.py:176",
+      "detail": "六原case仍用未改G1 raw scorer；handoff首先评1400原all_cases，再只调用纯score_handoff生成stop0:800和turn600:1400两固定view。原误差/数值门槛保留，complete_duration与segment_coverage分开；无重跑或重置reference/PI/plant。"
+    },
+    {
+      "scope": "gates vs invariance / no retry",
+      "result": "PASS",
+      "source": "scripts/probe_d1_heading_stop_turn.py:197",
+      "detail": "普通任务门槛失败保留并可完成余下预定矩阵；来源/执行/物理语义/paired invariance异常抛出后停止。最终通过要求所有global和handoff分段gates；没有根据结果选参、补步或扩大case集合。"
+    },
+    {
+      "scope": "T/T+1 and failure actual accounting",
+      "result": "PASS",
+      "source": "scripts/probe_d1_heading_stop_turn.py:212",
+      "detail": "继承G1/ProbeStateArchive/native archive，保留T+1状态、部分区间与每实际native入口/回执。batch_failure汇总plane receipt时钟实际native子步、已完成物理区间与partial，随后写failure_manifest并抛错；已消耗完整场/异常场计数均保留。计时子步与尝试的native call数不同，后者仍在原native_entry_receipt。"
+    }
+  ],
+  "independent_secondary_review": "runner_pair_review独立核对配对过滤与字段覆盖；同样未发现必然假失败，指出的target漏检已由root修复。",
+  "preflight_boundary": "root报告已完成纯测试/checkpoint身份和旧baseline格式读取；本审查不重新执行。旧文件格式/长度读取不是self-pair证明，完整新物理配对仍待唯一运行。",
+  "input_sha256": {
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_heading_stop_turn.py": "1b557c91962baf6730d62e613262140d2ae45db372f2c91e2eb16d0c1a99eaf7",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/stop_turn_composition_plan_01/fixed_contract.md": "ddb83ed53d30e236fa0293c184d7e842aae1a793f725c849795003c949e7be0c",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/stop_turn_composition_plan_01/cases.json": "a17e7e4052c563a98eb945c54378809244743f7e1ca95f68ac88ee97d97eb34b",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/stop_turn_source_review_01/review.json": "0dff87da533e4be91a657e665fa5f3fd69211494fb451ae6e3ee7a4e0ed15b36",
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_stop_turn_env.py": "955d9a5e0396777eb000d5e953c0d80725a742c46cf69a72c2652b3af409f8a0",
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_stop_turn_composition.py": "bacdf478c3fa4787e0747f45e3fe6187291949128b93023e1396575f8d7d4749",
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_stop_turn_scoring.py": "ef344fc40b6c2b4365a089d21cf68cfb8fdbfce6b7db2d93078acfe80582f062",
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_turn_yaw_authority.py": "9ce64fdefc779f8e14eb231f5ac27c29a882504207406f1dd9660c773618ea50",
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_heading_turn_yaw_authority.py": "bfc9362c55b8c2946af842c022b523b2a4a99bbb76c30991d85fc13620b72f86",
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_stop_leg_damping.py": "fcebd5c2dcb1922b55096925c6f8d765926d3add60ea50d9cb6e54cb8edc34d9",
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_heading_stop_damping.py": "b47edc4aa9b950967e8309342f42b3372227f9141f0b42f6b0ddc93c8f49168d",
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_heading_plane_stop_damping.py": "0e4f0e804102c42d04dab7fc584588afaeb3e2a455d64b94ecd581c8fadb9200",
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_heading_flat_plane.py": "346a4727c28cbd629fbfa93d95d7cc941eba2ca43718f920e27f522535a4f7fa",
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_heading_g1.py": "a631f443537a7183ca80bbaaca5e2b864b01bd4ac2adf899cb9f26462971cd78",
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_probe_archive.py": "e8a8685ab63837833ed1243090bf22b7465c35083f9585d928cabaa651a05d37",
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_heading_tracking_env.py": "91cbb3bcf697cab21f9b2c6b02480cf73d41811e4dd3cad51f1ae9554c4177ec"
+  }
+}

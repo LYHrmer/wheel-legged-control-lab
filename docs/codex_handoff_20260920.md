@@ -1,4 +1,4 @@
-# Codex 续接：平地停车及转向分别通过，正在验证组合
+# Codex 续接：平地停车/转向组合通过固定八场，继续跳跃资格
 
 完整目标仍为 **稳定直行 → 可靠越障 → 提高速度**，没有完成。必须同时阅读 [2026-09-14 交接](codex_handoff_20260914.md) 和本文件；最终进程、HEAD、GitHub CI及下一步状态位于本机 `/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/continuation_state.json`。旧交接及旧状态文件没有改写。
 
@@ -28,7 +28,8 @@ SSH上传已验证；以GitHub API/实际remote refs核对HEAD，直接URL push�
 | 固定系数1轮中心转向补偿，plane四candidate | 3200 / 16000 | 两turn改善但仍失败；两stop完整noop且保留原失败 |
 | 固定纯turn腿纵向阻尼，plane四candidate | 3200 / 16000 | 两turn仅小幅改善仍失败；两stop完整noop |
 | 恢复原内层yaw反馈，plane四candidate | 3200 / 16000 | 两turn全部原门槛通过；两stop完整noop且原失败保留 |
-| 本轮独立实验累计 | **30400 / 152000** | 不包含只读分析；复用基线没有重跑 |
+| 停车/转向组合，原六场加两交接 | 8400 / 42000 | 八场、全部原数值门槛及全程/前缀配对均通过 |
+| 本轮独立实验累计 | **38800 / 194000** | 不包含只读分析；复用基线没有重跑 |
 
 两次批次中断均完整保留，已完成物理没有重算：yaw-cap第一批完成左baseline800拍后写清单失败，续批复用它；plane第一批完成两stop1600拍后因跨方向初始观察中的±0符号比较失败，续批复用它们。不存在漏计或将复用计为新增。详见各公开包中的来源、failure、carry和补充合同。
 
@@ -96,14 +97,24 @@ Root完成2,891,747项独立保存态/native/原评分审计，零新增物理�
 
 turn前缀执行0..199、state0..200、obs0..199和native0..999逐位一致；obs200已改变preview，故不纳入。一次错误CLI路径在创建输出/构建环境/物理之前失败，零新增步；错误和正确原G1路径均已归档。此后唯一物理批次没有重跑。
 
-下一步是独立的停车/转向组合及命令交接合同 `stop_turn_composition_plan_01`。两模块单独通过不等于组合通过；原raw指令及门槛不变。
+## 停车/转向组合：固定八场已通过
+
+[公开包](../results/d1_driving_stability_development/heading_plane_stop_turn_01/README.md)。实际Opus编写 `d1_stop_turn_composition.py`，原件逐字节集成；root实现薄env、runner和固定窗口评分器，Astra ultra制定并独立审查合同。单继承Authority，原PI一次；原Stop固定阻尼加在父未保护请求后，再走原保护。两个gate独立；持续零前进命令下，停车latch保持到后续转向，不为通过而禁用重叠。
+
+39项纯检查先于物理。唯一八场完成 **8400/42000**：原两stop、两turn、两impulse全程与各自已通过的独立模块轨迹逐位一致，原G1全过；另两条正行→停→左转、倒行→停→右转各1400拍，也通过global和原数值stop/turn分段门槛，heading峰值 **3.068°/3.063°**。交接stop active1000拍、authority active50拍、两者重叠800..849拍，最大腿增量23.6273Nm；无wheel目标clip，每turn/handoff有8个protected joint-intervals，原12Nm保护保留。
+
+交接只用前800拍评原stop，禁止后续静止稀释RMSE；turn使用物理600..1399拍及state600..1400，只平移评分索引，不重置原始航向参考。晚窗为endpoint1050..1399，平面位移原点S600。交接前缀保留state800、排除obs800和执行799的下一preview/horizon字段。旧stop日志未直接存全精度target，等价依据是同态/raw-servo/PI/request和不变inactive公式，不能声称缺失字段直接逐位比对；turn target/effective/error有直接逐位证据。
+
+Root对8408保存态、PI、阻尼、保护、真实native/同步endpoint及原raw评分完成 **8,206,129** 项独立检查，零新积分/接触求解/控制调用；证据一致。其范围仍为plane/oracle/zero8的固定六场与两个已停稳后的转向历史。动态重新起步、同时停转、行进转向、四符号全组合、延迟/噪声和GUI/实机均未获资格。默认入口不变。
+
+下一固定提案位于 `jump_obstacle_next_plan_01/next_contract.md`：新PD/PI链仅比较600拍恒高与600拍旧固定高度表，实际记录离地接触、collision轮底净空、COM和落稳，不移植LQR450N推力或调参。尚无新跳跃物理结果。
 
 ## 仍必须完成的能力
 
-1. 可靠转向与停车/转向组合；所有未改动命令和评分继续保留。通过单模块不能自动组装后宣称同样通过。
+1. 扩展固定组合域以外的可靠驾驶；已有八场通过，不代表行进转向、动态重启或人工试驾。
 2. 新heading GUI仍无实现：9月14日Opus生成超时，没有代码。本轮没有重试GUI。旧课程GUI使用LQR/VMC，新heading任务为wheel_leg PD/PI，不可把两者的已知能力合并；也不能在heading环境外重复加航向P/D。
 3. 人工试驾仍待真正用户验收，自动按键日志不等价。持续按键、A/D侧移、Q/E转向、Space、Shift等原需求继续有效。
-4. 跳跃：旧记录机身抬升60.86 mm，而四轮同时最小轮底净空仅5.61 mm。需以真实轮底净空、持续离地及落地姿态/速度检验，随后逐级台阶、坡道、碎石；动画完成和机身升高不算可靠越障。
+4. 跳跃：旧记录机身抬升60.86 mm，而四轮同时最小轮底净空仅5.61 mm，且旧flat jump本身已是native plane，不能归因于heading旧hfield。旧LQR构造fresh-process另有511个辨识/settle控制步（2555子步），旧600拍只证明主trace；不要为检查旧GUI而实例化并漏计。新PD/PI没有旧vertical-force入口。需以真实轮底净空、持续离地及落地姿态/速度检验，随后逐级真实box台阶、坡道、碎石；动画完成和机身升高不算可靠越障。
 5. 先稳定启停/转向/越障，再分档测实际速度、制动距离、通过率和翻倒/卡滞。现有Shift输入并不证明提速目标。
 6. R仍是明确标注的simulator reset；物理翻倒自救没有实现。
 

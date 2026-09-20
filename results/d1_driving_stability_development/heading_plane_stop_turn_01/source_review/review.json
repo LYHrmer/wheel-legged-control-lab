@@ -1,0 +1,98 @@
+{
+  "schema": "d1-stop-turn-composition-core-env-scoring-readonly-review-v1",
+  "decision": "GO_FOR_REVIEWED_SOURCES",
+  "blocking_findings": [],
+  "required_source_changes": [],
+  "scope": "组合core、薄env、固定slice纯scorer；新的batch runner尚未交付本次审查，因此不是完整物理启动审定。",
+  "new_physics_steps": 0,
+  "new_controller_compute_calls": 0,
+  "new_contact_force_solves": 0,
+  "tests_run_by_reviewer": 0,
+  "repository_files_modified": false,
+  "resolved_finding": {
+    "kind": "contract metadata completeness",
+    "original_env_sha256": "60d6673be800b47e87b28fd6aa82805e57017bf2b6cad112b72aee64ea85e6d1",
+    "detail": "初版composition配置未显式列fixed b和overlap；root已加导入常量fixed_damping_nspm及双门同时启用描述。当前env SHA已复读核验；未改控制公式。",
+    "status": "closed"
+  },
+  "checks": [
+    {
+      "scope": "one original PI / single inheritance",
+      "result": "PASS",
+      "source": "scripts/d1_stop_turn_composition.py:88",
+      "detail": "仅继承TurnYawAuthorityController，未覆盖nominal_targets、未实例化stop或第二controller；compute父调用恰一次，原PI/antiwindup使用authority-selected目标并只推进一次。"
+    },
+    {
+      "scope": "stop latch / preview / reset",
+      "result": "PASS",
+      "source": "scripts/d1_stop_turn_composition.py:145",
+      "detail": "验证零action/raw binding后计算局部latch，非零forward立即关闭、非零到精确零开启、持续零保持；raw yaw不解除stop。preview/bind不推进latch；仅结果/record成功后提交。reset清own字段并父调用一次，连同raw binding/authority/PI清除。"
+    },
+    {
+      "scope": "exact original damping / safety",
+      "result": "PASS",
+      "source": "scripts/d1_stop_turn_composition.py:210",
+      "detail": "原body-x wheel-center leg Jacobian、固定b、循环运算顺序、np.sum(delta*velocity)均与stop模块一致。增量加父unlimited request，再按原额定clip和位置/速度外向抑制顺序保护；inactive保留父result/torque原对象。"
+    },
+    {
+      "scope": "last_authority wheel snapshot",
+      "result": "PASS",
+      "source": "scripts/d1_stop_turn_composition.py:269",
+      "detail": "delta四wheel项精确零，同状态逐轴重复相同保护，父authority wheel request/最终wheel torque仍匹配组合执行；最终leg请求另由last_result/last_damping描述。parent后的失败可能已推进PI/authority但未提交own latch，源码明确fail-stop而非回滚或重试。"
+    },
+    {
+      "scope": "environment construction / identity",
+      "result": "PASS",
+      "source": "scripts/d1_stop_turn_env.py:35",
+      "detail": "首次reset前替换唯一controller；继承callback与cap stream动态读取当前controller。任务配置只读常量，独立task/control schema；固定b、executed-forward latch和overlap已明确，保留plane身份及zero-only父限制。"
+    },
+    {
+      "scope": "terminal streams / cleanup / record phase",
+      "result": "PASS",
+      "source": "scripts/d1_stop_turn_env.py:62",
+      "detail": "Plane先写/关自身流，Authority随后写/关authority流，child再写独立stop流；三个ExitStack分别拥有资源。close中finally继续父链；用step前immutable state计算base-safe和保护后增量功，不混同native保持区间功。记录使用本拍last_damping/last_authority，不使用下一prepare的binding。"
+    },
+    {
+      "scope": "fixed stop and turn score views",
+      "result": "PASS",
+      "source": "scripts/d1_stop_turn_scoring.py:11",
+      "detail": "deepcopy trace rows；stop R0:800/S0:801，turn R600:1400/S600:1401。只平移副本tick/endpoint，保持raw误差/reference/真实时间和termination标志。由原G1数值门槛得到stop原窗口、turn物理endpoint1050..1399、位移S600锚和原ref600到1400差。"
+    },
+    {
+      "scope": "coverage / no invented truncation",
+      "result": "PASS",
+      "source": "scripts/d1_stop_turn_scoring.py:25",
+      "detail": "保留真实last-row truncated和原whole-duration谓词结果，分段仅用完整连续且未terminated的segment_coverage替代complete_duration门槛。global仍要求真实1400完成；最终需要global+stop+turn全部通过。未稀释stop RMSE或改数值门槛。"
+    }
+  ],
+  "independent_secondary_review": "runner_pair_review分别复核env生命周期及scorer，同样GO，无具体阻断。",
+  "root_test_receipt_observed": {
+    "source": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/stop_turn_core_preflight_tests.xml",
+    "sha256": "52b4a9541a62a8b91c9f17c3639f1d19a2102fbc2d27c5ef91605f510075cc72",
+    "counts_read_from_xml": {
+      "tests": 15,
+      "errors": 0,
+      "failures": 0,
+      "skipped": 0
+    },
+    "executed_by_this_reviewer": false,
+    "scope": "root core/env pure test receipt only; scorer/runner tests not claimed"
+  },
+  "remaining_before_execution": [
+    "root完成scorer边界纯测试、batch runner及其来源/预算/全配与prefix/失败归档审查，锁最终preflight；这些不属于已审core/env的缺陷。"
+  ],
+  "input_sha256": {
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_stop_turn_composition.py": "bacdf478c3fa4787e0747f45e3fe6187291949128b93023e1396575f8d7d4749",
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_stop_turn_env.py": "955d9a5e0396777eb000d5e953c0d80725a742c46cf69a72c2652b3af409f8a0",
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_stop_turn_scoring.py": "ef344fc40b6c2b4365a089d21cf68cfb8fdbfce6b7db2d93078acfe80582f062",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/stop_turn_composition_plan_01/fixed_contract.md": "ddb83ed53d30e236fa0293c184d7e842aae1a793f725c849795003c949e7be0c",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/stop_turn_composition_plan_01/opus_core_spec.md": "8f40cc2101b1f22a75e10ac86ee65467a130eea859dfcb15d9a9ebcb9d33ef2b",
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_stop_leg_damping.py": "fcebd5c2dcb1922b55096925c6f8d765926d3add60ea50d9cb6e54cb8edc34d9",
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_turn_yaw_authority.py": "9ce64fdefc779f8e14eb231f5ac27c29a882504207406f1dd9660c773618ea50",
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_heading_turn_yaw_authority.py": "bfc9362c55b8c2946af842c022b523b2a4a99bbb76c30991d85fc13620b72f86",
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_heading_flat_plane.py": "346a4727c28cbd629fbfa93d95d7cc941eba2ca43718f920e27f522535a4f7fa",
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_flat_plane_env.py": "145c58e4201a657b76e1608263d3a4cea57eb1c0f39530fb47faf32b19026a51",
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_heading_g1.py": "a631f443537a7183ca80bbaaca5e2b864b01bd4ac2adf899cb9f26462971cd78",
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/wheel_leg_controller.py": "0c731d366e811a465248cec4b9ce345d6d3c69a8a9c387e314ca6f992ac32156"
+  }
+}

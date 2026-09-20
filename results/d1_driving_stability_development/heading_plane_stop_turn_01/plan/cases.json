@@ -1,0 +1,530 @@
+{
+  "schema": "d1-stop-turn-composition-fixed-cases-v1",
+  "planner": "GPT-6-astra / ultra",
+  "original_protocol_sha256": "cf5dbd51042bfafa163116f4a7fb2a990726d47c5a6000558f28aa6866a664fc",
+  "original_cases": [
+    {
+      "name": "flat_forward_stop",
+      "classification": "development_task_domain_probe",
+      "seed": 55101,
+      "episode_seconds": 8.0,
+      "max_transitions": 800,
+      "terrain": {
+        "layout": "flat",
+        "slope_deg": 0.0,
+        "cross_slope_deg": 0.0,
+        "ripple_amplitude_m": 0.0,
+        "wavelength_x_m": 0.8,
+        "wavelength_y_m": 1.2,
+        "phase_x_rad": 0.0,
+        "phase_y_rad": 0.0,
+        "step_height_m": 0.0,
+        "schema": "d1-fixed-2d-road-v1"
+      },
+      "command": {
+        "forward_target_mps": 0.25,
+        "settle_ticks": 50,
+        "ramp_ticks": 50,
+        "stop_tick": 400,
+        "yaw_pulse": null,
+        "height_m": 0.455
+      },
+      "external_wrench": null,
+      "training_support": "Forward ramp/hold is represented in training; sustained stop after locomotion is not.",
+      "gate_groups": [
+        "all_cases",
+        "stop_cases"
+      ]
+    },
+    {
+      "name": "flat_reverse_stop",
+      "classification": "development_task_domain_probe",
+      "seed": 55101,
+      "episode_seconds": 8.0,
+      "max_transitions": 800,
+      "terrain": {
+        "layout": "flat",
+        "slope_deg": 0.0,
+        "cross_slope_deg": 0.0,
+        "ripple_amplitude_m": 0.0,
+        "wavelength_x_m": 0.8,
+        "wavelength_y_m": 1.2,
+        "phase_x_rad": 0.0,
+        "phase_y_rad": 0.0,
+        "step_height_m": 0.0,
+        "schema": "d1-fixed-2d-road-v1"
+      },
+      "command": {
+        "forward_target_mps": -0.25,
+        "settle_ticks": 50,
+        "ramp_ticks": 50,
+        "stop_tick": 400,
+        "yaw_pulse": null,
+        "height_m": 0.455
+      },
+      "external_wrench": null,
+      "training_support": "Nonzero negative forward command and sustained stopping are outside the training command distribution.",
+      "gate_groups": [
+        "all_cases",
+        "stop_cases"
+      ]
+    },
+    {
+      "name": "stationary_turn_left_hold",
+      "classification": "development_task_domain_probe",
+      "seed": 55101,
+      "episode_seconds": 8.0,
+      "max_transitions": 800,
+      "terrain": {
+        "layout": "flat",
+        "slope_deg": 0.0,
+        "cross_slope_deg": 0.0,
+        "ripple_amplitude_m": 0.0,
+        "wavelength_x_m": 0.8,
+        "wavelength_y_m": 1.2,
+        "phase_x_rad": 0.0,
+        "phase_y_rad": 0.0,
+        "step_height_m": 0.0,
+        "schema": "d1-fixed-2d-road-v1"
+      },
+      "command": {
+        "forward_target_mps": 0.0,
+        "settle_ticks": 50,
+        "ramp_ticks": 50,
+        "stop_tick": null,
+        "yaw_pulse": {
+          "start_tick": 200,
+          "end_tick_exclusive": 250,
+          "user_yaw_rate_rps": 0.6
+        },
+        "height_m": 0.455
+      },
+      "external_wrench": null,
+      "training_support": "Nonzero user yaw and prolonged stationary turning are outside the training command distribution.",
+      "gate_groups": [
+        "all_cases",
+        "turn_cases"
+      ]
+    },
+    {
+      "name": "stationary_turn_right_hold",
+      "classification": "development_task_domain_probe",
+      "seed": 55101,
+      "episode_seconds": 8.0,
+      "max_transitions": 800,
+      "terrain": {
+        "layout": "flat",
+        "slope_deg": 0.0,
+        "cross_slope_deg": 0.0,
+        "ripple_amplitude_m": 0.0,
+        "wavelength_x_m": 0.8,
+        "wavelength_y_m": 1.2,
+        "phase_x_rad": 0.0,
+        "phase_y_rad": 0.0,
+        "step_height_m": 0.0,
+        "schema": "d1-fixed-2d-road-v1"
+      },
+      "command": {
+        "forward_target_mps": 0.0,
+        "settle_ticks": 50,
+        "ramp_ticks": 50,
+        "stop_tick": null,
+        "yaw_pulse": {
+          "start_tick": 200,
+          "end_tick_exclusive": 250,
+          "user_yaw_rate_rps": -0.6
+        },
+        "height_m": 0.455
+      },
+      "external_wrench": null,
+      "training_support": "Nonzero user yaw and prolonged stationary turning are outside the training command distribution.",
+      "gate_groups": [
+        "all_cases",
+        "turn_cases"
+      ]
+    },
+    {
+      "name": "forward_positive_yaw_impulse",
+      "classification": "development_task_domain_probe",
+      "seed": 55101,
+      "episode_seconds": 12.0,
+      "max_transitions": 1200,
+      "terrain": {
+        "layout": "flat",
+        "slope_deg": 0.0,
+        "cross_slope_deg": 0.0,
+        "ripple_amplitude_m": 0.0,
+        "wavelength_x_m": 0.8,
+        "wavelength_y_m": 1.2,
+        "phase_x_rad": 0.0,
+        "phase_y_rad": 0.0,
+        "step_height_m": 0.0,
+        "schema": "d1-fixed-2d-road-v1"
+      },
+      "command": {
+        "forward_target_mps": 0.25,
+        "settle_ticks": 50,
+        "ramp_ticks": 50,
+        "stop_tick": null,
+        "yaw_pulse": null,
+        "height_m": 0.455
+      },
+      "external_wrench": {
+        "start_tick": 600,
+        "end_tick_exclusive": 620,
+        "body": "env.plant.base_body_id",
+        "frame": "world",
+        "force_xyz_n": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "torque_xyz_nm": [
+          0.0,
+          0.0,
+          0.5
+        ]
+      },
+      "training_support": "Physical yaw disturbance is outside training; forward command remains in training range.",
+      "gate_groups": [
+        "all_cases",
+        "forward_and_impulse",
+        "impulse_cases"
+      ]
+    },
+    {
+      "name": "forward_negative_yaw_impulse",
+      "classification": "development_task_domain_probe",
+      "seed": 55101,
+      "episode_seconds": 12.0,
+      "max_transitions": 1200,
+      "terrain": {
+        "layout": "flat",
+        "slope_deg": 0.0,
+        "cross_slope_deg": 0.0,
+        "ripple_amplitude_m": 0.0,
+        "wavelength_x_m": 0.8,
+        "wavelength_y_m": 1.2,
+        "phase_x_rad": 0.0,
+        "phase_y_rad": 0.0,
+        "step_height_m": 0.0,
+        "schema": "d1-fixed-2d-road-v1"
+      },
+      "command": {
+        "forward_target_mps": 0.25,
+        "settle_ticks": 50,
+        "ramp_ticks": 50,
+        "stop_tick": null,
+        "yaw_pulse": null,
+        "height_m": 0.455
+      },
+      "external_wrench": {
+        "start_tick": 600,
+        "end_tick_exclusive": 620,
+        "body": "env.plant.base_body_id",
+        "frame": "world",
+        "force_xyz_n": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "torque_xyz_nm": [
+          0.0,
+          0.0,
+          -0.5
+        ]
+      },
+      "training_support": "Physical yaw disturbance is outside training; forward command remains in training range.",
+      "gate_groups": [
+        "all_cases",
+        "forward_and_impulse",
+        "impulse_cases"
+      ]
+    }
+  ],
+  "handoff_cases": [
+    {
+      "case": {
+        "name": "forward_stop_then_left_turn",
+        "classification": "fixed_stop_turn_composition_handoff_probe",
+        "seed": 55101,
+        "episode_seconds": 14.0,
+        "max_transitions": 1400,
+        "terrain": {
+          "layout": "flat",
+          "slope_deg": 0.0,
+          "cross_slope_deg": 0.0,
+          "ripple_amplitude_m": 0.0,
+          "wavelength_x_m": 0.8,
+          "wavelength_y_m": 1.2,
+          "phase_x_rad": 0.0,
+          "phase_y_rad": 0.0,
+          "step_height_m": 0.0,
+          "schema": "d1-fixed-2d-road-v1"
+        },
+        "command": {
+          "forward_target_mps": 0.25,
+          "settle_ticks": 50,
+          "ramp_ticks": 50,
+          "stop_tick": 400,
+          "yaw_pulse": {
+            "start_tick": 800,
+            "end_tick_exclusive": 850,
+            "user_yaw_rate_rps": 0.6
+          },
+          "height_m": 0.455
+        },
+        "external_wrench": null,
+        "training_support": "Zero residual development handoff; no training or generalization claim.",
+        "gate_groups": [
+          "all_cases"
+        ]
+      },
+      "stop_segment": {
+        "original_case": "flat_forward_stop",
+        "row_slice": [
+          0,
+          800
+        ],
+        "position_slice": [
+          0,
+          801
+        ],
+        "endpoint_shift": 0,
+        "segment_coverage_not_artificial_truncation": true,
+        "late_speed_endpoint_range": [
+          500,
+          800
+        ],
+        "late_path_positions_inclusive": [
+          500,
+          700
+        ]
+      },
+      "turn_segment": {
+        "original_case": "stationary_turn_left_hold",
+        "row_slice": [
+          600,
+          1400
+        ],
+        "position_slice": [
+          600,
+          1401
+        ],
+        "endpoint_shift": -600,
+        "heading_reference_reset": false,
+        "position_origin_state": 600,
+        "late_endpoint_range": [
+          1050,
+          1400
+        ],
+        "final_reference_delta_from_states": [
+          600,
+          1400
+        ]
+      },
+      "prefix": {
+        "baseline_case": "flat_forward_stop",
+        "transition_slice": [
+          0,
+          800
+        ],
+        "state_slice": [
+          0,
+          801
+        ],
+        "observation_slice": [
+          0,
+          800
+        ],
+        "native_entry_slice": [
+          0,
+          4000
+        ],
+        "exclude_horizon_terminal_metadata_at_execution_tick": 799,
+        "exclude_next_prepared_observation_fields_at_execution_tick": 799
+      },
+      "active_execution_ranges": {
+        "stop": [
+          400,
+          1400
+        ],
+        "authority": [
+          800,
+          850
+        ],
+        "both": [
+          800,
+          850
+        ]
+      }
+    },
+    {
+      "case": {
+        "name": "reverse_stop_then_right_turn",
+        "classification": "fixed_stop_turn_composition_handoff_probe",
+        "seed": 55101,
+        "episode_seconds": 14.0,
+        "max_transitions": 1400,
+        "terrain": {
+          "layout": "flat",
+          "slope_deg": 0.0,
+          "cross_slope_deg": 0.0,
+          "ripple_amplitude_m": 0.0,
+          "wavelength_x_m": 0.8,
+          "wavelength_y_m": 1.2,
+          "phase_x_rad": 0.0,
+          "phase_y_rad": 0.0,
+          "step_height_m": 0.0,
+          "schema": "d1-fixed-2d-road-v1"
+        },
+        "command": {
+          "forward_target_mps": -0.25,
+          "settle_ticks": 50,
+          "ramp_ticks": 50,
+          "stop_tick": 400,
+          "yaw_pulse": {
+            "start_tick": 800,
+            "end_tick_exclusive": 850,
+            "user_yaw_rate_rps": -0.6
+          },
+          "height_m": 0.455
+        },
+        "external_wrench": null,
+        "training_support": "Zero residual development handoff; no training or generalization claim.",
+        "gate_groups": [
+          "all_cases"
+        ]
+      },
+      "stop_segment": {
+        "original_case": "flat_reverse_stop",
+        "row_slice": [
+          0,
+          800
+        ],
+        "position_slice": [
+          0,
+          801
+        ],
+        "endpoint_shift": 0,
+        "segment_coverage_not_artificial_truncation": true,
+        "late_speed_endpoint_range": [
+          500,
+          800
+        ],
+        "late_path_positions_inclusive": [
+          500,
+          700
+        ]
+      },
+      "turn_segment": {
+        "original_case": "stationary_turn_right_hold",
+        "row_slice": [
+          600,
+          1400
+        ],
+        "position_slice": [
+          600,
+          1401
+        ],
+        "endpoint_shift": -600,
+        "heading_reference_reset": false,
+        "position_origin_state": 600,
+        "late_endpoint_range": [
+          1050,
+          1400
+        ],
+        "final_reference_delta_from_states": [
+          600,
+          1400
+        ]
+      },
+      "prefix": {
+        "baseline_case": "flat_reverse_stop",
+        "transition_slice": [
+          0,
+          800
+        ],
+        "state_slice": [
+          0,
+          801
+        ],
+        "observation_slice": [
+          0,
+          800
+        ],
+        "native_entry_slice": [
+          0,
+          4000
+        ],
+        "exclude_horizon_terminal_metadata_at_execution_tick": 799,
+        "exclude_next_prepared_observation_fields_at_execution_tick": 799
+      },
+      "active_execution_ranges": {
+        "stop": [
+          400,
+          1400
+        ],
+        "authority": [
+          800,
+          850
+        ],
+        "both": [
+          800,
+          850
+        ]
+      }
+    }
+  ],
+  "original_numeric_thresholds": {
+    "all_cases": {
+      "complete_duration": true,
+      "nonwheel_contact_steps_max": 0,
+      "max_abs_actual_roll_pitch_rad": 0.17453292519943295,
+      "height_rmse_m_max": 0.015,
+      "heading_peak_rad_max": 0.08726646259971647,
+      "no_boundary_or_fall": true
+    },
+    "forward_and_impulse": {
+      "velocity_rmse_mps_max": 0.05,
+      "heading_rmse_rad_max": 0.05235987755982989,
+      "cross_track_peak_m_max": 0.15,
+      "cross_track_final_abs_m_max": 0.1
+    },
+    "stop_cases": {
+      "release_tick": 400,
+      "speed_window_start_tick": 500,
+      "speed_window_end_tick_exclusive": 800,
+      "max_abs_body_vx_late_mps": 0.03,
+      "stationary_path_window_start_tick": 500,
+      "stationary_path_window_end_tick_exclusive": 700,
+      "cumulative_planar_path_after_first_second_m_max": 0.05,
+      "heading_rmse_rad_max": 0.05235987755982989,
+      "velocity_rmse_mps_max": 0.05
+    },
+    "turn_cases": {
+      "expected_final_reference_delta_rad": 0.3,
+      "sign": "positive left; negative right",
+      "hold_settling_window_start_tick": 450,
+      "hold_window_end_tick_exclusive": 800,
+      "max_abs_heading_error_after_settle_rad": 0.05235987755982989,
+      "max_abs_body_vx_after_settle_mps": 0.03,
+      "planar_origin_displacement_peak_m_max": 0.1
+    },
+    "impulse_cases": {
+      "recovery_window_start_tick": 820,
+      "recovery_window_end_tick_exclusive": 1200,
+      "max_abs_heading_error_after_recovery_rad": 0.05235987755982989
+    }
+  },
+  "control_dt_s": 0.01,
+  "native_dt_s": 0.002,
+  "native_substeps_per_control": 5,
+  "maximum_new_control_intervals": 8400,
+  "maximum_new_native_substeps": 42000,
+  "new_episodes": 8,
+  "unique_stored_baseline_control_intervals_reused": 5600,
+  "additional_handoff_prefix_comparisons_not_new_baseline_physics": 1600,
+  "new_training_steps": 0,
+  "preparation_physics_steps": 0
+}

@@ -1,0 +1,347 @@
+{
+  "case": "reverse_stop_then_right_turn",
+  "global": {
+    "gates": {
+      "checks": {
+        "actual_roll_pitch": true,
+        "complete_duration": true,
+        "heading_peak": true,
+        "height_rmse": true,
+        "no_boundary_or_fall": true,
+        "no_nonwheel_contact": true
+      },
+      "failed": [],
+      "passed": true
+    },
+    "metrics": {
+      "actions": {
+        "box_boundary_occupancy_by_channel": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_by_channel": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean_by_channel": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "min_by_channel": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "near_boundary_0p98_occupancy_by_channel": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "actual_seconds": 14.000000000001345,
+      "actual_transitions": 1400,
+      "completed_duration": true,
+      "cross_track_final_m": 0.013023997826891977,
+      "cross_track_peak_m": 0.02393099688555505,
+      "cross_track_rmse_m": 0.011312808377404811,
+      "final_reference_delta_rad": -0.30000000000000004,
+      "heading_peak_rad": 0.0534638491020564,
+      "heading_return": -0.1482956093751569,
+      "heading_rmse_rad": 0.013314828685733712,
+      "height_rmse_m": 0.005777688320361342,
+      "max_abs_actual_roll_pitch_rad": 0.030194563442455215,
+      "max_abs_ground_relative_roll_pitch_rad": 0.030194563442455254,
+      "nonwheel_contact_steps": 0,
+      "planar_origin_displacement_peak_m": 0.8375844418848656,
+      "reward_terms_return": {
+        "action_change": 0.0,
+        "attitude": -0.008087307257970541,
+        "heading_goal": -0.1482956093751569,
+        "height": -0.18693742103256492,
+        "mechanical_power": -0.008731750520192864,
+        "termination": 0.0,
+        "tracking_velocity": 13.667643391928763,
+        "tracking_yaw": 13.511192746275125
+      },
+      "servo_return": 26.975079659393128,
+      "task_return": 26.826784050017984,
+      "terminal_reason": "time_limit",
+      "user_yaw_rate_rmse_rps": 0.037989759585960146,
+      "velocity_rmse_mps": 0.034096474544280816
+    }
+  },
+  "interpretation": "Original raw reference and numerical gates; stop coverage is not an invented horizon truncation.",
+  "passed": true,
+  "schema": "d1-stop-turn-fixed-handoff-scores-v1",
+  "stop_segment": {
+    "actual_last_row_truncated": false,
+    "gates": {
+      "checks": {
+        "actual_roll_pitch": true,
+        "heading_peak": true,
+        "heading_rmse": true,
+        "height_rmse": true,
+        "late_stop_planar_path": true,
+        "late_stop_speed": true,
+        "no_boundary_or_fall": true,
+        "no_nonwheel_contact": true,
+        "segment_coverage": true,
+        "velocity_rmse": true
+      },
+      "failed": [],
+      "passed": true
+    },
+    "local_tick_shift": 0,
+    "metrics": {
+      "actions": {
+        "box_boundary_occupancy_by_channel": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_by_channel": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean_by_channel": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "min_by_channel": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "near_boundary_0p98_occupancy_by_channel": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "actual_seconds": 7.999999999999341,
+      "actual_transitions": 800,
+      "cross_track_final_m": 7.073023560008288e-06,
+      "cross_track_peak_m": 1.554849080879937e-05,
+      "cross_track_rmse_m": 8.158281903584418e-06,
+      "final_reference_delta_rad": 0.0,
+      "heading_peak_rad": 4.7256527853054977e-05,
+      "heading_return": -7.626398200344312e-08,
+      "heading_rmse_rad": 1.2049724917436418e-05,
+      "height_rmse_m": 0.0055191644596885615,
+      "late_stop_cumulative_planar_path_m": 0.0027358573665768326,
+      "late_stop_max_abs_body_vx_mps": 0.006336345563997865,
+      "max_abs_actual_roll_pitch_rad": 0.023373404643403088,
+      "max_abs_ground_relative_roll_pitch_rad": 0.023373404643403088,
+      "nonwheel_contact_steps": 0,
+      "planar_origin_displacement_peak_m": 0.8375844418848656,
+      "reward_terms_return": {
+        "action_change": 0.0,
+        "attitude": -0.0006669731199212336,
+        "heading_goal": -7.626398200344312e-08,
+        "height": -0.09747576426587741,
+        "mechanical_power": -0.0035795445045288046,
+        "termination": 0.0,
+        "tracking_velocity": 7.672434019805651,
+        "tracking_yaw": 7.99999899755555
+      },
+      "servo_return": 15.570710735470866,
+      "stop_motion": {
+        "max_backward_excursion_m": 0.0,
+        "max_reverse_world_speed_mps": 0.07098390266487513,
+        "net_world_x_m": -0.012734498494697988,
+        "observed_transitions": 400,
+        "peak_forward_excursion_m": 0.03808442763919562,
+        "peak_retreat_from_prior_peak_m": 0.028167500571608883,
+        "total_backward_travel_m": 0.028167500571608883
+      },
+      "task_return": 15.57071065920689,
+      "terminal_reason": null,
+      "user_yaw_rate_rmse_rps": 4.843556553248452e-05,
+      "velocity_rmse_mps": 0.04483773054210779
+    },
+    "original_case": "flat_reverse_stop",
+    "original_duration_predicate_on_view": false,
+    "physical_position_slice": [
+      0,
+      801
+    ],
+    "physical_row_slice": [
+      0,
+      800
+    ],
+    "reference_reset": false,
+    "segment_coverage": true
+  },
+  "turn_segment": {
+    "actual_last_row_truncated": true,
+    "gates": {
+      "checks": {
+        "actual_roll_pitch": true,
+        "heading_peak": true,
+        "height_rmse": true,
+        "no_boundary_or_fall": true,
+        "no_nonwheel_contact": true,
+        "segment_coverage": true,
+        "turn_late_heading": true,
+        "turn_late_speed": true,
+        "turn_planar_displacement": true,
+        "turn_reference": true
+      },
+      "failed": [],
+      "passed": true
+    },
+    "local_tick_shift": -600,
+    "metrics": {
+      "actions": {
+        "box_boundary_occupancy_by_channel": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_by_channel": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mean_by_channel": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "min_by_channel": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "near_boundary_0p98_occupancy_by_channel": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "actual_seconds": 8.000000000001783,
+      "actual_transitions": 800,
+      "cross_track_final_m": 0.013023997826891977,
+      "cross_track_peak_m": 0.02393099688555505,
+      "cross_track_rmse_m": 0.014965436971166427,
+      "final_reference_delta_rad": -0.30000000000000004,
+      "heading_peak_rad": 0.0534638491020564,
+      "heading_return": -0.14829553426920244,
+      "heading_rmse_rad": 0.01761385866688829,
+      "height_rmse_m": 0.006113462810937013,
+      "max_abs_actual_roll_pitch_rad": 0.030194563442455215,
+      "max_abs_ground_relative_roll_pitch_rad": 0.030194563442455254,
+      "nonwheel_contact_steps": 0,
+      "planar_origin_displacement_peak_m": 0.02700951026991272,
+      "reward_terms_return": {
+        "action_change": 0.0,
+        "attitude": -0.007420465941470644,
+        "heading_goal": -0.14829553426920244,
+        "height": -0.11959816813029822,
+        "mechanical_power": -0.005162647681065058,
+        "termination": 0.0,
+        "tracking_velocity": 7.9952089419029555,
+        "tracking_yaw": 7.511193747356587
+      },
+      "servo_return": 15.374221407506695,
+      "task_return": 15.225925873237484,
+      "terminal_reason": "time_limit",
+      "turn_late_max_abs_body_vx_mps": 0.0013405221354778445,
+      "turn_late_max_abs_heading_error_rad": 0.008122792504859477,
+      "user_yaw_rate_rmse_rps": 0.05025570477672103,
+      "velocity_rmse_mps": 0.004906814602540588
+    },
+    "original_case": "stationary_turn_right_hold",
+    "original_duration_predicate_on_view": true,
+    "physical_position_slice": [
+      600,
+      1401
+    ],
+    "physical_row_slice": [
+      600,
+      1400
+    ],
+    "reference_reset": false,
+    "segment_coverage": true
+  }
+}
