@@ -1,0 +1,125 @@
+{
+  "schema": "d1-jump-ppo-independent-evaluation-v1",
+  "frozen_date": "2026-09-20",
+  "task_schema": "d1-native-plane-residual-hop-task-v1",
+  "observation_schema": "d1-jump-oracle-task95-v1",
+  "reward_schema": "d1-hop-clearance-events-heading-rate-v1",
+  "control_dt_s": 0.01,
+  "native_dt_s": 0.002,
+  "substeps_per_control": 5,
+  "episode_max_controls": 600,
+  "conditions": [
+    "zero",
+    "final_policy_131072"
+  ],
+  "case_order": "listed_cases_then_listed_conditions",
+  "max_new_controls": 6000,
+  "max_new_native_substeps": 30000,
+  "cases": [
+    {
+      "name": "no_jump_hold",
+      "seed": 77101,
+      "request_tick": null,
+      "net_clearance_m": 0.0,
+      "friction_scale": 1.0
+    },
+    {
+      "name": "jump_late_a",
+      "seed": 77102,
+      "request_tick": 175,
+      "net_clearance_m": 0.02,
+      "friction_scale": 1.0
+    },
+    {
+      "name": "jump_late_b",
+      "seed": 77103,
+      "request_tick": 225,
+      "net_clearance_m": 0.02,
+      "friction_scale": 1.0
+    },
+    {
+      "name": "jump_lower_friction",
+      "seed": 77104,
+      "request_tick": 175,
+      "net_clearance_m": 0.02,
+      "friction_scale": 0.95
+    },
+    {
+      "name": "jump_higher_friction",
+      "seed": 77105,
+      "request_tick": 225,
+      "net_clearance_m": 0.02,
+      "friction_scale": 1.05
+    }
+  ],
+  "raw_forward_mps": 0.0,
+  "raw_yaw_rps": 0.0,
+  "held_height_m": 0.455,
+  "geometry_dependency": {
+    "repo_path": "scripts/d1_jump_readiness.py",
+    "original_path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/opus_jump_readiness_01/original_module.py",
+    "original_sha256": "54296d2e59029163ddb48f594f0dbf402deeae9ab4587627bc9f8aec7c0eedb1",
+    "binding_api": "bind_wheel_plane_geometry",
+    "sample_api": "sample_wheel_clearance",
+    "schedule_api": "fixed_height_command",
+    "net_gap_definition": "max(0, simultaneous_minimum_gap_m - contact_margin_m)"
+  },
+  "gates": {
+    "completed_controls": 600,
+    "nonwheel_contact_allowed": false,
+    "fall_or_domain_exit_allowed": false,
+    "heading_peak_rad": 0.08726646259971647,
+    "roll_or_pitch_peak_rad": 0.17453292519943295,
+    "planar_displacement_peak_m": 0.1,
+    "jump_native_consecutive_unloaded_intervals_min": 10,
+    "jump_sampled_airtime_min_s": 0.02,
+    "airtime_definition": "Actual contiguous native intervals: zero active wheel contacts and zero wheel normal load, with synchronized wheel geometry above compiled contact margin. No unsampled continuous-time claim.",
+    "positive_whole_robot_com_vz_at_unloaded_run_onset_required": true,
+    "jump_simultaneous_net_clearance_min_m": 0.02,
+    "jump_clearance_window": "request_tick <= executed_tick < request_tick + 120; only measured unloaded flight",
+    "landing_before_endpoint_tick": 400,
+    "landing_definition": "After certified flight, all four wheels regain positive actual native normal load before endpoint 400; late-window occupancy is separately required.",
+    "late_endpoint_start_inclusive": 400,
+    "late_endpoint_stop_exclusive": 600,
+    "late_held_height_rmse_max_m": 0.015,
+    "late_abs_body_forward_velocity_max_mps": 0.03,
+    "late_abs_whole_robot_com_vertical_velocity_max_mps": 0.03,
+    "late_path_state_start_inclusive": 400,
+    "late_path_state_stop_inclusive": 600,
+    "late_planar_path_max_m": 0.05,
+    "load_occupancy_final_native_intervals": 1000,
+    "per_wheel_positive_normal_load_fraction_min": 0.95,
+    "hold_forbid_certified_flight_from_executed_tick": 200,
+    "actual_rated_torque_exceedance_allowed": false,
+    "protection_activation_alone_is_failure": false
+  },
+  "comparison": {
+    "same_case_initial_qpos_qvel_obs95": "byte_equal",
+    "later_trajectory_pairing": "Actual completed durations and common valid prefixes only; no padding or forced equality after policy divergence.",
+    "reference": "Original raw command and raw heading reference; never shaped reward or phase count."
+  },
+  "termination": "Stop case on first original task termination; no padding/reset/retry. Integrity or numerical failure may stop remaining matrix.",
+  "selection": "Only final formal checkpoint at 131072; no intermediate evaluation or holdout-driven choice. All five final-policy cases must pass applicable gates.",
+  "archive": {
+    "transitions": "T",
+    "states_observations": "T+1",
+    "actual_native_entries": "5T plus honest partial receipt",
+    "record_native_returned_qpos_qvel": true,
+    "native_force_phase": "native_step_solved_cache_not_synchronized_endpoint",
+    "force_velocity_energy_mixing_allowed": false
+  },
+  "training_separation": {
+    "formal_policy_seed": 62001,
+    "formal_episode_seed_base": 620010000,
+    "smoke_policy_seed": 62999,
+    "smoke_episode_seed_base": 629990000,
+    "training_request_ticks": [
+      150,
+      200,
+      250
+    ],
+    "training_friction_scale": 1.0,
+    "evaluation_during_training": false
+  },
+  "claims": "One fresh training seed and five deterministic oracle conditions do not establish hardware or cross-training-seed robustness."
+}

@@ -1,0 +1,40 @@
+{
+  "schema": "d1-jump-ppo-env-root-integration-review-v1",
+  "verdict": "Original integrated snapshot: NO-GO until the two progress-credit defects below are repaired and pure boundary tests pass. No additional env integration blocker found.",
+  "reviewed_task_sha256": "c8727ade2ab6460579ed1506d106e9db31f446e70e3e37c69185a0160054b8c1",
+  "current_sha256_at_receipt": {
+    "d1_jump_ppo_env.py": "0037ddc29e4591befa72f820b4dbe8f35435b44d2a9cd3974b9c16e806335c4d",
+    "d1_jump_ppo_task.py": "522bc151862b48149294773b79f1123855ffd262ee2b1ddd66f099abbd1d5c9d"
+  },
+  "findings": [
+    {
+      "file": "scripts/d1_jump_ppo_task.py",
+      "lines": "915-945",
+      "issue": "Pre-request unloaded count/upward flag/run maximum carry into request-time certification, allowing pre-request clearance to earn progress.",
+      "pure_reproducer": "s=200,h=.020; ticks 0..198 loaded; 199 unloaded with g=.025, COMvz=.1; 200 unloaded with g=.003, COMvz=-.1. Original source certifies at 200 and credits earlier net gap .024, setting p=1 despite no post-request 20 ms qualified run.",
+      "minimal_fix": "Keep award-eligible run state confined to the request bonus window; pre-request count, onset and gap maximum must not qualify or be credited."
+    },
+    {
+      "file": "scripts/d1_jump_ppo_task.py",
+      "lines": "927-954",
+      "issue": "After flight_seen becomes true, a loaded break does not revoke clearance-credit eligibility. One later unloaded interval can fill p even with downward COM motion.",
+      "pure_reproducer": "s=200,h=.020; ticks 0..199 loaded; 200/201 unloaded with g=.006, COMvz=.1 gives p=.25; 202 loaded; 203 unloaded with g=.031, COMvz=-.1. Original source immediately sets p=1 from the single unqualified rebound interval.",
+      "minimal_fix": "Separate historical flight_seen from the currently certified credit-bearing run. A loaded break ends that run; do not grant repeat/rebound clearance credit under this fixed contract."
+    }
+  ],
+  "checked_paths": {
+    "native_contact_fields": "env:365-389 reads the actual D1MeasuredContactWrench active_sample_fraction_by_wheel, wheel_force_world_n and physics_sample_count; task metrics require exactly five samples. Instance plant.step wrapper delegates once with measure_contact_wrench=True.",
+    "whole_com": "env:343-362 mass-weights synchronized measurement_data.xipos and uses mj_jacSubtreeCom on that same synchronized data/qvel, after checking whole robot is the base subtree. No base-origin substitution or historical force solve found.",
+    "terminal_actor_state": "env:480-504 uses before_context+progress_before for last_executable_decision and next context+progress_after otherwise; endpoint reward metrics remain distinct from cached actor state.",
+    "friction_reset": "env:415-419 sets fixed per-episode friction range; parent _configure_dynamics calls plant.set_domain, which restores nominal geom_friction then multiplies the requested scale. No compounding or rejected .95/1.05 override found.",
+    "reward_limits": "Named progress/flight/landing weights remain 2/1/2 with actual-dt parent terms and fixed height mask. The two credit defects can nevertheless satisfy landing full_progress incorrectly; numerical bonus bounds alone do not prevent this."
+  },
+  "validation_scope": {
+    "physical_steps": 0,
+    "controller_compute_calls": 0,
+    "reset_calls_by_reviewer": 0,
+    "source_files_modified": [],
+    "pure_attempt": "Guarded Python check stopped during import: ROS PYTHONPATH resolved scripts to an unrelated ROS package. No environment constructed or pure sequence run. Reproducer results above are source-derived, not measured test output.",
+    "root_status": "Root supplied fixed .local-deps:src:. invocation, reported three-friction reset/18 pure tests passing with zero integration, and is repairing both findings. This review does not independently certify the later patch; root owns final tests and smoke."
+  }
+}

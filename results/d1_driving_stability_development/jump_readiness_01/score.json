@@ -1,0 +1,185 @@
+{
+  "episodes": {
+    "stationary_height_hold": {
+      "execution_detail": {
+        "checks": {
+          "completed_control_intervals": true,
+          "endpoint_count": true,
+          "endpoint_tick_sequence": true,
+          "finite_state": true,
+          "global_heading_error": true,
+          "global_planar_displacement": true,
+          "global_roll_pitch": true,
+          "native_contact_fields_valid": true,
+          "native_endpoints_per_control_interval": true,
+          "native_interval_count": true,
+          "native_time_continuous": true,
+          "no_domain_exit": true,
+          "no_fall": true,
+          "no_nonwheel_contact": true,
+          "no_unknown_wrench": true,
+          "plane_normals_valid": true,
+          "position_within_envelope": true,
+          "protections_intact": true,
+          "rated_torque_within_envelope": true,
+          "single_reset": true,
+          "velocity_within_envelope": true
+        },
+        "passed": true,
+        "protection_occupancy": null,
+        "reasons": []
+      },
+      "execution_valid": true,
+      "readiness_passed": true,
+      "screens": {
+        "airborne_required": {
+          "detail": {
+            "note": "hold requires no flight"
+          },
+          "passed": true
+        },
+        "late_settled": {
+          "detail": {
+            "checks": {
+              "body_vx": true,
+              "com_vz": true,
+              "height_rmse": true,
+              "per_wheel_positive_load": true,
+              "planar_path": true
+            },
+            "height_rmse_m": 0.005832364060004128,
+            "max_abs_body_vx_mps": 2.1257657563692675e-05,
+            "max_abs_com_vz_mps": 0.00016387352749190422,
+            "per_wheel_positive_load_fraction": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "planar_path_m": 2.8266189145373385e-05,
+            "rmse_reference": "per-tick raw held height command, never a constant 0.455 m"
+          },
+          "passed": true
+        }
+      }
+    },
+    "stationary_height_profile": {
+      "execution_detail": {
+        "checks": {
+          "completed_control_intervals": true,
+          "endpoint_count": true,
+          "endpoint_tick_sequence": true,
+          "finite_state": true,
+          "global_heading_error": true,
+          "global_planar_displacement": true,
+          "global_roll_pitch": true,
+          "native_contact_fields_valid": true,
+          "native_endpoints_per_control_interval": true,
+          "native_interval_count": true,
+          "native_time_continuous": true,
+          "no_domain_exit": true,
+          "no_fall": true,
+          "no_nonwheel_contact": true,
+          "no_unknown_wrench": true,
+          "plane_normals_valid": true,
+          "position_within_envelope": true,
+          "protections_intact": true,
+          "rated_torque_within_envelope": true,
+          "single_reset": true,
+          "velocity_within_envelope": true
+        },
+        "passed": true,
+        "protection_occupancy": null,
+        "reasons": []
+      },
+      "execution_valid": true,
+      "readiness_passed": false,
+      "screens": {
+        "late_settled": {
+          "detail": {
+            "checks": {
+              "body_vx": true,
+              "com_vz": true,
+              "height_rmse": true,
+              "per_wheel_positive_load": true,
+              "planar_path": true
+            },
+            "height_rmse_m": 0.014849006016663845,
+            "max_abs_body_vx_mps": 0.028575326950838607,
+            "max_abs_com_vz_mps": 0.0031960114627294714,
+            "per_wheel_positive_load_fraction": [
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ],
+            "planar_path_m": 0.014726577459958114,
+            "rmse_reference": "per-tick raw held height command, never a constant 0.455 m"
+          },
+          "passed": true
+        },
+        "loaded_return": {
+          "detail": {
+            "first_return": null,
+            "reason": "no qualifying airborne run to return from"
+          },
+          "passed": false
+        },
+        "physical_lift": {
+          "detail": {
+            "com_vz_at_run_start_mps": null,
+            "evidence": "sampled recorded native intervals and returned endpoints; not a continuous-time flight proof",
+            "qualifying_run": null,
+            "reason": "no run of >=10 contiguous unloaded intervals spanning >=0.020 s",
+            "runs": [
+              {
+                "end_index_exclusive": 1209,
+                "end_time_s": 2.4179999999999553,
+                "first_index": 1203,
+                "intervals": 6,
+                "start_time_s": 2.4059999999999566,
+                "summed_interval_duration_s": 0.011999999999998678
+              }
+            ]
+          },
+          "passed": false
+        },
+        "useful_clearance": {
+          "detail": {
+            "at_native_index": 1206,
+            "at_native_time_s": 2.4139999999999557,
+            "contact_margin_m": 0.001,
+            "control_endpoint_peak": {
+              "at_tick": 241,
+              "max_simultaneous_minimum_gap_m": 0.001393581784381731,
+              "per_wheel_peak_gap_m": [
+                0.03641486844356856,
+                0.036401983175484084,
+                0.001395009630204308,
+                0.001393581784381731
+              ],
+              "sampling": "10 ms control endpoints; diagnostic only, never the scored gate"
+            },
+            "max_simultaneous_minimum_gap_m": 0.0014913875377961794,
+            "per_wheel_peak_gap_m": [
+              0.03645898967955355,
+              0.03644683287834308,
+              0.0014944025090619928,
+              0.0014913875377961794
+            ],
+            "per_wheel_peaks_note": "individual peaks are reported only; they never replace the simultaneous minimum",
+            "scored_native_endpoints": 2000,
+            "scored_sampling": "all actual 2 ms native returned endpoints at or after the request; a requested phase never certifies clearance",
+            "threshold_m": 0.021,
+            "threshold_note": "0.020 m first course hurdle + compiled margin"
+          },
+          "passed": false
+        }
+      }
+    }
+  },
+  "execution_valid": true,
+  "naming": "new height-profile readiness screens; not an old G1 pass/fail",
+  "readiness_passed": false,
+  "schema": "d1-height-profile-hop-readiness-score-v1"
+}

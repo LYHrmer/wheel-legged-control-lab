@@ -1,0 +1,347 @@
+--- actual_Opus_original
++++ root_integration
+@@ -25,8 +25,9 @@
+ import hashlib
+ import json
+ import math
++from collections.abc import Callable, Sequence
+ from contextlib import AbstractContextManager
+-from typing import Any, Callable, Dict, List, Sequence
++from typing import Any
+ 
+ import numpy as np
+ 
+@@ -120,7 +121,7 @@
+     return None
+ 
+ 
+-def _nonneg_counts(values: Any) -> List[int] | None:
++def _nonneg_counts(values: Any) -> list[int] | None:
+     """Four exact non-negative contact counts, or ``None`` when malformed."""
+     if not isinstance(values, (list, tuple)) or len(values) != 4:
+         return None
+@@ -130,11 +131,11 @@
+     return [int(c) for c in counts]
+ 
+ 
+-def _nonneg_loads(values: Any) -> List[float] | None:
++def _nonneg_loads(values: Any) -> list[float] | None:
+     """Four finite non-negative actual normal loads, or ``None`` when malformed."""
+     if not isinstance(values, (list, tuple)) or len(values) != 4:
+         return None
+-    loads: List[float] = []
++    loads: list[float] = []
+     for value in values:
+         if isinstance(value, (bool, np.bool_)) or not _finite(value):
+             return None
+@@ -171,7 +172,7 @@
+         self.contact_reader = contact_reader
+         self.plant = plant
+         self.attribute = attribute
+-        self.entries: List[Dict[str, Any]] = []
++        self.entries: list[dict[str, Any]] = []
+         self.attempted_calls = 0
+         self.returned_calls = 0
+         self.foreign_calls = 0
+@@ -180,7 +181,7 @@
+         self._original: Any = None
+         self._captured = False
+ 
+-    def __enter__(self) -> "NativeStepObserver":
++    def __enter__(self):
+         self._original = getattr(self.module, self.attribute)
+         self._captured = True
+         try:
+@@ -203,7 +204,7 @@
+     def original_step(self) -> Any:
+         return self._original
+ 
+-    def _warm_snapshot(self) -> Dict[str, Any]:
++    def _warm_snapshot(self) -> dict[str, Any]:
+         return {
+             "qpos": _copy(self.data.qpos),
+             "qvel": _copy(self.data.qvel),
+@@ -216,13 +217,14 @@
+             self.foreign_calls += 1
+             return self._original(model, data, *args, **kwargs)
+ 
+-        entry: Dict[str, Any] = {
++        entry: dict[str, Any] = {
+             "index": len(self.entries),
+             "start_time_s": float(data.time),
+             "qpos_before": _copy(data.qpos),
+             "qvel_before": _copy(data.qvel),
+             "ctrl_nm": _copy(data.ctrl),
+             "xfrc_applied": _copy(getattr(data, "xfrc_applied", ())),
++            "qfrc_applied": _copy(getattr(data, "qfrc_applied", ())),
+             "contact_sample_tag": NATIVE_CACHE_TAG,
+             "returned": False,
+             "error": None,
+@@ -260,7 +262,7 @@
+             entry["contacts"] = sample
+         return result
+ 
+-    def receipt(self) -> Dict[str, Any]:
++    def receipt(self) -> dict[str, Any]:
+         return {
+             "schema": READINESS_RECORDS_SCHEMA,
+             "attempted_native_calls": int(self.attempted_calls),
+@@ -274,7 +276,7 @@
+ 
+ 
+ def per_wheel_contact_detail(model: Any, data: Any, binding: Any, *,
+-                             force_reader: Callable[..., Any]) -> Dict[str, Any]:
++                             force_reader: Callable[..., Any]) -> dict[str, Any]:
+     """Read-only per-wheel geometric/active contact counts and normal loads.
+ 
+     ``force_reader(model, data, index, buffer)`` must fill an existing solved
+@@ -288,7 +290,7 @@
+     geometric = [0, 0, 0, 0]
+     active = [0, 0, 0, 0]
+     load = [0.0, 0.0, 0.0, 0.0]
+-    invalid: List[Dict[str, Any]] = []
++    invalid: list[dict[str, Any]] = []
+     nonwheel = 0
+     ncon = int(data.ncon)
+     buffer = np.zeros(6, dtype=np.float64)
+@@ -363,7 +365,7 @@
+     return (weights @ stacked) / total
+ 
+ 
+-def subtree_body_ids(body_parentid: Sequence[int], root_body_id: int) -> List[int]:
++def subtree_body_ids(body_parentid: Sequence[int], root_body_id: int) -> list[int]:
+     """Real robot bodies of the base subtree, in compiled order."""
+     parents = [int(p) for p in body_parentid]
+     root = int(root_body_id)
+@@ -413,7 +415,7 @@
+         self.reconstructions = 0
+ 
+     def reconstruct(self, qpos: Any, qvel: Any, *, label: str,
+-                    time_s: float | None = None) -> Dict[str, Any]:
++                    time_s: float | None = None) -> dict[str, Any]:
+         position = _copy(qpos)
+         velocity = _copy(qvel)
+         data = self.scratch
+@@ -449,7 +451,7 @@
+             "qvel": velocity,
+         }
+ 
+-    def receipt(self) -> Dict[str, Any]:
++    def receipt(self) -> dict[str, Any]:
+         return {
+             "schema": READINESS_RECORDS_SCHEMA,
+             "tag": SCRATCH_GEOMETRY_TAG,
+@@ -468,17 +470,17 @@
+ # ---------------------------------------------------------------------------
+ 
+ 
+-def _endpoints(episode: Dict[str, Any]) -> List[Dict[str, Any]]:
++def _endpoints(episode: dict[str, Any]) -> list[dict[str, Any]]:
+     value = episode.get("endpoints")
+     return list(value) if isinstance(value, list) else []
+ 
+ 
+-def _intervals(episode: Dict[str, Any]) -> List[Dict[str, Any]]:
++def _intervals(episode: dict[str, Any]) -> list[dict[str, Any]]:
+     value = episode.get("intervals")
+     return list(value) if isinstance(value, list) else []
+ 
+ 
+-def _native_record_timeline(intervals: List[Dict[str, Any]]) -> tuple[bool, str]:
++def _native_record_timeline(intervals: list[dict[str, Any]]) -> tuple[bool, str]:
+     """Strict native record identity, clock and horizon validation.
+ 
+     Rejects a missing, duplicated or out-of-order native index, a call that did
+@@ -528,7 +530,7 @@
+     return True, ""
+ 
+ 
+-def _native_contact_fields(intervals: List[Dict[str, Any]]) -> tuple[bool, str]:
++def _native_contact_fields(intervals: list[dict[str, Any]]) -> tuple[bool, str]:
+     """Four-wheel contact/load field validation of every native record.
+ 
+     Actual normal load must be finite and non-negative; a record flagged
+@@ -558,7 +560,7 @@
+     return True, ""
+ 
+ 
+-def _endpoint_tick_sequence(endpoints: List[Dict[str, Any]]) -> tuple[bool, str]:
++def _endpoint_tick_sequence(endpoints: list[dict[str, Any]]) -> tuple[bool, str]:
+     """Unique, ordered endpoint ticks 0..600 with an agreeing control clock."""
+     if len(endpoints) != ENDPOINT_COUNT:
+         return False, f"expected {ENDPOINT_COUNT} endpoint records, got {len(endpoints)}"
+@@ -570,18 +572,19 @@
+             return False, (f"endpoint tick {endpoint.get('tick')!r} at position {slot} is "
+                            "missing, duplicated or out of order")
+         time_s = endpoint.get("time_s")
+-        if time_s is not None:
+-            if not _finite(time_s) or abs(float(time_s) - slot * CONTROL_DT_S) > _ABS_TIME_TOL_S:
+-                return False, f"endpoint {slot} time_s disagrees with the fixed control clock"
++        if time_s is not None and (
++            not _finite(time_s) or abs(float(time_s) - slot * CONTROL_DT_S) > _ABS_TIME_TOL_S
++        ):
++            return False, f"endpoint {slot} time_s disagrees with the fixed control clock"
+     return True, ""
+ 
+ 
+-def _execution_valid(episode: Dict[str, Any]) -> Dict[str, Any]:
++def _execution_valid(episode: dict[str, Any]) -> dict[str, Any]:
+     flags = dict(episode.get("execution") or {})
+     endpoints = _endpoints(episode)
+     intervals = _intervals(episode)
+     completed = _exact_int(episode.get("completed_control_intervals"))
+-    checks: Dict[str, Any] = {
++    checks: dict[str, Any] = {
+         "completed_control_intervals": completed == CONTROL_INTERVALS,
+         "native_interval_count": len(intervals) == NATIVE_INTERVALS,
+         "endpoint_count": len(endpoints) == ENDPOINT_COUNT,
+@@ -601,7 +604,7 @@
+         "velocity_within_envelope": flags.get("velocity_envelope_exceeded") is False,
+     }
+ 
+-    reasons: List[str] = []
++    reasons: list[str] = []
+     timeline_ok, timeline_reason = _native_record_timeline(intervals)
+     contacts_ok, contacts_reason = _native_contact_fields(intervals)
+     ticks_ok, ticks_reason = _endpoint_tick_sequence(endpoints)
+@@ -639,7 +642,7 @@
+     }
+ 
+ 
+-def _lift_mask(intervals: List[Dict[str, Any]]) -> np.ndarray:
++def _lift_mask(intervals: list[dict[str, Any]]) -> np.ndarray:
+     mask = np.zeros(len(intervals), dtype=bool)
+     for slot, interval in enumerate(intervals):
+         if slot < REQUEST_NATIVE_INDEX:
+@@ -666,9 +669,9 @@
+     return mask
+ 
+ 
+-def _physical_lift(episode: Dict[str, Any]) -> Dict[str, Any]:
++def _physical_lift(episode: dict[str, Any]) -> dict[str, Any]:
+     intervals = _intervals(episode)
+-    detail: Dict[str, Any] = {
++    detail: dict[str, Any] = {
+         "evidence": "sampled recorded native intervals and returned endpoints; "
+                     "not a continuous-time flight proof",
+         "qualifying_run": None,
+@@ -706,21 +709,21 @@
+     return {"detail": detail, "passed": False}
+ 
+ 
+-def _control_endpoint_clearance(endpoints: List[Dict[str, Any]]) -> Dict[str, Any]:
++def _control_endpoint_clearance(endpoints: list[dict[str, Any]]) -> dict[str, Any]:
+     """Separate 10 ms control-endpoint clearance diagnostic.
+ 
+     This is reported alongside the scored 2 ms native sampling and never decides
+     the gate: a peak that falls between two control endpoints must not fail the
+     screen, and a control endpoint must not stand in for a native measurement.
+     """
+-    detail: Dict[str, Any] = {
++    detail: dict[str, Any] = {
+         "sampling": "10 ms control endpoints; diagnostic only, never the scored gate",
+     }
+     if len(endpoints) != ENDPOINT_COUNT:
+         return {"detail": detail, "malformed": True, "reason": "missing control endpoints"}
+     best: float | None = None
+     best_tick: int | None = None
+-    per_wheel_peaks: List[float | None] = [None, None, None, None]
++    per_wheel_peaks: list[float | None] = [None, None, None, None]
+     for endpoint in endpoints:
+         tick = _exact_int(endpoint.get("tick"))
+         if tick is None or tick < REQUEST_TICK:
+@@ -748,7 +751,7 @@
+     return {"detail": detail, "malformed": False, "reason": ""}
+ 
+ 
+-def _useful_clearance(episode: Dict[str, Any]) -> Dict[str, Any]:
++def _useful_clearance(episode: dict[str, Any]) -> dict[str, Any]:
+     """Score the useful clearance screen on actual native returned endpoints.
+ 
+     Every recorded 2 ms native returned endpoint from the request onwards is
+@@ -760,7 +763,7 @@
+     instead of scoring a convenient subset.
+     """
+     intervals = _intervals(episode)
+-    detail: Dict[str, Any] = {
++    detail: dict[str, Any] = {
+         "threshold_note": "0.020 m first course hurdle + compiled margin",
+         "scored_sampling": "all actual 2 ms native returned endpoints at or after the "
+                            "request; a requested phase never certifies clearance",
+@@ -778,7 +781,7 @@
+     best_index: int | None = None
+     best_time: float | None = None
+     margin: float | None = None
+-    per_wheel_peaks: List[float | None] = [None, None, None, None]
++    per_wheel_peaks: list[float | None] = [None, None, None, None]
+     scored = 0
+     for slot in range(REQUEST_NATIVE_INDEX, NATIVE_INTERVALS):
+         interval = intervals[slot]
+@@ -822,10 +825,10 @@
+     return {"detail": detail, "passed": bool(best > threshold)}
+ 
+ 
+-def _late_settled(episode: Dict[str, Any]) -> Dict[str, Any]:
++def _late_settled(episode: dict[str, Any]) -> dict[str, Any]:
+     endpoints = _endpoints(episode)
+     intervals = _intervals(episode)
+-    detail: Dict[str, Any] = {}
++    detail: dict[str, Any] = {}
+     if len(endpoints) != ENDPOINT_COUNT or len(intervals) != NATIVE_INTERVALS:
+         detail["reason"] = "missing endpoints or native intervals"
+         return {"detail": detail, "passed": False}
+@@ -836,7 +839,7 @@
+     if len(window) != LATE_LAST_ENDPOINT - LATE_FIRST_ENDPOINT:
+         detail["reason"] = "late endpoint window is incomplete"
+         return {"detail": detail, "passed": False}
+-    errors: List[float] = []
++    errors: list[float] = []
+     vx_max = 0.0
+     vz_max = 0.0
+     for endpoint in window:
+@@ -905,9 +908,9 @@
+     return {"detail": detail, "passed": all(checks.values())}
+ 
+ 
+-def _loaded_return(episode: Dict[str, Any], lift: Dict[str, Any]) -> Dict[str, Any]:
++def _loaded_return(episode: dict[str, Any], lift: dict[str, Any]) -> dict[str, Any]:
+     intervals = _intervals(episode)
+-    detail: Dict[str, Any] = {"first_return": None}
++    detail: dict[str, Any] = {"first_return": None}
+     run = lift["detail"].get("qualifying_run")
+     if not lift["passed"] or not run:
+         detail["reason"] = "no qualifying airborne run to return from"
+@@ -941,14 +944,14 @@
+     return {"detail": detail, "passed": False}
+ 
+ 
+-def score_readiness(payload: Dict[str, Any]) -> Dict[str, Any]:
++def score_readiness(payload: dict[str, Any]) -> dict[str, Any]:
+     """Pure readiness score of stored records; inputs are never mutated.
+ 
+     No environment, model, plant or reconstruction is touched, and no missing
+     sample is treated as a zero that could pass a gate.
+     """
+     episodes = dict((payload or {}).get("episodes") or {})
+-    result: Dict[str, Any] = {
++    result: dict[str, Any] = {
+         "schema": READINESS_SCORE_SCHEMA,
+         "naming": "new height-profile readiness screens; not an old G1 pass/fail",
+         "episodes": {},
+@@ -967,7 +970,7 @@
+             continue
+         execution = _execution_valid(episode)
+         late = _late_settled(episode)
+-        screens: Dict[str, Any] = {"late_settled": late}
++        screens: dict[str, Any] = {"late_settled": late}
+         if name == "stationary_height_profile":
+             lift = _physical_lift(episode)
+             clearance = _useful_clearance(episode)
+@@ -996,6 +999,6 @@
+     return result
+ 
+ 
+-def score_digest(score: Dict[str, Any]) -> str:
++def score_digest(score: dict[str, Any]) -> str:
+     return hashlib.sha256(
+         json.dumps(score, sort_keys=True, default=str).encode()).hexdigest()

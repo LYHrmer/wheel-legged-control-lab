@@ -1,0 +1,128 @@
+{
+  "schema": "d1-pd-height-profile-hop-readiness-planning-v1",
+  "status": "proposed_after_complete_stop_turn_composition_gate",
+  "planner": "GPT-6-astra / ultra",
+  "plant": "unchanged accepted native flat plane, synchronized oracle",
+  "controller": "accepted StopTurnCompositionController exact identity must be added at root preflight",
+  "seed": 55101,
+  "control_dt_s": 0.01,
+  "native_dt_s": 0.002,
+  "raw_forward_mps": 0.0,
+  "raw_yaw_rps": 0.0,
+  "residual_action": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "conditions": [
+    {
+      "name": "stationary_height_hold",
+      "max_control_intervals": 600,
+      "schedule": [
+        {
+          "execution_tick_start": 0,
+          "execution_tick_end_exclusive": 600,
+          "clearance_m": 0.455,
+          "label": "hold"
+        }
+      ]
+    },
+    {
+      "name": "stationary_height_profile",
+      "max_control_intervals": 600,
+      "schedule": [
+        {
+          "execution_tick_start": 0,
+          "execution_tick_end_exclusive": 200,
+          "clearance_m": 0.455,
+          "label": "settle"
+        },
+        {
+          "execution_tick_start": 200,
+          "execution_tick_end_exclusive": 225,
+          "clearance_m": 0.405,
+          "label": "crouch_request"
+        },
+        {
+          "execution_tick_start": 225,
+          "execution_tick_end_exclusive": 240,
+          "clearance_m": 0.5,
+          "label": "extension_request"
+        },
+        {
+          "execution_tick_start": 240,
+          "execution_tick_end_exclusive": 275,
+          "clearance_m": 0.455,
+          "label": "return_request"
+        },
+        {
+          "execution_tick_start": 275,
+          "execution_tick_end_exclusive": 320,
+          "clearance_m": 0.435,
+          "label": "lower_request"
+        },
+        {
+          "execution_tick_start": 320,
+          "execution_tick_end_exclusive": 600,
+          "clearance_m": 0.455,
+          "label": "hold"
+        }
+      ]
+    }
+  ],
+  "maximum_new_control_intervals": 1200,
+  "maximum_new_native_substeps": 6000,
+  "new_training_steps": 0,
+  "new_force_feedforward": false,
+  "new_controller_formula": false,
+  "new_gui": false,
+  "paired_prefix": {
+    "execution_slice": [
+      0,
+      200
+    ],
+    "state_slice": [
+      0,
+      201
+    ],
+    "observation_slice": [
+      0,
+      200
+    ],
+    "native_slice": [
+      0,
+      1000
+    ]
+  },
+  "prepared_terminal_tick": 600,
+  "prepared_terminal_clearance_m": 0.455,
+  "readiness_screens": {
+    "physical_lift_min_consecutive_native_intervals": 10,
+    "physical_lift_min_nominal_interval_span_s": 0.02,
+    "peak_simultaneous_wheel_gap_threshold": "first original hurdle height .020 m + compiled effective wheel/plane contact margin",
+    "first_hurdle_height_m": 0.02,
+    "late_endpoint_range": [
+      400,
+      600
+    ],
+    "late_path_positions_inclusive": [
+      400,
+      600
+    ],
+    "late_height_rmse_m_max": 0.015,
+    "late_abs_body_vx_mps_max": 0.03,
+    "late_abs_com_vz_mps_max": 0.03,
+    "late_planar_path_m_max": 0.05,
+    "late_native_intervals": 1000,
+    "per_wheel_positive_load_fraction_min": 0.95,
+    "global_abs_roll_pitch_rad_max": 0.17453292519943295,
+    "global_abs_heading_error_rad_max": 0.08726646259971647,
+    "global_planar_displacement_m_max": 0.1
+  },
+  "executed_by_planner": false
+}

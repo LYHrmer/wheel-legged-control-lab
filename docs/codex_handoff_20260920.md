@@ -127,3 +127,11 @@ readiness env/records/runner及RL task/env已有实际Opus初稿，尚未取得�
 6. R仍是明确标注的simulator reset；物理翻倒自救没有实现。
 
 物理探针都在不同新目录中执行一次，不能重跑入口覆盖已有目录。输出函数多用exclusive-create，额外日志关闭后的 `complete_manifest.json` 才是完整leaf清单。源文件或记录身份错误必须停止并保留实际已进入的native步，不reset重试或悄悄补跑。
+
+## 续进：新高度探针完成，PPO 执行准备中
+
+[完整新高度探针](../results/d1_driving_stability_development/jump_readiness_01/README.md)一次完成1200/6000，记录/共同前缀/保护/冻结77均通过。恒高与高度动作后段均落稳；高度动作只有12 ms卸载，四轮同时最小raw gap峰值1.4913875 mm（扣margin净空0.4913875 mm），没有达到20 ms和>21 mm原readiness门槛。前轮个别36 mm峰值不能替代同时净空。该失败是有效RL零动作对照，不阻断新训练，也不追加经典调参。
+
+实际Opus初稿已由root接好原生plane、同步接触、wholeCOM、95观测和严格checkpoint接口。发现并修复请求前飞行追认及落地反弹增p两个reward漏洞，保留原稿、错误测试、修改diff和261项非积分测试XML。后三个大代码请求和一个小纯评分请求均超时且无代码；root直接完成必要集成，不能声称Claude完成了这些请求。
+
+至此累计新物理 **40000控制/200000 native**；PPO640 smoke、131072正式及最多6000评估尚未运行。当前训练入口准备中；完整目标仍未完成，R仍仅复位。

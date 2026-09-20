@@ -1,0 +1,363 @@
+{
+  "schema": "legacy-jump-file-only-audit-v1",
+  "passed": true,
+  "checks": {
+    "original_clearance_peak_exact": true,
+    "original_base_origin_rise_exact": true,
+    "original_peak_time_exact": true,
+    "all_times_match_saved_endpoints": true,
+    "no_saved_nonwheel_contact": true
+  },
+  "new_physics_steps": 0,
+  "new_model_or_controller_calls": 0,
+  "new_contact_solves": 0,
+  "input_sha256": {
+    "/home/lyh/wheel-legged-control-lab/results/d1_driving_stability_development/jump_baseline/trace.json.gz": "efa689e46db039c6f7e7546321463f01fee4999609cc8d91fe481a3ae26bd2e6",
+    "/home/lyh/wheel-legged-control-lab/results/d1_driving_stability_development/jump_baseline/summary.json": "89c95a38711458d72df3b1a8fc14a79654997d8225b593746631343072075b3d",
+    "/home/lyh/wheel-legged-control-lab/results/d1_driving_stability_development/jump_baseline/protocol.json": "0e1aebcf5a36633ed74dfc5ccbf2cf78f0f44feb3e70712427099af7853bafd3",
+    "/home/lyh/wheel-legged-control-lab/results/d1_driving_stability_development/jump_baseline/jump_probe.py": "f1100456d34d20bb547505992fc2c8403539463af968be05506c590be0045bc3"
+  },
+  "decompressed_trace_sha256": "5f977a2096d89e75f2ac5381f7c1cc69231136cd7065e5047346606db3da2154",
+  "saved_control_intervals": 600,
+  "peak_simultaneous_clearance": {
+    "row": 243,
+    "endpoint_tick": 244,
+    "time_s": 2.439999999999953,
+    "phase": "flight",
+    "base_origin_height_m": 0.5256740767779405,
+    "base_origin_rise_from_precommand_m": 0.06072840896977921,
+    "base_origin_vertical_speed_mps": -0.04917521124363203,
+    "simultaneous_min_wheel_bottom_m": 0.005609603011612507,
+    "wheel_bottoms_m": [
+      0.011017647697642546,
+      0.011004646198487358,
+      0.00561343481304491,
+      0.005609603011612507
+    ],
+    "requested_vertical_feedforward_n": 0.0,
+    "allocated_support_request_sum_n": 0.0,
+    "actual_quaternion_roll_pitch_rad": [
+      -5.693269675951112e-05,
+      -0.04024500896340364
+    ],
+    "legacy_logged_roll_pitch_rad": [
+      -5.9566737839228346e-05,
+      -0.04010430538789623
+    ],
+    "peak_abs_requested_torque_nm": 8.540341150147297
+  },
+  "peak_base_origin_height": {
+    "row": 242,
+    "endpoint_tick": 243,
+    "time_s": 2.429999999999954,
+    "phase": "flight",
+    "base_origin_height_m": 0.5258076018637547,
+    "base_origin_rise_from_precommand_m": 0.060861934055593425,
+    "base_origin_vertical_speed_mps": 0.04036020758100619,
+    "simultaneous_min_wheel_bottom_m": 0.004830360024312433,
+    "wheel_bottoms_m": [
+      0.009095957388391168,
+      0.009103975632738279,
+      0.004830360024312433,
+      0.004831460336271201
+    ],
+    "requested_vertical_feedforward_n": 0.0,
+    "allocated_support_request_sum_n": 0.0,
+    "actual_quaternion_roll_pitch_rad": [
+      -7.210556871443954e-05,
+      -0.039087171521725125
+    ],
+    "legacy_logged_roll_pitch_rad": [
+      -7.574627183222396e-05,
+      -0.03871919180668639
+    ],
+    "peak_abs_requested_torque_nm": 10.119711003786627
+  },
+  "precommand_state": {
+    "row": 199,
+    "endpoint_tick": 200,
+    "time_s": 2.0000000000000013,
+    "phase": "ready",
+    "base_origin_height_m": 0.4649456678081613,
+    "base_origin_rise_from_precommand_m": 0.0,
+    "base_origin_vertical_speed_mps": -0.005221753270623783,
+    "simultaneous_min_wheel_bottom_m": 0.00040354342159804046,
+    "wheel_bottoms_m": [
+      0.00040354342159804046,
+      0.0004040669825914889,
+      0.0005017956112077504,
+      0.0005023394583152513
+    ],
+    "requested_vertical_feedforward_n": 0.0,
+    "allocated_support_request_sum_n": 463.27572687259675,
+    "actual_quaternion_roll_pitch_rad": [
+      -9.038645320657968e-05,
+      0.005486256127365598
+    ],
+    "legacy_logged_roll_pitch_rad": [
+      -9.045816041249776e-05,
+      0.005387725987297413
+    ],
+    "peak_abs_requested_torque_nm": 18.735436699714132
+  },
+  "phase_summaries": [
+    {
+      "phase": "ready",
+      "count": 480,
+      "runs": [
+        {
+          "first_row": 0,
+          "last_row": 199,
+          "first_endpoint_tick": 1,
+          "last_endpoint_tick": 200,
+          "first_time_s": 0.01,
+          "last_time_s": 2.0000000000000013,
+          "sample_count": 200,
+          "endpoint_span_s": 1.9900000000000013,
+          "nominal_sample_bin_duration_s": 2.0
+        },
+        {
+          "first_row": 320,
+          "last_row": 599,
+          "first_endpoint_tick": 321,
+          "last_endpoint_tick": 600,
+          "first_time_s": 3.209999999999868,
+          "last_time_s": 5.999999999999561,
+          "sample_count": 280,
+          "endpoint_span_s": 2.789999999999693,
+          "nominal_sample_bin_duration_s": 2.8000000000000003
+        }
+      ],
+      "max_min_wheel_bottom_m": 0.0005879826009860395,
+      "min_min_wheel_bottom_m": -0.002298623200604144,
+      "peak_base_origin_height_m": 0.486756692682119,
+      "allocated_support_request_sum_range_n": [
+        0.0,
+        472.14843533044154
+      ]
+    },
+    {
+      "phase": "crouch",
+      "count": 25,
+      "runs": [
+        {
+          "first_row": 200,
+          "last_row": 224,
+          "first_endpoint_tick": 201,
+          "last_endpoint_tick": 225,
+          "first_time_s": 2.0100000000000002,
+          "last_time_s": 2.249999999999974,
+          "sample_count": 25,
+          "endpoint_span_s": 0.23999999999997357,
+          "nominal_sample_bin_duration_s": 0.25
+        }
+      ],
+      "max_min_wheel_bottom_m": 0.0005188400261795095,
+      "min_min_wheel_bottom_m": 0.00034379145418324264,
+      "peak_base_origin_height_m": 0.46467213597882334,
+      "allocated_support_request_sum_range_n": [
+        339.35425364611103,
+        378.8096991841347
+      ]
+    },
+    {
+      "phase": "thrust",
+      "count": 15,
+      "runs": [
+        {
+          "first_row": 225,
+          "last_row": 239,
+          "first_endpoint_tick": 226,
+          "last_endpoint_tick": 240,
+          "first_time_s": 2.2599999999999727,
+          "last_time_s": 2.3999999999999573,
+          "sample_count": 15,
+          "endpoint_span_s": 0.13999999999998458,
+          "nominal_sample_bin_duration_s": 0.15
+        }
+      ],
+      "max_min_wheel_bottom_m": 0.0008960877729917438,
+      "min_min_wheel_bottom_m": 0.00024868714237459566,
+      "peak_base_origin_height_m": 0.5196831284045732,
+      "allocated_support_request_sum_range_n": [
+        406.14067343569195,
+        973.8601038938135
+      ]
+    },
+    {
+      "phase": "flight",
+      "count": 35,
+      "runs": [
+        {
+          "first_row": 240,
+          "last_row": 274,
+          "first_endpoint_tick": 241,
+          "last_endpoint_tick": 275,
+          "first_time_s": 2.409999999999956,
+          "last_time_s": 2.7499999999999187,
+          "sample_count": 35,
+          "endpoint_span_s": 0.33999999999996255,
+          "nominal_sample_bin_duration_s": 0.35000000000000003
+        }
+      ],
+      "max_min_wheel_bottom_m": 0.005609603011612507,
+      "min_min_wheel_bottom_m": -0.003068359634203696,
+      "peak_base_origin_height_m": 0.5258076018637547,
+      "allocated_support_request_sum_range_n": [
+        0.0,
+        514.0909356667614
+      ]
+    },
+    {
+      "phase": "landing",
+      "count": 45,
+      "runs": [
+        {
+          "first_row": 275,
+          "last_row": 319,
+          "first_endpoint_tick": 276,
+          "last_endpoint_tick": 320,
+          "first_time_s": 2.7599999999999176,
+          "last_time_s": 3.199999999999869,
+          "sample_count": 45,
+          "endpoint_span_s": 0.43999999999995154,
+          "nominal_sample_bin_duration_s": 0.45
+        }
+      ],
+      "max_min_wheel_bottom_m": 0.0005725700165389175,
+      "min_min_wheel_bottom_m": 0.00010636896131772933,
+      "peak_base_origin_height_m": 0.4934152173707957,
+      "allocated_support_request_sum_range_n": [
+        455.16425665289097,
+        492.50040739455676
+      ]
+    }
+  ],
+  "geometry_threshold_runs_m": {
+    "0.0": [
+      {
+        "first_row": 8,
+        "last_row": 246,
+        "first_endpoint_tick": 9,
+        "last_endpoint_tick": 247,
+        "first_time_s": 0.09000000000000007,
+        "last_time_s": 2.4699999999999496,
+        "sample_count": 239,
+        "endpoint_span_s": 2.3799999999999497,
+        "nominal_sample_bin_duration_s": 2.39
+      },
+      {
+        "first_row": 258,
+        "last_row": 599,
+        "first_endpoint_tick": 259,
+        "last_endpoint_tick": 600,
+        "first_time_s": 2.5899999999999364,
+        "last_time_s": 5.999999999999561,
+        "sample_count": 342,
+        "endpoint_span_s": 3.409999999999625,
+        "nominal_sample_bin_duration_s": 3.42
+      }
+    ],
+    "0.001": [
+      {
+        "first_row": 240,
+        "last_row": 246,
+        "first_endpoint_tick": 241,
+        "last_endpoint_tick": 247,
+        "first_time_s": 2.409999999999956,
+        "last_time_s": 2.4699999999999496,
+        "sample_count": 7,
+        "endpoint_span_s": 0.05999999999999339,
+        "nominal_sample_bin_duration_s": 0.07
+      }
+    ],
+    "0.002": [
+      {
+        "first_row": 241,
+        "last_row": 246,
+        "first_endpoint_tick": 242,
+        "last_endpoint_tick": 247,
+        "first_time_s": 2.419999999999955,
+        "last_time_s": 2.4699999999999496,
+        "sample_count": 6,
+        "endpoint_span_s": 0.04999999999999449,
+        "nominal_sample_bin_duration_s": 0.06
+      }
+    ],
+    "0.005": [
+      {
+        "first_row": 243,
+        "last_row": 244,
+        "first_endpoint_tick": 244,
+        "last_endpoint_tick": 245,
+        "first_time_s": 2.439999999999953,
+        "last_time_s": 2.4499999999999518,
+        "sample_count": 2,
+        "endpoint_span_s": 0.009999999999998899,
+        "nominal_sample_bin_duration_s": 0.02
+      }
+    ],
+    "0.015": [],
+    "0.02": []
+  },
+  "threshold_run_interpretation": "Runs describe 10 ms sampled endpoint geometry only. Neither sample-bin duration nor endpoint span proves uninterrupted no-load flight between samples. Contacts/native normal forces were not saved.",
+  "rated_torque_counts_by_joint": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "peak_abs_leg_requested_torque_nm": 47.11481208591867,
+  "peak_abs_wheel_requested_torque_nm": 4.238308842008507,
+  "final_second_base_origin_height_range_m": [
+    0.4800500054672315,
+    0.48207434736337296
+  ],
+  "final_second_peak_abs_base_vertical_speed_mps": 0.03514972779712742,
+  "last_state": {
+    "row": 599,
+    "endpoint_tick": 600,
+    "time_s": 5.999999999999561,
+    "phase": "ready",
+    "base_origin_height_m": 0.4807084458291971,
+    "base_origin_rise_from_precommand_m": 0.01576277802103576,
+    "base_origin_vertical_speed_mps": -0.0340965907060647,
+    "simultaneous_min_wheel_bottom_m": 0.00028388329690738623,
+    "wheel_bottoms_m": [
+      0.00028388329690738623,
+      0.0003412344834406722,
+      0.000413331352658558,
+      0.00047787550230425635
+    ],
+    "requested_vertical_feedforward_n": 0.0,
+    "allocated_support_request_sum_n": 453.0887474664894,
+    "actual_quaternion_roll_pitch_rad": [
+      -0.00048213838296753205,
+      0.002829782425610187
+    ],
+    "legacy_logged_roll_pitch_rad": [
+      -0.0005070217499534458,
+      0.0029985317763297006
+    ],
+    "peak_abs_requested_torque_nm": 17.92478625143485
+  },
+  "evidence_boundaries": [
+    "base_origin_rise is qpos[2], not whole-robot COM ballistic rise",
+    "upward_support_n is an allocated controller request, not measured contact load",
+    "phase flight and completed schedule are not measured takeoff/landing",
+    "saved geometry on a native plane establishes sampled clearance, not traversal of a box",
+    "no torque split, native per-substep contact loads, or requested-vs-actual actuator receipt exists in this legacy trace"
+  ]
+}

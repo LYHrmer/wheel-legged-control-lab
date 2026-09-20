@@ -1,0 +1,73 @@
+--- actual_Opus_original
++++ root_integration
+@@ -729,6 +729,7 @@
+     run_maximum_net_gap_m: float
+     certified_run_maximum_net_gap_m: float
+     completed_intervals: int
++    credited_run_active: bool = False
+ 
+     def as_dict(self) -> dict[str, Any]:
+         """JSON-ready copy of the snapshot."""
+@@ -743,6 +744,7 @@
+             "run_maximum_net_gap_m": float(self.run_maximum_net_gap_m),
+             "certified_run_maximum_net_gap_m": float(self.certified_run_maximum_net_gap_m),
+             "completed_intervals": int(self.completed_intervals),
++            "credited_run_active": bool(self.credited_run_active),
+         }
+ 
+ 
+@@ -813,6 +815,7 @@
+         "_certified_run_maximum_net_gap_m",
+         "_completed_intervals",
+         "_consecutive_unloaded_intervals",
++        "_credited_run_active",
+         "_flight_seen",
+         "_progress",
+         "_run_maximum_net_gap_m",
+@@ -834,6 +837,7 @@
+         self._run_maximum_net_gap_m = 0.0
+         self._certified_run_maximum_net_gap_m = 0.0
+         self._completed_intervals = 0
++        self._credited_run_active = False
+ 
+     @property
+     def progress(self) -> float:
+@@ -869,6 +873,7 @@
+             run_maximum_net_gap_m=float(self._run_maximum_net_gap_m),
+             certified_run_maximum_net_gap_m=float(self._certified_run_maximum_net_gap_m),
+             completed_intervals=int(self._completed_intervals),
++            credited_run_active=bool(self._credited_run_active),
+         )
+ 
+     def advance(
+@@ -912,7 +917,7 @@
+         in_window = validated.in_bonus_window(tick)
+ 
+         run_onset = False
+-        if unloaded:
++        if unloaded and in_window:
+             if self._consecutive_unloaded_intervals == 0:
+                 # A prospective run may only be certified when it began while the
+                 # whole-robot COM was actually rising.
+@@ -924,6 +929,7 @@
+             self._consecutive_unloaded_intervals += 1
+             self._unloaded_native_samples += NATIVE_SAMPLES_PER_CONTROL_INTERVAL
+         else:
++            self._credited_run_active = False
+             self._consecutive_unloaded_intervals = 0
+             self._run_maximum_net_gap_m = 0.0
+             self._run_upward_onset = False
+@@ -940,11 +946,12 @@
+         credited = 0.0
+         if newly_certified:
+             self._flight_seen = True
++            self._credited_run_active = True
+             # Deterministic accounting of the just-certified run: the maximum net
+             # gap actually observed inside that two-interval run is credited once.
+             self._certified_run_maximum_net_gap_m = float(self._run_maximum_net_gap_m)
+             credited = float(self._run_maximum_net_gap_m)
+-        elif unloaded and in_window and self._flight_seen:
++        elif unloaded and in_window and self._credited_run_active:
+             credited = net_gap
+ 
+         if credited > 0.0 and not validated.is_hold:
