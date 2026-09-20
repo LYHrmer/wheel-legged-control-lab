@@ -1,0 +1,20 @@
+# Root adoption: fixed pure-turn leg damping, one physical comparison
+
+User-authorized routine development/validation is sufficient for this independent simulator probe. Root has read the Astra ultra fixed method/helper and actual Opus core, integrated the runner, completed nonintegrating tests, and reviewed the independent source assessment. No further approval step is introduced.
+
+The sole candidate is `TurnLegDampingController`: during raw forward==0 and raw yaw!=0 only, add fixed `-126.4374005337902 * J_bodyx.T * (J_bodyx qdot_leg)` to the original unlimited leg request and apply the original protections. No latch; stop at raw pulse end. Original wheel targets, PI, yaw cap, plant, command, residual zero8 and G1 revision2 gates remain fixed. No center compensation or post-stop damper is combined.
+
+Evidence before physics:
+- 209 fixed original/stress poses passed independent model/kinematic/source checks; report SHA256 `8608beba3c424c6e28f92412631f9256ccefdea837c114e65d0a23bbd84997a3`.
+- Baseline longitudinal leg u-squared was approximately 99.786% yaw differential. Maximum shadow added torque was 4.191 Nm; combined requests below 27.89% of rated limits; no protection activated. Free-inertia damping dt-lambda was 1.0652 (simple old+new 1.4615), a risk screen only. Nominal projected yaw damping ratio .224→.745 is not an identified closed-loop mode.
+- Frozen-leg ideal yaw requires lateral contact speed ~.114 m/s. The representative movable-leg solution has bounded speed (<5.8% rated), but full contact patches retain ~.0094 m/s residual and require wheel rates differing from the original targets. This supports an exploratory probe with real contact logs; it does not establish all-contact no-slip or reliable turning.
+- 26 nonintegrating unit/composition tests passed. Root independently compared 104 saved-state calls with the model-derived delta and original wheel loop: delta error <=1.78e-15 Nm, protected-request error <=3.56e-15 Nm, original wheel request difference exactly zero. Those calls restart old PI memory and do not form a new trajectory.
+- Actual Opus call `opus_turn_damper_01` returned provider model `claude-opus-5`, receipt $0.3976225. Integrated core is byte-identical to its original source (SHA `6b424515153c5732081ccb0735ae1c191667d34e7fda888740dabb5e26ecdeef`). Root owns runner/tests. Independent Astra review finds no execution blocker.
+
+Fixed new budget: original left/right stationary-turn cases and original forward/reverse stop cases, each once at 800 control intervals, total **3200 control intervals / 16000 native substeps**. Reuse all four `flat_plane_02` baselines, never rerun them. New output is `plane_turn_damping_01`; exclusive create; no retries/padding if a batch or identity check fails. Preserve actual native entry receipts, partial steps and all failure files.
+
+Turn active intervals must be exactly 200..249. Execution prefix 0..199, physical states AND observations 0..200, actions/PI/torques/raw/servo and all 1000 native entries must match baseline bitwise. The torque-only candidate preserves preview200, unlike the failed target-correction candidate. Both no-op stop trajectories must match all 800 intervals/801 states/observations/native entries and all original summary fields except model, including their three original failed gates.
+
+Score only original raw user reference and original 5-degree heading peak and other gates. Keep task gate failure separate from valid execution. Record native contact force phase and synchronized endpoint velocity separately. Sampled algebraic/protected incremental power is not held-interval work or a stability proof. A failed turn is retained without parameter retuning, latch extension, target/cap changes or scoring changes.
+
+Interpretation requires actual pulse body yaw, differential leg motion, side/drive contact moments and actual slip. A model-derived damper may reduce leg motion and still fail the task. Passing only this finite set would lead to a separate stop/turn composition contract; it would not complete turning robustness, GUI driving, jumps, obstacles, speed or physical self-righting.

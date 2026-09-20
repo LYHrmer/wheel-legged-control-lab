@@ -1,0 +1,810 @@
+Implement one bounded Python module for a diagnostic controller. Return only a fenced Python code block; do not claim tests or physical validation. Target scripts/d1_turn_leg_damping.py. Keep the implementation concise (roughly 250 lines); no environment, runner, tests, file/network/model/plant access.
+
+Only candidate: fixed raw-turn-gated longitudinal leg damping. Base is the supplied frozen D1WheelLegController. Neither center wheel-speed compensation nor stop latch is active. Do not inherit either candidate controller. Import STOP_LEG_DAMPING_NSPM from scripts.d1_stop_leg_damping solely as the exact fixed coefficient (126.4374005337902); no selectable gain or yaw cap.
+
+Public API:
+- TURN_LEG_DAMPING_SCHEMA = "d1-raw-turn-leg-longitudinal-damping-v1".
+- TurnLegDampingController(D1WheelLegController), keyword enabled: bool=True and original controller kwargs. Disabled keeps parent schema. Enabled selects new schema. Readonly enabled and damping_nspm properties.
+- bind_raw_command(*,forward_velocity_mps,yaw_rate_rps,control_time_s) creates immutable finite scalar binding (reject bool/non-real/nonfinite); readonly raw_binding. Binding raw fields use those exact names. It is NOT a mode latch.
+- Gate exactly enabled && raw.forward_velocity_mps == 0.0 && raw.yaw_rate_rps != 0.0 (both signed zeros treated normally). Raw yaw zero remains inactive even if heading servo yaw nonzero. No tick/case, thresholds, filter, history, latch, tuning.
+- Enabled nominal_targets/compute require bound current raw command; abs(binding.control_time_s - state.control_time_s)<=1e-10 and command.forward_velocity_mps == binding.forward_velocity_mps. Servo yaw may differ. Validate before parent compute mutates PI. Disabled mode works unbound.
+- nominal_targets remains pure and returns the original parent targets OBJECT, with no change, in every mode. Never compute compensation or mutate record/PI during preview.
+- compute accepts only a finite real numeric exact-zero shape(8,) action, reject bool/complex/string/nonzero before any PI update. Calls super().compute exactly ONCE and leaves original target, wheel PI update/antiwindup and all support/attitude terms untouched.
+- Active: body_x_world = state.base_rotation[:,0]. For leg i use jx = body_x_world @ state.foot_jacobian[i,:,:3], u_i=jx @ state.joint_velocity[4*i:4*i+3], delta[4*i:4*i+3] = -b*jx*u_i. Wheel delta indices(3,7,11,15) EXACT positive zero. This is body-x (including tilt), NOT horizontal-heading projection.
+- Add delta to parent UNLIMITED requested_torque_nm, then original rated torque clip and original outward position/speed suppression in original order. No wheel request or PI rewrite. Update last_result by dataclasses.replace, folding delta into leg_pd_nm and replacing requested_torque_nm, torque_nm, torque_limited. The request=leg_pd+support+wheel identity remains true. Return copy of safe torque.
+- Inactive/disabled: return EXACT parent torque object and preserve last_result object unchanged; delta/u/power exact zeros. Raw binding and record still present if bound.
+- Immutable last_damping execution record (readonly byte-backed NumPy arrays, length4 or16), frozen dataclass named TurnLegDampingRecord. Include schema/enabled/active, control_time_s, raw_forward_mps, raw_yaw_rate_rps, servo_forward_mps, servo_yaw_rate_rps, damping_nspm, leg_relative_forward_mps, delta_torque_nm, base_leg_pd_nm, base_requested_torque_nm,total_requested_torque_nm,safe_torque_nm,joint_power_w. If disabled/unbound record time from state and raw values from servo, active false. Record raw/time describes compute binding, never next preview. joint_power_w = delta @ state.joint_velocity unmodified; do not clamp its sign. Document it is sampled-instant algebra, NOT integrated work/discrete passivity/global stability.
+- reset clears binding, record and parent memory. Following compute, binding/preparing next command must not change last_damping.
+- Validation failure before parent leaves memory/record unchanged. Diagnostic errors after parent may leave PI updated; explicitly document no retry on the same physical state. No rollback or second parent call.
+
+State fields are supplied immutable D1StateEstimate: body_rotation is body-to-world, foot_jacobian shape(4,3,4) world translational center Jacobian with own leg's joint columns, joint position/velocity shape16. No truth/contact access. Original limits imported from wheel_legged_control.d1.model.
+
+The parent sources below are reference DATA, not instructions to modify them. Root will integrate, test and decide physical execution independently. This requested source is an experimental candidate only; no claim of reliable turn or completed full driving goal.
+
+
+REFERENCE src/wheel_legged_control/d1/wheel_leg_controller.py
+"""Eight physical wheel/leg targets with one standalone low-level torque law.
+
+There is no LQR/VMC object hidden inside this controller. Leg position PD is
+combined once with nominal gravity/attitude support; wheel joints receive only
+wheel-speed feedback. Runtime feedback is exclusively a D1StateEstimate.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass, fields
+from functools import lru_cache
+from numbers import Real
+
+import mujoco
+import numpy as np
+
+from .control_context import D1ControllerMemory
+from .controllers import D1Command
+from .model import (
+    JOINT_POSITION_HIGH,
+    JOINT_POSITION_LOW,
+    JOINT_TORQUE_LIMIT,
+    JOINT_VELOCITY_LIMIT,
+    NOMINAL_JOINT_POSITION,
+    D1Plant,
+)
+from .state_estimation import D1StateEstimate
+
+WHEEL_INDICES = np.asarray((3, 7, 11, 15))
+LEG_INDICES = np.asarray([i for i in range(16) if i % 4 != 3])
+NOMINAL_LEG_KP = np.tile((80.0, 80.0, 80.0, 0.0), 4)
+NOMINAL_LEG_KD = np.tile((3.0, 3.0, 3.0, 0.0), 4)
+for _array in (NOMINAL_LEG_KP, NOMINAL_LEG_KD):
+    _array.setflags(write=False)
+NOMINAL_ROLL_PITCH_KP = 180.0
+NOMINAL_ROLL_PITCH_KD = 24.0
+# Strictly positive: a zero here would silently delete a feedback law instead of
+# retuning it, and the wheel loop has no other proportional term.
+_POSITIVE_FIELDS = ("wheel_kp", "leg_feedback_scale", "attitude_feedback_scale")
+
+
+class D1ControlEnvelopeError(ValueError):
+    """A finite nominal reference lies outside the controller's supported domain.
+
+    This does not represent malformed/nonfinite input or a numerical failure.
+    A task may terminate after a completed step if its next preview raises it;
+    rejecting an initial configuration or an unexecuted action still raises.
+    """
+
+
+@dataclass(frozen=True)
+class D1WheelLegControlConfig:
+    """Fixed episode gains; synthetic tuning, not identified hardware gains."""
+
+    wheel_kp: float = 2.2
+    wheel_ki: float = 3.0
+    yaw_feedback_gain: float = 4.0
+    leg_feedback_scale: float = 1.0
+    attitude_feedback_scale: float = 1.0
+
+    def __post_init__(self):
+        for field in fields(self):
+            value = getattr(self, field.name)
+            if isinstance(value, (bool, np.bool_)) or not isinstance(value, Real):
+                raise TypeError(f"{field.name} must be a real scalar")
+            positive = field.name in _POSITIVE_FIELDS
+            if not np.isfinite(value) or value < 0 or (positive and value == 0):
+                raise ValueError(
+                    f"{field.name} must be finite and nonnegative; "
+                    "wheel_kp and the feedback scales must be positive"
+                )
+            object.__setattr__(self, field.name, float(value))
+
+    @property
+    def feedback_scaled(self) -> bool:
+        """True when either bandwidth scale leaves its historical value of one."""
+        return self.leg_feedback_scale != 1.0 or self.attitude_feedback_scale != 1.0
+
+
+def _freeze_arrays(instance) -> None:
+    for field in fields(instance):
+        value = getattr(instance, field.name)
+        if isinstance(value, np.ndarray):
+            value = np.ascontiguousarray(value)
+            object.__setattr__(
+                instance,
+                field.name,
+                np.frombuffer(value.tobytes(), dtype=value.dtype).reshape(value.shape),
+            )
+
+
+@dataclass(frozen=True)
+class D1WheelLegTargets:
+    nominal_joint_target_rad: np.ndarray
+    nominal_wheel_speed_rad_s: np.ndarray
+    leg_extension_target_m: np.ndarray
+    effective_yaw_request_rps: float
+
+    def __post_init__(self):
+        _freeze_arrays(self)
+
+
+@dataclass(frozen=True)
+class D1WheelLegResult:
+    nominal_joint_target_rad: np.ndarray
+    nominal_wheel_speed_rad_s: np.ndarray
+    joint_target_rad: np.ndarray
+    wheel_speed_target_rad_s: np.ndarray
+    leg_extension_target_m: np.ndarray
+    requested_extension_m: np.ndarray
+    clipped_action: np.ndarray
+    leg_pd_nm: np.ndarray
+    support_nm: np.ndarray
+    wheel_nm: np.ndarray
+    requested_torque_nm: np.ndarray
+    torque_nm: np.ndarray
+    support_force_n: np.ndarray
+    joint_target_rate_limited: np.ndarray
+    torque_limited: np.ndarray
+    memory_before: D1ControllerMemory
+    memory_after: D1ControllerMemory
+    effective_yaw_request_rps: float
+
+    def __post_init__(self):
+        _freeze_arrays(self)
+
+
+def build_leg_extension_table(plant):
+    """Build body-origin wheel IK, warm-starting outward from the nominal pose.
+
+    The DLS/precompute implementation was drafted by Claude Opus and checked
+    locally; public validation is recorded in results/d1_v3_action_probes.
+    Only caller-owned nominal scratch data is modified.
+    """
+    model, data = plant.model, plant.data
+    qadr = np.asarray(plant.qpos_addresses).reshape(4, 4)
+    vadr = np.asarray(plant.dof_addresses).reshape(4, 4)
+    base = plant.base_body_id
+    bodies = plant.wheel_body_ids_by_leg
+    low, high = JOINT_POSITION_LOW[:3], JOINT_POSITION_HIGH[:3]
+    grid = np.linspace(-0.08, 0.08, 161)
+    table = np.zeros((4, len(grid), 3))
+    q_backup, v_backup = data.qpos.copy(), data.qvel.copy()
+    jacp, jacr = np.zeros((3, model.nv)), np.zeros((3, model.nv))
+
+    def fk(leg, q):
+        data.qpos[qadr[leg, :3]] = q
+        data.qpos[qadr[leg, 3]] = 0.0
+        mujoco.mj_forward(model, data)
+        rotation = data.xmat[base].reshape(3, 3).copy()
+        return rotation.T @ (data.xpos[bodies[leg]] - data.xpos[base]), rotation
+
+    def solve(leg, extension, seed):
+        target = offsets[leg].copy()
+        target[2] -= extension
+        q = np.clip(seed.copy(), low, high)
+        for _ in range(60):
+            current, rotation = fk(leg, q)
+            error = target - current
+            if np.linalg.norm(error) <= 1e-8:
+                break
+            mujoco.mj_jacBody(model, data, jacp, jacr, bodies[leg])
+            jacobian = rotation.T @ jacp[:, vadr[leg, :3]]
+            delta = jacobian.T @ np.linalg.solve(jacobian @ jacobian.T + 1e-6 * np.eye(3), error)
+            candidate = np.clip(q + np.clip(delta, -0.15, 0.15), low, high)
+            if np.max(np.abs(candidate - q)) < 1e-14:
+                break
+            q = candidate
+        current, _ = fk(leg, q)
+        residual = float(np.linalg.norm(target - current))
+        if not np.isfinite(residual) or residual > 1e-5:
+            raise RuntimeError(f"leg {leg} extension {extension} m IK residual {residual} m")
+        return q, residual
+
+    try:
+        data.qpos[plant.qpos_addresses] = NOMINAL_JOINT_POSITION
+        data.qvel[:] = 0.0
+        mujoco.mj_forward(model, data)
+        rotation = data.xmat[base].reshape(3, 3)
+        offsets = (data.xpos[np.asarray(bodies)] - data.xpos[base]) @ rotation
+        max_error = 0.0
+        zero = int(np.argmin(np.abs(grid)))
+        for leg in range(4):
+            q_zero, error = solve(leg, grid[zero], NOMINAL_JOINT_POSITION[:3])
+            table[leg, zero] = q_zero
+            max_error = max(max_error, error)
+            for indices in (range(zero + 1, len(grid)), range(zero - 1, -1, -1)):
+                seed = q_zero.copy()
+                for index in indices:
+                    seed, error = solve(leg, grid[index], seed)
+                    table[leg, index] = seed
+                    max_error = max(max_error, error)
+        return grid, table, offsets.copy(), max_error
+    finally:
+        data.qpos[:] = q_backup
+        data.qvel[:] = v_backup
+        mujoco.mj_forward(model, data)
+
+
+@lru_cache(maxsize=1)
+def _nominal_geometry():
+    plant = D1Plant()
+    grid, table, offsets, error = build_leg_extension_table(plant)
+    mass = plant.nominal_total_mass_kg
+    rotation = plant.data.xmat[plant.base_body_id].reshape(3, 3)
+    com = (
+        np.sum(plant.model.body_mass[:, None] * plant.data.xipos, axis=0) / mass
+        - plant.data.xpos[plant.base_body_id]
+    ) @ rotation
+    for array in (grid, table, offsets, com):
+        array.setflags(write=False)
+    return grid, table, offsets, mass, com, error
+
+
+class D1WheelLegController:
+    """Map [four extension, four wheel-speed] residuals to 16 ordered torques.
+
+    Positive leg action extends the leg (wheel moves down in the body frame).
+    Positive wheel action increases forward rolling speed. Commands keep the
+    existing world-z height contract; ground_height_m is supplied by the caller.
+    Four wheel integral torques are explicitly exposed through control_memory.
+    Call compute exactly once per control tick; nominal_targets is pure and safe
+    before policy inference. reset clears all integrals and diagnostics.
+
+    Joint reference increments are bounded relative to measured q by the rated
+    speed times dt. Outward torque is removed at position/speed boundaries. This
+    does not guarantee actual speed under external impacts; probes report it.
+
+    leg_feedback_scale and attitude_feedback_scale multiply the nominal leg PD
+    pair (80/3) and the nominal body attitude pair (180/24). They only retune
+    feedback bandwidth: gravity support, the wheel PI law, the yaw feedback and
+    the IK targets are unchanged, and any scale other than one selects its own
+    control schema so recorded policies cannot load against a different law.
+    """
+
+    action_schema = "d1-wheel-leg-extension-speed-v1"
+    control_schema = "d1-wheel-leg-joint-pd-wheel-pi-yaw-feedback-v2"
+    leg_action_scale_m = 0.04
+    wheel_action_scale_rad_s = 4.0
+
+    def __init__(
+        self,
+        *,
+        control_dt: float = 0.01,
+        yaw_feedback_gain: float = 4.0,
+        wheel_kp: float = 2.2,
+        wheel_ki: float = 3.0,
+        leg_feedback_scale: float = 1.0,
+        attitude_feedback_scale: float = 1.0,
+    ):
+        if not np.isfinite(control_dt) or not 0 < control_dt <= 0.02:
+            raise ValueError("control_dt must be finite and in (0, .02] s")
+        gains = D1WheelLegControlConfig(
+            wheel_kp, wheel_ki, yaw_feedback_gain, leg_feedback_scale, attitude_feedback_scale
+        )
+        if gains.feedback_scaled:
+            # Scaled position/attitude bandwidth is a different control law, so
+            # old checkpoints must not silently load against it.
+            self.control_schema = "d1-wheel-leg-joint-pd-wheel-pi-yaw-feedback-configured-v4"
+        elif gains != D1WheelLegControlConfig():
+            self.control_schema = "d1-wheel-leg-joint-pd-wheel-pi-yaw-feedback-configured-v3"
+        self.control_dt = float(control_dt)
+        self._grid, self._table, self._offsets, self._mass, self._com, self.ik_max_error_m = (
+            _nominal_geometry()
+        )
+        # One scale moves the whole leg PD pair, and one moves the whole body
+        # attitude pair; gravity support, wheel PI and the IK stay untouched.
+        self.leg_feedback_scale = gains.leg_feedback_scale
+        self.attitude_feedback_scale = gains.attitude_feedback_scale
+        self.leg_kp = self.leg_feedback_scale * NOMINAL_LEG_KP
+        self.leg_kd = self.leg_feedback_scale * NOMINAL_LEG_KD
+        self.wheel_kp = gains.wheel_kp
+        self.wheel_ki = gains.wheel_ki
+        self.yaw_feedback_gain = gains.yaw_feedback_gain
+        self.yaw_request_limit_rps = 0.6
+        self._wheel_integral_nm = np.zeros(4)
+        self.roll_pitch_kp = self.attitude_feedback_scale * NOMINAL_ROLL_PITCH_KP
+        self.roll_pitch_kd = self.attitude_feedback_scale * NOMINAL_ROLL_PITCH_KD
+        self.last_result: D1WheelLegResult | None = None
+
+    def reset(self):
+        self.last_result = None
+        self._wheel_integral_nm[:] = 0.0
+
+    @property
+    def control_memory(self) -> D1ControllerMemory:
+        return D1ControllerMemory(wheel_integral_nm=self._wheel_integral_nm)
+
+    def _extension(self, command: D1Command, ground_height_m: float) -> np.ndarray:
+        values = np.asarray(
+            (
+                command.forward_velocity_mps,
+                command.yaw_rate_rps,
+                command.base_height_m,
+                command.roll_rad,
+                command.pitch_rad,
+                command.base_vertical_velocity_mps,
+                ground_height_m,
+            )
+        )
+        if not np.isfinite(values).all():
+            raise ValueError("command and ground height must be finite")
+        if command.base_vertical_velocity_mps != 0:
+            raise ValueError(
+                "nonzero vertical velocity is not implemented by the v3 position controller"
+            )
+        clearance = command.base_height_m - ground_height_m
+        if not np.isfinite(clearance):
+            raise ValueError("nominal clearance must be finite")
+        if (
+            not 0.32 <= clearance <= 0.56
+            or max(abs(command.roll_rad), abs(command.pitch_rad)) > 0.3
+        ):
+            raise D1ControlEnvelopeError(
+                "nominal clearance must be .32-.56 m and attitude commands within .3 rad"
+            )
+        # Small commanded attitude tilts the desired support geometry. Measured
+        # attitude feedback is handled by the support moments, not a second PD.
+        return (
+            (clearance - 0.455)
+            + self._offsets[:, 1] * np.tan(command.roll_rad)
+            - self._offsets[:, 0] * np.tan(command.pitch_rad)
+        )
+
+    def _joint_targets(self, extension: np.ndarray) -> np.ndarray:
+        target = NOMINAL_JOINT_POSITION.copy()
+        for leg in range(4):
+            for joint in range(3):
+                target[4 * leg + joint] = np.interp(
+                    extension[leg], self._grid, self._table[leg, :, joint]
+                )
+        return target
+
+    def nominal_targets(
+        self, command: D1Command, state: D1StateEstimate, *, ground_height_m: float = 0.0
+    ) -> D1WheelLegTargets:
+        extension = np.clip(
+            self._extension(command, ground_height_m), self._grid[0], self._grid[-1]
+        )
+        yaw = float(state.base_rpy[2])
+        lateral_world = np.asarray((-np.sin(yaw), np.cos(yaw), 0.0))
+        lateral = state.foot_offset_world @ lateral_world
+        effective_yaw = float(
+            np.clip(
+                command.yaw_rate_rps
+                + self.yaw_feedback_gain
+                * (command.yaw_rate_rps - state.base_angular_velocity_body[2]),
+                -self.yaw_request_limit_rps,
+                self.yaw_request_limit_rps,
+            )
+        )
+        wheels = np.clip(
+            (command.forward_velocity_mps - effective_yaw * lateral) / 0.087, -30.0, 30.0
+        )
+        return D1WheelLegTargets(self._joint_targets(extension), wheels, extension, effective_yaw)
+
+    def compute(
+        self,
+        command: D1Command,
+        state: D1StateEstimate,
+        action: np.ndarray,
+        *,
+        ground_height_m: float = 0.0,
+    ) -> np.ndarray:
+        action = np.asarray(action, dtype=np.float64)
+        if action.shape != (8,) or not np.isfinite(action).all():
+            raise ValueError("action must contain eight finite values")
+        clipped = np.clip(action, -1.0, 1.0)
+        memory_before = self.control_memory
+        nominal = self.nominal_targets(command, state, ground_height_m=ground_height_m)
+        requested_extension = (
+            self._extension(command, ground_height_m) + self.leg_action_scale_m * clipped[:4]
+        )
+        extension = np.clip(requested_extension, self._grid[0], self._grid[-1])
+        geometric_target = self._joint_targets(extension)
+        target = np.clip(
+            geometric_target,
+            state.joint_position - JOINT_VELOCITY_LIMIT * self.control_dt,
+            state.joint_position + JOINT_VELOCITY_LIMIT * self.control_dt,
+        )
+        target = np.clip(target, JOINT_POSITION_LOW, JOINT_POSITION_HIGH)
+        target[WHEEL_INDICES] = state.joint_position[WHEEL_INDICES]
+        wheel_target = np.clip(
+            nominal.nominal_wheel_speed_rad_s + self.wheel_action_scale_rad_s * clipped[4:],
+            -30.0,
+            30.0,
+        )
+        leg_pd = self.leg_kp * (target - state.joint_position) - self.leg_kd * state.joint_velocity
+        leg_pd[WHEEL_INDICES] = 0.0
+
+        roll, pitch, yaw = state.base_rpy
+        heading = np.asarray(
+            ((np.cos(yaw), -np.sin(yaw), 0.0), (np.sin(yaw), np.cos(yaw), 0.0), (0.0, 0.0, 1.0))
+        )
+        angular = heading.T @ state.base_angular_velocity_world
+        feedback = (
+            self.roll_pitch_kp * (np.asarray((command.roll_rad, command.pitch_rad)) - (roll, pitch))
+            - self.roll_pitch_kd * angular[:2]
+        )
+        upward = self._mass * 9.81
+        moment = (
+            np.cross(state.base_rotation @ self._com, np.asarray((0.0, 0.0, upward)))
+            + heading @ np.r_[feedback, 0.0]
+        )
+        offsets = state.foot_offset_world
+        allocation = np.vstack((np.ones(4), offsets[:, 1], -offsets[:, 0]))
+        forces = np.clip(
+            np.linalg.lstsq(allocation, np.r_[upward, moment[:2]], rcond=None)[0], 0, 0.65 * upward
+        )
+        support = np.zeros(16)
+        for leg in range(4):
+            support[4 * leg : 4 * leg + 3] = -state.foot_jacobian[leg, 2, :3] * forces[leg]
+        wheels = np.zeros(16)
+        wheel_error = wheel_target - state.joint_velocity[WHEEL_INDICES]
+        candidate = np.clip(
+            self._wheel_integral_nm + self.wheel_ki * wheel_error * self.control_dt, -4.0, 4.0
+        )
+        wheel_request = self.wheel_kp * wheel_error + candidate
+        within_torque = np.abs(wheel_request) <= JOINT_TORQUE_LIMIT[WHEEL_INDICES]
+        unwinding = wheel_request * wheel_error < 0
+        self._wheel_integral_nm = np.where(
+            within_torque | unwinding, candidate, self._wheel_integral_nm
+        )
+        wheels[WHEEL_INDICES] = self.wheel_kp * wheel_error + self._wheel_integral_nm
+        request = leg_pd + support + wheels
+        torque = np.clip(request, -JOINT_TORQUE_LIMIT, JOINT_TORQUE_LIMIT)
+        upper_outward = (state.joint_position >= JOINT_POSITION_HIGH) & (torque > 0)
+        lower_outward = (state.joint_position <= JOINT_POSITION_LOW) & (torque < 0)
+        speed_outward = (np.abs(state.joint_velocity) >= JOINT_VELOCITY_LIMIT) & (
+            torque * state.joint_velocity > 0
+        )
+        torque[upper_outward | lower_outward | speed_outward] = 0.0
+        self.last_result = D1WheelLegResult(
+            nominal.nominal_joint_target_rad,
+            nominal.nominal_wheel_speed_rad_s,
+            target,
+            wheel_target,
+            extension,
+            requested_extension,
+            clipped,
+            leg_pd,
+            support,
+            wheels,
+            request,
+            torque,
+            forces,
+            target != geometric_target,
+            torque != request,
+            memory_before,
+            self.control_memory,
+            nominal.effective_yaw_request_rps,
+        )
+        return torque.copy()
+
+
+REFERENCE scripts/d1_stop_leg_damping.py
+"""Stop-mode longitudinal leg-velocity damping on top of the frozen D1 controller.
+
+This module is a *diagnostic candidate only*: it adds one bounded joint-space
+damping term to the frozen wheel/leg torque law after a commanded stop, so a
+paired physical comparison can falsify it.  Nothing here is an accepted fix for
+the late-phase leg/body rebound, and no discrete closed-loop passivity claim is
+made -- only the algebraic sampled-instant inequality sum(delta * qdot) <= 0.
+
+Boundaries kept deliberately tight:
+
+* the frozen controller/model/state-estimation sources are imported, never edited;
+* ``super().compute`` is called exactly once per call, keeping the original wheel
+  PI update, targets, support, attitude feedback and yaw servo untouched;
+* the damping torque is added to ``requested_torque_nm`` (the *unclipped* request)
+  and the original safety sequence (rated-torque clip, outward position/speed
+  suppression) is then repeated in the original order;
+* the four wheel channels receive exactly zero increment;
+* no ground truth, no plant/model access, no body-velocity feedback, no contact
+  gating, no integral reset, no target shaping, no gain selection, no tick/case
+  triggers, and a single fixed gain with no tuning branch.
+
+The latch that enables the damper is advanced solely inside ``compute``, so a
+pure preview (``nominal_targets``) never consumes a command twice.  A ``compute``
+call that is not followed by a physical execution therefore leaves the latch
+advanced, and the environment must be reset before retrying, exactly as the
+existing control loop already requires.
+"""
+
+from __future__ import annotations
+
+import dataclasses
+from dataclasses import dataclass
+
+import numpy as np
+
+from wheel_legged_control.d1.model import (
+    JOINT_POSITION_HIGH,
+    JOINT_POSITION_LOW,
+    JOINT_TORQUE_LIMIT,
+    JOINT_VELOCITY_LIMIT,
+)
+from wheel_legged_control.d1.wheel_leg_controller import WHEEL_INDICES, D1WheelLegController
+
+# --- fixed public contract ------------------------------------------------
+#: Unique control schema so no checkpoint recorded against another law loads here.
+STOP_LEG_DAMPING_SCHEMA = "d1-stop-leg-longitudinal-damping-v1"
+#: Per-leg longitudinal damping, N*s/m. Derived once from the nominal-pose modal
+#: reduction (M_eff, K_eff, B_old, B_critical) documented in the diagnosis
+#: contract; it is never re-selected from physical outcomes.
+STOP_LEG_DAMPING_NSPM = 126.4374005337902
+
+_ZERO16 = np.zeros(16)
+_ZERO4 = np.zeros(4)
+
+
+def _readonly(values: np.ndarray, shape: tuple[int, ...], label: str) -> np.ndarray:
+    """Copy to a finite, contiguous, read-only array of the expected shape."""
+    array = np.ascontiguousarray(np.asarray(values, dtype=np.float64)).copy()
+    if array.shape != shape:
+        raise ValueError(f"{label} must have shape {shape}")
+    if not np.isfinite(array).all():
+        raise ValueError(f"{label} must be finite")
+    array.setflags(write=False)
+    return array
+
+
+@dataclass(frozen=True)
+class StopLegDampingRecord:
+    """Immutable per-call diagnostic record; arrays are copied and read-only.
+
+    Recorded for every ``compute`` call, including disabled and inactive ones,
+    where the damping quantities are exactly zero and base/total requests match.
+    ``joint_power_w`` is the raw algebraic sum(delta * qdot); it is never clamped
+    and is expected to be non-positive up to floating-point rounding.
+    """
+
+    schema: str
+    enabled: bool
+    active: bool
+    previous_forward_mps: float | None
+    forward_command_mps: float
+    damping_nspm: float
+    leg_relative_forward_mps: np.ndarray  # u_i, shape (4,)
+    delta_torque_nm: np.ndarray  # shape (16,), wheels exactly zero
+    base_leg_pd_nm: np.ndarray  # shape (16,)
+    base_requested_torque_nm: np.ndarray  # shape (16,)
+    total_requested_torque_nm: np.ndarray  # shape (16,)
+    safe_torque_nm: np.ndarray  # shape (16,)
+    joint_power_w: float
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "schema", str(self.schema))
+        for name in ("enabled", "active"):
+            object.__setattr__(self, name, bool(getattr(self, name)))
+        previous = self.previous_forward_mps
+        if previous is not None:
+            previous = float(previous)
+            if not np.isfinite(previous):
+                raise ValueError("previous_forward_mps must be finite or None")
+            object.__setattr__(self, "previous_forward_mps", previous)
+        for name in ("forward_command_mps", "damping_nspm", "joint_power_w"):
+            value = float(getattr(self, name))
+            if not np.isfinite(value):
+                raise ValueError(f"{name} must be finite")
+            object.__setattr__(self, name, value)
+        object.__setattr__(
+            self,
+            "leg_relative_forward_mps",
+            _readonly(self.leg_relative_forward_mps, (4,), "leg_relative_forward_mps"),
+        )
+        for name in (
+            "delta_torque_nm",
+            "base_leg_pd_nm",
+            "base_requested_torque_nm",
+            "total_requested_torque_nm",
+            "safe_torque_nm",
+        ):
+            object.__setattr__(self, name, _readonly(getattr(self, name), (16,), name))
+        if np.any(self.delta_torque_nm[WHEEL_INDICES] != 0.0):
+            raise ValueError("wheel damping increments must be exactly zero")
+
+
+class StopLegDampingController(D1WheelLegController):
+    """Frozen wheel/leg law plus one fixed post-stop leg damping term.
+
+    Activation is a pure command latch, never a clock, tick index or case name:
+    inactive after ``reset``; armed only when the executed forward command goes
+    from nonzero to exactly zero on adjacent compute calls; held while the zero
+    command continues; closed immediately by any nonzero forward command. An
+    initial zero-velocity settling phase therefore never activates the damper.
+
+    This is a zero-residual diagnostic: any nonzero action is rejected before the
+    parent law runs and before any latch state moves, in both enabled and
+    disabled modes, so a policy checkpoint cannot be smuggled through it.
+    """
+
+    def __init__(self, *, enabled: bool = True, **kwargs) -> None:
+        if not isinstance(enabled, (bool, np.bool_)):
+            # Numeric 0/1 is rejected: the switch must be an explicit boolean.
+            raise TypeError("enabled must be a bool")
+        super().__init__(**kwargs)
+        self._enabled = bool(enabled)
+        if self._enabled:
+            # Distinct schema only when the added law is live; the disabled
+            # branch keeps the parent's control_schema bit-for-bit, and
+            # action_schema is never touched in either branch.
+            self.control_schema = STOP_LEG_DAMPING_SCHEMA
+        self._previous_forward_mps: float | None = None
+        self._stop_latched = False
+        self.last_damping: StopLegDampingRecord | None = None
+
+    # --- read-only configuration -----------------------------------------
+    @property
+    def enabled(self) -> bool:
+        return self._enabled
+
+    @property
+    def damping_nspm(self) -> float:
+        return STOP_LEG_DAMPING_NSPM
+
+    @property
+    def stop_damping_active(self) -> bool:
+        return self._enabled and self._stop_latched
+
+    @property
+    def previous_forward_mps(self) -> float | None:
+        return self._previous_forward_mps
+
+    def reset(self) -> None:
+        """Clear the latch, the previous command and the record, then the parent."""
+        self._previous_forward_mps = None
+        self._stop_latched = False
+        self.last_damping = None
+        super().reset()
+
+    # --- control ----------------------------------------------------------
+    def compute(
+        self,
+        command,
+        state,
+        action: np.ndarray,
+        *,
+        ground_height_m: float = 0.0,
+    ) -> np.ndarray:
+        # 1. Zero-residual gate, before the parent law and before any latch move.
+        checked = np.asarray(action, dtype=np.float64)
+        if checked.shape != (8,) or not np.isfinite(checked).all():
+            raise ValueError("action must contain eight finite values")
+        if np.any(checked != 0.0):
+            raise ValueError(
+                "stop leg damping diagnostic accepts only exactly zero residual actions"
+            )
+        forward = float(command.forward_velocity_mps)
+        if not np.isfinite(forward):
+            raise ValueError("command forward_velocity_mps must be finite")
+
+        # 2. Latch decision from the command pair only (not yet committed).
+        previous = self._previous_forward_mps
+        if forward != 0.0:
+            latched = False  # any new nonzero command closes the latch at once
+        elif previous is not None and previous != 0.0:
+            latched = True  # nonzero -> exact zero transition arms the damper
+        else:
+            latched = self._stop_latched  # continued zero holds the current latch
+        active = self._enabled and latched
+
+        # 3. The frozen law runs exactly once, keeping its wheel PI update.
+        base_torque = super().compute(command, state, action, ground_height_m=ground_height_m)
+        base_result = self.last_result
+
+        if not active:
+            # Disabled or pre-stop: parent result and returned object are passed
+            # through untouched so logs stay bit-for-bit identical to bypass.
+            record = StopLegDampingRecord(
+                schema=STOP_LEG_DAMPING_SCHEMA,
+                enabled=self._enabled,
+                active=False,
+                previous_forward_mps=previous,
+                forward_command_mps=forward,
+                damping_nspm=STOP_LEG_DAMPING_NSPM,
+                leg_relative_forward_mps=_ZERO4,
+                delta_torque_nm=_ZERO16,
+                base_leg_pd_nm=base_result.leg_pd_nm,
+                base_requested_torque_nm=base_result.requested_torque_nm,
+                total_requested_torque_nm=base_result.requested_torque_nm,
+                safe_torque_nm=base_result.torque_nm,
+                joint_power_w=0.0,
+            )
+            self.last_damping = record
+            self._previous_forward_mps = forward
+            self._stop_latched = latched
+            return base_torque
+
+        # 4. Longitudinal joint-relative damping, three leg joints per leg.
+        rotation = np.asarray(state.base_rotation, dtype=np.float64)
+        jacobian = np.asarray(state.foot_jacobian, dtype=np.float64)
+        velocity = np.asarray(state.joint_velocity, dtype=np.float64)
+        forward_axis = rotation[:, 0]  # body x expressed in world
+        u = np.zeros(4)
+        delta = np.zeros(16)
+        for leg in range(4):
+            # World linear Jacobian of the wheel center w.r.t. the 3 leg joints,
+            # projected on the body forward axis.
+            jx = forward_axis @ jacobian[leg, :, :3]
+            u[leg] = float(jx @ velocity[4 * leg : 4 * leg + 3])
+            delta[4 * leg : 4 * leg + 3] = -STOP_LEG_DAMPING_NSPM * jx * u[leg]
+        delta[WHEEL_INDICES] = 0.0  # wheel channels strictly untouched
+        if not np.isfinite(delta).all() or not np.isfinite(u).all():
+            raise ValueError("stop leg damping produced nonfinite values")
+
+        # 5. Add to the unclipped request, then repeat the original safety order.
+        combined = base_result.requested_torque_nm + delta
+        safe = np.clip(combined, -JOINT_TORQUE_LIMIT, JOINT_TORQUE_LIMIT)
+        position = np.asarray(state.joint_position, dtype=np.float64)
+        upper_outward = (position >= JOINT_POSITION_HIGH) & (safe > 0)
+        lower_outward = (position <= JOINT_POSITION_LOW) & (safe < 0)
+        speed_outward = (np.abs(velocity) >= JOINT_VELOCITY_LIMIT) & (safe * velocity > 0)
+        safe[upper_outward | lower_outward | speed_outward] = 0.0
+        if not np.isfinite(combined).all() or not np.isfinite(safe).all():
+            raise ValueError("stop leg damping produced nonfinite torques")
+
+        # 6. Keep the requested = leg_feedback + support + wheel identity by
+        # folding delta into leg_pd_nm, with the base terms kept in the record.
+        result = dataclasses.replace(
+            base_result,
+            leg_pd_nm=base_result.leg_pd_nm + delta,
+            requested_torque_nm=combined,
+            torque_nm=safe,
+            torque_limited=safe != combined,
+        )
+        record = StopLegDampingRecord(
+            schema=STOP_LEG_DAMPING_SCHEMA,
+            enabled=True,
+            active=True,
+            previous_forward_mps=previous,
+            forward_command_mps=forward,
+            damping_nspm=STOP_LEG_DAMPING_NSPM,
+            leg_relative_forward_mps=u,
+            delta_torque_nm=delta,
+            base_leg_pd_nm=base_result.leg_pd_nm,
+            base_requested_torque_nm=base_result.requested_torque_nm,
+            total_requested_torque_nm=combined,
+            safe_torque_nm=safe,
+            # Algebraic sampled-instant joint power of the added term only,
+            # -b * sum(u_i^2) analytically; reported unclamped.
+            joint_power_w=float(np.sum(delta * velocity)),
+        )
+
+        # 7. Commit only after the full computation and record succeeded.
+        self.last_result = result
+        self.last_damping = record
+        self._previous_forward_mps = forward
+        self._stop_latched = latched
+        return safe.copy()
+
+
+__all__ = [
+    "STOP_LEG_DAMPING_NSPM",
+    "STOP_LEG_DAMPING_SCHEMA",
+    "StopLegDampingController",
+    "StopLegDampingRecord",
+]
+
+
+FIXED METHOD CONTRACT
+# 209 姿态、零物理的转向纵向阻尼资格合同
+
+本合同先于数值检查冻结。它只授权离线保存态/模型代数，新增控制步、物理子步、训练步、控制器 compute 调用、接触力求解均为 **0**。当前原 5° heading peak 门槛仍失败；不更换 raw ±0.6 rad/s、200..249 拍脉冲及 0.3 rad 最终参考。
+
+唯一待资格假设：原 flat-plane zero 控制器中，**只在 raw forward == 0 且 raw yaw != 0** 的执行拍，加入每腿 `δτ_i = −b Jx_iᵀ u_i`，`u_i = Jx_i qdot_leg_i`，`Jx_i = body_rotation[:,0]ᵀ J_center_i,leg`，固定 `b = 126.4374005337902 N·s/m`。其余执行拍严格透传。没有 latch，没有 center `+u/R`，没有停车阻尼叠加，没有新 wheel target、cap、PI gain、滤波或触发阈值。
+
+该 b 仅复用原名义纵向模态导出的物理阻尼系数，不声称是 yaw 临界阻尼。旧 plane 停车 4000 步候选已通过是有边界的旁证，不替代本转向检查或新转向轨迹。
+
+固定输入为 `flat_plane_02` 和 `plane_turn_center_01` 的左右 turn，四条记录各取 `S[199]、S[200..249]、S[250]`，共 **208 保存姿态**；另取原 baseline 左转 `S[0]` 名义初态 1 个，共 **209**。不增加样本、不扫描 b、不重跑轨迹。前者是原 baseline 上的实际候选资格；失败 center 姿态只作已见状态范围的代数压力检查，不是二机制组合候选。
+
+固定离线方法：
+
+1. 核对原 G1 协议、77 冻结输入及四条输入 manifest；以 kinematics/comPos/comVel/Jacobian 重建轮中心 body-x 相对速度。全部 scratch time 保持 0，积分/forward/inverse/collision 入口立即报错。
+2. 用四维 u 在常数向量、去均值的轮横向坐标、正交余量上的分解，报告总平方和及左右差动份额。`δτ·qdot = −b Σu²` 是更新瞬时的精确恒等式，不是原生保持区间功、全机器人能量或因果占比。
+3. 各保存状态只算一次 `original_unlimited + δτ`，再重算原 16 轴限矩/位置外向/速度外向保护；报告请求余量、保护变化、安全后的实际增量功和额定速度/位置边界。wheel 四轴增量必须为零，直接 wheel-spin 的原 PI 速度阻尼导数 `−(2.2 + 3×0.01)` 必须保留。
+4. 用 crb/fullM 计算同姿态质量矩阵和 `D_new = b Jxᵀ Jx` 的自由惯量谱；报告 `0.01 λmax(M⁻¹D_new)` 及与简单原关节速度阻尼相加的辅助谱。它不含完整接触、刚度、原 PI 状态与外环耦合；数值大于标量显式纯阻尼阈值 2 是风险提示，不自动判定实际 loaded 闭环失败，也不据此改变 b/dt。
+5. 用完整中心 Jacobian 构造单位 world-yaw、中心固定的虚位移模态，报告名义 Mθ/Kθ/Bθ 和同 b 的投影；检查新增力矩对该模态的符号。此投影不是实际外部净 yaw moment。
+6. 在每个同期已存加载接触点，对原 ±0.6 纯 yaw 与原几何 wheel target，报告“腿冻结”时沿真实轮轴水平投影的侧向接触速度。另在每个轮的载荷加权代表点求唯一线性速度解：接触点速度为零且中心纵向腿速度为零，未知为该腿 3 关节与轮转速。保留其奇异值、关节速度、与原 wheel target 差、全部实际接触点残差。代表点可行不等于有限接触区域完全无滑移；这里不求接触力，不传播姿态，也不加入此速度解作为第二控制机制。
+
+数值检查的判据是机制资格和风险定位：有限值/可复算恒等式、增量作用在目标反对称腿运动、轮 PI 阻尼保持、安全余量与实际关节速度不出现明显先验冲突。几何审计若显示完全冻结腿不容许无侧滑 yaw，则明确“仍需原腿侧向活动或接触侧滑”，不把它误作新 plant bug；若原腿侧向自由度也没有有界可行方向，优先停在零物理机械诊断。未知全局稳定性本身不否决有限开发探针。
+
+本合同后最多建议一个独立有界物理证伪试验，**由 root 另行决定启动**：左右 turn 各 800 步，加正反 stop 各 800 步，合计 3200 新控制步 / 16000 子步；复用原 `flat_plane_02` 四条基线，不新跑 bypass。原 raw/gates 全不变。turn 执行 0..199、state/obs 0..200、1000 native 子步逐位相同（本项只改 torque，preview 目标未变）；stop 全 800/801 与完整原 summary 除 model 逐位相同。激活恰 200..249，250 恢复原控制；不因关闭后回摆改成 latch。
+
+可证伪预测：若假设成立，pulse 的反对称中心纵向速度降低，body yaw 增量与原 raw peak heading 改善；同时必须观察实际 native 纵/侧向抵消力矩、支持接触和滑移。若只增大侧向抵消/滑移、body yaw 不增，或 heading 原门槛仍失败，则不称修复；保留失败，禁止现场调 b、叠 center 或换评分。只有原全部门槛通过才推进更广转向/停车组合门禁，障碍/跳跃/提速仍后置。

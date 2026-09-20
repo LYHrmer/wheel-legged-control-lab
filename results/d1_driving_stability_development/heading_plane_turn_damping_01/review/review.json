@@ -1,0 +1,97 @@
+{
+  "schema": "d1-fixed-turn-leg-damper-bounded-readonly-review-v1",
+  "decision": "GO",
+  "meaning": "未发现此范围内的具体运行阻断项；仅对所列源码快照放行至 root 完成并绑定纯测试/preflight 后的固定有界证伪，不声称候选通过原 G1 或闭环稳定。",
+  "blocking_findings": [],
+  "required_source_changes": [],
+  "new_physics_steps": 0,
+  "new_controller_compute_calls": 0,
+  "new_contact_force_solves": 0,
+  "pure_tests_executed_by_reviewer": 0,
+  "repository_files_modified": false,
+  "checks": [
+    {
+      "scope": "core parent call / preview",
+      "result": "PASS",
+      "source": "scripts/d1_turn_leg_damping.py:270",
+      "detail": "nominal_targets 只检查 binding 并返回父对象；compute 中父 law 恰一次。inactive 保留父 last_result 与返回 torque 对象，不改 PI 或目标。"
+    },
+    {
+      "scope": "raw gate / record phase",
+      "result": "PASS",
+      "source": "scripts/d1_turn_leg_damping.py:246",
+      "detail": "仅 enabled && raw forward==0 && raw yaw!=0；signed yaw zero 不激活。绑定时间与 state 使用 1e-10 s 容差；servo forward 必须等于 raw forward。无 latch/阈值；binding 或 preview 不改 last_damping，记录为本次 compute 的不可变副本。"
+    },
+    {
+      "scope": "geometry / fixed coefficient / wheel isolation",
+      "result": "PASS",
+      "source": "scripts/d1_turn_leg_damping.py:330",
+      "detail": "Jx=base_rotation[:,0]^T foot_jacobian[leg,:,:3]，u=Jx*qdot_leg，delta=-126.4374005337902*Jx*u。是含姿态 body-x 的 wheel-center 腿 Jacobian，与合同同框架；四个 wheel delta 显式正零，仅导入停车模块数值，不继承停车/center 控制器。原 wheel PI 差动速度反馈保留。"
+    },
+    {
+      "scope": "protection / result accounting",
+      "result": "PASS",
+      "source": "scripts/d1_turn_leg_damping.py:345",
+      "detail": "delta 加父 unlimited request；再按原额定限矩、位置外向、速度外向顺序保护。leg_pd 字段加 delta 保留请求分解恒等式；base 项另存。safe torque、torque_limited 与最终返回一致。post-parent 异常可能已推进 PI，源码明确禁止相同状态重试。"
+    },
+    {
+      "scope": "lifecycle / raw callback",
+      "result": "PASS",
+      "source": "scripts/probe_d1_heading_turn_damping.py:53",
+      "detail": "首次 reset 创建 loop 前替换 controller；tracked 回调原 source 一次并先 bind，原 heading _prepare 缓存重复 preview。reset 清 count；每次 step 校验执行 raw/time 及 next prepare 后 count=k+2。"
+    },
+    {
+      "scope": "sampled power / native phase",
+      "result": "PASS",
+      "source": "scripts/probe_d1_heading_turn_damping.py:92",
+      "detail": "本拍 immutable state 保留到 step 后；base_safe 由同状态原 request 重做保护，实际增量功用同一决策速度。明确不是保持区间功；继承 native solved-cache 和同步 endpoint 两条原诊断链，未混用 native force 与 endpoint velocity。"
+    },
+    {
+      "scope": "fixed inputs / budget / raw gates",
+      "result": "PASS",
+      "source": "scripts/probe_d1_heading_turn_damping.py:194",
+      "detail": "锁原 G1 SHA、77 项冻结来源、预检输入哈希及基线物理/归档来源，前后检查输入；仅原索引(2,3,0,1)四 case，总上限3200控制步/16000原生子步，无新bypass、参数或训练入口。直接调用原G1 zero-action与gates；未引入servo评分。"
+    },
+    {
+      "scope": "prefix / no-op stops",
+      "result": "PASS",
+      "source": "scripts/probe_d1_heading_turn_damping.py:250",
+      "detail": "torque-only 候选 preview 目标不变，next_observation_equal=True 正确：turn 执行0..199，state/obs0..200，1000 native 完整entry digest逐位。stop 全800/801和全部原summary除model保持，包括原失败gates。不能沿用center候选排除obs200的规则。"
+    },
+    {
+      "scope": "T/T+1 / failure archive",
+      "result": "PASS",
+      "source": "scripts/probe_d1_heading_turn_damping.py:137",
+      "detail": "每执行拍一条damper/endpoint诊断及5条native entry；继承G1 states(T+1)、ProbeStateArchive部分状态、native error/receipt归档。batch异常汇总时钟实际子步、完成区间及partial，最后写failure manifest并抛出，不重试或填充。"
+    },
+    {
+      "scope": "checkpoint isolation",
+      "result": "PASS",
+      "source": "scripts/probe_d1_heading_turn_damping.py:77",
+      "detail": "仅zero_action入口，env/controller双重拒绝非零action；独立task/config/control schema与native-plane身份阻止旧checkpoint按同任务复用。"
+    }
+  ],
+  "validation_limitations": [
+    "仅只读源码、父链和AST审查；未重跑209姿态机械报告、未运行新纯测试或物理。",
+    "root正在编写的tests/test_d1_turn_leg_damping.py及最终preflight尚需完成并固定SHA；这是既定启动条件，不是已发现的源码缺陷。",
+    "同拍负增量功和既有209姿态资格不构成离散闭环被动性/稳定性保证；是否修复仍由原raw全部门槛及固定四场结果决定。"
+  ],
+  "independent_runner_review": "runner_pair_review 对同 runner SHA 独立只读检查并给GO，无阻断项。",
+  "input_sha256": {
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_turn_leg_damping.py": "6b424515153c5732081ccb0735ae1c191667d34e7fda888740dabb5e26ecdeef",
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_heading_turn_damping.py": "a7e6ba06ad3f17ed2e4b070faefda3184b7b3c7cedc166ea4dec5e3d629d0934",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/turn_next_mechanics_plan_01/fixed_method_contract.md": "477557cc43f58273d15fa84932abc560002d0b9a55eeb0ae0d2644ebf4fa6b8b",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/turn_next_mechanics_plan_01/report.json": "8608beba3c424c6e28f92412631f9256ccefdea837c114e65d0a23bbd84997a3",
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_stop_leg_damping.py": "fcebd5c2dcb1922b55096925c6f8d765926d3add60ea50d9cb6e54cb8edc34d9",
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_flat_plane_env.py": "145c58e4201a657b76e1608263d3a4cea57eb1c0f39530fb47faf32b19026a51",
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_heading_flat_plane.py": "346a4727c28cbd629fbfa93d95d7cc941eba2ca43718f920e27f522535a4f7fa",
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_heading_plane_stop_damping.py": "0e4f0e804102c42d04dab7fc584588afaeb3e2a455d64b94ecd581c8fadb9200",
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_probe_archive.py": "e8a8685ab63837833ed1243090bf22b7465c35083f9585d928cabaa651a05d37",
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_heading_g1.py": "a631f443537a7183ca80bbaaca5e2b864b01bd4ac2adf899cb9f26462971cd78",
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_heading_tracking_env.py": "91cbb3bcf697cab21f9b2c6b02480cf73d41811e4dd3cad51f1ae9554c4177ec",
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/wheel_leg_controller.py": "0c731d366e811a465248cec4b9ce345d6d3c69a8a9c387e314ca6f992ac32156",
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/control_loop.py": "2d4fe87e635e124816985a6c72cbd8b35412b1f3910d61713eac1087387cdefe",
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/locomotion_env.py": "077c48d797f7a40ce142525f3b49f3643e8f78ca3f118ba5f48c1ae9541910ff",
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/state_estimation.py": "eea9c3969e3064819ef6bc8a7621e5541e1547bacbea741b21e1fa909e2f51b8"
+  }
+}

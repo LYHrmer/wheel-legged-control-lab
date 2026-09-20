@@ -26,7 +26,8 @@ SSH上传已验证；以GitHub API/实际remote refs核对HEAD，直接URL push�
 | 原zero控制器，native-plane六case | 5600 / 28000 | 表示/证据有效；两impulse通过，两stop/两turn失败 |
 | 固定停车腿阻尼，plane四candidate | 4000 / 20000 | 两stop全部原门槛通过，两impulse完整逐位noop |
 | 固定系数1轮中心转向补偿，plane四candidate | 3200 / 16000 | 两turn改善但仍失败；两stop完整noop且保留原失败 |
-| 本轮独立实验累计 | **24000 / 120000** | 不包含只读分析；复用基线没有重跑 |
+| 固定纯turn腿纵向阻尼，plane四candidate | 3200 / 16000 | 两turn仅小幅改善仍失败；两stop完整noop |
+| 本轮独立实验累计 | **27200 / 136000** | 不包含只读分析；复用基线没有重跑 |
 
 两次批次中断均完整保留，已完成物理没有重算：yaw-cap第一批完成左baseline800拍后写清单失败，续批复用它；plane第一批完成两stop1600拍后因跨方向初始观察中的±0符号比较失败，续批复用它们。不存在漏计或将复用计为新增。详见各公开包中的来源、failure、carry和补充合同。
 
@@ -74,7 +75,17 @@ SSH上传已验证；以GitHub API/实际remote refs核对HEAD，直接URL push�
 
 [失败诊断与直接body-rate替换资格核验](../results/d1_driving_stability_development/heading_turn_center_failure_plan_01/README.md)全部离线。root独立重现诊断报告SHA `761becefd00de15aceeb3b20d73addda3e0758d4d6bba3c29a4815b9708d6ba6`，以及200保存态代数报告SHA `dccd8764ace837b2a6ecd5ac5b602c9d77a8f217b8f77e4e57ee11a17639e55b`。候选pulse末heading确有改善，但腿中心速度增大；后半pulse接触净yaw矩更加反向。不能只依据wheel/body gap把剩余失败全部归给遗漏carrier转动。
 
-把差动wheel误差直接换成body yaw-rate误差的代数恒等式闭合，影子力矩也没有超限；但这同时消除了body率不变时的差动轮速反馈阻尼。缺少loaded/weak-contact采样动力学证据，因此该直接替换为NO-GO，没有编写控制模块或进入新物理。未声称已证明数学不稳定。后续唯一待资格假设是单独的固定纵向腿阻尼用于turn：保持原轮速PI、目标和cap，先检查保存態的差动模式、力矩/保护、采样尺度及侧向接触约束。它不与失败的center补偿组合，尚未获得转向物理通过证据。
+把差动wheel误差直接换成body yaw-rate误差的代数恒等式闭合，影子力矩也没有超限；但这同时消除了body率不变时的差动轮速反馈阻尼。缺少loaded/weak-contact采样动力学证据，因此该直接替换为NO-GO，没有编写控制模块或进入新物理。未声称已证明数学不稳定。
+
+## 后续固定纯turn腿阻尼：同样未通过
+
+[公开包](../results/d1_driving_stability_development/heading_plane_turn_damping_01/README.md)。真实Opus模块 `d1_turn_leg_damping.py` 原件逐字节集成，只在raw纯turn的200..249拍加入同一body-x纵向阻尼，固定b，不加latch、不加center、不加post-stop。209姿态机械资格、26纯测试、104原保存态单拍计算先于物理；轮速PI请求差为0。原额定保护仍保留。
+
+左右原始heading峰值为 **.216487/.216581 rad（约12.4°）**，仍失败；两stop全程noop且原三项失败保持。相较plane-zero，左pulse腿中心速度RMS从.05680降至.04441 m/s，body实际heading增量.06587→.08352 rad，效果不足以过门槛。native固定世界x/y分力yaw矩6.386/−5.500→8.511/−7.635 Nm，net均值.8863→.8758，末25拍反向net增强；不是旋转body轴分量，也不是因果/能量份额。无扭矩保护；每场最初4个无active-wheel-load子步属于与原基线逐位相同的settling前缀。
+
+Root完成2,891,747项独立保存态/native/原评分审计，零新增物理，结果一致。此次只改torque，turn前缀必须包括 **obs200**，不能沿用center候选只到obs199的规则。累计物理预算已更新；不重跑入口。
+
+下一唯一待资格假设是恢复原有、被.6 cap屏蔽的body-rate反馈公式，而非另选数值cap：raw .6 pulse中，基线及turn-damper的原未截断请求始终约3.54–4.40 rps，而实际effective请求50/50拍均为.6；此时对body-rate的局部反馈导数为0。计划仅在raw纯turn恢复原 `servo + 4*(servo−body_rate)`，最终wheel±30、PI/antiwindup及原12Nm保护保留，预期会占用额定保护。不新增动态headroom limiter或参数扫描，不与腿阻尼/center组合。当前没有该候选物理结果；若独立有界试验仍失败，停止cap/effort系列并转向接触/腿运动几何。固定合同位于新状态JSON指向的 `turn_actuation_plan_01`。
 
 ## 仍必须完成的能力
 
