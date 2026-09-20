@@ -1,0 +1,134 @@
+--- actual_claude/tests/test_d1_jump_readiness.py
++++ root_integrated/tests/test_d1_jump_readiness.py
+@@ -8,7 +8,7 @@
+ 
+ Expected values are derived independently of the module under test: the fixed
+ command schedule is re-tabulated from the contract, the compiled wheel/plane
+-binding is cross-checked against ``refs/compiled_geometry.json``, and every
++binding is cross-checked against the frozen compiled-geometry fixture, and every
+ cylinder/plane clearance is compared with a brute-force enumeration of the
+ lowest point over both cylinder rim circles.
+ """
+@@ -47,7 +47,7 @@
+ D1MotionCommand = type(jr.fixed_height_command(0, "hold")[0])
+ 
+ _REFERENCE_GEOMETRY = json.loads(
+-    (_WORK_DIR / "refs" / "compiled_geometry.json").read_text()
++    (Path(__file__).parent / "fixtures" / "d1_jump_compiled_geometry.json").read_text()
+ )
+ 
+ # MuJoCo geom/joint type codes used by the synthetic read-only models below.
+@@ -301,16 +301,16 @@
+ 
+ 
+ def _binding_kwargs(**overrides):
+-    kwargs = dict(
+-        schema=jr.JUMP_READINESS_SCHEMA,
+-        plane_geom_id=0,
+-        wheel_geom_ids=_SYNTHETIC_WHEEL_GEOM_IDS,
+-        wheel_body_ids=_SYNTHETIC_WHEEL_BODY_IDS,
+-        radii_m=(_WHEEL_RADIUS_M,) * 4,
+-        half_lengths_m=(_WHEEL_HALF_LENGTH_M,) * 4,
+-        contact_margins_m=(_WHEEL_MARGIN_M,) * 4,
+-        model_ngeom=9,
+-    )
++    kwargs = {
++        "schema": jr.JUMP_READINESS_SCHEMA,
++        "plane_geom_id": 0,
++        "wheel_geom_ids": _SYNTHETIC_WHEEL_GEOM_IDS,
++        "wheel_body_ids": _SYNTHETIC_WHEEL_BODY_IDS,
++        "radii_m": (_WHEEL_RADIUS_M,) * 4,
++        "half_lengths_m": (_WHEEL_HALF_LENGTH_M,) * 4,
++        "contact_margins_m": (_WHEEL_MARGIN_M,) * 4,
++        "model_ngeom": 9,
++    }
+     kwargs.update(overrides)
+     return kwargs
+ 
+@@ -335,7 +335,7 @@
+     }
+     assert jr.TERMINAL_PREPARED_TICK == 600
+     assert jr.JUMP_READINESS_CONDITIONS == ("hold", "profile")
+-    assert set(label for _, _, _, label in _CONTRACT_PROFILE_TABLE) <= set(
++    assert {label for _, _, _, label in _CONTRACT_PROFILE_TABLE} <= set(
+         jr.JUMP_READINESS_PHASES
+     )
+     for constant in (jr.JUMP_READINESS_CONDITIONS, jr.JUMP_READINESS_PHASES):
+@@ -352,7 +352,7 @@
+             imported.update(alias.name.split(".")[0] for alias in node.names)
+         elif isinstance(node, ast.ImportFrom) and node.module is not None:
+             imported.add(node.module.split(".")[0])
+-    assert imported <= {"__future__", "math", "dataclasses", "typing", "numpy", "mujoco",
++    assert imported <= {"__future__", "collections", "math", "dataclasses", "typing", "numpy", "mujoco",
+                         "wheel_legged_control"}
+ 
+     identifiers = {n.id for n in ast.walk(tree) if isinstance(n, ast.Name)}
+@@ -391,7 +391,7 @@
+ 
+ 
+ def test_profile_schedule_matches_contract_table_for_every_prepared_tick():
+-    for tick in range(0, jr.TERMINAL_PREPARED_TICK + 1):
++    for tick in range(jr.TERMINAL_PREPARED_TICK + 1):
+         command, label = jr.fixed_height_command(tick, "profile")
+         height, expected_label = _expected_profile(tick)
+         assert isinstance(command, D1MotionCommand)
+@@ -401,7 +401,7 @@
+ 
+ def test_hold_schedule_is_a_flat_matched_control():
+     labels = set()
+-    for tick in range(0, jr.TERMINAL_PREPARED_TICK + 1):
++    for tick in range(jr.TERMINAL_PREPARED_TICK + 1):
+         command, label = jr.fixed_height_command(tick, "hold")
+         assert command.clearance_m == _CONTRACT_HOLD_CLEARANCE_M
+         assert label == ("settle" if tick < 200 else "hold")
+@@ -445,7 +445,7 @@
+ 
+ 
+ def test_paired_episodes_are_identical_through_tick_199_and_first_differ_at_200():
+-    for tick in range(0, 200):
++    for tick in range(200):
+         hold = jr.fixed_height_command(tick, "hold")
+         profile = jr.fixed_height_command(tick, "profile")
+         assert hold == profile
+@@ -468,7 +468,7 @@
+ def test_every_commanded_clearance_lies_inside_the_command_envelope():
+     heights = set()
+     for condition in jr.JUMP_READINESS_CONDITIONS:
+-        for tick in range(0, jr.TERMINAL_PREPARED_TICK + 1):
++        for tick in range(jr.TERMINAL_PREPARED_TICK + 1):
+             clearance = jr.fixed_height_command(tick, condition)[0].clearance_m
+             assert 0.38 <= clearance <= 0.53
+             heights.add(clearance)
+@@ -476,7 +476,7 @@
+ 
+ 
+ def test_schedule_is_stateless_and_order_independent():
+-    forward = [jr.fixed_height_command(t, "profile") for t in range(0, 601)]
++    forward = [jr.fixed_height_command(t, "profile") for t in range(601)]
+     backward = [jr.fixed_height_command(t, "profile") for t in range(600, -1, -1)]
+     assert forward == backward[::-1]
+     # No latch: repeating one tick never advances anything.
+@@ -577,8 +577,9 @@
+         centers[0], axis, _WHEEL_RADIUS_M, _WHEEL_HALF_LENGTH_M, (0.0, 0.0, 1.0)
+     )
+     assert gaps == pytest.approx([expected] * 4, abs=1e-8)
+-    # A tilted wheel hangs lower than either extreme orientation.
+-    assert gaps[0] <= min(0.25 - _WHEEL_RADIUS_M, 0.25 - _WHEEL_HALF_LENGTH_M) + 1e-12
++    # Support varies with tilt; only its global maximum is the radial/axial norm.
++    assert 0.25 - math.hypot(_WHEEL_RADIUS_M, _WHEEL_HALF_LENGTH_M) - 1e-12 <= gaps[0]
++    assert gaps[0] <= 0.25 - min(_WHEEL_RADIUS_M, _WHEEL_HALF_LENGTH_M) + 1e-12
+ 
+ 
+ def test_tilted_plane_pins_the_axis_and_normal_dot_convention():
+@@ -1036,8 +1037,10 @@
+     # For a level floor the row and column conventions share element [2][2], so
+     # the discriminating convention check lives in the tilted-plane test above.
+     assert float(rotation[2, 2]) == float(rotation.T[2, 2])
++    transposed = xmat.copy()
++    transposed[list(_SYNTHETIC_WHEEL_GEOM_IDS)] = rotation.T.reshape(9)
+     assert jr.sample_wheel_clearance(
+-        synthetic_binding, xpos, np.tile(rotation.T.reshape(9), (9, 1))
++        synthetic_binding, xpos, transposed
+     )["wheel_bottom_gap_m"] == pytest.approx([expected] * 4, abs=1e-8)
+ 
+ 

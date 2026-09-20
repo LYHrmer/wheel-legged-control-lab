@@ -1,0 +1,34 @@
+{
+  "schema": "d1-jump-helper-read-only-review-v1",
+  "verdict": "GO for fixed helper geometry/formulas; receipt completion and ordered-ID integration required before runner qualification",
+  "scope": "Full original source plus worker diff at the stated hash; source-only, no imports, controller calls, tests, kinematics, integration or physics executed. Worker tests were not yet present when inspected; this is not final runner approval.",
+  "original_sha256": "54296d2e59029163ddb48f594f0dbf402deeae9ab4587627bc9f8aec7c0eedb1",
+  "worker_reviewed_sha256": "0737e2875046a1d2a4ae3aaa9aa4182e1db378ceb8b798829f3c911d208d132c",
+  "worker_current_sha256_at_receipt": "0737e2875046a1d2a4ae3aaa9aa4182e1db378ceb8b798829f3c911d208d132c",
+  "root_actions": [
+    {
+      "id": "receipt_local_transforms",
+      "severity": "record completeness",
+      "source": "WheelPlaneBinding.as_receipt",
+      "finding": "Binding stores wheel_local_positions and wheel_local_quaternions but as_receipt omits them. The contract requires the compiled local transforms to be recorded once.",
+      "minimal_fix": "Add both numeric nested-list fields to the outer binding receipt, or add them to as_receipt when integrating the worker. No geometric formula change required."
+    },
+    {
+      "id": "ordered_body_ids",
+      "severity": "integration constraint",
+      "source": "src/wheel_legged_control/d1/model.py:305-312; bind_wheel_plane_geometry",
+      "finding": "Actual D1Plant.wheel_body_ids is frozenset; wheel_body_ids_by_leg is the canonical ordered tuple FL/FR/RL/RR. The helper rejects Mapping and unordered sets. Passing either directly is a runtime TypeError.",
+      "minimal_fix": "Use plant.wheel_body_ids_by_leg plus plant.floor_geom_id as already specified. If a separate adapter supplies a name-to-ID Mapping, validate its exact canonical keys and extract values by FL/FR/RL/RR order; never list(mapping) or rely on insertion/set order."
+    }
+  ],
+  "checked": {
+    "contact_margin": "Fixed wheel margin 0.001, floor margin 0 and both gaps 0 produce contact_margin_m=0.001. The fixed clearance threshold is strictly >0.021 m. This is restricted to the validated native plane model, not an arbitrary contact-pair/override or future obstacle model.",
+    "cylinder_support": "Correct support R*sqrt(1-(n dot a)^2)+L*abs(n dot a); a is geom_xmat third COLUMN (local cylinder z). Horizontal axis gives R, vertical gives L. Signed negative gaps are retained.",
+    "sampling": "Reducer joins only adjacent true saved intervals within 1e-10 s and rejects overlap beyond 1e-12 s. It neither selects 20 ms nor proves unsampled continuous flight. Scorer must independently require >=10 native intervals, summed actual duration >=0.020 s with the fixed rounding tolerance, zero active contacts/load, returned endpoint gap>margin, and positive whole-COM vz at run start.",
+    "json": "sample_wheel_clearance returns plain numeric/list schema, wheel IDs, all four gaps, simultaneous minimum, margin, plane ID/normal/offset. Caller must attach pose/time provenance and separate native force-cache phase; helper does not invent timestamps, COM or flight labels.",
+    "worker_diff": "Adds model_ngeom and whole-array row-count validation; formula and reducer unchanged. Count guards truncated arrays but is not proof of same-model identity; runner model/source binding remains necessary.",
+    "hidden_dynamics": "None found. Only possible MuJoCo call is mj_id2name for name lookup. No MjData creation, reset, forward, collision, solver or step call."
+  },
+  "modified_repo_files": [],
+  "physics_steps": 0
+}

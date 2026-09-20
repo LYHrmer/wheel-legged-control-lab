@@ -109,6 +109,14 @@ Root对8408保存态、PI、阻尼、保护、真实native/同步endpoint及原r
 
 下一固定提案位于 `jump_obstacle_next_plan_01/next_contract.md`：新PD/PI链仅比较600拍恒高与600拍旧固定高度表，实际记录离地接触、collision轮底净空、COM和落稳，不移植LQR450N推力或调参。尚无新跳跃物理结果。
 
+## 跳跃测量与新强化学习：实现中，尚未训练
+
+用户进一步要求尽快回到强化学习主线，并让实际Claude承担更多编码、测试与检查。Astra ultra已冻结 `stability_20260920/rl_jump_training_plan_01`：新95维oracle任务、原8维物理残差、固定高度引导，640步流程检查后从零训练131072步，只评最终checkpoint的五个固定条件（zero/policy共最多6000步）。不加载或重跑旧三个65k，不重跑24场G1。1200/6000高度探针只要求记录有效；零动作未达到跳跃门槛不阻断RL，也不再转入连续经典调参。
+
+[测量工具证据](../results/d1_driving_stability_development/jump_measurement_tools_01/README.md)已集成：`scripts/d1_jump_readiness.py`给出固定高度表、真实collision圆柱轮底几何及连续采样区间归并。实际Opus生成代码和测试；工具worker触及费用上限而未运行验证，root保留原件，修正错误的倾斜几何断言、转置fixture和临时路径依赖，并补全局部变换receipt。147项root非积分检查与Ruff通过，77冻结文件一致，新增物理步数为0。
+
+readiness env/records/runner及RL task/env已有实际Opus初稿，尚未取得执行资格：发现runner无实际CLI执行分支、诊断字段/PI读取错误及RL父接口错误，已退回隔离Claude小任务修正并补测试。原稿、费用/工具回执和失败检查保留在工作目录。没有新跳跃、落地或强化学习结果，完整目标未完成。
+
 ## 仍必须完成的能力
 
 1. 扩展固定组合域以外的可靠驾驶；已有八场通过，不代表行进转向、动态重启或人工试驾。
