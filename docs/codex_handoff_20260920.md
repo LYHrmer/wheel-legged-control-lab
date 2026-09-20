@@ -1,4 +1,4 @@
-# Codex 续接：平地停车通过开发门槛，转向仍未通过
+# Codex 续接：平地停车及转向分别通过，正在验证组合
 
 完整目标仍为 **稳定直行 → 可靠越障 → 提高速度**，没有完成。必须同时阅读 [2026-09-14 交接](codex_handoff_20260914.md) 和本文件；最终进程、HEAD、GitHub CI及下一步状态位于本机 `/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/continuation_state.json`。旧交接及旧状态文件没有改写。
 
@@ -27,7 +27,8 @@ SSH上传已验证；以GitHub API/实际remote refs核对HEAD，直接URL push�
 | 固定停车腿阻尼，plane四candidate | 4000 / 20000 | 两stop全部原门槛通过，两impulse完整逐位noop |
 | 固定系数1轮中心转向补偿，plane四candidate | 3200 / 16000 | 两turn改善但仍失败；两stop完整noop且保留原失败 |
 | 固定纯turn腿纵向阻尼，plane四candidate | 3200 / 16000 | 两turn仅小幅改善仍失败；两stop完整noop |
-| 本轮独立实验累计 | **27200 / 136000** | 不包含只读分析；复用基线没有重跑 |
+| 恢复原内层yaw反馈，plane四candidate | 3200 / 16000 | 两turn全部原门槛通过；两stop完整noop且原失败保留 |
+| 本轮独立实验累计 | **30400 / 152000** | 不包含只读分析；复用基线没有重跑 |
 
 两次批次中断均完整保留，已完成物理没有重算：yaw-cap第一批完成左baseline800拍后写清单失败，续批复用它；plane第一批完成两stop1600拍后因跨方向初始观察中的±0符号比较失败，续批复用它们。不存在漏计或将复用计为新增。详见各公开包中的来源、failure、carry和补充合同。
 
@@ -85,7 +86,17 @@ SSH上传已验证；以GitHub API/实际remote refs核对HEAD，直接URL push�
 
 Root完成2,891,747项独立保存态/native/原评分审计，零新增物理，结果一致。此次只改torque，turn前缀必须包括 **obs200**，不能沿用center候选只到obs199的规则。累计物理预算已更新；不重跑入口。
 
-下一唯一待资格假设是恢复原有、被.6 cap屏蔽的body-rate反馈公式，而非另选数值cap：raw .6 pulse中，基线及turn-damper的原未截断请求始终约3.54–4.40 rps，而实际effective请求50/50拍均为.6；此时对body-rate的局部反馈导数为0。计划仅在raw纯turn恢复原 `servo + 4*(servo−body_rate)`，最终wheel±30、PI/antiwindup及原12Nm保护保留，预期会占用额定保护。不新增动态headroom limiter或参数扫描，不与腿阻尼/center组合。当前没有该候选物理结果；若独立有界试验仍失败，停止cap/effort系列并转向接触/腿运动几何。固定合同位于新状态JSON指向的 `turn_actuation_plan_01`。
+## 已通过的有限转向能力：恢复原内层反馈
+
+[公开包](../results/d1_driving_stability_development/heading_plane_turn_authority_01/README.md)。基线及turn-damper的raw .6 pulse中，原未截断请求始终约3.54–4.40 rps，而实际请求50/50拍均被截为.6，屏蔽了原body-rate反馈。新模块 `d1_turn_yaw_authority.py` 仅在raw纯turn恢复原 `servo + 4*(servo−body_rate)`；最终wheel±30、PI/antiwindup及原12Nm保护保留，没有新cap、动态headroom limiter、center或腿阻尼。
+
+真实Opus编写核心，root仅修正文档/诊断边界/导出顺序并保留原件和diff；Astra ultra规划及独立审查。208保存态资格、29纯测试、104保存态控制调用（对账全0误差）先于物理。一次四场3200/16000完成，左右全部原门槛通过，heading峰值 **.063933/.063963 rad（3.663°/3.665°）**。两stop全程noop并保留原三项失败，不能混称为组合停车通过。
+
+实际目标峰值11.85298rad/s，未clip；未保护请求峰值23.09777Nm，实际保护为12Nm，每turn有8个protected joint-intervals。native pulse净yaw矩均值+3.17557/−3.17612Nm。恢复反馈有有限效果，不证明接触/腿几何无关或鲁棒转向已完成。root独立重建全部3204保存态/PI/保护/native/原始评分，3,046,809项检查通过，零新增物理；base leg PD/support仍为归档值而非独立重实现。
+
+turn前缀执行0..199、state0..200、obs0..199和native0..999逐位一致；obs200已改变preview，故不纳入。一次错误CLI路径在创建输出/构建环境/物理之前失败，零新增步；错误和正确原G1路径均已归档。此后唯一物理批次没有重跑。
+
+下一步是独立的停车/转向组合及命令交接合同 `stop_turn_composition_plan_01`。两模块单独通过不等于组合通过；原raw指令及门槛不变。
 
 ## 仍必须完成的能力
 

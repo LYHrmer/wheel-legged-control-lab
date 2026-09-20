@@ -1,0 +1,56 @@
+--- opus_original
++++ root_integrated
+@@ -9,8 +9,8 @@
+ and then keeps the ORIGINAL geometric wheel target ``(servo_forward - r_eff*y_i)/0.087``
+ with the ORIGINAL final ``+/-30 rad/s`` wheel clip.  Nothing else changes: gain 4,
+ wheel PI 2.2/3 with the +/-4 integral antiwindup, the 12 N*m wheel / 80 N*m leg rated
+-clips, the outward position/speed suppression, the leg PD/support terms and the outer
+-``+/-1`` action scaling are the parent's and are called exactly once per tick.
++clips, the outward position/speed suppression, leg PD/support and residual clipping
++remain the parent's. The environment's original outer heading servo is unchanged.
+ 
+ Deliberate non-scope: no other cap value, no headroom limiter, no gain/dt/duration
+ choice, no PI variant, no turn/stop damping law, no wheel-center ``+u/R``
+@@ -21,9 +21,9 @@
+ 
+ Honest expectations:
+ 
+-* ``r_eff`` magnitudes well above 0.6 rad/s are reported as such; the first ticks are
+-  expected to SATURATE the wheel targets at +/-30 rad/s and the unprotected wheel
+-  request is expected to exceed the 12 N*m rated clip.  Both are recorded explicitly
++* ``r_eff`` magnitudes well above 0.6 rad/s are reported as such. Initial unprotected
++  wheel requests are expected to exceed 12 N*m. Wheel targets retain the +/-30
++  rad/s clip; clipping of targets and torque is recorded independently
+   (``wheel_target_clipped``, ``wheel_request_nm`` vs ``wheel_torque_nm``) and are not
+   hidden or pre-limited.
+ * the reported ``effective_yaw_request_rps`` is a *request*, not a measured body yaw
+@@ -347,12 +347,14 @@
+             original_capped_yaw_rps=capped,
+             effective_yaw_request_rps=effective,
+             inner_cap_applied=not active,
+-            inner_cap_occupied=(not active) and capped != r0,
+-            original_inner_cap_would_be_occupied=capped != r0,
++            # Match the existing boundary-occupancy diagnostic, including its
++            # tolerance. This is distinct from whether clipping changed r0.
++            inner_cap_occupied=(not active) and abs(capped) >= self.yaw_request_limit_rps-1e-12,
++            original_inner_cap_would_be_occupied=abs(capped) >= self.yaw_request_limit_rps-1e-12,
+             base_wheel_target_rad_s=base_target,
+             unclipped_wheel_target_rad_s=unclipped,
+             wheel_target_rad_s=final,
+-            # Expected to be True on the first restored ticks; reported, not hidden.
++            # Target clipping is measured separately from torque saturation.
+             wheel_target_clipped=final != unclipped,
+             wheel_integral_before_nm=result.memory_before.wheel_integral_nm,
+             wheel_integral_after_nm=result.memory_after.wheel_integral_nm,
+@@ -370,9 +372,9 @@
+ __all__ = [
+     "TIME_MATCH_TOLERANCE_S",
+     "TURN_YAW_AUTHORITY_SCHEMA",
++    "WHEEL_RADIUS_M",
++    "WHEEL_SPEED_LIMIT_RAD_S",
+     "TurnRawCommandBinding",
+     "TurnYawAuthorityController",
+     "TurnYawAuthorityRecord",
+-    "WHEEL_RADIUS_M",
+-    "WHEEL_SPEED_LIMIT_RAD_S",
+ ]

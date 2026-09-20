@@ -1,0 +1,94 @@
+{
+  "schema": "d1-turn-original-yaw-authority-bounded-readonly-review-v1",
+  "decision": "GO",
+  "meaning": "在本次静态源码范围内没有发现具体运行阻断项；root 完成并绑定既定纯测试/preflight后，可进入唯一固定3200控制步/16000原生子步证伪。不是稳定性或原G1通过结论。",
+  "blocking_findings": [],
+  "required_source_changes": [],
+  "new_physics_steps": 0,
+  "new_controller_compute_calls": 0,
+  "new_contact_force_solves": 0,
+  "pure_tests_executed_by_reviewer": 0,
+  "repository_files_modified": false,
+  "checks": [
+    {
+      "scope": "single mechanism / pure preview",
+      "result": "PASS",
+      "source": "scripts/d1_turn_yaw_authority.py:264",
+      "detail": "active仅由enabled且raw forward==0且raw yaw!=0决定。nominal父调用一次，只替换effective_yaw_request_rps与nominal_wheel_speed_rad_s；使用原servo yaw、原gain和body yaw，随后原几何/R与±30 clip。inactive返回父nominal原对象。未改cap属性或增益，无damper/center/headroom limiter/latch。"
+    },
+    {
+      "scope": "parent once / PI / protection",
+      "result": "PASS",
+      "source": "scripts/d1_turn_yaw_authority.py:291",
+      "detail": "compute父调用恰一次，通过纯nominal动态分派改变目标；PI更新、±4积分clip、原拒绝/解饱和分支、12/80Nm限矩与位置/速度外向保护均由父原实现执行。不存在第二次shadow PI写回，返回父torque原对象并保留父last_result。未把预期额定饱和当成代码失败。"
+    },
+    {
+      "scope": "wheel spin feedback / saturation meaning",
+      "result": "PASS",
+      "source": "scripts/d1_turn_yaw_authority.py:237",
+      "detail": "目标不以wheel spin自身为反馈输入，因此未在公式上抵消原wheel误差导数−1。额定饱和时实际力矩局部斜率可以为0，不能据此声称饱和区仍有−2.23阻尼，也不能把局部采样代理当闭环证明。"
+    },
+    {
+      "scope": "binding / immutable record / memory",
+      "result": "PASS",
+      "source": "scripts/d1_turn_yaw_authority.py:213",
+      "detail": "raw/state时间容差1e−10 s，servo forward与raw forward一致；action在父调用前要求8维有限实数精确零。record只读父结果与本次状态，包含原/恢复目标、独立target clip、PI before/after、未保护请求和最终保护力矩；bind及preview不会更新last_authority。post-parent错误可能已推进PI，禁止同状态重试已有明确说明。"
+    },
+    {
+      "scope": "metadata / old checkpoints",
+      "result": "PASS",
+      "source": "scripts/probe_d1_heading_turn_yaw_authority.py:84",
+      "detail": "独立controller/task/config身份，native-plane父限制原默认control配置；仅zero_action运行，原任务模型不可在同schema下复用。仅导入TurnRawCommandBinding dataclass，不继承或执行turn/stop damper。"
+    },
+    {
+      "scope": "cap diagnostic stream / ownership",
+      "result": "PASS",
+      "source": "scripts/probe_d1_heading_turn_yaw_authority.py:30",
+      "detail": "active将继承的abs(request)>=.6诊断保留为legacy字段，并写实际inner_cap_applied/occupied及原cap假设占用；inactive原JSON字符串直接透传。记录对应刚执行compute，不是随后prepare的binding。包装器不拥有资源，原ExitStack仍关闭底层gzip；candidate finally调用父close。"
+    },
+    {
+      "scope": "raw callback / source / budget / gates",
+      "result": "PASS",
+      "source": "scripts/probe_d1_heading_turn_yaw_authority.py:64",
+      "detail": "原raw callback每次只调用一次，reset清计数，运行检查k+2。固定原G1 SHA及(2,3,0,1)四case，原gates直接传入；root preflight与77冻结源、baseline哈希和执行前后输入检查仍在。最多3200/16000，复用原baseline；没有训练、额外bypass或重试入口。"
+    },
+    {
+      "scope": "prefix / no-op stops",
+      "result": "PASS",
+      "source": "scripts/probe_d1_heading_turn_yaw_authority.py:257",
+      "detail": "改变preview轮目标，所以turn比较state0..200、obs0..199、执行0..199、native0..999完整entry摘要，正确排除obs200。stop比较完整801state/obs、800执行和4000native，并保留全部原summary字段（仅排除model）及原失败gates。"
+    },
+    {
+      "scope": "T/T+1 / failure evidence",
+      "result": "PASS",
+      "source": "scripts/probe_d1_heading_turn_yaw_authority.py:139",
+      "detail": "authority/endpoint/native长度核验与原G1评分链一致，继承同步endpoint及native solved-cache原相位。T+1、partial状态和native异常回执仍保留；batch失败按实际时钟/完成/partial计数，写failure manifest后停止，禁止补步或重试。"
+    }
+  ],
+  "execution_preconditions": [
+    "root完成既定无积分测试并把最终core/runner/tests/contract/sampling-note/机械报告等审阅输入锁入preflight；此项为既定启动条件，不是当前源码阻断。",
+    "仅执行合同的唯一四case预算及原raw评分；出现失败保留证据，不现场调cap/gain/dt或叠其他候选。"
+  ],
+  "limits": [
+    "未重新执行208姿态资格、未运行纯测试或控制器；仅确认所给机械报告SHA一致。",
+    "源码通过不保证离开额定饱和后采样稳定，不保证接触侧滑/腿变形改善，也不代表转向5°门槛通过。"
+  ],
+  "independent_runner_review": "runner_pair_review独立读取同runner快照后GO，无具体阻断。",
+  "input_sha256": {
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_turn_yaw_authority.py": "9ce64fdefc779f8e14eb231f5ac27c29a882504207406f1dd9660c773618ea50",
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_heading_turn_yaw_authority.py": "bfc9362c55b8c2946af842c022b523b2a4a99bbb76c30991d85fc13620b72f86",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/turn_actuation_plan_01/fixed_contract.md": "f6b4dc568dd9952f306009a1f22965f83581038f0081a9ca6a9a534a23bba36a",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/turn_actuation_plan_01/sampling_note.md": "69c91600b4c37f8470f05da62faafb6ca338216d24d894593f13f353570ea172",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/turn_actuation_plan_01/report.json": "9472e930f6acae7a6f3403a34dd677c04616ab376f09fcf709d7e527fd45b526",
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_turn_leg_damping.py": "6b424515153c5732081ccb0735ae1c191667d34e7fda888740dabb5e26ecdeef",
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_stop_leg_damping.py": "fcebd5c2dcb1922b55096925c6f8d765926d3add60ea50d9cb6e54cb8edc34d9",
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_flat_plane_env.py": "145c58e4201a657b76e1608263d3a4cea57eb1c0f39530fb47faf32b19026a51",
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_heading_flat_plane.py": "346a4727c28cbd629fbfa93d95d7cc941eba2ca43718f920e27f522535a4f7fa",
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_heading_plane_stop_damping.py": "0e4f0e804102c42d04dab7fc584588afaeb3e2a455d64b94ecd581c8fadb9200",
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_probe_archive.py": "e8a8685ab63837833ed1243090bf22b7465c35083f9585d928cabaa651a05d37",
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_heading_g1.py": "a631f443537a7183ca80bbaaca5e2b864b01bd4ac2adf899cb9f26462971cd78",
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_heading_tracking_env.py": "91cbb3bcf697cab21f9b2c6b02480cf73d41811e4dd3cad51f1ae9554c4177ec",
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/wheel_leg_controller.py": "0c731d366e811a465248cec4b9ce345d6d3c69a8a9c387e314ca6f992ac32156",
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/control_loop.py": "2d4fe87e635e124816985a6c72cbd8b35412b1f3910d61713eac1087387cdefe"
+  }
+}
