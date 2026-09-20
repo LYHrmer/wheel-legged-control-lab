@@ -1,0 +1,79 @@
+{
+  "passed": true,
+  "plant_semantics_valid": true,
+  "execution_evidence_valid": true,
+  "pairing_passed": true,
+  "all_four_original_case_gates_passed": true,
+  "new_integration_steps": 0,
+  "saved_state_kinematic_evaluations": 4000,
+  "frozen77_unchanged": true,
+  "episodes": [
+    {
+      "case": "flat_forward_stop",
+      "transitions": 800,
+      "physics_substeps": 4000,
+      "original_gates_passed": true,
+      "velocity_rmse_mps": 0.04476592439053235,
+      "native_and_control_prefix_bitwise_passed": true,
+      "compared_transitions": 400,
+      "compared_states": 401,
+      "independent_delta_max_abs_error_nm": 1.3322676295501878e-15,
+      "maximum_sampled_protected_increment_power_w": 0.0,
+      "actual_signed_yaw_impulse_nms": 0.0,
+      "late_stop_peak_mps": 0.00582335929209641,
+      "late_stop_path_m": 0.0025906010926850073
+    },
+    {
+      "case": "flat_reverse_stop",
+      "transitions": 800,
+      "physics_substeps": 4000,
+      "original_gates_passed": true,
+      "velocity_rmse_mps": 0.04483773054210779,
+      "native_and_control_prefix_bitwise_passed": true,
+      "compared_transitions": 400,
+      "compared_states": 401,
+      "independent_delta_max_abs_error_nm": 1.3322676295501878e-15,
+      "maximum_sampled_protected_increment_power_w": 0.0,
+      "actual_signed_yaw_impulse_nms": 0.0,
+      "late_stop_peak_mps": 0.006336345563997865,
+      "late_stop_path_m": 0.0027358573665768326
+    },
+    {
+      "case": "forward_positive_yaw_impulse",
+      "transitions": 1200,
+      "physics_substeps": 6000,
+      "original_gates_passed": true,
+      "velocity_rmse_mps": 0.02634239753254685,
+      "native_and_control_prefix_bitwise_passed": true,
+      "compared_transitions": 1200,
+      "compared_states": 1201,
+      "independent_delta_max_abs_error_nm": 0.0,
+      "maximum_sampled_protected_increment_power_w": 0.0,
+      "actual_signed_yaw_impulse_nms": 0.09999999999998899
+    },
+    {
+      "case": "forward_negative_yaw_impulse",
+      "transitions": 1200,
+      "physics_substeps": 6000,
+      "original_gates_passed": true,
+      "velocity_rmse_mps": 0.026342397206793048,
+      "native_and_control_prefix_bitwise_passed": true,
+      "compared_transitions": 1200,
+      "compared_states": 1201,
+      "independent_delta_max_abs_error_nm": 0.0,
+      "maximum_sampled_protected_increment_power_w": 0.0,
+      "actual_signed_yaw_impulse_nms": -0.09999999999998899
+    }
+  ],
+  "candidate_control_transitions": 4000,
+  "candidate_physics_substeps": 20000,
+  "reused_baseline_control_transitions": 4000,
+  "reused_baseline_physics_substeps": 20000,
+  "input_sha256": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/audit_plane_damping_records.py": "fb9d58a819e9dd103e1a81644a7ae46f81342b74cae4674709df2dfc55aefe51",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/audit_flat_plane_records.py": "4bf93354be2e56e34323868c966d859f3d6b043c593a1da571e36fa9c2d3e802",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/plane_stop_damping_01/protocol.json": "31e7d321d74203a5218be128dece7d6809495767e394f60b896cbc0dce0f605b",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/plane_stop_damping_01/manifest.json": "2e0eef99e571756e582e6c5fce66b457a42ed46b4a458ea9402679e2832d99ea"
+  },
+  "limitation": "finite development plane set only; sampled algebraic power is not integrated passivity or full driving qualification"
+}

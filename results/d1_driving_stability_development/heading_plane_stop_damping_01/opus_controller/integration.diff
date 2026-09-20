@@ -1,0 +1,91 @@
+--- Opus original
++++ root integrated
+@@ -29,53 +29,17 @@
+ from __future__ import annotations
+ 
+ import dataclasses
+-import importlib
+-import os
+ from dataclasses import dataclass
+ 
+ import numpy as np
+ 
+-# --- frozen parent import -------------------------------------------------
+-# The frozen controller module is imported as data; its location may differ per
+-# checkout, so a small candidate list (overridable by environment) is tried.
+-_MODULE_CANDIDATES: tuple[str, ...] = (
+-    os.environ.get("D1_WHEEL_LEG_CONTROL_MODULE", ""),
+-    "d1.wheel_leg_control",
+-    "d1.wheel_leg_controller",
+-    "d1.wheel_leg",
+-    "wheel_legged_control_lab.d1.wheel_leg_control",
+-    "wheel_legged_control_lab.d1.wheel_leg_controller",
+-    "src.d1.wheel_leg_control",
++from wheel_legged_control.d1.model import (
++    JOINT_POSITION_HIGH,
++    JOINT_POSITION_LOW,
++    JOINT_TORQUE_LIMIT,
++    JOINT_VELOCITY_LIMIT,
+ )
+-
+-
+-def _load_parent_module():
+-    """Return the frozen module that defines D1WheelLegController."""
+-    errors: list[str] = []
+-    for name in _MODULE_CANDIDATES:
+-        if not name:
+-            continue
+-        try:
+-            module = importlib.import_module(name)
+-        except ImportError as error:  # keep searching; report all failures once
+-            errors.append(f"{name}: {error}")
+-            continue
+-        if hasattr(module, "D1WheelLegController"):
+-            return module
+-        errors.append(f"{name}: no D1WheelLegController")
+-    raise ImportError(
+-        "could not import the frozen D1WheelLegController module; set "
+-        "D1_WHEEL_LEG_CONTROL_MODULE. Tried -> " + "; ".join(errors)
+-    )
+-
+-
+-_PARENT = _load_parent_module()
+-D1WheelLegController = _PARENT.D1WheelLegController
+-JOINT_TORQUE_LIMIT = _PARENT.JOINT_TORQUE_LIMIT
+-JOINT_POSITION_LOW = _PARENT.JOINT_POSITION_LOW
+-JOINT_POSITION_HIGH = _PARENT.JOINT_POSITION_HIGH
+-JOINT_VELOCITY_LIMIT = _PARENT.JOINT_VELOCITY_LIMIT
+-WHEEL_INDICES = np.asarray(_PARENT.WHEEL_INDICES)
++from wheel_legged_control.d1.wheel_leg_controller import WHEEL_INDICES, D1WheelLegController
+ 
+ # --- fixed public contract ------------------------------------------------
+ #: Unique control schema so no checkpoint recorded against another law loads here.
+@@ -248,7 +212,7 @@
+             # Disabled or pre-stop: parent result and returned object are passed
+             # through untouched so logs stay bit-for-bit identical to bypass.
+             record = StopLegDampingRecord(
+-                schema=self.control_schema,
++                schema=STOP_LEG_DAMPING_SCHEMA,
+                 enabled=self._enabled,
+                 active=False,
+                 previous_forward_mps=previous,
+@@ -305,7 +269,7 @@
+             torque_limited=safe != combined,
+         )
+         record = StopLegDampingRecord(
+-            schema=self.control_schema,
++            schema=STOP_LEG_DAMPING_SCHEMA,
+             enabled=True,
+             active=True,
+             previous_forward_mps=previous,
+@@ -331,8 +295,8 @@
+ 
+ 
+ __all__ = [
++    "STOP_LEG_DAMPING_NSPM",
+     "STOP_LEG_DAMPING_SCHEMA",
+-    "STOP_LEG_DAMPING_NSPM",
++    "StopLegDampingController",
+     "StopLegDampingRecord",
+-    "StopLegDampingController",
+ ]
