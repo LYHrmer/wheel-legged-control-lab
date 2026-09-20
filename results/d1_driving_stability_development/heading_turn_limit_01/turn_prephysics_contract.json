@@ -1,0 +1,21 @@
+{
+  "schema": "d1-yaw-limit-causal-probe-contract-v1",
+  "planner": "gpt-6-astra / ultra",
+  "cases": ["stationary_turn_left_hold", "stationary_turn_right_hold"],
+  "conditions_yaw_request_limit_rps": [0.6, 1.0],
+  "candidate_value_source": "existing heading outer-loop 1.0 rad/s cap; fixed before observation",
+  "seed": 55101,
+  "max_control_transitions": 3200,
+  "max_physics_substeps": 16000,
+  "raw_yaw_pulse": "original signed 0.6 rad/s at ticks200..249, reference reaches signed0.3 rad at2.5s",
+  "gates": "all original G1 turn gates unchanged",
+  "physics_prefix_state_inclusive": 200,
+  "physics_prefix_execution_end_exclusive": 200,
+  "telemetry": "synchronized endpoint contact wrench/Jacobian relative velocity, direct requested/applied torque, raw/servo/effective yaw, wheel kinematic yaw",
+  "no_new_training": true,
+  "no_ppo": true,
+  "no_parameter_sweep": true,
+  "default_change": false,
+  "hypothesis": "Larger effective yaw cap may improve tracking; if wheel differential increases without sufficient body yaw and contact tangent speed increases, the cap is not the sole bottleneck",
+  "dependency": "Parking release candidate rejected and archived; this independent turning diagnosis cannot establish stable driving or enable speed/obstacle adoption"
+}

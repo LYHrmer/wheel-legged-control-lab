@@ -1,0 +1,193 @@
+{
+  "actual_control_transitions": 3200,
+  "actual_new_control_transitions": 2400,
+  "actual_physics_substeps": 16000,
+  "candidate_passed_both_turn_cases": false,
+  "carried_completed_transitions": 800,
+  "default_changed": false,
+  "episodes": [
+    {
+      "actual_control_transitions": 800,
+      "actual_physics_substeps": 4000,
+      "case": "stationary_turn_left_hold",
+      "condition": "limit0p6",
+      "contact_sampling": "endpoint samples; not a continuous-slip integral",
+      "gates": {
+        "checks": {
+          "actual_roll_pitch": true,
+          "complete_duration": true,
+          "heading_peak": false,
+          "height_rmse": true,
+          "no_boundary_or_fall": true,
+          "no_nonwheel_contact": true,
+          "turn_late_heading": true,
+          "turn_late_speed": true,
+          "turn_planar_displacement": true,
+          "turn_reference": true
+        },
+        "failed": [
+          "heading_peak"
+        ],
+        "passed": false
+      },
+      "heading_peak_rad": 0.2523534398066168,
+      "pulse_body_yaw_mean_before_rps": 0.09337539951804481,
+      "pulse_contact_tangent_speed_rms_mps": 0.021922651659267593,
+      "pulse_contact_yaw_moment_mean_nm": 0.869081407133513,
+      "pulse_observed_contact_samples": 610,
+      "pulse_wheel_fit_yaw_mean_before_rps": 0.4484700150180896
+    },
+    {
+      "actual_control_transitions": 800,
+      "actual_physics_substeps": 4000,
+      "case": "stationary_turn_left_hold",
+      "condition": "limit1p0",
+      "contact_sampling": "endpoint samples; not a continuous-slip integral",
+      "gates": {
+        "checks": {
+          "actual_roll_pitch": true,
+          "complete_duration": true,
+          "heading_peak": false,
+          "height_rmse": true,
+          "no_boundary_or_fall": true,
+          "no_nonwheel_contact": true,
+          "turn_late_heading": true,
+          "turn_late_speed": true,
+          "turn_planar_displacement": true,
+          "turn_reference": true
+        },
+        "failed": [
+          "heading_peak"
+        ],
+        "passed": false
+      },
+      "heading_peak_rad": 0.20021212881848394,
+      "pulse_body_yaw_mean_before_rps": 0.19503178144589906,
+      "pulse_contact_tangent_speed_rms_mps": 0.029517105074623413,
+      "pulse_contact_yaw_moment_mean_nm": 1.7354377555965805,
+      "pulse_observed_contact_samples": 660,
+      "pulse_wheel_fit_yaw_mean_before_rps": 0.7676106695492215
+    },
+    {
+      "actual_control_transitions": 800,
+      "actual_physics_substeps": 4000,
+      "case": "stationary_turn_right_hold",
+      "condition": "limit0p6",
+      "contact_sampling": "endpoint samples; not a continuous-slip integral",
+      "gates": {
+        "checks": {
+          "actual_roll_pitch": true,
+          "complete_duration": true,
+          "heading_peak": false,
+          "height_rmse": true,
+          "no_boundary_or_fall": true,
+          "no_nonwheel_contact": true,
+          "turn_late_heading": true,
+          "turn_late_speed": true,
+          "turn_planar_displacement": true,
+          "turn_reference": true
+        },
+        "failed": [
+          "heading_peak"
+        ],
+        "passed": false
+      },
+      "heading_peak_rad": 0.25235122277024374,
+      "pulse_body_yaw_mean_before_rps": -0.09408850341684565,
+      "pulse_contact_tangent_speed_rms_mps": 0.02240498657154693,
+      "pulse_contact_yaw_moment_mean_nm": -0.6858808252855177,
+      "pulse_observed_contact_samples": 632,
+      "pulse_wheel_fit_yaw_mean_before_rps": -0.4734514644484554
+    },
+    {
+      "actual_control_transitions": 800,
+      "actual_physics_substeps": 4000,
+      "case": "stationary_turn_right_hold",
+      "condition": "limit1p0",
+      "contact_sampling": "endpoint samples; not a continuous-slip integral",
+      "gates": {
+        "checks": {
+          "actual_roll_pitch": true,
+          "complete_duration": true,
+          "heading_peak": false,
+          "height_rmse": true,
+          "no_boundary_or_fall": true,
+          "no_nonwheel_contact": true,
+          "turn_late_heading": true,
+          "turn_late_speed": true,
+          "turn_planar_displacement": true,
+          "turn_reference": true
+        },
+        "failed": [
+          "heading_peak"
+        ],
+        "passed": false
+      },
+      "heading_peak_rad": 0.19353180227044636,
+      "pulse_body_yaw_mean_before_rps": -0.20897778890266866,
+      "pulse_contact_tangent_speed_rms_mps": 0.029924086349275274,
+      "pulse_contact_yaw_moment_mean_nm": -1.9465571783188764,
+      "pulse_observed_contact_samples": 687,
+      "pulse_wheel_fit_yaw_mean_before_rps": -0.7915560666967756
+    }
+  ],
+  "frozen77_unchanged": true,
+  "pairs": [
+    {
+      "case": "stationary_turn_left_hold",
+      "checks": {
+        "applied_actions": true,
+        "observations": true,
+        "qpos": true,
+        "qvel": true,
+        "requested_actions": true,
+        "truth_positions_world_m": true
+      },
+      "comparison": "old_zero_reproduction",
+      "passed": true
+    },
+    {
+      "case": "stationary_turn_left_hold",
+      "checks": {
+        "applied_actions": true,
+        "diagnostic_prefix": true,
+        "observations": true,
+        "qpos": true,
+        "qvel": true,
+        "requested_actions": true,
+        "truth_positions_world_m": true
+      },
+      "comparison": "before_raw_yaw_pulse",
+      "passed": true
+    },
+    {
+      "case": "stationary_turn_right_hold",
+      "checks": {
+        "applied_actions": true,
+        "observations": true,
+        "qpos": true,
+        "qvel": true,
+        "requested_actions": true,
+        "truth_positions_world_m": true
+      },
+      "comparison": "old_zero_reproduction",
+      "passed": true
+    },
+    {
+      "case": "stationary_turn_right_hold",
+      "checks": {
+        "applied_actions": true,
+        "diagnostic_prefix": true,
+        "observations": true,
+        "qpos": true,
+        "qvel": true,
+        "requested_actions": true,
+        "truth_positions_world_m": true
+      },
+      "comparison": "before_raw_yaw_pulse",
+      "passed": true
+    }
+  ],
+  "schema": "d1-heading-yaw-limit-causal-probe-v1",
+  "stable_driving_complete": false
+}

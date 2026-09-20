@@ -1,0 +1,31 @@
+{
+  "actual_control_transitions": 800,
+  "actual_physics_substeps": 4000,
+  "case": "stationary_turn_left_hold",
+  "condition": "limit0p6",
+  "contact_sampling": "endpoint samples; not a continuous-slip integral",
+  "gates": {
+    "checks": {
+      "actual_roll_pitch": true,
+      "complete_duration": true,
+      "heading_peak": false,
+      "height_rmse": true,
+      "no_boundary_or_fall": true,
+      "no_nonwheel_contact": true,
+      "turn_late_heading": true,
+      "turn_late_speed": true,
+      "turn_planar_displacement": true,
+      "turn_reference": true
+    },
+    "failed": [
+      "heading_peak"
+    ],
+    "passed": false
+  },
+  "heading_peak_rad": 0.2523534398066168,
+  "pulse_body_yaw_mean_before_rps": 0.09337539951804481,
+  "pulse_contact_tangent_speed_rms_mps": 0.021922651659267593,
+  "pulse_contact_yaw_moment_mean_nm": 0.869081407133513,
+  "pulse_observed_contact_samples": 610,
+  "pulse_wheel_fit_yaw_mean_before_rps": 0.4484700150180896
+}

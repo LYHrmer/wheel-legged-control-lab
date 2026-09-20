@@ -1,0 +1,75 @@
+Write one bounded Python 3.10 module scripts/d1_turn_contact_diagnostics.py. Return exactly one fenced Python code block, no tools/tests. This is READ-ONLY MuJoCo contact telemetry for a causal yaw-limit experiment; no control changes, stepping, data refresh, reset, model/data construction, mj_forward, or mj_step allowed.
+API: TURN_CONTACT_SCHEMA="d1-turn-contact-kinematics-v1"; function sample_turn_contacts(plant)->dict JSON serializable.
+Use plant.model and plant.measurement_data (synchronized endpoint measurement cache), plant.base_position.copy() for moment reference. Known plant.terrain_geom_ids, plant._wheel_index_by_body_id mapping, plant.dof_addresses ndarray of ordered 16 joint qvel addresses, wheel joint local indices[3,7,11,15]. Data.qvel includes 6 free dofs and 16 joint dofs.
+For each active wheel-terrain contact (efc_address>=0, exactly one terrain geom, wheel body in mapping) log contact index, wheel index, pos_world_m, robot/terrain body IDs, robot force_world_n and torque_world_nm from mujoco.mj_contactForce with correct geom1/geom2 sign and contact.frame.T rotation (reference source below), normal_force_n from local[0], tangential_force_magnitude_n from norm(local[1:3]). Compute robot and terrain contact point Jacobians with mujoco.mj_jac(model,data,jacp,None,contact.pos,body_id). Complete robot_point_velocity_world_mps=jacp_robot @ qvel; terrain velocity likewise; relative velocity=robot-terrain. Tangential relative velocity vector = relative - dot(relative,normal_world)*normal_world with contact.frame[0]. Do not use COM velocity as body-origin velocity. Decompose robot point velocity into all non-wheel leg dofs, wheel dofs, and remainder (free base) via Jacobian column masks; these three components must sum to complete robot velocity. Include each vector plus tangent speed magnitude.
+Aggregate contact_count_by_wheel, wheel_force_world_n, total_wrench_world_6=[Fxyz,Mxyz] about reference including contact spin torque; a no-contact wheel has zero counts/forces and no per-contact velocity sample (do not invent a zero slip measurement). Metadata: schema, measurement_time_s=float(data.time), frame=world, sampling=synchronized_endpoint_not_control_average, reference_world_m. All scalar values converted to native floats/ints and arrays lists. The function must not mutate plant/model/data. No monkeypatching. Keep <160 lines and do not introduce broad abstractions. Follow existing force conventions exactly. Main agent will independently integrate and verify frozen trajectory parity.
+
+Exact existing source for force convention:
+    def measure_wheel_contact_wrench(
+        self,
+        reference_position_world_m: np.ndarray | None = None,
+    ) -> D1MeasuredContactWrench:
+        """Measure the published wheel-ground wrench without controller output.
+
+        MuJoCo reports each contact force in a transposed contact frame and with
+        the force acting on ``geom2``.  This method handles both geom orderings,
+        rotates the result into world axes, and sums moments at the actual
+        contact points. Synchronized mode evaluates it at the integrated state;
+        legacy mode retains the final physics substep's pre-integration phase.
+        This is not the control-period average stored separately below.
+        """
+
+        reference = (
+            self.base_position
+            if reference_position_world_m is None
+            else np.asarray(reference_position_world_m, dtype=np.float64)
+        )
+        if reference.shape != (3,) or not np.isfinite(reference).all():
+            raise ValueError("reference_position_world_m must be a finite shape-(3,) vector")
+
+        return self._measure_wheel_contact_wrench(self.measurement_data, reference)
+
+    def _measure_wheel_contact_wrench(
+        self, data: mujoco.MjData, reference: np.ndarray
+    ) -> D1MeasuredContactWrench:
+
+        wheel_forces = np.zeros((len(LEG_PREFIXES), 3), dtype=np.float64)
+        contact_counts = np.zeros(len(LEG_PREFIXES), dtype=np.int32)
+        total_force = np.zeros(3, dtype=np.float64)
+        total_moment = np.zeros(3, dtype=np.float64)
+        local_wrench = np.empty(6, dtype=np.float64)
+        for contact_id, contact in enumerate(data.contact):
+            geom1 = int(contact.geom1)
+            geom2 = int(contact.geom2)
+            terrain1 = geom1 in self.terrain_geom_ids
+            terrain2 = geom2 in self.terrain_geom_ids
+            if terrain1 == terrain2 or int(contact.efc_address) < 0:
+                continue
+            robot_geom = geom2 if terrain1 else geom1
+            robot_body = int(self.model.geom_bodyid[robot_geom])
+            wheel_index = self._wheel_index_by_body_id.get(robot_body)
+            if wheel_index is None:
+                continue
+
+            mujoco.mj_contactForce(self.model, data, contact_id, local_wrench)
+            contact_frame = np.asarray(contact.frame, dtype=np.float64).reshape(3, 3)
+            force_world = contact_frame.T @ local_wrench[:3]
+            torque_world = contact_frame.T @ local_wrench[3:]
+            if robot_geom == geom1:
+                force_world = -force_world
+                torque_world = -torque_world
+
+            wheel_forces[wheel_index] += force_world
+            contact_counts[wheel_index] += 1
+            total_force += force_world
+            total_moment += np.cross(np.asarray(contact.pos) - reference, force_world)
+            total_moment += torque_world
+
+        return D1MeasuredContactWrench(
+            reference_position_world_m=reference,
+            wheel_force_world_n=wheel_forces,
+            mean_contact_point_count_by_wheel=contact_counts,
+            active_sample_fraction_by_wheel=contact_counts > 0,
+            wrench_world=np.concatenate((total_force, total_moment)),
+        )
+
