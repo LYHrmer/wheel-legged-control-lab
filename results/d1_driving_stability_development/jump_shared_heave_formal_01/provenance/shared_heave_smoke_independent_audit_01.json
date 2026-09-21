@@ -1,0 +1,77 @@
+{
+  "active_mapping_rows": 120,
+  "audit_helper_sha256": "3a4f57f53e2760ffe3d0aa72fbdf4db0915d53e95c48d897807a50a5ce216e0b",
+  "completed_episodes": 1,
+  "controller_calls": 0,
+  "controls": 640,
+  "episode_seed_base": 629980000,
+  "episode_transitions": [
+    600,
+    40
+  ],
+  "episodes": [
+    {
+      "count": 600,
+      "event_bonus_sum": 0.0,
+      "flight_events": 0,
+      "index": 0,
+      "landing_events": 0,
+      "peak_endpoint_net_gap_m": 0.00047247657065159574,
+      "progress": 0.0,
+      "return_sum": 11.174197998521626
+    },
+    {
+      "count": 40,
+      "event_bonus_sum": 0.0,
+      "flight_events": 0,
+      "index": 1,
+      "landing_events": 0,
+      "peak_endpoint_net_gap_m": 0.0,
+      "progress": 0.0,
+      "return_sum": 0.7967518473502145
+    }
+  ],
+  "height_mask_rows": 95,
+  "input_sha256": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_rl_plan_01/protocol.json": "bec8774a3838d0d2defbf2856afb7ec9a2717e2b72846919bab2b7eed330517f",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_smoke_01/boundaries/episode_00000_end.json": "3498eaaf5ba5b9359f093ca9e1c2d80e50f8ef434be0278f2163228f6c6e9060",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_smoke_01/boundaries/episode_00000_reset.json": "7c5242d6c532d6d5e2523c627ac0d4da0c267f8d6bf1b75adc87f6008fa9da1c",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_smoke_01/boundaries/episode_00001_reset.json": "c826e59ba2c302745ce3362009bba74177d680958a0b9ddf4393f6e0690085f7",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_smoke_01/episodes.jsonl.gz": "a83b0667b6fa67efec52ccf2dae9bd18f872245e0b14050805b53ee3ecf78334",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_smoke_01/final_snapshot.json": "65f82ab5158325c568673d86c1fad93f5fe8698139c0feb6c6fa95910be0bf6a",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_smoke_01/first_episode_metadata.json": "64549f541e9eb081e868cce01a11e8b9e46fe5e3b604c837e193834531d73b39",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_smoke_01/initial_training.json": "5e00e771d65024ffe7cd50075163a62b70daa60587a4f8a97eaafc4c8b0b1e62",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_smoke_01/receipt.json": "99421c5b140d029982aebda6b2d699aa1d9010f197680bfcea7b20c5a4fc4674",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_smoke_01/source_after.json": "fa740aa603338328584db40b4fa8b5a95adb1b0171dcce88c596bac5281f316e",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_smoke_01/training_trace.jsonl.gz": "288bf57a094acdf78c07ee026c218d36be3454bdf22bb87b2754f5b488b9bb7a",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_smoke_01/updates.jsonl": "a9cedb4f47d49ca4153dee135541f5ac31dec6e226da7c19b84ce31bc773930e",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_smoke_preflight_01.json": "49f565a535f1020314462238607b4d63f00fa568eba2f85ae39649607da7bfb3"
+  },
+  "leg_rate_limited_rows": 32,
+  "limitations": [
+    "compact training logs lack all native qpos/contact entries and every-step observations",
+    "5-native-per-control established by recorded counter and sample summaries, not independent native replay",
+    "no independent geometry/COM reconstruction or checkpoint inference; no policy-success claim",
+    "global torque maximum bounds 80 Nm but compact logs cannot independently prove each wheel stayed within 12 Nm"
+  ],
+  "max_abs_policy_scalar": 0.3709108233451843,
+  "max_abs_protected_torque_nm": 41.65694908208171,
+  "max_abs_requested_torque_nm": 41.65694908208171,
+  "max_abs_wheel_residual": 0.0,
+  "mode": "smoke",
+  "model_calls": 0,
+  "native_calls": 3200,
+  "optimization_epochs": 5,
+  "passed": true,
+  "scope": [
+    "every recorded transition/action/raw schedule/reward and complete progress state rebuilt",
+    "every reset seed/curriculum, end boundary, final actor progress, PPO update and receipt checked",
+    "all 214 pinned inputs checked against current bytes; archived pre/post source claims retained"
+  ],
+  "seed": 62998,
+  "simulator_calls": 0,
+  "source_hash_count": 214,
+  "source_mismatches": [],
+  "torque_protection_rows": 0,
+  "train_calls": 5
+}

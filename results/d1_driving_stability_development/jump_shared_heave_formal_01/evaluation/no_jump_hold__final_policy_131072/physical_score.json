@@ -1,0 +1,76 @@
+{
+  "case": "no_jump_hold",
+  "checks": {
+    "execution": true,
+    "late": true,
+    "no_flight_after_settling": true
+  },
+  "execution": {
+    "checks": {
+      "completed_control_intervals": true,
+      "endpoint_count": true,
+      "endpoint_tick_sequence": true,
+      "finite_state": true,
+      "global_heading_error": true,
+      "global_planar_displacement": true,
+      "global_roll_pitch": true,
+      "native_contact_fields_valid": true,
+      "native_endpoints_per_control_interval": true,
+      "native_interval_count": true,
+      "native_time_continuous": true,
+      "no_domain_exit": true,
+      "no_fall": true,
+      "no_nonwheel_contact": true,
+      "no_unknown_wrench": true,
+      "plane_normals_valid": true,
+      "position_within_envelope": true,
+      "protections_intact": true,
+      "rated_torque_within_envelope": true,
+      "single_reset": true,
+      "velocity_within_envelope": true
+    },
+    "passed": true,
+    "protection_occupancy": null,
+    "reasons": []
+  },
+  "extra_flights": 0,
+  "flight_runs": [],
+  "late_settled": {
+    "detail": {
+      "checks": {
+        "body_vx": true,
+        "com_vz": true,
+        "height_rmse": true,
+        "per_wheel_positive_load": true,
+        "planar_path": true
+      },
+      "height_rmse_m": 0.005832364060004128,
+      "max_abs_body_vx_mps": 2.1257657563692675e-05,
+      "max_abs_com_vz_mps": 0.00016387352749190422,
+      "per_wheel_positive_load_fraction": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "planar_path_m": 2.8266189145373385e-05,
+      "rmse_reference": "per-tick raw held height command, never a constant 0.455 m"
+    },
+    "passed": true
+  },
+  "loaded_return": null,
+  "max_qualified_net_gap_m": null,
+  "notes": [
+    "Native solved-contact samples and returned-pose geometry are distinct recorded phases.",
+    "Sampled flight evidence does not prove unsampled continuous-time clearance."
+  ],
+  "passed": true,
+  "peak_per_wheel_normal_load_n": [
+    275.0485710533594,
+    274.92444864931826,
+    220.3237671828341,
+    220.21021141352668
+  ],
+  "requested_qualified_runs": [],
+  "schema": "d1-jump-ppo-physical-score-v1"
+}

@@ -1,0 +1,9 @@
+请继续 /home/lyh/wheel-legged-control-lab 项目。先完整阅读 docs/codex_handoff_20260921.md、docs/codex_handoff_20260914.md，以及 /home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/continuation_state.json 和 final_publication_receipt_01.json，再核对工作树、GitHub main/CI、运行进程与冻结文件哈希。
+
+完整目标仍是“稳定直行 → 可靠越障 → 提高速度”。上一轮已完成：原始停令评分下的固定停车/转向组合八场通过；两次新131072步PPO训练及最终验收分别0/5、1/5，仅后者静止保持通过，跳跃仍失败。累计新增315424控制步/1577120 native。不要把软件检查、记录完整或固定域通过当作完整目标完成。
+
+唯一近期任务是 /home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/next_terminal_handoff_plan_01/next_contract.md：先完成真实native plane+单15mm box的零积分几何/接触资格，再做两个固定zero低速滚越readiness条件，最多2400控制步/12000 native。原地20mm跳跃不是低台阶滚越的前提，但跳跃需求仍保留原门槛。有效失败也可作为后续RL基线；依据真实结果另立有界RL合同，不盲目启动第三次平地跳跃增训或扫描经典增益。
+
+请实际使用gpt-6-astra ultra制定/审阅方案。Claude额度恢复后，多分配有界模块、测试和静态检查给实际Claude Opus，以减少主代理token；如仍限额，不反复请求，由主代理继续。主代理负责集成、实际计步和物理验收，不虚构Claude代码或成功调用。常规开发、验证及及时上传GitHub已获授权，请直接继续。
+
+每条shell命令加rtk；GitHub优先使用交接中已验证的SSH443命令。不修改77份冻结文件或旧实验记录，不重复旧三个65k、24场G1及本轮两次已完成的131072训练和已完成物理批次。新RL GUI生成曾超时，没有代码；R仍为仿真reset，物理自救未实现。请始终区分已验证能力、假设和未完成事项，并持续更新新实验记录、交接和状态。

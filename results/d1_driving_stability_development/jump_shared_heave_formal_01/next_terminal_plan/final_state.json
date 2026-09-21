@@ -1,0 +1,61 @@
+{
+  "schema": "d1-next-terminal-final-handoff-v1",
+  "status": "fixed_shared_heave_experiment_complete_task_failed_handoff_only",
+  "new_physics_by_this_planning_subtask": 0,
+  "new_training_by_this_planning_subtask": 0,
+  "shared_heave": {
+    "smoke_controls": 640,
+    "formal_controls": 131072,
+    "evaluation_controls": 6000,
+    "total_controls": 137712,
+    "total_native": 688560,
+    "formal_updates": 1024,
+    "formal_epochs": 4096,
+    "formal_records_valid": true,
+    "formal_flight_progress_landing_events": 0,
+    "evaluation_records_valid": true,
+    "learned_cases_passed": 1,
+    "learned_cases_total": 5,
+    "passed_case": "no_jump_hold",
+    "jump_cases_passed": 0,
+    "jump_cases_total": 4,
+    "hold_is_exact_zero_baseline_due_to_gate": true
+  },
+  "cumulative_this_work_sequence": {
+    "controls": 315424,
+    "native": 1577120,
+    "derivation": "root prior 177712/888560 plus completed shared-heave 137712/688560; excludes old historical studies"
+  },
+  "full_user_objective_complete": false,
+  "next_unique_task": "native-plane-single-15mm-box-contact-and-zero-rollover-readiness",
+  "next_task_currently_executed": false,
+  "next_task_controls_max": 2400,
+  "next_task_native_max": 12000,
+  "next_task_training_steps": 0,
+  "next_task_cases": [
+    {
+      "name": "plane_only",
+      "seed": 77301,
+      "controls": 1200
+    },
+    {
+      "name": "single_15mm_box",
+      "seed": 77301,
+      "controls": 1200
+    }
+  ],
+  "current_turn_additional_experiments_allowed": false,
+  "third_flat_jump_training_automatic": false,
+  "next_mechanism_rationale": "Prioritize reliable obstacle traversal; stationary 20mm all-wheel flight is not necessary for rolling over a low step. Jump remains unfulfilled.",
+  "publication_receipt": "root final main handoff; not asserted by this subagent",
+  "input_sha256": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_formal_01/receipt.json": "f5b466f2e6f319632aa68bf25b82d2310f985ab122331c25de38d01e3a33f678",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_formal_independent_audit_01.json": "d05f4c69c0f3f3854158771276615ec4139339794dc2e97fea6320e12643800c",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/summary.json": "f32320218def42b6f1d36893219e4fac8ed33aa648379ffe5b97ee433b101318",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_root_audit_01.json": "9832fc41142e4cec132305eb45a136fc8b731d191a13aa6cad9bfd6c8ee4e160",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_smoke_01/receipt.json": "99421c5b140d029982aebda6b2d699aa1d9010f197680bfcea7b20c5a4fc4674",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/plane_stop_turn_01/summary.json": "7997ce3a7302c2802452629b7cb70d943e5f8dd30abcad0aa8c3cdda15530f8b",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_failure_plan_01/report.json": "118daf58ad634ac6896c85c800199b9fa63adf003241c3bfb6968e133526c3a6",
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/terrain.py": "a72ad8d9c599e87d5587f253b2ade893d26629b55f755a0ca60e55d87c18e6fd"
+  }
+}

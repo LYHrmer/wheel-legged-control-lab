@@ -1,0 +1,342 @@
+{
+  "passed": true,
+  "new_physics": 0,
+  "controls_audited": 6000,
+  "native_audited": 30000,
+  "pairs": {
+    "no_jump_hold": true,
+    "jump_late_a": true,
+    "jump_late_b": true,
+    "jump_lower_friction": true,
+    "jump_higher_friction": true
+  },
+  "cases": [
+    {
+      "case": "no_jump_hold",
+      "condition": "zero",
+      "passed": true,
+      "window_max_net_gap_mm": 0.0,
+      "unloaded_runs": [],
+      "maximum_planar_displacement_m": 0.0010886624168927033,
+      "old_zero_physical_equivalence": {
+        "compared": true,
+        "initial_match": true,
+        "raw_command_match": true,
+        "friction_match": true,
+        "arrays": {
+          "qpos": true,
+          "qvel": true,
+          "qacc_warmstart": true,
+          "ctrl": true,
+          "time": true,
+          "observation": true
+        }
+      }
+    },
+    {
+      "case": "no_jump_hold",
+      "condition": "final_policy_131072",
+      "passed": true,
+      "window_max_net_gap_mm": 0.0,
+      "unloaded_runs": [],
+      "maximum_planar_displacement_m": 0.0010886624168927033,
+      "old_zero_physical_equivalence": null
+    },
+    {
+      "case": "jump_late_a",
+      "condition": "zero",
+      "passed": false,
+      "window_max_net_gap_mm": 0.49183724657646344,
+      "unloaded_runs": [
+        {
+          "first_native": 1078,
+          "samples": 6,
+          "duration_ms": 12,
+          "start_com_vz_mps": 0.4599981307934262,
+          "net_gap_peak_m": 0.0004918372465764634
+        }
+      ],
+      "maximum_planar_displacement_m": 0.04864032208085792,
+      "old_zero_physical_equivalence": {
+        "compared": true,
+        "initial_match": true,
+        "raw_command_match": true,
+        "friction_match": true,
+        "arrays": {
+          "qpos": true,
+          "qvel": true,
+          "qacc_warmstart": true,
+          "ctrl": true,
+          "time": true,
+          "observation": true
+        }
+      }
+    },
+    {
+      "case": "jump_late_a",
+      "condition": "final_policy_131072",
+      "passed": false,
+      "window_max_net_gap_mm": 0.2256246170842949,
+      "unloaded_runs": [
+        {
+          "first_native": 882,
+          "samples": 2,
+          "duration_ms": 4,
+          "start_com_vz_mps": -0.10335630281606362,
+          "net_gap_peak_m": 0.00014946700765336527
+        },
+        {
+          "first_native": 1079,
+          "samples": 4,
+          "duration_ms": 8,
+          "start_com_vz_mps": 0.4346090965155116,
+          "net_gap_peak_m": 0.0002256246170842949
+        }
+      ],
+      "maximum_planar_displacement_m": 0.05603435801226963,
+      "old_zero_physical_equivalence": null
+    },
+    {
+      "case": "jump_late_b",
+      "condition": "zero",
+      "passed": false,
+      "window_max_net_gap_mm": 0.4912036909048576,
+      "unloaded_runs": [
+        {
+          "first_native": 1328,
+          "samples": 6,
+          "duration_ms": 12,
+          "start_com_vz_mps": 0.45979980203874693,
+          "net_gap_peak_m": 0.0004912036909048576
+        }
+      ],
+      "maximum_planar_displacement_m": 0.048302668476548204,
+      "old_zero_physical_equivalence": {
+        "compared": true,
+        "initial_match": true,
+        "raw_command_match": true,
+        "friction_match": true,
+        "arrays": {
+          "qpos": true,
+          "qvel": true,
+          "qacc_warmstart": true,
+          "ctrl": true,
+          "time": true,
+          "observation": true
+        }
+      }
+    },
+    {
+      "case": "jump_late_b",
+      "condition": "final_policy_131072",
+      "passed": false,
+      "window_max_net_gap_mm": 0.2238744688044811,
+      "unloaded_runs": [
+        {
+          "first_native": 1132,
+          "samples": 2,
+          "duration_ms": 4,
+          "start_com_vz_mps": -0.10356786739189411,
+          "net_gap_peak_m": 0.00013299042230491363
+        },
+        {
+          "first_native": 1329,
+          "samples": 4,
+          "duration_ms": 8,
+          "start_com_vz_mps": 0.4342833998884097,
+          "net_gap_peak_m": 0.00022387446880448112
+        }
+      ],
+      "maximum_planar_displacement_m": 0.055834182325429624,
+      "old_zero_physical_equivalence": null
+    },
+    {
+      "case": "jump_lower_friction",
+      "condition": "zero",
+      "passed": false,
+      "window_max_net_gap_mm": 0.5612188512980907,
+      "unloaded_runs": [
+        {
+          "first_native": 883,
+          "samples": 1,
+          "duration_ms": 2,
+          "start_com_vz_mps": -0.11464549938854872,
+          "net_gap_peak_m": 3.057471577806812e-05
+        },
+        {
+          "first_native": 1078,
+          "samples": 7,
+          "duration_ms": 14,
+          "start_com_vz_mps": 0.4571133945903739,
+          "net_gap_peak_m": 0.0005612188512980907
+        }
+      ],
+      "maximum_planar_displacement_m": 0.0505109663267476,
+      "old_zero_physical_equivalence": {
+        "compared": true,
+        "initial_match": true,
+        "raw_command_match": true,
+        "friction_match": true,
+        "arrays": {
+          "qpos": true,
+          "qvel": true,
+          "qacc_warmstart": true,
+          "ctrl": true,
+          "time": true,
+          "observation": true
+        }
+      }
+    },
+    {
+      "case": "jump_lower_friction",
+      "condition": "final_policy_131072",
+      "passed": false,
+      "window_max_net_gap_mm": 0.2845928471751783,
+      "unloaded_runs": [
+        {
+          "first_native": 882,
+          "samples": 2,
+          "duration_ms": 4,
+          "start_com_vz_mps": -0.10299601519245362,
+          "net_gap_peak_m": 0.0001841076036188669
+        },
+        {
+          "first_native": 1079,
+          "samples": 4,
+          "duration_ms": 8,
+          "start_com_vz_mps": 0.4307830000001528,
+          "net_gap_peak_m": 0.0002845928471751783
+        }
+      ],
+      "maximum_planar_displacement_m": 0.057298398914566624,
+      "old_zero_physical_equivalence": null
+    },
+    {
+      "case": "jump_higher_friction",
+      "condition": "zero",
+      "passed": false,
+      "window_max_net_gap_mm": 0.5814895896289483,
+      "unloaded_runs": [
+        {
+          "first_native": 1329,
+          "samples": 6,
+          "duration_ms": 12,
+          "start_com_vz_mps": 0.44475481299921305,
+          "net_gap_peak_m": 0.0005814895896289482
+        }
+      ],
+      "maximum_planar_displacement_m": 0.04764873131084151,
+      "old_zero_physical_equivalence": {
+        "compared": true,
+        "initial_match": true,
+        "raw_command_match": true,
+        "friction_match": true,
+        "arrays": {
+          "qpos": true,
+          "qvel": true,
+          "qacc_warmstart": true,
+          "ctrl": true,
+          "time": true,
+          "observation": true
+        }
+      }
+    },
+    {
+      "case": "jump_higher_friction",
+      "condition": "final_policy_131072",
+      "passed": false,
+      "window_max_net_gap_mm": 0.27696357976450625,
+      "unloaded_runs": [
+        {
+          "first_native": 1132,
+          "samples": 2,
+          "duration_ms": 4,
+          "start_com_vz_mps": -0.1039544828283308,
+          "net_gap_peak_m": 9.7381797998051e-05
+        },
+        {
+          "first_native": 1330,
+          "samples": 3,
+          "duration_ms": 6,
+          "start_com_vz_mps": 0.4211135493190396,
+          "net_gap_peak_m": 0.00027696357976450623
+        }
+      ],
+      "maximum_planar_displacement_m": 0.05458762787134531,
+      "old_zero_physical_equivalence": null
+    }
+  ],
+  "input_sha256": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/no_jump_hold__zero/native.jsonl.gz": "65e38af8bfded7f478c4c935fcd76759c4cfa797cf003fd810ef5e5cc8175f91",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/no_jump_hold__zero/trace.jsonl.gz": "3d2d34236dfdcbe271640bcaabb69dca2f26a8b391a2db65365d0d3eec4ef6a6",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/no_jump_hold__zero/records.json": "eae8fa8cd191a1da1ab124abd7d4b4469a728727a255c9ebe42d1b5fd999ed45",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/no_jump_hold__zero/states.npz": "6db3e406b3e70ba405e445e55a4797985d7efa8a98c512fbab29edf44b66e281",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/no_jump_hold__zero/physical_score.json": "877f8833b7ee712dd6503c26507ae2b5a5e3c56e144ffd9157006fbc899ffa3d",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/no_jump_hold__zero/episode_metadata.json": "ee52b78bac7b78f56391abcf144d02f57850374d93f3051b5db0c56cbf5b5c4e",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/no_jump_hold__zero/states.npz": "6db3e406b3e70ba405e445e55a4797985d7efa8a98c512fbab29edf44b66e281",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/no_jump_hold__zero/episode_metadata.json": "0d38fd1a46f2333cd659589a5c41171639ed9c08842231fa825a14361a451432",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/no_jump_hold__final_policy_131072/native.jsonl.gz": "22f46b647354748258c506d1ab69e4fcdb3a56df604f063dd20fb041357fc5d0",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/no_jump_hold__final_policy_131072/trace.jsonl.gz": "3c963b2561120c1c77035853b0f720ffa5d0298c9dfeb1d907c3ef255b5c12b1",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/no_jump_hold__final_policy_131072/records.json": "eae8fa8cd191a1da1ab124abd7d4b4469a728727a255c9ebe42d1b5fd999ed45",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/no_jump_hold__final_policy_131072/states.npz": "6db3e406b3e70ba405e445e55a4797985d7efa8a98c512fbab29edf44b66e281",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/no_jump_hold__final_policy_131072/physical_score.json": "877f8833b7ee712dd6503c26507ae2b5a5e3c56e144ffd9157006fbc899ffa3d",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/no_jump_hold__final_policy_131072/episode_metadata.json": "ee52b78bac7b78f56391abcf144d02f57850374d93f3051b5db0c56cbf5b5c4e",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_late_a__zero/native.jsonl.gz": "498d3c8c529a76db17aa18c7942899f3c337286799fe49f060dfc744b0cba7a4",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_late_a__zero/trace.jsonl.gz": "2a37ef60892d234eb421a456493d5d4ace5842c8e5077447fbe04fc2339164e5",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_late_a__zero/records.json": "961b54307cd3d9baf5501c1b1f10c997172ae712d2d206c7a6c16421daa458dd",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_late_a__zero/states.npz": "033896b10bb1ffb203a3b18f3ed64966780d27eea370d9f4f483a2e3cd8da325",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_late_a__zero/physical_score.json": "38a6c6a513ad795d43d07cdee129c494f9e62849f2659eb2365e344e72ac8e28",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_late_a__zero/episode_metadata.json": "d7f7b0f5f60e518ca77ca11326dc63a60a8419545ead393a32e3ca32a0eb2312",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_late_a__zero/states.npz": "033896b10bb1ffb203a3b18f3ed64966780d27eea370d9f4f483a2e3cd8da325",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_late_a__zero/episode_metadata.json": "3053c17c05522de00e550e2e5c12d8686578e11e2e130fd0c416affcf869a795",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_late_a__final_policy_131072/native.jsonl.gz": "15592e62850a947c37b477e273668e0e5658cec377e06408b83b3face14b58d7",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_late_a__final_policy_131072/trace.jsonl.gz": "a7f649708d77911e3b5c3f24d767d8306bbf461e5191caeeff7c6481118044c1",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_late_a__final_policy_131072/records.json": "852e1b77462e86afb22a1f1836368bd6639b36bc10dd6b3fbe76c8710d5ed53c",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_late_a__final_policy_131072/states.npz": "0d89ed49de22f942354e9bf0b0a3aad9e1e69f4fbb9e2bafa00424270751580d",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_late_a__final_policy_131072/physical_score.json": "257c7d72f289ca4573608485ef6627bde15f03bfd2c96ce72f8122d5e13a6ad0",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_late_a__final_policy_131072/episode_metadata.json": "d7f7b0f5f60e518ca77ca11326dc63a60a8419545ead393a32e3ca32a0eb2312",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_late_b__zero/native.jsonl.gz": "7759c9f30530439b3562efbfeca5ca52adfa24921fafbccaa05eec3b3cb609dc",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_late_b__zero/trace.jsonl.gz": "3a07c7f19497c287ff6082e4c2b54c54e10ef774e5feca7f1f4434b3e352777a",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_late_b__zero/records.json": "e4756b025769138222f20af6fb21aafff454d938e4160b56f81df00443b2069e",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_late_b__zero/states.npz": "cf1611d4d36b70742a14480994ed7f057e0533fbffedafef1fd771f80907eb31",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_late_b__zero/physical_score.json": "517fb19f6c3752eb91ec03a5177cd88e8c9e9a99653174c93b4c486115df3d7c",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_late_b__zero/episode_metadata.json": "fa49d3cf84b8c98e1be9123fe0f0119d438fb2368d63626ede078871fdbf1851",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_late_b__zero/states.npz": "cf1611d4d36b70742a14480994ed7f057e0533fbffedafef1fd771f80907eb31",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_late_b__zero/episode_metadata.json": "ca55c413cb7eca8e4cdba37952427bf388f3e3cf0100ad6c88a28e9f22325d3a",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_late_b__final_policy_131072/native.jsonl.gz": "611438b59577a8a8d43cd2736edc7141b904560b84c3df631091639f3831d3bf",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_late_b__final_policy_131072/trace.jsonl.gz": "bf3db5849614231c27d63f71cc968076b97910137d44f03f7bdc7a971b3d773b",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_late_b__final_policy_131072/records.json": "e3087b7bf58de6029b5cc3c10f34defe0880f92a0ac61fdabfbf6b7dae7c40e9",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_late_b__final_policy_131072/states.npz": "a5e139642e5619eef5149f328ea4284d3d99fdcaa6120a92039c6034dc00c101",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_late_b__final_policy_131072/physical_score.json": "8778eb4809fdab487699376effdf85f8563b3d5ae6f2964e4dfa67091110c045",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_late_b__final_policy_131072/episode_metadata.json": "fa49d3cf84b8c98e1be9123fe0f0119d438fb2368d63626ede078871fdbf1851",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_lower_friction__zero/native.jsonl.gz": "059f6d46daad0783d3bcc453d16edb639725cc8f3812daa108e57a159c893e36",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_lower_friction__zero/trace.jsonl.gz": "7ef12ce74d74db73bf2c2b60042c44c6e42e678757dcd312d146835ab116e5f1",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_lower_friction__zero/records.json": "fb620ffd0b3e968a7cbf1fe02b547548fcfb42e220882dbf5187703efe0f2025",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_lower_friction__zero/states.npz": "73aa786f3e9dc1705351da460d02faeee53347d8706013dbe469ef0d0857a7ad",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_lower_friction__zero/physical_score.json": "2e8f46296d9408454b8b89e55b136620617c480aa89107727a96820492f9505e",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_lower_friction__zero/episode_metadata.json": "16b64226d90f7384595342f783ee17dc0b2c70093abc44ad7f7bceace2706b41",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_lower_friction__zero/states.npz": "73aa786f3e9dc1705351da460d02faeee53347d8706013dbe469ef0d0857a7ad",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_lower_friction__zero/episode_metadata.json": "c59cefc9fe38188233ac63834fe67dcaba1889665891d049b00be525b5d5753e",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_lower_friction__final_policy_131072/native.jsonl.gz": "e12bdbf1d9db8ff41c9d89d6c731f5a93cc198481380d4a4fe4d30cb3165cb4f",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_lower_friction__final_policy_131072/trace.jsonl.gz": "9d7664bb1c90619f1d8a1d2c3c4c0fa8c6517872f15103afd682acf329b6b9eb",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_lower_friction__final_policy_131072/records.json": "18ec3e7f01dceb621928ac14102824b3ffeff0f1fe4bd6509468189226790bf5",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_lower_friction__final_policy_131072/states.npz": "04d4edd1a254138c12aed0141b3548661bb957bb1dbb74d98ec579b7bba22f18",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_lower_friction__final_policy_131072/physical_score.json": "f824c9c11d7da5a9fa4de4549bea55b685d5016567ee9b46e6b30cf2f5166e1e",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_lower_friction__final_policy_131072/episode_metadata.json": "16b64226d90f7384595342f783ee17dc0b2c70093abc44ad7f7bceace2706b41",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_higher_friction__zero/native.jsonl.gz": "504e8d7c03652cc5b0609c6a7dbee6ebc6bf4c9aee35258ebdf608dd4d0a3f48",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_higher_friction__zero/trace.jsonl.gz": "2f096fc5669edf387550a86030ad9f2a43deaf9db27840039d62fc3251756def",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_higher_friction__zero/records.json": "f8615a4620aac513b3ad66524f94ee5231ba885d2f2daa66b989fdc9d2f19038",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_higher_friction__zero/states.npz": "3dd389813a3cf21df48b3ba1f2dfae4a365b9fdb41e0cb6a60af476d4b8b372f",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_higher_friction__zero/physical_score.json": "8188be4f1b6dfea108bc9d97017da417476af3f58f265509afbe61b04976b78b",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_higher_friction__zero/episode_metadata.json": "6460bd0dd0509c5abd3a458c29a20f53aa8c7137255cbce15878c4dc0a624e32",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_higher_friction__zero/states.npz": "3dd389813a3cf21df48b3ba1f2dfae4a365b9fdb41e0cb6a60af476d4b8b372f",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/rl_jump_evaluation_01/jump_higher_friction__zero/episode_metadata.json": "1f231d90b70d96e5046c5c1248026d9078d16791436a43a2f82da9540decc85d",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_higher_friction__final_policy_131072/native.jsonl.gz": "60c134064b4addf48b512bbae36d17c002c80a3cde2c1282f5830abde311a0ef",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_higher_friction__final_policy_131072/trace.jsonl.gz": "36a8785c207f92cf00bf37f01274ef4f46202f363e3ae68e8d09d0e8b7d26160",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_higher_friction__final_policy_131072/records.json": "63c029fd565bc00e485e7ca782497deec2de9716e8ba0e36070c83ba5388098b",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_higher_friction__final_policy_131072/states.npz": "5640493cceb4122a4928acf778a701f3691a4373f15f6ad16168796e29588d1a",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_higher_friction__final_policy_131072/physical_score.json": "580706f1ca6b2352e3fa51ca2702d6691ce025ed11fdd3ea8dd30dd543d6bef5",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260920/shared_heave_evaluation_01/jump_higher_friction__final_policy_131072/episode_metadata.json": "6460bd0dd0509c5abd3a458c29a20f53aa8c7137255cbce15878c4dc0a624e32"
+  },
+  "scope": "Full raw native clock/state chain/held torque/zero external force/original rated limits; independent scalar gate mapping and request-window unloaded-run reduction from recorded geometry/load. No reconstructed geometry or force solve."
+}
