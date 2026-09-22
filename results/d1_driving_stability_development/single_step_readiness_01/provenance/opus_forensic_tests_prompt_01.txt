@@ -1,0 +1,111 @@
+Write a bounded unittest module, max 100 lines, for scripts.audit_d1_single_step_contact.contact_anomalies using synthetic dictionaries only. Do not call main, MuJoCo, load_case, real physics, filesystem, or subprocess. Cover: unloaded invalid feature stays anomaly and all_box_features_valid=False even when another loaded valid row exists; active flag alone is not positive load; negative/zero loads are not qualified; positive invalid feature causes all_positive_load_features_valid=False; no box contacts or no positive loads cannot qualify; original_qualification_overridden always False. No actual tests are run by you; root runs tests. Return one Python code block only. Source:
+"""Reconstruct saved contact geometry without integration or force recomputation.
+
+The original trial and its invalid score are never edited or reclassified.
+This diagnostic compares native collision output at the saved pre-step pose.
+"""
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+from pathlib import Path
+
+import mujoco
+import numpy as np
+
+from scripts.d1_single_step_plant import build_single_step_model
+from scripts.d1_single_step_records import PhysicsCallLedger
+from scripts.probe_d1_single_step import load_case, write_json
+
+
+def contact_geometry(data):
+    return [{"geom1": int(c.geom1), "geom2": int(c.geom2),
+             "position_world_m": c.pos.tolist(), "distance_m": float(c.dist),
+             "frame_geom1_to_geom2": c.frame.reshape(3, 3).tolist()}
+            for c in data.contact]
+
+
+def contact_anomalies(native):
+    """Keep unloaded anomalies visible; never turn them into load evidence."""
+    count = positive = 0
+    anomalies = []
+    for row in native:
+        for c in row["contacts"]["contacts"]:
+            if c["box_feature"] is None:
+                continue
+            count += 1
+            loaded = c["active"] and c["normal_load_n"] > 0.
+            positive += int(loaded)
+            if not c["box_feature"]["geometric_support_valid"]:
+                anomalies.append({"native_index": row["index"],
+                    "contact_index": c["index"], "loaded": bool(loaded), "contact": c})
+    return {"box_contact_rows": count, "positive_load_rows": positive,
+            "anomalies": anomalies, "all_box_features_valid": count > 0 and not anomalies,
+            "all_positive_load_features_valid": positive > 0 and not any(a["loaded"] for a in anomalies),
+            "original_qualification_overridden": False}
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--case", type=Path, required=True)
+    parser.add_argument("--output", type=Path, required=True)
+    args = parser.parse_args()
+    if args.output.exists():
+        raise FileExistsError(args.output)
+    payload = load_case(args.case)
+    if not payload["source_identity_valid"]:
+        raise ValueError("original sources or archive changed")
+    inventory = contact_anomalies(payload["native"])
+    if len(inventory["anomalies"]) != 1:
+        raise ValueError("this forensic contract is limited to one recorded anomaly")
+    index = inventory["anomalies"][0]["native_index"]
+    results = []
+    with PhysicsCallLedger(native_limit=0) as ledger:
+        # Forensics may use kinematics/collision, never dynamics/constraint solving.
+        original_forward = mujoco.mj_forward
+        mujoco.mj_forward = ledger._forbidden
+        try:
+            model = build_single_step_model(obstacle_enabled=True)
+            for idx, state in ((index-1, "before"), (index, "before"),
+                               (index, "returned"), (index+1, "before")):
+                row = payload["native"][idx]
+                data = mujoco.MjData(model)
+                data.qpos[:] = row["qpos_"+state]
+                data.qvel[:] = row["qvel_"+state]
+                data.time = row["start_time_s" if state == "before" else "end_time_s"]
+                qpos, qvel, time = data.qpos.copy(), data.qvel.copy(), float(data.time)
+                mujoco.mj_kinematics(model, data)
+                mujoco.mj_comPos(model, data)
+                mujoco.mj_collision(model, data)
+                actual = contact_geometry(data)
+                expected = [{k: c[k] for k in actual[0]} for c in row["contacts"]["contacts"]]
+                target = inventory["anomalies"][0]["contact"]
+                wheel_id, box_id = target["robot_geom_id"], target["terrain_geom_id"]
+                segment = np.zeros(6)
+                distance = mujoco.mj_geomDistance(model, data, wheel_id, box_id, 1., segment)
+                unchanged = (np.array_equal(data.qpos, qpos) and np.array_equal(data.qvel, qvel)
+                             and float(data.time) == time)
+                if not unchanged:
+                    raise RuntimeError("static reconstruction changed integrator state")
+                results.append({"native_index": idx, "pose": state,
+                    "all_contact_geometry_exactly_matches_record": actual == expected,
+                    "contacts": actual, "state_unchanged": unchanged,
+                    "wheel_center_world_m": data.geom_xpos[wheel_id].tolist(),
+                    "wheel_rotation_world": data.geom_xmat[wheel_id].reshape(3, 3).tolist(),
+                    "wheel_size_m": model.geom_size[wheel_id].tolist(),
+                    "geom_distance_m": float(distance), "geom_distance_segment": segment.tolist()})
+        finally:
+            mujoco.mj_forward = original_forward
+        receipt = ledger.receipt()
+    write_json(args.output, {"schema": "single-step-static-forensic-v1",
+        "original_manifest_sha256": hashlib.sha256((args.case.parent/"manifest.json").read_bytes()).hexdigest(),
+        "mujoco_version": mujoco.__version__, "inventory": inventory, "reconstructions": results,
+        "ledger": receipt, "static_call_counts": {"mj_kinematics": 4, "mj_comPos": 4,
+            "mj_collision": 4, "mj_geomDistance": 4},
+        "source_identity_valid": True, "no_dynamic_load_recomputation": True,
+        "original_score_unchanged": True, "readiness_qualification_granted": False})
+
+
+if __name__ == "__main__":
+    main()

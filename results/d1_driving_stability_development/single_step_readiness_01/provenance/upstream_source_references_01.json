@@ -1,0 +1,15 @@
+{
+  "mujoco_version": "3.12.0",
+  "primary_sources": [
+    {
+      "url": "https://github.com/google-deepmind/mujoco/blob/3.12.0/src/engine/engine_collision_convex.c#L798-L895",
+      "relevance": "Margins and cylinder pairs use single-contact narrowphase followed by multipoint perturbations; newly accepted points inherit first contact distance. This suggests a location to investigate, not a demonstrated internal cause."
+    },
+    {
+      "url": "https://mujoco.readthedocs.io/en/3.12.0/APIreference/APItypes.html",
+      "relevance": "Native contact frame orientation semantics."
+    }
+  ],
+  "confirmed_by_local_reconstruction": "Anomalous native candidate exists at the saved pre-step pose without controller or force recomputation.",
+  "internal_engine_cause_confirmed": false
+}
