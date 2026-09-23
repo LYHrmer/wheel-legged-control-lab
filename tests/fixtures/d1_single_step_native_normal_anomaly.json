@@ -1,0 +1,6506 @@
+{
+  "schema": "single-step-real-contact-fixture-v1",
+  "sources": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260922/single_step_readiness_01/single_15mm_box/native.jsonl.gz": {
+      "sha256": "fca0cbe9d981cf3088968d5e66ce18541a9a0597c4c5f64fdb5fd25f42d14920",
+      "bytes": 10455722
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260922/single_step_readiness_01/single_15mm_box/geometry_manifest.json": {
+      "sha256": "2f96672b8ea1eeaa068050602e85933bed57fdd33f4faa6ea6955aba263cfa49",
+      "bytes": 29435
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260922/static_contact_forensic_01.json": {
+      "sha256": "0c46a59f8905e1310b7a73d4c6c749440264161ddb27a4d067ac0ce005d30bc2",
+      "bytes": 32772
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260922/single_step_readiness_01/manifest.json": {
+      "sha256": "80b7a829b6be1332bf050d68b2774903457961a5400c5efa8b59da094e366f46",
+      "bytes": 3460
+    }
+  },
+  "geometry_manifest": {
+    "schema": "compiled-single-step-geom-bindings-v1",
+    "geoms": [
+      {
+        "geom_id": 0,
+        "identity": "floor",
+        "body_id": 0,
+        "body_name": "world",
+        "geom_type": 0,
+        "margin_m": 0.0,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": "plane",
+        "position_local_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "size_m": [
+          20.0,
+          20.0,
+          0.05
+        ]
+      },
+      {
+        "geom_id": 1,
+        "identity": "terrain_single_15mm_box",
+        "body_id": 0,
+        "body_name": "world",
+        "geom_type": 6,
+        "margin_m": 0.0,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": "box",
+        "position_local_m": [
+          -3.0999999999999996,
+          0.0,
+          0.0075
+        ],
+        "size_m": [
+          0.18,
+          0.62,
+          0.0075
+        ]
+      },
+      {
+        "geom_id": 2,
+        "identity": "base_link#geom0",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 6,
+        "margin_m": 0.0,
+        "wheel_index": null,
+        "collision": false,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "size_m": [
+          0.0005,
+          0.0005,
+          0.0005
+        ]
+      },
+      {
+        "geom_id": 3,
+        "identity": "base_link#geom1",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 6,
+        "margin_m": 0.0,
+        "wheel_index": null,
+        "collision": false,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "size_m": [
+          0.0005,
+          0.0005,
+          0.0005
+        ]
+      },
+      {
+        "geom_id": 4,
+        "identity": "base_link#geom2",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 7,
+        "margin_m": 0.0,
+        "wheel_index": null,
+        "collision": false,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.1893819877384003,
+          -3.1191351024293075e-05,
+          -0.016456347212858578
+        ],
+        "size_m": [
+          0.13784544476878352,
+          0.1403069328612243,
+          0.1894044121757966
+        ]
+      },
+      {
+        "geom_id": 5,
+        "identity": "base_link#geom3",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 6,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.1875,
+          0.0,
+          0.0
+        ],
+        "size_m": [
+          0.1375,
+          0.075,
+          0.0875
+        ]
+      },
+      {
+        "geom_id": 6,
+        "identity": "base_link#geom4",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 6,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.1875,
+          0.0,
+          -0.12
+        ],
+        "size_m": [
+          0.155,
+          0.06,
+          0.03
+        ]
+      },
+      {
+        "geom_id": 7,
+        "identity": "base_link#geom5",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 5,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.3005,
+          0.05,
+          0.0
+        ],
+        "size_m": [
+          0.0875,
+          0.025,
+          0.0
+        ]
+      },
+      {
+        "geom_id": 8,
+        "identity": "base_link#geom6",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 5,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.3005,
+          -0.05,
+          0.0
+        ],
+        "size_m": [
+          0.0875,
+          0.025,
+          0.0
+        ]
+      },
+      {
+        "geom_id": 9,
+        "identity": "base_link#geom7",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 5,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.0745,
+          0.05,
+          0.0
+        ],
+        "size_m": [
+          0.0875,
+          0.025,
+          0.0
+        ]
+      },
+      {
+        "geom_id": 10,
+        "identity": "base_link#geom8",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 5,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.0745,
+          -0.05,
+          0.0
+        ],
+        "size_m": [
+          0.0875,
+          0.025,
+          0.0
+        ]
+      },
+      {
+        "geom_id": 11,
+        "identity": "base_link#geom9",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 7,
+        "margin_m": 0.0,
+        "wheel_index": null,
+        "collision": false,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.35234745057843153,
+          -1.3107946158255508e-06,
+          0.0037584692067187397
+        ],
+        "size_m": [
+          0.032297113638832586,
+          0.08914273555196076,
+          0.13747990142440247
+        ]
+      },
+      {
+        "geom_id": 12,
+        "identity": "base_link#geom10",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 6,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.35,
+          0.0,
+          0.0
+        ],
+        "size_m": [
+          0.02475,
+          0.075,
+          0.0875
+        ]
+      },
+      {
+        "geom_id": 13,
+        "identity": "base_link#geom11",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 5,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.35,
+          0.05,
+          0.0
+        ],
+        "size_m": [
+          0.0875,
+          0.02475,
+          0.0
+        ]
+      },
+      {
+        "geom_id": 14,
+        "identity": "base_link#geom12",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 5,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.35,
+          -0.05,
+          0.0
+        ],
+        "size_m": [
+          0.0875,
+          0.02475,
+          0.0
+        ]
+      },
+      {
+        "geom_id": 15,
+        "identity": "base_link#geom13",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 7,
+        "margin_m": 0.0,
+        "wheel_index": null,
+        "collision": false,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.019011466253086622,
+          -0.0009393859017447704,
+          0.00714173235933079
+        ],
+        "size_m": [
+          0.051726050046497246,
+          0.09301780324450626,
+          0.13808277641891256
+        ]
+      },
+      {
+        "geom_id": 16,
+        "identity": "base_link#geom14",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 6,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.0245,
+          0.0,
+          0.0
+        ],
+        "size_m": [
+          0.025,
+          0.095,
+          0.0875
+        ]
+      },
+      {
+        "geom_id": 17,
+        "identity": "base_link#geom15",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 6,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          -0.014499999999999999,
+          0.064,
+          0.005
+        ],
+        "size_m": [
+          0.015,
+          0.04,
+          0.04
+        ]
+      },
+      {
+        "geom_id": 18,
+        "identity": "base_link#geom16",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 5,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.0245,
+          0.05,
+          0.0
+        ],
+        "size_m": [
+          0.0875,
+          0.025,
+          0.0
+        ]
+      },
+      {
+        "geom_id": 19,
+        "identity": "base_link#geom17",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 5,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.0245,
+          -0.05,
+          0.0
+        ],
+        "size_m": [
+          0.0875,
+          0.025,
+          0.0
+        ]
+      },
+      {
+        "geom_id": 20,
+        "identity": "base_link#geom18",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 7,
+        "margin_m": 0.0,
+        "wheel_index": null,
+        "collision": false,
+        "terrain_kind": null,
+        "position_local_m": [
+          -0.1856180122615997,
+          -3.1191351024293075e-05,
+          -0.016456347212858578
+        ],
+        "size_m": [
+          0.13784544476878352,
+          0.1403069328612243,
+          0.1894044121757966
+        ]
+      },
+      {
+        "geom_id": 21,
+        "identity": "base_link#geom19",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 6,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          -0.1875,
+          0.0,
+          0.0
+        ],
+        "size_m": [
+          0.1375,
+          0.075,
+          0.0875
+        ]
+      },
+      {
+        "geom_id": 22,
+        "identity": "base_link#geom20",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 6,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          -0.1875,
+          0.0,
+          -0.12
+        ],
+        "size_m": [
+          0.155,
+          0.06,
+          0.03
+        ]
+      },
+      {
+        "geom_id": 23,
+        "identity": "base_link#geom21",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 5,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          -0.0745,
+          0.05,
+          0.0
+        ],
+        "size_m": [
+          0.0875,
+          0.025,
+          0.0
+        ]
+      },
+      {
+        "geom_id": 24,
+        "identity": "base_link#geom22",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 5,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          -0.0745,
+          -0.05,
+          0.0
+        ],
+        "size_m": [
+          0.0875,
+          0.025,
+          0.0
+        ]
+      },
+      {
+        "geom_id": 25,
+        "identity": "base_link#geom23",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 5,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          -0.3005,
+          0.05,
+          0.0
+        ],
+        "size_m": [
+          0.0875,
+          0.025,
+          0.0
+        ]
+      },
+      {
+        "geom_id": 26,
+        "identity": "base_link#geom24",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 5,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          -0.3005,
+          -0.05,
+          0.0
+        ],
+        "size_m": [
+          0.0875,
+          0.025,
+          0.0
+        ]
+      },
+      {
+        "geom_id": 27,
+        "identity": "base_link#geom25",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 7,
+        "margin_m": 0.0,
+        "wheel_index": null,
+        "collision": false,
+        "terrain_kind": null,
+        "position_local_m": [
+          -0.35234743536740404,
+          1.7790690295323158e-05,
+          0.0037584692067187397
+        ],
+        "size_m": [
+          0.032297113638832586,
+          0.08914273555196076,
+          0.13747990142440247
+        ]
+      },
+      {
+        "geom_id": 28,
+        "identity": "base_link#geom26",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 6,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          -0.3499999898538203,
+          1.2741223331894626e-05,
+          0.0
+        ],
+        "size_m": [
+          0.02475,
+          0.075,
+          0.0875
+        ]
+      },
+      {
+        "geom_id": 29,
+        "identity": "base_link#geom27",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 5,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          -0.35007962249964464,
+          -0.04998719536304509,
+          0.0
+        ],
+        "size_m": [
+          0.0875,
+          0.02475,
+          0.0
+        ]
+      },
+      {
+        "geom_id": 30,
+        "identity": "base_link#geom28",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 5,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          -0.34992035720799597,
+          0.050012677809708875,
+          0.0
+        ],
+        "size_m": [
+          0.0875,
+          0.02475,
+          0.0
+        ]
+      },
+      {
+        "geom_id": 31,
+        "identity": "base_link#geom29",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 7,
+        "margin_m": 0.0,
+        "wheel_index": null,
+        "collision": false,
+        "terrain_kind": null,
+        "position_local_m": [
+          -0.019009946659807653,
+          0.0009688670510639275,
+          0.00714173235933079
+        ],
+        "size_m": [
+          0.051726050046497246,
+          0.09301780324450626,
+          0.13808277641891256
+        ]
+      },
+      {
+        "geom_id": 32,
+        "identity": "base_link#geom30",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 6,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          -0.02449996956146095,
+          3.8223669995683875e-05,
+          0.0
+        ],
+        "size_m": [
+          0.025,
+          0.095,
+          0.0875
+        ]
+      },
+      {
+        "geom_id": 33,
+        "identity": "base_link#geom31",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 6,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.014398051189257936,
+          -0.06402380862430984,
+          0.005
+        ],
+        "size_m": [
+          0.015,
+          0.04,
+          0.04
+        ]
+      },
+      {
+        "geom_id": 34,
+        "identity": "base_link#geom32",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 5,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          -0.024579602207285292,
+          -0.0499617129163813,
+          0.0
+        ],
+        "size_m": [
+          0.0875,
+          0.025,
+          0.0
+        ]
+      },
+      {
+        "geom_id": 35,
+        "identity": "base_link#geom33",
+        "body_id": 1,
+        "body_name": "base_link",
+        "geom_type": 5,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          -0.02442033691563661,
+          0.050038160256372664,
+          0.0
+        ],
+        "size_m": [
+          0.0875,
+          0.025,
+          0.0
+        ]
+      },
+      {
+        "geom_id": 36,
+        "identity": "FL_hip#geom0",
+        "body_id": 2,
+        "body_name": "FL_hip",
+        "geom_type": 7,
+        "margin_m": 0.0,
+        "wheel_index": null,
+        "collision": false,
+        "terrain_kind": null,
+        "position_local_m": [
+          -0.0051618048274436334,
+          3.520703761912825e-05,
+          -0.08862155417227653
+        ],
+        "size_m": [
+          0.04811683213993865,
+          0.06603209654652761,
+          0.08943362228334067
+        ]
+      },
+      {
+        "geom_id": 37,
+        "identity": "FL_thigh#geom0",
+        "body_id": 3,
+        "body_name": "FL_thigh",
+        "geom_type": 7,
+        "margin_m": 0.0,
+        "wheel_index": null,
+        "collision": false,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.03413425785160483,
+          0.004996279007380371,
+          -0.01533002550151463
+        ],
+        "size_m": [
+          0.07413777135831984,
+          0.07406836886719256,
+          0.2563022531869931
+        ]
+      },
+      {
+        "geom_id": 38,
+        "identity": "FL_thigh#geom1",
+        "body_id": 3,
+        "body_name": "FL_thigh",
+        "geom_type": 6,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.13,
+          0.025,
+          0.0
+        ],
+        "size_m": [
+          0.125,
+          0.025,
+          0.025
+        ]
+      },
+      {
+        "geom_id": 39,
+        "identity": "FL_thigh#geom2",
+        "body_id": 3,
+        "body_name": "FL_thigh",
+        "geom_type": 5,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "size_m": [
+          0.072,
+          0.025,
+          0.0
+        ]
+      },
+      {
+        "geom_id": 40,
+        "identity": "FL_calf#geom0",
+        "body_id": 4,
+        "body_name": "FL_calf",
+        "geom_type": 7,
+        "margin_m": 0.0,
+        "wheel_index": null,
+        "collision": false,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.1304199110331463,
+          0.007215902463124145,
+          0.0025193861681576703
+        ],
+        "size_m": [
+          0.032487729536563856,
+          0.041827616968233755,
+          0.17551395241910875
+        ]
+      },
+      {
+        "geom_id": 41,
+        "identity": "FL_calf#geom1",
+        "body_id": 4,
+        "body_name": "FL_calf",
+        "geom_type": 6,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.15,
+          0.01,
+          0.0
+        ],
+        "size_m": [
+          0.12,
+          0.02,
+          0.025
+        ]
+      },
+      {
+        "geom_id": 42,
+        "identity": "FL_foot#geom0",
+        "body_id": 5,
+        "body_name": "FL_foot",
+        "geom_type": 7,
+        "margin_m": 0.0,
+        "wheel_index": 0,
+        "collision": false,
+        "terrain_kind": null,
+        "position_local_m": [
+          1.4408285473552165e-06,
+          3.7473298642068114e-07,
+          -0.0007966028223543898
+        ],
+        "size_m": [
+          0.021065951911499986,
+          0.09250137675324546,
+          0.09328044084893482
+        ]
+      },
+      {
+        "geom_id": 43,
+        "identity": "FL_foot#geom1",
+        "body_id": 5,
+        "body_name": "FL_foot",
+        "geom_type": 5,
+        "margin_m": 0.001,
+        "wheel_index": 0,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "size_m": [
+          0.087,
+          0.02,
+          0.0
+        ]
+      },
+      {
+        "geom_id": 44,
+        "identity": "FR_hip#geom0",
+        "body_id": 6,
+        "body_name": "FR_hip",
+        "geom_type": 7,
+        "margin_m": 0.0,
+        "wheel_index": null,
+        "collision": false,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.0051618064980716374,
+          3.446857050365393e-05,
+          -0.08862163502157731
+        ],
+        "size_m": [
+          0.04811677184723621,
+          0.06603124119314555,
+          0.08943325007603652
+        ]
+      },
+      {
+        "geom_id": 45,
+        "identity": "FR_thigh#geom0",
+        "body_id": 7,
+        "body_name": "FR_thigh",
+        "geom_type": 7,
+        "margin_m": 0.0,
+        "wheel_index": null,
+        "collision": false,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.03417978094993346,
+          0.005035808048457607,
+          0.01532622931511648
+        ],
+        "size_m": [
+          0.07412897761773699,
+          0.07404610255638341,
+          0.2562540410223866
+        ]
+      },
+      {
+        "geom_id": 46,
+        "identity": "FR_thigh#geom1",
+        "body_id": 7,
+        "body_name": "FR_thigh",
+        "geom_type": 6,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.13,
+          0.025,
+          0.0
+        ],
+        "size_m": [
+          0.125,
+          0.025,
+          0.025
+        ]
+      },
+      {
+        "geom_id": 47,
+        "identity": "FR_thigh#geom2",
+        "body_id": 7,
+        "body_name": "FR_thigh",
+        "geom_type": 5,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "size_m": [
+          0.072,
+          0.025,
+          0.0
+        ]
+      },
+      {
+        "geom_id": 48,
+        "identity": "FR_calf#geom0",
+        "body_id": 8,
+        "body_name": "FR_calf",
+        "geom_type": 7,
+        "margin_m": 0.0,
+        "wheel_index": null,
+        "collision": false,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.13042269147242352,
+          0.007216084078127603,
+          -0.002518625115513766
+        ],
+        "size_m": [
+          0.032487538474669723,
+          0.04182602254495635,
+          0.17551691042745823
+        ]
+      },
+      {
+        "geom_id": 49,
+        "identity": "FR_calf#geom1",
+        "body_id": 8,
+        "body_name": "FR_calf",
+        "geom_type": 6,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.15,
+          0.01,
+          0.0
+        ],
+        "size_m": [
+          0.12,
+          0.02,
+          0.025
+        ]
+      },
+      {
+        "geom_id": 50,
+        "identity": "FR_foot#geom0",
+        "body_id": 9,
+        "body_name": "FR_foot",
+        "geom_type": 7,
+        "margin_m": 0.0,
+        "wheel_index": 1,
+        "collision": false,
+        "terrain_kind": null,
+        "position_local_m": [
+          8.193691757848288e-07,
+          -8.0658931525926e-07,
+          0.0007972952763888147
+        ],
+        "size_m": [
+          0.021065204139485722,
+          0.09249959438450128,
+          0.09328047658609305
+        ]
+      },
+      {
+        "geom_id": 51,
+        "identity": "FR_foot#geom1",
+        "body_id": 9,
+        "body_name": "FR_foot",
+        "geom_type": 5,
+        "margin_m": 0.001,
+        "wheel_index": 1,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.0,
+          0.0,
+          -0.0
+        ],
+        "size_m": [
+          0.087,
+          0.02,
+          0.0
+        ]
+      },
+      {
+        "geom_id": 52,
+        "identity": "RL_hip#geom0",
+        "body_id": 10,
+        "body_name": "RL_hip",
+        "geom_type": 7,
+        "margin_m": 0.0,
+        "wheel_index": null,
+        "collision": false,
+        "terrain_kind": null,
+        "position_local_m": [
+          -0.0051618048274436334,
+          3.520703761912825e-05,
+          -0.08862155417227653
+        ],
+        "size_m": [
+          0.04811683213993865,
+          0.06603209654652761,
+          0.08943362228334067
+        ]
+      },
+      {
+        "geom_id": 53,
+        "identity": "RL_thigh#geom0",
+        "body_id": 11,
+        "body_name": "RL_thigh",
+        "geom_type": 7,
+        "margin_m": 0.0,
+        "wheel_index": null,
+        "collision": false,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.03413425785160483,
+          0.004996279007380371,
+          -0.01533002550151463
+        ],
+        "size_m": [
+          0.07413777135831984,
+          0.07406836886719256,
+          0.2563022531869931
+        ]
+      },
+      {
+        "geom_id": 54,
+        "identity": "RL_thigh#geom1",
+        "body_id": 11,
+        "body_name": "RL_thigh",
+        "geom_type": 6,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.13,
+          0.025,
+          0.0
+        ],
+        "size_m": [
+          0.125,
+          0.025,
+          0.025
+        ]
+      },
+      {
+        "geom_id": 55,
+        "identity": "RL_thigh#geom2",
+        "body_id": 11,
+        "body_name": "RL_thigh",
+        "geom_type": 5,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "size_m": [
+          0.072,
+          0.025,
+          0.0
+        ]
+      },
+      {
+        "geom_id": 56,
+        "identity": "RL_calf#geom0",
+        "body_id": 12,
+        "body_name": "RL_calf",
+        "geom_type": 7,
+        "margin_m": 0.0,
+        "wheel_index": null,
+        "collision": false,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.1304199110331463,
+          0.007215902463124145,
+          0.0025193861681576703
+        ],
+        "size_m": [
+          0.032487729536563856,
+          0.041827616968233755,
+          0.17551395241910875
+        ]
+      },
+      {
+        "geom_id": 57,
+        "identity": "RL_calf#geom1",
+        "body_id": 12,
+        "body_name": "RL_calf",
+        "geom_type": 6,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.15,
+          0.01,
+          0.0
+        ],
+        "size_m": [
+          0.12,
+          0.02,
+          0.025
+        ]
+      },
+      {
+        "geom_id": 58,
+        "identity": "RL_foot#geom0",
+        "body_id": 13,
+        "body_name": "RL_foot",
+        "geom_type": 7,
+        "margin_m": 0.0,
+        "wheel_index": 2,
+        "collision": false,
+        "terrain_kind": null,
+        "position_local_m": [
+          1.4408285473552165e-06,
+          3.7473298642068114e-07,
+          -0.0007966028223543898
+        ],
+        "size_m": [
+          0.021065951911499986,
+          0.09250137675324546,
+          0.09328044084893482
+        ]
+      },
+      {
+        "geom_id": 59,
+        "identity": "RL_foot#geom1",
+        "body_id": 13,
+        "body_name": "RL_foot",
+        "geom_type": 5,
+        "margin_m": 0.001,
+        "wheel_index": 2,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "size_m": [
+          0.087,
+          0.02,
+          0.0
+        ]
+      },
+      {
+        "geom_id": 60,
+        "identity": "RR_hip#geom0",
+        "body_id": 14,
+        "body_name": "RR_hip",
+        "geom_type": 7,
+        "margin_m": 0.0,
+        "wheel_index": null,
+        "collision": false,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.0051618064980716374,
+          3.446857050365393e-05,
+          -0.08862163502157731
+        ],
+        "size_m": [
+          0.04811677184723621,
+          0.06603124119314555,
+          0.08943325007603652
+        ]
+      },
+      {
+        "geom_id": 61,
+        "identity": "RR_thigh#geom0",
+        "body_id": 15,
+        "body_name": "RR_thigh",
+        "geom_type": 7,
+        "margin_m": 0.0,
+        "wheel_index": null,
+        "collision": false,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.03417978094993346,
+          0.005035808048457607,
+          0.01532622931511648
+        ],
+        "size_m": [
+          0.07412897761773699,
+          0.07404610255638341,
+          0.2562540410223866
+        ]
+      },
+      {
+        "geom_id": 62,
+        "identity": "RR_thigh#geom1",
+        "body_id": 15,
+        "body_name": "RR_thigh",
+        "geom_type": 6,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.13,
+          0.025,
+          0.0
+        ],
+        "size_m": [
+          0.125,
+          0.025,
+          0.025
+        ]
+      },
+      {
+        "geom_id": 63,
+        "identity": "RR_thigh#geom2",
+        "body_id": 15,
+        "body_name": "RR_thigh",
+        "geom_type": 5,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "size_m": [
+          0.072,
+          0.025,
+          0.0
+        ]
+      },
+      {
+        "geom_id": 64,
+        "identity": "RR_calf#geom0",
+        "body_id": 16,
+        "body_name": "RR_calf",
+        "geom_type": 7,
+        "margin_m": 0.0,
+        "wheel_index": null,
+        "collision": false,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.13042269147242352,
+          0.007216084078127603,
+          -0.002518625115513766
+        ],
+        "size_m": [
+          0.032487538474669723,
+          0.04182602254495635,
+          0.17551691042745823
+        ]
+      },
+      {
+        "geom_id": 65,
+        "identity": "RR_calf#geom1",
+        "body_id": 16,
+        "body_name": "RR_calf",
+        "geom_type": 6,
+        "margin_m": 0.001,
+        "wheel_index": null,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.15,
+          0.01,
+          0.0
+        ],
+        "size_m": [
+          0.12,
+          0.02,
+          0.025
+        ]
+      },
+      {
+        "geom_id": 66,
+        "identity": "RR_foot#geom0",
+        "body_id": 17,
+        "body_name": "RR_foot",
+        "geom_type": 7,
+        "margin_m": 0.0,
+        "wheel_index": 3,
+        "collision": false,
+        "terrain_kind": null,
+        "position_local_m": [
+          8.193691757848288e-07,
+          -8.0658931525926e-07,
+          0.0007972952763888147
+        ],
+        "size_m": [
+          0.021065204139485722,
+          0.09249959438450128,
+          0.09328047658609305
+        ]
+      },
+      {
+        "geom_id": 67,
+        "identity": "RR_foot#geom1",
+        "body_id": 17,
+        "body_name": "RR_foot",
+        "geom_type": 5,
+        "margin_m": 0.001,
+        "wheel_index": 3,
+        "collision": true,
+        "terrain_kind": null,
+        "position_local_m": [
+          0.0,
+          0.0,
+          -0.0
+        ],
+        "size_m": [
+          0.087,
+          0.02,
+          0.0
+        ]
+      }
+    ],
+    "base_body_ipos_local_m": [
+      0.029866155874852578,
+      0.00014983995674134042,
+      -0.014656735534269275
+    ],
+    "body_vx_semantics": "base inertial COM velocity projected into visible base_link frame"
+  },
+  "native_samples": [
+    {
+      "index": 3485,
+      "start_time_s": 6.969999999999454,
+      "qpos_before": [
+        -2.8160279282699814,
+        1.9446371282911825e-05,
+        0.46773932497636694,
+        0.9998780853926021,
+        7.528496285933048e-06,
+        0.015614553875889047,
+        -1.4845191301357822e-06,
+        -0.014870243101486125,
+        0.7706553598383495,
+        -1.4558052007178441,
+        11.297920334957361,
+        0.014851408330166812,
+        0.7705811041013626,
+        -1.4558432948984514,
+        11.298993051088981,
+        -0.014933362609496436,
+        0.7860110098091468,
+        -1.4771574376590388,
+        11.25240647878275,
+        0.01493649748703828,
+        0.7858970627173897,
+        -1.4772182706381285,
+        11.252757244794505
+      ],
+      "qvel_before": [
+        0.12971246188391666,
+        7.5612338133069235e-06,
+        -0.004096834166137862,
+        1.099807004946802e-06,
+        -0.047005666889736064,
+        7.681822151092378e-05,
+        -0.001679987984148495,
+        -0.09188895618259381,
+        0.0033251100224047855,
+        2.2165441729659836,
+        0.001592831136847074,
+        -0.09138703219264958,
+        0.0035152617890182357,
+        2.2136665588518794,
+        9.055105521900002e-05,
+        -0.05448316712230606,
+        -0.1015050201560489,
+        2.344720467353514,
+        -6.150086973796385e-05,
+        -0.053928843521552236,
+        -0.10168209271213774,
+        2.342814053734571
+      ],
+      "ctrl_nm": [
+        -18.31154626072805,
+        -1.2997710447214148,
+        18.074444901066823,
+        0.6049873029337374,
+        18.30340657254294,
+        -1.288374622030131,
+        18.069322635935837,
+        0.6060972817318031,
+        -11.710878877997109,
+        -1.44971706863585,
+        12.889443558391989,
+        0.4575539632532897,
+        11.700263365377293,
+        -1.4351963795796705,
+        12.887594269496704,
+        0.4594147133855339
+      ],
+      "xfrc_applied": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "qfrc_applied": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "contact_sample_tag": "native_step_solved_cache_not_synchronized_endpoint",
+      "returned": true,
+      "error": null,
+      "qpos_returned": [
+        -2.815767951624673,
+        1.9462817363427142e-05,
+        0.46773106958260413,
+        0.9998788144417946,
+        7.527574995050306e-06,
+        0.015567799196177698,
+        -1.4125585640210997e-06,
+        -0.014873615800010984,
+        0.7704732438496774,
+        -1.455799074949826,
+        11.302350443062918,
+        0.01485462033900335,
+        0.7703999371043756,
+        -1.4558367943317858,
+        11.303417665817976,
+        -0.01493315447157735,
+        0.785902877395414,
+        -1.477359689296464,
+        11.257092929989165,
+        0.014936346199539199,
+        0.7857899604409675,
+        -1.4774208416669865,
+        11.257440130910407
+      ],
+      "qvel_returned": [
+        0.12998832265429452,
+        8.223040257658141e-06,
+        -0.004127696881400865,
+        -1.9808911288677988e-06,
+        -0.046760362887474934,
+        7.22904822707667e-05,
+        -0.0016863492624296698,
+        -0.0910579943360732,
+        0.003062884009087407,
+        2.215054052778842,
+        0.0016060044182688346,
+        -0.0905834984934912,
+        0.0032502833328416814,
+        2.2123073644977183,
+        0.00010406895954252227,
+        -0.05406620686640657,
+        -0.10112581871260325,
+        2.3432256032075562,
+        -7.564374954022017e-05,
+        -0.053551138211101225,
+        -0.10128551442897746,
+        2.3414430579508525
+      ],
+      "end_time_s": 6.971999999999454,
+      "actual_dt_s": 0.0019999999999997797,
+      "contacts": {
+        "sampling": "native_step_solved_cache_not_synchronized_endpoint",
+        "contacts": [
+          {
+            "index": 0,
+            "geom1": 0,
+            "geom2": 43,
+            "geom1_identity": "floor",
+            "geom2_identity": "FL_foot#geom1",
+            "body1": 0,
+            "body2": 5,
+            "body1_name": "world",
+            "body2_name": "FL_foot",
+            "frame_geom1_to_geom2": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ]
+            ],
+            "position_world_m": [
+              -2.6562853175130177,
+              0.23351758807248116,
+              0.0001415387821708605
+            ],
+            "distance_m": 0.0002830775643417188,
+            "inclusion_margin_m": 0.001,
+            "efc_address": 16,
+            "dimension": 3,
+            "friction": [
+              0.9,
+              0.9,
+              0.005,
+              0.0001,
+              0.0001
+            ],
+            "active": true,
+            "local_force_torque": [
+              120.58171121357152,
+              2.4453814167496066,
+              -0.7922116488634071,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal_load_n": 120.58171121357152,
+            "terrain_geom_id": 0,
+            "robot_geom_id": 43,
+            "wheel_index": 0,
+            "normal_terrain_to_robot_world": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "force_on_robot_world_n": [
+              0.7922116488634071,
+              2.4453814167496066,
+              120.58171121357152
+            ],
+            "frame_orthonormal": true,
+            "plane_normal_valid": true,
+            "box_feature": null
+          },
+          {
+            "index": 1,
+            "geom1": 0,
+            "geom2": 43,
+            "geom1_identity": "floor",
+            "geom2_identity": "FL_foot#geom1",
+            "body1": 0,
+            "body2": 5,
+            "body1_name": "world",
+            "body2_name": "FL_foot",
+            "frame_geom1_to_geom2": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ]
+            ],
+            "position_world_m": [
+              -2.656267072363535,
+              0.1935217691465699,
+              0.0004305610824529352
+            ],
+            "distance_m": 0.0008611221649058726,
+            "inclusion_margin_m": 0.001,
+            "efc_address": 20,
+            "dimension": 3,
+            "friction": [
+              0.9,
+              0.9,
+              0.005,
+              0.0001,
+              0.0001
+            ],
+            "active": true,
+            "local_force_torque": [
+              12.185337552288901,
+              1.3846881323310716,
+              -1.4214048224590534,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal_load_n": 12.185337552288901,
+            "terrain_geom_id": 0,
+            "robot_geom_id": 43,
+            "wheel_index": 0,
+            "normal_terrain_to_robot_world": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "force_on_robot_world_n": [
+              1.4214048224590534,
+              1.3846881323310716,
+              12.185337552288901
+            ],
+            "frame_orthonormal": true,
+            "plane_normal_valid": true,
+            "box_feature": null
+          },
+          {
+            "index": 2,
+            "geom1": 0,
+            "geom2": 51,
+            "geom1_identity": "floor",
+            "geom2_identity": "FR_foot#geom1",
+            "body1": 0,
+            "body2": 9,
+            "body1_name": "world",
+            "body2_name": "FR_foot",
+            "frame_geom1_to_geom2": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ]
+            ],
+            "position_world_m": [
+              -2.6562498394228227,
+              -0.2334787377086716,
+              0.00014158899313112703
+            ],
+            "distance_m": 0.00028317798626226187,
+            "inclusion_margin_m": 0.001,
+            "efc_address": 24,
+            "dimension": 3,
+            "friction": [
+              0.9,
+              0.9,
+              0.005,
+              0.0001,
+              0.0001
+            ],
+            "active": true,
+            "local_force_torque": [
+              120.53119679779752,
+              -2.448678459011521,
+              -0.7911596847913952,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal_load_n": 120.53119679779752,
+            "terrain_geom_id": 0,
+            "robot_geom_id": 51,
+            "wheel_index": 1,
+            "normal_terrain_to_robot_world": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "force_on_robot_world_n": [
+              0.7911596847913952,
+              -2.448678459011521,
+              120.53119679779752
+            ],
+            "frame_orthonormal": true,
+            "plane_normal_valid": true,
+            "box_feature": null
+          },
+          {
+            "index": 3,
+            "geom1": 0,
+            "geom2": 51,
+            "geom1_identity": "floor",
+            "geom2_identity": "FR_foot#geom1",
+            "body1": 0,
+            "body2": 9,
+            "body1_name": "world",
+            "body2_name": "FR_foot",
+            "frame_geom1_to_geom2": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ]
+            ],
+            "position_world_m": [
+              -2.6562319580939002,
+              -0.1934829211090477,
+              0.00043069744480977003
+            ],
+            "distance_m": 0.0008613948896195323,
+            "inclusion_margin_m": 0.001,
+            "efc_address": 28,
+            "dimension": 3,
+            "friction": [
+              0.9,
+              0.9,
+              0.005,
+              0.0001,
+              0.0001
+            ],
+            "active": true,
+            "local_force_torque": [
+              12.162528356095068,
+              -1.3866107350500054,
+              -1.4271885155755224,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal_load_n": 12.162528356095068,
+            "terrain_geom_id": 0,
+            "robot_geom_id": 51,
+            "wheel_index": 1,
+            "normal_terrain_to_robot_world": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "force_on_robot_world_n": [
+              1.4271885155755224,
+              -1.3866107350500054,
+              12.162528356095068
+            ],
+            "frame_orthonormal": true,
+            "plane_normal_valid": true,
+            "box_feature": null
+          },
+          {
+            "index": 4,
+            "geom1": 59,
+            "geom2": 1,
+            "geom1_identity": "RL_foot#geom1",
+            "geom2_identity": "terrain_single_15mm_box",
+            "body1": 13,
+            "body2": 0,
+            "body1_name": "RL_foot",
+            "body2_name": "world",
+            "frame_geom1_to_geom2": [
+              [
+                -2.26263386990117e-09,
+                -7.736969919874821e-13,
+                -1.0
+              ],
+              [
+                -1.750593019111531e-21,
+                1.0,
+                -7.736969919874821e-13
+              ],
+              [
+                1.0,
+                0.0,
+                -2.26263386990117e-09
+              ]
+            ],
+            "position_world_m": [
+              -3.032571826032564,
+              0.2335423828119495,
+              0.015338567172755403
+            ],
+            "distance_m": 0.0006771343521719394,
+            "inclusion_margin_m": 0.001,
+            "efc_address": 32,
+            "dimension": 3,
+            "friction": [
+              0.9,
+              0.9,
+              0.005,
+              0.0001,
+              0.0001
+            ],
+            "active": true,
+            "local_force_torque": [
+              34.397671855752144,
+              0.3351790878524913,
+              -0.12568336471477243,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal_load_n": 34.397671855752144,
+            "terrain_geom_id": 1,
+            "robot_geom_id": 59,
+            "wheel_index": 2,
+            "normal_terrain_to_robot_world": [
+              2.26263386990117e-09,
+              7.736969919874821e-13,
+              1.0
+            ],
+            "force_on_robot_world_n": [
+              0.12568344254410982,
+              -0.3351790878258779,
+              34.397671855468026
+            ],
+            "frame_orthonormal": true,
+            "plane_normal_valid": true,
+            "box_feature": {
+              "feature": "top",
+              "geometric_support_valid": true,
+              "supporting_faces": [
+                "top"
+              ],
+              "support_offsets_m": [
+                0.0003385671727554034
+              ],
+              "normal_box_to_robot_world": [
+                2.26263386990117e-09,
+                7.736969919874821e-13,
+                1.0
+              ],
+              "normal_cone_residual": 2.2626340021821865e-09,
+              "normal_cone_residual_limit": 0.0021
+            }
+          },
+          {
+            "index": 5,
+            "geom1": 59,
+            "geom2": 1,
+            "geom1_identity": "RL_foot#geom1",
+            "geom2_identity": "terrain_single_15mm_box",
+            "body1": 13,
+            "body2": 0,
+            "body1_name": "RL_foot",
+            "body2_name": "world",
+            "frame_geom1_to_geom2": [
+              [
+                -0.0010000020538683857,
+                -7.733173173541352e-13,
+                -0.9999994999978211
+              ],
+              [
+                -7.733189056461254e-16,
+                1.0,
+                -7.733169306937915e-13
+              ],
+              [
+                0.9999994999978211,
+                0.0,
+                -0.0010000020538683857
+              ]
+            ],
+            "position_world_m": [
+              -3.0327464426544726,
+              0.23354230595389486,
+              0.015338662530985904
+            ],
+            "distance_m": 0.0006771343521719394,
+            "inclusion_margin_m": 0.001,
+            "efc_address": 36,
+            "dimension": 3,
+            "friction": [
+              0.9,
+              0.9,
+              0.005,
+              0.0001,
+              0.0001
+            ],
+            "active": true,
+            "local_force_torque": [
+              32.814296327227034,
+              0.34467398527023846,
+              -0.12532930261499278,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal_load_n": 32.814296327227034,
+            "terrain_geom_id": 1,
+            "robot_geom_id": 59,
+            "wheel_index": 2,
+            "normal_terrain_to_robot_world": [
+              0.0010000020538683857,
+              7.733173173541352e-13,
+              0.9999994999978211
+            ],
+            "force_on_robot_world_n": [
+              0.15814360367354152,
+              -0.3446739852448626,
+              32.814154590447615
+            ],
+            "frame_orthonormal": true,
+            "plane_normal_valid": true,
+            "box_feature": {
+              "feature": "top",
+              "geometric_support_valid": true,
+              "supporting_faces": [
+                "top"
+              ],
+              "support_offsets_m": [
+                0.00033866253098590454
+              ],
+              "normal_box_to_robot_world": [
+                0.0010000020538683857,
+                7.733173173541352e-13,
+                0.9999994999978211
+              ],
+              "normal_cone_residual": 0.0010000020538683857,
+              "normal_cone_residual_limit": 0.0021
+            }
+          },
+          {
+            "index": 6,
+            "geom1": 59,
+            "geom2": 1,
+            "geom1_identity": "RL_foot#geom1",
+            "geom2_identity": "terrain_single_15mm_box",
+            "body1": 13,
+            "body2": 0,
+            "body1_name": "RL_foot",
+            "body2_name": "world",
+            "frame_geom1_to_geom2": [
+              [
+                0.0009999975313436766,
+                -9.450709442023633e-13,
+                -0.9999995000023436
+              ],
+              [
+                9.450686111470008e-16,
+                1.0,
+                -9.45070471669106e-13
+              ],
+              [
+                0.9999995000023436,
+                0.0,
+                0.0009999975313436766
+              ]
+            ],
+            "position_world_m": [
+              -3.032397209944647,
+              0.233542464716692,
+              0.015338646351973167
+            ],
+            "distance_m": 0.0006771343521719394,
+            "inclusion_margin_m": 0.001,
+            "efc_address": 40,
+            "dimension": 3,
+            "friction": [
+              0.9,
+              0.9,
+              0.005,
+              0.0001,
+              0.0001
+            ],
+            "active": true,
+            "local_force_torque": [
+              35.98104083094355,
+              0.325684476408536,
+              -0.1266787081725104,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal_load_n": 35.98104083094355,
+            "terrain_geom_id": 1,
+            "robot_geom_id": 59,
+            "wheel_index": 2,
+            "normal_terrain_to_robot_world": [
+              -0.0009999975313436766,
+              9.450709442023633e-13,
+              0.9999995000023436
+            ],
+            "force_on_robot_world_n": [
+              0.09069769282733331,
+              -0.32568447637453135,
+              35.98114951890321
+            ],
+            "frame_orthonormal": true,
+            "plane_normal_valid": true,
+            "box_feature": {
+              "feature": "top",
+              "geometric_support_valid": true,
+              "supporting_faces": [
+                "top"
+              ],
+              "support_offsets_m": [
+                0.00033864635197316736
+              ],
+              "normal_box_to_robot_world": [
+                -0.0009999975313436768,
+                9.450709442023635e-13,
+                0.9999995000023437
+              ],
+              "normal_cone_residual": 0.0009999975313436766,
+              "normal_cone_residual_limit": 0.0021
+            }
+          },
+          {
+            "index": 7,
+            "geom1": 67,
+            "geom2": 1,
+            "geom1_identity": "RR_foot#geom1",
+            "geom2_identity": "terrain_single_15mm_box",
+            "body1": 17,
+            "body2": 0,
+            "body1_name": "RR_foot",
+            "body2_name": "world",
+            "frame_geom1_to_geom2": [
+              [
+                -2.2730861460613506e-09,
+                8.568629923331388e-13,
+                -1.0
+              ],
+              [
+                1.9477233969451313e-21,
+                1.0,
+                8.568629923331388e-13
+              ],
+              [
+                1.0,
+                0.0,
+                -2.2730861460613506e-09
+              ]
+            ],
+            "position_world_m": [
+              -3.032517665358213,
+              -0.23349147787286184,
+              0.015338039590706959
+            ],
+            "distance_m": 0.0006760791881085476,
+            "inclusion_margin_m": 0.001,
+            "efc_address": 44,
+            "dimension": 3,
+            "friction": [
+              0.9,
+              0.9,
+              0.005,
+              0.0001,
+              0.0001
+            ],
+            "active": true,
+            "local_force_torque": [
+              34.38171547384984,
+              -0.3411836390466498,
+              -0.12986305444600674,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal_load_n": 34.38171547384984,
+            "terrain_geom_id": 1,
+            "robot_geom_id": 67,
+            "wheel_index": 3,
+            "normal_terrain_to_robot_world": [
+              2.2730861460613506e-09,
+              -8.568629923331388e-13,
+              1.0
+            ],
+            "force_on_robot_world_n": [
+              0.12986313259860785,
+              0.34118363901718934,
+              34.38171547355494
+            ],
+            "frame_orthonormal": true,
+            "plane_normal_valid": true,
+            "box_feature": {
+              "feature": "top",
+              "geometric_support_valid": true,
+              "supporting_faces": [
+                "top"
+              ],
+              "support_offsets_m": [
+                0.0003380395907069591
+              ],
+              "normal_box_to_robot_world": [
+                2.2730861460613506e-09,
+                -8.568629923331388e-13,
+                1.0
+              ],
+              "normal_cone_residual": 2.273086307562964e-09,
+              "normal_cone_residual_limit": 0.0021
+            }
+          },
+          {
+            "index": 8,
+            "geom1": 67,
+            "geom2": 1,
+            "geom1_identity": "RR_foot#geom1",
+            "geom2_identity": "terrain_single_15mm_box",
+            "body1": 17,
+            "body2": 0,
+            "body1_name": "RR_foot",
+            "body2_name": "world",
+            "frame_geom1_to_geom2": [
+              [
+                -0.0010000020659223234,
+                9.420883900712953e-13,
+                -0.9999994999978092
+              ],
+              [
+                9.42090336352731e-16,
+                1.0,
+                9.420879190250364e-13
+              ],
+              [
+                0.9999994999978092,
+                0.0,
+                -0.0010000020659223234
+              ]
+            ],
+            "position_world_m": [
+              -3.0326922808749126,
+              -0.2334914024833596,
+              0.01533813496979663
+            ],
+            "distance_m": 0.0006760791881085476,
+            "inclusion_margin_m": 0.001,
+            "efc_address": 48,
+            "dimension": 3,
+            "friction": [
+              0.9,
+              0.9,
+              0.005,
+              0.0001,
+              0.0001
+            ],
+            "active": true,
+            "local_force_torque": [
+              32.797991254682145,
+              -0.3507307342012402,
+              -0.1295693700265609,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal_load_n": 32.797991254682145,
+            "terrain_geom_id": 1,
+            "robot_geom_id": 67,
+            "wheel_index": 3,
+            "normal_terrain_to_robot_world": [
+              0.0010000020659223234,
+              -9.420883900712953e-13,
+              0.9999994999978092
+            ],
+            "force_on_robot_world_n": [
+              0.1623673642543768,
+              0.35073073417034156,
+              32.797845285977296
+            ],
+            "frame_orthonormal": true,
+            "plane_normal_valid": true,
+            "box_feature": {
+              "feature": "top",
+              "geometric_support_valid": true,
+              "supporting_faces": [
+                "top"
+              ],
+              "support_offsets_m": [
+                0.0003381349697966305
+              ],
+              "normal_box_to_robot_world": [
+                0.0010000020659223232,
+                -9.420883900712951e-13,
+                0.999999499997809
+              ],
+              "normal_cone_residual": 0.0010000020659223234,
+              "normal_cone_residual_limit": 0.0021
+            }
+          },
+          {
+            "index": 9,
+            "geom1": 67,
+            "geom2": 1,
+            "geom1_identity": "RR_foot#geom1",
+            "geom2_identity": "terrain_single_15mm_box",
+            "body1": 17,
+            "body2": 0,
+            "body1_name": "RR_foot",
+            "body2_name": "world",
+            "frame_geom1_to_geom2": [
+              [
+                0.000999997519223946,
+                9.41994089952047e-13,
+                -0.9999995000023558
+              ],
+              [
+                -9.419917530756656e-16,
+                1.0,
+                9.41993618957221e-13
+              ],
+              [
+                0.9999995000023558,
+                0.0,
+                0.000999997519223946
+              ]
+            ],
+            "position_world_m": [
+              -3.03234305037505,
+              -0.23349155831818974,
+              0.015338118747843195
+            ],
+            "distance_m": 0.0006760791881085476,
+            "inclusion_margin_m": 0.001,
+            "efc_address": 52,
+            "dimension": 3,
+            "friction": [
+              0.9,
+              0.9,
+              0.005,
+              0.0001,
+              0.0001
+            ],
+            "active": true,
+            "local_force_torque": [
+              35.965433290925375,
+              -0.331636825159854,
+              -0.13079815995618668,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal_load_n": 35.965433290925375,
+            "terrain_geom_id": 1,
+            "robot_geom_id": 67,
+            "wheel_index": 3,
+            "normal_terrain_to_robot_world": [
+              -0.000999997519223946,
+              -9.41994089952047e-13,
+              0.9999995000023558
+            ],
+            "force_on_robot_world_n": [
+              0.09483275048867483,
+              0.33163682512597475,
+              35.965546106129246
+            ],
+            "frame_orthonormal": true,
+            "plane_normal_valid": true,
+            "box_feature": {
+              "feature": "top",
+              "geometric_support_valid": true,
+              "supporting_faces": [
+                "top"
+              ],
+              "support_offsets_m": [
+                0.00033811874784319546
+              ],
+              "normal_box_to_robot_world": [
+                -0.000999997519223946,
+                -9.41994089952047e-13,
+                0.9999995000023558
+              ],
+              "normal_cone_residual": 0.000999997519223946,
+              "normal_cone_residual_limit": 0.0021
+            }
+          }
+        ],
+        "wheel_positive_normal_load_n": [
+          132.76704876586044,
+          132.6937251538926,
+          103.19300901392273,
+          103.14514001945736
+        ],
+        "wheel_box_positive_normal_load_n": [
+          0.0,
+          0.0,
+          103.19300901392273,
+          103.14514001945736
+        ],
+        "nonwheel_terrain_contacts": 0,
+        "geometric_box_contact": true
+      },
+      "qacc_warmstart_before": [
+        0.11353159093402182,
+        0.00036756544697622907,
+        -0.022633226616747017,
+        -0.0017521978796879152,
+        0.08542436393056603,
+        -0.0022603398549732685,
+        -0.00011042753013757031,
+        0.32804802025468677,
+        -0.11715242742222882,
+        -0.4755051251697807,
+        0.0037798786267360662,
+        0.31557940058337697,
+        -0.11787996919821726,
+        -0.4181390724599209,
+        0.0022077114636298734,
+        0.204875663433876,
+        0.05300583813882183,
+        -0.4158975702200508,
+        -0.002312635706898638,
+        0.18747534036337662,
+        0.062351511168767915,
+        -0.36737055762435394
+      ],
+      "act_before": [],
+      "qacc_warmstart_after": [
+        0.13796184889330154,
+        0.0003309039855524761,
+        -0.015431761094209209,
+        -0.0015417291695439153,
+        0.12261069688254304,
+        -0.0022690819040235887,
+        -0.0032570514773041666,
+        0.41622732937257717,
+        -0.1314621143292881,
+        -0.7536764253051951,
+        0.006675645848910649,
+        0.4024976045146216,
+        -0.13287626470821212,
+        -0.6874466691569043,
+        0.006865572176588407,
+        0.20859604052875616,
+        0.1904188622476376,
+        -0.7563072342418707,
+        -0.007183694921015803,
+        0.1889279541762435,
+        0.19911768229099644,
+        -0.6936564504265351
+      ],
+      "act_after": []
+    },
+    {
+      "index": 3486,
+      "start_time_s": 6.971999999999454,
+      "qpos_before": [
+        -2.815767951624673,
+        1.9462817363427142e-05,
+        0.46773106958260413,
+        0.9998788144417946,
+        7.527574995050306e-06,
+        0.015567799196177698,
+        -1.4125585640210997e-06,
+        -0.014873615800010984,
+        0.7704732438496774,
+        -1.455799074949826,
+        11.302350443062918,
+        0.01485462033900335,
+        0.7703999371043756,
+        -1.4558367943317858,
+        11.303417665817976,
+        -0.01493315447157735,
+        0.785902877395414,
+        -1.477359689296464,
+        11.257092929989165,
+        0.014936346199539199,
+        0.7857899604409675,
+        -1.4774208416669865,
+        11.257440130910407
+      ],
+      "qvel_before": [
+        0.12998832265429452,
+        8.223040257658141e-06,
+        -0.004127696881400865,
+        -1.9808911288677988e-06,
+        -0.046760362887474934,
+        7.22904822707667e-05,
+        -0.0016863492624296698,
+        -0.0910579943360732,
+        0.003062884009087407,
+        2.215054052778842,
+        0.0016060044182688346,
+        -0.0905834984934912,
+        0.0032502833328416814,
+        2.2123073644977183,
+        0.00010406895954252227,
+        -0.05406620686640657,
+        -0.10112581871260325,
+        2.3432256032075562,
+        -7.564374954022017e-05,
+        -0.053551138211101225,
+        -0.10128551442897746,
+        2.3414430579508525
+      ],
+      "ctrl_nm": [
+        -18.31154626072805,
+        -1.2997710447214148,
+        18.074444901066823,
+        0.6049873029337374,
+        18.30340657254294,
+        -1.288374622030131,
+        18.069322635935837,
+        0.6060972817318031,
+        -11.710878877997109,
+        -1.44971706863585,
+        12.889443558391989,
+        0.4575539632532897,
+        11.700263365377293,
+        -1.4351963795796705,
+        12.887594269496704,
+        0.4594147133855339
+      ],
+      "xfrc_applied": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "qfrc_applied": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "contact_sample_tag": "native_step_solved_cache_not_synchronized_endpoint",
+      "returned": true,
+      "error": null,
+      "qpos_returned": [
+        -2.8155074354608507,
+        1.9497525392856977e-05,
+        0.4677227308065438,
+        0.9998795386653734,
+        7.5014343375960065e-06,
+        0.015521214518513455,
+        -1.385631850620521e-06,
+        -0.01487696029985736,
+        0.7702928552847201,
+        -1.4557934306214189,
+        11.306777867893034,
+        0.014857891931422994,
+        0.7702203354332294,
+        -1.4558307420320078,
+        11.3078398900836,
+        -0.014932871686810293,
+        0.7857910766066765,
+        -1.4775522248037884,
+        11.261771826884909,
+        0.014936146807880303,
+        0.7856837828597611,
+        -1.4776229086788062,
+        11.262120700418276
+      ],
+      "qvel_returned": [
+        0.13025808191102878,
+        1.7354014714916653e-05,
+        -0.004169388030148927,
+        -2.6496327322867428e-05,
+        -0.046590306692411584,
+        2.6868190438356376e-05,
+        -0.0016722499231872734,
+        -0.09019428247863541,
+        0.0028221642035539648,
+        2.2137124150578527,
+        0.0016357962098220318,
+        -0.08980083557306415,
+        0.003026149889061583,
+        2.2111121328117216,
+        0.00014139238352917414,
+        -0.055900394368735874,
+        -0.09626775366218358,
+        2.339448447871448,
+        -9.969582944756539e-05,
+        -0.05308879060319011,
+        -0.10103350590980512,
+        2.3402847539344345
+      ],
+      "end_time_s": 6.973999999999454,
+      "actual_dt_s": 0.0019999999999997797,
+      "contacts": {
+        "sampling": "native_step_solved_cache_not_synchronized_endpoint",
+        "contacts": [
+          {
+            "index": 0,
+            "geom1": 0,
+            "geom2": 43,
+            "geom1_identity": "floor",
+            "geom2_identity": "FL_foot#geom1",
+            "body1": 0,
+            "body2": 5,
+            "body1_name": "world",
+            "body2_name": "FL_foot",
+            "frame_geom1_to_geom2": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ]
+            ],
+            "position_world_m": [
+              -2.655923230567022,
+              0.2335160091799357,
+              0.0001416465670794394
+            ],
+            "distance_m": 0.0002832931341588685,
+            "inclusion_margin_m": 0.001,
+            "efc_address": 16,
+            "dimension": 3,
+            "friction": [
+              0.9,
+              0.9,
+              0.005,
+              0.0001,
+              0.0001
+            ],
+            "active": true,
+            "local_force_torque": [
+              120.59154881488297,
+              2.443096451956148,
+              -0.7761559069515663,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal_load_n": 120.59154881488297,
+            "terrain_geom_id": 0,
+            "robot_geom_id": 43,
+            "wheel_index": 0,
+            "normal_terrain_to_robot_world": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "force_on_robot_world_n": [
+              0.7761559069515663,
+              2.443096451956148,
+              120.59154881488297
+            ],
+            "frame_orthonormal": true,
+            "plane_normal_valid": true,
+            "box_feature": null
+          },
+          {
+            "index": 1,
+            "geom1": 0,
+            "geom2": 43,
+            "geom1_identity": "floor",
+            "geom2_identity": "FL_foot#geom1",
+            "body1": 0,
+            "body2": 5,
+            "body1_name": "world",
+            "body2_name": "FL_foot",
+            "frame_geom1_to_geom2": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ]
+            ],
+            "position_world_m": [
+              -2.6559050295481637,
+              0.1935201922072558,
+              0.0004307371284976661
+            ],
+            "distance_m": 0.0008614742569953426,
+            "inclusion_margin_m": 0.001,
+            "efc_address": 20,
+            "dimension": 3,
+            "friction": [
+              0.9,
+              0.9,
+              0.005,
+              0.0001,
+              0.0001
+            ],
+            "active": true,
+            "local_force_torque": [
+              12.190872584484175,
+              1.3835458143464754,
+              -1.4248784094452978,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal_load_n": 12.190872584484175,
+            "terrain_geom_id": 0,
+            "robot_geom_id": 43,
+            "wheel_index": 0,
+            "normal_terrain_to_robot_world": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "force_on_robot_world_n": [
+              1.4248784094452978,
+              1.3835458143464754,
+              12.190872584484175
+            ],
+            "frame_orthonormal": true,
+            "plane_normal_valid": true,
+            "box_feature": null
+          },
+          {
+            "index": 2,
+            "geom1": 0,
+            "geom2": 51,
+            "geom1_identity": "floor",
+            "geom2_identity": "FR_foot#geom1",
+            "body1": 0,
+            "body2": 9,
+            "body1_name": "world",
+            "body2_name": "FR_foot",
+            "frame_geom1_to_geom2": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ]
+            ],
+            "position_world_m": [
+              -2.6558881130371255,
+              -0.23347715308192754,
+              0.0001416985671366394
+            ],
+            "distance_m": 0.00028339713427327773,
+            "inclusion_margin_m": 0.001,
+            "efc_address": 24,
+            "dimension": 3,
+            "friction": [
+              0.9,
+              0.9,
+              0.005,
+              0.0001,
+              0.0001
+            ],
+            "active": true,
+            "local_force_torque": [
+              120.52924114663699,
+              -2.4473267135160257,
+              -0.7907471362835597,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal_load_n": 120.52924114663699,
+            "terrain_geom_id": 0,
+            "robot_geom_id": 51,
+            "wheel_index": 1,
+            "normal_terrain_to_robot_world": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "force_on_robot_world_n": [
+              0.7907471362835597,
+              -2.4473267135160257,
+              120.52924114663699
+            ],
+            "frame_orthonormal": true,
+            "plane_normal_valid": true,
+            "box_feature": null
+          },
+          {
+            "index": 3,
+            "geom1": 0,
+            "geom2": 51,
+            "geom1_identity": "floor",
+            "geom2_identity": "FR_foot#geom1",
+            "body1": 0,
+            "body2": 9,
+            "body1_name": "world",
+            "body2_name": "FR_foot",
+            "frame_geom1_to_geom2": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ]
+            ],
+            "position_world_m": [
+              -2.655870287512287,
+              -0.19348133833822564,
+              0.00043087206097076837
+            ],
+            "distance_m": 0.0008617441219415378,
+            "inclusion_margin_m": 0.001,
+            "efc_address": 28,
+            "dimension": 3,
+            "friction": [
+              0.9,
+              0.9,
+              0.005,
+              0.0001,
+              0.0001
+            ],
+            "active": true,
+            "local_force_torque": [
+              12.168227635270107,
+              -1.3860100723636708,
+              -1.4148900339272157,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal_load_n": 12.168227635270107,
+            "terrain_geom_id": 0,
+            "robot_geom_id": 51,
+            "wheel_index": 1,
+            "normal_terrain_to_robot_world": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "force_on_robot_world_n": [
+              1.4148900339272157,
+              -1.3860100723636708,
+              12.168227635270107
+            ],
+            "frame_orthonormal": true,
+            "plane_normal_valid": true,
+            "box_feature": null
+          },
+          {
+            "index": 4,
+            "geom1": 59,
+            "geom2": 1,
+            "geom1_identity": "RL_foot#geom1",
+            "geom2_identity": "terrain_single_15mm_box",
+            "body1": 13,
+            "body2": 0,
+            "body1_name": "RL_foot",
+            "body2_name": "world",
+            "frame_geom1_to_geom2": [
+              [
+                -2.3449209503667525e-09,
+                -9.438718696587485e-13,
+                -1.0
+              ],
+              [
+                -2.2133049216246362e-21,
+                1.0,
+                -9.438718696587485e-13
+              ],
+              [
+                1.0,
+                0.0,
+                -2.3449209503667525e-09
+              ]
+            ],
+            "position_world_m": [
+              -3.0321981124439716,
+              0.23354290088650853,
+              0.015338266533776046
+            ],
+            "distance_m": 0.000676533074470901,
+            "inclusion_margin_m": 0.001,
+            "efc_address": 32,
+            "dimension": 3,
+            "friction": [
+              0.9,
+              0.9,
+              0.005,
+              0.0001,
+              0.0001
+            ],
+            "active": true,
+            "local_force_torque": [
+              50.26632877358014,
+              0.41055698579643707,
+              -0.2311538851889557,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal_load_n": 50.26632877358014,
+            "terrain_geom_id": 1,
+            "robot_geom_id": 59,
+            "wheel_index": 2,
+            "normal_terrain_to_robot_world": [
+              2.3449209503667525e-09,
+              9.438718696587485e-13,
+              1.0
+            ],
+            "force_on_robot_world_n": [
+              0.23115400305952313,
+              -0.4105569857489921,
+              50.266328773038495
+            ],
+            "frame_orthonormal": true,
+            "plane_normal_valid": true,
+            "box_feature": {
+              "feature": "top",
+              "geometric_support_valid": true,
+              "supporting_faces": [
+                "top"
+              ],
+              "support_offsets_m": [
+                0.0003382665337760462
+              ],
+              "normal_box_to_robot_world": [
+                2.3449209503667525e-09,
+                9.438718696587485e-13,
+                1.0
+              ],
+              "normal_cone_residual": 2.344921140329248e-09,
+              "normal_cone_residual_limit": 0.0021
+            }
+          },
+          {
+            "index": 5,
+            "geom1": 59,
+            "geom2": 1,
+            "geom1_identity": "RL_foot#geom1",
+            "geom2_identity": "terrain_single_15mm_box",
+            "body1": 13,
+            "body2": 0,
+            "body1_name": "RL_foot",
+            "body2_name": "world",
+            "frame_geom1_to_geom2": [
+              [
+                -0.004160111414019363,
+                -1.9856892281108387e-06,
+                0.9999913466971002
+              ],
+              [
+                -8.260688422575485e-09,
+                0.9999999999980286,
+                1.985672045344398e-06
+              ],
+              [
+                -0.9999913466990717,
+                3.308722450212111e-24,
+                -0.004160111414027565
+              ]
+            ],
+            "position_world_m": [
+              -3.0296555548441106,
+              0.2213752018031465,
+              0.015656105537109645
+            ],
+            "distance_m": 0.000676533074470901,
+            "inclusion_margin_m": 0.001,
+            "efc_address": 36,
+            "dimension": 3,
+            "friction": [
+              0.9,
+              0.9,
+              0.005,
+              0.0001,
+              0.0001
+            ],
+            "active": true,
+            "local_force_torque": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal_load_n": 0.0,
+            "terrain_geom_id": 1,
+            "robot_geom_id": 59,
+            "wheel_index": 2,
+            "normal_terrain_to_robot_world": [
+              0.004160111414019363,
+              1.9856892281108387e-06,
+              -0.9999913466971002
+            ],
+            "force_on_robot_world_n": [
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "frame_orthonormal": true,
+            "plane_normal_valid": true,
+            "box_feature": {
+              "feature": "unresolved",
+              "geometric_support_valid": false,
+              "supporting_faces": [],
+              "support_offsets_m": [],
+              "normal_box_to_robot_world": [
+                0.004160111414019363,
+                1.9856892281108387e-06,
+                -0.9999913466971002
+              ],
+              "normal_cone_residual": 1.0,
+              "normal_cone_residual_limit": 0.0021
+            }
+          },
+          {
+            "index": 6,
+            "geom1": 59,
+            "geom2": 1,
+            "geom1_identity": "RL_foot#geom1",
+            "geom2_identity": "terrain_single_15mm_box",
+            "body1": 13,
+            "body2": 0,
+            "body1_name": "RL_foot",
+            "body2_name": "world",
+            "frame_geom1_to_geom2": [
+              [
+                0.0009999974451347462,
+                -8.57558435229647e-13,
+                -0.9999995000024299
+              ],
+              [
+                8.575562442833977e-16,
+                1.0,
+                -8.575580064525132e-13
+              ],
+              [
+                0.9999995000024299,
+                9.860761315262648e-32,
+                0.0009999974451347462
+              ]
+            ],
+            "position_world_m": [
+              -3.032023497839068,
+              0.2335429825727748,
+              0.01533834554804868
+            ],
+            "distance_m": 0.000676533074470901,
+            "inclusion_margin_m": 0.001,
+            "efc_address": 40,
+            "dimension": 3,
+            "friction": [
+              0.9,
+              0.9,
+              0.005,
+              0.0001,
+              0.0001
+            ],
+            "active": true,
+            "local_force_torque": [
+              51.849307561228855,
+              0.40100307293644644,
+              -0.23854489417503563,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal_load_n": 51.849307561228855,
+            "terrain_geom_id": 1,
+            "robot_geom_id": 59,
+            "wheel_index": 2,
+            "normal_terrain_to_robot_world": [
+              -0.0009999974451347462,
+              8.57558435229647e-13,
+              0.9999995000024299
+            ],
+            "force_on_robot_world_n": [
+              0.18669559980993328,
+              -0.4010030728919826,
+              51.84952018098613
+            ],
+            "frame_orthonormal": true,
+            "plane_normal_valid": true,
+            "box_feature": {
+              "feature": "top",
+              "geometric_support_valid": true,
+              "supporting_faces": [
+                "top"
+              ],
+              "support_offsets_m": [
+                0.0003383455480486814
+              ],
+              "normal_box_to_robot_world": [
+                -0.0009999974451347462,
+                8.57558435229647e-13,
+                0.9999995000024299
+              ],
+              "normal_cone_residual": 0.0009999974451347462,
+              "normal_cone_residual_limit": 0.0021
+            }
+          },
+          {
+            "index": 7,
+            "geom1": 67,
+            "geom2": 1,
+            "geom1_identity": "RR_foot#geom1",
+            "geom2_identity": "terrain_single_15mm_box",
+            "body1": 17,
+            "body2": 0,
+            "body1_name": "RR_foot",
+            "body2_name": "world",
+            "frame_geom1_to_geom2": [
+              [
+                -2.3557224602583488e-09,
+                9.41057054867876e-13,
+                -1.0
+              ],
+              [
+                2.2168692405368288e-21,
+                1.0,
+                9.41057054867876e-13
+              ],
+              [
+                1.0,
+                0.0,
+                -2.3557224602583488e-09
+              ]
+            ],
+            "position_world_m": [
+              -3.0321442077878897,
+              -0.23349200006863835,
+              0.0153377827695272
+            ],
+            "distance_m": 0.0006755655460074302,
+            "inclusion_margin_m": 0.001,
+            "efc_address": 44,
+            "dimension": 3,
+            "friction": [
+              0.9,
+              0.9,
+              0.005,
+              0.0001,
+              0.0001
+            ],
+            "active": true,
+            "local_force_torque": [
+              34.38156536184515,
+              -0.3340664906637855,
+              -0.12519065319489417,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal_load_n": 34.38156536184515,
+            "terrain_geom_id": 1,
+            "robot_geom_id": 67,
+            "wheel_index": 3,
+            "normal_terrain_to_robot_world": [
+              2.3557224602583488e-09,
+              -9.41057054867876e-13,
+              1.0
+            ],
+            "force_on_robot_world_n": [
+              0.1251907341883199,
+              0.3340664906314305,
+              34.38156536155054
+            ],
+            "frame_orthonormal": true,
+            "plane_normal_valid": true,
+            "box_feature": {
+              "feature": "top",
+              "geometric_support_valid": true,
+              "supporting_faces": [
+                "top"
+              ],
+              "support_offsets_m": [
+                0.00033778276952720065
+              ],
+              "normal_box_to_robot_world": [
+                2.3557224602583488e-09,
+                -9.41057054867876e-13,
+                1.0
+              ],
+              "normal_cone_residual": 2.3557226482236886e-09,
+              "normal_cone_residual_limit": 0.0021
+            }
+          },
+          {
+            "index": 8,
+            "geom1": 67,
+            "geom2": 1,
+            "geom1_identity": "RR_foot#geom1",
+            "geom2_identity": "terrain_single_15mm_box",
+            "body1": 17,
+            "body2": 0,
+            "body1_name": "RR_foot",
+            "body2_name": "world",
+            "frame_geom1_to_geom2": [
+              [
+                -0.001000002149961692,
+                1.197125442868225e-12,
+                -0.9999994999977251
+              ],
+              [
+                1.1971280166420678e-15,
+                1.0,
+                1.1971248443027802e-12
+              ],
+              [
+                0.9999994999977251,
+                0.0,
+                -0.001000002149961692
+              ]
+            ],
+            "position_world_m": [
+              -3.032318821913221,
+              -0.23349192494745316,
+              0.015337878311318673
+            ],
+            "distance_m": 0.0006755655460074302,
+            "inclusion_margin_m": 0.001,
+            "efc_address": 48,
+            "dimension": 3,
+            "friction": [
+              0.9,
+              0.9,
+              0.005,
+              0.0001,
+              0.0001
+            ],
+            "active": true,
+            "local_force_torque": [
+              32.797173754036166,
+              -0.34356014701045795,
+              -0.1249236094582649,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal_load_n": 32.797173754036166,
+            "terrain_geom_id": 1,
+            "robot_geom_id": 67,
+            "wheel_index": 3,
+            "normal_terrain_to_robot_world": [
+              0.001000002149961692,
+              -1.197125442868225e-12,
+              0.9999994999977251
+            ],
+            "force_on_robot_world_n": [
+              0.15772079126287974,
+              0.34356014697119563,
+              32.79703243149705
+            ],
+            "frame_orthonormal": true,
+            "plane_normal_valid": true,
+            "box_feature": {
+              "feature": "top",
+              "geometric_support_valid": true,
+              "supporting_faces": [
+                "top"
+              ],
+              "support_offsets_m": [
+                0.00033787831131867375
+              ],
+              "normal_box_to_robot_world": [
+                0.001000002149961692,
+                -1.197125442868225e-12,
+                0.9999994999977251
+              ],
+              "normal_cone_residual": 0.001000002149961692,
+              "normal_cone_residual_limit": 0.0021
+            }
+          },
+          {
+            "index": 9,
+            "geom1": 67,
+            "geom2": 1,
+            "geom1_identity": "RR_foot#geom1",
+            "geom2_identity": "terrain_single_15mm_box",
+            "body1": 17,
+            "body2": 0,
+            "body1_name": "RR_foot",
+            "body2_name": "world",
+            "frame_geom1_to_geom2": [
+              [
+                0.0009999974344118852,
+                7.695021775950868e-13,
+                -0.9999995000024408
+              ],
+              [
+                -7.695002033694457e-16,
+                1.0,
+                7.695017928458762e-13
+              ],
+              [
+                0.9999995000024408,
+                0.0,
+                0.0009999974344118852
+              ]
+            ],
+            "position_world_m": [
+              -3.031969594197786,
+              -0.23349208024555834,
+              0.015337861761692533
+            ],
+            "distance_m": 0.0006755655460074302,
+            "inclusion_margin_m": 0.001,
+            "efc_address": 52,
+            "dimension": 3,
+            "friction": [
+              0.9,
+              0.9,
+              0.005,
+              0.0001,
+              0.0001
+            ],
+            "active": true,
+            "local_force_torque": [
+              35.9659506102991,
+              -0.3245730637642719,
+              -0.12609939319186783,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal_load_n": 35.9659506102991,
+            "terrain_geom_id": 1,
+            "robot_geom_id": 67,
+            "wheel_index": 3,
+            "normal_terrain_to_robot_world": [
+              -0.0009999974344118852,
+              -7.695021775950868e-13,
+              0.9999995000024408
+            ],
+            "force_on_robot_world_n": [
+              0.09013347180599507,
+              0.32457306373659606,
+              35.966058726481506
+            ],
+            "frame_orthonormal": true,
+            "plane_normal_valid": true,
+            "box_feature": {
+              "feature": "top",
+              "geometric_support_valid": true,
+              "supporting_faces": [
+                "top"
+              ],
+              "support_offsets_m": [
+                0.00033786176169253376
+              ],
+              "normal_box_to_robot_world": [
+                -0.000999997434411885,
+                -7.695021775950866e-13,
+                0.9999995000024405
+              ],
+              "normal_cone_residual": 0.0009999974344118852,
+              "normal_cone_residual_limit": 0.0021
+            }
+          }
+        ],
+        "wheel_positive_normal_load_n": [
+          132.78242139936714,
+          132.6974687819071,
+          102.115636334809,
+          103.14468972618042
+        ],
+        "wheel_box_positive_normal_load_n": [
+          0.0,
+          0.0,
+          102.115636334809,
+          103.14468972618042
+        ],
+        "nonwheel_terrain_contacts": 0,
+        "geometric_box_contact": true
+      },
+      "qacc_warmstart_before": [
+        0.13796184889330154,
+        0.0003309039855524761,
+        -0.015431761094209209,
+        -0.0015417291695439153,
+        0.12261069688254304,
+        -0.0022690819040235887,
+        -0.0032570514773041666,
+        0.41622732937257717,
+        -0.1314621143292881,
+        -0.7536764253051951,
+        0.006675645848910649,
+        0.4024976045146216,
+        -0.13287626470821212,
+        -0.6874466691569043,
+        0.006865572176588407,
+        0.20859604052875616,
+        0.1904188622476376,
+        -0.7563072342418707,
+        -0.007183694921015803,
+        0.1889279541762435,
+        0.19911768229099644,
+        -0.6936564504265351
+      ],
+      "act_before": [],
+      "qacc_warmstart_after": [
+        0.13491222865890495,
+        0.004534114321461887,
+        -0.02077434369709462,
+        -0.011573223318898096,
+        0.08540048957768098,
+        -0.022593896718558482,
+        0.006315443335386504,
+        0.43202870345869265,
+        -0.12053773770702453,
+        -0.6785960733204557,
+        0.014329168528736575,
+        0.39185061551819916,
+        -0.11276280916791795,
+        -0.6044887224296747,
+        0.019413447057654222,
+        -0.9222990322078961,
+        2.4398165509772003,
+        -1.9125986825506072,
+        -0.012551544075833615,
+        0.23088914630557958,
+        0.12680044927657105,
+        -0.5861126775902762
+      ],
+      "act_after": []
+    },
+    {
+      "index": 3487,
+      "start_time_s": 6.973999999999454,
+      "qpos_before": [
+        -2.8155074354608507,
+        1.9497525392856977e-05,
+        0.4677227308065438,
+        0.9998795386653734,
+        7.5014343375960065e-06,
+        0.015521214518513455,
+        -1.385631850620521e-06,
+        -0.01487696029985736,
+        0.7702928552847201,
+        -1.4557934306214189,
+        11.306777867893034,
+        0.014857891931422994,
+        0.7702203354332294,
+        -1.4558307420320078,
+        11.3078398900836,
+        -0.014932871686810293,
+        0.7857910766066765,
+        -1.4775522248037884,
+        11.261771826884909,
+        0.014936146807880303,
+        0.7856837828597611,
+        -1.4776229086788062,
+        11.262120700418276
+      ],
+      "qvel_before": [
+        0.13025808191102878,
+        1.7354014714916653e-05,
+        -0.004169388030148927,
+        -2.6496327322867428e-05,
+        -0.046590306692411584,
+        2.6868190438356376e-05,
+        -0.0016722499231872734,
+        -0.09019428247863541,
+        0.0028221642035539648,
+        2.2137124150578527,
+        0.0016357962098220318,
+        -0.08980083557306415,
+        0.003026149889061583,
+        2.2111121328117216,
+        0.00014139238352917414,
+        -0.055900394368735874,
+        -0.09626775366218358,
+        2.339448447871448,
+        -9.969582944756539e-05,
+        -0.05308879060319011,
+        -0.10103350590980512,
+        2.3402847539344345
+      ],
+      "ctrl_nm": [
+        -18.31154626072805,
+        -1.2997710447214148,
+        18.074444901066823,
+        0.6049873029337374,
+        18.30340657254294,
+        -1.288374622030131,
+        18.069322635935837,
+        0.6060972817318031,
+        -11.710878877997109,
+        -1.44971706863585,
+        12.889443558391989,
+        0.4575539632532897,
+        11.700263365377293,
+        -1.4351963795796705,
+        12.887594269496704,
+        0.4594147133855339
+      ],
+      "xfrc_applied": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "qfrc_applied": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "contact_sample_tag": "native_step_solved_cache_not_synchronized_endpoint",
+      "returned": true,
+      "error": null,
+      "qpos_returned": [
+        -2.8152463885615693,
+        1.9530096535978102e-05,
+        0.4677143379781041,
+        0.9998802570548061,
+        7.479439798397435e-06,
+        0.015474866533846582,
+        -1.3541799077129165e-06,
+        -0.01488032425844514,
+        0.7701138765699196,
+        -1.4557882011012768,
+        11.311202931978785,
+        0.014861169192916102,
+        0.7700421152356148,
+        -1.4558251207390844,
+        11.312260001618391,
+        -0.014932583895667982,
+        0.7856810712039657,
+        -1.477746134950116,
+        11.266449279353736,
+        0.014935931473187603,
+        0.785578276998786,
+        -1.4778243141286158,
+        11.266799187855396
+      ],
+      "qvel_returned": [
+        0.13052344964064808,
+        1.628557156056318e-05,
+        -0.0041964142198716225,
+        -2.2421229775338758e-05,
+        -0.04635355161441475,
+        3.1455444001650255e-05,
+        -0.0016819792938903063,
+        -0.0894893574002492,
+        0.0026147600710290245,
+        2.212532042875312,
+        0.0016386307465539635,
+        -0.08911009880732085,
+        0.002810646461723299,
+        2.2100557673954726,
+        0.00014389557115539468,
+        -0.055002701355408336,
+        -0.09695507316376879,
+        2.338726234413484,
+        -0.00010766734635003444,
+        -0.05275293048756921,
+        -0.10070272490485117,
+        2.3392437185597807
+      ],
+      "end_time_s": 6.975999999999454,
+      "actual_dt_s": 0.0019999999999997797,
+      "contacts": {
+        "sampling": "native_step_solved_cache_not_synchronized_endpoint",
+        "contacts": [
+          {
+            "index": 0,
+            "geom1": 0,
+            "geom2": 43,
+            "geom1_identity": "floor",
+            "geom2_identity": "FL_foot#geom1",
+            "body1": 0,
+            "body2": 5,
+            "body1_name": "world",
+            "body2_name": "FL_foot",
+            "frame_geom1_to_geom2": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ]
+            ],
+            "position_world_m": [
+              -2.655561259050805,
+              0.2335144247635956,
+              0.0001417557388493757
+            ],
+            "distance_m": 0.00028351147769875573,
+            "inclusion_margin_m": 0.001,
+            "efc_address": 16,
+            "dimension": 3,
+            "friction": [
+              0.9,
+              0.9,
+              0.005,
+              0.0001,
+              0.0001
+            ],
+            "active": true,
+            "local_force_torque": [
+              120.59015146685387,
+              2.4415361652956986,
+              -0.7760673118144549,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal_load_n": 120.59015146685387,
+            "terrain_geom_id": 0,
+            "robot_geom_id": 43,
+            "wheel_index": 0,
+            "normal_terrain_to_robot_world": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "force_on_robot_world_n": [
+              0.7760673118144549,
+              2.4415361652956986,
+              120.59015146685387
+            ],
+            "frame_orthonormal": true,
+            "plane_normal_valid": true,
+            "box_feature": null
+          },
+          {
+            "index": 1,
+            "geom1": 0,
+            "geom2": 43,
+            "geom1_identity": "floor",
+            "geom2_identity": "FL_foot#geom1",
+            "body1": 0,
+            "body2": 5,
+            "body1_name": "world",
+            "body2_name": "FL_foot",
+            "frame_geom1_to_geom2": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ]
+            ],
+            "position_world_m": [
+              -2.6555431055967484,
+              0.1935186097566339,
+              0.00043091502929551656
+            ],
+            "distance_m": 0.0008618300585910288,
+            "inclusion_margin_m": 0.001,
+            "efc_address": 20,
+            "dimension": 3,
+            "friction": [
+              0.9,
+              0.9,
+              0.005,
+              0.0001,
+              0.0001
+            ],
+            "active": true,
+            "local_force_torque": [
+              12.196060643853825,
+              1.3828225964751326,
+              -1.4126675704276828,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal_load_n": 12.196060643853825,
+            "terrain_geom_id": 0,
+            "robot_geom_id": 43,
+            "wheel_index": 0,
+            "normal_terrain_to_robot_world": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "force_on_robot_world_n": [
+              1.4126675704276828,
+              1.3828225964751326,
+              12.196060643853825
+            ],
+            "frame_orthonormal": true,
+            "plane_normal_valid": true,
+            "box_feature": null
+          },
+          {
+            "index": 2,
+            "geom1": 0,
+            "geom2": 51,
+            "geom1_identity": "floor",
+            "geom2_identity": "FR_foot#geom1",
+            "body1": 0,
+            "body2": 9,
+            "body1_name": "world",
+            "body2_name": "FR_foot",
+            "frame_geom1_to_geom2": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ]
+            ],
+            "position_world_m": [
+              -2.6555264904246934,
+              -0.23347556269017772,
+              0.00014180990176542813
+            ],
+            "distance_m": 0.0002836198035308518,
+            "inclusion_margin_m": 0.001,
+            "efc_address": 24,
+            "dimension": 3,
+            "friction": [
+              0.9,
+              0.9,
+              0.005,
+              0.0001,
+              0.0001
+            ],
+            "active": true,
+            "local_force_torque": [
+              120.53929019156149,
+              -2.444848682662807,
+              -0.7755478644527802,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal_load_n": 120.53929019156149,
+            "terrain_geom_id": 0,
+            "robot_geom_id": 51,
+            "wheel_index": 1,
+            "normal_terrain_to_robot_world": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "force_on_robot_world_n": [
+              0.7755478644527802,
+              -2.444848682662807,
+              120.53929019156149
+            ],
+            "frame_orthonormal": true,
+            "plane_normal_valid": true,
+            "box_feature": null
+          },
+          {
+            "index": 3,
+            "geom1": 0,
+            "geom2": 51,
+            "geom1_identity": "floor",
+            "geom2_identity": "FR_foot#geom1",
+            "body1": 0,
+            "body2": 9,
+            "body1_name": "world",
+            "body2_name": "FR_foot",
+            "frame_geom1_to_geom2": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ]
+            ],
+            "position_world_m": [
+              -2.6555087168869025,
+              -0.19347974980890592,
+              0.0004310485867866274
+            ],
+            "distance_m": 0.0008620971735732591,
+            "inclusion_margin_m": 0.001,
+            "efc_address": 28,
+            "dimension": 3,
+            "friction": [
+              0.9,
+              0.9,
+              0.005,
+              0.0001,
+              0.0001
+            ],
+            "active": true,
+            "local_force_torque": [
+              12.175288107621029,
+              -1.3847691724100906,
+              -1.4179587081610383,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal_load_n": 12.175288107621029,
+            "terrain_geom_id": 0,
+            "robot_geom_id": 51,
+            "wheel_index": 1,
+            "normal_terrain_to_robot_world": [
+              0.0,
+              0.0,
+              1.0
+            ],
+            "force_on_robot_world_n": [
+              1.4179587081610383,
+              -1.3847691724100906,
+              12.175288107621029
+            ],
+            "frame_orthonormal": true,
+            "plane_normal_valid": true,
+            "box_feature": null
+          },
+          {
+            "index": 4,
+            "geom1": 59,
+            "geom2": 1,
+            "geom1_identity": "RL_foot#geom1",
+            "geom2_identity": "terrain_single_15mm_box",
+            "body1": 13,
+            "body2": 0,
+            "body1_name": "RL_foot",
+            "body2_name": "world",
+            "frame_geom1_to_geom2": [
+              [
+                -2.4315864831733265e-09,
+                -9.375859266302085e-13,
+                -1.0
+              ],
+              [
+                -2.2798212660075532e-21,
+                1.0,
+                -9.375859266302085e-13
+              ],
+              [
+                1.0,
+                0.0,
+                -2.4315864831733265e-09
+              ]
+            ],
+            "position_world_m": [
+              -3.0318245463576368,
+              0.2335434442404914,
+              0.015337182209205382
+            ],
+            "distance_m": 0.0006743644255953773,
+            "inclusion_margin_m": 0.001,
+            "efc_address": 32,
+            "dimension": 3,
+            "friction": [
+              0.9,
+              0.9,
+              0.005,
+              0.0001,
+              0.0001
+            ],
+            "active": true,
+            "local_force_torque": [
+              34.47149707810809,
+              0.34380554693476245,
+              -0.1102063362369952,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal_load_n": 34.47149707810809,
+            "terrain_geom_id": 1,
+            "robot_geom_id": 59,
+            "wheel_index": 2,
+            "normal_terrain_to_robot_world": [
+              2.4315864831733265e-09,
+              9.375859266302085e-13,
+              1.0
+            ],
+            "force_on_robot_world_n": [
+              0.11020642005742155,
+              -0.34380554690244247,
+              34.47149707784043
+            ],
+            "frame_orthonormal": true,
+            "plane_normal_valid": true,
+            "box_feature": {
+              "feature": "top",
+              "geometric_support_valid": true,
+              "supporting_faces": [
+                "top"
+              ],
+              "support_offsets_m": [
+                0.0003371822092053823
+              ],
+              "normal_box_to_robot_world": [
+                2.4315864831733265e-09,
+                9.375859266302085e-13,
+                1.0
+              ],
+              "normal_cone_residual": 2.431586663933366e-09,
+              "normal_cone_residual_limit": 0.0021
+            }
+          },
+          {
+            "index": 5,
+            "geom1": 59,
+            "geom2": 1,
+            "geom1_identity": "RL_foot#geom1",
+            "geom2_identity": "terrain_single_15mm_box",
+            "body1": 13,
+            "body2": 0,
+            "body1_name": "RL_foot",
+            "body2_name": "world",
+            "frame_geom1_to_geom2": [
+              [
+                -0.0010000022241290175,
+                -9.37131643371863e-13,
+                -0.9999994999976509
+              ],
+              [
+                -9.37133727673544e-16,
+                1.0,
+                -9.371311748038398e-13
+              ],
+              [
+                0.9999994999976509,
+                0.0,
+                -0.0010000022241290175
+              ]
+            ],
+            "position_world_m": [
+              -3.0319991584476593,
+              0.23354336783429358,
+              0.015337277893946007
+            ],
+            "distance_m": 0.0006743644255953773,
+            "inclusion_margin_m": 0.001,
+            "efc_address": 36,
+            "dimension": 3,
+            "friction": [
+              0.9,
+              0.9,
+              0.005,
+              0.0001,
+              0.0001
+            ],
+            "active": true,
+            "local_force_torque": [
+              32.88474426233179,
+              0.35332069881793443,
+              -0.10996793080651167,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal_load_n": 32.88474426233179,
+            "terrain_geom_id": 1,
+            "robot_geom_id": 59,
+            "wheel_index": 2,
+            "normal_terrain_to_robot_world": [
+              0.0010000022241290175,
+              9.37131643371863e-13,
+              0.9999994999976509
+            ],
+            "force_on_robot_world_n": [
+              0.142852693224534,
+              -0.3533206987871171,
+              32.88461785170736
+            ],
+            "frame_orthonormal": true,
+            "plane_normal_valid": true,
+            "box_feature": {
+              "feature": "top",
+              "geometric_support_valid": true,
+              "supporting_faces": [
+                "top"
+              ],
+              "support_offsets_m": [
+                0.0003372778939460079
+              ],
+              "normal_box_to_robot_world": [
+                0.0010000022241290175,
+                9.37131643371863e-13,
+                0.9999994999976509
+              ],
+              "normal_cone_residual": 0.0010000022241290175,
+              "normal_cone_residual_limit": 0.0021
+            }
+          },
+          {
+            "index": 6,
+            "geom1": 59,
+            "geom2": 1,
+            "geom1_identity": "RL_foot#geom1",
+            "geom2_identity": "terrain_single_15mm_box",
+            "body1": 13,
+            "body2": 0,
+            "body1_name": "RL_foot",
+            "body2_name": "world",
+            "frame_geom1_to_geom2": [
+              [
+                0.0009999973580856257,
+                -1.0222197684457837e-12,
+                -0.999999500002517
+              ],
+              [
+                1.0222170678286836e-15,
+                1.0,
+                -1.0222192573384724e-12
+              ],
+              [
+                0.999999500002517,
+                0.0,
+                0.0009999973580856257
+              ]
+            ],
+            "position_world_m": [
+              -3.0316499348050465,
+              0.23354352569314774,
+              0.01533726105561956
+            ],
+            "distance_m": 0.0006743644255953773,
+            "inclusion_margin_m": 0.001,
+            "efc_address": 40,
+            "dimension": 3,
+            "friction": [
+              0.9,
+              0.9,
+              0.005,
+              0.0001,
+              0.0001
+            ],
+            "active": true,
+            "local_force_torque": [
+              36.05824357950626,
+              0.334290679603291,
+              -0.11108739738511116,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal_load_n": 36.05824357950626,
+            "terrain_geom_id": 1,
+            "robot_geom_id": 59,
+            "wheel_index": 2,
+            "normal_terrain_to_robot_world": [
+              -0.0009999973580856257,
+              1.0222197684457837e-12,
+              0.999999500002517
+            ],
+            "force_on_robot_world_n": [
+              0.0750291935249775,
+              -0.33429067956643155,
+              36.05833663757947
+            ],
+            "frame_orthonormal": true,
+            "plane_normal_valid": true,
+            "box_feature": {
+              "feature": "top",
+              "geometric_support_valid": true,
+              "supporting_faces": [
+                "top"
+              ],
+              "support_offsets_m": [
+                0.0003372610556195612
+              ],
+              "normal_box_to_robot_world": [
+                -0.0009999973580856257,
+                1.0222197684457837e-12,
+                0.999999500002517
+              ],
+              "normal_cone_residual": 0.0009999973580856257,
+              "normal_cone_residual_limit": 0.0021
+            }
+          },
+          {
+            "index": 7,
+            "geom1": 67,
+            "geom2": 1,
+            "geom1_identity": "RR_foot#geom1",
+            "geom2_identity": "terrain_single_15mm_box",
+            "body1": 17,
+            "body2": 0,
+            "body1_name": "RR_foot",
+            "body2_name": "world",
+            "frame_geom1_to_geom2": [
+              [
+                -2.4421823944982128e-09,
+                9.39563735991898e-13,
+                -1.0
+              ],
+              [
+                2.2945860145483797e-21,
+                1.0,
+                9.39563735991898e-13
+              ],
+              [
+                1.0,
+                0.0,
+                -2.4421823944982128e-09
+              ]
+            ],
+            "position_world_m": [
+              -3.031770813477811,
+              -0.23349252953389948,
+              0.015337524945429955
+            ],
+            "distance_m": 0.0006750498980789216,
+            "inclusion_margin_m": 0.001,
+            "efc_address": 44,
+            "dimension": 3,
+            "friction": [
+              0.9,
+              0.9,
+              0.005,
+              0.0001,
+              0.0001
+            ],
+            "active": true,
+            "local_force_torque": [
+              34.37878119523568,
+              -0.33877386976770263,
+              -0.12142813957197572,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal_load_n": 34.37878119523568,
+            "terrain_geom_id": 1,
+            "robot_geom_id": 67,
+            "wheel_index": 3,
+            "normal_terrain_to_robot_world": [
+              2.4421823944982128e-09,
+              -9.39563735991898e-13,
+              1.0
+            ],
+            "force_on_robot_world_n": [
+              0.1214282235312299,
+              0.3387738697354016,
+              34.37878119493945
+            ],
+            "frame_orthonormal": true,
+            "plane_normal_valid": true,
+            "box_feature": {
+              "feature": "top",
+              "geometric_support_valid": true,
+              "supporting_faces": [
+                "top"
+              ],
+              "support_offsets_m": [
+                0.0003375249454299553
+              ],
+              "normal_box_to_robot_world": [
+                2.4421823944982128e-09,
+                -9.39563735991898e-13,
+                1.0
+              ],
+              "normal_cone_residual": 2.4421825752340954e-09,
+              "normal_cone_residual_limit": 0.0021
+            }
+          },
+          {
+            "index": 8,
+            "geom1": 67,
+            "geom2": 1,
+            "geom1_identity": "RR_foot#geom1",
+            "geom2_identity": "terrain_single_15mm_box",
+            "body1": 17,
+            "body2": 0,
+            "body1_name": "RR_foot",
+            "body2_name": "world",
+            "frame_geom1_to_geom2": [
+              [
+                -0.0010000022342985066,
+                7.683608089842249e-13,
+                -0.9999994999976408
+              ],
+              [
+                7.683625257316331e-16,
+                1.0,
+                7.683604248020078e-13
+              ],
+              [
+                0.9999994999976408,
+                0.0,
+                -0.0010000022342985066
+              ]
+            ],
+            "position_world_m": [
+              -3.0319454262096097,
+              -0.2334924546649319,
+              0.015337620651729401
+            ],
+            "distance_m": 0.0006750498980789216,
+            "inclusion_margin_m": 0.001,
+            "efc_address": 48,
+            "dimension": 3,
+            "friction": [
+              0.9,
+              0.9,
+              0.005,
+              0.0001,
+              0.0001
+            ],
+            "active": true,
+            "local_force_torque": [
+              32.79346090265229,
+              -0.348326519526062,
+              -0.1211890319428921,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal_load_n": 32.79346090265229,
+            "terrain_geom_id": 1,
+            "robot_geom_id": 67,
+            "wheel_index": 3,
+            "normal_terrain_to_robot_world": [
+              0.0010000022342985066,
+              -7.683608089842249e-13,
+              0.9999994999976408
+            ],
+            "force_on_robot_world_n": [
+              0.1539825055211235,
+              0.34832651950086474,
+              32.79332331654203
+            ],
+            "frame_orthonormal": true,
+            "plane_normal_valid": true,
+            "box_feature": {
+              "feature": "top",
+              "geometric_support_valid": true,
+              "supporting_faces": [
+                "top"
+              ],
+              "support_offsets_m": [
+                0.00033762065172940163
+              ],
+              "normal_box_to_robot_world": [
+                0.0010000022342985066,
+                -7.683608089842249e-13,
+                0.9999994999976408
+              ],
+              "normal_cone_residual": 0.0010000022342985066,
+              "normal_cone_residual_limit": 0.0021
+            }
+          },
+          {
+            "index": 9,
+            "geom1": 67,
+            "geom2": 1,
+            "geom1_identity": "RR_foot#geom1",
+            "geom2_identity": "terrain_single_15mm_box",
+            "body1": 17,
+            "body2": 0,
+            "body1_name": "RR_foot",
+            "body2_name": "world",
+            "frame_geom1_to_geom2": [
+              [
+                0.0009999973473504048,
+                7.682810276860818e-13,
+                -0.9999995000025277
+              ],
+              [
+                -7.682789897057246e-16,
+                1.0,
+                7.682806435475099e-13
+              ],
+              [
+                0.9999995000025277,
+                -9.860761315262648e-32,
+                0.0009999973473504048
+              ]
+            ],
+            "position_world_m": [
+              -3.0315962012829023,
+              -0.23349260945847627,
+              0.015337603770816225
+            ],
+            "distance_m": 0.0006750498980789216,
+            "inclusion_margin_m": 0.001,
+            "efc_address": 52,
+            "dimension": 3,
+            "friction": [
+              0.9,
+              0.9,
+              0.005,
+              0.0001,
+              0.0001
+            ],
+            "active": true,
+            "local_force_torque": [
+              35.964095181025286,
+              -0.329221498879806,
+              -0.12230932130470595,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal_load_n": 35.964095181025286,
+            "terrain_geom_id": 1,
+            "robot_geom_id": 67,
+            "wheel_index": 3,
+            "normal_terrain_to_robot_world": [
+              -0.0009999973473504048,
+              -7.682810276860818e-13,
+              0.9999995000025277
+            ],
+            "force_on_robot_world_n": [
+              0.08634526036947143,
+              0.3292214988521755,
+              35.96419950806571
+            ],
+            "frame_orthonormal": true,
+            "plane_normal_valid": true,
+            "box_feature": {
+              "feature": "top",
+              "geometric_support_valid": true,
+              "supporting_faces": [
+                "top"
+              ],
+              "support_offsets_m": [
+                0.00033760377081622564
+              ],
+              "normal_box_to_robot_world": [
+                -0.0009999973473504048,
+                -7.682810276860818e-13,
+                0.9999995000025277
+              ],
+              "normal_cone_residual": 0.0009999973473504048,
+              "normal_cone_residual_limit": 0.0021
+            }
+          }
+        ],
+        "wheel_positive_normal_load_n": [
+          132.78621211070768,
+          132.7145782991825,
+          103.41448491994615,
+          103.13633727891326
+        ],
+        "wheel_box_positive_normal_load_n": [
+          0.0,
+          0.0,
+          103.41448491994615,
+          103.13633727891326
+        ],
+        "nonwheel_terrain_contacts": 0,
+        "geometric_box_contact": true
+      },
+      "qacc_warmstart_before": [
+        0.13491222865890495,
+        0.004534114321461887,
+        -0.02077434369709462,
+        -0.011573223318898096,
+        0.08540048957768098,
+        -0.022593896718558482,
+        0.006315443335386504,
+        0.43202870345869265,
+        -0.12053773770702453,
+        -0.6785960733204557,
+        0.014329168528736575,
+        0.39185061551819916,
+        -0.11276280916791795,
+        -0.6044887224296747,
+        0.019413447057654222,
+        -0.9222990322078961,
+        2.4398165509772003,
+        -1.9125986825506072,
+        -0.012551544075833615,
+        0.23088914630557958,
+        0.12680044927657105,
+        -0.5861126775902762
+      ],
+      "act_before": [],
+      "qacc_warmstart_after": [
+        0.13270934168301554,
+        -0.0005274467388777029,
+        -0.013531188553781699,
+        0.0018912364527684782,
+        0.11823937632564051,
+        0.0022606111529299595,
+        -0.0047913334535822655,
+        0.3532238580188492,
+        -0.10404901516622964,
+        -0.597009050633947,
+        0.001633213729094916,
+        0.3460372639930604,
+        -0.1080365222660961,
+        -0.5342878508221484,
+        0.0011830676224160834,
+        0.45018118669588403,
+        -0.3452589196339706,
+        -0.36503448755650947,
+        -0.003979598712196582,
+        0.16814128037552706,
+        0.1659396310616125,
+        -0.5266983748107594
+      ],
+      "act_after": []
+    }
+  ],
+  "reference_contacts": {
+    "front_top_edge": {
+      "native_index": 1779,
+      "contact": {
+        "index": 2,
+        "geom1": 43,
+        "geom2": 1,
+        "geom1_identity": "FL_foot#geom1",
+        "geom2_identity": "terrain_single_15mm_box",
+        "body1": 5,
+        "body2": 0,
+        "body1_name": "FL_foot",
+        "body2_name": "world",
+        "frame_geom1_to_geom2": [
+          [
+            0.5696065631492954,
+            5.4429091860191785e-12,
+            -0.821917491733354
+          ],
+          [
+            -3.1003167949821132e-12,
+            1.0,
+            4.4736222659053145e-12
+          ],
+          [
+            0.821917491733354,
+            4.0389678347315804e-28,
+            0.5696065631492954
+          ]
+        ],
+        "position_world_m": [
+          -3.2802519808099575,
+          0.23548328426971674,
+          0.015365455914069914
+        ],
+        "distance_m": 0.0008878131817609398,
+        "inclusion_margin_m": 0.001,
+        "efc_address": 24,
+        "dimension": 3,
+        "friction": [
+          0.9,
+          0.9,
+          0.005,
+          0.0001,
+          0.0001
+        ],
+        "active": true,
+        "local_force_torque": [
+          111.01282191831962,
+          -0.9927929080579109,
+          -18.853301418701587,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "normal_load_n": 111.01282191831962,
+        "terrain_geom_id": 1,
+        "robot_geom_id": 43,
+        "wheel_index": 0,
+        "normal_terrain_to_robot_world": [
+          -0.5696065631492954,
+          -5.4429091860191785e-12,
+          0.821917491733354
+        ],
+        "force_on_robot_world_n": [
+          -47.737773745449786,
+          0.9927929074536782,
+          101.98234436647556
+        ],
+        "frame_orthonormal": true,
+        "plane_normal_valid": true,
+        "box_feature": {
+          "feature": "front_top_edge",
+          "geometric_support_valid": true,
+          "supporting_faces": [
+            "front",
+            "top"
+          ],
+          "support_offsets_m": [
+            0.000251980809957697,
+            0.00036545591406991415
+          ],
+          "normal_box_to_robot_world": [
+            -0.5696065631492954,
+            -5.4429091860191785e-12,
+            0.821917491733354
+          ],
+          "normal_cone_residual": 5.4429091860191785e-12,
+          "normal_cone_residual_limit": 0.0021
+        }
+      }
+    },
+    "top_tangent": {
+      "native_index": 2051,
+      "contact": {
+        "index": 1,
+        "geom1": 43,
+        "geom2": 1,
+        "geom1_identity": "FL_foot#geom1",
+        "geom2_identity": "terrain_single_15mm_box",
+        "body1": 5,
+        "body2": 0,
+        "body1_name": "FL_foot",
+        "body2_name": "world",
+        "frame_geom1_to_geom2": [
+          [
+            -0.0009980591761493973,
+            5.00108860038726e-07,
+            -0.9999995019386915
+          ],
+          [
+            4.991382368353277e-10,
+            0.9999999999998751,
+            5.001086109539154e-07
+          ],
+          [
+            0.9999995019388167,
+            0.0,
+            -0.0009980591761495222
+          ]
+        ],
+        "position_world_m": [
+          -3.279832529362924,
+          0.23524202558953938,
+          0.01526214283054521
+        ],
+        "distance_m": 0.0005245366034883423,
+        "inclusion_margin_m": 0.001,
+        "efc_address": 20,
+        "dimension": 3,
+        "friction": [
+          0.9,
+          0.9,
+          0.005,
+          0.0001,
+          0.0001
+        ],
+        "active": true,
+        "local_force_torque": [
+          24.24334453915492,
+          -1.8557141615749155,
+          -2.050484941745011,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "normal_load_n": 24.24334453915492,
+        "terrain_geom_id": 1,
+        "robot_geom_id": 43,
+        "wheel_index": 0,
+        "normal_terrain_to_robot_world": [
+          0.0009980591761493973,
+          -5.00108860038726e-07,
+          0.9999995019386915
+        ],
+        "force_on_robot_world_n": [
+          2.0746802138821674,
+          1.8557020372632826,
+          24.241286887229982
+        ],
+        "frame_orthonormal": true,
+        "plane_normal_valid": true,
+        "box_feature": {
+          "feature": "top",
+          "geometric_support_valid": true,
+          "supporting_faces": [
+            "top"
+          ],
+          "support_offsets_m": [
+            0.00026214283054521066
+          ],
+          "normal_box_to_robot_world": [
+            0.0009980591761493973,
+            -5.00108860038726e-07,
+            0.9999995019386915
+          ],
+          "normal_cone_residual": 0.000998059301447006,
+          "normal_cone_residual_limit": 0.0021
+        }
+      }
+    }
+  },
+  "static_forensic": {
+    "schema": "single-step-static-forensic-v1",
+    "original_manifest_sha256": "80b7a829b6be1332bf050d68b2774903457961a5400c5efa8b59da094e366f46",
+    "mujoco_version": "3.12.0",
+    "inventory": {
+      "box_contact_rows": 11053,
+      "positive_load_rows": 11032,
+      "anomalies": [
+        {
+          "native_index": 3486,
+          "contact_index": 5,
+          "loaded": false,
+          "contact": {
+            "index": 5,
+            "geom1": 59,
+            "geom2": 1,
+            "geom1_identity": "RL_foot#geom1",
+            "geom2_identity": "terrain_single_15mm_box",
+            "body1": 13,
+            "body2": 0,
+            "body1_name": "RL_foot",
+            "body2_name": "world",
+            "frame_geom1_to_geom2": [
+              [
+                -0.004160111414019363,
+                -1.9856892281108387e-06,
+                0.9999913466971002
+              ],
+              [
+                -8.260688422575485e-09,
+                0.9999999999980286,
+                1.985672045344398e-06
+              ],
+              [
+                -0.9999913466990717,
+                3.308722450212111e-24,
+                -0.004160111414027565
+              ]
+            ],
+            "position_world_m": [
+              -3.0296555548441106,
+              0.2213752018031465,
+              0.015656105537109645
+            ],
+            "distance_m": 0.000676533074470901,
+            "inclusion_margin_m": 0.001,
+            "efc_address": 36,
+            "dimension": 3,
+            "friction": [
+              0.9,
+              0.9,
+              0.005,
+              0.0001,
+              0.0001
+            ],
+            "active": true,
+            "local_force_torque": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "normal_load_n": 0.0,
+            "terrain_geom_id": 1,
+            "robot_geom_id": 59,
+            "wheel_index": 2,
+            "normal_terrain_to_robot_world": [
+              0.004160111414019363,
+              1.9856892281108387e-06,
+              -0.9999913466971002
+            ],
+            "force_on_robot_world_n": [
+              -0.0,
+              -0.0,
+              -0.0
+            ],
+            "frame_orthonormal": true,
+            "plane_normal_valid": true,
+            "box_feature": {
+              "feature": "unresolved",
+              "geometric_support_valid": false,
+              "supporting_faces": [],
+              "support_offsets_m": [],
+              "normal_box_to_robot_world": [
+                0.004160111414019363,
+                1.9856892281108387e-06,
+                -0.9999913466971002
+              ],
+              "normal_cone_residual": 1.0,
+              "normal_cone_residual_limit": 0.0021
+            }
+          }
+        }
+      ],
+      "all_box_features_valid": false,
+      "all_positive_load_features_valid": true,
+      "original_qualification_overridden": false
+    },
+    "reconstructions": [
+      {
+        "native_index": 3485,
+        "pose": "before",
+        "all_contact_geometry_exactly_matches_record": true,
+        "contacts": [
+          {
+            "geom1": 0,
+            "geom2": 43,
+            "position_world_m": [
+              -2.6562853175130177,
+              0.23351758807248116,
+              0.0001415387821708605
+            ],
+            "distance_m": 0.0002830775643417188,
+            "frame_geom1_to_geom2": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ]
+            ]
+          },
+          {
+            "geom1": 0,
+            "geom2": 43,
+            "position_world_m": [
+              -2.656267072363535,
+              0.1935217691465699,
+              0.0004305610824529352
+            ],
+            "distance_m": 0.0008611221649058726,
+            "frame_geom1_to_geom2": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ]
+            ]
+          },
+          {
+            "geom1": 0,
+            "geom2": 51,
+            "position_world_m": [
+              -2.6562498394228227,
+              -0.2334787377086716,
+              0.00014158899313112703
+            ],
+            "distance_m": 0.00028317798626226187,
+            "frame_geom1_to_geom2": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ]
+            ]
+          },
+          {
+            "geom1": 0,
+            "geom2": 51,
+            "position_world_m": [
+              -2.6562319580939002,
+              -0.1934829211090477,
+              0.00043069744480977003
+            ],
+            "distance_m": 0.0008613948896195323,
+            "frame_geom1_to_geom2": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ]
+            ]
+          },
+          {
+            "geom1": 59,
+            "geom2": 1,
+            "position_world_m": [
+              -3.032571826032564,
+              0.2335423828119495,
+              0.015338567172755403
+            ],
+            "distance_m": 0.0006771343521719394,
+            "frame_geom1_to_geom2": [
+              [
+                -2.26263386990117e-09,
+                -7.736969919874821e-13,
+                -1.0
+              ],
+              [
+                -1.750593019111531e-21,
+                1.0,
+                -7.736969919874821e-13
+              ],
+              [
+                1.0,
+                0.0,
+                -2.26263386990117e-09
+              ]
+            ]
+          },
+          {
+            "geom1": 59,
+            "geom2": 1,
+            "position_world_m": [
+              -3.0327464426544726,
+              0.23354230595389486,
+              0.015338662530985904
+            ],
+            "distance_m": 0.0006771343521719394,
+            "frame_geom1_to_geom2": [
+              [
+                -0.0010000020538683857,
+                -7.733173173541352e-13,
+                -0.9999994999978211
+              ],
+              [
+                -7.733189056461254e-16,
+                1.0,
+                -7.733169306937915e-13
+              ],
+              [
+                0.9999994999978211,
+                0.0,
+                -0.0010000020538683857
+              ]
+            ]
+          },
+          {
+            "geom1": 59,
+            "geom2": 1,
+            "position_world_m": [
+              -3.032397209944647,
+              0.233542464716692,
+              0.015338646351973167
+            ],
+            "distance_m": 0.0006771343521719394,
+            "frame_geom1_to_geom2": [
+              [
+                0.0009999975313436766,
+                -9.450709442023633e-13,
+                -0.9999995000023436
+              ],
+              [
+                9.450686111470008e-16,
+                1.0,
+                -9.45070471669106e-13
+              ],
+              [
+                0.9999995000023436,
+                0.0,
+                0.0009999975313436766
+              ]
+            ]
+          },
+          {
+            "geom1": 67,
+            "geom2": 1,
+            "position_world_m": [
+              -3.032517665358213,
+              -0.23349147787286184,
+              0.015338039590706959
+            ],
+            "distance_m": 0.0006760791881085476,
+            "frame_geom1_to_geom2": [
+              [
+                -2.2730861460613506e-09,
+                8.568629923331388e-13,
+                -1.0
+              ],
+              [
+                1.9477233969451313e-21,
+                1.0,
+                8.568629923331388e-13
+              ],
+              [
+                1.0,
+                0.0,
+                -2.2730861460613506e-09
+              ]
+            ]
+          },
+          {
+            "geom1": 67,
+            "geom2": 1,
+            "position_world_m": [
+              -3.0326922808749126,
+              -0.2334914024833596,
+              0.01533813496979663
+            ],
+            "distance_m": 0.0006760791881085476,
+            "frame_geom1_to_geom2": [
+              [
+                -0.0010000020659223234,
+                9.420883900712953e-13,
+                -0.9999994999978092
+              ],
+              [
+                9.42090336352731e-16,
+                1.0,
+                9.420879190250364e-13
+              ],
+              [
+                0.9999994999978092,
+                0.0,
+                -0.0010000020659223234
+              ]
+            ]
+          },
+          {
+            "geom1": 67,
+            "geom2": 1,
+            "position_world_m": [
+              -3.03234305037505,
+              -0.23349155831818974,
+              0.015338118747843195
+            ],
+            "distance_m": 0.0006760791881085476,
+            "frame_geom1_to_geom2": [
+              [
+                0.000999997519223946,
+                9.41994089952047e-13,
+                -0.9999995000023558
+              ],
+              [
+                -9.419917530756656e-16,
+                1.0,
+                9.41993618957221e-13
+              ],
+              [
+                0.9999995000023558,
+                0.0,
+                0.000999997519223946
+              ]
+            ]
+          }
+        ],
+        "state_unchanged": true,
+        "wheel_center_world_m": [
+          -3.0325551482039352,
+          0.21480723791784517,
+          0.10295825345870419
+        ],
+        "wheel_rotation_world": [
+          [
+            0.9198557526126114,
+            0.3922565289834754,
+            -0.0004580996866039577
+          ],
+          [
+            0.00611463106409188,
+            -0.013171296826815872,
+            0.9998945585544762
+          ],
+          [
+            0.39220913512109457,
+            -0.9197615628029564,
+            -0.01451419711273002
+          ]
+        ],
+        "wheel_size_m": [
+          0.087,
+          0.02,
+          0.0
+        ],
+        "geom_distance_m": 0.0006771342570396022,
+        "geom_distance_segment": [
+          -3.0325711057661193,
+          0.23354239070096988,
+          0.0156771342570396,
+          -3.0325711057673903,
+          0.23354239070096977,
+          0.015
+        ]
+      },
+      {
+        "native_index": 3486,
+        "pose": "before",
+        "all_contact_geometry_exactly_matches_record": true,
+        "contacts": [
+          {
+            "geom1": 0,
+            "geom2": 43,
+            "position_world_m": [
+              -2.655923230567022,
+              0.2335160091799357,
+              0.0001416465670794394
+            ],
+            "distance_m": 0.0002832931341588685,
+            "frame_geom1_to_geom2": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ]
+            ]
+          },
+          {
+            "geom1": 0,
+            "geom2": 43,
+            "position_world_m": [
+              -2.6559050295481637,
+              0.1935201922072558,
+              0.0004307371284976661
+            ],
+            "distance_m": 0.0008614742569953426,
+            "frame_geom1_to_geom2": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ]
+            ]
+          },
+          {
+            "geom1": 0,
+            "geom2": 51,
+            "position_world_m": [
+              -2.6558881130371255,
+              -0.23347715308192754,
+              0.0001416985671366394
+            ],
+            "distance_m": 0.00028339713427327773,
+            "frame_geom1_to_geom2": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ]
+            ]
+          },
+          {
+            "geom1": 0,
+            "geom2": 51,
+            "position_world_m": [
+              -2.655870287512287,
+              -0.19348133833822564,
+              0.00043087206097076837
+            ],
+            "distance_m": 0.0008617441219415378,
+            "frame_geom1_to_geom2": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ]
+            ]
+          },
+          {
+            "geom1": 59,
+            "geom2": 1,
+            "position_world_m": [
+              -3.0321981124439716,
+              0.23354290088650853,
+              0.015338266533776046
+            ],
+            "distance_m": 0.000676533074470901,
+            "frame_geom1_to_geom2": [
+              [
+                -2.3449209503667525e-09,
+                -9.438718696587485e-13,
+                -1.0
+              ],
+              [
+                -2.2133049216246362e-21,
+                1.0,
+                -9.438718696587485e-13
+              ],
+              [
+                1.0,
+                0.0,
+                -2.3449209503667525e-09
+              ]
+            ]
+          },
+          {
+            "geom1": 59,
+            "geom2": 1,
+            "position_world_m": [
+              -3.0296555548441106,
+              0.2213752018031465,
+              0.015656105537109645
+            ],
+            "distance_m": 0.000676533074470901,
+            "frame_geom1_to_geom2": [
+              [
+                -0.004160111414019363,
+                -1.9856892281108387e-06,
+                0.9999913466971002
+              ],
+              [
+                -8.260688422575485e-09,
+                0.9999999999980286,
+                1.985672045344398e-06
+              ],
+              [
+                -0.9999913466990717,
+                3.308722450212111e-24,
+                -0.004160111414027565
+              ]
+            ]
+          },
+          {
+            "geom1": 59,
+            "geom2": 1,
+            "position_world_m": [
+              -3.032023497839068,
+              0.2335429825727748,
+              0.01533834554804868
+            ],
+            "distance_m": 0.000676533074470901,
+            "frame_geom1_to_geom2": [
+              [
+                0.0009999974451347462,
+                -8.57558435229647e-13,
+                -0.9999995000024299
+              ],
+              [
+                8.575562442833977e-16,
+                1.0,
+                -8.575580064525132e-13
+              ],
+              [
+                0.9999995000024299,
+                9.860761315262648e-32,
+                0.0009999974451347462
+              ]
+            ]
+          },
+          {
+            "geom1": 67,
+            "geom2": 1,
+            "position_world_m": [
+              -3.0321442077878897,
+              -0.23349200006863835,
+              0.0153377827695272
+            ],
+            "distance_m": 0.0006755655460074302,
+            "frame_geom1_to_geom2": [
+              [
+                -2.3557224602583488e-09,
+                9.41057054867876e-13,
+                -1.0
+              ],
+              [
+                2.2168692405368288e-21,
+                1.0,
+                9.41057054867876e-13
+              ],
+              [
+                1.0,
+                0.0,
+                -2.3557224602583488e-09
+              ]
+            ]
+          },
+          {
+            "geom1": 67,
+            "geom2": 1,
+            "position_world_m": [
+              -3.032318821913221,
+              -0.23349192494745316,
+              0.015337878311318673
+            ],
+            "distance_m": 0.0006755655460074302,
+            "frame_geom1_to_geom2": [
+              [
+                -0.001000002149961692,
+                1.197125442868225e-12,
+                -0.9999994999977251
+              ],
+              [
+                1.1971280166420678e-15,
+                1.0,
+                1.1971248443027802e-12
+              ],
+              [
+                0.9999994999977251,
+                0.0,
+                -0.001000002149961692
+              ]
+            ]
+          },
+          {
+            "geom1": 67,
+            "geom2": 1,
+            "position_world_m": [
+              -3.031969594197786,
+              -0.23349208024555834,
+              0.015337861761692533
+            ],
+            "distance_m": 0.0006755655460074302,
+            "frame_geom1_to_geom2": [
+              [
+                0.0009999974344118852,
+                7.695021775950868e-13,
+                -0.9999995000024408
+              ],
+              [
+                -7.695002033694457e-16,
+                1.0,
+                7.695017928458762e-13
+              ],
+              [
+                0.9999995000024408,
+                0.0,
+                0.0009999974344118852
+              ]
+            ]
+          }
+        ],
+        "state_unchanged": true,
+        "wheel_center_world_m": [
+          -3.0321812935653867,
+          0.2148077417576834,
+          0.1029576490586401
+        ],
+        "wheel_rotation_world": [
+          [
+            0.9215271726819596,
+            0.3883136120075314,
+            -0.0004568790419787194
+          ],
+          [
+            0.006056979369855053,
+            -0.013197683639921888,
+            0.9998945615150902
+          ],
+          [
+            0.3882666390635536,
+            -0.9214327755600001,
+            -0.014514031627611685
+          ]
+        ],
+        "wheel_size_m": [
+          0.087,
+          0.02,
+          0.0
+        ],
+        "geom_distance_m": 0.0006765329763443506,
+        "geom_distance_segment": [
+          -3.0321973830497244,
+          0.23354290893506524,
+          0.01567653297634435,
+          -3.032197383051042,
+          0.2335429089350651,
+          0.014999999999999996
+        ]
+      },
+      {
+        "native_index": 3486,
+        "pose": "returned",
+        "all_contact_geometry_exactly_matches_record": false,
+        "contacts": [
+          {
+            "geom1": 0,
+            "geom2": 43,
+            "position_world_m": [
+              -2.655561259050805,
+              0.2335144247635956,
+              0.0001417557388493757
+            ],
+            "distance_m": 0.00028351147769875573,
+            "frame_geom1_to_geom2": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ]
+            ]
+          },
+          {
+            "geom1": 0,
+            "geom2": 43,
+            "position_world_m": [
+              -2.6555431055967484,
+              0.1935186097566339,
+              0.00043091502929551656
+            ],
+            "distance_m": 0.0008618300585910288,
+            "frame_geom1_to_geom2": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ]
+            ]
+          },
+          {
+            "geom1": 0,
+            "geom2": 51,
+            "position_world_m": [
+              -2.6555264904246934,
+              -0.23347556269017772,
+              0.00014180990176542813
+            ],
+            "distance_m": 0.0002836198035308518,
+            "frame_geom1_to_geom2": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ]
+            ]
+          },
+          {
+            "geom1": 0,
+            "geom2": 51,
+            "position_world_m": [
+              -2.6555087168869025,
+              -0.19347974980890592,
+              0.0004310485867866274
+            ],
+            "distance_m": 0.0008620971735732591,
+            "frame_geom1_to_geom2": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ]
+            ]
+          },
+          {
+            "geom1": 59,
+            "geom2": 1,
+            "position_world_m": [
+              -3.0318245463576368,
+              0.2335434442404914,
+              0.015337182209205382
+            ],
+            "distance_m": 0.0006743644255953773,
+            "frame_geom1_to_geom2": [
+              [
+                -2.4315864831733265e-09,
+                -9.375859266302085e-13,
+                -1.0
+              ],
+              [
+                -2.2798212660075532e-21,
+                1.0,
+                -9.375859266302085e-13
+              ],
+              [
+                1.0,
+                0.0,
+                -2.4315864831733265e-09
+              ]
+            ]
+          },
+          {
+            "geom1": 59,
+            "geom2": 1,
+            "position_world_m": [
+              -3.0319991584476593,
+              0.23354336783429358,
+              0.015337277893946007
+            ],
+            "distance_m": 0.0006743644255953773,
+            "frame_geom1_to_geom2": [
+              [
+                -0.0010000022241290175,
+                -9.37131643371863e-13,
+                -0.9999994999976509
+              ],
+              [
+                -9.37133727673544e-16,
+                1.0,
+                -9.371311748038398e-13
+              ],
+              [
+                0.9999994999976509,
+                0.0,
+                -0.0010000022241290175
+              ]
+            ]
+          },
+          {
+            "geom1": 59,
+            "geom2": 1,
+            "position_world_m": [
+              -3.0316499348050465,
+              0.23354352569314774,
+              0.01533726105561956
+            ],
+            "distance_m": 0.0006743644255953773,
+            "frame_geom1_to_geom2": [
+              [
+                0.0009999973580856257,
+                -1.0222197684457837e-12,
+                -0.999999500002517
+              ],
+              [
+                1.0222170678286836e-15,
+                1.0,
+                -1.0222192573384724e-12
+              ],
+              [
+                0.999999500002517,
+                0.0,
+                0.0009999973580856257
+              ]
+            ]
+          },
+          {
+            "geom1": 67,
+            "geom2": 1,
+            "position_world_m": [
+              -3.031770813477811,
+              -0.23349252953389948,
+              0.015337524945429955
+            ],
+            "distance_m": 0.0006750498980789216,
+            "frame_geom1_to_geom2": [
+              [
+                -2.4421823944982128e-09,
+                9.39563735991898e-13,
+                -1.0
+              ],
+              [
+                2.2945860145483797e-21,
+                1.0,
+                9.39563735991898e-13
+              ],
+              [
+                1.0,
+                0.0,
+                -2.4421823944982128e-09
+              ]
+            ]
+          },
+          {
+            "geom1": 67,
+            "geom2": 1,
+            "position_world_m": [
+              -3.0319454262096097,
+              -0.2334924546649319,
+              0.015337620651729401
+            ],
+            "distance_m": 0.0006750498980789216,
+            "frame_geom1_to_geom2": [
+              [
+                -0.0010000022342985066,
+                7.683608089842249e-13,
+                -0.9999994999976408
+              ],
+              [
+                7.683625257316331e-16,
+                1.0,
+                7.683604248020078e-13
+              ],
+              [
+                0.9999994999976408,
+                0.0,
+                -0.0010000022342985066
+              ]
+            ]
+          },
+          {
+            "geom1": 67,
+            "geom2": 1,
+            "position_world_m": [
+              -3.0315962012829023,
+              -0.23349260945847627,
+              0.015337603770816225
+            ],
+            "distance_m": 0.0006750498980789216,
+            "frame_geom1_to_geom2": [
+              [
+                0.0009999973473504048,
+                7.682810276860818e-13,
+                -0.9999995000025277
+              ],
+              [
+                -7.682789897057246e-16,
+                1.0,
+                7.682806435475099e-13
+              ],
+              [
+                0.9999995000025277,
+                -9.860761315262648e-32,
+                0.0009999973473504048
+              ]
+            ]
+          }
+        ],
+        "state_unchanged": true,
+        "wheel_center_world_m": [
+          -3.0318075859200198,
+          0.2148082688664578,
+          0.10295547685486175
+        ],
+        "wheel_rotation_world": [
+          [
+            0.9231812439145235,
+            0.3843646489191984,
+            -0.00045557178966140754
+          ],
+          [
+            0.0059991404385810465,
+            -0.013223823237695977,
+            0.9998945648482033
+          ],
+          [
+            0.3843180989732755,
+            -0.9230866411990809,
+            -0.014513843094374115
+          ]
+        ],
+        "wheel_size_m": [
+          0.087,
+          0.02,
+          0.0
+        ],
+        "geom_distance_m": 0.0006743643243994976,
+        "geom_distance_segment": [
+          -3.0318238077636472,
+          0.23354345245079905,
+          0.015674364324399497,
+          -3.0318238077650115,
+          0.233543452450799,
+          0.015
+        ]
+      },
+      {
+        "native_index": 3487,
+        "pose": "before",
+        "all_contact_geometry_exactly_matches_record": true,
+        "contacts": [
+          {
+            "geom1": 0,
+            "geom2": 43,
+            "position_world_m": [
+              -2.655561259050805,
+              0.2335144247635956,
+              0.0001417557388493757
+            ],
+            "distance_m": 0.00028351147769875573,
+            "frame_geom1_to_geom2": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ]
+            ]
+          },
+          {
+            "geom1": 0,
+            "geom2": 43,
+            "position_world_m": [
+              -2.6555431055967484,
+              0.1935186097566339,
+              0.00043091502929551656
+            ],
+            "distance_m": 0.0008618300585910288,
+            "frame_geom1_to_geom2": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ]
+            ]
+          },
+          {
+            "geom1": 0,
+            "geom2": 51,
+            "position_world_m": [
+              -2.6555264904246934,
+              -0.23347556269017772,
+              0.00014180990176542813
+            ],
+            "distance_m": 0.0002836198035308518,
+            "frame_geom1_to_geom2": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ]
+            ]
+          },
+          {
+            "geom1": 0,
+            "geom2": 51,
+            "position_world_m": [
+              -2.6555087168869025,
+              -0.19347974980890592,
+              0.0004310485867866274
+            ],
+            "distance_m": 0.0008620971735732591,
+            "frame_geom1_to_geom2": [
+              [
+                0.0,
+                0.0,
+                1.0
+              ],
+              [
+                0.0,
+                1.0,
+                0.0
+              ],
+              [
+                -1.0,
+                0.0,
+                0.0
+              ]
+            ]
+          },
+          {
+            "geom1": 59,
+            "geom2": 1,
+            "position_world_m": [
+              -3.0318245463576368,
+              0.2335434442404914,
+              0.015337182209205382
+            ],
+            "distance_m": 0.0006743644255953773,
+            "frame_geom1_to_geom2": [
+              [
+                -2.4315864831733265e-09,
+                -9.375859266302085e-13,
+                -1.0
+              ],
+              [
+                -2.2798212660075532e-21,
+                1.0,
+                -9.375859266302085e-13
+              ],
+              [
+                1.0,
+                0.0,
+                -2.4315864831733265e-09
+              ]
+            ]
+          },
+          {
+            "geom1": 59,
+            "geom2": 1,
+            "position_world_m": [
+              -3.0319991584476593,
+              0.23354336783429358,
+              0.015337277893946007
+            ],
+            "distance_m": 0.0006743644255953773,
+            "frame_geom1_to_geom2": [
+              [
+                -0.0010000022241290175,
+                -9.37131643371863e-13,
+                -0.9999994999976509
+              ],
+              [
+                -9.37133727673544e-16,
+                1.0,
+                -9.371311748038398e-13
+              ],
+              [
+                0.9999994999976509,
+                0.0,
+                -0.0010000022241290175
+              ]
+            ]
+          },
+          {
+            "geom1": 59,
+            "geom2": 1,
+            "position_world_m": [
+              -3.0316499348050465,
+              0.23354352569314774,
+              0.01533726105561956
+            ],
+            "distance_m": 0.0006743644255953773,
+            "frame_geom1_to_geom2": [
+              [
+                0.0009999973580856257,
+                -1.0222197684457837e-12,
+                -0.999999500002517
+              ],
+              [
+                1.0222170678286836e-15,
+                1.0,
+                -1.0222192573384724e-12
+              ],
+              [
+                0.999999500002517,
+                0.0,
+                0.0009999973580856257
+              ]
+            ]
+          },
+          {
+            "geom1": 67,
+            "geom2": 1,
+            "position_world_m": [
+              -3.031770813477811,
+              -0.23349252953389948,
+              0.015337524945429955
+            ],
+            "distance_m": 0.0006750498980789216,
+            "frame_geom1_to_geom2": [
+              [
+                -2.4421823944982128e-09,
+                9.39563735991898e-13,
+                -1.0
+              ],
+              [
+                2.2945860145483797e-21,
+                1.0,
+                9.39563735991898e-13
+              ],
+              [
+                1.0,
+                0.0,
+                -2.4421823944982128e-09
+              ]
+            ]
+          },
+          {
+            "geom1": 67,
+            "geom2": 1,
+            "position_world_m": [
+              -3.0319454262096097,
+              -0.2334924546649319,
+              0.015337620651729401
+            ],
+            "distance_m": 0.0006750498980789216,
+            "frame_geom1_to_geom2": [
+              [
+                -0.0010000022342985066,
+                7.683608089842249e-13,
+                -0.9999994999976408
+              ],
+              [
+                7.683625257316331e-16,
+                1.0,
+                7.683604248020078e-13
+              ],
+              [
+                0.9999994999976408,
+                0.0,
+                -0.0010000022342985066
+              ]
+            ]
+          },
+          {
+            "geom1": 67,
+            "geom2": 1,
+            "position_world_m": [
+              -3.0315962012829023,
+              -0.23349260945847627,
+              0.015337603770816225
+            ],
+            "distance_m": 0.0006750498980789216,
+            "frame_geom1_to_geom2": [
+              [
+                0.0009999973473504048,
+                7.682810276860818e-13,
+                -0.9999995000025277
+              ],
+              [
+                -7.682789897057246e-16,
+                1.0,
+                7.682806435475099e-13
+              ],
+              [
+                0.9999995000025277,
+                -9.860761315262648e-32,
+                0.0009999973473504048
+              ]
+            ]
+          }
+        ],
+        "state_unchanged": true,
+        "wheel_center_world_m": [
+          -3.0318075859200198,
+          0.2148082688664578,
+          0.10295547685486175
+        ],
+        "wheel_rotation_world": [
+          [
+            0.9231812439145235,
+            0.3843646489191984,
+            -0.00045557178966140754
+          ],
+          [
+            0.0059991404385810465,
+            -0.013223823237695977,
+            0.9998945648482033
+          ],
+          [
+            0.3843180989732755,
+            -0.9230866411990809,
+            -0.014513843094374115
+          ]
+        ],
+        "wheel_size_m": [
+          0.087,
+          0.02,
+          0.0
+        ],
+        "geom_distance_m": 0.0006743643243994976,
+        "geom_distance_segment": [
+          -3.0318238077636472,
+          0.23354345245079905,
+          0.015674364324399497,
+          -3.0318238077650115,
+          0.233543452450799,
+          0.015
+        ]
+      }
+    ],
+    "ledger": {
+      "native_attempted": 0,
+      "native_returned": 0,
+      "native_failed": 0,
+      "native_limit": 0,
+      "clock_advanced_substeps": 0,
+      "mj_forward_calls": 0,
+      "forbidden_entries": 0,
+      "mj_setConst_calls": 0,
+      "forward_counts_by_runtime_model_data_identity": {},
+      "control_attempted": 0,
+      "control_completed": 0,
+      "static_forward_is_not_dynamic_load_evidence": true
+    },
+    "static_call_counts": {
+      "mj_kinematics": 4,
+      "mj_comPos": 4,
+      "mj_collision": 4,
+      "mj_geomDistance": 4
+    },
+    "source_identity_valid": true,
+    "no_dynamic_load_recomputation": true,
+    "original_score_unchanged": true,
+    "readiness_qualification_granted": false
+  },
+  "expected_bad_native_index": 3486,
+  "expected_bad_contact_index": 5,
+  "changes_from_sources": null
+}

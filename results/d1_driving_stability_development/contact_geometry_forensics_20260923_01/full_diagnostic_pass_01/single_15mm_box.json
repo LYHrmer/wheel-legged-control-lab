@@ -1,0 +1,133 @@
+{
+  "raw_record_links_valid": true,
+  "raw_issues": [],
+  "counts": {
+    "native": 6000,
+    "endpoints": 1201,
+    "controls": 1200,
+    "contact_rows": 46387,
+    "box_contact_rows": 11053,
+    "positive_box_contact_rows": 11032
+  },
+  "all_candidate_geometry_valid": false,
+  "positive_load_candidate_geometry_valid": true,
+  "geometry_issues": [
+    {
+      "native_index": 3486,
+      "contact_index": 5,
+      "code": "box_normal_outside_support_cone",
+      "positive_load": false,
+      "diagnostic": {
+        "candidate_axes": [],
+        "normal_cone_residual": 1.0,
+        "normal_cone_residual_limit": 0.0021,
+        "position_tolerance_m": 0.001676633074470901,
+        "geometric_support_valid": false
+      },
+      "raw_contact": {
+        "index": 5,
+        "geom1": 59,
+        "geom2": 1,
+        "geom1_identity": "RL_foot#geom1",
+        "geom2_identity": "terrain_single_15mm_box",
+        "body1": 13,
+        "body2": 0,
+        "body1_name": "RL_foot",
+        "body2_name": "world",
+        "frame_geom1_to_geom2": [
+          [
+            -0.004160111414019363,
+            -1.9856892281108387e-06,
+            0.9999913466971002
+          ],
+          [
+            -8.260688422575485e-09,
+            0.9999999999980286,
+            1.985672045344398e-06
+          ],
+          [
+            -0.9999913466990717,
+            3.308722450212111e-24,
+            -0.004160111414027565
+          ]
+        ],
+        "position_world_m": [
+          -3.0296555548441106,
+          0.2213752018031465,
+          0.015656105537109645
+        ],
+        "distance_m": 0.000676533074470901,
+        "inclusion_margin_m": 0.001,
+        "efc_address": 36,
+        "dimension": 3,
+        "friction": [
+          0.9,
+          0.9,
+          0.005,
+          0.0001,
+          0.0001
+        ],
+        "active": true,
+        "local_force_torque": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "normal_load_n": 0.0,
+        "terrain_geom_id": 1,
+        "robot_geom_id": 59,
+        "wheel_index": 2,
+        "normal_terrain_to_robot_world": [
+          0.004160111414019363,
+          1.9856892281108387e-06,
+          -0.9999913466971002
+        ],
+        "force_on_robot_world_n": [
+          -0.0,
+          -0.0,
+          -0.0
+        ],
+        "frame_orthonormal": true,
+        "plane_normal_valid": true,
+        "box_feature": {
+          "feature": "unresolved",
+          "geometric_support_valid": false,
+          "supporting_faces": [],
+          "support_offsets_m": [],
+          "normal_box_to_robot_world": [
+            0.004160111414019363,
+            1.9856892281108387e-06,
+            -0.9999913466971002
+          ],
+          "normal_cone_residual": 1.0,
+          "normal_cone_residual_limit": 0.0021
+        }
+      }
+    }
+  ],
+  "original_score_overridden": false,
+  "qualification_granted": false,
+  "rl_gate_open": false,
+  "scope": "native/control/endpoint identities, timing, finite state, raw contact links, aggregates, original command and torque gates; no force re-solve or continuous collision proof",
+  "archive_identity_valid": true,
+  "source_identity_valid": true,
+  "archive_identity_scope": "all 24 manifest entries: SHA256 and byte count",
+  "source_identity_scope": "all protocol input SHA256 entries, frozen contract, fixture and its four sources",
+  "original_frozen_score": {
+    "record_valid": false,
+    "complete": false,
+    "wheel_box_contact_qualified": false,
+    "mechanical_crossing": false,
+    "final_stable": false,
+    "all_time_envelope_passed": false,
+    "no_nonwheel_contact": false,
+    "task_passed": false,
+    "failure_reasons": [
+      "record_invalid:unhandled_exception:ValueError"
+    ],
+    "metrics": {}
+  }
+}

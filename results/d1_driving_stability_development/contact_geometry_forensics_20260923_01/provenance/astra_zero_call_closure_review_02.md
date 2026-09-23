@@ -1,0 +1,13 @@
+# Zero-call phase closure review and next-stage correction
+
+Actual GPT-6-astra ultra, 2026-09-23. Read-only output comparison; no additional full archive diagnostic pass, test, import or MuJoCo call.
+
+I independently compared the three already-produced output files in full_diagnostic_pass_01 and full_diagnostic_pass_02. Each is byte-identical: plane_only SHA256 0252b2c5cb97b11dfed138091a5d2b9b67e3d35eaab8e855de2559131c2e3a87; single_15mm_box aefa243b69497f3749f033fbbff44d9f4e9704b2237d475523083d758cd5c033; support_proof 6673f14915b280d5f2ba06478d1d7a1d451a4080088b99ea31e50efc23e61103. The receipts differ only in full_pass_number 1 versus 2. This agrees with zero_call_contract_closure_01.json and closes the authorized pure-diagnostic phase: 12 pure cases passed in one local round; the two complete archive passes are exhausted; all local new model/static/control/integration calls remain zero. No third full pass is needed or permitted.
+
+The interpretation is unchanged: both archives faithfully record native outputs; exactly one box candidate violates the frozen geometry rule; every positively loaded box candidate passes that rule; old box readiness remains invalid. The extra positive-load observation is not qualification. Qualification and RL remain closed.
+
+**Correction to the final activation recommendation in astra_offline_diagnostic_review_01.md:** kernel plan 01 may NOT be activated. The subsequently audited compiler internally invokes mj_step; a world-only model does not avoid it. Keep the original review and plan as evidence, together with astra_compiler_hidden_step_review_01.md explaining the discovered blocker. Plan 01 consumed no engine calls and its prepared executable entry was sealed.
+
+Root has separately authorized preparation of next_engine_kernel_plan_02/next_contract.md, SHA256 0869d5836add5dc12a295d5ac4618bff984244c9703516202f9485a29fdf4768. It uses source-audited primitive descriptor adapters and native CCD plus a local wrapper, not model compilation or a direct whole-engine collision callback. Execution still requires completed implementation and independent call-footprint review under its own bounded ledger. This does not reopen the closed zero-call phase.
+
+Routine GitHub publication CI is a separate validation activity after phase closure. Record each existing Python-matrix job/result explicitly; do not characterize those full-repository tests as zero-MuJoCo, and do not put their counts into the local zero-call receipt. They must not launch the frozen readiness batch or be claimed as another offline full-archive pass. The existing workflow need not be weakened or frozen tests skipped.
