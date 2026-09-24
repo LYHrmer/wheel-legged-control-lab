@@ -1,0 +1,4582 @@
+{
+  "C_state": {
+    "armed": 1,
+    "ccd_attempts": 51018,
+    "ccd_returns": 51018,
+    "construction_attempts": 5,
+    "construction_limit": 5,
+    "construction_returns": 5,
+    "control_attempts": 24000,
+    "control_limit": 24000,
+    "control_returns": 24000,
+    "first_ccd_caller": 136276516297950,
+    "first_ccd_caller_dladdr": {
+      "address": 136276516297950,
+      "base": 136276514701312,
+      "offset": 1596638,
+      "path": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/libmujoco.so.3.12.0",
+      "symbol": null
+    },
+    "first_construction_step_caller": 136276518516040,
+    "first_construction_step_caller_dladdr": {
+      "address": 136276518516040,
+      "base": 136276514701312,
+      "offset": 3814728,
+      "path": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/libmujoco.so.3.12.0",
+      "symbol": null
+    },
+    "first_control_step_caller": 136276479716139,
+    "first_control_step_caller_dladdr": {
+      "address": 136276479716139,
+      "base": 136276478939136,
+      "offset": 777003,
+      "path": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/_functions.cpython-310-x86_64-linux-gnu.so",
+      "symbol": null
+    },
+    "native_ccd_caller_verified": true,
+    "native_construction_caller_verified": true,
+    "original_step": 136276516906240,
+    "phase": 0,
+    "target_data": 0,
+    "target_model": 0,
+    "violations": 0
+  },
+  "actual_C_control_returns": 24000,
+  "actual_completed_controls": 4800,
+  "actual_normal_native_returns": 24000,
+  "cache_after_box": {
+    "currsize": 1,
+    "hits": 1,
+    "maxsize": 1,
+    "misses": 1
+  },
+  "cache_after_plane": {
+    "currsize": 1,
+    "hits": 3,
+    "maxsize": 1,
+    "misses": 1
+  },
+  "cache_after_transfer": {
+    "currsize": 1,
+    "hits": 5,
+    "maxsize": 1,
+    "misses": 1
+  },
+  "candidate_qualified": true,
+  "cases": [
+    {
+      "actor": "final_policy",
+      "baseline_source": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_plane_final_policy",
+      "baseline_states_sha256": "ab38318e49744f6a0bba9c36d4c5a744f21ff6870ba9c315f77066c2e370a140",
+      "body_stage_validation": {
+        "actual_compiled_base_body_ipos_local_m": [
+          0.029866155874852578,
+          0.00014983995674134042,
+          -0.014656735534269275
+        ],
+        "actual_compiled_joint_dof_addresses": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21
+        ],
+        "actual_compiled_joint_qpos_addresses": [
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22
+        ],
+        "precontrol_archive": {
+          "compiled_base_body_ipos_local_m": [
+            0.029866155874852578,
+            0.00014983995674134042,
+            -0.014656735534269275
+          ],
+          "fixed_synchronized_provider_linked_to_raw_truth": true,
+          "full_body_com_velocity_linked": true,
+          "linked_body_com_velocity_snapshots": 1200,
+          "linked_precontrol_snapshots": 1200,
+          "record_valid": true,
+          "whole_system_com_substituted": false
+        },
+        "schema": "body-common-p-case-stage-validation-v1",
+        "stage": {
+          "algebraic_tolerance": {
+            "atol": 1e-10,
+            "rtol": 1e-12
+          },
+          "body_common_p_active_controls": 800,
+          "drive_active_controls": 800,
+          "max_abs_actual_protected_common_delta_nm": 10.935733550997663,
+          "max_abs_raw_common_delta_nm": 10.935733550997663,
+          "native_ctrl_returns_linked": 6000,
+          "no_engine_or_model_calls": true,
+          "record_valid": true,
+          "schema": "d1-drive-body-common-p-stage-chain-validation-v1",
+          "stop_active_controls": 225,
+          "validated_controls": 1200
+        }
+      },
+      "case": "speed200_plane_final_policy",
+      "controller_law_transfer": true,
+      "historical_policy_score": {
+        "all_time_envelope_passed": true,
+        "complete": true,
+        "failure_reasons": [],
+        "final_stable": true,
+        "mechanical_crossing": null,
+        "metrics": {
+          "commanded_forward_velocity_mps": 0.2,
+          "completed_control_intervals": 1200,
+          "endpoint_count": 1201,
+          "far_edge_m": null,
+          "final_collision_geom_count": null,
+          "final_endpoint_window_ticks": [
+            1101,
+            1200
+          ],
+          "final_min_robot_x_m": null,
+          "final_native_window_indices": [
+            5500,
+            5999
+          ],
+          "final_wheel_indices_present": null,
+          "final_window_base_z_rmse_m": 0.006578443489332857,
+          "final_window_max_abs_body_vx_mps": 0.0039613053720106645,
+          "final_window_max_abs_com_vz_mps": 0.00022165745727161578,
+          "final_window_wheel_positive_load_fractions": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "first_geometric_box_native_index": null,
+          "first_positive_wheel_box_native_index": null,
+          "max_abs_applied_leg_normalized": 0.24685591459274292,
+          "max_abs_lateral_deviation_m": 3.298674998159857e-05,
+          "max_abs_leg_extension_residual_m": 0.009874236583709717,
+          "max_abs_pitch_deg": 1.3444316478125697,
+          "max_abs_raw_policy_scalar": 0.9874236583709717,
+          "max_abs_roll_deg": 0.001266524477104498,
+          "max_abs_yaw_deviation_deg": 0.002708074473115755,
+          "minimum_clearance_beyond_far_edge_m": null,
+          "native_count": 6000,
+          "nonwheel_contact_endpoint_total": 0,
+          "nonwheel_contact_native_total": 0,
+          "positive_wheel_box_feature_counts": null,
+          "positive_wheel_box_native_steps": null,
+          "positive_wheel_box_wheel_indices": null,
+          "speed_window_endpoint_ticks": [
+            275,
+            875
+          ],
+          "speed_window_mean_body_vx_mps": 0.1978277730519005,
+          "speed_window_rms_command_error_mps": 0.013667015406210757
+        },
+        "no_nonwheel_contact": true,
+        "record_valid": true,
+        "speed_gate_passed": true,
+        "task_passed": true,
+        "wheel_box_contact_qualified": null
+      },
+      "historical_zero_score": {
+        "all_time_envelope_passed": true,
+        "complete": true,
+        "failure_reasons": [],
+        "final_stable": true,
+        "mechanical_crossing": null,
+        "metrics": {
+          "commanded_forward_velocity_mps": 0.2,
+          "completed_control_intervals": 1200,
+          "endpoint_count": 1201,
+          "far_edge_m": null,
+          "final_collision_geom_count": null,
+          "final_endpoint_window_ticks": [
+            1101,
+            1200
+          ],
+          "final_min_robot_x_m": null,
+          "final_native_window_indices": [
+            5500,
+            5999
+          ],
+          "final_wheel_indices_present": null,
+          "final_window_base_z_rmse_m": 0.006565991453192281,
+          "final_window_max_abs_body_vx_mps": 0.003808561388482833,
+          "final_window_max_abs_com_vz_mps": 0.00020325581946954122,
+          "final_window_wheel_positive_load_fractions": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "first_geometric_box_native_index": null,
+          "first_positive_wheel_box_native_index": null,
+          "max_abs_applied_leg_normalized": 0.0,
+          "max_abs_lateral_deviation_m": 3.228129123276106e-05,
+          "max_abs_leg_extension_residual_m": 0.0,
+          "max_abs_pitch_deg": 1.0829473838294252,
+          "max_abs_raw_policy_scalar": 0.0,
+          "max_abs_roll_deg": 0.001266524477104498,
+          "max_abs_yaw_deviation_deg": 0.002708074473115755,
+          "minimum_clearance_beyond_far_edge_m": null,
+          "native_count": 6000,
+          "nonwheel_contact_endpoint_total": 0,
+          "nonwheel_contact_native_total": 0,
+          "positive_wheel_box_feature_counts": null,
+          "positive_wheel_box_native_steps": null,
+          "positive_wheel_box_wheel_indices": null,
+          "speed_window_endpoint_ticks": [
+            275,
+            875
+          ],
+          "speed_window_mean_body_vx_mps": 0.198000525648156,
+          "speed_window_rms_command_error_mps": 0.012770819321421992
+        },
+        "no_nonwheel_contact": true,
+        "record_valid": true,
+        "speed_gate_passed": true,
+        "task_passed": true,
+        "wheel_box_contact_qualified": null
+      },
+      "paired_05_initial_exact": true,
+      "paired_historical_initial_exact": true,
+      "previous_05_score": {
+        "all_time_envelope_passed": true,
+        "complete": true,
+        "failure_reasons": [],
+        "final_stable": true,
+        "mechanical_crossing": null,
+        "metrics": {
+          "commanded_forward_velocity_mps": 0.2,
+          "completed_control_intervals": 1200,
+          "endpoint_count": 1201,
+          "far_edge_m": null,
+          "final_collision_geom_count": null,
+          "final_endpoint_window_ticks": [
+            1101,
+            1200
+          ],
+          "final_min_robot_x_m": null,
+          "final_native_window_indices": [
+            5500,
+            5999
+          ],
+          "final_wheel_indices_present": null,
+          "final_window_base_z_rmse_m": 0.006575910986347728,
+          "final_window_max_abs_body_vx_mps": 0.003960075336447695,
+          "final_window_max_abs_com_vz_mps": 0.0002217986522776856,
+          "final_window_wheel_positive_load_fractions": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "first_geometric_box_native_index": null,
+          "first_positive_wheel_box_native_index": null,
+          "max_abs_applied_leg_normalized": 0.24685513973236084,
+          "max_abs_lateral_deviation_m": 3.298847187512537e-05,
+          "max_abs_leg_extension_residual_m": 0.009874205589294433,
+          "max_abs_pitch_deg": 1.344569191621024,
+          "max_abs_raw_policy_scalar": 0.9874205589294434,
+          "max_abs_roll_deg": 0.001266524477104498,
+          "max_abs_yaw_deviation_deg": 0.002708074473115755,
+          "minimum_clearance_beyond_far_edge_m": null,
+          "native_count": 6000,
+          "nonwheel_contact_endpoint_total": 0,
+          "nonwheel_contact_native_total": 0,
+          "positive_wheel_box_feature_counts": null,
+          "positive_wheel_box_native_steps": null,
+          "positive_wheel_box_wheel_indices": null,
+          "speed_window_endpoint_ticks": [
+            275,
+            875
+          ],
+          "speed_window_mean_body_vx_mps": 0.2003480214064334,
+          "speed_window_rms_command_error_mps": 0.0008402388756141311
+        },
+        "no_nonwheel_contact": true,
+        "record_valid": true,
+        "speed_gate_passed": true,
+        "task_passed": true,
+        "wheel_box_contact_qualified": null
+      },
+      "previous_05_source": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_drive_damping02/run_01/evaluation/speed200_plane_final_policy",
+      "previous_05_states_sha256": "1fe83eeef4427e09f413e51910d6622ec1bf5f4887919155100bf2a8d0c5957d",
+      "score": {
+        "all_time_envelope_passed": true,
+        "complete": true,
+        "failure_reasons": [],
+        "final_stable": true,
+        "mechanical_crossing": null,
+        "metrics": {
+          "commanded_forward_velocity_mps": 0.2,
+          "completed_control_intervals": 1200,
+          "endpoint_count": 1201,
+          "far_edge_m": null,
+          "final_collision_geom_count": null,
+          "final_endpoint_window_ticks": [
+            1101,
+            1200
+          ],
+          "final_min_robot_x_m": null,
+          "final_native_window_indices": [
+            5500,
+            5999
+          ],
+          "final_wheel_indices_present": null,
+          "final_window_base_z_rmse_m": 0.006581724906635621,
+          "final_window_max_abs_body_vx_mps": 0.003947911017170862,
+          "final_window_max_abs_com_vz_mps": 0.00021720196701410403,
+          "final_window_wheel_positive_load_fractions": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "first_geometric_box_native_index": null,
+          "first_positive_wheel_box_native_index": null,
+          "max_abs_applied_leg_normalized": 0.24748069047927856,
+          "max_abs_lateral_deviation_m": 3.274354944037164e-05,
+          "max_abs_leg_extension_residual_m": 0.009899227619171143,
+          "max_abs_pitch_deg": 2.4780692272164253,
+          "max_abs_raw_policy_scalar": 0.9899227619171143,
+          "max_abs_roll_deg": 0.001266524477104498,
+          "max_abs_yaw_deviation_deg": 0.002708074473115755,
+          "minimum_clearance_beyond_far_edge_m": null,
+          "native_count": 6000,
+          "nonwheel_contact_endpoint_total": 0,
+          "nonwheel_contact_native_total": 0,
+          "positive_wheel_box_feature_counts": null,
+          "positive_wheel_box_native_steps": null,
+          "positive_wheel_box_wheel_indices": null,
+          "speed_window_endpoint_ticks": [
+            275,
+            875
+          ],
+          "speed_window_mean_body_vx_mps": 0.20129964488051197,
+          "speed_window_rms_command_error_mps": 0.0015467670456919846
+        },
+        "no_nonwheel_contact": true,
+        "record_valid": true,
+        "speed_gate_passed": true,
+        "task_passed": true,
+        "wheel_box_contact_qualified": null
+      },
+      "speed_mps": 0.2,
+      "terrain": "plane"
+    },
+    {
+      "actor": "final_policy",
+      "baseline_source": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_03/evaluation/speed200_box_final_policy",
+      "baseline_states_sha256": "bdb9c2170a01a914d1202280b486c61f3fd1d5d9e6a526c2462b17530c30c5f7",
+      "body_stage_validation": {
+        "actual_compiled_base_body_ipos_local_m": [
+          0.029866155874852578,
+          0.00014983995674134042,
+          -0.014656735534269275
+        ],
+        "actual_compiled_joint_dof_addresses": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21
+        ],
+        "actual_compiled_joint_qpos_addresses": [
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22
+        ],
+        "precontrol_archive": {
+          "compiled_base_body_ipos_local_m": [
+            0.029866155874852578,
+            0.00014983995674134042,
+            -0.014656735534269275
+          ],
+          "fixed_synchronized_provider_linked_to_raw_truth": true,
+          "full_body_com_velocity_linked": true,
+          "linked_body_com_velocity_snapshots": 1200,
+          "linked_precontrol_snapshots": 1200,
+          "record_valid": true,
+          "whole_system_com_substituted": false
+        },
+        "schema": "body-common-p-case-stage-validation-v1",
+        "stage": {
+          "algebraic_tolerance": {
+            "atol": 1e-10,
+            "rtol": 1e-12
+          },
+          "body_common_p_active_controls": 800,
+          "drive_active_controls": 800,
+          "max_abs_actual_protected_common_delta_nm": 12.820300233771176,
+          "max_abs_raw_common_delta_nm": 12.820300233771176,
+          "native_ctrl_returns_linked": 6000,
+          "no_engine_or_model_calls": true,
+          "record_valid": true,
+          "schema": "d1-drive-body-common-p-stage-chain-validation-v1",
+          "stop_active_controls": 225,
+          "validated_controls": 1200
+        }
+      },
+      "case": "speed200_box_final_policy",
+      "controller_law_transfer": true,
+      "historical_policy_score": {
+        "all_time_envelope_passed": true,
+        "complete": true,
+        "failure_reasons": [
+          "speed_window_failed"
+        ],
+        "final_stable": true,
+        "mechanical_crossing": true,
+        "metrics": {
+          "commanded_forward_velocity_mps": 0.2,
+          "completed_control_intervals": 1200,
+          "endpoint_count": 1201,
+          "far_edge_m": -2.92,
+          "final_collision_geom_count": 42,
+          "final_endpoint_window_ticks": [
+            1101,
+            1200
+          ],
+          "final_min_robot_x_m": -2.610723418809358,
+          "final_native_window_indices": [
+            5500,
+            5999
+          ],
+          "final_wheel_indices_present": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "final_window_base_z_rmse_m": 0.006599725072188136,
+          "final_window_max_abs_body_vx_mps": 0.003986531827884291,
+          "final_window_max_abs_com_vz_mps": 0.00022202511004811763,
+          "final_window_wheel_positive_load_fractions": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "first_geometric_box_native_index": 1647,
+          "first_positive_wheel_box_native_index": 1647,
+          "max_abs_applied_leg_normalized": 0.24975502490997314,
+          "max_abs_lateral_deviation_m": 5.5852357859006615e-05,
+          "max_abs_leg_extension_residual_m": 0.009990200996398926,
+          "max_abs_pitch_deg": 3.861230812883309,
+          "max_abs_raw_policy_scalar": 0.9990200996398926,
+          "max_abs_roll_deg": 0.003202139563383711,
+          "max_abs_yaw_deviation_deg": 0.005715927817394261,
+          "minimum_clearance_beyond_far_edge_m": 0.30827658119064194,
+          "native_count": 6000,
+          "nonwheel_contact_endpoint_total": 0,
+          "nonwheel_contact_native_total": 0,
+          "positive_wheel_box_feature_counts": {
+            "back_top_edge": 462,
+            "front_top_edge": 1032,
+            "top": 9535
+          },
+          "positive_wheel_box_native_steps": 2086,
+          "positive_wheel_box_wheel_indices": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "speed_window_endpoint_ticks": [
+            275,
+            875
+          ],
+          "speed_window_mean_body_vx_mps": 0.1953428679268952,
+          "speed_window_rms_command_error_mps": 0.0931686283196967
+        },
+        "no_nonwheel_contact": true,
+        "record_valid": true,
+        "speed_gate_passed": false,
+        "task_passed": false,
+        "wheel_box_contact_qualified": true
+      },
+      "historical_zero_score": {
+        "all_time_envelope_passed": true,
+        "complete": true,
+        "failure_reasons": [
+          "speed_window_failed"
+        ],
+        "final_stable": true,
+        "mechanical_crossing": true,
+        "metrics": {
+          "commanded_forward_velocity_mps": 0.2,
+          "completed_control_intervals": 1200,
+          "endpoint_count": 1201,
+          "far_edge_m": -2.92,
+          "final_collision_geom_count": 42,
+          "final_endpoint_window_ticks": [
+            1101,
+            1200
+          ],
+          "final_min_robot_x_m": -2.610676455313633,
+          "final_native_window_indices": [
+            5500,
+            5999
+          ],
+          "final_wheel_indices_present": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "final_window_base_z_rmse_m": 0.006591422899681824,
+          "final_window_max_abs_body_vx_mps": 0.003830327935787793,
+          "final_window_max_abs_com_vz_mps": 0.00020258870015567526,
+          "final_window_wheel_positive_load_fractions": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "first_geometric_box_native_index": 1654,
+          "first_positive_wheel_box_native_index": 1654,
+          "max_abs_applied_leg_normalized": 0.0,
+          "max_abs_lateral_deviation_m": 5.358688874944777e-05,
+          "max_abs_leg_extension_residual_m": 0.0,
+          "max_abs_pitch_deg": 3.8918735339266246,
+          "max_abs_raw_policy_scalar": 0.0,
+          "max_abs_roll_deg": 0.0030886016203908,
+          "max_abs_yaw_deviation_deg": 0.0029138203815032215,
+          "minimum_clearance_beyond_far_edge_m": 0.30832354468636713,
+          "native_count": 6000,
+          "nonwheel_contact_endpoint_total": 0,
+          "nonwheel_contact_native_total": 0,
+          "positive_wheel_box_feature_counts": {
+            "back_top_edge": 459,
+            "front_top_edge": 1017,
+            "top": 9551
+          },
+          "positive_wheel_box_native_steps": 2084,
+          "positive_wheel_box_wheel_indices": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "speed_window_endpoint_ticks": [
+            275,
+            875
+          ],
+          "speed_window_mean_body_vx_mps": 0.1956113121670765,
+          "speed_window_rms_command_error_mps": 0.0908778667297846
+        },
+        "no_nonwheel_contact": true,
+        "record_valid": true,
+        "speed_gate_passed": false,
+        "task_passed": false,
+        "wheel_box_contact_qualified": true
+      },
+      "paired_05_initial_exact": true,
+      "paired_historical_initial_exact": true,
+      "previous_05_score": {
+        "all_time_envelope_passed": true,
+        "complete": true,
+        "failure_reasons": [
+          "speed_window_failed"
+        ],
+        "final_stable": true,
+        "mechanical_crossing": true,
+        "metrics": {
+          "commanded_forward_velocity_mps": 0.2,
+          "completed_control_intervals": 1200,
+          "endpoint_count": 1201,
+          "far_edge_m": -2.92,
+          "final_collision_geom_count": 42,
+          "final_endpoint_window_ticks": [
+            1101,
+            1200
+          ],
+          "final_min_robot_x_m": -2.609285725653822,
+          "final_native_window_indices": [
+            5500,
+            5999
+          ],
+          "final_wheel_indices_present": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "final_window_base_z_rmse_m": 0.006582287950168234,
+          "final_window_max_abs_body_vx_mps": 0.003995326913437247,
+          "final_window_max_abs_com_vz_mps": 0.0002246122160171243,
+          "final_window_wheel_positive_load_fractions": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "first_geometric_box_native_index": 1647,
+          "first_positive_wheel_box_native_index": 1647,
+          "max_abs_applied_leg_normalized": 0.24963968992233276,
+          "max_abs_lateral_deviation_m": 4.1384334554326356e-05,
+          "max_abs_leg_extension_residual_m": 0.009985587596893311,
+          "max_abs_pitch_deg": 3.735559171443037,
+          "max_abs_raw_policy_scalar": 0.998558759689331,
+          "max_abs_roll_deg": 0.0019654973466676465,
+          "max_abs_yaw_deviation_deg": 0.00772299359909898,
+          "minimum_clearance_beyond_far_edge_m": 0.3097142743461777,
+          "native_count": 6000,
+          "nonwheel_contact_endpoint_total": 0,
+          "nonwheel_contact_native_total": 0,
+          "positive_wheel_box_feature_counts": {
+            "back_top_edge": 458,
+            "front_top_edge": 956,
+            "top": 9704
+          },
+          "positive_wheel_box_native_steps": 2080,
+          "positive_wheel_box_wheel_indices": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "speed_window_endpoint_ticks": [
+            275,
+            875
+          ],
+          "speed_window_mean_body_vx_mps": 0.19838407028694713,
+          "speed_window_rms_command_error_mps": 0.06395771003172954
+        },
+        "no_nonwheel_contact": true,
+        "record_valid": true,
+        "speed_gate_passed": false,
+        "task_passed": false,
+        "wheel_box_contact_qualified": true
+      },
+      "previous_05_source": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_drive_damping02/run_01/evaluation/speed200_box_final_policy",
+      "previous_05_states_sha256": "b71f432e847343aec090fc4be6ef5e4a7bc0208a4fd0cc5eff2705477430bf13",
+      "score": {
+        "all_time_envelope_passed": true,
+        "complete": true,
+        "failure_reasons": [],
+        "final_stable": true,
+        "mechanical_crossing": true,
+        "metrics": {
+          "commanded_forward_velocity_mps": 0.2,
+          "completed_control_intervals": 1200,
+          "endpoint_count": 1201,
+          "far_edge_m": -2.92,
+          "final_collision_geom_count": 42,
+          "final_endpoint_window_ticks": [
+            1101,
+            1200
+          ],
+          "final_min_robot_x_m": -2.608179515253816,
+          "final_native_window_indices": [
+            5500,
+            5999
+          ],
+          "final_wheel_indices_present": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "final_window_base_z_rmse_m": 0.006597710854903481,
+          "final_window_max_abs_body_vx_mps": 0.003946723378932036,
+          "final_window_max_abs_com_vz_mps": 0.0002189417251035853,
+          "final_window_wheel_positive_load_fractions": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "first_geometric_box_native_index": 1654,
+          "first_positive_wheel_box_native_index": 1654,
+          "max_abs_applied_leg_normalized": 0.24996675550937653,
+          "max_abs_lateral_deviation_m": 3.7908473366210864e-05,
+          "max_abs_leg_extension_residual_m": 0.009998670220375061,
+          "max_abs_pitch_deg": 4.792528449540193,
+          "max_abs_raw_policy_scalar": 0.9998670220375061,
+          "max_abs_roll_deg": 0.0021397774715291792,
+          "max_abs_yaw_deviation_deg": 0.005604540557757128,
+          "minimum_clearance_beyond_far_edge_m": 0.31082048474618407,
+          "native_count": 6000,
+          "nonwheel_contact_endpoint_total": 0,
+          "nonwheel_contact_native_total": 0,
+          "positive_wheel_box_feature_counts": {
+            "back_top_edge": 500,
+            "front_top_edge": 676,
+            "top": 10439
+          },
+          "positive_wheel_box_native_steps": 2064,
+          "positive_wheel_box_wheel_indices": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "speed_window_endpoint_ticks": [
+            275,
+            875
+          ],
+          "speed_window_mean_body_vx_mps": 0.20009370993106668,
+          "speed_window_rms_command_error_mps": 0.036520709438069544
+        },
+        "no_nonwheel_contact": true,
+        "record_valid": true,
+        "speed_gate_passed": true,
+        "task_passed": true,
+        "wheel_box_contact_qualified": true
+      },
+      "speed_mps": 0.2,
+      "terrain": "box"
+    },
+    {
+      "actor": "final_policy",
+      "baseline_source": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_03/evaluation/speed250_plane_final_policy",
+      "baseline_states_sha256": "eabadbd406023cc4e6ca762f121f28efadd581050c2b240f45ed5b43157621a5",
+      "body_stage_validation": {
+        "actual_compiled_base_body_ipos_local_m": [
+          0.029866155874852578,
+          0.00014983995674134042,
+          -0.014656735534269275
+        ],
+        "actual_compiled_joint_dof_addresses": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21
+        ],
+        "actual_compiled_joint_qpos_addresses": [
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22
+        ],
+        "precontrol_archive": {
+          "compiled_base_body_ipos_local_m": [
+            0.029866155874852578,
+            0.00014983995674134042,
+            -0.014656735534269275
+          ],
+          "fixed_synchronized_provider_linked_to_raw_truth": true,
+          "full_body_com_velocity_linked": true,
+          "linked_body_com_velocity_snapshots": 1200,
+          "linked_precontrol_snapshots": 1200,
+          "record_valid": true,
+          "whole_system_com_substituted": false
+        },
+        "schema": "body-common-p-case-stage-validation-v1",
+        "stage": {
+          "algebraic_tolerance": {
+            "atol": 1e-10,
+            "rtol": 1e-12
+          },
+          "body_common_p_active_controls": 800,
+          "drive_active_controls": 800,
+          "max_abs_actual_protected_common_delta_nm": 13.906191844085681,
+          "max_abs_raw_common_delta_nm": 13.906191844085681,
+          "native_ctrl_returns_linked": 6000,
+          "no_engine_or_model_calls": true,
+          "record_valid": true,
+          "schema": "d1-drive-body-common-p-stage-chain-validation-v1",
+          "stop_active_controls": 225,
+          "validated_controls": 1200
+        }
+      },
+      "case": "speed250_plane_final_policy",
+      "controller_law_transfer": true,
+      "historical_policy_score": {
+        "all_time_envelope_passed": true,
+        "complete": true,
+        "failure_reasons": [],
+        "final_stable": true,
+        "mechanical_crossing": null,
+        "metrics": {
+          "commanded_forward_velocity_mps": 0.25,
+          "completed_control_intervals": 1200,
+          "endpoint_count": 1201,
+          "far_edge_m": null,
+          "final_collision_geom_count": null,
+          "final_endpoint_window_ticks": [
+            1101,
+            1200
+          ],
+          "final_min_robot_x_m": null,
+          "final_native_window_indices": [
+            5500,
+            5999
+          ],
+          "final_wheel_indices_present": null,
+          "final_window_base_z_rmse_m": 0.006595098317896403,
+          "final_window_max_abs_body_vx_mps": 0.005571767472559445,
+          "final_window_max_abs_com_vz_mps": 0.0002720368356627125,
+          "final_window_wheel_positive_load_fractions": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "first_geometric_box_native_index": null,
+          "first_positive_wheel_box_native_index": null,
+          "max_abs_applied_leg_normalized": 0.24817833304405212,
+          "max_abs_lateral_deviation_m": 3.786152043221324e-05,
+          "max_abs_leg_extension_residual_m": 0.009927133321762085,
+          "max_abs_pitch_deg": 1.6214812668495149,
+          "max_abs_raw_policy_scalar": 0.9927133321762085,
+          "max_abs_roll_deg": 0.001266524477104498,
+          "max_abs_yaw_deviation_deg": 0.002708074473115755,
+          "minimum_clearance_beyond_far_edge_m": null,
+          "native_count": 6000,
+          "nonwheel_contact_endpoint_total": 0,
+          "nonwheel_contact_native_total": 0,
+          "positive_wheel_box_feature_counts": null,
+          "positive_wheel_box_native_steps": null,
+          "positive_wheel_box_wheel_indices": null,
+          "speed_window_endpoint_ticks": [
+            275,
+            875
+          ],
+          "speed_window_mean_body_vx_mps": 0.24721932956026318,
+          "speed_window_rms_command_error_mps": 0.018478997079012873
+        },
+        "no_nonwheel_contact": true,
+        "record_valid": true,
+        "speed_gate_passed": true,
+        "task_passed": true,
+        "wheel_box_contact_qualified": null
+      },
+      "historical_zero_score": {
+        "all_time_envelope_passed": true,
+        "complete": true,
+        "failure_reasons": [],
+        "final_stable": true,
+        "mechanical_crossing": null,
+        "metrics": {
+          "commanded_forward_velocity_mps": 0.25,
+          "completed_control_intervals": 1200,
+          "endpoint_count": 1201,
+          "far_edge_m": null,
+          "final_collision_geom_count": null,
+          "final_endpoint_window_ticks": [
+            1101,
+            1200
+          ],
+          "final_min_robot_x_m": null,
+          "final_native_window_indices": [
+            5500,
+            5999
+          ],
+          "final_wheel_indices_present": null,
+          "final_window_base_z_rmse_m": 0.006580264778405617,
+          "final_window_max_abs_body_vx_mps": 0.005344303510835428,
+          "final_window_max_abs_com_vz_mps": 0.0002656404083310033,
+          "final_window_wheel_positive_load_fractions": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "first_geometric_box_native_index": null,
+          "first_positive_wheel_box_native_index": null,
+          "max_abs_applied_leg_normalized": 0.0,
+          "max_abs_lateral_deviation_m": 3.720778560928493e-05,
+          "max_abs_leg_extension_residual_m": 0.0,
+          "max_abs_pitch_deg": 1.3556725121898319,
+          "max_abs_raw_policy_scalar": 0.0,
+          "max_abs_roll_deg": 0.001266524477104498,
+          "max_abs_yaw_deviation_deg": 0.002708074473115755,
+          "minimum_clearance_beyond_far_edge_m": null,
+          "native_count": 6000,
+          "nonwheel_contact_endpoint_total": 0,
+          "nonwheel_contact_native_total": 0,
+          "positive_wheel_box_feature_counts": null,
+          "positive_wheel_box_native_steps": null,
+          "positive_wheel_box_wheel_indices": null,
+          "speed_window_endpoint_ticks": [
+            275,
+            875
+          ],
+          "speed_window_mean_body_vx_mps": 0.2473878407054043,
+          "speed_window_rms_command_error_mps": 0.017566236862648705
+        },
+        "no_nonwheel_contact": true,
+        "record_valid": true,
+        "speed_gate_passed": true,
+        "task_passed": true,
+        "wheel_box_contact_qualified": null
+      },
+      "paired_05_initial_exact": true,
+      "paired_historical_initial_exact": true,
+      "previous_05_score": {
+        "all_time_envelope_passed": true,
+        "complete": true,
+        "failure_reasons": [],
+        "final_stable": true,
+        "mechanical_crossing": null,
+        "metrics": {
+          "commanded_forward_velocity_mps": 0.25,
+          "completed_control_intervals": 1200,
+          "endpoint_count": 1201,
+          "far_edge_m": null,
+          "final_collision_geom_count": null,
+          "final_endpoint_window_ticks": [
+            1101,
+            1200
+          ],
+          "final_min_robot_x_m": null,
+          "final_native_window_indices": [
+            5500,
+            5999
+          ],
+          "final_wheel_indices_present": null,
+          "final_window_base_z_rmse_m": 0.006590718511084354,
+          "final_window_max_abs_body_vx_mps": 0.005568816684495037,
+          "final_window_max_abs_com_vz_mps": 0.00027244621548457547,
+          "final_window_wheel_positive_load_fractions": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "first_geometric_box_native_index": null,
+          "first_positive_wheel_box_native_index": null,
+          "max_abs_applied_leg_normalized": 0.24817723035812378,
+          "max_abs_lateral_deviation_m": 3.7789063922114353e-05,
+          "max_abs_leg_extension_residual_m": 0.009927089214324952,
+          "max_abs_pitch_deg": 1.6216184183393643,
+          "max_abs_raw_policy_scalar": 0.9927089214324951,
+          "max_abs_roll_deg": 0.001266524477104498,
+          "max_abs_yaw_deviation_deg": 0.002708074473115755,
+          "minimum_clearance_beyond_far_edge_m": null,
+          "native_count": 6000,
+          "nonwheel_contact_endpoint_total": 0,
+          "nonwheel_contact_native_total": 0,
+          "positive_wheel_box_feature_counts": null,
+          "positive_wheel_box_native_steps": null,
+          "positive_wheel_box_wheel_indices": null,
+          "speed_window_endpoint_ticks": [
+            275,
+            875
+          ],
+          "speed_window_mean_body_vx_mps": 0.25044110740222153,
+          "speed_window_rms_command_error_mps": 0.001089674760653355
+        },
+        "no_nonwheel_contact": true,
+        "record_valid": true,
+        "speed_gate_passed": true,
+        "task_passed": true,
+        "wheel_box_contact_qualified": null
+      },
+      "previous_05_source": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_drive_damping02/run_01/evaluation/speed250_plane_final_policy",
+      "previous_05_states_sha256": "a0661db5e42ef1334f4ead608f40f9901c20f3b6b67642ceef9efed72e4a7153",
+      "score": {
+        "all_time_envelope_passed": true,
+        "complete": true,
+        "failure_reasons": [],
+        "final_stable": true,
+        "mechanical_crossing": null,
+        "metrics": {
+          "commanded_forward_velocity_mps": 0.25,
+          "completed_control_intervals": 1200,
+          "endpoint_count": 1201,
+          "far_edge_m": null,
+          "final_collision_geom_count": null,
+          "final_endpoint_window_ticks": [
+            1101,
+            1200
+          ],
+          "final_min_robot_x_m": null,
+          "final_native_window_indices": [
+            5500,
+            5999
+          ],
+          "final_wheel_indices_present": null,
+          "final_window_base_z_rmse_m": 0.006647313075710615,
+          "final_window_max_abs_body_vx_mps": 0.0055871162865819,
+          "final_window_max_abs_com_vz_mps": 0.00026471772553196603,
+          "final_window_wheel_positive_load_fractions": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "first_geometric_box_native_index": null,
+          "first_positive_wheel_box_native_index": null,
+          "max_abs_applied_leg_normalized": 0.248982772231102,
+          "max_abs_lateral_deviation_m": 4.123637990283599e-05,
+          "max_abs_leg_extension_residual_m": 0.00995931088924408,
+          "max_abs_pitch_deg": 3.151040207835565,
+          "max_abs_raw_policy_scalar": 0.995931088924408,
+          "max_abs_roll_deg": 0.001266524477104498,
+          "max_abs_yaw_deviation_deg": 0.002708074473115755,
+          "minimum_clearance_beyond_far_edge_m": null,
+          "native_count": 6000,
+          "nonwheel_contact_endpoint_total": 0,
+          "nonwheel_contact_native_total": 0,
+          "positive_wheel_box_feature_counts": null,
+          "positive_wheel_box_native_steps": null,
+          "positive_wheel_box_wheel_indices": null,
+          "speed_window_endpoint_ticks": [
+            275,
+            875
+          ],
+          "speed_window_mean_body_vx_mps": 0.251664512869807,
+          "speed_window_rms_command_error_mps": 0.0020042909048014336
+        },
+        "no_nonwheel_contact": true,
+        "record_valid": true,
+        "speed_gate_passed": true,
+        "task_passed": true,
+        "wheel_box_contact_qualified": null
+      },
+      "speed_mps": 0.25,
+      "terrain": "plane"
+    },
+    {
+      "actor": "final_policy",
+      "baseline_source": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_03/evaluation/speed250_box_final_policy",
+      "baseline_states_sha256": "03df75daed9a33241c0acc988886b9162c52bee0c4f69efef25a72ef1ebfa821",
+      "body_stage_validation": {
+        "actual_compiled_base_body_ipos_local_m": [
+          0.029866155874852578,
+          0.00014983995674134042,
+          -0.014656735534269275
+        ],
+        "actual_compiled_joint_dof_addresses": [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21
+        ],
+        "actual_compiled_joint_qpos_addresses": [
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22
+        ],
+        "precontrol_archive": {
+          "compiled_base_body_ipos_local_m": [
+            0.029866155874852578,
+            0.00014983995674134042,
+            -0.014656735534269275
+          ],
+          "fixed_synchronized_provider_linked_to_raw_truth": true,
+          "full_body_com_velocity_linked": true,
+          "linked_body_com_velocity_snapshots": 1200,
+          "linked_precontrol_snapshots": 1200,
+          "record_valid": true,
+          "whole_system_com_substituted": false
+        },
+        "schema": "body-common-p-case-stage-validation-v1",
+        "stage": {
+          "algebraic_tolerance": {
+            "atol": 1e-10,
+            "rtol": 1e-12
+          },
+          "body_common_p_active_controls": 800,
+          "drive_active_controls": 800,
+          "max_abs_actual_protected_common_delta_nm": 15.058122403053552,
+          "max_abs_raw_common_delta_nm": 15.058122403053552,
+          "native_ctrl_returns_linked": 6000,
+          "no_engine_or_model_calls": true,
+          "record_valid": true,
+          "schema": "d1-drive-body-common-p-stage-chain-validation-v1",
+          "stop_active_controls": 225,
+          "validated_controls": 1200
+        }
+      },
+      "case": "speed250_box_final_policy",
+      "controller_law_transfer": true,
+      "historical_policy_score": {
+        "all_time_envelope_passed": true,
+        "complete": true,
+        "failure_reasons": [
+          "speed_window_failed"
+        ],
+        "final_stable": true,
+        "mechanical_crossing": true,
+        "metrics": {
+          "commanded_forward_velocity_mps": 0.25,
+          "completed_control_intervals": 1200,
+          "endpoint_count": 1201,
+          "far_edge_m": -2.92,
+          "final_collision_geom_count": 42,
+          "final_endpoint_window_ticks": [
+            1101,
+            1200
+          ],
+          "final_min_robot_x_m": -2.206936025850336,
+          "final_native_window_indices": [
+            5500,
+            5999
+          ],
+          "final_wheel_indices_present": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "final_window_base_z_rmse_m": 0.006610555538244336,
+          "final_window_max_abs_body_vx_mps": 0.005617945293287766,
+          "final_window_max_abs_com_vz_mps": 0.000270842549341927,
+          "final_window_wheel_positive_load_fractions": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "first_geometric_box_native_index": 1485,
+          "first_positive_wheel_box_native_index": 1485,
+          "max_abs_applied_leg_normalized": 0.25,
+          "max_abs_lateral_deviation_m": 6.545973227354677e-05,
+          "max_abs_leg_extension_residual_m": 0.01,
+          "max_abs_pitch_deg": 3.986228783562826,
+          "max_abs_raw_policy_scalar": 1.0,
+          "max_abs_roll_deg": 0.004996828035153814,
+          "max_abs_yaw_deviation_deg": 0.007098437821646756,
+          "minimum_clearance_beyond_far_edge_m": 0.712063974149664,
+          "native_count": 6000,
+          "nonwheel_contact_endpoint_total": 0,
+          "nonwheel_contact_native_total": 0,
+          "positive_wheel_box_feature_counts": {
+            "back_top_edge": 407,
+            "front_top_edge": 793,
+            "top": 7766
+          },
+          "positive_wheel_box_native_steps": 1682,
+          "positive_wheel_box_wheel_indices": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "speed_window_endpoint_ticks": [
+            275,
+            875
+          ],
+          "speed_window_mean_body_vx_mps": 0.24515866526669589,
+          "speed_window_rms_command_error_mps": 0.10511264946156519
+        },
+        "no_nonwheel_contact": true,
+        "record_valid": true,
+        "speed_gate_passed": false,
+        "task_passed": false,
+        "wheel_box_contact_qualified": true
+      },
+      "historical_zero_score": {
+        "all_time_envelope_passed": true,
+        "complete": true,
+        "failure_reasons": [
+          "speed_window_failed"
+        ],
+        "final_stable": true,
+        "mechanical_crossing": true,
+        "metrics": {
+          "commanded_forward_velocity_mps": 0.25,
+          "completed_control_intervals": 1200,
+          "endpoint_count": 1201,
+          "far_edge_m": -2.92,
+          "final_collision_geom_count": 42,
+          "final_endpoint_window_ticks": [
+            1101,
+            1200
+          ],
+          "final_min_robot_x_m": -2.2070820001985747,
+          "final_native_window_indices": [
+            5500,
+            5999
+          ],
+          "final_wheel_indices_present": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "final_window_base_z_rmse_m": 0.006594098457579147,
+          "final_window_max_abs_body_vx_mps": 0.005385020950067771,
+          "final_window_max_abs_com_vz_mps": 0.0002647795338938913,
+          "final_window_wheel_positive_load_fractions": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "first_geometric_box_native_index": 1491,
+          "first_positive_wheel_box_native_index": 1491,
+          "max_abs_applied_leg_normalized": 0.0,
+          "max_abs_lateral_deviation_m": 4.859231276847567e-05,
+          "max_abs_leg_extension_residual_m": 0.0,
+          "max_abs_pitch_deg": 3.9838588106751285,
+          "max_abs_raw_policy_scalar": 0.0,
+          "max_abs_roll_deg": 0.003049351958901205,
+          "max_abs_yaw_deviation_deg": 0.004086977679251706,
+          "minimum_clearance_beyond_far_edge_m": 0.7119179998014252,
+          "native_count": 6000,
+          "nonwheel_contact_endpoint_total": 0,
+          "nonwheel_contact_native_total": 0,
+          "positive_wheel_box_feature_counts": {
+            "back_top_edge": 406,
+            "front_top_edge": 789,
+            "top": 7774
+          },
+          "positive_wheel_box_native_steps": 1681,
+          "positive_wheel_box_wheel_indices": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "speed_window_endpoint_ticks": [
+            275,
+            875
+          ],
+          "speed_window_mean_body_vx_mps": 0.24533999546182467,
+          "speed_window_rms_command_error_mps": 0.10256116442713259
+        },
+        "no_nonwheel_contact": true,
+        "record_valid": true,
+        "speed_gate_passed": false,
+        "task_passed": false,
+        "wheel_box_contact_qualified": true
+      },
+      "paired_05_initial_exact": true,
+      "paired_historical_initial_exact": true,
+      "previous_05_score": {
+        "all_time_envelope_passed": true,
+        "complete": true,
+        "failure_reasons": [
+          "speed_window_failed"
+        ],
+        "final_stable": true,
+        "mechanical_crossing": true,
+        "metrics": {
+          "commanded_forward_velocity_mps": 0.25,
+          "completed_control_intervals": 1200,
+          "endpoint_count": 1201,
+          "far_edge_m": -2.92,
+          "final_collision_geom_count": 42,
+          "final_endpoint_window_ticks": [
+            1101,
+            1200
+          ],
+          "final_min_robot_x_m": -2.2055842089187334,
+          "final_native_window_indices": [
+            5500,
+            5999
+          ],
+          "final_wheel_indices_present": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "final_window_base_z_rmse_m": 0.006590605918372592,
+          "final_window_max_abs_body_vx_mps": 0.005592313973253396,
+          "final_window_max_abs_com_vz_mps": 0.00027266285292989356,
+          "final_window_wheel_positive_load_fractions": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "first_geometric_box_native_index": 1495,
+          "first_positive_wheel_box_native_index": 1495,
+          "max_abs_applied_leg_normalized": 0.25,
+          "max_abs_lateral_deviation_m": 3.649247390714085e-05,
+          "max_abs_leg_extension_residual_m": 0.01,
+          "max_abs_pitch_deg": 3.457266959550527,
+          "max_abs_raw_policy_scalar": 1.0,
+          "max_abs_roll_deg": 0.0014866035397512352,
+          "max_abs_yaw_deviation_deg": 0.002708074473115755,
+          "minimum_clearance_beyond_far_edge_m": 0.7134157910812665,
+          "native_count": 6000,
+          "nonwheel_contact_endpoint_total": 0,
+          "nonwheel_contact_native_total": 0,
+          "positive_wheel_box_feature_counts": {
+            "back_top_edge": 370,
+            "front_top_edge": 673,
+            "top": 8010
+          },
+          "positive_wheel_box_native_steps": 1665,
+          "positive_wheel_box_wheel_indices": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "speed_window_endpoint_ticks": [
+            275,
+            875
+          ],
+          "speed_window_mean_body_vx_mps": 0.24866105863733656,
+          "speed_window_rms_command_error_mps": 0.05394424863681878
+        },
+        "no_nonwheel_contact": true,
+        "record_valid": true,
+        "speed_gate_passed": false,
+        "task_passed": false,
+        "wheel_box_contact_qualified": true
+      },
+      "previous_05_source": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_drive_damping02/run_01/evaluation/speed250_box_final_policy",
+      "previous_05_states_sha256": "2601b3f7d13f2d59429e45baea7f1c3a2b3739e7ab59ece2f802c0865ac01b49",
+      "score": {
+        "all_time_envelope_passed": true,
+        "complete": true,
+        "failure_reasons": [],
+        "final_stable": true,
+        "mechanical_crossing": true,
+        "metrics": {
+          "commanded_forward_velocity_mps": 0.25,
+          "completed_control_intervals": 1200,
+          "endpoint_count": 1201,
+          "far_edge_m": -2.92,
+          "final_collision_geom_count": 42,
+          "final_endpoint_window_ticks": [
+            1101,
+            1200
+          ],
+          "final_min_robot_x_m": -2.2040793082076466,
+          "final_native_window_indices": [
+            5500,
+            5999
+          ],
+          "final_wheel_indices_present": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "final_window_base_z_rmse_m": 0.006822064681319134,
+          "final_window_max_abs_body_vx_mps": 0.006000236635434415,
+          "final_window_max_abs_com_vz_mps": 0.0002538807793905029,
+          "final_window_wheel_positive_load_fractions": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "first_geometric_box_native_index": 1507,
+          "first_positive_wheel_box_native_index": 1507,
+          "max_abs_applied_leg_normalized": 0.25,
+          "max_abs_lateral_deviation_m": 4.891674973077939e-05,
+          "max_abs_leg_extension_residual_m": 0.01,
+          "max_abs_pitch_deg": 5.300925462868087,
+          "max_abs_raw_policy_scalar": 1.0,
+          "max_abs_roll_deg": 0.003814855438689719,
+          "max_abs_yaw_deviation_deg": 0.0055359844157217624,
+          "minimum_clearance_beyond_far_edge_m": 0.7149206917923533,
+          "native_count": 6000,
+          "nonwheel_contact_endpoint_total": 0,
+          "nonwheel_contact_native_total": 0,
+          "positive_wheel_box_feature_counts": {
+            "back_top_edge": 350,
+            "front_top_edge": 516,
+            "top": 8426
+          },
+          "positive_wheel_box_native_steps": 1641,
+          "positive_wheel_box_wheel_indices": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "speed_window_endpoint_ticks": [
+            275,
+            875
+          ],
+          "speed_window_mean_body_vx_mps": 0.25039444392853927,
+          "speed_window_rms_command_error_mps": 0.03580793146274557
+        },
+        "no_nonwheel_contact": true,
+        "record_valid": true,
+        "speed_gate_passed": true,
+        "task_passed": true,
+        "wheel_box_contact_qualified": true
+      },
+      "speed_mps": 0.25,
+      "terrain": "box"
+    }
+  ],
+  "causal_rl_benefit_without_new_law_zero_control_claimed": false,
+  "checkpoint_reload_native_delta": 0,
+  "checkpoint_sha256": "4f59d795afbdec256ec17bb7256ea05a3ddd04561e9ba52beffb1de375196b2e",
+  "counts_consistent": true,
+  "execution_valid": true,
+  "failure": null,
+  "native_monitor": {
+    "box_contacts_checked": 20958,
+    "checked_native_returns": 24000,
+    "compiled_bindings": {
+      "96934395620160": {
+        "base_body_ipos_local_m": [
+          0.029866155874852578,
+          0.00014983995674134042,
+          -0.014656735534269275
+        ],
+        "body_vx_semantics": "base inertial COM velocity projected into visible base_link frame",
+        "geoms": [
+          {
+            "body_id": 0,
+            "body_name": "world",
+            "collision": true,
+            "geom_id": 0,
+            "geom_type": 0,
+            "identity": "floor",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              20.0,
+              20.0,
+              0.05
+            ],
+            "terrain_kind": "plane",
+            "wheel_index": null
+          },
+          {
+            "body_id": 0,
+            "body_name": "world",
+            "collision": true,
+            "geom_id": 1,
+            "geom_type": 6,
+            "identity": "terrain_single_15mm_box",
+            "margin_m": 0.0,
+            "position_local_m": [
+              -3.0999999999999996,
+              0.0,
+              0.0075
+            ],
+            "size_m": [
+              0.18,
+              0.62,
+              0.0075
+            ],
+            "terrain_kind": "box",
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": false,
+            "geom_id": 2,
+            "geom_type": 6,
+            "identity": "base_link#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              0.0005,
+              0.0005,
+              0.0005
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": false,
+            "geom_id": 3,
+            "geom_type": 6,
+            "identity": "base_link#geom1",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              0.0005,
+              0.0005,
+              0.0005
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": false,
+            "geom_id": 4,
+            "geom_type": 7,
+            "identity": "base_link#geom2",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.1893819877384003,
+              -3.1191351024293075e-05,
+              -0.016456347212858578
+            ],
+            "size_m": [
+              0.13784544476878352,
+              0.1403069328612243,
+              0.1894044121757966
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 5,
+            "geom_type": 6,
+            "identity": "base_link#geom3",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.1875,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              0.1375,
+              0.075,
+              0.0875
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 6,
+            "geom_type": 6,
+            "identity": "base_link#geom4",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.1875,
+              0.0,
+              -0.12
+            ],
+            "size_m": [
+              0.155,
+              0.06,
+              0.03
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 7,
+            "geom_type": 5,
+            "identity": "base_link#geom5",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.3005,
+              0.05,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 8,
+            "geom_type": 5,
+            "identity": "base_link#geom6",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.3005,
+              -0.05,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 9,
+            "geom_type": 5,
+            "identity": "base_link#geom7",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.0745,
+              0.05,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 10,
+            "geom_type": 5,
+            "identity": "base_link#geom8",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.0745,
+              -0.05,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": false,
+            "geom_id": 11,
+            "geom_type": 7,
+            "identity": "base_link#geom9",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.35234745057843153,
+              -1.3107946158255508e-06,
+              0.0037584692067187397
+            ],
+            "size_m": [
+              0.032297113638832586,
+              0.08914273555196076,
+              0.13747990142440247
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 12,
+            "geom_type": 6,
+            "identity": "base_link#geom10",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.35,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              0.02475,
+              0.075,
+              0.0875
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 13,
+            "geom_type": 5,
+            "identity": "base_link#geom11",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.35,
+              0.05,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.02475,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 14,
+            "geom_type": 5,
+            "identity": "base_link#geom12",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.35,
+              -0.05,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.02475,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": false,
+            "geom_id": 15,
+            "geom_type": 7,
+            "identity": "base_link#geom13",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.019011466253086622,
+              -0.0009393859017447704,
+              0.00714173235933079
+            ],
+            "size_m": [
+              0.051726050046497246,
+              0.09301780324450626,
+              0.13808277641891256
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 16,
+            "geom_type": 6,
+            "identity": "base_link#geom14",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.0245,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              0.025,
+              0.095,
+              0.0875
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 17,
+            "geom_type": 6,
+            "identity": "base_link#geom15",
+            "margin_m": 0.001,
+            "position_local_m": [
+              -0.014499999999999999,
+              0.064,
+              0.005
+            ],
+            "size_m": [
+              0.015,
+              0.04,
+              0.04
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 18,
+            "geom_type": 5,
+            "identity": "base_link#geom16",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.0245,
+              0.05,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 19,
+            "geom_type": 5,
+            "identity": "base_link#geom17",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.0245,
+              -0.05,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": false,
+            "geom_id": 20,
+            "geom_type": 7,
+            "identity": "base_link#geom18",
+            "margin_m": 0.0,
+            "position_local_m": [
+              -0.1856180122615997,
+              -3.1191351024293075e-05,
+              -0.016456347212858578
+            ],
+            "size_m": [
+              0.13784544476878352,
+              0.1403069328612243,
+              0.1894044121757966
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 21,
+            "geom_type": 6,
+            "identity": "base_link#geom19",
+            "margin_m": 0.001,
+            "position_local_m": [
+              -0.1875,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              0.1375,
+              0.075,
+              0.0875
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 22,
+            "geom_type": 6,
+            "identity": "base_link#geom20",
+            "margin_m": 0.001,
+            "position_local_m": [
+              -0.1875,
+              0.0,
+              -0.12
+            ],
+            "size_m": [
+              0.155,
+              0.06,
+              0.03
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 23,
+            "geom_type": 5,
+            "identity": "base_link#geom21",
+            "margin_m": 0.001,
+            "position_local_m": [
+              -0.0745,
+              0.05,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 24,
+            "geom_type": 5,
+            "identity": "base_link#geom22",
+            "margin_m": 0.001,
+            "position_local_m": [
+              -0.0745,
+              -0.05,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 25,
+            "geom_type": 5,
+            "identity": "base_link#geom23",
+            "margin_m": 0.001,
+            "position_local_m": [
+              -0.3005,
+              0.05,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 26,
+            "geom_type": 5,
+            "identity": "base_link#geom24",
+            "margin_m": 0.001,
+            "position_local_m": [
+              -0.3005,
+              -0.05,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": false,
+            "geom_id": 27,
+            "geom_type": 7,
+            "identity": "base_link#geom25",
+            "margin_m": 0.0,
+            "position_local_m": [
+              -0.35234743536740404,
+              1.7790690295323158e-05,
+              0.0037584692067187397
+            ],
+            "size_m": [
+              0.032297113638832586,
+              0.08914273555196076,
+              0.13747990142440247
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 28,
+            "geom_type": 6,
+            "identity": "base_link#geom26",
+            "margin_m": 0.001,
+            "position_local_m": [
+              -0.3499999898538203,
+              1.2741223331894626e-05,
+              0.0
+            ],
+            "size_m": [
+              0.02475,
+              0.075,
+              0.0875
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 29,
+            "geom_type": 5,
+            "identity": "base_link#geom27",
+            "margin_m": 0.001,
+            "position_local_m": [
+              -0.35007962249964464,
+              -0.04998719536304509,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.02475,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 30,
+            "geom_type": 5,
+            "identity": "base_link#geom28",
+            "margin_m": 0.001,
+            "position_local_m": [
+              -0.34992035720799597,
+              0.050012677809708875,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.02475,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": false,
+            "geom_id": 31,
+            "geom_type": 7,
+            "identity": "base_link#geom29",
+            "margin_m": 0.0,
+            "position_local_m": [
+              -0.019009946659807653,
+              0.0009688670510639275,
+              0.00714173235933079
+            ],
+            "size_m": [
+              0.051726050046497246,
+              0.09301780324450626,
+              0.13808277641891256
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 32,
+            "geom_type": 6,
+            "identity": "base_link#geom30",
+            "margin_m": 0.001,
+            "position_local_m": [
+              -0.02449996956146095,
+              3.8223669995683875e-05,
+              0.0
+            ],
+            "size_m": [
+              0.025,
+              0.095,
+              0.0875
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 33,
+            "geom_type": 6,
+            "identity": "base_link#geom31",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.014398051189257936,
+              -0.06402380862430984,
+              0.005
+            ],
+            "size_m": [
+              0.015,
+              0.04,
+              0.04
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 34,
+            "geom_type": 5,
+            "identity": "base_link#geom32",
+            "margin_m": 0.001,
+            "position_local_m": [
+              -0.024579602207285292,
+              -0.0499617129163813,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 35,
+            "geom_type": 5,
+            "identity": "base_link#geom33",
+            "margin_m": 0.001,
+            "position_local_m": [
+              -0.02442033691563661,
+              0.050038160256372664,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 2,
+            "body_name": "FL_hip",
+            "collision": false,
+            "geom_id": 36,
+            "geom_type": 7,
+            "identity": "FL_hip#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              -0.0051618048274436334,
+              3.520703761912825e-05,
+              -0.08862155417227653
+            ],
+            "size_m": [
+              0.04811683213993865,
+              0.06603209654652761,
+              0.08943362228334067
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 3,
+            "body_name": "FL_thigh",
+            "collision": false,
+            "geom_id": 37,
+            "geom_type": 7,
+            "identity": "FL_thigh#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.03413425785160483,
+              0.004996279007380371,
+              -0.01533002550151463
+            ],
+            "size_m": [
+              0.07413777135831984,
+              0.07406836886719256,
+              0.2563022531869931
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 3,
+            "body_name": "FL_thigh",
+            "collision": true,
+            "geom_id": 38,
+            "geom_type": 6,
+            "identity": "FL_thigh#geom1",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.13,
+              0.025,
+              0.0
+            ],
+            "size_m": [
+              0.125,
+              0.025,
+              0.025
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 3,
+            "body_name": "FL_thigh",
+            "collision": true,
+            "geom_id": 39,
+            "geom_type": 5,
+            "identity": "FL_thigh#geom2",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              0.072,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 4,
+            "body_name": "FL_calf",
+            "collision": false,
+            "geom_id": 40,
+            "geom_type": 7,
+            "identity": "FL_calf#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.1304199110331463,
+              0.007215902463124145,
+              0.0025193861681576703
+            ],
+            "size_m": [
+              0.032487729536563856,
+              0.041827616968233755,
+              0.17551395241910875
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 4,
+            "body_name": "FL_calf",
+            "collision": true,
+            "geom_id": 41,
+            "geom_type": 6,
+            "identity": "FL_calf#geom1",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.15,
+              0.01,
+              0.0
+            ],
+            "size_m": [
+              0.12,
+              0.02,
+              0.025
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 5,
+            "body_name": "FL_foot",
+            "collision": false,
+            "geom_id": 42,
+            "geom_type": 7,
+            "identity": "FL_foot#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              1.4408285473552165e-06,
+              3.7473298642068114e-07,
+              -0.0007966028223543898
+            ],
+            "size_m": [
+              0.021065951911499986,
+              0.09250137675324546,
+              0.09328044084893482
+            ],
+            "terrain_kind": null,
+            "wheel_index": 0
+          },
+          {
+            "body_id": 5,
+            "body_name": "FL_foot",
+            "collision": true,
+            "geom_id": 43,
+            "geom_type": 5,
+            "identity": "FL_foot#geom1",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              0.087,
+              0.02,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": 0
+          },
+          {
+            "body_id": 6,
+            "body_name": "FR_hip",
+            "collision": false,
+            "geom_id": 44,
+            "geom_type": 7,
+            "identity": "FR_hip#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.0051618064980716374,
+              3.446857050365393e-05,
+              -0.08862163502157731
+            ],
+            "size_m": [
+              0.04811677184723621,
+              0.06603124119314555,
+              0.08943325007603652
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 7,
+            "body_name": "FR_thigh",
+            "collision": false,
+            "geom_id": 45,
+            "geom_type": 7,
+            "identity": "FR_thigh#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.03417978094993346,
+              0.005035808048457607,
+              0.01532622931511648
+            ],
+            "size_m": [
+              0.07412897761773699,
+              0.07404610255638341,
+              0.2562540410223866
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 7,
+            "body_name": "FR_thigh",
+            "collision": true,
+            "geom_id": 46,
+            "geom_type": 6,
+            "identity": "FR_thigh#geom1",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.13,
+              0.025,
+              0.0
+            ],
+            "size_m": [
+              0.125,
+              0.025,
+              0.025
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 7,
+            "body_name": "FR_thigh",
+            "collision": true,
+            "geom_id": 47,
+            "geom_type": 5,
+            "identity": "FR_thigh#geom2",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              0.072,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 8,
+            "body_name": "FR_calf",
+            "collision": false,
+            "geom_id": 48,
+            "geom_type": 7,
+            "identity": "FR_calf#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.13042269147242352,
+              0.007216084078127603,
+              -0.002518625115513766
+            ],
+            "size_m": [
+              0.032487538474669723,
+              0.04182602254495635,
+              0.17551691042745823
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 8,
+            "body_name": "FR_calf",
+            "collision": true,
+            "geom_id": 49,
+            "geom_type": 6,
+            "identity": "FR_calf#geom1",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.15,
+              0.01,
+              0.0
+            ],
+            "size_m": [
+              0.12,
+              0.02,
+              0.025
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 9,
+            "body_name": "FR_foot",
+            "collision": false,
+            "geom_id": 50,
+            "geom_type": 7,
+            "identity": "FR_foot#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              8.193691757848288e-07,
+              -8.0658931525926e-07,
+              0.0007972952763888147
+            ],
+            "size_m": [
+              0.021065204139485722,
+              0.09249959438450128,
+              0.09328047658609305
+            ],
+            "terrain_kind": null,
+            "wheel_index": 1
+          },
+          {
+            "body_id": 9,
+            "body_name": "FR_foot",
+            "collision": true,
+            "geom_id": 51,
+            "geom_type": 5,
+            "identity": "FR_foot#geom1",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "size_m": [
+              0.087,
+              0.02,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": 1
+          },
+          {
+            "body_id": 10,
+            "body_name": "RL_hip",
+            "collision": false,
+            "geom_id": 52,
+            "geom_type": 7,
+            "identity": "RL_hip#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              -0.0051618048274436334,
+              3.520703761912825e-05,
+              -0.08862155417227653
+            ],
+            "size_m": [
+              0.04811683213993865,
+              0.06603209654652761,
+              0.08943362228334067
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 11,
+            "body_name": "RL_thigh",
+            "collision": false,
+            "geom_id": 53,
+            "geom_type": 7,
+            "identity": "RL_thigh#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.03413425785160483,
+              0.004996279007380371,
+              -0.01533002550151463
+            ],
+            "size_m": [
+              0.07413777135831984,
+              0.07406836886719256,
+              0.2563022531869931
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 11,
+            "body_name": "RL_thigh",
+            "collision": true,
+            "geom_id": 54,
+            "geom_type": 6,
+            "identity": "RL_thigh#geom1",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.13,
+              0.025,
+              0.0
+            ],
+            "size_m": [
+              0.125,
+              0.025,
+              0.025
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 11,
+            "body_name": "RL_thigh",
+            "collision": true,
+            "geom_id": 55,
+            "geom_type": 5,
+            "identity": "RL_thigh#geom2",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              0.072,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 12,
+            "body_name": "RL_calf",
+            "collision": false,
+            "geom_id": 56,
+            "geom_type": 7,
+            "identity": "RL_calf#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.1304199110331463,
+              0.007215902463124145,
+              0.0025193861681576703
+            ],
+            "size_m": [
+              0.032487729536563856,
+              0.041827616968233755,
+              0.17551395241910875
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 12,
+            "body_name": "RL_calf",
+            "collision": true,
+            "geom_id": 57,
+            "geom_type": 6,
+            "identity": "RL_calf#geom1",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.15,
+              0.01,
+              0.0
+            ],
+            "size_m": [
+              0.12,
+              0.02,
+              0.025
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 13,
+            "body_name": "RL_foot",
+            "collision": false,
+            "geom_id": 58,
+            "geom_type": 7,
+            "identity": "RL_foot#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              1.4408285473552165e-06,
+              3.7473298642068114e-07,
+              -0.0007966028223543898
+            ],
+            "size_m": [
+              0.021065951911499986,
+              0.09250137675324546,
+              0.09328044084893482
+            ],
+            "terrain_kind": null,
+            "wheel_index": 2
+          },
+          {
+            "body_id": 13,
+            "body_name": "RL_foot",
+            "collision": true,
+            "geom_id": 59,
+            "geom_type": 5,
+            "identity": "RL_foot#geom1",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              0.087,
+              0.02,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": 2
+          },
+          {
+            "body_id": 14,
+            "body_name": "RR_hip",
+            "collision": false,
+            "geom_id": 60,
+            "geom_type": 7,
+            "identity": "RR_hip#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.0051618064980716374,
+              3.446857050365393e-05,
+              -0.08862163502157731
+            ],
+            "size_m": [
+              0.04811677184723621,
+              0.06603124119314555,
+              0.08943325007603652
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 15,
+            "body_name": "RR_thigh",
+            "collision": false,
+            "geom_id": 61,
+            "geom_type": 7,
+            "identity": "RR_thigh#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.03417978094993346,
+              0.005035808048457607,
+              0.01532622931511648
+            ],
+            "size_m": [
+              0.07412897761773699,
+              0.07404610255638341,
+              0.2562540410223866
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 15,
+            "body_name": "RR_thigh",
+            "collision": true,
+            "geom_id": 62,
+            "geom_type": 6,
+            "identity": "RR_thigh#geom1",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.13,
+              0.025,
+              0.0
+            ],
+            "size_m": [
+              0.125,
+              0.025,
+              0.025
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 15,
+            "body_name": "RR_thigh",
+            "collision": true,
+            "geom_id": 63,
+            "geom_type": 5,
+            "identity": "RR_thigh#geom2",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              0.072,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 16,
+            "body_name": "RR_calf",
+            "collision": false,
+            "geom_id": 64,
+            "geom_type": 7,
+            "identity": "RR_calf#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.13042269147242352,
+              0.007216084078127603,
+              -0.002518625115513766
+            ],
+            "size_m": [
+              0.032487538474669723,
+              0.04182602254495635,
+              0.17551691042745823
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 16,
+            "body_name": "RR_calf",
+            "collision": true,
+            "geom_id": 65,
+            "geom_type": 6,
+            "identity": "RR_calf#geom1",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.15,
+              0.01,
+              0.0
+            ],
+            "size_m": [
+              0.12,
+              0.02,
+              0.025
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 17,
+            "body_name": "RR_foot",
+            "collision": false,
+            "geom_id": 66,
+            "geom_type": 7,
+            "identity": "RR_foot#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              8.193691757848288e-07,
+              -8.0658931525926e-07,
+              0.0007972952763888147
+            ],
+            "size_m": [
+              0.021065204139485722,
+              0.09249959438450128,
+              0.09328047658609305
+            ],
+            "terrain_kind": null,
+            "wheel_index": 3
+          },
+          {
+            "body_id": 17,
+            "body_name": "RR_foot",
+            "collision": true,
+            "geom_id": 67,
+            "geom_type": 5,
+            "identity": "RR_foot#geom1",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "size_m": [
+              0.087,
+              0.02,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": 3
+          }
+        ],
+        "schema": "compiled-single-step-geom-bindings-v1"
+      },
+      "96934398354368": {
+        "base_body_ipos_local_m": [
+          0.029866155874852578,
+          0.00014983995674134042,
+          -0.014656735534269275
+        ],
+        "body_vx_semantics": "base inertial COM velocity projected into visible base_link frame",
+        "geoms": [
+          {
+            "body_id": 0,
+            "body_name": "world",
+            "collision": true,
+            "geom_id": 0,
+            "geom_type": 0,
+            "identity": "floor",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              20.0,
+              20.0,
+              0.05
+            ],
+            "terrain_kind": "plane",
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": false,
+            "geom_id": 1,
+            "geom_type": 6,
+            "identity": "base_link#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              0.0005,
+              0.0005,
+              0.0005
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": false,
+            "geom_id": 2,
+            "geom_type": 6,
+            "identity": "base_link#geom1",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              0.0005,
+              0.0005,
+              0.0005
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": false,
+            "geom_id": 3,
+            "geom_type": 7,
+            "identity": "base_link#geom2",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.1893819877384003,
+              -3.1191351024293075e-05,
+              -0.016456347212858578
+            ],
+            "size_m": [
+              0.13784544476878352,
+              0.1403069328612243,
+              0.1894044121757966
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 4,
+            "geom_type": 6,
+            "identity": "base_link#geom3",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.1875,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              0.1375,
+              0.075,
+              0.0875
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 5,
+            "geom_type": 6,
+            "identity": "base_link#geom4",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.1875,
+              0.0,
+              -0.12
+            ],
+            "size_m": [
+              0.155,
+              0.06,
+              0.03
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 6,
+            "geom_type": 5,
+            "identity": "base_link#geom5",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.3005,
+              0.05,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 7,
+            "geom_type": 5,
+            "identity": "base_link#geom6",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.3005,
+              -0.05,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 8,
+            "geom_type": 5,
+            "identity": "base_link#geom7",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.0745,
+              0.05,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 9,
+            "geom_type": 5,
+            "identity": "base_link#geom8",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.0745,
+              -0.05,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": false,
+            "geom_id": 10,
+            "geom_type": 7,
+            "identity": "base_link#geom9",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.35234745057843153,
+              -1.3107946158255508e-06,
+              0.0037584692067187397
+            ],
+            "size_m": [
+              0.032297113638832586,
+              0.08914273555196076,
+              0.13747990142440247
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 11,
+            "geom_type": 6,
+            "identity": "base_link#geom10",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.35,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              0.02475,
+              0.075,
+              0.0875
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 12,
+            "geom_type": 5,
+            "identity": "base_link#geom11",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.35,
+              0.05,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.02475,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 13,
+            "geom_type": 5,
+            "identity": "base_link#geom12",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.35,
+              -0.05,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.02475,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": false,
+            "geom_id": 14,
+            "geom_type": 7,
+            "identity": "base_link#geom13",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.019011466253086622,
+              -0.0009393859017447704,
+              0.00714173235933079
+            ],
+            "size_m": [
+              0.051726050046497246,
+              0.09301780324450626,
+              0.13808277641891256
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 15,
+            "geom_type": 6,
+            "identity": "base_link#geom14",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.0245,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              0.025,
+              0.095,
+              0.0875
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 16,
+            "geom_type": 6,
+            "identity": "base_link#geom15",
+            "margin_m": 0.001,
+            "position_local_m": [
+              -0.014499999999999999,
+              0.064,
+              0.005
+            ],
+            "size_m": [
+              0.015,
+              0.04,
+              0.04
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 17,
+            "geom_type": 5,
+            "identity": "base_link#geom16",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.0245,
+              0.05,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 18,
+            "geom_type": 5,
+            "identity": "base_link#geom17",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.0245,
+              -0.05,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": false,
+            "geom_id": 19,
+            "geom_type": 7,
+            "identity": "base_link#geom18",
+            "margin_m": 0.0,
+            "position_local_m": [
+              -0.1856180122615997,
+              -3.1191351024293075e-05,
+              -0.016456347212858578
+            ],
+            "size_m": [
+              0.13784544476878352,
+              0.1403069328612243,
+              0.1894044121757966
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 20,
+            "geom_type": 6,
+            "identity": "base_link#geom19",
+            "margin_m": 0.001,
+            "position_local_m": [
+              -0.1875,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              0.1375,
+              0.075,
+              0.0875
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 21,
+            "geom_type": 6,
+            "identity": "base_link#geom20",
+            "margin_m": 0.001,
+            "position_local_m": [
+              -0.1875,
+              0.0,
+              -0.12
+            ],
+            "size_m": [
+              0.155,
+              0.06,
+              0.03
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 22,
+            "geom_type": 5,
+            "identity": "base_link#geom21",
+            "margin_m": 0.001,
+            "position_local_m": [
+              -0.0745,
+              0.05,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 23,
+            "geom_type": 5,
+            "identity": "base_link#geom22",
+            "margin_m": 0.001,
+            "position_local_m": [
+              -0.0745,
+              -0.05,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 24,
+            "geom_type": 5,
+            "identity": "base_link#geom23",
+            "margin_m": 0.001,
+            "position_local_m": [
+              -0.3005,
+              0.05,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 25,
+            "geom_type": 5,
+            "identity": "base_link#geom24",
+            "margin_m": 0.001,
+            "position_local_m": [
+              -0.3005,
+              -0.05,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": false,
+            "geom_id": 26,
+            "geom_type": 7,
+            "identity": "base_link#geom25",
+            "margin_m": 0.0,
+            "position_local_m": [
+              -0.35234743536740404,
+              1.7790690295323158e-05,
+              0.0037584692067187397
+            ],
+            "size_m": [
+              0.032297113638832586,
+              0.08914273555196076,
+              0.13747990142440247
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 27,
+            "geom_type": 6,
+            "identity": "base_link#geom26",
+            "margin_m": 0.001,
+            "position_local_m": [
+              -0.3499999898538203,
+              1.2741223331894626e-05,
+              0.0
+            ],
+            "size_m": [
+              0.02475,
+              0.075,
+              0.0875
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 28,
+            "geom_type": 5,
+            "identity": "base_link#geom27",
+            "margin_m": 0.001,
+            "position_local_m": [
+              -0.35007962249964464,
+              -0.04998719536304509,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.02475,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 29,
+            "geom_type": 5,
+            "identity": "base_link#geom28",
+            "margin_m": 0.001,
+            "position_local_m": [
+              -0.34992035720799597,
+              0.050012677809708875,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.02475,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": false,
+            "geom_id": 30,
+            "geom_type": 7,
+            "identity": "base_link#geom29",
+            "margin_m": 0.0,
+            "position_local_m": [
+              -0.019009946659807653,
+              0.0009688670510639275,
+              0.00714173235933079
+            ],
+            "size_m": [
+              0.051726050046497246,
+              0.09301780324450626,
+              0.13808277641891256
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 31,
+            "geom_type": 6,
+            "identity": "base_link#geom30",
+            "margin_m": 0.001,
+            "position_local_m": [
+              -0.02449996956146095,
+              3.8223669995683875e-05,
+              0.0
+            ],
+            "size_m": [
+              0.025,
+              0.095,
+              0.0875
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 32,
+            "geom_type": 6,
+            "identity": "base_link#geom31",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.014398051189257936,
+              -0.06402380862430984,
+              0.005
+            ],
+            "size_m": [
+              0.015,
+              0.04,
+              0.04
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 33,
+            "geom_type": 5,
+            "identity": "base_link#geom32",
+            "margin_m": 0.001,
+            "position_local_m": [
+              -0.024579602207285292,
+              -0.0499617129163813,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 1,
+            "body_name": "base_link",
+            "collision": true,
+            "geom_id": 34,
+            "geom_type": 5,
+            "identity": "base_link#geom33",
+            "margin_m": 0.001,
+            "position_local_m": [
+              -0.02442033691563661,
+              0.050038160256372664,
+              0.0
+            ],
+            "size_m": [
+              0.0875,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 2,
+            "body_name": "FL_hip",
+            "collision": false,
+            "geom_id": 35,
+            "geom_type": 7,
+            "identity": "FL_hip#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              -0.0051618048274436334,
+              3.520703761912825e-05,
+              -0.08862155417227653
+            ],
+            "size_m": [
+              0.04811683213993865,
+              0.06603209654652761,
+              0.08943362228334067
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 3,
+            "body_name": "FL_thigh",
+            "collision": false,
+            "geom_id": 36,
+            "geom_type": 7,
+            "identity": "FL_thigh#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.03413425785160483,
+              0.004996279007380371,
+              -0.01533002550151463
+            ],
+            "size_m": [
+              0.07413777135831984,
+              0.07406836886719256,
+              0.2563022531869931
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 3,
+            "body_name": "FL_thigh",
+            "collision": true,
+            "geom_id": 37,
+            "geom_type": 6,
+            "identity": "FL_thigh#geom1",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.13,
+              0.025,
+              0.0
+            ],
+            "size_m": [
+              0.125,
+              0.025,
+              0.025
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 3,
+            "body_name": "FL_thigh",
+            "collision": true,
+            "geom_id": 38,
+            "geom_type": 5,
+            "identity": "FL_thigh#geom2",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              0.072,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 4,
+            "body_name": "FL_calf",
+            "collision": false,
+            "geom_id": 39,
+            "geom_type": 7,
+            "identity": "FL_calf#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.1304199110331463,
+              0.007215902463124145,
+              0.0025193861681576703
+            ],
+            "size_m": [
+              0.032487729536563856,
+              0.041827616968233755,
+              0.17551395241910875
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 4,
+            "body_name": "FL_calf",
+            "collision": true,
+            "geom_id": 40,
+            "geom_type": 6,
+            "identity": "FL_calf#geom1",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.15,
+              0.01,
+              0.0
+            ],
+            "size_m": [
+              0.12,
+              0.02,
+              0.025
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 5,
+            "body_name": "FL_foot",
+            "collision": false,
+            "geom_id": 41,
+            "geom_type": 7,
+            "identity": "FL_foot#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              1.4408285473552165e-06,
+              3.7473298642068114e-07,
+              -0.0007966028223543898
+            ],
+            "size_m": [
+              0.021065951911499986,
+              0.09250137675324546,
+              0.09328044084893482
+            ],
+            "terrain_kind": null,
+            "wheel_index": 0
+          },
+          {
+            "body_id": 5,
+            "body_name": "FL_foot",
+            "collision": true,
+            "geom_id": 42,
+            "geom_type": 5,
+            "identity": "FL_foot#geom1",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              0.087,
+              0.02,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": 0
+          },
+          {
+            "body_id": 6,
+            "body_name": "FR_hip",
+            "collision": false,
+            "geom_id": 43,
+            "geom_type": 7,
+            "identity": "FR_hip#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.0051618064980716374,
+              3.446857050365393e-05,
+              -0.08862163502157731
+            ],
+            "size_m": [
+              0.04811677184723621,
+              0.06603124119314555,
+              0.08943325007603652
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 7,
+            "body_name": "FR_thigh",
+            "collision": false,
+            "geom_id": 44,
+            "geom_type": 7,
+            "identity": "FR_thigh#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.03417978094993346,
+              0.005035808048457607,
+              0.01532622931511648
+            ],
+            "size_m": [
+              0.07412897761773699,
+              0.07404610255638341,
+              0.2562540410223866
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 7,
+            "body_name": "FR_thigh",
+            "collision": true,
+            "geom_id": 45,
+            "geom_type": 6,
+            "identity": "FR_thigh#geom1",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.13,
+              0.025,
+              0.0
+            ],
+            "size_m": [
+              0.125,
+              0.025,
+              0.025
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 7,
+            "body_name": "FR_thigh",
+            "collision": true,
+            "geom_id": 46,
+            "geom_type": 5,
+            "identity": "FR_thigh#geom2",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              0.072,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 8,
+            "body_name": "FR_calf",
+            "collision": false,
+            "geom_id": 47,
+            "geom_type": 7,
+            "identity": "FR_calf#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.13042269147242352,
+              0.007216084078127603,
+              -0.002518625115513766
+            ],
+            "size_m": [
+              0.032487538474669723,
+              0.04182602254495635,
+              0.17551691042745823
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 8,
+            "body_name": "FR_calf",
+            "collision": true,
+            "geom_id": 48,
+            "geom_type": 6,
+            "identity": "FR_calf#geom1",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.15,
+              0.01,
+              0.0
+            ],
+            "size_m": [
+              0.12,
+              0.02,
+              0.025
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 9,
+            "body_name": "FR_foot",
+            "collision": false,
+            "geom_id": 49,
+            "geom_type": 7,
+            "identity": "FR_foot#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              8.193691757848288e-07,
+              -8.0658931525926e-07,
+              0.0007972952763888147
+            ],
+            "size_m": [
+              0.021065204139485722,
+              0.09249959438450128,
+              0.09328047658609305
+            ],
+            "terrain_kind": null,
+            "wheel_index": 1
+          },
+          {
+            "body_id": 9,
+            "body_name": "FR_foot",
+            "collision": true,
+            "geom_id": 50,
+            "geom_type": 5,
+            "identity": "FR_foot#geom1",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "size_m": [
+              0.087,
+              0.02,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": 1
+          },
+          {
+            "body_id": 10,
+            "body_name": "RL_hip",
+            "collision": false,
+            "geom_id": 51,
+            "geom_type": 7,
+            "identity": "RL_hip#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              -0.0051618048274436334,
+              3.520703761912825e-05,
+              -0.08862155417227653
+            ],
+            "size_m": [
+              0.04811683213993865,
+              0.06603209654652761,
+              0.08943362228334067
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 11,
+            "body_name": "RL_thigh",
+            "collision": false,
+            "geom_id": 52,
+            "geom_type": 7,
+            "identity": "RL_thigh#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.03413425785160483,
+              0.004996279007380371,
+              -0.01533002550151463
+            ],
+            "size_m": [
+              0.07413777135831984,
+              0.07406836886719256,
+              0.2563022531869931
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 11,
+            "body_name": "RL_thigh",
+            "collision": true,
+            "geom_id": 53,
+            "geom_type": 6,
+            "identity": "RL_thigh#geom1",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.13,
+              0.025,
+              0.0
+            ],
+            "size_m": [
+              0.125,
+              0.025,
+              0.025
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 11,
+            "body_name": "RL_thigh",
+            "collision": true,
+            "geom_id": 54,
+            "geom_type": 5,
+            "identity": "RL_thigh#geom2",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              0.072,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 12,
+            "body_name": "RL_calf",
+            "collision": false,
+            "geom_id": 55,
+            "geom_type": 7,
+            "identity": "RL_calf#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.1304199110331463,
+              0.007215902463124145,
+              0.0025193861681576703
+            ],
+            "size_m": [
+              0.032487729536563856,
+              0.041827616968233755,
+              0.17551395241910875
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 12,
+            "body_name": "RL_calf",
+            "collision": true,
+            "geom_id": 56,
+            "geom_type": 6,
+            "identity": "RL_calf#geom1",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.15,
+              0.01,
+              0.0
+            ],
+            "size_m": [
+              0.12,
+              0.02,
+              0.025
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 13,
+            "body_name": "RL_foot",
+            "collision": false,
+            "geom_id": 57,
+            "geom_type": 7,
+            "identity": "RL_foot#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              1.4408285473552165e-06,
+              3.7473298642068114e-07,
+              -0.0007966028223543898
+            ],
+            "size_m": [
+              0.021065951911499986,
+              0.09250137675324546,
+              0.09328044084893482
+            ],
+            "terrain_kind": null,
+            "wheel_index": 2
+          },
+          {
+            "body_id": 13,
+            "body_name": "RL_foot",
+            "collision": true,
+            "geom_id": 58,
+            "geom_type": 5,
+            "identity": "RL_foot#geom1",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              0.087,
+              0.02,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": 2
+          },
+          {
+            "body_id": 14,
+            "body_name": "RR_hip",
+            "collision": false,
+            "geom_id": 59,
+            "geom_type": 7,
+            "identity": "RR_hip#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.0051618064980716374,
+              3.446857050365393e-05,
+              -0.08862163502157731
+            ],
+            "size_m": [
+              0.04811677184723621,
+              0.06603124119314555,
+              0.08943325007603652
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 15,
+            "body_name": "RR_thigh",
+            "collision": false,
+            "geom_id": 60,
+            "geom_type": 7,
+            "identity": "RR_thigh#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.03417978094993346,
+              0.005035808048457607,
+              0.01532622931511648
+            ],
+            "size_m": [
+              0.07412897761773699,
+              0.07404610255638341,
+              0.2562540410223866
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 15,
+            "body_name": "RR_thigh",
+            "collision": true,
+            "geom_id": 61,
+            "geom_type": 6,
+            "identity": "RR_thigh#geom1",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.13,
+              0.025,
+              0.0
+            ],
+            "size_m": [
+              0.125,
+              0.025,
+              0.025
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 15,
+            "body_name": "RR_thigh",
+            "collision": true,
+            "geom_id": 62,
+            "geom_type": 5,
+            "identity": "RR_thigh#geom2",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "size_m": [
+              0.072,
+              0.025,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 16,
+            "body_name": "RR_calf",
+            "collision": false,
+            "geom_id": 63,
+            "geom_type": 7,
+            "identity": "RR_calf#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              0.13042269147242352,
+              0.007216084078127603,
+              -0.002518625115513766
+            ],
+            "size_m": [
+              0.032487538474669723,
+              0.04182602254495635,
+              0.17551691042745823
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 16,
+            "body_name": "RR_calf",
+            "collision": true,
+            "geom_id": 64,
+            "geom_type": 6,
+            "identity": "RR_calf#geom1",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.15,
+              0.01,
+              0.0
+            ],
+            "size_m": [
+              0.12,
+              0.02,
+              0.025
+            ],
+            "terrain_kind": null,
+            "wheel_index": null
+          },
+          {
+            "body_id": 17,
+            "body_name": "RR_foot",
+            "collision": false,
+            "geom_id": 65,
+            "geom_type": 7,
+            "identity": "RR_foot#geom0",
+            "margin_m": 0.0,
+            "position_local_m": [
+              8.193691757848288e-07,
+              -8.0658931525926e-07,
+              0.0007972952763888147
+            ],
+            "size_m": [
+              0.021065204139485722,
+              0.09249959438450128,
+              0.09328047658609305
+            ],
+            "terrain_kind": null,
+            "wheel_index": 3
+          },
+          {
+            "body_id": 17,
+            "body_name": "RR_foot",
+            "collision": true,
+            "geom_id": 66,
+            "geom_type": 5,
+            "identity": "RR_foot#geom1",
+            "margin_m": 0.001,
+            "position_local_m": [
+              0.0,
+              0.0,
+              -0.0
+            ],
+            "size_m": [
+              0.087,
+              0.02,
+              0.0
+            ],
+            "terrain_kind": null,
+            "wheel_index": 3
+          }
+        ],
+        "schema": "compiled-single-step-geom-bindings-v1"
+      }
+    },
+    "contacts_checked": 186158,
+    "failure": null,
+    "no_added_engine_step_forward_collision": true,
+    "passed_native_returns": 24000,
+    "scope": "all emitted normal-step contacts, including inactive candidates; compact audit, not a full raw force archive or internal CCD-candidate proof",
+    "segments": {
+      "speed200_box_final_policy": {
+        "checked": 6000,
+        "passed": 6000
+      },
+      "speed200_plane_final_policy": {
+        "checked": 6000,
+        "passed": 6000
+      },
+      "speed250_box_final_policy": {
+        "checked": 6000,
+        "passed": 6000
+      },
+      "speed250_plane_final_policy": {
+        "checked": 6000,
+        "passed": 6000
+      }
+    },
+    "sha256_rolling_digest": "d4e1cd28db4faaf05da06e231d17fb9eb5cd07c71d015e5652fb8592bb6eec39"
+  },
+  "no_training_retry_padding_or_extra_cases": true,
+  "old_run_02_final_C_counts": null,
+  "old_run_02_qualified": false,
+  "policy_speed_mean_delta_mps": {
+    "box": 0.05030073399747259,
+    "plane": 0.05036486798929504
+  },
+  "python_ledger": {
+    "clock_advanced_substeps": 24000,
+    "construction_records": [
+      {
+        "after": {
+          "armed": 1,
+          "ccd_attempts": 0,
+          "ccd_returns": 0,
+          "construction_attempts": 3,
+          "construction_limit": 5,
+          "construction_returns": 3,
+          "control_attempts": 0,
+          "control_limit": 24000,
+          "control_returns": 0,
+          "first_ccd_caller": 0,
+          "first_ccd_caller_dladdr": null,
+          "first_construction_step_caller": 136276518516040,
+          "first_construction_step_caller_dladdr": {
+            "address": 136276518516040,
+            "base": 136276514701312,
+            "offset": 3814728,
+            "path": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/libmujoco.so.3.12.0",
+            "symbol": null
+          },
+          "first_control_step_caller": 0,
+          "first_control_step_caller_dladdr": null,
+          "native_ccd_caller_verified": false,
+          "native_construction_caller_verified": true,
+          "original_step": 136276516906240,
+          "phase": 0,
+          "target_data": 0,
+          "target_model": 0,
+          "violations": 0
+        },
+        "before": {
+          "armed": 1,
+          "ccd_attempts": 0,
+          "ccd_returns": 0,
+          "construction_attempts": 0,
+          "construction_limit": 5,
+          "construction_returns": 0,
+          "control_attempts": 0,
+          "control_limit": 24000,
+          "control_returns": 0,
+          "first_ccd_caller": 0,
+          "first_ccd_caller_dladdr": null,
+          "first_construction_step_caller": 0,
+          "first_construction_step_caller_dladdr": null,
+          "first_control_step_caller": 0,
+          "first_control_step_caller_dladdr": null,
+          "native_ccd_caller_verified": false,
+          "native_construction_caller_verified": false,
+          "original_step": 136276516906240,
+          "phase": 0,
+          "target_data": 0,
+          "target_model": 0,
+          "violations": 0
+        }
+      },
+      {
+        "after": {
+          "armed": 1,
+          "ccd_attempts": 0,
+          "ccd_returns": 0,
+          "construction_attempts": 5,
+          "construction_limit": 5,
+          "construction_returns": 5,
+          "control_attempts": 0,
+          "control_limit": 24000,
+          "control_returns": 0,
+          "first_ccd_caller": 0,
+          "first_ccd_caller_dladdr": null,
+          "first_construction_step_caller": 136276518516040,
+          "first_construction_step_caller_dladdr": {
+            "address": 136276518516040,
+            "base": 136276514701312,
+            "offset": 3814728,
+            "path": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/libmujoco.so.3.12.0",
+            "symbol": null
+          },
+          "first_control_step_caller": 0,
+          "first_control_step_caller_dladdr": null,
+          "native_ccd_caller_verified": false,
+          "native_construction_caller_verified": true,
+          "original_step": 136276516906240,
+          "phase": 0,
+          "target_data": 0,
+          "target_model": 0,
+          "violations": 0
+        },
+        "before": {
+          "armed": 1,
+          "ccd_attempts": 0,
+          "ccd_returns": 0,
+          "construction_attempts": 3,
+          "construction_limit": 5,
+          "construction_returns": 3,
+          "control_attempts": 0,
+          "control_limit": 24000,
+          "control_returns": 0,
+          "first_ccd_caller": 0,
+          "first_ccd_caller_dladdr": null,
+          "first_construction_step_caller": 136276518516040,
+          "first_construction_step_caller_dladdr": {
+            "address": 136276518516040,
+            "base": 136276514701312,
+            "offset": 3814728,
+            "path": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/libmujoco.so.3.12.0",
+            "symbol": null
+          },
+          "first_control_step_caller": 0,
+          "first_control_step_caller_dladdr": null,
+          "native_ccd_caller_verified": false,
+          "native_construction_caller_verified": true,
+          "original_step": 136276516906240,
+          "phase": 0,
+          "target_data": 0,
+          "target_model": 0,
+          "violations": 0
+        }
+      }
+    ],
+    "control_attempted": 4800,
+    "control_completed": 4800,
+    "control_limit": 4800,
+    "fatal_latched": false,
+    "forbidden_entries": 0,
+    "forward_counts_by_runtime_model_data_identity": {
+      "(136273005909936, 136273160665520)": 1,
+      "(136273005909936, 136273169569328)": 1,
+      "(136273005913968, 136273005916912)": 1,
+      "(136273005913968, 136273164398256)": 1,
+      "(136273169213872, 136273168358320)": 2571,
+      "(136273171544816, 136273161216752)": 3,
+      "(136273171544816, 136273169213872)": 2405,
+      "(136273993488816, 136273168354032)": 3,
+      "(136273993488816, 136276495656880)": 2405
+    },
+    "mj_forward_calls": 7391,
+    "mj_setConst_calls": 4,
+    "native_attempted": 24000,
+    "native_failed": 0,
+    "native_limit": 24000,
+    "native_returned": 24000,
+    "segments": [
+      {
+        "attempted": 1200,
+        "completed": 1200,
+        "limit": 1200,
+        "name": "speed200_plane_final_policy",
+        "native_attempted": 6000,
+        "native_returned": 6000
+      },
+      {
+        "attempted": 1200,
+        "completed": 1200,
+        "limit": 1200,
+        "name": "speed200_box_final_policy",
+        "native_attempted": 6000,
+        "native_returned": 6000
+      },
+      {
+        "attempted": 1200,
+        "completed": 1200,
+        "limit": 1200,
+        "name": "speed250_plane_final_policy",
+        "native_attempted": 6000,
+        "native_returned": 6000
+      },
+      {
+        "attempted": 1200,
+        "completed": 1200,
+        "limit": 1200,
+        "name": "speed250_box_final_policy",
+        "native_attempted": 6000,
+        "native_returned": 6000
+      }
+    ],
+    "static_forward_is_not_dynamic_load_evidence": true
+  },
+  "schema": "body-common-p-four-case-evaluation-receipt-v1",
+  "segment_counts_valid": true,
+  "source_hashes_unchanged": true,
+  "sum_scored_case_controls": 4800,
+  "training_controls": 0,
+  "warnings": []
+}
