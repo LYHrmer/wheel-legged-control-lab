@@ -1,0 +1,83 @@
+{
+  "schema": "actual-opus-gui-07-contribution-final-v1",
+  "calls": [
+    {
+      "log": "claude_gui_tests_call_02.jsonl",
+      "is_error": false,
+      "session_id": "efe1c72a-d1d5-443e-8c07-ab625e7d6610",
+      "num_turns": 6,
+      "duration_ms": 246135,
+      "modelUsage": {
+        "claude-opus-5": {
+          "inputTokens": 10,
+          "outputTokens": 18763,
+          "cacheReadInputTokens": 64630,
+          "cacheCreationInputTokens": 31771,
+          "webSearchRequests": 0,
+          "costUSD": 0.7000087500000001,
+          "contextWindow": 200000,
+          "maxOutputTokens": 64000,
+          "thinkingTokens": 0,
+          "canonicalModel": "claude-opus-5",
+          "provider": "firstParty",
+          "costBasis": "list"
+        }
+      }
+    },
+    {
+      "log": "claude_render_tests_call_01.jsonl",
+      "is_error": false,
+      "session_id": "a13a4f70-d525-4db2-b3ee-e9ca54395294",
+      "num_turns": 8,
+      "duration_ms": 321946,
+      "modelUsage": {
+        "claude-opus-5": {
+          "inputTokens": 14,
+          "outputTokens": 24844,
+          "cacheReadInputTokens": 184228,
+          "cacheCreationInputTokens": 47397,
+          "webSearchRequests": 0,
+          "costUSD": 1.0095152500000002,
+          "contextWindow": 200000,
+          "maxOutputTokens": 64000,
+          "thinkingTokens": 0,
+          "canonicalModel": "claude-opus-5",
+          "provider": "firstParty",
+          "costBasis": "list"
+        }
+      }
+    }
+  ],
+  "authored_by_actual_claude_opus": 10,
+  "additional_root_integration_cases": 2,
+  "executor": "root",
+  "rounds": [
+    {
+      "round": 1,
+      "passed": 12,
+      "failed": 0,
+      "receipt": "pure_test_round_1_receipt.json",
+      "receipt_sha256": "89d163acd784b71e70613609b0bb8b24a62e0ec10e0c7a2ad14d0abff67b3ce7"
+    },
+    {
+      "round": 2,
+      "passed": 12,
+      "failed": 0,
+      "receipt": "pure_test_round_2_receipt.json",
+      "receipt_sha256": "59d366369a84820db7422b55c754e130ceb555384b73c7cb7d796f1c523998ec"
+    }
+  ],
+  "total_case_executions": 24,
+  "final_executed_test_hashes": {
+    "/home/lyh/wheel-legged-control-lab/tests/test_d1_latest_rl_controls_opus.py": "5388bce6c02d944cd3118911822c2ab2df4c26838df10796354441dcfac9a8c3",
+    "/home/lyh/wheel-legged-control-lab/tests/test_d1_latest_rl_render_opus.py": "ad11f2279c6982da4cf3431b640fa505798bc2d774422243138e23ea5be6f906",
+    "/home/lyh/wheel-legged-control-lab/tests/test_d1_latest_rl_integration_pure.py": "7fc3edbb85959c8fdab66de517200a90eea7ab33ba6c9d7802d0d278ef2eaf2a"
+  },
+  "root_changes_to_opus_render_harness": [
+    "Removed quoted local fake-data annotation for static lint.",
+    "Injected stdlib hashlib into extracted AST method namespace after production viewer added record hashes."
+  ],
+  "failed_initial_sandbox_call": "claude_gui_tests_call_01.jsonl: repeated connection failures; terminated; no completed contribution claimed",
+  "physics_executed_by_claude": false,
+  "old_authorship_receipt_preserved": true
+}

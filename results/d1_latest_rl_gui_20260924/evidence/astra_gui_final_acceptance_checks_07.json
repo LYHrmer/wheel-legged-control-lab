@@ -1,0 +1,182 @@
+{
+  "schema": "astra-gui-final-acceptance-checks-07-v1",
+  "reviewer": "actual GPT-6-astra ultra",
+  "engineering_acceptance_passed": true,
+  "checks": {
+    "astra_gui_review_inputs_07.json": {
+      "file_count": 51,
+      "hash_mismatches": []
+    },
+    "gui_policy_box_closed_manifest_01.json": {
+      "file_count": 54,
+      "hash_mismatches": []
+    },
+    "headless_zero_plane_closed_manifest_01.json": {
+      "file_count": 44,
+      "hash_mismatches": []
+    },
+    "gui_policy_box": {
+      "readback_passed": true,
+      "counts_exact": true,
+      "closed_phase_target": true,
+      "clean": true,
+      "exit0_no_orphans": true,
+      "launcher_clean": true,
+      "predict_calls": 1200,
+      "predict_returns": 1200,
+      "actor": "final_policy",
+      "elapsed_wall_s": 130.25063701100225,
+      "ccd": 23569,
+      "segments": [
+        {
+          "attempted": 1000,
+          "completed": 1000,
+          "limit": 1000,
+          "name": "segment_00",
+          "native_attempted": 5000,
+          "native_returned": 5000
+        },
+        {
+          "attempted": 200,
+          "completed": 200,
+          "limit": 200,
+          "name": "segment_01",
+          "native_attempted": 1000,
+          "native_returned": 1000
+        }
+      ],
+      "native_monitor_checked": 6000
+    },
+    "headless_zero_plane": {
+      "readback_passed": true,
+      "counts_exact": true,
+      "closed_phase_target": true,
+      "clean": true,
+      "exit0_no_orphans": true,
+      "launcher_clean": true,
+      "predict_calls": 0,
+      "predict_returns": 0,
+      "actor": "zero",
+      "elapsed_wall_s": 27.39047996700174,
+      "ccd": 0,
+      "segments": [
+        {
+          "attempted": 1000,
+          "completed": 1000,
+          "limit": 1000,
+          "name": "segment_00",
+          "native_attempted": 5000,
+          "native_returned": 5000
+        },
+        {
+          "attempted": 200,
+          "completed": 200,
+          "limit": 200,
+          "name": "segment_01",
+          "native_attempted": 1000,
+          "native_returned": 1000
+        }
+      ],
+      "native_monitor_checked": 6000
+    }
+  },
+  "inputs": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/astra_gui_review_inputs_07.json": {
+      "sha256": "703821efb78f8f49a53f071f5a7e522c84583a3fc5450177eaa39631900ac63c",
+      "bytes": 12067
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/gui_policy_box_closed_manifest_01.json": {
+      "sha256": "a309baddce127f30a196aa92ce05c428531b961e2ffac0baee554e23f2c36f3f",
+      "bytes": 14773
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/headless_zero_plane_closed_manifest_01.json": {
+      "sha256": "4388b3f70eb58f8bde35aeebccf67e314d48e909852b633c56d36cc04852ec2c",
+      "bytes": 12309
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/gui_policy_box_readback_02.json": {
+      "sha256": "8e123df1e3f5e25a5006e8a3818801d4e97bab35e6e5d64351f291ce7d20e659",
+      "bytes": 1330
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/gui_policy_box_root_exit_01.json": {
+      "sha256": "05b3fedfcbefa3a4acc240e1dc5b2b77dc8ac6d500132ac35e2f8e7f4c08dbb6",
+      "bytes": 224
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/validation_runs/gui_policy_box_01/worker_receipt.json": {
+      "sha256": "bf26f6312344cdf7316141b198562c4febf1f939501da14316ba086516bd8c5b",
+      "bytes": 45000
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/validation_runs/gui_policy_box_01/launcher_receipt.json": {
+      "sha256": "b231494e3d728897fa7b7f07c0e1c93f93689f8428fc7e00e0a99f7607de053d",
+      "bytes": 389
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/validation_runs/gui_policy_box_01/runtime_initial.json": {
+      "sha256": "6093cd0277a4bdac526499acbc4d868522b615b4cfe13e8c10f9815b341eae3d",
+      "bytes": 6237
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/validation_runs/gui_policy_box_01/construction_receipt.json": {
+      "sha256": "d6339876e52a325c6877a3c21dcc9f62ba1875376e969ebdd7006ad95fbc1561",
+      "bytes": 3887
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/validation_runs/gui_policy_box_01/controller_law_transfer.json": {
+      "sha256": "4a3e00b9fb1abb3425313cddb840f7e0f3f525045f3dcfa7c114f2822c004a5a",
+      "bytes": 2537
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/headless_zero_plane_readback_01.json": {
+      "sha256": "436eb6ff6fce4d6c3079a1cca2f81f7989038aeed779da28fbc01f8bc69347ab",
+      "bytes": 1279
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/headless_zero_plane_root_exit_01.json": {
+      "sha256": "05b3fedfcbefa3a4acc240e1dc5b2b77dc8ac6d500132ac35e2f8e7f4c08dbb6",
+      "bytes": 224
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/validation_runs/headless_zero_plane_01/worker_receipt.json": {
+      "sha256": "9c58d54aafdd059847ab847a74ca3a6cafdd68352f01d499a6083a164e8880ae",
+      "bytes": 44211
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/validation_runs/headless_zero_plane_01/launcher_receipt.json": {
+      "sha256": "42daa98bf12b439b1f7b396a1f351fd90c0bb8fa0eb9d516d43735a7d5fe21c2",
+      "bytes": 394
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/validation_runs/headless_zero_plane_01/runtime_initial.json": {
+      "sha256": "5bcfb38cdc9ad06d824cae797bd2e601d0f7134f1caf5d3f0d2314009a91ee2a",
+      "bytes": 6237
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/validation_runs/headless_zero_plane_01/construction_receipt.json": {
+      "sha256": "d6c49920745c0f0644a35f67a53ebe19150bbeba1b392c5f62db88f2e7434bb4",
+      "bytes": 3889
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/validation_runs/headless_zero_plane_01/controller_law_transfer.json": {
+      "sha256": "4a3e00b9fb1abb3425313cddb840f7e0f3f525045f3dcfa7c114f2822c004a5a",
+      "bytes": 2537
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/new_contract.md": {
+      "sha256": "d90970745b938ede81341b308c1ba0dc5792e951cb84b54067d39a3509b3fc1f",
+      "bytes": 16782
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/astra_gui_prefix_readback_07.json": {
+      "sha256": "931dfadd2ee139d4b923508e2402c482faf2f19216a955bfce38f59a34403f40",
+      "bytes": 12227
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/astra_gui_a_readback_addendum_07.md": {
+      "sha256": "0dadf85c08122e30e8e867feea9b7f9f372a6c8ccd6bb1161590c1032e365ea6",
+      "bytes": 2447
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/verify_gui_session_07_readback02.py": {
+      "sha256": "a308613f8246d0419a93be74c4c94ef6269f736364845df3f088ae1ec2cb1f15",
+      "bytes": 24016
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/pure_test_round_2_receipt.json": {
+      "sha256": "59d366369a84820db7422b55c754e130ceb555384b73c7cb7d796f1c523998ec",
+      "bytes": 4253
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/actual_claude_contribution_final_07.json": {
+      "sha256": "d5e3a452d7a326e576032814c88d7388ce6c877e659c26949c3063b0601bb855",
+      "bytes": 2999
+    }
+  },
+  "new_engine_calls": 0,
+  "new_tests": 0,
+  "new_training": 0,
+  "remaining_contract_acceptance_processes": 0,
+  "further_rollout_authorized_by_this_review": false
+}

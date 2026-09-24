@@ -1,0 +1,310 @@
+{
+  "schema": "astra-gui-prefix-readback-07-v1",
+  "reviewer": "actual GPT-6-astra ultra",
+  "method": "Read-only saved gzip JSON exact value comparison and NPZ exact shape/dtype/bytes, no numerical tolerance; no engine/policy imports or calls. Screenshots visually inspected with view_image.",
+  "passed": true,
+  "new_segment": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/validation_runs/gui_policy_box_01/segment_00",
+  "reference_segment": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_body_speed01/run_01/evaluation/speed200_box_final_policy",
+  "json_checks": {
+    "trace.jsonl.gz": {
+      "rows_expected": 401,
+      "new_rows_read": 401,
+      "old_rows_read": 401,
+      "all_old_fields_compared": true,
+      "old_fields": [
+        "tick",
+        "endpoint_tick",
+        "policy_action",
+        "clipped_policy_scalar",
+        "forward_gate_active",
+        "action",
+        "applied_action",
+        "raw_command",
+        "servo_command",
+        "world_command",
+        "stop_active",
+        "turn_active",
+        "torque_nm",
+        "callback_count_after_prepare",
+        "stop_record",
+        "authority_record",
+        "controller_result",
+        "reward",
+        "terminated",
+        "truncated",
+        "terminal_reason",
+        "metrics",
+        "checkpoint_sha256"
+      ],
+      "raw_command_fields": [
+        "tick",
+        "time_s",
+        "forward_velocity_mps",
+        "yaw_rate_rps",
+        "raw_world_height_m",
+        "ground_height_m",
+        "motion_clearance_m",
+        "prepared_world_height_m"
+      ],
+      "differences": [],
+      "passed": true
+    },
+    "endpoints.jsonl.gz": {
+      "rows_expected": 402,
+      "new_rows_read": 402,
+      "old_rows_read": 402,
+      "all_old_fields_compared": true,
+      "old_fields": [
+        "tick",
+        "time_s",
+        "base_position_m",
+        "rpy_rad",
+        "body_vx_mps",
+        "com_vz_mps",
+        "com_position_m",
+        "com_velocity_mps",
+        "collision_bounds",
+        "nonwheel_terrain_contacts",
+        "geometry_sampling",
+        "nonwheel_sampling"
+      ],
+      "raw_command_fields": [],
+      "differences": [],
+      "passed": true
+    },
+    "native.jsonl.gz": {
+      "rows_expected": 2005,
+      "new_rows_read": 2005,
+      "old_rows_read": 2005,
+      "all_old_fields_compared": true,
+      "old_fields": [
+        "index",
+        "start_time_s",
+        "qpos_before",
+        "qvel_before",
+        "ctrl_nm",
+        "xfrc_applied",
+        "qfrc_applied",
+        "contact_sample_tag",
+        "returned",
+        "error",
+        "qpos_returned",
+        "qvel_returned",
+        "end_time_s",
+        "actual_dt_s",
+        "contacts",
+        "qacc_warmstart_before",
+        "act_before",
+        "qacc_warmstart_after",
+        "act_after"
+      ],
+      "raw_command_fields": [],
+      "differences": [],
+      "passed": true
+    }
+  },
+  "array_checks": {
+    "qpos": {
+      "rows": 402,
+      "shape": [
+        402,
+        23
+      ],
+      "dtype": "float64",
+      "shape_dtype_bytes_equal": true
+    },
+    "qvel": {
+      "rows": 402,
+      "shape": [
+        402,
+        22
+      ],
+      "dtype": "float64",
+      "shape_dtype_bytes_equal": true
+    },
+    "ctrl": {
+      "rows": 402,
+      "shape": [
+        402,
+        16
+      ],
+      "dtype": "float64",
+      "shape_dtype_bytes_equal": true
+    },
+    "qacc_warmstart": {
+      "rows": 402,
+      "shape": [
+        402,
+        22
+      ],
+      "dtype": "float64",
+      "shape_dtype_bytes_equal": true
+    },
+    "observation": {
+      "rows": 401,
+      "shape": [
+        401,
+        85
+      ],
+      "dtype": "float32",
+      "shape_dtype_bytes_equal": true
+    },
+    "time": {
+      "rows": 402,
+      "shape": [
+        402
+      ],
+      "dtype": "float64",
+      "shape_dtype_bytes_equal": true
+    }
+  },
+  "intentional_boundary_observation_difference": {
+    "row": 401,
+    "differing_dimensions": [
+      38,
+      56,
+      57,
+      58,
+      59
+    ],
+    "new_values": [
+      0.4166666567325592,
+      0.0957782045006752,
+      0.09579267352819443,
+      0.0957782119512558,
+      0.09579267352819443
+    ],
+    "old_values": [
+      0.3333333432674408,
+      0.07662111520767212,
+      0.07663559168577194,
+      0.07662112265825272,
+      0.07663558423519135
+    ],
+    "interpretation": "Observation 401 is prepared after poll 400 changes requested speed to .25; physical return endpoint 401 is still the result of equal .20 control tick400. Thus compare policy-input observations 0..400, and physical states 0..401."
+  },
+  "render_saved_guard_checks": {
+    "frame_count": 1202,
+    "all_live_integrator_unchanged": true,
+    "all_measurement_unchanged": true,
+    "all_native_delta_zero": true,
+    "all_python_delta_zero": true
+  },
+  "screenshots": [
+    {
+      "bytes": 56315,
+      "frame_id": "drive_200",
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/validation_runs/gui_policy_box_01/segment_00/drive_200.png",
+      "pixels_sha256": "4cf229834836a82182c241a263de237321f913df8898bdfd570bb5f9153b95a2",
+      "png_sha256": "3ed1d6ea003b9ee7c68a3728d2cd214cd30f7d71898d102f8a1053fbec39fb80",
+      "source_tick": 200,
+      "source_time_s": 2.0000000000000013
+    },
+    {
+      "bytes": 72136,
+      "frame_id": "drive_650",
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/validation_runs/gui_policy_box_01/segment_00/drive_650.png",
+      "pixels_sha256": "8a79000b72715b249dd5c72422b4ac222a88fde49887a7c7495f052b3e3475a0",
+      "png_sha256": "22225d4b991d479d42c042b2ee1a16f0ee137a20ee7b81db0cae321929bd602e",
+      "source_tick": 650,
+      "source_time_s": 6.499999999999506
+    },
+    {
+      "bytes": 54291,
+      "frame_id": "after_reset",
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/validation_runs/gui_policy_box_01/segment_01/after_reset.png",
+      "pixels_sha256": "71351fe950cc329472371d16f84753cba29b1fdbaca811bf2b1cbc7f3e4aaa72",
+      "png_sha256": "a2a7c00dbe2e5f128071e117838bcc265078cce3af82fd2d4edc19195936957d",
+      "source_tick": 0,
+      "source_time_s": 0.0
+    }
+  ],
+  "visual_review": "All three PNGs show a rendered robot and 15mm box, truthful learned residual ON / controller06 ON / oracle / checkpoint / engine binding labels. At t2.0 target .20 observed .204; t6.5 target .25 observed .261. After R time0 and request0, cumulative counts1000/5000/3 remain. Actual output path is truncated by viewport, but complete in session/archive.",
+  "worker_counts": {
+    "completed_controls": 1200,
+    "live_policy_predict_calls": 1200,
+    "live_policy_predict_returns": 1200,
+    "execution_complete": true,
+    "failure": null
+  },
+  "scope": "This is common-prefix integration equivalence evidence, not a fresh RL benefit claim or general obstacle qualification. Independent full A readback must still pass before B. No added physical budget.",
+  "files": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/validation_runs/gui_policy_box_01/segment_00/trace.jsonl.gz": {
+      "sha256": "a0f9905371c7f2adb3e10c5706a79bba8a596ac420e603011fce07abfb300041",
+      "bytes": 2775691
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_body_speed01/run_01/evaluation/speed200_box_final_policy/trace.jsonl.gz": {
+      "sha256": "b7c63641714d5e8250e65cf66580271d36afefba00e83438fa761ed001274a92",
+      "bytes": 3153396
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/validation_runs/gui_policy_box_01/segment_00/endpoints.jsonl.gz": {
+      "sha256": "2e5d37e8af4fcbdb93892b1de2acd5fffcd98e4f5dd3b5c52b9d10da814fb7aa",
+      "bytes": 2542476
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_body_speed01/run_01/evaluation/speed200_box_final_policy/endpoints.jsonl.gz": {
+      "sha256": "f1352b333c111bc90565c440c9feb96eafcd010227a72aec69df72250686c2e1",
+      "bytes": 3047762
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/validation_runs/gui_policy_box_01/segment_00/native.jsonl.gz": {
+      "sha256": "1164b5874d88bbe9ffda2d4a1a9ab53148da8159f42b16036a15a06cde677853",
+      "bytes": 8923504
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_body_speed01/run_01/evaluation/speed200_box_final_policy/native.jsonl.gz": {
+      "sha256": "3342f2da797ff349ea1df03b94a81a0f9becddf1db6e5273c3b119d61e846918",
+      "bytes": 10683759
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/validation_runs/gui_policy_box_01/segment_00/states.npz": {
+      "sha256": "8e1d7b91ce1b0b95b8ea4184cab8029461303df6b537c052627f3103470b07a2",
+      "bytes": 826169
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_body_speed01/run_01/evaluation/speed200_box_final_policy/states.npz": {
+      "sha256": "594cfc8528c519a763476a1b1f2547aef0f72561e372ad2f87703304b80f72b0",
+      "bytes": 987720
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/validation_runs/gui_policy_box_01/worker_receipt.json": {
+      "sha256": "bf26f6312344cdf7316141b198562c4febf1f939501da14316ba086516bd8c5b",
+      "bytes": 45000
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/validation_runs/gui_policy_box_01/launcher_receipt.json": {
+      "sha256": "b231494e3d728897fa7b7f07c0e1c93f93689f8428fc7e00e0a99f7607de053d",
+      "bytes": 389
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/validation_runs/gui_policy_box_01/strict_original_checkpoint_reload.json": {
+      "sha256": "ab41e760b65c066b56f82bc991386a080d465a68c2feea880bfadc8db42e0b23",
+      "bytes": 476
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/validation_runs/gui_policy_box_01/runtime_initial.json": {
+      "sha256": "6093cd0277a4bdac526499acbc4d868522b615b4cfe13e8c10f9815b341eae3d",
+      "bytes": 6237
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/validation_runs/gui_policy_box_01/render_receipt.json": {
+      "sha256": "acc6a94442569cb59ea94c00893e5a07deb2117b203d62e5b3d4d4bae5228fd8",
+      "bytes": 1167960
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/validation_runs/gui_policy_box_01/validation_driver_receipt.json": {
+      "sha256": "c909da5994c06f697404c24eb194645d428a4a0c5aeac029539abdfa92ab659f",
+      "bytes": 5385
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/validation_runs/gui_policy_box_01/segment_00/screenshots.json": {
+      "sha256": "6aaed7403ebdde9d753ab9d2af9580cadd317e3bd342aea699bdf841ddc99639",
+      "bytes": 916
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/validation_runs/gui_policy_box_01/segment_00/drive_200.png": {
+      "sha256": "3ed1d6ea003b9ee7c68a3728d2cd214cd30f7d71898d102f8a1053fbec39fb80",
+      "bytes": 56315
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/validation_runs/gui_policy_box_01/segment_00/drive_650.png": {
+      "sha256": "22225d4b991d479d42c042b2ee1a16f0ee137a20ee7b81db0cae321929bd602e",
+      "bytes": 72136
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/validation_runs/gui_policy_box_01/segment_01/screenshots.json": {
+      "sha256": "026c5b1015b21264a2bbc7f61d96dce5c5704124c86cf5d14256d7cda80ae006",
+      "bytes": 447
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/validation_runs/gui_policy_box_01/segment_01/after_reset.png": {
+      "sha256": "a2a7c00dbe2e5f128071e117838bcc265078cce3af82fd2d4edc19195936957d",
+      "bytes": 54291
+    }
+  },
+  "engine_modules_loaded": []
+}

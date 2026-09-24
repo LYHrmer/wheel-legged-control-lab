@@ -1,0 +1,77 @@
+{
+  "cache_after_original_construct": {
+    "currsize": 1,
+    "hits": 1,
+    "maxsize": 1,
+    "misses": 1
+  },
+  "cache_after_transfer": {
+    "currsize": 1,
+    "hits": 2,
+    "maxsize": 1,
+    "misses": 1
+  },
+  "interactive_callback_installed_after_strict_loader": true,
+  "receipt": {
+    "body_common_p_leg_delta_exact_zero": true,
+    "body_common_p_uses_original_pi_once": true,
+    "controller_mro": [
+      "BodyCommonPRollingController",
+      "RollingResidualCompositionController",
+      "StopTurnCompositionController",
+      "BodyCommonPStageController",
+      "DriveDampingStageController",
+      "TurnYawAuthorityController",
+      "D1WheelLegController"
+    ],
+    "controller_replaced_after_strict_original_checkpoint_load": true,
+    "data_address_unchanged": true,
+    "drive_leg_delta_wheels_exact_zero": true,
+    "fresh_lifecycle_after": {
+      "episode_metadata_empty": true,
+      "exact_inactive": true,
+      "heading_decision_none": true,
+      "initialized_none_fields": [
+        "loop",
+        "decision",
+        "last_transition",
+        "schedule",
+        "_heading_context",
+        "_reference_loop",
+        "_reference_initial"
+      ],
+      "no_mutation_or_engine_call": true,
+      "physical_time_zero": true,
+      "schema": "d1-never-reset-inactive-lifecycle-v1",
+      "steps_attribute_absent": true
+    },
+    "fresh_lifecycle_before": {
+      "episode_metadata_empty": true,
+      "exact_inactive": true,
+      "heading_decision_none": true,
+      "initialized_none_fields": [
+        "loop",
+        "decision",
+        "last_transition",
+        "schedule",
+        "_heading_context",
+        "_reference_loop",
+        "_reference_initial"
+      ],
+      "no_mutation_or_engine_call": true,
+      "physical_time_zero": true,
+      "schema": "d1-never-reset-inactive-lifecycle-v1",
+      "steps_attribute_absent": true
+    },
+    "historical_training_control_schema": "d1-stop-turn-shared-leg-residual-v1",
+    "historical_training_task_schema": "d1-rolling-15mm-shared-leg-residual-v1",
+    "model_address_unchanged": true,
+    "new_raw_forward_gate": "bound_raw_forward_velocity_mps != 0.0",
+    "physical_time_zero_before_first_reset": true,
+    "schema": "d1-rolling-controller-law-transfer-v1",
+    "transferred_control_schema": "d1-rolling-shared-leg-drive-jx-body-common-p-stop-turn-v1",
+    "transferred_task_schema": "d1-rolling-residual-drive-jx-body-common-p-transfer-v1"
+  },
+  "same_C_state_after_loader_and_transfer": true,
+  "schema": "d1-latest-rl-gui-session-v1"
+}

@@ -1,0 +1,29 @@
+{
+  "profile": "gui_policy_box",
+  "control_limit": 1200,
+  "normal_native_limit": 6000,
+  "compiler_native_limit": 3,
+  "process_limit": 1,
+  "argv": [
+    "rtk",
+    "proxy",
+    "/usr/bin/python3",
+    "-B",
+    "/home/lyh/wheel-legged-control-lab/scripts/play_d1_latest_rl.py",
+    "--actor",
+    "rl",
+    "--terrain",
+    "box",
+    "--validation-profile",
+    "gui_policy_box",
+    "--output",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/validation_runs/gui_policy_box_01",
+    "--test-receipt",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/pure_test_round_2_receipt.json",
+    "--astra-go",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/astra_gui_review_inputs_07.json"
+  ],
+  "output": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_rl_gui01/validation_runs/gui_policy_box_01",
+  "automatic_retry": false,
+  "go_sha256": "703821efb78f8f49a53f071f5a7e522c84583a3fc5450177eaa39631900ac63c"
+}

@@ -1,0 +1,44 @@
+{
+  "schema": "wheel-legged-continuation-state-07",
+  "objective": "稳定直行 → 可靠越障 → 提高速度",
+  "current_delivery": "Latest saved RL checkpoint and qualified body-speed controller integrated in bounded interactive GUI",
+  "new_rl_gui_code": true,
+  "default_user_command": "rtk proxy d1-rl",
+  "default_actor": "actual saved final RL policy",
+  "checkpoint_sha256": "4f59d795afbdec256ec17bb7256ea05a3ddd04561e9ba52beffb1de375196b2e",
+  "qualified_fixed_targets_mps": [0.2, 0.25],
+  "GUI_contract_07": {
+    "status": "closed; both independent saved-record verifications passed",
+    "control_steps": 2400,
+    "normal_native_steps": 12000,
+    "compiler_native_steps": 6,
+    "CCD_returns": 23569,
+    "processes": 2,
+    "training_steps": 0,
+    "additional_physics_permitted": false,
+    "pure_rounds": 2,
+    "pure_cases_per_round": 12,
+    "additional_pure_rounds_permitted": false
+  },
+  "verified": [
+    "Actual GUI uses original checkpoint loader, policy observation, residual mapping, and qualified 06 controller transfer.",
+    "Owned X11 window accepted scripted W, gear 2, Space, R and Escape through real keyboard callbacks.",
+    "1202 displayed frames introduced no physics calls or state changes; three screenshots reviewed.",
+    "401-control GUI prefix and 2005 native records match prior 06 archive without replay.",
+    "Same model/data and five exact initial arrays after simulation reset; cumulative budget not refunded.",
+    "Zero-residual mode has zero live policy calls and zero learned action while retaining the speed controller.",
+    "1183 unique historical frozen files and 98 new run files remain unchanged.",
+    "Short manual launcher preflight passed from /home/lyh without old working-directory source inputs."
+  ],
+  "unfinished_or_unproven": [
+    "Human desktop usability and real-time playback have not been validated by a human.",
+    "Independent RL benefit over zero residual with the same controller/terrain is unproven.",
+    "Broader seeds, disturbances, unseen terrain, higher speed and hardware reliability remain unqualified.",
+    "Physical self-righting is not implemented; R remains simulation reset.",
+    "GUI steering, reversing and jumping are unsupported.",
+    "GitHub publication is pending and must be established by a later final_publication_receipt_07.json."
+  ],
+  "next_experiment_rule": "Use current artifacts first. Any new dynamics, higher speed or RL study requires a separate bounded contract reviewed by actual Astra ultra; never reopen old training or physical batches.",
+  "user_manual_results": "Preserve results/my_course_drive_01 untouched and uncommitted.",
+  "readback_repair": "Preserved original verifier and import failure; readback02 repairs module shadowing and two actual JSON schema references only, with no physics rerun or gate relaxation."
+}

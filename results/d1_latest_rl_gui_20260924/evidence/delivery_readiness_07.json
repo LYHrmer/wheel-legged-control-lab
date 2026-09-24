@@ -1,0 +1,31 @@
+{
+  "schema": "d1-latest-rl-local-delivery-check-v1",
+  "manual_command": "rtk proxy d1-rl",
+  "manual_entry": "/home/lyh/.local/bin/d1-rl",
+  "actual_read_only_preflight": {
+    "command": "rtk proxy d1-rl --check",
+    "cwd": "/home/lyh",
+    "exit_code": 0,
+    "preflight_passed": true,
+    "historical_frozen_input_count": 0,
+    "actor": "final_policy",
+    "terrain": "box",
+    "speed_mps": 0.2,
+    "checkpoint_sha256_prefix": "4f59d795afbd",
+    "control_limit": 2400,
+    "normal_native_limit": 12000,
+    "compiler_native_limit": 3,
+    "display_available": true,
+    "physics_started": false
+  },
+  "actual_host_process_check": {
+    "command": "rtk proxy ps -C python3,python,Xvfb,claude -o pid,ppid,comm,args",
+    "outside_sandbox": true,
+    "exit_code": 1,
+    "output_was_header_only": true,
+    "matching_rows": []
+  },
+  "human_desktop_window_session_started": false,
+  "isolated_real_gui_acceptance_passed": true,
+  "human_keyboard_usability_assessed": false
+}
