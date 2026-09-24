@@ -1,0 +1,412 @@
+{
+  "episode_metadata": {
+    "action_mode": "shared_leg1_wheel_zero",
+    "action_schema": "d1-shared-leg1-wheel-zero-gated-v1",
+    "actuator": {
+      "delay_steps": 0,
+      "gain": 1.0,
+      "n_axes": 16,
+      "physics_dt_s": 0.002,
+      "time_constant_s": 0.0,
+      "torque_limit_nm": [
+        80.0,
+        80.0,
+        80.0,
+        12.0,
+        80.0,
+        80.0,
+        80.0,
+        12.0,
+        80.0,
+        80.0,
+        80.0,
+        12.0,
+        80.0,
+        80.0,
+        80.0,
+        12.0
+      ]
+    },
+    "baseline": "wheel_leg",
+    "collision_terrain": {
+      "box_center_m": [
+        -3.0999999999999996,
+        0.0,
+        0.0075
+      ],
+      "box_geom_id": -1,
+      "box_half_size_m": [
+        0.18,
+        0.62,
+        0.0075
+      ],
+      "box_name": "terrain_single_15mm_box",
+      "collision_geometry": "native_plane",
+      "control_dt_s": 0.01,
+      "floor_geom_id": 0,
+      "height_semantics": "world_z minus true local ground",
+      "heightfield_present": false,
+      "mujoco_version": "3.12.0",
+      "native_dt_s": 0.002,
+      "obstacle_enabled": false,
+      "query_boundary": "closed axis-aligned rectangle; discontinuous vertical sides",
+      "schema": "d1-native-single-15mm-box-plant-v1",
+      "terrain_geom_ids": [
+        0
+      ],
+      "world_height_reference_m": 0.455
+    },
+    "command_seed": 414169949,
+    "command_source": "external_callback",
+    "control_dt_s": 0.01,
+    "control_schema": "d1-synchronized-control-loop-v1",
+    "controller_law_transfer": {
+      "controller_mro": [
+        "DriveRollingController",
+        "RollingResidualCompositionController",
+        "StopTurnCompositionController",
+        "DriveDampingStageController",
+        "TurnYawAuthorityController",
+        "D1WheelLegController"
+      ],
+      "controller_replaced_after_strict_original_checkpoint_load": true,
+      "data_address_unchanged": true,
+      "fresh_lifecycle_after": {
+        "episode_metadata_empty": true,
+        "exact_inactive": true,
+        "heading_decision_none": true,
+        "initialized_none_fields": [
+          "loop",
+          "decision",
+          "last_transition",
+          "schedule",
+          "_heading_context",
+          "_reference_loop",
+          "_reference_initial"
+        ],
+        "no_mutation_or_engine_call": true,
+        "physical_time_zero": true,
+        "schema": "d1-never-reset-inactive-lifecycle-v1",
+        "steps_attribute_absent": true
+      },
+      "fresh_lifecycle_before": {
+        "episode_metadata_empty": true,
+        "exact_inactive": true,
+        "heading_decision_none": true,
+        "initialized_none_fields": [
+          "loop",
+          "decision",
+          "last_transition",
+          "schedule",
+          "_heading_context",
+          "_reference_loop",
+          "_reference_initial"
+        ],
+        "no_mutation_or_engine_call": true,
+        "physical_time_zero": true,
+        "schema": "d1-never-reset-inactive-lifecycle-v1",
+        "steps_attribute_absent": true
+      },
+      "historical_training_control_schema": "d1-stop-turn-shared-leg-residual-v1",
+      "historical_training_task_schema": "d1-rolling-15mm-shared-leg-residual-v1",
+      "model_address_unchanged": true,
+      "new_raw_forward_gate": "bound_raw_forward_velocity_mps != 0.0",
+      "new_wheel_delta_exact_zero": true,
+      "physical_time_zero_before_first_reset": true,
+      "schema": "d1-rolling-controller-law-transfer-v1",
+      "transferred_control_schema": "d1-rolling-shared-leg-drive-jx-stop-turn-v1",
+      "transferred_task_schema": "d1-rolling-residual-drive-jx-transfer-v1"
+    },
+    "controller_parameters": {
+      "attitude_feedback_scale": 1.0,
+      "leg_feedback_scale": 1.0,
+      "wheel_ki": 3.0,
+      "wheel_kp": 2.2,
+      "yaw_feedback_gain": 4.0
+    },
+    "controller_schema": "d1-rolling-shared-leg-drive-jx-stop-turn-v1",
+    "domain": {
+      "actuator_strength_scale": 1.0,
+      "base_mass_scale": 1.0,
+      "damping_scale": 1.0,
+      "friction_scale": 1.0
+    },
+    "duration_s": 12.0,
+    "heading_reference_initial": {
+      "heading_rad": 0.0,
+      "held_user_yaw_rate_rps": 0.0,
+      "measured_heading_rad": 0.0,
+      "measured_yaw_rate_rps": 0.0,
+      "measurement_age_s": 0.0,
+      "reference_schema": "d1-simulation-time-heading-reference-v1",
+      "simulation_time_s": 0.0,
+      "source_schema": "d1-synchronized-oracle-v1"
+    },
+    "heading_task_config": {
+      "action_mode": "independent8",
+      "baseline": "wheel_leg",
+      "observation": {
+        "appended_fields": [
+          "sin_heading_error",
+          "cos_heading_error",
+          "user_yaw_rate_normalized"
+        ],
+        "base_size": 82,
+        "clip_high": 5.0,
+        "clip_low": -5.0,
+        "dtype": "float32",
+        "heading_error_source": "published_state_estimate",
+        "total_size": 85,
+        "user_yaw_rate_scale_rps": 0.5
+      },
+      "observation_schema": "d1-proprio-servo82-heading85-v1",
+      "outer_loop": {
+        "feed_forward": "user_yaw_rate_rps",
+        "kd": 0.4,
+        "kp": 2.0,
+        "limit_rps": 1.0,
+        "servo_substitution": "yaw_rate_only"
+      },
+      "reference_schema": "d1-simulation-time-heading-reference-v1",
+      "reward": {
+        "bounds": "[-actual_dt * heading_reward_weight, 0]",
+        "formula_version": "heading_goal = actual_dt * w * (exp(-(wrap(psi_truth_end - psi_ref_end) / sigma)^2) - 1); psi_ref_end = wrap(psi_ref_before + actual_dt * user_yaw_rate_before); v1",
+        "heading_reward_weight": 0.5,
+        "heading_sigma_rad": 0.08726646259971647,
+        "target": "simulation_time_heading_reference_endpoint",
+        "term_name": "heading_goal",
+        "truth_source": "last_transition.truth"
+      },
+      "reward_schema": "d1-heading-goal-servo-rate-v1",
+      "schema": "d1-heading-task-config-v1",
+      "task_schema": "d1-heading-reference-task-v1",
+      "terminal_reference_handling": "cached-terminal-observation-uses-pre-step-heading-context-v1",
+      "timing_schema": "d1-heading-left-hold-prepare-servo-yaw-rate-v1"
+    },
+    "heading_task_config_scope": "inner original eight-channel physical controller",
+    "historical_training_control_schema": "d1-stop-turn-shared-leg-residual-v1",
+    "historical_training_task_definition": {
+      "action_schema": "d1-shared-leg1-wheel-zero-gated-v1",
+      "constant_physical_channels": {
+        "value": 0.0,
+        "wheel_indices": [
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "control_schema": "d1-stop-turn-shared-leg-residual-v1",
+      "drive_ticks": 800,
+      "duration_s": 12.0,
+      "forward_gate": "raw_forward_velocity_mps != 0.0",
+      "leg_normalized_scale": 0.25,
+      "max_leg_extension_residual_m": 0.01,
+      "observation_schema": "d1-proprio-servo82-heading85-v1",
+      "observation_truth_appended": false,
+      "physical_action_size": 8,
+      "policy_action_size": 1,
+      "policy_to_physical_indices": [
+        0,
+        0,
+        0,
+        0,
+        null,
+        null,
+        null,
+        null
+      ],
+      "reward_changes_from_heading_parent": false,
+      "reward_schema": "d1-heading-goal-servo-rate-v1",
+      "task_schema": "d1-rolling-15mm-shared-leg-residual-v1",
+      "world_height_m": 0.455,
+      "yaw_rate_rps": 0.0
+    },
+    "historical_training_task_schema": "d1-rolling-15mm-shared-leg-residual-v1",
+    "measurement_seed": 47492930,
+    "observation_schema": "d1-proprio-servo82-heading85-v1",
+    "observation_schema_unchanged": true,
+    "parameter_origin": "synthetic simulation settings, not real D1 identification",
+    "physical_action_schema": "d1-wheel-leg-extension-speed-v1",
+    "physical_action_size": 8,
+    "physics_dt_s": 0.002,
+    "policy_action_mapping_unchanged": true,
+    "policy_action_size": 1,
+    "policy_to_physical_indices": [
+      0,
+      0,
+      0,
+      0,
+      null,
+      null,
+      null,
+      null
+    ],
+    "provider": {
+      "impairments": null,
+      "initial_position_m": null,
+      "initial_rpy_rad": null,
+      "kind": "oracle",
+      "sensor_delay_steps": 0,
+      "sensor_noise": null
+    },
+    "randomization": {
+      "actuator_delay_steps": null,
+      "actuator_gain": null,
+      "actuator_strength_scale": [
+        1.0,
+        1.0
+      ],
+      "actuator_time_constant_s": null,
+      "base_mass_scale": [
+        1.0,
+        1.0
+      ],
+      "damping_scale": [
+        1.0,
+        1.0
+      ],
+      "friction_scale": [
+        1.0,
+        1.0
+      ],
+      "measurement_delay_steps": null
+    },
+    "raw_schedule": [
+      {
+        "forward_velocity_mps": 0.0,
+        "tick_end": 175,
+        "tick_start": 0
+      },
+      {
+        "forward_velocity_mps": 0.2,
+        "tick_end": 975,
+        "tick_start": 175
+      },
+      {
+        "forward_velocity_mps": 0.0,
+        "tick_end": 1200,
+        "tick_start": 975
+      }
+    ],
+    "raw_world_height_m": 0.455,
+    "requested_terrain_config": {
+      "heading_parent_terrain_layout": "flat",
+      "physical_obstacle_enabled": false,
+      "physical_plant": "d1_single_step_15mm_box_or_plane"
+    },
+    "reward": {
+      "action_change_scale": 0.1,
+      "action_change_weight": 0.01,
+      "attitude_scale_rad": 0.3,
+      "attitude_weight": 0.2,
+      "height_scale_m": 0.05,
+      "height_weight": 1.0,
+      "mechanical_power_scale_w": 200.0,
+      "power_weight": 0.02,
+      "termination_cost": 2.0,
+      "velocity_sigma_mps": 0.2,
+      "velocity_weight": 1.0,
+      "yaw_sigma_rps": 0.2,
+      "yaw_weight": 1.0
+    },
+    "reward_schema": "d1-heading-goal-servo-rate-v1",
+    "rolling_action_scope": "outer one-scalar actor and exact wheel-zero expansion",
+    "rolling_episode_spec": {
+      "forward_start_tick": 175,
+      "forward_stop_tick": 975,
+      "forward_velocity_mps": 0.2,
+      "obstacle_enabled": false
+    },
+    "rolling_task_definition": {
+      "action_schema": "d1-shared-leg1-wheel-zero-gated-v1",
+      "constant_physical_channels": {
+        "value": 0.0,
+        "wheel_indices": [
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "control_schema": "d1-rolling-shared-leg-drive-jx-stop-turn-v1",
+      "controller_law_transfer": "fixed_drive_jx_leg_damping_on_bound_raw_forward",
+      "controller_schema": "d1-rolling-shared-leg-drive-jx-stop-turn-v1",
+      "drive_ticks": 800,
+      "duration_s": 12.0,
+      "forward_gate": "raw_forward_velocity_mps != 0.0",
+      "leg_normalized_scale": 0.25,
+      "max_leg_extension_residual_m": 0.01,
+      "observation_schema": "d1-proprio-servo82-heading85-v1",
+      "observation_truth_appended": false,
+      "physical_action_size": 8,
+      "policy_action_size": 1,
+      "policy_to_physical_indices": [
+        0,
+        0,
+        0,
+        0,
+        null,
+        null,
+        null,
+        null
+      ],
+      "reward_changes_from_heading_parent": false,
+      "reward_schema": "d1-heading-goal-servo-rate-v1",
+      "task_schema": "d1-rolling-residual-drive-jx-transfer-v1",
+      "world_height_m": 0.455,
+      "yaw_rate_rps": 0.0
+    },
+    "safe_half_size_m": [
+      5.3,
+      2.3
+    ],
+    "schedule": null,
+    "source_schema": "d1-synchronized-oracle-v1",
+    "spawn_position_m": [
+      -3.8,
+      0.0,
+      0.455
+    ],
+    "task_schema": "d1-rolling-residual-drive-jx-transfer-v1",
+    "terminal_reference_handling": "finite-envelope-exit-cached-terminal-observation-v1",
+    "terrain": {
+      "box_center_m": [
+        -3.0999999999999996,
+        0.0,
+        0.0075
+      ],
+      "box_geom_id": -1,
+      "box_half_size_m": [
+        0.18,
+        0.62,
+        0.0075
+      ],
+      "box_name": "terrain_single_15mm_box",
+      "collision_geometry": "native_plane",
+      "control_dt_s": 0.01,
+      "floor_geom_id": 0,
+      "height_semantics": "world_z minus true local ground",
+      "heightfield_present": false,
+      "mujoco_version": "3.12.0",
+      "native_dt_s": 0.002,
+      "obstacle_enabled": false,
+      "query_boundary": "closed axis-aligned rectangle; discontinuous vertical sides",
+      "schema": "d1-native-single-15mm-box-plant-v1",
+      "terrain_geom_ids": [
+        0
+      ],
+      "world_height_reference_m": 0.455
+    }
+  },
+  "heading_reference_initial": {
+    "heading_rad": 0.0,
+    "held_user_yaw_rate_rps": 0.0,
+    "measured_heading_rad": 0.0,
+    "measured_yaw_rate_rps": 0.0,
+    "measurement_age_s": 0.0,
+    "reference_schema": "d1-simulation-time-heading-reference-v1",
+    "simulation_time_s": 0.0,
+    "source_schema": "d1-synchronized-oracle-v1"
+  }
+}

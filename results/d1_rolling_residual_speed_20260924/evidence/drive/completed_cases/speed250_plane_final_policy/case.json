@@ -1,0 +1,128 @@
+{
+  "actor": "final_policy",
+  "baseline_source": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_03/evaluation/speed250_plane_final_policy",
+  "baseline_states_sha256": "eabadbd406023cc4e6ca762f121f28efadd581050c2b240f45ed5b43157621a5",
+  "case": "speed250_plane_final_policy",
+  "controller_law_transfer": true,
+  "drive_stage_validation": {
+    "actual_compiled_joint_dof_addresses": [
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21
+    ],
+    "actual_compiled_joint_qpos_addresses": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22
+    ],
+    "precontrol_archive": {
+      "fixed_synchronized_provider_linked_to_raw_truth": true,
+      "linked_precontrol_snapshots": 1200,
+      "record_valid": true
+    },
+    "schema": "drive-damping-case-stage-validation-v1",
+    "stage": {
+      "algebraic_tolerance": {
+        "atol": 1e-10,
+        "rtol": 1e-12
+      },
+      "drive_active_controls": 800,
+      "max_abs_actual_protected_increment_nm": 9.482091066367747,
+      "max_abs_raw_drive_increment_nm": 9.482091066367747,
+      "no_engine_or_model_calls": true,
+      "record_valid": true,
+      "schema": "d1-drive-jx-stage-chain-validation-v1",
+      "stop_active_controls": 225,
+      "validated_controls": 1200
+    }
+  },
+  "paired_initial_exact": true,
+  "score": {
+    "all_time_envelope_passed": true,
+    "complete": true,
+    "failure_reasons": [],
+    "final_stable": true,
+    "mechanical_crossing": null,
+    "metrics": {
+      "commanded_forward_velocity_mps": 0.25,
+      "completed_control_intervals": 1200,
+      "endpoint_count": 1201,
+      "far_edge_m": null,
+      "final_collision_geom_count": null,
+      "final_endpoint_window_ticks": [
+        1101,
+        1200
+      ],
+      "final_min_robot_x_m": null,
+      "final_native_window_indices": [
+        5500,
+        5999
+      ],
+      "final_wheel_indices_present": null,
+      "final_window_base_z_rmse_m": 0.006590718511084354,
+      "final_window_max_abs_body_vx_mps": 0.005568816684495037,
+      "final_window_max_abs_com_vz_mps": 0.00027244621548457547,
+      "final_window_wheel_positive_load_fractions": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "first_geometric_box_native_index": null,
+      "first_positive_wheel_box_native_index": null,
+      "max_abs_applied_leg_normalized": 0.24817723035812378,
+      "max_abs_lateral_deviation_m": 3.7789063922114353e-05,
+      "max_abs_leg_extension_residual_m": 0.009927089214324952,
+      "max_abs_pitch_deg": 1.6216184183393643,
+      "max_abs_raw_policy_scalar": 0.9927089214324951,
+      "max_abs_roll_deg": 0.001266524477104498,
+      "max_abs_yaw_deviation_deg": 0.002708074473115755,
+      "minimum_clearance_beyond_far_edge_m": null,
+      "native_count": 6000,
+      "nonwheel_contact_endpoint_total": 0,
+      "nonwheel_contact_native_total": 0,
+      "positive_wheel_box_feature_counts": null,
+      "positive_wheel_box_native_steps": null,
+      "positive_wheel_box_wheel_indices": null,
+      "speed_window_endpoint_ticks": [
+        275,
+        875
+      ],
+      "speed_window_mean_body_vx_mps": 0.25044110740222153,
+      "speed_window_rms_command_error_mps": 0.001089674760653355
+    },
+    "no_nonwheel_contact": true,
+    "record_valid": true,
+    "speed_gate_passed": true,
+    "task_passed": true,
+    "wheel_box_contact_qualified": null
+  },
+  "speed_mps": 0.25,
+  "terrain": "plane"
+}

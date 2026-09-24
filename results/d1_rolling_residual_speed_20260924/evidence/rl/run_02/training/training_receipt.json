@@ -1,0 +1,834 @@
+{
+  "active_episode_completed_controls": 736,
+  "active_episode_index": 54,
+  "actor_parameters_changed": true,
+  "actual_hyperparameters": {
+    "activation_function": "Tanh",
+    "batch_size": 128,
+    "clip_range": 0.2,
+    "device": "cpu",
+    "ent_coef": 0.0,
+    "gae_lambda": 0.95,
+    "gamma": 0.9950124791926823,
+    "learning_rate": 0.0003,
+    "max_grad_norm": 0.5,
+    "n_epochs": 4,
+    "n_steps": 128,
+    "normalize_advantage": true,
+    "num_envs": 1,
+    "optimizer_class": "Adam",
+    "optimizer_defaults": {
+      "amsgrad": false,
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "capturable": false,
+      "decoupled_weight_decay": false,
+      "differentiable": false,
+      "eps": 1e-05,
+      "foreach": null,
+      "fused": null,
+      "lr": 0.0003,
+      "maximize": false,
+      "weight_decay": 0
+    },
+    "policy_kwargs": {
+      "log_std_init": -2.0,
+      "net_arch": [
+        64,
+        64
+      ]
+    },
+    "sde_sample_freq": -1,
+    "target_kl": null,
+    "use_sde": false,
+    "vf_coef": 0.5
+  },
+  "checkpoint_metadata_sha256": "44b199ea13989412d274955a9fd85d6e97e58ad708a0c7e3ab7a4085ae3daaf3",
+  "checkpoint_reload_zero_physics": true,
+  "completed_train_calls": 512,
+  "completed_update_records": 512,
+  "deterministic_probe_counterfactual_leg_residual_m_if_forward_gate_active": [
+    0.009167152047157288,
+    0.009881725311279297
+  ],
+  "deterministic_probe_counterfactual_leg_residual_normalized_if_forward_gate_active": [
+    0.2291788011789322,
+    0.24704313278198242
+  ],
+  "deterministic_probe_policy_scalar": [
+    0.9167152047157288,
+    0.9881725311279297
+  ],
+  "episodes_completed": [
+    {
+      "completed_controls": 1200,
+      "episode_index": 0,
+      "reward_sum": 22.508217239720224,
+      "spec": {
+        "forward_start_tick": 200,
+        "forward_stop_tick": 1000,
+        "forward_velocity_mps": 0.18,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 1,
+      "reward_sum": 22.517699700118094,
+      "spec": {
+        "forward_start_tick": 250,
+        "forward_stop_tick": 1050,
+        "forward_velocity_mps": 0.18,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 2,
+      "reward_sum": 22.452584387288685,
+      "spec": {
+        "forward_start_tick": 200,
+        "forward_stop_tick": 1000,
+        "forward_velocity_mps": 0.2,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 3,
+      "reward_sum": 22.431260287918832,
+      "spec": {
+        "forward_start_tick": 250,
+        "forward_stop_tick": 1050,
+        "forward_velocity_mps": 0.2,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 4,
+      "reward_sum": 22.27484125487242,
+      "spec": {
+        "forward_start_tick": 200,
+        "forward_stop_tick": 1000,
+        "forward_velocity_mps": 0.225,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 5,
+      "reward_sum": 22.299382147133173,
+      "spec": {
+        "forward_start_tick": 250,
+        "forward_stop_tick": 1050,
+        "forward_velocity_mps": 0.225,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 6,
+      "reward_sum": 22.479748434170006,
+      "spec": {
+        "forward_start_tick": 200,
+        "forward_stop_tick": 1000,
+        "forward_velocity_mps": 0.18,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 7,
+      "reward_sum": 22.402086069694658,
+      "spec": {
+        "forward_start_tick": 250,
+        "forward_stop_tick": 1050,
+        "forward_velocity_mps": 0.18,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 8,
+      "reward_sum": 22.212138211992727,
+      "spec": {
+        "forward_start_tick": 200,
+        "forward_stop_tick": 1000,
+        "forward_velocity_mps": 0.2,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 9,
+      "reward_sum": 22.145063818681813,
+      "spec": {
+        "forward_start_tick": 250,
+        "forward_stop_tick": 1050,
+        "forward_velocity_mps": 0.2,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 10,
+      "reward_sum": 21.907550704403608,
+      "spec": {
+        "forward_start_tick": 200,
+        "forward_stop_tick": 1000,
+        "forward_velocity_mps": 0.225,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 11,
+      "reward_sum": 21.987661674645267,
+      "spec": {
+        "forward_start_tick": 250,
+        "forward_stop_tick": 1050,
+        "forward_velocity_mps": 0.225,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 12,
+      "reward_sum": 22.19302912695081,
+      "spec": {
+        "forward_start_tick": 200,
+        "forward_stop_tick": 1000,
+        "forward_velocity_mps": 0.18,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 13,
+      "reward_sum": 22.268541324529544,
+      "spec": {
+        "forward_start_tick": 250,
+        "forward_stop_tick": 1050,
+        "forward_velocity_mps": 0.18,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 14,
+      "reward_sum": 22.285882151224033,
+      "spec": {
+        "forward_start_tick": 200,
+        "forward_stop_tick": 1000,
+        "forward_velocity_mps": 0.2,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 15,
+      "reward_sum": 22.23137272570266,
+      "spec": {
+        "forward_start_tick": 250,
+        "forward_stop_tick": 1050,
+        "forward_velocity_mps": 0.2,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 16,
+      "reward_sum": 22.072094782083838,
+      "spec": {
+        "forward_start_tick": 200,
+        "forward_stop_tick": 1000,
+        "forward_velocity_mps": 0.225,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 17,
+      "reward_sum": 22.0513688708512,
+      "spec": {
+        "forward_start_tick": 250,
+        "forward_stop_tick": 1050,
+        "forward_velocity_mps": 0.225,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 18,
+      "reward_sum": 22.388050785438963,
+      "spec": {
+        "forward_start_tick": 200,
+        "forward_stop_tick": 1000,
+        "forward_velocity_mps": 0.18,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 19,
+      "reward_sum": 22.28277043471216,
+      "spec": {
+        "forward_start_tick": 250,
+        "forward_stop_tick": 1050,
+        "forward_velocity_mps": 0.18,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 20,
+      "reward_sum": 22.059194737406628,
+      "spec": {
+        "forward_start_tick": 200,
+        "forward_stop_tick": 1000,
+        "forward_velocity_mps": 0.2,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 21,
+      "reward_sum": 22.06524544122122,
+      "spec": {
+        "forward_start_tick": 250,
+        "forward_stop_tick": 1050,
+        "forward_velocity_mps": 0.2,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 22,
+      "reward_sum": 21.957111104391767,
+      "spec": {
+        "forward_start_tick": 200,
+        "forward_stop_tick": 1000,
+        "forward_velocity_mps": 0.225,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 23,
+      "reward_sum": 21.962391790181673,
+      "spec": {
+        "forward_start_tick": 250,
+        "forward_stop_tick": 1050,
+        "forward_velocity_mps": 0.225,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 24,
+      "reward_sum": 22.28277477685465,
+      "spec": {
+        "forward_start_tick": 200,
+        "forward_stop_tick": 1000,
+        "forward_velocity_mps": 0.18,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 25,
+      "reward_sum": 22.214770855653626,
+      "spec": {
+        "forward_start_tick": 250,
+        "forward_stop_tick": 1050,
+        "forward_velocity_mps": 0.18,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 26,
+      "reward_sum": 22.21452831896089,
+      "spec": {
+        "forward_start_tick": 200,
+        "forward_stop_tick": 1000,
+        "forward_velocity_mps": 0.2,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 27,
+      "reward_sum": 22.087104151968276,
+      "spec": {
+        "forward_start_tick": 250,
+        "forward_stop_tick": 1050,
+        "forward_velocity_mps": 0.2,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 28,
+      "reward_sum": 21.977208636949154,
+      "spec": {
+        "forward_start_tick": 200,
+        "forward_stop_tick": 1000,
+        "forward_velocity_mps": 0.225,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 29,
+      "reward_sum": 21.983112601774632,
+      "spec": {
+        "forward_start_tick": 250,
+        "forward_stop_tick": 1050,
+        "forward_velocity_mps": 0.225,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 30,
+      "reward_sum": 22.200548589751048,
+      "spec": {
+        "forward_start_tick": 200,
+        "forward_stop_tick": 1000,
+        "forward_velocity_mps": 0.18,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 31,
+      "reward_sum": 22.17499927006738,
+      "spec": {
+        "forward_start_tick": 250,
+        "forward_stop_tick": 1050,
+        "forward_velocity_mps": 0.18,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 32,
+      "reward_sum": 22.12292807992838,
+      "spec": {
+        "forward_start_tick": 200,
+        "forward_stop_tick": 1000,
+        "forward_velocity_mps": 0.2,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 33,
+      "reward_sum": 22.05385285967376,
+      "spec": {
+        "forward_start_tick": 250,
+        "forward_stop_tick": 1050,
+        "forward_velocity_mps": 0.2,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 34,
+      "reward_sum": 21.930894384454824,
+      "spec": {
+        "forward_start_tick": 200,
+        "forward_stop_tick": 1000,
+        "forward_velocity_mps": 0.225,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 35,
+      "reward_sum": 21.897790851568057,
+      "spec": {
+        "forward_start_tick": 250,
+        "forward_stop_tick": 1050,
+        "forward_velocity_mps": 0.225,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 36,
+      "reward_sum": 22.188006764160743,
+      "spec": {
+        "forward_start_tick": 200,
+        "forward_stop_tick": 1000,
+        "forward_velocity_mps": 0.18,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 37,
+      "reward_sum": 22.3246937005595,
+      "spec": {
+        "forward_start_tick": 250,
+        "forward_stop_tick": 1050,
+        "forward_velocity_mps": 0.18,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 38,
+      "reward_sum": 22.263876027407488,
+      "spec": {
+        "forward_start_tick": 200,
+        "forward_stop_tick": 1000,
+        "forward_velocity_mps": 0.2,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 39,
+      "reward_sum": 22.26288159559387,
+      "spec": {
+        "forward_start_tick": 250,
+        "forward_stop_tick": 1050,
+        "forward_velocity_mps": 0.2,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 40,
+      "reward_sum": 22.02476936171747,
+      "spec": {
+        "forward_start_tick": 200,
+        "forward_stop_tick": 1000,
+        "forward_velocity_mps": 0.225,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 41,
+      "reward_sum": 21.956965916245313,
+      "spec": {
+        "forward_start_tick": 250,
+        "forward_stop_tick": 1050,
+        "forward_velocity_mps": 0.225,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 42,
+      "reward_sum": 22.21016303706445,
+      "spec": {
+        "forward_start_tick": 200,
+        "forward_stop_tick": 1000,
+        "forward_velocity_mps": 0.18,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 43,
+      "reward_sum": 22.210813982689398,
+      "spec": {
+        "forward_start_tick": 250,
+        "forward_stop_tick": 1050,
+        "forward_velocity_mps": 0.18,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 44,
+      "reward_sum": 22.0431658740517,
+      "spec": {
+        "forward_start_tick": 200,
+        "forward_stop_tick": 1000,
+        "forward_velocity_mps": 0.2,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 45,
+      "reward_sum": 22.058532664921607,
+      "spec": {
+        "forward_start_tick": 250,
+        "forward_stop_tick": 1050,
+        "forward_velocity_mps": 0.2,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 46,
+      "reward_sum": 21.76663951914,
+      "spec": {
+        "forward_start_tick": 200,
+        "forward_stop_tick": 1000,
+        "forward_velocity_mps": 0.225,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 47,
+      "reward_sum": 21.71000616397337,
+      "spec": {
+        "forward_start_tick": 250,
+        "forward_stop_tick": 1050,
+        "forward_velocity_mps": 0.225,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 48,
+      "reward_sum": 21.910749749037286,
+      "spec": {
+        "forward_start_tick": 200,
+        "forward_stop_tick": 1000,
+        "forward_velocity_mps": 0.18,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 49,
+      "reward_sum": 21.83576176446986,
+      "spec": {
+        "forward_start_tick": 250,
+        "forward_stop_tick": 1050,
+        "forward_velocity_mps": 0.18,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 50,
+      "reward_sum": 21.779788460753363,
+      "spec": {
+        "forward_start_tick": 200,
+        "forward_stop_tick": 1000,
+        "forward_velocity_mps": 0.2,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 51,
+      "reward_sum": 21.780145929142147,
+      "spec": {
+        "forward_start_tick": 250,
+        "forward_stop_tick": 1050,
+        "forward_velocity_mps": 0.2,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 52,
+      "reward_sum": 21.608957030742456,
+      "spec": {
+        "forward_start_tick": 200,
+        "forward_stop_tick": 1000,
+        "forward_velocity_mps": 0.225,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    },
+    {
+      "completed_controls": 1200,
+      "episode_index": 53,
+      "reward_sum": 21.602656816039836,
+      "spec": {
+        "forward_start_tick": 250,
+        "forward_stop_tick": 1050,
+        "forward_velocity_mps": 0.225,
+        "obstacle_enabled": true
+      },
+      "terminal_reason": "time_limit",
+      "terminated": false,
+      "truncated": true
+    }
+  ],
+  "final_actor_sha256": "81651ba4feedb93a13eaee73f0f48aa9e98ef4fd07a2cb3a40955f2a26f6f8f1",
+  "final_parameter_sha256": "d5cdabed50dc0c21fcd18dce05de3319f6ee79ce21652e0cbdd2b5f8ac3de8a4",
+  "initial_actor_sha256": "59491915b888c192b87a0298c118c647760d44313e9b730c4f9b45ee6513d3b9",
+  "initial_parameter_sha256": "6ccc0be8e37cf89ccbf968f809d1ab232c92e8c8dbd0b34e416fad1dc5adc39f",
+  "model_sha256": "4f59d795afbdec256ec17bb7256ea05a3ddd04561e9ba52beffb1de375196b2e",
+  "num_timesteps": 65536,
+  "optimization_epochs": 2048,
+  "optimizer_state_entries": 13,
+  "passed": true,
+  "physical_control_transitions": 65536,
+  "preclip_gaussian_and_clipped_inputs_logged_separately": true,
+  "probe_residuals_are_not_actual_applied_actions": true
+}

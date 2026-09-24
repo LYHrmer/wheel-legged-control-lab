@@ -1,0 +1,108 @@
+{
+  "passed": false,
+  "dso_path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/build/libepa01_engine.so",
+  "dso_sha256": "3ec7ec9a6a130b9e1fa153c800aab97b59d4692c24971027f02de42957f8fa9c",
+  "elf_hashes": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/build/libepa01_engine.so": "3ec7ec9a6a130b9e1fa153c800aab97b59d4692c24971027f02de42957f8fa9c",
+    "/home/lyh/.local/lib/python3.10/site-packages/mujoco/libmujoco.so.3.12.0": "bd3f702ace8a31e1046f746880387858a981d11b01772a55ebef48ffd55ea5b8",
+    "/home/lyh/.local/lib/python3.10/site-packages/mujoco/_functions.cpython-310-x86_64-linux-gnu.so": "c91f9a7a4f5d12023201c1c4faab893f4593cc953f53756cd9ac561d08e18a46",
+    "/home/lyh/.local/lib/python3.10/site-packages/mujoco/_rollout.cpython-310-x86_64-linux-gnu.so": "f0fcc4ffe83b44829703ec5c6a7e65ee2ea7ad40648f07c8bd3515b80e49f877"
+  },
+  "elf_bases": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/build/libepa01_engine.so": 139222269210624,
+    "/home/lyh/.local/lib/python3.10/site-packages/mujoco/libmujoco.so.3.12.0": 139222258286592,
+    "/home/lyh/.local/lib/python3.10/site-packages/mujoco/_functions.cpython-310-x86_64-linux-gnu.so": null,
+    "/home/lyh/.local/lib/python3.10/site-packages/mujoco/_rollout.cpython-310-x86_64-linux-gnu.so": null
+  },
+  "wrapper_ccd": {
+    "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/build/libepa01_engine.so",
+    "base": 139222269210624,
+    "address": 139222269268469,
+    "offset": 57845,
+    "symbol": "mjc_ccd"
+  },
+  "wrapper_step": {
+    "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/build/libepa01_engine.so",
+    "base": 139222269210624,
+    "address": 139222269268692,
+    "offset": 58068,
+    "symbol": "mj_step"
+  },
+  "rtld_next_original_step": {
+    "path": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/libmujoco.so.3.12.0",
+    "base": 139222258286592,
+    "address": 139222260491520,
+    "offset": 2204928,
+    "symbol": "mj_step"
+  },
+  "jump_slots": [
+    {
+      "elf": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/libmujoco.so.3.12.0",
+      "elf_sha256": "bd3f702ace8a31e1046f746880387858a981d11b01772a55ebef48ffd55ea5b8",
+      "base": 139222258286592,
+      "relocation_offset": 5641232,
+      "relocation_type": "R_X86_64_JUMP_SLOT",
+      "symbol": "mjc_ccd",
+      "target": 139222269268469,
+      "expected_wrapper": 139222269268469,
+      "passed": true
+    },
+    {
+      "elf": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/libmujoco.so.3.12.0",
+      "elf_sha256": "bd3f702ace8a31e1046f746880387858a981d11b01772a55ebef48ffd55ea5b8",
+      "base": 139222258286592,
+      "relocation_offset": 5642208,
+      "relocation_type": "R_X86_64_JUMP_SLOT",
+      "symbol": "mj_step",
+      "target": 139222269268692,
+      "expected_wrapper": 139222269268692,
+      "passed": true
+    },
+    {
+      "elf": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/_functions.cpython-310-x86_64-linux-gnu.so",
+      "elf_sha256": "c91f9a7a4f5d12023201c1c4faab893f4593cc953f53756cd9ac561d08e18a46",
+      "base": null,
+      "relocation_offset": 1147608,
+      "relocation_type": "R_X86_64_JUMP_SLOT",
+      "symbol": "mj_step",
+      "target": null,
+      "expected_wrapper": 139222269268692,
+      "passed": false
+    },
+    {
+      "elf": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/_rollout.cpython-310-x86_64-linux-gnu.so",
+      "elf_sha256": "f0fcc4ffe83b44829703ec5c6a7e65ee2ea7ad40648f07c8bd3515b80e49f877",
+      "base": null,
+      "relocation_offset": 681120,
+      "relocation_type": "R_X86_64_JUMP_SLOT",
+      "symbol": "mj_step",
+      "target": null,
+      "expected_wrapper": 139222269268692,
+      "passed": false
+    }
+  ],
+  "counters": {
+    "construction_attempts": 0,
+    "construction_returns": 0,
+    "control_attempts": 0,
+    "control_returns": 0,
+    "ccd_attempts": 0,
+    "ccd_returns": 0,
+    "violations": 0,
+    "construction_limit": 0,
+    "control_limit": 0,
+    "first_ccd_caller": 0,
+    "first_construction_step_caller": 0,
+    "first_control_step_caller": 0,
+    "original_step": 139222260491520,
+    "target_model": 0,
+    "target_data": 0,
+    "armed": 0,
+    "phase": 0,
+    "first_ccd_caller_dladdr": null,
+    "native_ccd_caller_verified": false,
+    "first_construction_step_caller_dladdr": null,
+    "first_control_step_caller_dladdr": null,
+    "native_construction_caller_verified": false
+  }
+}

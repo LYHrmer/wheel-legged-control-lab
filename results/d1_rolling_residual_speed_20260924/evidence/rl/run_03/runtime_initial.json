@@ -1,0 +1,154 @@
+{
+  "before_any_model_construction": true,
+  "binding_proof": {
+    "counters": {
+      "armed": 0,
+      "ccd_attempts": 0,
+      "ccd_returns": 0,
+      "construction_attempts": 0,
+      "construction_limit": 0,
+      "construction_returns": 0,
+      "control_attempts": 0,
+      "control_limit": 0,
+      "control_returns": 0,
+      "first_ccd_caller": 0,
+      "first_ccd_caller_dladdr": null,
+      "first_construction_step_caller": 0,
+      "first_construction_step_caller_dladdr": null,
+      "first_control_step_caller": 0,
+      "first_control_step_caller_dladdr": null,
+      "native_ccd_caller_verified": false,
+      "native_construction_caller_verified": false,
+      "original_step": 130482683618560,
+      "phase": 0,
+      "target_data": 0,
+      "target_model": 0,
+      "violations": 0
+    },
+    "dso_path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/build/libepa01_engine.so",
+    "dso_sha256": "3ec7ec9a6a130b9e1fa153c800aab97b59d4692c24971027f02de42957f8fa9c",
+    "elf_bases": {
+      "/home/lyh/.local/lib/python3.10/site-packages/mujoco/_functions.cpython-310-x86_64-linux-gnu.so": 130482645651456,
+      "/home/lyh/.local/lib/python3.10/site-packages/mujoco/_rollout.cpython-310-x86_64-linux-gnu.so": 130482597879808,
+      "/home/lyh/.local/lib/python3.10/site-packages/mujoco/libmujoco.so.3.12.0": 130482681413632,
+      "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/build/libepa01_engine.so": 130482692403200
+    },
+    "elf_hashes": {
+      "/home/lyh/.local/lib/python3.10/site-packages/mujoco/_functions.cpython-310-x86_64-linux-gnu.so": "c91f9a7a4f5d12023201c1c4faab893f4593cc953f53756cd9ac561d08e18a46",
+      "/home/lyh/.local/lib/python3.10/site-packages/mujoco/_rollout.cpython-310-x86_64-linux-gnu.so": "f0fcc4ffe83b44829703ec5c6a7e65ee2ea7ad40648f07c8bd3515b80e49f877",
+      "/home/lyh/.local/lib/python3.10/site-packages/mujoco/libmujoco.so.3.12.0": "bd3f702ace8a31e1046f746880387858a981d11b01772a55ebef48ffd55ea5b8",
+      "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/build/libepa01_engine.so": "3ec7ec9a6a130b9e1fa153c800aab97b59d4692c24971027f02de42957f8fa9c"
+    },
+    "jump_slots": [
+      {
+        "base": 130482681413632,
+        "elf": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/libmujoco.so.3.12.0",
+        "elf_sha256": "bd3f702ace8a31e1046f746880387858a981d11b01772a55ebef48ffd55ea5b8",
+        "expected_wrapper": 130482692461045,
+        "passed": true,
+        "relocation_offset": 5641232,
+        "relocation_type": "R_X86_64_JUMP_SLOT",
+        "symbol": "mjc_ccd",
+        "target": 130482692461045
+      },
+      {
+        "base": 130482681413632,
+        "elf": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/libmujoco.so.3.12.0",
+        "elf_sha256": "bd3f702ace8a31e1046f746880387858a981d11b01772a55ebef48ffd55ea5b8",
+        "expected_wrapper": 130482692461268,
+        "passed": true,
+        "relocation_offset": 5642208,
+        "relocation_type": "R_X86_64_JUMP_SLOT",
+        "symbol": "mj_step",
+        "target": 130482692461268
+      },
+      {
+        "base": 130482645651456,
+        "elf": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/_functions.cpython-310-x86_64-linux-gnu.so",
+        "elf_sha256": "c91f9a7a4f5d12023201c1c4faab893f4593cc953f53756cd9ac561d08e18a46",
+        "expected_wrapper": 130482692461268,
+        "passed": true,
+        "relocation_offset": 1147608,
+        "relocation_type": "R_X86_64_JUMP_SLOT",
+        "symbol": "mj_step",
+        "target": 130482692461268
+      },
+      {
+        "base": 130482597879808,
+        "elf": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/_rollout.cpython-310-x86_64-linux-gnu.so",
+        "elf_sha256": "f0fcc4ffe83b44829703ec5c6a7e65ee2ea7ad40648f07c8bd3515b80e49f877",
+        "expected_wrapper": 130482692461268,
+        "passed": true,
+        "relocation_offset": 681120,
+        "relocation_type": "R_X86_64_JUMP_SLOT",
+        "symbol": "mj_step",
+        "target": 130482692461268
+      }
+    ],
+    "passed": true,
+    "rtld_next_original_step": {
+      "address": 130482683618560,
+      "base": 130482681413632,
+      "offset": 2204928,
+      "path": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/libmujoco.so.3.12.0",
+      "symbol": "mj_step"
+    },
+    "wrapper_ccd": {
+      "address": 130482692461045,
+      "base": 130482692403200,
+      "offset": 57845,
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/build/libepa01_engine.so",
+      "symbol": "mjc_ccd"
+    },
+    "wrapper_step": {
+      "address": 130482692461268,
+      "base": 130482692403200,
+      "offset": 58068,
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/build/libepa01_engine.so",
+      "symbol": "mj_step"
+    }
+  },
+  "initial_C_state_after_arm": {
+    "armed": 1,
+    "ccd_attempts": 0,
+    "ccd_returns": 0,
+    "construction_attempts": 0,
+    "construction_limit": 5,
+    "construction_returns": 0,
+    "control_attempts": 0,
+    "control_limit": 30000,
+    "control_returns": 0,
+    "first_ccd_caller": 0,
+    "first_ccd_caller_dladdr": null,
+    "first_construction_step_caller": 0,
+    "first_construction_step_caller_dladdr": null,
+    "first_control_step_caller": 0,
+    "first_control_step_caller_dladdr": null,
+    "native_ccd_caller_verified": false,
+    "native_construction_caller_verified": false,
+    "original_step": 130482683618560,
+    "phase": 0,
+    "target_data": 0,
+    "target_model": 0,
+    "violations": 0
+  },
+  "initial_python_ledger": {
+    "clock_advanced_substeps": 0,
+    "construction_records": [],
+    "control_attempted": 0,
+    "control_completed": 0,
+    "control_limit": 6000,
+    "fatal_latched": false,
+    "forbidden_entries": 0,
+    "forward_counts_by_runtime_model_data_identity": {},
+    "mj_forward_calls": 0,
+    "mj_setConst_calls": 0,
+    "native_attempted": 0,
+    "native_failed": 0,
+    "native_limit": 30000,
+    "native_returned": 0,
+    "segments": [],
+    "static_forward_is_not_dynamic_load_evidence": true
+  },
+  "schema": "rolling-eval-continuation-runtime-initial-v1"
+}

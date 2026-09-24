@@ -1,0 +1,24 @@
+--- /home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_epa01/sources/engine/engine_collision_gjk.c	2026-09-23 19:50:52.090369329 +0800
++++ /home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/engine_local_gjk.c	2026-09-23 21:33:30.366340210 +0800
+@@ -12,6 +12,12 @@
+ // See the License for the specific language governing permissions and
+ // limitations under the License.
+ 
++// Isolated local entrypoints; original MuJoCo ABI remains in the wrapper.
++#define mjc_ccd epa01_engine_local_ccd
++#define mjc_ccdSize epa01_engine_local_ccdSize
++#define mjc_pointSupport epa01_engine_pointSupport
++#define mjc_lineSupport epa01_engine_lineSupport
++
+ #include "engine/engine_collision_gjk.h"
+ 
+ #include <stddef.h>
+@@ -1403,7 +1409,7 @@
+       upper = upper_k;
+       upper2 = upper * upper;
+     }
+-    if (upper - lower < tolerance) {
++    if (upper_k - lower < tolerance) {
+       // terminate without contact when upper < lower on first iteration
+       if (k == 0 && upper < lower - 1e-10) {
+         face = NULL;

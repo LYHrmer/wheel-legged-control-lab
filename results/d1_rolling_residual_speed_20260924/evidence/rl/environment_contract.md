@@ -1,0 +1,45 @@
+# RL environment bootstrap correction contract 02
+
+2026-09-23. Actual GPT-6-astra ultra directs and independently reviews; actual GPT-6-sol implements the single new bootstrap; root exclusively freezes and executes. The user's standing authorization to complete RL and speed validation covers this bounded environment correction. It is directly executable after the implementation GO below, without an additional approval or smoke process.
+
+## Closed predecessor and precise cause
+
+The original rolling RL contract is `stability_20260923_engine01/next_rolling_rl_speed_plan_01/next_contract.md`, SHA256 `500a00e22f86600b986e7d537e8d891c09888fb33e5f11a8a2a774deae7f10e0`; its clarification SHA256 is `61aeb51d5bb5614cdbce3c54d506e913ec54df6d4ebaf17d244e81c30837cf0f`. Its single process run_01 exited1 after4.213122985seconds with `RuntimeError: LD_LIBRARY_PATH must be empty`. Training and evaluation are null, runtime was not assigned, nominal-geometry cache stayed cold, stderr is empty and all442 frozen input hashes are unchanged. `run_01_boundary_closure.json` closes the entire prior reservation; it is neither reusable nor a successful training result. No C counter snapshot was available: do not infer a directly measured zero for every native function. The original source, freeze, activation, output and scientific contract remain unchanged.
+
+Static source identifies the concrete import side effect: SB3 package imports A2C/on_policy_algorithm/base_class, base_class imports common.env_util, env_util imports common.atari_wrappers, and atari_wrappers imports cv2 at module scope. The installed cv2 loader's __init__.py:147 writes LD_LIBRARY_PATH from BINARIES_PATHS plus ':' plus the previous value. Its config.py selects exactly os.path.join(os.path.join(LOADER_DIR,'../../'),'lib64'); config-3.py changes no BINARIES_PATHS. Version metadata says OpenCV5.0.0.93, headless=True. This explains a nonempty variable after dependency imports despite the frozen outer env -u LD_LIBRARY_PATH. This is an environment-initialization defect, not evidence of a numerical training/physics failure. The loader itself notes the environment assignment affects subprocesses; actual current-process MuJoCo ELF/GOT bindings must still be verified, not assumed.
+
+## Only implementation delta
+
+Add one new repository bootstrap entry; never edit any run_01-frozen file, original study, numerical module, DSO, binding helper, test, input or evidence. The wrapper accepts the exact four existing flags --library/--output/--contract/--freeze and delegates to original study.main without changing sys.argv. Keep --contract pointing to the original scientific contract, as required by its unchanged parser. The new root freeze additionally binds this supplemental contract path and SHA through environment_contract_path/environment_contract_sha256, includes both contracts in files, and uses the wrapper in both execution_argv and python_argv.
+
+Before importing any training/engine dependency, invoke original study._check_freeze, validate this supplemental contract against the frozen SHA, require LD_LIBRARY_PATH to be absent, exact accepted LD_PRELOAD and LD_BIND_NOW=1, Python3.10 and cv2 absent from sys.modules. The original study module is safe to import at this point because its top level imports only standard-library helpers. Check the pinned cv2 files below, and require config-3.10.py to be absent (otherwise the loader would choose it instead of config-3.py). Preserve the accepted site-packages-first PYTHONPATH.
+
+Within this same prepaid process, import the complete dependency set in the original main order: mujoco, mujoco._functions, mujoco._rollout; _nominal_geometry (read cache_info only, never call it); scripts.d1_rolling_engine_runtime, scripts.d1_rolling_native_monitor, scripts.evaluate_d1_rolling_residual, scripts.train_d1_rolling_residual_ppo. These imports run while the unchanged preloaded DSO is unarmed/closed. Do not instantiate a task, model, env, EngineGuard or PPO, and do not call any physics/static function here.
+
+After imports require cache still cold, cv2.__file__ exactly the pinned loader, cv2._native.__file__ exactly the pinned extension, and all pinned files unchanged. Require the actual environment value to equal this literal string exactly, with the unnormalized ../ components and trailing colon:
+
+`/home/lyh/.local/lib/python3.10/site-packages/cv2/../../lib64:`
+
+Reject a missing, duplicated or different prefix; do not broadly accept arbitrary LD_LIBRARY_PATH. Record startup and post-import environment values, actual module origins, cv2 version observations, hashes and cache in an exclusive bootstrap receipt. Remove only LD_LIBRARY_PATH to restore its startup absence, verify absence and that LD_PRELOAD/LD_BIND_NOW stayed exact, and record the restoration durably before calling original study.main. All failure paths save an exclusive diagnostic receipt when possible and terminate, with no automatic retry. Do not monkeypatch dependency loaders or EngineGuard. Original study then repeats its full source/argv checks and the unchanged helper repeats all actual ELF/GOT/caller checks before arming the engine. The full imported modules are cached; no cv2 reload is allowed. If another unexpected mutation reappears, the existing helper must reject it.
+
+Pinned cv2 root: `/home/lyh/.local/lib/python3.10/site-packages/cv2`.
+- __init__.py: `69192904dead3ada37c8b305ee850ac7474924730881a9d5e0b2390944eb5aae`
+- config.py: `974e2d4096ee1a9a9a341df1bf33e16973683bf1ac733006de27ff2f23bc584d`
+- config-3.py: `9a7aadf724b822001f5e963b01fd4e375d45e2cbbe328d2ca7b42a440c083a1c`
+- load_config_py3.py: `9c22766454a9ac2f6869d37830b2efc699e7b8c3125484e9976c6e677c066029`
+- version.py: `e718587212508acdcb296839c287c7fa346edb621005ffb199c26397592544ed`
+- cv2.abi3.so: `9e29605abcc31c9942d0e7dffc53b4ccaa601676c794327b0ea71a570a0c26c2`
+
+The freeze must include these six absolute files and verify their hashes before launch and after return, as well as the wrapper, this contract, final Astra review/snapshot and failed-run closure/receipts. Preserve and verify every original442 input hash individually; extra new files must not be misinterpreted as modifications of archived input files.
+
+## One fresh finite process, identical scientific work
+
+Root may reuse the unchanged original run_rl_once_01.py launcher, under a NEW root_execution_freeze_02.json, NEW budget_activation_02.json and NEW run_02 output directory. These names must be exclusive and all old names remain untouched. The original base contract SHA remains in the launcher's activation; its new freeze SHA additionally identifies this new contract and wrapper, so the new reservation cannot be confused with the exhausted run_01 reservation.
+
+Authorize exactly ONE fresh combined process, not a continuation of the old budget. Durably prepay fresh maxima75136control =65536train+9600eval,375680normal native =327680train+48000eval, plus5compiler native, total375685mj_step; timeout1800seconds, no retry or second bootstrap process. Same C atomic caps, Python per-control/per-segment budgets, warning stop, every-native geometry guard, actual counters, five compiler calls/cold cache and complete sources/actual bindings remain required. No extra native/static/model calls, extra test subprocess or import smoke. The original local two pure-test rounds (12+16 cases) remain the only such rounds; unchanged tested numerical/task/eval modules do not need repetition. New bootstrap and pure freezer may receive static AST/Ruff review only, without importing dependencies.
+
+All scientific parameters, PPO settings and seed77341,65536transitions/512completedtraincalls/2048epochs, one final checkpoint and one reload, shared-leg action mapping, unchanged reward, six training command scenarios, eight held-out paired zero/policy cases at.2/.25 with seed77351, exact record/geometry/physical/speed gates and causal-claim limits are imported unchanged from the original contract and clarification. A valid ordinary zero task failure may continue; qualification requires four complete passing policy cases and actual counter equality, not all eight maximal counts. No gain change, threshold widening, alternative checkpoint, extra seed, physical sweep or batch replay.
+
+## Acceptance and stop boundary
+
+Astra reviews the exact new wrapper/freezer and binds their final hashes in a new execution review/snapshot before root creates the final freeze and launches once. On normal return, root and Astra check the bootstrap restoration receipt, all actual original study binding/counter/hash/update gates, and paired evaluation results. Report RL learning evidence separately from causal task benefit and distinguish commanded25% from measured speed increase. On failure close this new reservation and preserve the exact boundary; never silently rerun it. On success continue the already-authorized result analysis, saved-trajectory visualization and GitHub publication. This correction exists to reach the real RL and speed result, not to replace it with another plan.

@@ -1,0 +1,2174 @@
+{
+  "schema": "rolling-evaluation-continuation-freeze-v1",
+  "astra_decision": "GO",
+  "process_limit": 1,
+  "training_control_limit": 0,
+  "evaluation_control_limit": 6000,
+  "normal_native_limit": 30000,
+  "compiler_native_limit": 5,
+  "wallclock_limit_s": 600,
+  "contract_path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/next_eval_continuation_plan_03/next_contract.md",
+  "contract_sha256": "6be5ebc4557f124db74c7f6441ae624e70eb066f6efc94923a4269f0160dc194",
+  "prior_boundary_closure": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02_boundary_closure_01.json",
+  "original_run": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02",
+  "output_directory": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_03",
+  "budget_path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/budget_activation_03.json",
+  "original_freeze_path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/root_execution_freeze_02.json",
+  "original_freeze_sha256": "5e541f030fd59b38a328e88a71e5ae0c58d6fda27cf7aeed7324a762aa5f2ac2",
+  "original_archive_manifest_path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02_interrupted_archive_manifest_01.json",
+  "original_archive_manifest_sha256": "38ad4b520aadc7d1bc126f1ff4312f2fc976fbb0e4d11e49e6b961069c661075",
+  "original_training_protocol_sha256": "494eb82ca80a842c190bbbff9bc75fa10c2e7832789a2d9bce0785acc3684733",
+  "checkpoint_sha256": "4f59d795afbdec256ec17bb7256ea05a3ddd04561e9ba52beffb1de375196b2e",
+  "python_argv": [
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_evaluation_continuation_03.py",
+    "--library",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/build/libepa01_engine.so",
+    "--original-run",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02",
+    "--output",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_03",
+    "--contract",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/next_eval_continuation_plan_03/next_contract.md",
+    "--freeze",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/root_execution_freeze_03.json"
+  ],
+  "execution_argv": [
+    "rtk",
+    "proxy",
+    "env",
+    "-u",
+    "LD_LIBRARY_PATH",
+    "LD_PRELOAD=/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/build/libepa01_engine.so",
+    "LD_BIND_NOW=1",
+    "PYTHONDONTWRITEBYTECODE=1",
+    "OPENBLAS_NUM_THREADS=1",
+    "OMP_NUM_THREADS=1",
+    "MKL_NUM_THREADS=1",
+    "PYTHONPATH=/home/lyh/.local/lib/python3.10/site-packages:/home/lyh/wheel-legged-control-lab/.local-deps:/home/lyh/wheel-legged-control-lab/src:/home/lyh/wheel-legged-control-lab:/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01",
+    "python3",
+    "-B",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_evaluation_continuation_03.py",
+    "--library",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/build/libepa01_engine.so",
+    "--original-run",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02",
+    "--output",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_03",
+    "--contract",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/next_eval_continuation_plan_03/next_contract.md",
+    "--freeze",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/root_execution_freeze_03.json"
+  ],
+  "files": {
+    "/home/lyh/.local/lib/python3.10/site-packages/gymnasium-1.3.0.dist-info/METADATA": {
+      "sha256": "4e8ca97d517ff8c1eb7d2d97f1661bf2e5a8bd47da10cd9c4be19d5bcb054e48",
+      "bytes": 10202
+    },
+    "/home/lyh/.local/lib/python3.10/site-packages/mujoco/_functions.cpython-310-x86_64-linux-gnu.so": {
+      "sha256": "c91f9a7a4f5d12023201c1c4faab893f4593cc953f53756cd9ac561d08e18a46",
+      "bytes": 1142152
+    },
+    "/home/lyh/.local/lib/python3.10/site-packages/mujoco/_rollout.cpython-310-x86_64-linux-gnu.so": {
+      "sha256": "f0fcc4ffe83b44829703ec5c6a7e65ee2ea7ad40648f07c8bd3515b80e49f877",
+      "bytes": 675760
+    },
+    "/home/lyh/.local/lib/python3.10/site-packages/mujoco/include/mujoco/mjassert.h": {
+      "sha256": "91d3b2206225c337dd9359ef37e948c455b07402eac1ff61069646953ad72e39",
+      "bytes": 4735
+    },
+    "/home/lyh/.local/lib/python3.10/site-packages/mujoco/include/mujoco/mjdata.h": {
+      "sha256": "93aaee9927e47fce4ac2f0f07dc90aad6769b8a9a401e262bd87135c29c90ec5",
+      "bytes": 25555
+    },
+    "/home/lyh/.local/lib/python3.10/site-packages/mujoco/include/mujoco/mjexport.h": {
+      "sha256": "2d0ec44615ce9e0dd3d80ce9ca2a8bcad1906840d2ab6b5a9af785f7be989f8b",
+      "bytes": 1533
+    },
+    "/home/lyh/.local/lib/python3.10/site-packages/mujoco/include/mujoco/mjmacro.h": {
+      "sha256": "067e74ccb1a17c3ca555d46cbae5cd86778220e5238706e40ea9bc7139cb7012",
+      "bytes": 1336
+    },
+    "/home/lyh/.local/lib/python3.10/site-packages/mujoco/include/mujoco/mjmodel.h": {
+      "sha256": "3e9495c3abbdb8b3e418278e63a824a967bedfe51394e8f73929cf3ff7ce98ae",
+      "bytes": 65464
+    },
+    "/home/lyh/.local/lib/python3.10/site-packages/mujoco/include/mujoco/mjplugin.h": {
+      "sha256": "332da623efc10631e584af5e0dc419c38bdbf0447eb20fb08f0062637ed9cec9",
+      "bytes": 10025
+    },
+    "/home/lyh/.local/lib/python3.10/site-packages/mujoco/include/mujoco/mjrender.h": {
+      "sha256": "689a3d4e9f952b474352b5251f90efaa4a7dd26a654dbc7192bbb3df2f20c806",
+      "bytes": 10478
+    },
+    "/home/lyh/.local/lib/python3.10/site-packages/mujoco/include/mujoco/mjsan.h": {
+      "sha256": "317f3f70b67e44d43b1d0815710aa4cd4a3d7fa62d9ac337f04734102e9833d6",
+      "bytes": 2787
+    },
+    "/home/lyh/.local/lib/python3.10/site-packages/mujoco/include/mujoco/mjspec.h": {
+      "sha256": "b2118e82292c5d110a4597cbb438ed6b931af63d079e94771e75fb82c8c38b78",
+      "bytes": 37517
+    },
+    "/home/lyh/.local/lib/python3.10/site-packages/mujoco/include/mujoco/mjspecmacro.h": {
+      "sha256": "5eeeb6c42372cfd1c725171027ce1e9aaf9b7c9f8cc95e1b2e52e27ff7bde8ac",
+      "bytes": 26541
+    },
+    "/home/lyh/.local/lib/python3.10/site-packages/mujoco/include/mujoco/mjtype.h": {
+      "sha256": "3fbda7518b6f97568c95d82cdae71289650c8eba2724ae18ab37284d5db3e804",
+      "bytes": 29096
+    },
+    "/home/lyh/.local/lib/python3.10/site-packages/mujoco/include/mujoco/mjui.h": {
+      "sha256": "797532f5e00744561ba08c938fe30deba6f7c595f7c6e9834e6bb4f74a77fedc",
+      "bytes": 14193
+    },
+    "/home/lyh/.local/lib/python3.10/site-packages/mujoco/include/mujoco/mjvisualize.h": {
+      "sha256": "e733fce1897f54384945f8eda87d89ba3aeaf2b63e1604d63d05991f60ec184e",
+      "bytes": 19557
+    },
+    "/home/lyh/.local/lib/python3.10/site-packages/mujoco/include/mujoco/mjxmacro.h": {
+      "sha256": "b25be2e5726aeddb5b1beca731d4d585477e2193a5ad9f44651b8a8b5a6f4eb0",
+      "bytes": 67238
+    },
+    "/home/lyh/.local/lib/python3.10/site-packages/mujoco/include/mujoco/mujoco.h": {
+      "sha256": "c7378e471cb951f4ff4bd4801139be41495a3df82c5ae643c4134ded850fb7ef",
+      "bytes": 87400
+    },
+    "/home/lyh/.local/lib/python3.10/site-packages/mujoco/libmujoco.so.3.12.0": {
+      "sha256": "bd3f702ace8a31e1046f746880387858a981d11b01772a55ebef48ffd55ea5b8",
+      "bytes": 6180200
+    },
+    "/home/lyh/.local/lib/python3.10/site-packages/mujoco-3.12.0.dist-info/METADATA": {
+      "sha256": "5e43553c4fc3471a3b48709a0c75c703c2687f4a655597b1d1a351158511c3cf",
+      "bytes": 232742
+    },
+    "/home/lyh/.local/lib/python3.10/site-packages/numpy-2.2.6.dist-info/METADATA": {
+      "sha256": "22d648f53848429464ca643b40d73b49a920d47876fc77c395d4dca4e834904a",
+      "bytes": 62026
+    },
+    "/home/lyh/.local/lib/python3.10/site-packages/torch-2.12.1.dist-info/METADATA": {
+      "sha256": "a0e493588a0381cc478d848e7f7a334ef7f17e8973c70b657867a5eeadb732df",
+      "bytes": 31974
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/__init__.py": {
+      "sha256": "a8d5d1b88605932e9d03c6acc37eadc54319bb1b563faf00cd173fbfdf059cf6",
+      "bytes": 939
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/a2c/__init__.py": {
+      "sha256": "7460d0bedd470910de7e98474e1f41cef76b46c8f1b213e116e9c117e7620c7b",
+      "bytes": 189
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/a2c/a2c.py": {
+      "sha256": "fc827af05ad7a72d3ca5fc44139496ccb5f101b3ee6602a915a92f77d46353ab",
+      "bytes": 9164
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/a2c/policies.py": {
+      "sha256": "ad8cd1b486fb1b9b7d4e962d8ed7ade01c58229e60c61f7c6fc0fbce55a41864",
+      "bytes": 301
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/__init__.py": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/atari_wrappers.py": {
+      "sha256": "4e1a42ae65a568ad8d403d066aea7eccdfbac67cb15b1f8de2bf9c2f54e8b14c",
+      "bytes": 11770
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/base_class.py": {
+      "sha256": "8e142f3efc4397a94dbe8bbb0ee1998cfe9e809b2fb34a9297f737ed4d81ab63",
+      "bytes": 38680
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/buffers.py": {
+      "sha256": "21db27f000048615f5848facf18af9afc22e6e2a1c26148911c2cba542d1988d",
+      "bytes": 40735
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/callbacks.py": {
+      "sha256": "29c3b9668239ef872fbf94a2ef37c672889947b0531c9a6ec963fd12c00d255e",
+      "bytes": 27529
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/distributions.py": {
+      "sha256": "416b40a1bc3bf6435f45e79553fc553d796b58f95d28e49d3aa4437dcfe6e251",
+      "bytes": 28170
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/env_checker.py": {
+      "sha256": "db0cd1ea93d97be869d1af0377b8b058d1745b0e51c0a3e8b9c1cbae8f6b665e",
+      "bytes": 24677
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/env_util.py": {
+      "sha256": "aea5a270db0068bca2d139ecf693775cb85330c79e07b0d837c5711285e72b33",
+      "bytes": 7932
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/envs/__init__.py": {
+      "sha256": "2a167d3e4775a647367e385a25ebee4603b59b7f4a88170915a071f0e4076580",
+      "bytes": 533
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/envs/bit_flipping_env.py": {
+      "sha256": "3f997047675ca74713639f0e81c792a1c2f9a1d6cb3d0c36bcc8aa780d90f6a7",
+      "bytes": 9255
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/envs/identity_env.py": {
+      "sha256": "94bd53493d7e84058c836c3f829dff86594f2b233e78ff2f05777ed16d4d0900",
+      "bytes": 5975
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/envs/multi_input_envs.py": {
+      "sha256": "d3f7f06fd7ea4f4a0f70b2b8f3cb93bb7e99ea1a626ea2ecd9aee66508da513c",
+      "bytes": 6432
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/evaluation.py": {
+      "sha256": "a60cc695f1b0fa70c008efffd59fb5e3b1b590601e7992099cfd8b07665983d8",
+      "bytes": 6620
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/logger.py": {
+      "sha256": "d2533d0fe929aa533ecb373c040a5e7f1c88852667e367f0a8d923e1efe5fa5e",
+      "bytes": 23652
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/monitor.py": {
+      "sha256": "f3c9dd25dee5b6132225a5720e6ef46922575908bf5160ecd07d874b2238db5f",
+      "bytes": 9698
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/noise.py": {
+      "sha256": "335d9e322c8b5bf1b43703ac284951a01bb7980822cb30c8c2b94b0f48dc4e1f",
+      "bytes": 5529
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/off_policy_algorithm.py": {
+      "sha256": "ec895fa4b7ce96550b0acdfea3a73561db568f863b24c0b77d106f3f67e540a7",
+      "bytes": 27450
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/on_policy_algorithm.py": {
+      "sha256": "ce1984ea8e8a2d969443a484ab159194b9d70ff92a7ef1bc25fcc183e391e35c",
+      "bytes": 14576
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/policies.py": {
+      "sha256": "40bfc915633e216d9d620724e3d80029a6e2a2a9c7607ddc75782b2c8cc281e1",
+      "bytes": 42872
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/preprocessing.py": {
+      "sha256": "e35af31b1dd7fd3c01a41040435c27b64835af49a9cfc023f26d9ded5bf170ad",
+      "bytes": 8835
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/results_plotter.py": {
+      "sha256": "dc199121e78745d487fe86b54a08ed87cf82e469b92c87be27f83e972dd4c70f",
+      "bytes": 5053
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/running_mean_std.py": {
+      "sha256": "39f3ac4243d10fd7375deb9c43db1b94e6f878bf53bc5e633b6dcf12917c21d1",
+      "bytes": 1987
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/save_util.py": {
+      "sha256": "5dc9afe3aa245830fbdf8784e7ce77df8132944ab48e570eefd6b073ae0e83a1",
+      "bytes": 20769
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/sb2_compat/__init__.py": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/sb2_compat/rmsprop_tf_like.py": {
+      "sha256": "61c582750a854c8157acbfc19a985ce540a019abe2587e845a4b7d4b954fc3cc",
+      "bytes": 5657
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/torch_layers.py": {
+      "sha256": "5b3293b1139e5175fa77d65434d153a406ea470d75212b6a6d1bdc6e5fa08a40",
+      "bytes": 15500
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/type_aliases.py": {
+      "sha256": "8f46aeae705bd86725393a7676d89805abc2d3b704e9229dad73e5001b48a85d",
+      "bytes": 3312
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/utils.py": {
+      "sha256": "c95c6d88f810e48ac32b488511cd63d87b83ef7b459b8a0a9e5e955a9856d809",
+      "bytes": 24184
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/vec_env/__init__.py": {
+      "sha256": "eca2b74420b2e1386f88c1225c84a1e3019491b21bf00a36469545a4fac90f29",
+      "bytes": 4360
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/vec_env/base_vec_env.py": {
+      "sha256": "1e7da85077c947fc1ec81941de793cabcc039a8ff8e0172b6b7078bd492ddf80",
+      "bytes": 19099
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/vec_env/dummy_vec_env.py": {
+      "sha256": "e9086bccdee89800a03e32fad09b2baa4195bb72ada97a12f381afe211c7c32b",
+      "bytes": 6980
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/vec_env/patch_gym.py": {
+      "sha256": "8669d9c71cb5894903a8e87ed86855b8e4207c73b82635e8996a06061bb8fe11",
+      "bytes": 3430
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/vec_env/stacked_observations.py": {
+      "sha256": "d24e220f98d321dbcb0dc53ace0f9f49ef2d4827d2aa309c139b9c67fae374bf",
+      "bytes": 8147
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/vec_env/subproc_vec_env.py": {
+      "sha256": "6e31549805997337a2b38eaa7b54d4d00310a6b7c58e42a6cb6fb6f6c4e9d572",
+      "bytes": 11299
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/vec_env/util.py": {
+      "sha256": "494267f8dbb1e25d181ab6a2af05e4633b9e75fe91365ec40cc0f85733f4ae7e",
+      "bytes": 2656
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/vec_env/vec_check_nan.py": {
+      "sha256": "d5484253a50c2bb3fea2376fa7d3d075b3ef038ea7db834f03e0a8e605ca4456",
+      "bytes": 4208
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/vec_env/vec_extract_dict_obs.py": {
+      "sha256": "951d2418b83d48ff5fabc78cf7a7a0e0dc1085bfec754593a0763fa9b504e253",
+      "bytes": 1194
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/vec_env/vec_frame_stack.py": {
+      "sha256": "d1f9c1a1de8442da389560af54a344dc3644be0ded71da2736889a7cf147931f",
+      "bytes": 2079
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/vec_env/vec_monitor.py": {
+      "sha256": "6e1c5dbfec5e619970da40a7b48398ea2b67952dc112685f23f1f633039448c4",
+      "bytes": 3851
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/vec_env/vec_normalize.py": {
+      "sha256": "1a6e5e84fe9836d79cd188ae345644c16215df7e94755d29dbc39e15ea83c9d9",
+      "bytes": 13594
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/vec_env/vec_transpose.py": {
+      "sha256": "9668fc34d7bd664f26cae80700090a6d4ff927b2a3b519129ca1c02772955cad",
+      "bytes": 4503
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/vec_env/vec_video_recorder.py": {
+      "sha256": "081046e535a4f84c67d5f559eaea0ce45a21e6040ae34d9db9ba648119a4b6d9",
+      "bytes": 5756
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/ddpg/__init__.py": {
+      "sha256": "57e45661eec3f611c62a8e611c0da01dd3cf387cd97cf6695e4f7dc8d5df82ac",
+      "bytes": 194
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/ddpg/ddpg.py": {
+      "sha256": "b890170cdf28b32782b44ebe28a41ca3f4cd8bbe28a6e9dd0104c1eca463c219",
+      "bytes": 5836
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/ddpg/policies.py": {
+      "sha256": "4645b42a6194a324b5e2f947a447dae5e98f5426bf30d06ae7143e257db360e5",
+      "bytes": 139
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/dqn/__init__.py": {
+      "sha256": "cfd2589e94384d46957425565fedd1af6e78ce1cb127218754a25b4a85b80b37",
+      "bytes": 189
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/dqn/dqn.py": {
+      "sha256": "6ef7cb21b31d0ed1d6e4e69b485bcfe5d0f6e285bd1622e2d9c365b308852d52",
+      "bytes": 13152
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/dqn/policies.py": {
+      "sha256": "70eb2287995955a0a2b7c6351ff8fd0f7c167c7b0e76b7e460d6ebc07f507e4b",
+      "bytes": 10637
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/her/__init__.py": {
+      "sha256": "22d38de4cbc7c52b8b518b51efe6e16e8a5a02ec0cfc617d2cc373aa58c4d218",
+      "bytes": 204
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/her/goal_selection_strategy.py": {
+      "sha256": "c747b071a5d85410c5cc508ffe4f0eb43d6d009afa2ce60e22015a8c7542baab",
+      "bytes": 649
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/her/her_replay_buffer.py": {
+      "sha256": "e1812453fdfe4796e353bc3725ccadab040e6107ec0bee326576e3bf63a262d7",
+      "bytes": 18943
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/ppo/__init__.py": {
+      "sha256": "1c3be462460c36578c74cd724325e9606a0bcce139bd66d4ebfdbc12b1212b9f",
+      "bytes": 189
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/ppo/policies.py": {
+      "sha256": "1dbfff512b3d669c16d933dce377286f2ec7559efcd5f5ddaeab46493f092abf",
+      "bytes": 301
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/ppo/ppo.py": {
+      "sha256": "724a5f6324bd3c6160e6e3125147df597c0ea9d3c6f5cc0dbc1bcb8731cdb12a",
+      "bytes": 15220
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/sac/__init__.py": {
+      "sha256": "d916666b183a8e1bb8b853c96a83ef336c4fb1264adf15033d67cf8dc6ca9a37",
+      "bytes": 189
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/sac/policies.py": {
+      "sha256": "83b04f459da6cbc7a0a207d9796e79e513e7f4a3eca4a99bdec45e7b808f4b90",
+      "bytes": 20595
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/sac/sac.py": {
+      "sha256": "ead503c743da378ccb5183bba5a3fb7387ec079aa6aa611d3043fa172355e8b6",
+      "bytes": 16287
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/td3/__init__.py": {
+      "sha256": "fbccd748b1dee1ae45376d665822db374ca7bc1edd7bb07abdf2d471d95dad1a",
+      "bytes": 189
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/td3/policies.py": {
+      "sha256": "5b81fa2347e9e3ce85956b570cb3008f58778d62ad1598c3bc89217c3a143062",
+      "bytes": 14401
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/td3/td3.py": {
+      "sha256": "45107ef95f85cca1224741b666a3de2afa57838a501cc301331fd7e9a41cc2e0",
+      "bytes": 11502
+    },
+    "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3-2.9.0.dist-info/METADATA": {
+      "sha256": "0696fb0f1ae5e766507d8161fbc57337f11ccb6df37b03a0677bb68583e52d32",
+      "bytes": 4953
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/analyze_d1_action_ablation.py": {
+      "sha256": "1027fe356d4eca3a3e45faad726c1bab3c5013c15dca1c6584dd1acacd243172",
+      "bytes": 37475
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/analyze_d1_budget_study.py": {
+      "sha256": "d7b8606d79060fc1fb9404986789ec997e159e10b7691fee64b12745e0fe20f0",
+      "bytes": 49009
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/analyze_d1_continuous_policy.py": {
+      "sha256": "bdaf9a0db7f3352b06ebd1b61c5ac0ffaa734f49221e35d26be38c404468e85d",
+      "bytes": 23671
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/analyze_d1_delay_ablation.py": {
+      "sha256": "4675459440dfe7524c42af3db6c4aa480eef2e77e232c8198a9c697114a70ed2",
+      "bytes": 21012
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/analyze_d1_shared_actions.py": {
+      "sha256": "61663546c072920d4e3f98492b5dd6637ddb2c2a29aaef6fc75370c754ddb6de",
+      "bytes": 18166
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/analyze_delay_channel_study.py": {
+      "sha256": "75fe983258b8e9ed7caeee5ffa0b24cbb69d4998795b845eafc36e0b4d072711",
+      "bytes": 9740
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/analyze_friction_delay.py": {
+      "sha256": "95d93103a350477827adf51643da6bad71c586c35da0420a78e096b22f656d82",
+      "bytes": 40297
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/audit_d1_budget_weights.py": {
+      "sha256": "5e4dda076d74334fb5843c6021a3b194ae1f91771b265800f838425c49d1aef3",
+      "bytes": 13969
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/audit_d1_continuous_delivery.py": {
+      "sha256": "ccdf04e8a27fe314978dbd993198359a64939f5ca0644bc590a823ad27c9b4bd",
+      "bytes": 10741
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/audit_d1_locomotion.py": {
+      "sha256": "416bce6297f22139cd95b1b9871d91288aeabe53875b74ba138e2816fd1a18ff",
+      "bytes": 28083
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/audit_d1_ppo_math.py": {
+      "sha256": "092cbbafac6bbaf1b26dedfbb99363c0ae99f25c8c787293a6ab172b82669d15",
+      "bytes": 8502
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/audit_d1_reference_dynamics.py": {
+      "sha256": "67a583560ace10b7f31b50a5b43bc892efce70454be9a5b6f8c35ab499941f94",
+      "bytes": 22635
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/audit_d1_runtime_benchmark.py": {
+      "sha256": "c14596ec863835354868278527f8c4f55a8eabbbd417742912ef490ff482ca52",
+      "bytes": 14040
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/audit_d1_single_step_contact.py": {
+      "sha256": "5b39d2f0deda605bbfeaddc5425f169be130b5bebfd94751ae8e12ce76ecbdc7",
+      "bytes": 5432
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/benchmark_d1_inverse_dynamics.py": {
+      "sha256": "403b07d5dd8c77c97d99016cdf3d36ce8c7ccf49ac917be709738637d68fffb3",
+      "bytes": 14100
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/benchmark_d1_runtime.py": {
+      "sha256": "b0394935468faf37df8625701c81f66ea58daa83ae24d33c3a2b171287f9e193",
+      "bytes": 7280
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_course_braking.py": {
+      "sha256": "b7f04bb848c8d1cb10e75e5c2d78896d456060b2d8596da0ababfda3377cc379",
+      "bytes": 6989
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_course_controls.py": {
+      "sha256": "8a0ae6b8b31d641e6747ff56dfd7732680a0f95415501bd29b9d8a181bad2a01",
+      "bytes": 12432
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_course_curriculum.py": {
+      "sha256": "09f6e79b8c2adf4d7caabcbba9a0f1aff6cfddca893e835f0746a716fcfc8444",
+      "bytes": 16214
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_course_side_intent.py": {
+      "sha256": "0301dfdcc7d6a0ea18bbb624d952bd24f44fc1d3758d9fc9b2e89d6dbc038c86",
+      "bytes": 12546
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_course_side_step.py": {
+      "sha256": "1131329fa04e7a3b5435b3bfbc900807b3cb5319f2bb515d34b66a94c761d562",
+      "bytes": 8984
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_fast_side_step.py": {
+      "sha256": "935a77e31b83de407c5a4d3258c835546d4ff51f690edd2ed272e32ff91e8cb4",
+      "bytes": 32186
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_flat_plane_env.py": {
+      "sha256": "145c58e4201a657b76e1608263d3a4cea57eb1c0f39530fb47faf32b19026a51",
+      "bytes": 19639
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_heading_curriculum.py": {
+      "sha256": "d50c7b3648eec71261178a38d9718b0f9ba04a990f6f87b7bc9b682624cf56ea",
+      "bytes": 1431
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_heading_reference.py": {
+      "sha256": "42c9de0c2099e7ec6e6b3281e3ece008649e176b24148adcb8ffe522399af44d",
+      "bytes": 10409
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_heading_tracking_env.py": {
+      "sha256": "91cbb3bcf697cab21f9b2c6b02480cf73d41811e4dd3cad51f1ae9554c4177ec",
+      "bytes": 30197
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_jump_heave_action.py": {
+      "sha256": "9d66c19c3eda0a9b809c5538b90385f653437ad4d672ec0303b3ca9d1c96bd9b",
+      "bytes": 2614
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_jump_heave_env.py": {
+      "sha256": "d2cc1e87f5e7aa4aad38f53fb9e74b2ff117f19010760ced234d5a0eb10f4602",
+      "bytes": 9403
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_jump_ppo_env.py": {
+      "sha256": "0037ddc29e4591befa72f820b4dbe8f35435b44d2a9cd3974b9c16e806335c4d",
+      "bytes": 25437
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_jump_ppo_scoring.py": {
+      "sha256": "136dd3607a95f430016450f7b576ffd9b8df3f791ed05f8c8c1f9e283e28b901",
+      "bytes": 6116
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_jump_ppo_task.py": {
+      "sha256": "35d0ba5edb77120768563ed305af133b1569dd84977d9459de3dc98ae3148f85",
+      "bytes": 53098
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_jump_readiness.py": {
+      "sha256": "15824c6fda240f7b6ffea865f890042046cd325ea81b1caab379a2d5325d336a",
+      "bytes": 38648
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_jump_readiness_env.py": {
+      "sha256": "cdb84463ee75960da33d45676ad2043f88292ff98d92577ca1a0c34c7636f69a",
+      "bytes": 12429
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_jump_readiness_records.py": {
+      "sha256": "6f607fafc9cc04b27915ff4d1a3c1676f0de8c4c423aee6902d49160a7797d35",
+      "bytes": 45326
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_keyboard_commands.py": {
+      "sha256": "eba4c4ef858408e6f56440b73e96caf4f8ed19333b89842a90d52453d0d90935",
+      "bytes": 3101
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_keyboard_viewer.py": {
+      "sha256": "bccc45dbc1bae3ad7806e702b696f8b24c8a7b256b940660af9e9a966020b90f",
+      "bytes": 8675
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_native_contact_diagnostics.py": {
+      "sha256": "4cacb16d6ce9a6ff7b8e5b6e7216b5b20029617b91a24e0ab47272ac1cce2cdd",
+      "bytes": 3093
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_probe_archive.py": {
+      "sha256": "e8a8685ab63837833ed1243090bf22b7465c35083f9585d928cabaa651a05d37",
+      "bytes": 7290
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_release_velocity_governor.py": {
+      "sha256": "8bc74381e147f099bf66397e05263db90223f0aec709b2c4b438e38cb53ec673",
+      "bytes": 5479
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_rolling_engine_runtime.py": {
+      "bytes": 6365,
+      "sha256": "47530380e992de302dec26b2ec204e54e15eee547760aed054ae9555b2632b81"
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_rolling_native_monitor.py": {
+      "bytes": 8239,
+      "sha256": "347185b76d6ad6cebd7163ff903ae811ef0236556c30843e63bcfad5931d5dfa"
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_rolling_residual_checkpoint.py": {
+      "bytes": 7817,
+      "sha256": "607a103f186311c8646b5827c84990206d629f8352f43a06965b824a0ffb502c"
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_rolling_residual_env.py": {
+      "sha256": "893c8f40f4e06d7773c6a1d7baf4ece8b6160ce3f525621826029486f9c22703",
+      "bytes": 11527
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_rolling_residual_scoring.py": {
+      "sha256": "620c75b74e10e383d0d7b93ee082bb3e6c7e7c3ff288b89a4ebe7172a6033fa5",
+      "bytes": 18474
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_rolling_residual_task.py": {
+      "sha256": "7f464fffd36db99de78ba60d937a5f6f00c96e398310bb59e64398e21467cf13",
+      "bytes": 6253
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_side_step.py": {
+      "sha256": "42b488660a300077eb7c89f37d6d8649f360ade5852f9ce4f9c2c317ef4d134e",
+      "bytes": 15757
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_single_step_contact_diagnostics.py": {
+      "sha256": "241b137795cdf078aed81652c2b5ad738898f1a3259926544bae42a34f5f2c1e",
+      "bytes": 7958
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_single_step_env.py": {
+      "sha256": "8aa0d400ed391f90bbd038a044f7fb91329cb2c1e5ccc08763a2348df0b64318",
+      "bytes": 8915
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_single_step_geometry.py": {
+      "sha256": "7c6a1c7450286286f3e732e214b6d0a08247eab2f073dcfae671453529de18ed",
+      "bytes": 12321
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_single_step_integrity.py": {
+      "sha256": "fa1d1ca12de8bed2051b374720ab8df774a913308ef6d413a46c49411c5bda8e",
+      "bytes": 7887
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_single_step_plant.py": {
+      "sha256": "f2bac39225a8aaff21fa23e9515b5ba9465ccc4a47ae083587f40656f10e4395",
+      "bytes": 11186
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_single_step_records.py": {
+      "sha256": "977e0e5c12b758e05dc0555a530b06e4150fab0544d42e28015acfe16b48dcda",
+      "bytes": 12054
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_single_step_scoring.py": {
+      "sha256": "d9c13912cafaa92a52d53671b8016a85328116bc2cc4e6f267eb5007f33fefed",
+      "bytes": 28374
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_stop_leg_damping.py": {
+      "sha256": "fcebd5c2dcb1922b55096925c6f8d765926d3add60ea50d9cb6e54cb8edc34d9",
+      "bytes": 13434
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_stop_turn_composition.py": {
+      "sha256": "bacdf478c3fa4787e0747f45e3fe6187291949128b93023e1396575f8d7d4749",
+      "bytes": 14066
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_stop_turn_env.py": {
+      "sha256": "955d9a5e0396777eb000d5e953c0d80725a742c46cf69a72c2652b3af409f8a0",
+      "bytes": 4521
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_stop_turn_scoring.py": {
+      "sha256": "ef344fc40b6c2b4365a089d21cf68cfb8fdbfce6b7db2d93078acfe80582f062",
+      "bytes": 3445
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_terrain_display.py": {
+      "sha256": "2dddacbaff1ecf740417ec32686d04c9c8fe2100319141568f7db42bb1fe8d12",
+      "bytes": 12331
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_turn_center_compensation.py": {
+      "sha256": "e98bef5952da9ae495144d24459b351c37f857760d6d9310912bd9069fc566a0",
+      "bytes": 22790
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_turn_contact_diagnostics.py": {
+      "sha256": "a8a139e199ee3b4e54cfca6e37555f5827ea8b66fc8557f93200f08a3103395f",
+      "bytes": 7544
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_turn_leg_damping.py": {
+      "sha256": "6b424515153c5732081ccb0735ae1c191667d34e7fda888740dabb5e26ecdeef",
+      "bytes": 18020
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_turn_yaw_authority.py": {
+      "sha256": "9ce64fdefc779f8e14eb231f5ac27c29a882504207406f1dd9660c773618ea50",
+      "bytes": 17828
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/d1_wheel_common_mean_policy.py": {
+      "sha256": "6f62eb4cb542e010125b6fba77571aae472ae623e5e0b30b587ddf557b1121c3",
+      "bytes": 13313
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/delay_metrics.py": {
+      "sha256": "356134a2ada734a633a336bff7a53be8533f1e0ee3ddcf3a847c15d391644f45",
+      "bytes": 3962
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/diagnose_d1_heightfield_delay.py": {
+      "sha256": "8807757fdc1f154789ece635967c058dc1bdad2957fb135c39626512c4f6ef30",
+      "bytes": 5426
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/diagnose_d1_reference_dynamics.py": {
+      "sha256": "caf432bd506191392cdd6cbbef00700211e0340266c98f39cc43c620fc49dfec",
+      "bytes": 10475
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/diagnose_d1_residual_feedback.py": {
+      "sha256": "f959515fd03997b01c3768b51509d4970c0605e47eceba3653891d05113e944a",
+      "bytes": 25725
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/diagnose_d1_single_step_archive.py": {
+      "sha256": "17ba05649cca2020bed81ad87a9939c1ee16c04e29d622a5c258eabca93bc7d6",
+      "bytes": 20788
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/diagnose_d1_terrain_ppo.py": {
+      "sha256": "469f148b644e66d165f223e7d5aec73f5efd6131b5f3c59e809e6648c6428fcc",
+      "bytes": 19801
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/diagnose_d1_terrain_reference.py": {
+      "sha256": "dd6c547cae345efe841d1e8083068cc0cea1afbd2fb23b6c906a582f6d532609",
+      "bytes": 14553
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/diagnose_d1_terrain_tracking.py": {
+      "sha256": "e02c019039f0bc2b4209131b32402d277493bae805553cc272f81c29123b20b6",
+      "bytes": 5284
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/evaluate_d1_action_ablation.py": {
+      "sha256": "bc802db715a27478ca2210a9b179e72f3c3488c6793c01d316c5e19711bdc2db",
+      "bytes": 19920
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/evaluate_d1_actuator_transfer.py": {
+      "sha256": "866d392969a702f71bbfb690b862d8bf4027dac78e8d2967726ccec8760c5911",
+      "bytes": 26474
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/evaluate_d1_feedback_diagnostic.py": {
+      "sha256": "c6e0d6811166075d88324e84cd426bb45e6a1ab280241acba5424bcf144a0e36",
+      "bytes": 4065
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/evaluate_d1_heading_study.py": {
+      "sha256": "145f6c8834c122d9d6e0f538008cdf82ea3a80f2a8d038fdd012e865846b63c2",
+      "bytes": 10842
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/evaluate_d1_inverse_dynamics.py": {
+      "sha256": "bbbb81c992de4046a2fdf18e3b8b47a9f882bbb3ce9daa7033f5375e67baa839",
+      "bytes": 20339
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/evaluate_d1_inverse_dynamics_mobility.py": {
+      "sha256": "0594207e1710cafae1284055d235164137c520025aacef1fcc71a4e9ae9ed6a0",
+      "bytes": 28112
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/evaluate_d1_jump_heave.py": {
+      "sha256": "6f8cbf554ea1edb75d4f4b827be0fb041fc0ed224763b742fb377c9d02a83198",
+      "bytes": 8578
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/evaluate_d1_jump_ppo.py": {
+      "sha256": "d71a3309ec99fc80d5e2eeaa5f71506dee23f0d0b018bc96b8a3c43455b8efbf",
+      "bytes": 6130
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/evaluate_d1_rolling_residual.py": {
+      "bytes": 11333,
+      "sha256": "2b780128592df313536ab5b83a34a92ec4a26b7248c6e28267ba7b3f7d242d5c"
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/evaluate_d1_sensor_estimation.py": {
+      "sha256": "0e6b44023dc3e9141f92830a1f7e8da7d14c0a5e8c6a9393b3657ec42b59103e",
+      "bytes": 12773
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/evaluate_d1_unseen_stress.py": {
+      "sha256": "3eef0e50a18f2ee1ab6f37279687e4769ffb72f13ee7696442c6c828557afe19",
+      "bytes": 19116
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/evaluate_encoder_feedback.py": {
+      "sha256": "6aa72534fdbe572050334a62a48fbcf785320c42cc2ec6da41690b74c64a5652",
+      "bytes": 18090
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/evaluate_encoder_identification.py": {
+      "sha256": "10afabde47105ef04cf543cd4dbf900fabb4df53baea272a2104439695e1ea03",
+      "bytes": 19577
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/evaluate_friction_delay.py": {
+      "sha256": "44c503b2896cb483a74b33464baab3cbffe935dac105cef7ff912e72282cac4d",
+      "bytes": 26502
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/evaluate_wheel_control.py": {
+      "sha256": "3d788570f09739ac09d3f18f0b193366d4f8ac424fb5ffbe8f1402942544f32d",
+      "bytes": 18926
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/package_result_artifacts.py": {
+      "sha256": "da5d663cddaf4d4047d14d7648c5e863813341feb5427505915efe6002fcd076",
+      "bytes": 10959
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/plot_d1_budget_study.py": {
+      "sha256": "919814dee62346a2dbc7f301d5fc55f2fe3b12235d57af237d25acd2600a3628",
+      "bytes": 25688
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/plot_d1_inverse_dynamics.py": {
+      "sha256": "ce684710d873ed0e804d596a53aca5ec96b9a1274c557e142706ae08642c144b",
+      "bytes": 8494
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/plot_d1_ppo_training.py": {
+      "sha256": "3617bf3e7390b210a5b9d4efc711f0f44c552aefea78011f1ded1a0c7d8baf4d",
+      "bytes": 21053
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/plot_friction_delay.py": {
+      "sha256": "a48ba63bd3aab8e2be3240e780cd0c41357aff35eca9951805e4eb80b05b1b59",
+      "bytes": 8788
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/prepare_d1_contact_kernel_fixture.py": {
+      "sha256": "fc25c7327db1b87f012dc0a7d14fa1f0b5b5f7ccf765d5ceb76da8e9681e26ec",
+      "bytes": 10503
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/prepare_d1_contact_native_ccd_fixture.py": {
+      "sha256": "2e00cdfab9a1ec97dba58074ae9258eca9806dd4afe264459dac5f434a79f5f8",
+      "bytes": 4787
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_delay_parity.py": {
+      "sha256": "401542b80878feb97a8caaa412d559455702b52874eb45d75f272de7a716ad5d",
+      "bytes": 17305
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_heading_flat_plane.py": {
+      "sha256": "346a4727c28cbd629fbfa93d95d7cc941eba2ca43718f920e27f522535a4f7fa",
+      "bytes": 23067
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_heading_g1.py": {
+      "sha256": "a631f443537a7183ca80bbaaca5e2b864b01bd4ac2adf899cb9f26462971cd78",
+      "bytes": 26306
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_heading_hold.py": {
+      "sha256": "2392b46d3497947536586e54abb03a703554c82f27e498ae63e41d0a5545cb39",
+      "bytes": 9155
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_heading_plane_stop_damping.py": {
+      "sha256": "0e4f0e804102c42d04dab7fc584588afaeb3e2a455d64b94ecd581c8fadb9200",
+      "bytes": 16826
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_heading_release.py": {
+      "sha256": "4de100582e6d20277a81fa0068d7746232a2b79e0f603e17abb9dfb432c0788a",
+      "bytes": 20093
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_heading_stop_damping.py": {
+      "sha256": "b47edc4aa9b950967e8309342f42b3372227f9141f0b42f6b0ddc93c8f49168d",
+      "bytes": 12444
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_heading_stop_turn.py": {
+      "sha256": "1b557c91962baf6730d62e613262140d2ae45db372f2c91e2eb16d0c1a99eaf7",
+      "bytes": 14707
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_heading_turn_center.py": {
+      "sha256": "68b648a2cb3ca23b18a83bb5536d22bec1de6637abc5fbbb0e7a27b87cadc16c",
+      "bytes": 15114
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_heading_turn_damping.py": {
+      "sha256": "a7e6ba06ad3f17ed2e4b070faefda3184b7b3c7cedc166ea4dec5e3d629d0934",
+      "bytes": 16254
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_heading_turn_limit.py": {
+      "sha256": "5e46b00fd901edd4cfd460cd11cb7eadccb26a404cdb219009acd052743d5fd0",
+      "bytes": 14978
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_heading_turn_yaw_authority.py": {
+      "sha256": "bfc9362c55b8c2946af842c022b523b2a4a99bbb76c30991d85fc13620b72f86",
+      "bytes": 16926
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_jump_readiness.py": {
+      "sha256": "b9e2af681ae7d553c9375f27fa6364c6ea34b91b97322492fefd071cfc3084a4",
+      "bytes": 27730
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_locomotion_terrain.py": {
+      "sha256": "ac5c22d8e96e3033bcb721b95450c21589540d14862cf891a3fc8f36e3590362",
+      "bytes": 5344
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_single_step.py": {
+      "sha256": "b65d7df633a4b0a935ce07048576ec6c0d1f7a185fdd08fd1f6a1f37c06c38bc",
+      "bytes": 12437
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/probe_d1_wheel_leg_actions.py": {
+      "sha256": "883e2398e7c92a5322cb91ea731bf0872634f4ac8736dbf1e0cf2e7880f50d56",
+      "bytes": 17012
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/qualify_d1_single_step.py": {
+      "sha256": "f13b91907c746d2ba3a925e9715b9bc614c0f61203e3c8c481229fcb841b11aa",
+      "bytes": 15040
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/recover_d1_budget_study.py": {
+      "sha256": "f553db43830dcff5525c490c9b8dff7b5085287adbb8d3e22414d0f891077085",
+      "bytes": 29657
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/render_d1_continuous_task.py": {
+      "sha256": "6b99eb7b37469daa89f316190fcb6cb80cd1ce1877e3edc422096c061d91dffb",
+      "bytes": 13382
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/render_d1_inverse_dynamics_mobility.py": {
+      "sha256": "1e1f26ea8c377b24cb76c1f616c51a7e87c035a88e62343f9e62217454878245",
+      "bytes": 10181
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/render_d1_locomotion.py": {
+      "sha256": "de70cbd1d9a94e012fcba0112ed9192eb07d185ae61f237a6157c4b2c0db1cb0",
+      "bytes": 12614
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/replay_d1_continuous_policy.py": {
+      "sha256": "1bc8c2cf6eded834c75e3264902b99cc1d2400d57fe1c8e4697ebb64ddd446f5",
+      "bytes": 3612
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/run_actuator_identification.py": {
+      "sha256": "96e87b0fdfc00f22c9ec6f0a65152621f70ab399c233a0c5d265416fa29d5727",
+      "bytes": 13096
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/run_d1_action_ablation.py": {
+      "sha256": "216e07f2963adcc3718ef6843d25bd1fe9a18c7ecab88b5331772873f0f8be83",
+      "bytes": 18598
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/run_d1_budget_study.py": {
+      "sha256": "23a3c3fe4ed45160d8e534691b5804e9447549fb89db701be6e8e0fe557c26b1",
+      "bytes": 22745
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/run_d1_continuous_task.py": {
+      "sha256": "67305182b1ffd8a98bd6d1f73a46ef6bef1d0bfe4c0d350f2f41342ef35bfbcf",
+      "bytes": 10654
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/run_d1_course_curriculum.py": {
+      "sha256": "3007c325972d392f0d2095fd8618990fb1daac9068491f884f3c44c1cfc6ccf8",
+      "bytes": 12898
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/run_d1_course_drive.py": {
+      "sha256": "a05b1b181ac4c8bb4bd8479f534118163a1d58583d1a63b7902f383fe19286bd",
+      "bytes": 29886
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/run_d1_heading_study.py": {
+      "sha256": "02e365cf4def1f073f365cbcaee7d0131bec267a79cba21d690f47acd95a93e5",
+      "bytes": 18962
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/run_d1_jump_heave_study.py": {
+      "sha256": "6936290073521ef66b5dba728fe265f885e10fce85ec60c7ed1395bde16f6a1d",
+      "bytes": 18082
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/run_d1_jump_ppo_study.py": {
+      "sha256": "ff2a88b484206ff4517848625604575b0b338b66a9487d50caa9f8377186beec",
+      "bytes": 17851
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/run_d1_locomotion.py": {
+      "sha256": "ca98ec8426ec95bf86420820932b8de360947996225c960b41f868c86d3f3d46",
+      "bytes": 27005
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/run_d1_locomotion_experiment.py": {
+      "sha256": "c1de72b7b2b86aef99e190f2b7dde7c2b908beb79931a509150cc30c8571444b",
+      "bytes": 36538
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/run_d1_rolling_residual_study.py": {
+      "bytes": 9414,
+      "sha256": "2fe37af0704a806310955e5afede17c89edfc7c4e28262b63989beb8e09e692b"
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/run_d1_shared_action_study.py": {
+      "sha256": "71d2e307f9c5beda4cc2c28314f150b5a094dfc5642f13824941475cba9ef4bc",
+      "bytes": 12692
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/run_d1_terrain_curriculum.py": {
+      "sha256": "363451d9870918568e68b04aa9edbf35f5ce46ee99915876cb60ae673131031d",
+      "bytes": 33495
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/run_d1_wheel_common_mean_study.py": {
+      "sha256": "7e52d94339e59d9f3db8e1db6987887c77f761cae6519e6d599d617370704c40",
+      "bytes": 29018
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/run_delay_channel_study.py": {
+      "sha256": "b06fd6814bc3c1a583e0553e2c041da0a5071b4bd6a3e242fae8304884d040d4",
+      "bytes": 14599
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/summarize_d1_single_step_observations.py": {
+      "sha256": "98ab13e3fa4863882b36a2543474292f427fd5e53d2ad7b5cdb7e5d2e5cfe52e",
+      "bytes": 4979
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/train_d1_continuous_policy.py": {
+      "sha256": "6ba8319aa11288078b756af3beacf0c95ab7af8c7bfcc8a6dcbc7a46d790a7ab",
+      "bytes": 23438
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/train_d1_rolling_residual_ppo.py": {
+      "sha256": "0890e17f30315e6f128f9e7ca2bc2da260ab5537b8a66e68186cdd63a4d40c41",
+      "bytes": 16460
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/transfer_result_artifacts.py": {
+      "sha256": "bdaffc40e452517f13e7f049959a414a83ced4fd5ce6a1375e4879a93739989a",
+      "bytes": 12068
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/verify_result_artifacts.py": {
+      "sha256": "4f62b0b8c421d9b0a17509ca4980fd391f1538f45718cfce7f4a92778a490a74",
+      "bytes": 10897
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/visualize_d1_terrain_curriculum.py": {
+      "sha256": "fc12a83c0bc450bad15c913ee6c69be1975fa9ad256fa437ca69e3c402049c24",
+      "bytes": 27892
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/visualize_d1_terrain_reward_ab.py": {
+      "sha256": "a65ab250a3709535b591dd6e5f5f0b024ec90271a3228bb1097c5c9ffbe3d4c1",
+      "bytes": 8233
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/__init__.py": {
+      "sha256": "27776a51c8ab97c39e51a26dea9db93f0feb566187e1c14d9fd86f5df540da1b",
+      "bytes": 392
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/actuator_bench.py": {
+      "sha256": "edb0e7c65076c9cd7dc108797cf695e9d8405b485a576c4a5ae712b420303625",
+      "bytes": 7892
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/actuator_identification.py": {
+      "sha256": "07af57632b5acfe8dd74a6f363879e072ff12393d4ebe7a2604216108a07c790",
+      "bytes": 10535
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/assets/__init__.py": {
+      "sha256": "cfb8faf893c8e29d2ba3a6b57e7f1001c286a756cbab15654a884dff5f967073",
+      "bytes": 30
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/controllers.py": {
+      "sha256": "9a83b860fad2c27ab017828948ceb7fd925d26f417b8d2379bb6bf5309f1c5b6",
+      "bytes": 7040
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/__init__.py": {
+      "sha256": "43ccb447aeff86023e04360cc7c2d1129d2c2fcd4bca5e3a1bb88589bd455a92",
+      "bytes": 1310
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/actuator_channel.py": {
+      "sha256": "e8100e976a7de18bdd39b4743cfdc0df8c5ae89ca11e337f828104cb424e6a0e",
+      "bytes": 9480
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/assets/LICENSE-WMP-D1-loco.txt": {
+      "sha256": "51a0c476af7f9b871310ee72a575334cf8f9bbbe0ff2952c4b712c2f21cff079",
+      "bytes": 11951
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/assets/__init__.py": {
+      "sha256": "1b61e62d47e4eb7bc328696f7fb770bd634423cfef62dd3bd541e1a59c159524",
+      "bytes": 69
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/assets/__pycache__/__init__.cpython-310.pyc": {
+      "sha256": "a1bfa60478c31108937de791f1adb6c6fa32e3cc16be944c026b5bc4aea3fd25",
+      "bytes": 248
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/assets/meshes/L_calf.STL": {
+      "sha256": "e3389a611c0869b002c9ad6c92e5967367e585f31ce67887b47d95f85210599b",
+      "bytes": 731084
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/assets/meshes/L_foot.STL": {
+      "sha256": "afc74ac83c9286f9d201d43dfc682195895a678464e5f8564763b071368d9eeb",
+      "bytes": 1512884
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/assets/meshes/L_hip.STL": {
+      "sha256": "6bd4d237b585fce86dc97d0d6f52b10811588f9b9fe2b2de8a74763c33f41d90",
+      "bytes": 2066984
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/assets/meshes/L_thigh.STL": {
+      "sha256": "c804473b99df48fe293a7d37e89096313c5421ffbeb1b0141130bfb0ceb4b2ee",
+      "bytes": 2605884
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/assets/meshes/R_calf.STL": {
+      "sha256": "71c9d33c49b3fcf0ce6aecee4f8407dc9872a1d6f8340705ac43df7154f7966b",
+      "bytes": 731184
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/assets/meshes/R_foot.STL": {
+      "sha256": "11f49126b3fec371ce1277556828a1517309347d777907b57567a50e807dba1f",
+      "bytes": 1545084
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/assets/meshes/R_hip.STL": {
+      "sha256": "91751fa14272761ce4176cfb50cefde6397e43cd639ed5a5dc94d64d3b6f69d1",
+      "bytes": 2073184
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/assets/meshes/R_thigh.STL": {
+      "sha256": "8d5e6772757f64cb691e8f595f914c5b3acf36295d59e3c1c72543f86302ce4b",
+      "bytes": 2612484
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/assets/meshes/base_link.STL": {
+      "sha256": "d13fd7d3a7924e988b957008617744c44de73fbb39b43f3483fbcda989efd92a",
+      "bytes": 4928784
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/assets/meshes/docking_Link.STL": {
+      "sha256": "afe9cfe3f8896ff3d53c8bb3b61e12727973705b21751b94c2e5148743072f2c",
+      "bytes": 1834184
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/assets/meshes/funtion_Link.STL": {
+      "sha256": "ff81ab5dda97f86c083e0410b0a836cfe438df045d25177cc7ac0215fe76fc9b",
+      "bytes": 278684
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/assets/urdf/robot.urdf": {
+      "sha256": "3ef048898f351134a4e30d21be8918f9fef48c7b508320a8c9a3f21a25391742",
+      "bytes": 27539
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/budget_checkpoints.py": {
+      "sha256": "b7adb66d8d0473c9dc70beb493c33dfc1d44252ab2177c0373818f8b681c73ab",
+      "bytes": 16427
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/contact_allocation.py": {
+      "sha256": "e5606d693c9bce185ff8cc824e882bed235bdb099649088481b534bc6108c6d1",
+      "bytes": 27156
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/contact_audit.py": {
+      "sha256": "94ed115f742b53869678772751f430bfc6ce670ba11eb8b5dc575eed4ad24adf",
+      "bytes": 32816
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/continuous_task.py": {
+      "sha256": "d6725af7c9a26f53e536418a054e3cb43330d684ce1baba29e35182deb4186ce",
+      "bytes": 21028
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/control_context.py": {
+      "sha256": "1015eb59eb48a55248c162120bcc4f5531e79a8a82540182eedf7f1335b45a53",
+      "bytes": 8170
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/control_loop.py": {
+      "sha256": "2d4fe87e635e124816985a6c72cbd8b35412b1f3910d61713eac1087387cdefe",
+      "bytes": 12314
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/control_primitives.py": {
+      "sha256": "31be86faf68f33c60ec3678fa65fd3d09402eca1f868d31b0114f58ab3fb139d",
+      "bytes": 1211
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/controllers.py": {
+      "sha256": "8ae4eab5326f0f279576c840febb08e8101f2817fb754ddb6c07d0a60f90c124",
+      "bytes": 15230
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/env.py": {
+      "sha256": "7063e8a70cfaffa130a66359d6d189ff8617ea5526ec4ef1c95db8ab4c7fe194",
+      "bytes": 24759
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/experiments.py": {
+      "sha256": "2ba0c071473a905918c04e89d43c7fb81637e226b55695be40e5877e40d3b4a6",
+      "bytes": 73092
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/hierarchical.py": {
+      "sha256": "cd8de672e3f5b094ed994e6f958c923e1ff83a41c4fd54b831a70a8a056a9172",
+      "bytes": 19818
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/interactive.py": {
+      "sha256": "8e1ffca89fe1c3ffb038a06103eaaa8d63b2605b68768a8010412361dc2c2a7a",
+      "bytes": 38919
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/inverse_dynamics.py": {
+      "sha256": "8f80b259a4925ad264143ffac2a896cf40e07cefaf13a0461d45929c1dbc2600",
+      "bytes": 19152
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/linear_model.py": {
+      "sha256": "f51d4ed60ab626f243de603a1b51c6d186553b0fd57b2eb127db9ec0034c5a01",
+      "bytes": 4142
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/locomotion_checkpoint.py": {
+      "sha256": "861e26737ac81aa4dc8f890e1944f3f475997ef5f8f9a54ee785c93c18b1943f",
+      "bytes": 11951
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/locomotion_commands.py": {
+      "sha256": "b8cd6cc9b2443f4f601f8c475f77b8cea102c317f14412fb319d41b08caa885b",
+      "bytes": 13877
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/locomotion_env.py": {
+      "sha256": "077c48d797f7a40ce142525f3b49f3643e8f78ca3f118ba5f48c1ae9541910ff",
+      "bytes": 26065
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/locomotion_observation.py": {
+      "sha256": "398bbb2361a35602e7c00bc0e66661c947f3981c8359e39d9137b963c190d25f",
+      "bytes": 4307
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/locomotion_rewards.py": {
+      "sha256": "ca74044764d6f4309054229cb665d0667d41f7b91a6b55f7ed7bcde91236765d",
+      "bytes": 4399
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/locomotion_terrain.py": {
+      "sha256": "85f5d55e065678fc0f088962941cf36bc9f7daa43ebcd56315098854bcda66d3",
+      "bytes": 13133
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/model.py": {
+      "sha256": "0d606a044e8f9b010976ceb7e45b6640b143371887284cc30c17acd1d0c96bc6",
+      "bytes": 32447
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/observation_history.py": {
+      "sha256": "48f4f0328235a49a2801e77946c50dde7049d48de028ccba8530bcc8a1aabdae",
+      "bytes": 6843
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/policy.py": {
+      "sha256": "fb81ba914ab5fdda48975ea00120041cfca04ba50d3518e8d7dc2c1f52204c33",
+      "bytes": 2959
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/ppo_action_policies.py": {
+      "sha256": "64bf8e3f70446f5589b0cf608c9f51a7734ba3546026e16e9c5eec1e09da3b32",
+      "bytes": 1580
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/ppo_update_audit.py": {
+      "sha256": "1d809acb89e4c74474ce70591c05d85fc56ccbee8ca55913ae19d92bad6d76bb",
+      "bytes": 8789
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/residual_action_env.py": {
+      "sha256": "4f42d80fa2232b2c460860b2dcc864d19a049cf69868ba25bd7720146ce51fad",
+      "bytes": 1132
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/rewards.py": {
+      "sha256": "26ad04cac0aff610d2e2a8fdc8acd1d5110ab0858cda82ac563eaf58bff2d692",
+      "bytes": 3113
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/sensor_estimation.py": {
+      "sha256": "3072d19499a9e20e4161295499f0e51c83bfc85fe010b28e24451a2a0b9722d5",
+      "bytes": 20327
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/state_estimation.py": {
+      "sha256": "eea9c3969e3064819ef6bc8a7621e5541e1547bacbea741b21e1fa909e2f51b8",
+      "bytes": 28370
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/state_provider.py": {
+      "sha256": "e3250710355d31a9e4005c036f6f60c9d0f15bdb0fae111ac5679ec1aa77df81",
+      "bytes": 8654
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/terrain.py": {
+      "sha256": "a72ad8d9c599e87d5587f253b2ade893d26629b55f755a0ca60e55d87c18e6fd",
+      "bytes": 8373
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/terrain_env.py": {
+      "sha256": "0c90ece3a6d4607fe0c0b977a602a26a2b60e93fde9381882a507ea53d4b355d",
+      "bytes": 15648
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/terrain_tracking_env.py": {
+      "sha256": "e92927a88edf805fbfc996ea61874bbc7f357553fb978b319b604e952ecfd968",
+      "bytes": 4474
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/training_terrain.py": {
+      "sha256": "25bf4490be6ea1c6aba0799ac042a1d177ff4343ceb07bc7608432ba0c97dc05",
+      "bytes": 6507
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/wheel_leg_controller.py": {
+      "sha256": "0c731d366e811a465248cec4b9ce345d6d3c69a8a9c387e314ca6f992ac32156",
+      "bytes": 18741
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/encoder_identification.py": {
+      "sha256": "03f40895cf1ba4eb351ceef93fdafb21a892cecfc2e3c47905f36744db198d14",
+      "bytes": 12715
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/encoder_velocity.py": {
+      "sha256": "02882eec63c748758417fce1d54c00cc8eb4e6aff29b2f61e72eb67fc8170aa6",
+      "bytes": 8504
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/env.py": {
+      "sha256": "0840d9046b12bb187b4dd98bb1d9b2aaf085fd51357f77538f0213c3dc8036af",
+      "bytes": 10448
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/experiments.py": {
+      "sha256": "5c8a7a273fd3219c549c005a7d6996de66600a4fcf54c409b88c4d3cd49a7ed4",
+      "bytes": 13827
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/model.py": {
+      "sha256": "92b909eaf5e425a2df29036c7a2053e4ae80695a0a8d1c1964a2554dfdefc91e",
+      "bytes": 6672
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/ppo_learning.py": {
+      "sha256": "aa05abf6f392bb2dee199f2d09870e0be3f9fb84de290cfe6a457507440c70b5",
+      "bytes": 5808
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/ppo_update.py": {
+      "sha256": "cac98e17d26ede082a517e842567ef07f1c1dffe27d3643c0f6a9c6f3ee77d50",
+      "bytes": 13219
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/provenance.py": {
+      "sha256": "2da900d3bc84d4b236e4b1a39a23a931919e8c5497fc1d04f2433359a9706067",
+      "bytes": 1410
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/rewards.py": {
+      "sha256": "cfecf7b726a08d65d03fc913066059cec5422a3fbf735389360960599130c4da",
+      "bytes": 1832
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/train.py": {
+      "sha256": "01ba14b6ba39e7a270732923492971561035f14c5dbf04efde8763feacf9c6b7",
+      "bytes": 11938
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/wheel_control.py": {
+      "sha256": "e46735a96a52a1617f2471cf9be4d357f40212025b835abd6528ea3f683c4129",
+      "bytes": 6269
+    },
+    "/home/lyh/wheel-legged-control-lab/tests/fixtures/d1_rolling_historical_zero_prefix.json": {
+      "sha256": "e11558962c2bacf895cfa9b04df66c8cecd869e27309e80ead9237fb2871ded5",
+      "bytes": 76296
+    },
+    "/home/lyh/wheel-legged-control-lab/tests/test_d1_rolling_residual_records.py": {
+      "sha256": "99d4e49e47b37c060351bf70b6362c4ec22bbd53ad9ce67f3de7914d127f0172",
+      "bytes": 3148
+    },
+    "/home/lyh/wheel-legged-control-lab/tests/test_d1_rolling_residual_task.py": {
+      "sha256": "ffdf33f2e4b902e0adcd7e8bf799fac21477279a1c6eadce436cee79dcc70088",
+      "bytes": 8371
+    },
+    "/home/lyh/wheel-legged-control-lab/tests/test_d1_single_step_box_features.py": {
+      "sha256": "d787b2d53e95b9f75f2386d7f997450e1f7ba8340f1067daf9fda3feb95523e1",
+      "bytes": 2653
+    },
+    "/home/lyh/wheel-legged-control-lab/tests/test_d1_single_step_contract.py": {
+      "sha256": "8c025f756b3d60d9b32e128bc2429e5fcd1470dcf599ae4715e8d1455930a983",
+      "bytes": 5973
+    },
+    "/home/lyh/wheel-legged-control-lab/tests/test_d1_single_step_scoring.py": {
+      "sha256": "44f15adf10283ac20fadfd135ff0d47f9e7df28c913bc94ba311acc4c5db8404",
+      "bytes": 7346
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/astra_engine_cd_execution_review_01.md": {
+      "sha256": "6015e1996eef3a1367d4cd5eb17cddf34399c951fbc2fd2d024710009828df58",
+      "bytes": 4196
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/astra_engine_cd_review_inputs_01.json": {
+      "sha256": "3849b9b592cf8fa09fd8b0b8768914fda6ce92d7ffcde848b7edf6795e1e57f5",
+      "bytes": 24701
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/astra_engine_d_delta_review_02.md": {
+      "sha256": "a372d7425591f872ab9e89f19830f9a6294c8c028a5af1e61c9c3bf60857b5d5",
+      "bytes": 2552
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/astra_engine_d_result_review_01.md": {
+      "sha256": "18c71f6a400ecd51ed27f031cf9508ba75d3adb54f00a697a7dc1e3911bd88f5",
+      "bytes": 2873
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/build/build_dependencies.json": {
+      "sha256": "82468459a24c9c6f2c2ee93d6eb6c01f2f78459d63f99da63802ddefbaf9e881",
+      "bytes": 21381
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/build/deps_engine_interpose.d": {
+      "sha256": "74890e7feeac62c293591670d360b92aebb645e5f05f869d7d9e333050ae34a6",
+      "bytes": 5448
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/build/deps_engine_local_gjk.d": {
+      "sha256": "1a1ba235f456667dec13e16bdd0a22d60f36a0112dbe499eac55d9001aa52919",
+      "bytes": 3163
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/build/deps_engine_local_support.d": {
+      "sha256": "1ab3bd59d7a2675f4e0a9b02fe96383d232e24781d4740effeafb8a2a79bbb88",
+      "bytes": 3281
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/build/libepa01_engine.so": {
+      "bytes": 77048,
+      "sha256": "3ec7ec9a6a130b9e1fa153c800aab97b59d4692c24971027f02de42957f8fa9c"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/c_stage_closure_01.json": {
+      "sha256": "6b57897e0c084f8155323b4c63648e7e0ee93065db621876efd7aa1b862e1940",
+      "bytes": 525
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/engine_binding.py": {
+      "bytes": 10624,
+      "sha256": "e0ab759d170a330972fb9d195c89711991484198717874d661d1431b91de6ce1"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/engine_interpose.c": {
+      "sha256": "bc09b8344457df62778c98f36807740da4ef66d8b9f5c1a60af8a7a133f541d5",
+      "bytes": 8808
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/engine_interpose.h": {
+      "sha256": "99ac0297569f2e2eaf0e2878d531a3f1b107825d09a75a4a94ef8f3783ec5bc2",
+      "bytes": 1272
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/engine_local_gjk.c": {
+      "sha256": "26d2b35c42390915061dd99a788652357d4e43fa40a15307c725b86aa8ee51ef",
+      "bytes": 79869
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/engine_local_support.c": {
+      "sha256": "3526fc64b73e6b231a761d59188049f2cef69a0b6b46d50cdeffc2704c15c172",
+      "bytes": 1334
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/freeze_d_corrected_02.py": {
+      "sha256": "9eaf0c9dc162ffa2595aaaea8c2346260da757892216d016c3f43ce8216098ec",
+      "bytes": 1800
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/freeze_engine_build_inputs_01.py": {
+      "sha256": "4fae5d37e56cc0b2cdb8d29ca09c2649523e4ebfc9b191756677a7d6e5f0d7ef",
+      "bytes": 1933
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/freeze_engine_stage_01.py": {
+      "sha256": "904457bed11c04d3d678e6a2e3254824cd40041f1eb6990963694a553e36e7a0",
+      "bytes": 3230
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/freeze_environment_correction_01.py": {
+      "sha256": "5a2f4dc3ba60a7f9f04a44aadc08737a7248b9c9ae92fe553550cac97cb580a8",
+      "bytes": 2210
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/next_d_construction_accounting_plan_01/next_contract.md": {
+      "sha256": "2c60366197c4d4f7adca2f3b24d1e74c25480670d11f3df9a9d5dbae9a15d83e",
+      "bytes": 4565
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/next_load_environment_plan_01/next_contract.md": {
+      "sha256": "9a7014abc3c6a1174cfc125b91d5dc899bb129b9cf155a8b9eee00638ef711ec",
+      "bytes": 4455
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/next_rolling_rl_speed_plan_01/implementation_clarification_01.md": {
+      "bytes": 1927,
+      "sha256": "61aeb51d5bb5614cdbce3c54d506e913ec54df6d4ebaf17d244e81c30837cf0f"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/next_rolling_rl_speed_plan_01/next_contract.md": {
+      "bytes": 14138,
+      "sha256": "500a00e22f86600b986e7d537e8d891c09888fb33e5f11a8a2a774deae7f10e0"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/prepare_engine_kernel_01.py": {
+      "sha256": "54bd451527bc1eedcfa9de9c99d0fe4e7d09b31525f44034323740da81659af2",
+      "bytes": 1808
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/root_d_readback_01.json": {
+      "sha256": "e61ba3052b8b0ac3d53c80a2799e9ad933acf83c7f8ff195258bb16008a7ebee",
+      "bytes": 784
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/run_c/binding_proof.json": {
+      "sha256": "0c4f0d48f5a64b29eb8bedb035ae894456510da15f31d455c13d27ef8add71e2",
+      "bytes": 4578
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/run_c/root_launcher_receipt.json": {
+      "sha256": "e92cf511c7b459188ec2332de4195ecccfe93dc3d99db3bc3bdf25ad98633238",
+      "bytes": 367
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/run_c1/binding_proof.json": {
+      "sha256": "362db991701d5c18ae70d50b3dce7e412f578fd7a6d6ff979b60ac93d9bb7b5c",
+      "bytes": 4641
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/run_c1/load_receipt.json": {
+      "sha256": "2d54575605b76655e33c0e08f597b9d8a434678319a819606bf2a95b67590c33",
+      "bytes": 5918
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/run_c1/root_launcher_receipt.json": {
+      "sha256": "0d9c5000cd26f97cb3f777e8b322f7ad3035a0c3751927c209db54dd097ca934",
+      "bytes": 367
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/run_d/readiness_receipt.json": {
+      "sha256": "d527a2ec0f022ec7e5134d0a1da8ad212abcf13cf5fc81d78630b4c84a490e55",
+      "bytes": 17381
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/run_d/root_launcher_receipt.json": {
+      "sha256": "6da2af44b57268647f3fa449d71e8ce2cc6ceb4cb8558b28399fa4a3e5174cec",
+      "bytes": 366
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/run_engine_stage_once_01.py": {
+      "sha256": "95579da304145f08ff575560188620b7e16879eec219f1e21afd854bbdaef0e2",
+      "bytes": 3845
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/run_engine_stage_once_02.py": {
+      "sha256": "4fbe7581341e9f54bc8172d97ce5e36c16e07dc20364fc79cc3e5a5ec20f1dd3",
+      "bytes": 3845
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/run_engine_verification_01.py": {
+      "sha256": "e2759f5811d749cf4caa91dc09d13b1ed00b6c2fbf9a7375ec3a2bff20d74d3a",
+      "bytes": 8804
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/run_engine_verification_02.py": {
+      "sha256": "5d8bd3c57266c97ff02e6b7fef9838c263205cfe8413a44701c62b22e1b4239f",
+      "bytes": 10033
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_epa01/astra_epa_b_result_review_01.md": {
+      "sha256": "256e862b0c43b4021a298fef8ca23dfb5331af2009d6b05b9a8f92ac98ade8d2",
+      "bytes": 2428
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_epa01/b_regression_reconciliation_01.json": {
+      "sha256": "59da1c747ba23161585bb914df46f97348641d0ffaa2a493172c4210d40e0dcb",
+      "bytes": 25665
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_epa01/next_engine_readiness_plan_01/next_contract.md": {
+      "sha256": "3bd7315f39dbc82e9a500a233c2e756c39e9e53fe07ed1da03c2b46a45863d65",
+      "bytes": 9088
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_epa01/next_engine_readiness_plan_01/readiness_rl_gate_clarification_01.md": {
+      "sha256": "207d4c73d838a395031de765e96b3c4e19a5e7f787411208af0ae2aa3eb8f1a9",
+      "bytes": 1559
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_epa01/sources/engine/engine_collision_convex.h": {
+      "sha256": "3df5241f900dd9c01565c857191eeb740104b09f75a11af56500b73fbaefddfe",
+      "bytes": 4156
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_epa01/sources/engine/engine_collision_gjk.h": {
+      "sha256": "756622585c9b5d1c5f824eb8e7d69c8c8393addd74733cfddbb01321ff3a219e",
+      "bytes": 4124
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_epa01/sources/engine/engine_inline.h": {
+      "sha256": "c1aef20e999a7f5a9e11b4f8aa05ee66179cb3ef77f432b6598980fb70a5c669",
+      "bytes": 14044
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_epa01/sources/engine/engine_util_blas.h": {
+      "sha256": "8f4cc330efe776e33b1cbc12a09ea5339659b239356606c80a1e9398576cb269",
+      "bytes": 8561
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_epa01/sources/engine/engine_util_errmem.h": {
+      "sha256": "44a2658081d675f6a918893088fc06478f9083457bd6cf8a93d2c8f03e75bd9b",
+      "bytes": 5069
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/astra_rl_execution_review_01.md": {
+      "sha256": "4d731f0f43a8fd07fa9dfbef2157652e9fa5e6cf1b4446b2c14f0a4fd055d9ee",
+      "bytes": 5338
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/freeze_rl_01.py": {
+      "sha256": "82e3c3ec53bafc0e389a1707c87adc4ebab2526b9e04a52b51adf730f4a6b516",
+      "bytes": 3126
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/pure_test_round_1_receipt.json": {
+      "sha256": "079ace7b9ef63bcc5e4af7b46af98af76fd2e0af90de60baadf905fe0ed5bb45",
+      "bytes": 2935
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/pure_test_round_2_receipt.json": {
+      "sha256": "8a494428e18a55e579ddaad4a13cb40a7b3cd3cd4dae0b93b7c0b076e6ae38a7",
+      "bytes": 3929
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_pure_tests_01.py": {
+      "sha256": "6199d292243cb02b2aa1544013d89671b6e1fca5ff98a6a118c0e7e45bc87782",
+      "bytes": 2682
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_pure_tests_02.py": {
+      "sha256": "df0235ecd032e8f6028911f3aef3e4080cc85b3a292d5f0253e3f6b70bc4c5a0",
+      "bytes": 2852
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_rl_once_01.py": {
+      "bytes": 3601,
+      "sha256": "2d9f61ab4aec2278950ddf24c15f307e20b937ac1e72d569d1fef6bc8ff2de75"
+    },
+    "/usr/include/alloca.h": {
+      "sha256": "3f2699e77f222953411a2c276513fbe8d4b04aa410a50d5d5b762a019fad391c",
+      "bytes": 1203
+    },
+    "/usr/include/assert.h": {
+      "sha256": "bad015347aa769ffa2a27e04d94b277f4a7345a893b99fad7d6d76b016240f71",
+      "bytes": 4643
+    },
+    "/usr/include/ccd/ccd_export.h": {
+      "sha256": "1dcda955b7d21e58fdd6f313b55ced7329c94e97bf53ea67ade9a32e8a419f3f",
+      "bytes": 620
+    },
+    "/usr/include/ccd/compiler.h": {
+      "sha256": "51ecb05280ff5e857f1cd74247d95b15d4eebc2a4f543f0322b802a49ea43f8b",
+      "bytes": 1672
+    },
+    "/usr/include/ccd/config.h": {
+      "sha256": "b4371123612698384c1d138f32ce4cb86dd8ab68482a92fcfb560825effae308",
+      "bytes": 125
+    },
+    "/usr/include/ccd/vec3.h": {
+      "sha256": "89c4b4e52ec27f24108a6ff18a65879bd6ad31475ebbaf712488220ee5369934",
+      "bytes": 8187
+    },
+    "/usr/include/dlfcn.h": {
+      "sha256": "c995e2f32fea7218f48e1749e75238b2c424dac6c75b2ab513f363d4e547a96f",
+      "bytes": 8365
+    },
+    "/usr/include/endian.h": {
+      "sha256": "a7213953c39afcbadda70f4b1a95a275c9cf7cf0741c2f40272344e20c2684fd",
+      "bytes": 2299
+    },
+    "/usr/include/features-time64.h": {
+      "sha256": "f204758482abaeaf9a9c49f0054c1ac19c5804c82b6d4d249ae0329ec293c973",
+      "bytes": 1409
+    },
+    "/usr/include/features.h": {
+      "sha256": "dcd1855804e2c64d528adb4c9c36f1567c67472a47654d4302d61b32eacd294b",
+      "bytes": 17860
+    },
+    "/usr/include/linux/close_range.h": {
+      "sha256": "54f02dee64fba028529c5265273d23a96629f3217d6abc31574ef7cce5a63f70",
+      "bytes": 377
+    },
+    "/usr/include/math.h": {
+      "sha256": "0ef4474f13d4ffa8be9ef726a1a1ca1b392d1590bb44fca1e208df3c65c8cf78",
+      "bytes": 49864
+    },
+    "/usr/include/stdc-predef.h": {
+      "sha256": "cb08cd5d4cc059a90833ac48a284d25016e8d56ded8ad4cd98d8ac59cc5053f3",
+      "bytes": 2462
+    },
+    "/usr/include/stdint.h": {
+      "sha256": "a567a56d54e996630104afc1716d853a76230cb7e113f2b0548f6488f31777c9",
+      "bytes": 8474
+    },
+    "/usr/include/stdio.h": {
+      "sha256": "3740b475b7236024022927f9f3097a4bf6effc46a8e47ef03b1ee1e0b4f3cdfa",
+      "bytes": 31176
+    },
+    "/usr/include/stdlib.h": {
+      "sha256": "ffd0dac5bb997edb5325cc19cb8767ee05afe768b119f8014de35daa29b4d474",
+      "bytes": 36393
+    },
+    "/usr/include/string.h": {
+      "sha256": "dd76895ede21008bd7e70743c72007c75cd883bc2c3df91be5672e172e9721c4",
+      "bytes": 19459
+    },
+    "/usr/include/strings.h": {
+      "sha256": "7e70ac995c1325b9693f59c1429a2d14f58326acc78070c1675ff87d3f644759",
+      "bytes": 4753
+    },
+    "/usr/include/unistd.h": {
+      "sha256": "99eb4050035a1a816090762770f0843c728666745d7e727e64dc347d8a99ac28",
+      "bytes": 44967
+    },
+    "/usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h": {
+      "sha256": "9173b7b0871d897f23be423601da3f5390340cb973825e229ec5e1969014d28a",
+      "bytes": 1283
+    },
+    "/usr/include/x86_64-linux-gnu/bits/byteswap.h": {
+      "sha256": "ea93404b4bb68d070d56c058f110139aea9b12d8d3f931de7b0a3964d2831c46",
+      "bytes": 2450
+    },
+    "/usr/include/x86_64-linux-gnu/bits/confname.h": {
+      "sha256": "0068cb27071eabd3c685b1d1a376ea15fb1019fbc8696b4b4daa5dbd9f0739a3",
+      "bytes": 23828
+    },
+    "/usr/include/x86_64-linux-gnu/bits/dl_find_object.h": {
+      "sha256": "7fbe59794029e786117b45638417275b23fbf42bbf636861adb3cf9011049d44",
+      "bytes": 1119
+    },
+    "/usr/include/x86_64-linux-gnu/bits/dlfcn.h": {
+      "sha256": "bf74e6f6667a3c11d73de9ec59dba6b2d54edd4ba04d59f9e29130ab8bde4789",
+      "bytes": 2521
+    },
+    "/usr/include/x86_64-linux-gnu/bits/endian.h": {
+      "sha256": "5d71d0f214a8c1e97e062746d5ecebc941940852d8fda981cb0fc0df1e1137de",
+      "bytes": 1905
+    },
+    "/usr/include/x86_64-linux-gnu/bits/endianness.h": {
+      "sha256": "659a7060004eda113671a38852c4d1e9cb97a35932bcd1d8540f98c09c180747",
+      "bytes": 273
+    },
+    "/usr/include/x86_64-linux-gnu/bits/environments.h": {
+      "sha256": "249abc392c28bd688725232e5b43bde89b9c0910b1331361083ec2225f056da5",
+      "bytes": 3791
+    },
+    "/usr/include/x86_64-linux-gnu/bits/floatn-common.h": {
+      "sha256": "b1771979c423d48dcee05c003f4129eac327519147bc1bda4cd5b9f5510d9d13",
+      "bytes": 9765
+    },
+    "/usr/include/x86_64-linux-gnu/bits/floatn.h": {
+      "sha256": "c13c6ab4b497636b1c810b93ffd176f2ef1b24bade870aff154350da251c0b47",
+      "bytes": 4373
+    },
+    "/usr/include/x86_64-linux-gnu/bits/flt-eval-method.h": {
+      "sha256": "ccd26727791c4045e8e3a077895c12090c03f146b01c4a864b223a08ef73bc9c",
+      "bytes": 1215
+    },
+    "/usr/include/x86_64-linux-gnu/bits/fp-fast.h": {
+      "sha256": "439d76cfe0bf5b3cdab0fc4aca87759b09a49b8043586a460b7d0e4a5c8d61f5",
+      "bytes": 1216
+    },
+    "/usr/include/x86_64-linux-gnu/bits/fp-logb.h": {
+      "sha256": "d10ee79c6bde59505f0b588741e9a64d4a57b5568d11d75f79f104220a6bca86",
+      "bytes": 1012
+    },
+    "/usr/include/x86_64-linux-gnu/bits/getopt_core.h": {
+      "sha256": "f4a2574f7eff03ecfe11c93b2bb4c158aa8becad327af9e78410c18e94c744a3",
+      "bytes": 3667
+    },
+    "/usr/include/x86_64-linux-gnu/bits/getopt_posix.h": {
+      "sha256": "aa9422018c9f6eedb4a55253dd58e3c765ffa341b661680987c55bcf1c0cbb5c",
+      "bytes": 1810
+    },
+    "/usr/include/x86_64-linux-gnu/bits/iscanonical.h": {
+      "sha256": "7e52e4348e00bbc99d5334f032caead2bf17b1b93e943233ff4926f1fc2b23e7",
+      "bytes": 2479
+    },
+    "/usr/include/x86_64-linux-gnu/bits/libc-header-start.h": {
+      "sha256": "2f1c081f8d5940640addc9daaf9552f65e38f86eac744e6d7c76bddb0f7969f2",
+      "bytes": 4286
+    },
+    "/usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h": {
+      "sha256": "85555dfe29a5841ad1f5412350fed4c14373b7452995e500db57ba7d21127409",
+      "bytes": 8933
+    },
+    "/usr/include/x86_64-linux-gnu/bits/long-double.h": {
+      "sha256": "de8ef43fbb73a2525346914ce91fd9e72bb5c1040ae2ac739569001220e2da8d",
+      "bytes": 970
+    },
+    "/usr/include/x86_64-linux-gnu/bits/math-vector.h": {
+      "sha256": "e9da2f63100be2e2d665f0165be33c29e925c6b76ff243b87b99bf4ddbcea92d",
+      "bytes": 5402
+    },
+    "/usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h": {
+      "sha256": "c5f7141d7c6c3ac2a132528c56d2a712bd0304dfc205a0f0f0fd8fa59021f757",
+      "bytes": 1863
+    },
+    "/usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h": {
+      "sha256": "53b519f71a3625c27891b3258f3c89346f3dc102e0ffdcdd75586612cba440c6",
+      "bytes": 1515
+    },
+    "/usr/include/x86_64-linux-gnu/bits/mathcalls.h": {
+      "sha256": "bb2f279f45b98be7fadcb1b6df9c6eeb121d77fd1a256b0a4fa91180d16d0ac3",
+      "bytes": 14561
+    },
+    "/usr/include/x86_64-linux-gnu/bits/posix_opt.h": {
+      "sha256": "02a14a03f287ea64ca842f8563f132dfc9540cf119b8c6698ae5caf22d32b716",
+      "bytes": 5913
+    },
+    "/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h": {
+      "sha256": "6ae238f55f44735ac9620fd12bde9b24819070fb24c152ac2a2780d4127382af",
+      "bytes": 1838
+    },
+    "/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h": {
+      "sha256": "fff61342a6113237a009b613f4b43febb36379969f4b52e73fb8c27386f8bb86",
+      "bytes": 3072
+    },
+    "/usr/include/x86_64-linux-gnu/bits/select.h": {
+      "sha256": "7c807ad9b406ba2229cb650541ca4a4d580299139640778042291d715b191226",
+      "bytes": 1505
+    },
+    "/usr/include/x86_64-linux-gnu/bits/stdint-intn.h": {
+      "sha256": "00bbb23940989e9914d221eb95444b22aeda733bd5c484a4a776369a3794f47e",
+      "bytes": 1037
+    },
+    "/usr/include/x86_64-linux-gnu/bits/stdint-uintn.h": {
+      "sha256": "5fe89b4abead871f23aa69fc36313bdb3f5ff0cb22002a6dd76396dbbc76ddd0",
+      "bytes": 1049
+    },
+    "/usr/include/x86_64-linux-gnu/bits/stdio_lim.h": {
+      "sha256": "31afdb7f07448d50082123a6a4c6bdf104d841b48038a79fbf85507476466acf",
+      "bytes": 1213
+    },
+    "/usr/include/x86_64-linux-gnu/bits/stdlib-float.h": {
+      "sha256": "faebddeba7d6c6445116de3b4f0c6d2a672eebf399d2d7709eb6132ec5f449a4",
+      "bytes": 1115
+    },
+    "/usr/include/x86_64-linux-gnu/bits/struct_mutex.h": {
+      "sha256": "ebabd2655346965420fd6c57af3cefe3628585d031755316b34f8cf6221d61e7",
+      "bytes": 1810
+    },
+    "/usr/include/x86_64-linux-gnu/bits/struct_rwlock.h": {
+      "sha256": "51f077162f9e4d207efa0d5f930f3a1a31d3e27d08dec2ca65ddc147b11c87d2",
+      "bytes": 2027
+    },
+    "/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h": {
+      "sha256": "4e23c9bd52829222b95e7fab409a29c5feeb223d3f68d8f825019bab4966fa7b",
+      "bytes": 3912
+    },
+    "/usr/include/x86_64-linux-gnu/bits/time64.h": {
+      "sha256": "5f423dcbb2c2969085506456ff16788d8d7d0a430d994fc18fec4780e68dba39",
+      "bytes": 1340
+    },
+    "/usr/include/x86_64-linux-gnu/bits/timesize.h": {
+      "sha256": "b675674807d56aa8b0c97ce136e70bfc27bf49c72ec49f4de9f273202604c0ef",
+      "bytes": 1109
+    },
+    "/usr/include/x86_64-linux-gnu/bits/types/FILE.h": {
+      "sha256": "37515f78be386f2edad4746f2947c928f480728c56d9a94e25302ebbdaef3c96",
+      "bytes": 180
+    },
+    "/usr/include/x86_64-linux-gnu/bits/types/__FILE.h": {
+      "sha256": "26c909942e8a6bc82725e9c402f393aed9e32d94190257ddf71e1b5f819b4e5e",
+      "bytes": 110
+    },
+    "/usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h": {
+      "sha256": "8afae3abf006beb39fd9d4d4bae38745cdf08a91e6217ddf25833c8d4b04751b",
+      "bytes": 410
+    },
+    "/usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h": {
+      "sha256": "603e58ab31ed75b7e0ab09a2ca94e99955f7fbc63310466321ce27c906227eb4",
+      "bytes": 381
+    },
+    "/usr/include/x86_64-linux-gnu/bits/types/__locale_t.h": {
+      "sha256": "1676792ec98d138a17d4dfd730bf5956c4a8fe1b14ffd8b852b8dbe766ffe994",
+      "bytes": 1661
+    },
+    "/usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h": {
+      "sha256": "c561df72d5b987ccbd022059fdb1bcb6899c3e94b403997a0576ef3e1afb0f94",
+      "bytes": 564
+    },
+    "/usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h": {
+      "sha256": "05291a7d38bb1d0da1ed01c09fe85fa2b1f4d5bc708e06bb930efec672db08d5",
+      "bytes": 206
+    },
+    "/usr/include/x86_64-linux-gnu/bits/types/clock_t.h": {
+      "sha256": "81e60e8a8d99b28bc723c14b156d7f7fc8ff663d98a857a3f5aea90431f577e3",
+      "bytes": 143
+    },
+    "/usr/include/x86_64-linux-gnu/bits/types/clockid_t.h": {
+      "sha256": "dcd64d184855b245e5c7acf21910a0aaca590f1faf094e400da5d30551d11eb0",
+      "bytes": 174
+    },
+    "/usr/include/x86_64-linux-gnu/bits/types/locale_t.h": {
+      "sha256": "59fddb68b7159ea419f3d02c46919ead67366ef6fa4b3cf17ecaea260e3fe99f",
+      "bytes": 983
+    },
+    "/usr/include/x86_64-linux-gnu/bits/types/sigset_t.h": {
+      "sha256": "3db5ded9d98a694e8c7196a06690b2e816ec6bb82689940d281f6504533f37e1",
+      "bytes": 195
+    },
+    "/usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h": {
+      "sha256": "c746e2ecb48cc2a1b7b4c63ff30e471569ad5bde1464a72c4aa1cadddb4dc113",
+      "bytes": 4104
+    },
+    "/usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h": {
+      "sha256": "8e7e964087b9c7638be2b5fb0fa01ceab43e4af8393b805b54ac2bd8642a1b98",
+      "bytes": 867
+    },
+    "/usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h": {
+      "sha256": "d2fbcbcb4cc072a11380c826e3c8d58ca08df21e8a2436a3fd9a64ad8b4acd0c",
+      "bytes": 411
+    },
+    "/usr/include/x86_64-linux-gnu/bits/types/time_t.h": {
+      "sha256": "721a557cff3ed308c69719a44ba8f7cd9536f6c602fb8f1b1eea8ed6749ee37d",
+      "bytes": 203
+    },
+    "/usr/include/x86_64-linux-gnu/bits/types/timer_t.h": {
+      "sha256": "d96a2452da0d933941273d11d1048ea525f033306892835b0a7a0999b13853aa",
+      "bytes": 159
+    },
+    "/usr/include/x86_64-linux-gnu/bits/types.h": {
+      "sha256": "cd152b6a5b70db5ff301e428b13e7a02d64dde93c4ae0a7879378dc04fd4fbcd",
+      "bytes": 8806
+    },
+    "/usr/include/x86_64-linux-gnu/bits/typesizes.h": {
+      "sha256": "5663fc72923363ef9bffe3fbbafa3ca9b94da2d5aadae781dd6f6da5e435a9c6",
+      "bytes": 3737
+    },
+    "/usr/include/x86_64-linux-gnu/bits/uintn-identity.h": {
+      "sha256": "9efa0fa2b25a94b3cbca9a6b7e434d6051ebaf30fd50643116f10c5f02a7c400",
+      "bytes": 1542
+    },
+    "/usr/include/x86_64-linux-gnu/bits/unistd_ext.h": {
+      "sha256": "92b8da4b1c6300b92a0299c8ed2fc8e25abc2ab84e49d059e7300ceac3c637aa",
+      "bytes": 2035
+    },
+    "/usr/include/x86_64-linux-gnu/bits/waitflags.h": {
+      "sha256": "5204411d9432b7e7b78b8fe47ce9174993993a379ab43cab6abc47e96102d34c",
+      "bytes": 1697
+    },
+    "/usr/include/x86_64-linux-gnu/bits/waitstatus.h": {
+      "sha256": "a4e9c193464360e511538f317c395cbd06807b30d232cb155c2177eee9f0a345",
+      "bytes": 2287
+    },
+    "/usr/include/x86_64-linux-gnu/bits/wchar.h": {
+      "sha256": "4cfde8b3acac291351db57b9ef5ad7a624b58d45c8b31c9dc7ebc36ab6a7dfe0",
+      "bytes": 1906
+    },
+    "/usr/include/x86_64-linux-gnu/bits/wordsize.h": {
+      "sha256": "716d8459074e2a082d65a28192b32eddbfd7587348372395b1c283a723ae4c18",
+      "bytes": 442
+    },
+    "/usr/include/x86_64-linux-gnu/gnu/stubs-64.h": {
+      "sha256": "0b6ab3e2ed3ba79b30fe6ba81a68fc41f57965b8d56662763633431b703c9289",
+      "bytes": 481
+    },
+    "/usr/include/x86_64-linux-gnu/gnu/stubs.h": {
+      "sha256": "ef444295a0a9e8f5c40918399a00cc91ba0bd79774110cdf6e652baa6cfadb2e",
+      "bytes": 384
+    },
+    "/usr/include/x86_64-linux-gnu/sys/cdefs.h": {
+      "sha256": "8a068582a598badb96c25adb724c7d33769fa7e456ad7e3b996699716544538b",
+      "bytes": 26600
+    },
+    "/usr/include/x86_64-linux-gnu/sys/select.h": {
+      "sha256": "ba964ab7d72728c24a851ce80f20801ca9ec24b7357d9a4a71847a83dbda4afb",
+      "bytes": 5039
+    },
+    "/usr/include/x86_64-linux-gnu/sys/types.h": {
+      "sha256": "6914c8861f2943a9f6b95d17f1ef279657569763aa8ab52334d4141db5aa959e",
+      "bytes": 5713
+    },
+    "/usr/lib/gcc/x86_64-linux-gnu/11/include/float.h": {
+      "sha256": "1bb720839e096e5673d4a182e0b843b73fadeea0472ffa753c88ce47eb0678ea",
+      "bytes": 20656
+    },
+    "/usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h": {
+      "sha256": "da6cfd69bbbc50d62c6fcc6a722c26b54e17f95cdadb5440c3ec331bda1eebf6",
+      "bytes": 4072
+    },
+    "/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h": {
+      "sha256": "ba38c47f0cb001f7c42028b109080e6c3eb769585003a587afd1dd69d6c11966",
+      "bytes": 9360
+    },
+    "/usr/lib/gcc/x86_64-linux-gnu/11/include/stdbool.h": {
+      "sha256": "41031ce86be4980880bc346e81b4beac61f78b46ad8010a81e1b4a107b81f7c4",
+      "bytes": 1501
+    },
+    "/usr/lib/gcc/x86_64-linux-gnu/11/include/stddef.h": {
+      "sha256": "8fe9e3ecaf491fa5fb1c8e7d7caf8fb0c69b13bec84cbf1f8ff7e399fc0c8bc7",
+      "bytes": 12959
+    },
+    "/usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h": {
+      "sha256": "86a7914ab7d6a18465a6fb9a7b54f945cad604fdbf3ca0d10e4e0254e0037911",
+      "bytes": 328
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/astra_rl_execution_review_inputs_01.json": {
+      "sha256": "ee140899578ca017bf7a76e9dddf33968d632fb32a51812f0df3731354990a27",
+      "bytes": 3910
+    },
+    "/home/lyh/.local/lib/python3.10/site-packages/cv2/__init__.py": {
+      "bytes": 6630,
+      "sha256": "69192904dead3ada37c8b305ee850ac7474924730881a9d5e0b2390944eb5aae"
+    },
+    "/home/lyh/.local/lib/python3.10/site-packages/cv2/config-3.py": {
+      "bytes": 724,
+      "sha256": "9a7aadf724b822001f5e963b01fd4e375d45e2cbbe328d2ca7b42a440c083a1c"
+    },
+    "/home/lyh/.local/lib/python3.10/site-packages/cv2/config.py": {
+      "bytes": 111,
+      "sha256": "974e2d4096ee1a9a9a341df1bf33e16973683bf1ac733006de27ff2f23bc584d"
+    },
+    "/home/lyh/.local/lib/python3.10/site-packages/cv2/cv2.abi3.so": {
+      "bytes": 73874137,
+      "sha256": "9e29605abcc31c9942d0e7dffc53b4ccaa601676c794327b0ea71a570a0c26c2"
+    },
+    "/home/lyh/.local/lib/python3.10/site-packages/cv2/load_config_py3.py": {
+      "bytes": 244,
+      "sha256": "9c22766454a9ac2f6869d37830b2efc699e7b8c3125484e9976c6e677c066029"
+    },
+    "/home/lyh/.local/lib/python3.10/site-packages/cv2/version.py": {
+      "bytes": 91,
+      "sha256": "e718587212508acdcb296839c287c7fa346edb621005ffb199c26397592544ed"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/freeze_bootstrap_02.py": {
+      "sha256": "8ed0c23e247a2dde4d75b1f167f96cee98c605dda0288831c1d2891d2471de85",
+      "bytes": 2351
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/next_rl_environment_plan_02/next_contract.md": {
+      "sha256": "5d1bc8ae1e2fed63bfda7db13d6198444508fc661335b7de82133b4ee3e20d16",
+      "bytes": 9054
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/root_execution_freeze_01.json": {
+      "sha256": "6589c07ad3359dfa0e7af549d62f33686c311a5932697e0547f9060eaafd33df",
+      "bytes": 89325
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_01/root_launcher_receipt.json": {
+      "sha256": "1affe581b607058f70534f8fc3d84ed2e60eb6f5764f35061c830d3965108a79",
+      "bytes": 344
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_01/study_receipt.json": {
+      "sha256": "ce5e4f5e0ece38680655857d95461d5563edcfc5c86b191cc5caf25b3d13b576",
+      "bytes": 689
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_01_boundary_closure.json": {
+      "sha256": "d241ff1317629873c31e501debb5530162831502bc00fa04734eab2ac639aad3",
+      "bytes": 1031
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/bootstrap_d1_rolling_residual_study.py": {
+      "bytes": 10943,
+      "sha256": "e6c5f3ead10895d2e81015445828d8c00fa5484bcb77b6f5439613e60a34ff10"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/astra_rl_environment_execution_review_02.md": {
+      "sha256": "6d6edd327d5044ce8cb408f58055c3eb75f7544e4e8f8eb8e061c54223bb5fd7",
+      "bytes": 5825
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/astra_rl_environment_execution_review_inputs_02.json": {
+      "sha256": "de5b4f880c964043c72da91badb7d630d825f32dbf6bff99b5703e3f9e1117d5",
+      "bytes": 4785
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/activation.json": {
+      "bytes": 1855,
+      "sha256": "ce4d87d51188d649ba97c1686dfa429bb7e63db6f7684fa585df8104d97dc804"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/environment_mutation_receipt.json": {
+      "bytes": 2958,
+      "sha256": "075e20dabc55d76d4acd98c6cbada2661d9a96e90fc99679916bd11f1f695313"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_box_final_policy/endpoints.jsonl.gz": {
+      "bytes": 1477765,
+      "sha256": "480265c3d29844817a19ddef4e334399cab0cdfec55a31c1433910611caae39e"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_box_final_policy/episode_metadata.json": {
+      "bytes": 8985,
+      "sha256": "df035d11ed13ee4ca3d46f865b7269e51c949a8903948d13948131d83db7c95f"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_box_final_policy/geometry_manifest.json": {
+      "bytes": 29435,
+      "sha256": "e9ceb00a794487c6302cbfc2d5926fe38040e977ba2d0d7c7d5f71b52dbc94de"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_box_final_policy/native.jsonl.gz": {
+      "bytes": 5295695,
+      "sha256": "af34ce5a862b76ae62e1ee9934831f080c7fcfafba6902febccdf3b08e0724ef"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_box_final_policy/native_entry_events.jsonl.gz": {
+      "bytes": 45490,
+      "sha256": "4d915b7489458686f204802fb107d92705f6eed73e67eba22201097dcf095dc9"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_box_final_policy/trace.jsonl.gz": {
+      "bytes": 634549,
+      "sha256": "1da068d28a24010dc19f39e07f9db54bd28bb5b1441bc02970021345e3f01880"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_box_zero/command_records.json": {
+      "bytes": 284687,
+      "sha256": "2164dce4fff6cfb862a0aadd64ddf821b50d93e4ec927092c9f2bc7d21f9a290"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_box_zero/endpoints.jsonl.gz": {
+      "bytes": 3060252,
+      "sha256": "e092ae4163a88823f18b76f21f2544a6bf008b39b0a0148fa1f805ce12745578"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_box_zero/episode_metadata.json": {
+      "bytes": 8985,
+      "sha256": "df035d11ed13ee4ca3d46f865b7269e51c949a8903948d13948131d83db7c95f"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_box_zero/geometry_manifest.json": {
+      "bytes": 29435,
+      "sha256": "e9ceb00a794487c6302cbfc2d5926fe38040e977ba2d0d7c7d5f71b52dbc94de"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_box_zero/native.jsonl.gz": {
+      "bytes": 10549565,
+      "sha256": "ddf47b8d014e24ba85017b396695042007a0106b6753f6f2c0c29375b0d761c9"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_box_zero/native_entry_events.jsonl.gz": {
+      "bytes": 95568,
+      "sha256": "22d807ecd22b762539c615947d9b0eabfc6e617206730c4cd17ffa7d6531b557"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_box_zero/receipt.json": {
+      "bytes": 1349,
+      "sha256": "c7af24b44f57e5526a6def2029134cea46b9806481954d2e9c4a806347a489d6"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_box_zero/score.json": {
+      "bytes": 2090,
+      "sha256": "4e797005ab8373e7c9c7f07387d6369ff9bab79976ed8a1e2181c99b42b25a46"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_box_zero/states.npz": {
+      "bytes": 985501,
+      "sha256": "a1ef79ad4a7f019f67ceddae2e883e51faba137781e35447db80a360489a9ee0"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_box_zero/terminal_integrator.npz": {
+      "bytes": 1645,
+      "sha256": "23ffccc5cd63ac03a64769fd83731e4cfadc7d95da1c878d4be5790297d7eb76"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_box_zero/trace.jsonl.gz": {
+      "bytes": 1281151,
+      "sha256": "b96c0d988902df0e491150c7b9f7eff54c68ccf95037e59605ca876e0654c4be"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_box_zero.case.json": {
+      "bytes": 2378,
+      "sha256": "814109080f8d6d0973c1f5faaf81d44ff3a06b9518d5deefbed31f49b38a9f9f"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_plane_final_policy/command_records.json": {
+      "bytes": 284520,
+      "sha256": "80bf037d0589dc4ee8cedff9d030605492afbdc2fd58511107d787b55c5df4e5"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_plane_final_policy/endpoints.jsonl.gz": {
+      "bytes": 3010422,
+      "sha256": "e3454eee40edd16b008e9f2393fd58dce4a32a69f30a025a4f559a7cf2a8dfd0"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_plane_final_policy/episode_metadata.json": {
+      "bytes": 8951,
+      "sha256": "b76a1520d3bce87195775dc8223c41d0b1418918c22c45ef870ad1426e5b9b46"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_plane_final_policy/geometry_manifest.json": {
+      "bytes": 29019,
+      "sha256": "fcd848f7a20cf6670dff6a583006f8eed6ecf74dbad5205d6bfd99e688d5a204"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_plane_final_policy/native.jsonl.gz": {
+      "bytes": 9053832,
+      "sha256": "6594feb95fea32e918ec4321a6fa2cbf28adfb08f1d672fde99f16c3876f9f00"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_plane_final_policy/native_entry_events.jsonl.gz": {
+      "bytes": 95568,
+      "sha256": "c81819ceae2fbebe1f9e364b323b64c5f8867a9dc9a9dc8a23ef1f90df7061df"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_plane_final_policy/receipt.json": {
+      "bytes": 1349,
+      "sha256": "c7af24b44f57e5526a6def2029134cea46b9806481954d2e9c4a806347a489d6"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_plane_final_policy/score.json": {
+      "bytes": 1928,
+      "sha256": "35de5c28997193a520a864dcb0390b1bd7ed456241edd82a14e8ed0e5f0b082d"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_plane_final_policy/states.npz": {
+      "bytes": 964559,
+      "sha256": "ab38318e49744f6a0bba9c36d4c5a744f21ff6870ba9c315f77066c2e370a140"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_plane_final_policy/terminal_integrator.npz": {
+      "bytes": 1643,
+      "sha256": "699ca3650fb689d8d2127f1c478c88b40d5ffeaa6aa7662184aaaceda3432f68"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_plane_final_policy/trace.jsonl.gz": {
+      "bytes": 1353591,
+      "sha256": "fb6e01e0d080e40c286305e902ce4a8d79f85a73045b1e7703285820c8ddae89"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_plane_final_policy.case.json": {
+      "bytes": 2203,
+      "sha256": "bda964efc23c3ff46f83dbd8af32735f52f7343664c5440a72e62d50b311b3b2"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_plane_zero/command_records.json": {
+      "bytes": 284520,
+      "sha256": "80bf037d0589dc4ee8cedff9d030605492afbdc2fd58511107d787b55c5df4e5"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_plane_zero/endpoints.jsonl.gz": {
+      "bytes": 3008596,
+      "sha256": "827c69f7ecf9181cfed44927d9bb1c1879fc84ab0174c5cb669fea74165c5cea"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_plane_zero/episode_metadata.json": {
+      "bytes": 8951,
+      "sha256": "b76a1520d3bce87195775dc8223c41d0b1418918c22c45ef870ad1426e5b9b46"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_plane_zero/geometry_manifest.json": {
+      "bytes": 29019,
+      "sha256": "fcd848f7a20cf6670dff6a583006f8eed6ecf74dbad5205d6bfd99e688d5a204"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_plane_zero/native.jsonl.gz": {
+      "bytes": 9030978,
+      "sha256": "c18131f94fadb198cb50bc4fab380d0331c110ca20431c0c54e3e26081641980"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_plane_zero/native_entry_events.jsonl.gz": {
+      "bytes": 95568,
+      "sha256": "2823a79896f09d27d36b9bd7d1bd006db811e44f3c385ac0bcbc444c2afcbb8b"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_plane_zero/receipt.json": {
+      "bytes": 1349,
+      "sha256": "c7af24b44f57e5526a6def2029134cea46b9806481954d2e9c4a806347a489d6"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_plane_zero/score.json": {
+      "bytes": 1878,
+      "sha256": "0231cac0de6f3fa51c5967b6390dd529632fe94212eeffdfc141416a7ceee7ca"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_plane_zero/states.npz": {
+      "bytes": 959787,
+      "sha256": "d09ab5550cc41f669ca8e2af2d51faef2c11c3d94814c68e1ddf8bb9d9551215"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_plane_zero/terminal_integrator.npz": {
+      "bytes": 1647,
+      "sha256": "2083eb8c879eb6a5e44c4cae06482fee9de27d915efcf565778f2912338d0ad3"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_plane_zero/trace.jsonl.gz": {
+      "bytes": 1240015,
+      "sha256": "d28c8707d8b290f708979b35e811e2b1cddc0373855d49397b4b23b8f48ab8c1"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/evaluation/speed200_plane_zero.case.json": {
+      "bytes": 2138,
+      "sha256": "7128ac2b6946c3df1b576248a8ba0403eb33eb91a80724171ed1abb6f5178ac5"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/protocol.json": {
+      "bytes": 4465,
+      "sha256": "494eb82ca80a842c190bbbff9bc75fa10c2e7832789a2d9bce0785acc3684733"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/stdout.log": {
+      "bytes": 3558,
+      "sha256": "940a4ed790c57a74326be8c2688b62dfafe65b88c7d897d10dbd1b280be822ab"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/training/completed_updates.jsonl": {
+      "bytes": 141356,
+      "sha256": "5a4f65de97a06b4648231e8fce70342b21210c881a74931ed0c56e1bd6e3d1ba"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/training/controls.jsonl": {
+      "bytes": 153367902,
+      "sha256": "660b027977c24ac57430dffbe5bf133e1b05d8285a9d625aa75d9a0503cdd4a2"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/training/final_checkpoint/model.metadata.json": {
+      "bytes": 10884,
+      "sha256": "44b199ea13989412d274955a9fd85d6e97e58ad708a0c7e3ab7a4085ae3daaf3"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/training/final_checkpoint/model.zip": {
+      "bytes": 267658,
+      "sha256": "4f59d795afbdec256ec17bb7256ea05a3ddd04561e9ba52beffb1de375196b2e"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/training/final_checkpoint/reload_probe.npz": {
+      "bytes": 661,
+      "sha256": "2cb674f54c8c46d5555e5d3580810a003be8d50fa5a7c1a5526dd0f027bb6660"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/training/gaussian_samples.jsonl": {
+      "bytes": 16929888,
+      "sha256": "2cd2145584d7390e55d22737157778345c6c71dc2a7b253e9610ac08085f0a28"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/training/initial_training.json": {
+      "bytes": 1603,
+      "sha256": "e69b42a14cb4d062951f8add69c37bd6c8353190e2ae521e1785ac83582d6f31"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02/training/training_receipt.json": {
+      "bytes": 22340,
+      "sha256": "59e5ef4d1fcf95046e9c214f551b399a4ba62d23f05b1341329ee33480cf8da7"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/astra_preserved_three_case_comparison_02.json": {
+      "bytes": 3044,
+      "sha256": "e07f6e659f60f2167e6f189e013ca68875e3a39b683fdf2bb04c0cff82722828"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/astra_training_saved_evidence_review_02.json": {
+      "bytes": 2625,
+      "sha256": "61ac355c0303c07c53e4d0c4469e56db7c497f5a31acc6b1301a0133c4465c4a"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/astra_velocity_mechanism_crosscheck_01.json": {
+      "bytes": 4417,
+      "sha256": "7999fb6ad0862b45f460e8c3792fed31d3116431d55730b31108fd92811487bf"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/freeze_continuation_03.py": {
+      "sha256": "48c49f88f51fd75b4c9a84548d5e49970f19ac830e94f89f6be1addcd00b7c4c",
+      "bytes": 4070
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/launch_continuation_once_03.py": {
+      "sha256": "592e0c84ace6ebee0e1bc8bfa5638a9a3ce364ed9b4c7b9ac270f888b23c80b9",
+      "bytes": 3642
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/next_eval_continuation_plan_03/next_contract.md": {
+      "sha256": "6be5ebc4557f124db74c7f6441ae624e70eb066f6efc94923a4269f0160dc194",
+      "bytes": 12756
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/root_execution_freeze_02.json": {
+      "sha256": "5e541f030fd59b38a328e88a71e5ae0c58d6fda27cf7aeed7324a762aa5f2ac2",
+      "bytes": 93378
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/root_run_02_interrupted_readback_01.json": {
+      "sha256": "94ad99fd9408c613c85e58943f1a60fc6fcdd311060b3a418edf305dfdba8d17",
+      "bytes": 2427
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02_boundary_closure_01.json": {
+      "sha256": "2ff4dff045a0155177e4b2f95161928eea1ece2da0cc7809a9f9a474599d1a71",
+      "bytes": 1412
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02_interrupted_archive_manifest_01.json": {
+      "sha256": "38ad4b520aadc7d1bc126f1ff4312f2fc976fbb0e4d11e49e6b961069c661075",
+      "bytes": 9329
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_02_interruption_observation_01.json": {
+      "sha256": "69bc269dc1e444765d784f87d95ab336d35192fa0146838bc75fce0b8433cd00",
+      "bytes": 2013
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/run_evaluation_continuation_03.py": {
+      "sha256": "eb2db204523d27807830a6c8b51cf881ec59bf566a9607f5c3799e892507ac49",
+      "bytes": 33928
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/astra_evaluation_continuation_execution_review_03.md": {
+      "sha256": "1a566234858225059958962f3ce334837e35c7af91fc2c67543c56e8ebc1a30d",
+      "bytes": 6955
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/astra_evaluation_continuation_execution_review_inputs_03.json": {
+      "sha256": "07a6bb4f98e6744118a8a90be6e3222c2102c36a3481f3f1d2c93f9d7dc0e67a",
+      "bytes": 5891
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/root_interrupted_readback_01.py": {
+      "sha256": "f90c01a8317c11e1c0d0aed22631d5611c8aa177c4f582b15d1c784009af58c2",
+      "bytes": 9680
+    }
+  },
+  "old_original_run_02_qualification": false,
+  "old_final_native_C_counts": null
+}

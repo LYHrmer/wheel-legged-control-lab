@@ -1,0 +1,178 @@
+{
+  "actor_initialization": {
+    "action_net_bias": 0.0,
+    "action_net_weight": 0.0,
+    "log_std": -1.5
+  },
+  "contract_sha256": "500a00e22f86600b986e7d537e8d891c09888fb33e5f11a8a2a774deae7f10e0",
+  "cpu_torch_threads": 1,
+  "dso_sha256": "3ec7ec9a6a130b9e1fa153c800aab97b59d4692c24971027f02de42957f8fa9c",
+  "evaluation_order": [
+    {
+      "actor": "zero",
+      "onset_tick": 175,
+      "seed": 77351,
+      "speed_mps": 0.2,
+      "stop_tick": 975,
+      "terrain": "plane"
+    },
+    {
+      "actor": "final_policy",
+      "onset_tick": 175,
+      "seed": 77351,
+      "speed_mps": 0.2,
+      "stop_tick": 975,
+      "terrain": "plane"
+    },
+    {
+      "actor": "zero",
+      "onset_tick": 175,
+      "seed": 77351,
+      "speed_mps": 0.2,
+      "stop_tick": 975,
+      "terrain": "box"
+    },
+    {
+      "actor": "final_policy",
+      "onset_tick": 175,
+      "seed": 77351,
+      "speed_mps": 0.2,
+      "stop_tick": 975,
+      "terrain": "box"
+    },
+    {
+      "actor": "zero",
+      "onset_tick": 175,
+      "seed": 77351,
+      "speed_mps": 0.25,
+      "stop_tick": 975,
+      "terrain": "plane"
+    },
+    {
+      "actor": "final_policy",
+      "onset_tick": 175,
+      "seed": 77351,
+      "speed_mps": 0.25,
+      "stop_tick": 975,
+      "terrain": "plane"
+    },
+    {
+      "actor": "zero",
+      "onset_tick": 175,
+      "seed": 77351,
+      "speed_mps": 0.25,
+      "stop_tick": 975,
+      "terrain": "box"
+    },
+    {
+      "actor": "final_policy",
+      "onset_tick": 175,
+      "seed": 77351,
+      "speed_mps": 0.25,
+      "stop_tick": 975,
+      "terrain": "box"
+    }
+  ],
+  "freeze_path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_rl01/root_execution_freeze_02.json",
+  "freeze_sha256": "5e541f030fd59b38a328e88a71e5ae0c58d6fda27cf7aeed7324a762aa5f2ac2",
+  "frozen_source_count": 457,
+  "library_path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260923_engine01/build/libepa01_engine.so",
+  "one_final_checkpoint_no_selection": true,
+  "oracle_terrain_provider_default_disclosed": true,
+  "ppo_settings_exact": {
+    "batch_size": 128,
+    "clip_range": 0.2,
+    "ent_coef": 0.0,
+    "gae_lambda": 0.95,
+    "gamma": 0.9950124791926823,
+    "learning_rate": 0.0003,
+    "n_epochs": 4,
+    "n_steps": 128,
+    "policy_kwargs": {
+      "log_std_init": -2.0,
+      "net_arch": [
+        64,
+        64
+      ]
+    }
+  },
+  "schema": "d1-rolling-residual-ppo-protocol-v1",
+  "task_definition": {
+    "action_schema": "d1-shared-leg1-wheel-zero-gated-v1",
+    "constant_physical_channels": {
+      "value": 0.0,
+      "wheel_indices": [
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    "control_schema": "d1-stop-turn-shared-leg-residual-v1",
+    "drive_ticks": 800,
+    "duration_s": 12.0,
+    "forward_gate": "raw_forward_velocity_mps != 0.0",
+    "leg_normalized_scale": 0.25,
+    "max_leg_extension_residual_m": 0.01,
+    "observation_schema": "d1-proprio-servo82-heading85-v1",
+    "observation_truth_appended": false,
+    "physical_action_size": 8,
+    "policy_action_size": 1,
+    "policy_to_physical_indices": [
+      0,
+      0,
+      0,
+      0,
+      null,
+      null,
+      null,
+      null
+    ],
+    "reward_changes_from_heading_parent": false,
+    "reward_schema": "d1-heading-goal-servo-rate-v1",
+    "task_schema": "d1-rolling-15mm-shared-leg-residual-v1",
+    "world_height_m": 0.455,
+    "yaw_rate_rps": 0.0
+  },
+  "training_control_budget": 65536,
+  "training_scenarios_ordered": [
+    {
+      "forward_start_tick": 200,
+      "forward_stop_tick": 1000,
+      "forward_velocity_mps": 0.18,
+      "obstacle_enabled": true
+    },
+    {
+      "forward_start_tick": 250,
+      "forward_stop_tick": 1050,
+      "forward_velocity_mps": 0.18,
+      "obstacle_enabled": true
+    },
+    {
+      "forward_start_tick": 200,
+      "forward_stop_tick": 1000,
+      "forward_velocity_mps": 0.2,
+      "obstacle_enabled": true
+    },
+    {
+      "forward_start_tick": 250,
+      "forward_stop_tick": 1050,
+      "forward_velocity_mps": 0.2,
+      "obstacle_enabled": true
+    },
+    {
+      "forward_start_tick": 200,
+      "forward_stop_tick": 1000,
+      "forward_velocity_mps": 0.225,
+      "obstacle_enabled": true
+    },
+    {
+      "forward_start_tick": 250,
+      "forward_stop_tick": 1050,
+      "forward_velocity_mps": 0.225,
+      "obstacle_enabled": true
+    }
+  ],
+  "training_seed_actual_each_reset": 77341,
+  "training_seed_sb3": 77341
+}
