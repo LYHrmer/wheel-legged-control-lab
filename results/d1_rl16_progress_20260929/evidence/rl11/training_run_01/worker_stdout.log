@@ -1,0 +1,58 @@
+Traceback (most recent call last):
+  File "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/course_impl08/course_native_guard_08.py", line 225, in _write_gzip_rows
+    (json.dumps(row, allow_nan=False, separators=(",", ":")) + "\n")
+  File "/usr/lib/python3.10/json/__init__.py", line 238, in dumps
+    **kw).encode(obj)
+  File "/usr/lib/python3.10/json/encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/usr/lib/python3.10/json/encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/rl11/run_short_rl_11.py", line 201, in terminated
+    raise common.TerminationRequested("11-S interrupted or 1800s wall limit reached")
+scripts.run_d1_latest_rl.TerminationRequested: 11-S interrupted or 1800s wall limit reached
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/rl11/short_heldout_11.py", line 186, in record_heldout_case
+    observation, reward, terminated, truncated, info = runtime.control_step(env, action)
+  File "/home/lyh/wheel-legged-control-lab/scripts/d1_rolling_engine_runtime.py", line 107, in control_step
+    result = env.step(action)
+  File "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/upright11/world_upright_course_11.py", line 191, in step
+    observation, reward, terminated, truncated, info = super().step(policy_action)
+  File "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/course_impl08/full_drive_env_08.py", line 309, in step
+    interval = reader(self.plant, end_time_s=transition.state.control_time_s)
+  File "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/course_impl08/course_native_guard_08.py", line 601, in interval_summary
+    self._flush_block()
+  File "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/course_impl08/course_native_guard_08.py", line 238, in _flush_block
+    self._write_gzip_rows(path, self._native_block)
+  File "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/course_impl08/course_native_guard_08.py", line 220, in _write_gzip_rows
+    with path.open("xb") as raw, gzip.GzipFile(
+  File "/usr/lib/python3.10/gzip.py", line 334, in close
+    fileobj.write(self.compress.flush())
+  File "/usr/lib/python3.10/gzip.py", line 334, in close
+    fileobj.write(self.compress.flush())
+  File "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/rl11/run_short_rl_11.py", line 214, in count_model_calls
+    def count_model_calls(frame, event, arg):
+  File "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/rl11/run_short_rl_11.py", line 201, in terminated
+    raise common.TerminationRequested("11-S interrupted or 1800s wall limit reached")
+scripts.run_d1_latest_rl.TerminationRequested: 11-S interrupted or 1800s wall limit reached
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/rl11/run_short_rl_11.py", line 422, in <module>
+    raise SystemExit(main())
+  File "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/rl11/run_short_rl_11.py", line 305, in main
+    receipt, initial = record_heldout_case(
+  File "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/rl11/short_heldout_11.py", line 229, in record_heldout_case
+    guard_segment = guard.finish_segment()
+  File "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/course_impl08/course_native_guard_08.py", line 608, in finish_segment
+    self._flush_block()
+  File "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/course_impl08/course_native_guard_08.py", line 238, in _flush_block
+    self._write_gzip_rows(path, self._native_block)
+  File "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/course_impl08/course_native_guard_08.py", line 220, in _write_gzip_rows
+    with path.open("xb") as raw, gzip.GzipFile(
+  File "/usr/lib/python3.10/pathlib.py", line 1119, in open
+    return self._accessor.open(self, mode, buffering, encoding, errors,
+FileExistsError: [Errno 17] File exists: '/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/rl11/training_run_01/heldout/rough_0p35_final_policy/native_block_0000.jsonl.gz'

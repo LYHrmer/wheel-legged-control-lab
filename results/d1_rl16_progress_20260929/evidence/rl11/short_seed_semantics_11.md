@@ -1,0 +1,3 @@
+# 11-S reset/provider种子层级澄清
+
+本条事前澄清 next_short_training_contract_11.md（e6e9d9d61d43d5eb3184c6c0cb31493f9f95e76cf4ab5632de02ce28135cd929）的种子命名，不改变任何物理、奖励、预算或随机数数值路径。SeedSequence([88623,i]).generate_state(1,dtype=uint32)[0] 是训练episode i的**外部 env.reset seed**（独立 measurement-stream reset seed），始终按index派生，SB3传入PPO seed仅记录、不覆盖。冻结FullDriveCourseEnv.reset既有实现再从其np_random抽一个内部measurement_seed传给loop/provider；保存完整reset metadata并另记该真实provider seed，不能声称它等于外部seed。最后budget边界允许的零control auto-reset重用上场外部reset seed，其provider seed也由同一旧reset规则确定。持出88701..88706同样是配对env.reset seeds；两actor完整初态逐位配对。禁止为对齐命名修改已验env或改内部抽样。

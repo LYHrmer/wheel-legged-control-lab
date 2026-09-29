@@ -1,0 +1,78 @@
+{
+  "action_space": {
+    "dtype": "float32",
+    "high": 1.0,
+    "low": -1.0,
+    "shape": [
+      16
+    ]
+  },
+  "actor_layers": [
+    {
+      "in_features": 99,
+      "out_features": 128,
+      "type": "Linear"
+    },
+    {
+      "type": "Tanh"
+    },
+    {
+      "in_features": 128,
+      "out_features": 128,
+      "type": "Linear"
+    },
+    {
+      "type": "Tanh"
+    }
+  ],
+  "budget_spec": {
+    "batch_size": 256,
+    "epochs": 256,
+    "minibatches_per_epoch": 4,
+    "n_epochs": 4,
+    "n_steps": 1024,
+    "optimizer_steps": 1024,
+    "rollouts": 64,
+    "schema": "d1-course-rl16-learning-budget-v1",
+    "total_controls": 65536,
+    "train_calls": 64
+  },
+  "budget_spec_sha256": "d9ee6354125a27af0fe58ad26350a293ee4ca16171859e9d3d83ab4f35618b78",
+  "critic_layers": [
+    {
+      "in_features": 99,
+      "out_features": 128,
+      "type": "Linear"
+    },
+    {
+      "type": "Tanh"
+    },
+    {
+      "in_features": 128,
+      "out_features": 128,
+      "type": "Linear"
+    },
+    {
+      "type": "Tanh"
+    }
+  ],
+  "loaded_policy_state_sha256": "c20a8841dcf2174c2db584edca951adaafa12688b026172669ef0e07ad955212",
+  "loader_schema": "d1-course-rl16-final-checkpoint-v2-budgeted",
+  "log_std_shape": [
+    16
+  ],
+  "matches_training_final_policy_state": true,
+  "metadata_sha256": "a0150338806d48c464059117d3f2764a8e1cbf81b3b06748434824bb76007e4f",
+  "observation_space": {
+    "dtype": "float32",
+    "high": 5.0,
+    "low": -5.0,
+    "shape": [
+      99
+    ]
+  },
+  "probe_actions_byte_exact": true,
+  "probe_rows": 32,
+  "reference_policy_byte_exact": null,
+  "verified_without_engine_or_reset": true
+}

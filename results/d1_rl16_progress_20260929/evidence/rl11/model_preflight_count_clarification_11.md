@@ -1,0 +1,7 @@
+# 11-M 保存探针调用口径事前澄清
+
+绑定 model_preflight_contract_11.md SHA256 e3d8706edd5718aa3548f1016b350a9db5222ac7cc5cd8450cdfb732a1b5cdbe。本澄清在11-M尚未执行时写入，不改变任何机器人或学习预算。
+
+静读现有save_final_and_verify路径：原模型首次predict保存probe_actions；内部唯一load_and_verify_final加载一次PPO(env=None)并predict；同一loader另对reference_model原模型再predict复核内存模型。故正常真实上限为1次final save、1次PPO.load、3个deterministic probe batch（原模型2，reload模型1），每batch<=32 observations。这覆盖主合同中“模块内部既有double-check需执行前明确调整”的分支。训练1024次policy forward另计，不称只有3次总推理。
+
+至多3个错误manifest拒绝均必须在该唯一PPO.load之外保持load/predict计数不变；不再额外load或采样。Root按实际计数记账，不能少报第二个原模型probe。其它条款完全不变。

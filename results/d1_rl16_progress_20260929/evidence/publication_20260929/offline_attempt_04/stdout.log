@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/rl11/verify_short_rl16_partial_11_03.py", line 321, in <module>
+    main()
+  File "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/rl11/verify_short_rl16_partial_11_03.py", line 299, in main
+    result, closed = verify(args.run.resolve(strict=True))
+  File "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/rl11/verify_short_rl16_partial_11_03.py", line 218, in verify
+    prefix, individual_scores = completed_prefix(run, worker, construction)
+  File "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/rl11/verify_short_rl16_partial_11_03.py", line 108, in completed_prefix
+    row, canonical = full.heldout_case(
+  File "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/rl11/verify_short_rl16_training_11_03.py", line 612, in heldout_case
+    calc = check_controller(record, tick)
+  File "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/verify_course_e_08_03.py", line 481, in check_controller
+    require(action.shape == (16,) and np.isfinite(action).all()
+  File "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/verify_course_e_08_03.py", line 55, in require
+    raise ValueError(label)
+ValueError: E0 actual requested action differs from controller input

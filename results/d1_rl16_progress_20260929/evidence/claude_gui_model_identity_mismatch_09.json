@@ -1,0 +1,74 @@
+{
+  "schema": "d1-full-drive-gui-cli-model-identity-mismatch-09-v1",
+  "session_id": "da27a4da-38e8-4129-9cde-22b1fb522fff",
+  "input_prompt": {
+    "path": "claude_full_drive_gui_prompt_09.txt",
+    "sha256": "701f7b63197d8868577013cab0089112b7a490c6d2c4745510d73a9612e2e66f",
+    "bytes": 8985
+  },
+  "raw_cli_log_private": {
+    "path": "claude_full_drive_gui_call_09.jsonl",
+    "sha256": "0f6388cfbbc76cf64053a9dae228481cc80cc06eb90870a34da3e47b563bd2c5",
+    "bytes": 11491388,
+    "publish_raw_log": false
+  },
+  "observed_model_identity": {
+    "init_model": "claude-opus-5",
+    "result_modelUsage_key": "claude-opus-5",
+    "result_modelUsage_provider": "firstParty",
+    "assistant_message_model_counts": {
+      "deepseek-v4-pro": 20,
+      "<synthetic>": 1
+    },
+    "consistent_actual_opus_identity": false,
+    "reason": "The per-assistant-message model identity contradicts init and aggregate modelUsage. The CLI metadata cannot establish that Opus authored the delivered files."
+  },
+  "observed_result": {
+    "subtype": "success",
+    "is_error": true,
+    "terminal_reason": "api_error",
+    "api_error_status": 402,
+    "result_summary": "API Error: 402 Insufficient Balance",
+    "num_turns": 15,
+    "duration_ms": 843711,
+    "reported_total_cost_usd": 2.135729,
+    "tool_calls_seen": {
+      "Read": 10,
+      "Write": 4,
+      "Edit": 0
+    },
+    "interpretation": "The result reports both subtype success and an API error. It is not an unqualified successful completion."
+  },
+  "termination_attempt_reported_by_root": {
+    "pid": 472023,
+    "action": "TERM attempt after mismatch noticed",
+    "observed_at_attempt": "PID already absent",
+    "claim_successful_termination": false,
+    "relationship_to_cli_end": "not established"
+  },
+  "delivered_files_from_four_Write_calls": {
+    "gui09/latest_frame_mailbox_09.py": {
+      "sha256": "6fcb8eeb06115dbfeb3e4e3fab05fc31d0de68e48bb14fca71dd265a34a9f4d6",
+      "bytes": 18204
+    },
+    "gui09/async_course_renderer_09.py": {
+      "sha256": "f7484207f9a54a09c767675cfb18b4b6a2d1c4e1065163535fa9dd5ef7b996c2",
+      "bytes": 17250
+    },
+    "gui09/test_async_renderer_09_pure.py": {
+      "sha256": "bcefa8ead6f647b0a97ce564a544cba2452472752d807b967345c9fe3634ebe2",
+      "bytes": 13897
+    },
+    "gui09/async_renderer_09_implementation.md": {
+      "sha256": "86aed1db058b8e824a7b6ced016b956c79485f3fc626ccb4991090bc850f27d6",
+      "bytes": 9666
+    }
+  },
+  "comparison_only": {
+    "08_heldout_assistant_message_model": "anthropic/claude-opus-5",
+    "08_heldout_init_and_modelUsage": "claude-opus-5",
+    "08_heldout_identity_consistent": true
+  },
+  "contribution_credit": "unverified_model_identity; do not count as actual Opus contribution",
+  "execution_status": "Four files are unintegrated source candidates. No GUI, physics, or pure tests were executed by this provenance audit."
+}

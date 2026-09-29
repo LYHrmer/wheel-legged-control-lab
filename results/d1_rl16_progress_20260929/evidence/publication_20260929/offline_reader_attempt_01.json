@@ -1,0 +1,14 @@
+{
+  "schema": "d1-offline-reader-attempt-v1",
+  "reader": "rl11/verify_short_rl16_partial_11_01.py",
+  "source_sha256": "5804d7d4acdac4a1f491ccff11f6d3857fcbbb908ee1c2e62d0f997c033b8981",
+  "exit_code": 1,
+  "tool_session_id": 6020,
+  "failed_check": "11-S PPO per-rollout update count/gradient failure differs",
+  "identified_reader_error": "full reader required timesteps_delta=1024 during PPO.train; the recorded field is after_train.num_timesteps-before_train.num_timesteps and correctly equals 0 because train performs optimization without environment stepping.",
+  "raw_data_modified": false,
+  "physics_steps": 0,
+  "model_loads": 0,
+  "training_restarted": false,
+  "new_reader_revision_required": true
+}
