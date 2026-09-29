@@ -1,0 +1,32 @@
+{
+  "schema": "value14-pure-tests-v1",
+  "command": "rtk proxy env PYTHONPATH=/home/lyh/.local/lib/python3.10/site-packages:/home/lyh/wheel-legged-control-lab/.local-deps PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 /usr/bin/python3 -B -m unittest -v test_value14_pure",
+  "exit_code": 0,
+  "tests_passed": 7,
+  "unittest_elapsed_s": 0.04,
+  "source_identities": {
+    "prepare_value14_data.py": {
+      "bytes": 16232,
+      "sha256": "2fe15e76f199d79c63d3b9d1dabd8dfdfcd0d09f42c2ed7a8e0d200f8d077341"
+    },
+    "value14_math.py": {
+      "bytes": 2736,
+      "sha256": "c080e4a8ba400250e0fcd97d7d872da68e3bc1ba991d662b4f2ec98f44c1a8b7"
+    },
+    "test_value14_pure.py": {
+      "bytes": 5049,
+      "sha256": "0abe1237295ab849704575f88995625057f1f08568197e0b8ccfd5838929c568"
+    }
+  },
+  "model_calls": 0,
+  "physics_controls": 0,
+  "test_cases": [
+    "bias_sign_and_explained_variance",
+    "closed_file_hash_and_size_mismatch",
+    "discount_and_endpoint_offset",
+    "episode_and_done_never_crossed",
+    "hash_rank_is_repeatable_unique_and_nonoverlapping",
+    "missing_control_or_tick_rejected",
+    "nonfinite_and_zero_variance"
+  ]
+}

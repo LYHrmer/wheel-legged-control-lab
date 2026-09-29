@@ -1,0 +1,63 @@
+{
+  "schema": "d1-continuation-stage14-prepublication-v1",
+  "stage_status": "bounded_value_diagnostic_closed_publication_pending",
+  "plan_consumed": true,
+  "plan_file": "plan_go_14_02.json",
+  "plan_sha256": "79353185642c5cace24254d3d6657514a1bce1a330b29d2b9adf6565234a6e0f",
+  "sample_file": "sample_01/samples.npz",
+  "sample_sha256": "37c538e31aeb56a9d11db45ce03b20227c301655b75da61ce587279a981e98d7",
+  "worker_receipt": "model_01/receipt.json",
+  "host_receipt": "model_host_receipt_14.json",
+  "independent_readback": "independent_readback_14_01.json",
+  "final_review": "final_review_14.md",
+  "retry_permitted": false,
+  "actual_counts": {
+    "selected_start_windows": 512,
+    "window_rewards": 64,
+    "value_batches": 5,
+    "value_state_rows": 1024,
+    "critic_backward": 4,
+    "ppo_load": 1,
+    "torch_zip_member_load": 3,
+    "actor_forward": 0,
+    "optimizer_steps": 0,
+    "learn": 0,
+    "save": 0,
+    "physics_controls": 0
+  },
+  "integrity_passed": true,
+  "gates": {
+    "broad_saved_behavior_underestimate_U": true,
+    "critic_only_clip_pressure_C": true,
+    "broad_overestimate": false,
+    "time_or_state_concentration": false
+  },
+  "proxy_all": {
+    "mean_start_value": 48.89430,
+    "mean_bootstrapped_target": 212.93801,
+    "mean_residual_target_minus_value": 164.04372,
+    "positive_residual_rows": 512,
+    "B": 0.8756025362044241,
+    "E": 0.8727180415217787
+  },
+  "critic_gradient_l2_by_quartile": [1860.5655349646077, 1853.6175432925984, 1850.752105507435, 1843.4161323434187],
+  "pure_tests_passed": {"sample_math": 7, "independent_readback": 5},
+  "old_frozen_sources_unchanged": true,
+  "stage13_ci": {"run_id": 36585578717, "status": "completed", "conclusion": "success", "verified_by_root": true},
+  "next_stage": {
+    "stage": 15,
+    "status": "separately_authorized_under_preparation_not_completed",
+    "intervention": "actor_critic_grouped_clip_0p5_vs_original_global_clip_0p5",
+    "training_controls_total_limit": 32768,
+    "all_new_controls_limit_including_conditional_evaluation": 63368,
+    "paired_initial_policy_and_adam": true,
+    "new_training_or_physics_results_available_in_stage14": false
+  },
+  "limits": [
+    "saved-behavior 64-step current-final bootstrap proxy, not historical PPO GAE",
+    "not final on-policy return or unbiased critic error",
+    "no historical or present actor gradient measured",
+    "critic-only proxy clip coefficient is not a measured actor Adam update factor",
+    "single diagnostic does not establish grouped clipping benefit"
+  ]
+}
