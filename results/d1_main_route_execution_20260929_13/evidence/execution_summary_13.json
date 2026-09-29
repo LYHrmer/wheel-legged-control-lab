@@ -1,0 +1,122 @@
+{
+  "schema": "d1-main-route-stage13-execution-v1",
+  "profile": "flat_0p6_final_policy_development_600",
+  "seed": 88813,
+  "actual_totals": {
+    "controls_attempted": 1200,
+    "controls_completed": 1200,
+    "normal_native_attempted": 6000,
+    "normal_native_returned": 6000,
+    "compiler_native": 4,
+    "strict_loads": 2,
+    "probe_batches": 2,
+    "regular_policy_predictions": 1200,
+    "predict_entries_including_probe": 1202,
+    "learn": 0,
+    "save": 0,
+    "optimizer_steps": 0
+  },
+  "arms": {
+    "headless": {
+      "controls": 600,
+      "normal_native": 3000,
+      "compiler_native": 2,
+      "model_calls": {
+        "learn_attempted": 0,
+        "load_attempted": 1,
+        "load_returned": 1,
+        "predict_attempted": 601,
+        "predict_returned": 601,
+        "save_attempted": 0
+      },
+      "probe_rows": 32,
+      "active_wall_s": 4.319944145,
+      "active_rtf": 1.3889068466184995,
+      "outer_wall_s": 82.10385063600006,
+      "preflight_s": 47.13851868799998,
+      "execution_s": 12.235004897999943,
+      "postcheck_s": 22.558745072999955,
+      "phase_and_cleanup_passed": true,
+      "max_abs_roll_deg": 0.4291487111372763,
+      "max_abs_pitch_deg": 1.1179022590251595,
+      "min_endpoint_clearance_m": 0.4548674724466356,
+      "nonwheel_contacts": 0,
+      "force_sampling_performed": false,
+      "controls_sha256": "61cecd10db3699596306be7900eec6c8a29d1873657f914a15cd29feee13658f"
+    },
+    "gui": {
+      "controls": 600,
+      "normal_native": 3000,
+      "compiler_native": 2,
+      "model_calls": {
+        "learn_attempted": 0,
+        "load_attempted": 1,
+        "load_returned": 1,
+        "predict_attempted": 601,
+        "predict_returned": 601,
+        "save_attempted": 0
+      },
+      "probe_rows": 32,
+      "active_wall_s": 5.040255756,
+      "active_rtf": 1.190415782543873,
+      "outer_wall_s": 197.46489431300006,
+      "preflight_s": 127.67399928100008,
+      "execution_s": 11.486924690000023,
+      "postcheck_s": 57.915893507999954,
+      "phase_and_cleanup_passed": true,
+      "max_abs_roll_deg": 0.4291487111372763,
+      "max_abs_pitch_deg": 1.1179022590251595,
+      "min_endpoint_clearance_m": 0.4548674724466356,
+      "nonwheel_contacts": 0,
+      "force_sampling_performed": false,
+      "controls_sha256": "3143f1d43905430303be3ac9560804b11ab259e1123864f1aa7f65a351de42d2"
+    }
+  },
+  "pair": {
+    "gui": {
+      "arm": "gui",
+      "execution_integrity": true,
+      "gui_performance": true,
+      "numeric_record_integrity": true,
+      "numeric_sha256": "28304aac306de59af9487837a1cacf32502915487d161485c1232d01385330f0",
+      "output": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation13/gui13_revision02/development600_01_gui",
+      "performance": {
+        "active_rtf": 1.1904158097047601,
+        "captures_verified": [
+          "frame_drive.png",
+          "frame_final.png",
+          "frame_initial.png"
+        ],
+        "draw_fps": 12.499366001899983,
+        "drawn_active_frames": 63,
+        "passed": true,
+        "poll_interval_p95_ns": 88956706,
+        "snapshot_age_p95_ns": 140198038
+      },
+      "reasons": []
+    },
+    "gui_performance": true,
+    "headless": {
+      "arm": "headless",
+      "execution_integrity": true,
+      "gui_performance": null,
+      "numeric_record_integrity": true,
+      "numeric_sha256": "28304aac306de59af9487837a1cacf32502915487d161485c1232d01385330f0",
+      "output": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation13/gui13_revision02/development600_01_headless",
+      "reasons": []
+    },
+    "numeric_equivalence": true,
+    "qualified_for_default_GUI": false,
+    "reasons": []
+  },
+  "private_x11_cleanup_passed": true,
+  "scope": {
+    "original_1600_tasks_replayed": false,
+    "default_GUI_qualified": false,
+    "hardware_keyboard_tested": false,
+    "RL_gain_proven": false,
+    "new_training": false,
+    "multi_terrain_qualified": false,
+    "sideways_or_jump_qualified": false
+  }
+}

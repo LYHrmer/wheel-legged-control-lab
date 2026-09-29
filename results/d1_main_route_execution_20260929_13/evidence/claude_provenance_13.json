@@ -1,0 +1,36 @@
+{
+  "schema": "d1-continuation13-external-assistant-provenance-v1",
+  "requested_model_alias": "opus",
+  "actual_assistant_api_model": "anthropic/claude-opus-5",
+  "identity_probe": {
+    "session_id": "e99f9ccf-6f48-41b6-b59d-4bdf15db0323",
+    "status": "READY"
+  },
+  "coding_session_id": "c54383b6-29c5-4453-b608-a4e2e5094727",
+  "first_attempt": {
+    "terminal_reason": "max_turns",
+    "exit_code": 1,
+    "no_code_at_turn_limit": true
+  },
+  "resumed_attempt": {
+    "terminal_reason": "api_error",
+    "api_error_status": 402,
+    "error": "daily spending limit exceeded",
+    "exit_code": 1,
+    "draft_files_created": {
+      "test_verify_gui13.py": {
+        "bytes": 33787,
+        "sha256": "abf35cda30fd3ea758179966b5e0715a8730b5a4ef201dc3c3ee0f3d8be73fc2"
+      },
+      "verify_gui13.py": {
+        "bytes": 88137,
+        "sha256": "86981effdf491c85e7e8ee3f2d98f6b5f7f9810d1899ae1a9439b63865d41e7d"
+      }
+    },
+    "accepted_for_execution": false,
+    "tests_executed": false
+  },
+  "fallback": "actual gpt-6-sol independently implemented sol_verify13; Astra reviews, root executes",
+  "physics_controls": 0,
+  "robot_model_calls": 0
+}

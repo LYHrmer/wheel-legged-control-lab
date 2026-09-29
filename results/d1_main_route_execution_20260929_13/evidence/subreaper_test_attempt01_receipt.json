@@ -1,0 +1,13 @@
+{
+  "schema": "d1-root-host-pure-test-v1",
+  "execution": {
+    "chunk_id": "599948",
+    "wall_time_seconds": 0.000028349,
+    "exit_code": 1,
+    "original_token_count": 392,
+    "output": "ERROR\n\n======================================================================\nERROR: test_fast_setsid_orphan_is_recovered_and_missing_ready_rejected (continuation13.test_root_subreaper_13.SubreaperTest)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation13/test_root_subreaper_13.py\", line 25, in test_fast_setsid_orphan_is_recovered_and_missing_ready_rejected\n    result = subprocess.run(\n  File \"/usr/lib/python3.10/subprocess.py\", line 505, in run\n    stdout, stderr = process.communicate(input, timeout=timeout)\n  File \"/usr/lib/python3.10/subprocess.py\", line 1154, in communicate\n    stdout, stderr = self._communicate(input, endtime, timeout)\n  File \"/usr/lib/python3.10/subprocess.py\", line 2022, in _communicate\n    self._check_timeout(endtime, orig_timeout, stdout, stderr)\n  File \"/usr/lib/python3.10/subprocess.py\", line 1198, in _check_timeout\n    raise TimeoutExpired(\nsubprocess.TimeoutExpired: Command '['rtk', 'proxy', '/usr/bin/python3', '-B', '/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation13/run_stage13_root_host.py', '--plan', '/tmp/tmpaieudy20/plan.json', '--launcher', '/tmp/tmpaieudy20/dummy_launcher.py', '--arm', 'headless', '--receipt-directory', '/tmp/tmpaieudy20/receipt']' timed out after 15 seconds\n\n----------------------------------------------------------------------\nRan 1 test in 15.022s\n\nFAILED (errors=1)\n"
+  },
+  "physics_controls": 0,
+  "model_calls": 0,
+  "diagnosis": "Dummy daemon inherited stdout/stderr, retaining rtk forwarding pipes; subprocess test timeout 15s before launcher wrapper EOF. Preserve failed test; new fixture closes inherited streams before sleep."
+}

@@ -1,0 +1,72 @@
+{
+  "schema": "d1-continuation-stage13-prepublication-v1",
+  "base_repository_commit": "0570d978013e9ef4c1aedaf3e89011acd02ce0bb",
+  "stage_status": "bounded_execution_closed_publication_pending",
+  "publication_receipt_after_commit": "final_publication_receipt_13.json",
+  "plan_sha256": "4a16de7c30c61d670cee0f32cf0e0182119405f01573bf4e1fcd99100d500b99",
+  "plan_consumed": true,
+  "arms_completed": [
+    "headless",
+    "gui"
+  ],
+  "retry_permitted": false,
+  "actual_totals": {
+    "controls_attempted": 1200,
+    "controls_completed": 1200,
+    "normal_native_attempted": 6000,
+    "normal_native_returned": 6000,
+    "compiler_native": 4,
+    "strict_loads": 2,
+    "probe_batches": 2,
+    "regular_policy_predictions": 1200,
+    "predict_entries_including_probe": 1202,
+    "learn": 0,
+    "save": 0,
+    "optimizer_steps": 0
+  },
+  "independent_pair_receipt": "pair_readback_13_01.json",
+  "source_frozen_check": "frozen_source_check_13.json",
+  "tests_passed": {
+    "archive": 13,
+    "bridge": 5,
+    "reader": 5,
+    "subreaper": 1
+  },
+  "historical_failures_preserved": [
+    "archive_red_receipt_01.json",
+    "subreaper_test_attempt01_receipt.json",
+    "astra_revision02_go.md"
+  ],
+  "cleanup_receipts": [
+    "root_headless_host_01/receipt.json",
+    "root_gui_host_01/receipt.json",
+    "gui13_revision02/development600_01_gui.x11/launcher_receipt.json"
+  ],
+  "qualified_for_default_GUI": false,
+  "RL_gain_proven": false,
+  "new_training": false,
+  "next_candidate": {
+    "status": "unreserved_requires_separate_bounded_contract",
+    "task": "final-policy value/critic-gradient diagnostic on saved training behavior",
+    "saved_training_starts": 512,
+    "window_steps": 64,
+    "max_value_state_forwards": 1024,
+    "max_critic_backwards": 4,
+    "max_optimizer_steps": 0,
+    "max_learn": 0,
+    "max_save": 0,
+    "new_physics": 0,
+    "limits": "not historical GAE reconstruction or final on-policy truth"
+  },
+  "subsequent_work": [
+    "bounded real input and safe-stop validation",
+    "1.6 m/s GUI only after input gate",
+    "single-factor learning only after diagnosis",
+    "new-policy terrain/15mm/sideways/jump each needs bounded contract"
+  ],
+  "unchanged_limits": [
+    "77 frozen sources and historical records unchanged",
+    "R is simulation reset; physical self-righting unimplemented",
+    "no rerun of previous training or physical batches"
+  ]
+}

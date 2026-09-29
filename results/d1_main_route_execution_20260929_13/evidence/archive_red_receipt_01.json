@@ -1,0 +1,13 @@
+{
+  "command": "rtk proxy env PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 /usr/bin/python3 -B -m unittest -v continuation13.archive13.test_archive13_regression",
+  "working_directory": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01",
+  "test_source_sha256": "b638b91383c3caf3dcf4d0cef7b04728d165a3da0a960b7621188d0e52843c41",
+  "exit_code": 1,
+  "tests": 1,
+  "unittest_elapsed_s": 0.002,
+  "first_exception": "TerminationRequested: soft stop",
+  "finally_exception": "FileExistsError: native_block_0000.jsonl.gz",
+  "observed_bug": "case finally retry masks first gzip interruption",
+  "physics_controls": 0,
+  "model_calls": 0
+}

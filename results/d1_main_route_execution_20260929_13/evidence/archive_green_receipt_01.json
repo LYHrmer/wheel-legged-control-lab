@@ -1,0 +1,15 @@
+{
+  "command": "rtk proxy timeout 30s env PYTHONDONTWRITEBYTECODE=1 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 /usr/bin/python3 -B -m unittest -v continuation13.archive13.test_archive13_fixed",
+  "cwd": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01",
+  "execution": {
+    "chunk_id": "d7c426",
+    "wall_time_seconds": 0.239276875,
+    "exit_code": 0,
+    "original_token_count": 444,
+    "output": "test_existing_target_is_never_overwritten (continuation13.archive13.test_archive13_fixed.ArchiveWriterTests) ... ok\ntest_failed_writer_blocks_new_payload_but_allows_one_failure_receipt (continuation13.archive13.test_archive13_fixed.ArchiveWriterTests) ... ok\ntest_fsync_failure_keeps_uncommitted_partial (continuation13.archive13.test_archive13_fixed.ArchiveWriterTests) ... ok\ntest_gzip_close_failure_keeps_uncommitted_partial (continuation13.archive13.test_archive13_fixed.ArchiveWriterTests) ... ok\ntest_link_failure_cannot_publish_manifest (continuation13.archive13.test_archive13_fixed.ArchiveWriterTests) ... ok\ntest_manifest_directory_fsync_failure_removes_own_manifest (continuation13.archive13.test_archive13_fixed.ArchiveWriterTests) ... ok\ntest_manifest_link_failure_keeps_payloads_uncommitted (continuation13.archive13.test_archive13_fixed.ArchiveWriterTests) ... ok\ntest_mid_gzip_write_keeps_partial_and_never_publishes_manifest (continuation13.archive13.test_archive13_fixed.ArchiveWriterTests) ... ok\ntest_nominal_two_payload_commit_is_valid_only_with_manifest (continuation13.archive13.test_archive13_fixed.ArchiveWriterTests) ... ok\ntest_second_payload_link_failure_leaves_both_unqualified (continuation13.archive13.test_archive13_fixed.ArchiveWriterTests) ... ok\ntest_soft_stop_only_latches_and_does_not_interrupt_a_commit (continuation13.archive13.test_archive13_fixed.ArchiveWriterTests) ... ok\ntest_failed_flush_is_not_retried_or_masked_by_case_finally (continuation13.archive13.test_archive13_fixed.GuardFinishTests) ... ok\ntest_successful_finish_is_idempotent_and_manifest_backed (continuation13.archive13.test_archive13_fixed.GuardFinishTests) ... ok\n\n----------------------------------------------------------------------\nRan 13 tests in 0.143s\n\nOK\n"
+  },
+  "physics_controls": 0,
+  "model_calls": 0,
+  "source_sha256": "047fd765fc9213aaa346c0fe47393c65377ab38b04eae4a8cfa36c489f2732d7",
+  "test_sha256": "d7d3bc88bbb4866f9329397c6467b904d28e906c42cfe9d493519aefde971504"
+}
