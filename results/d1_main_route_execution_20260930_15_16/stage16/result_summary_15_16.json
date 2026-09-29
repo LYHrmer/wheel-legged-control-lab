@@ -1,0 +1,570 @@
+{
+  "schema": "d1-compact-results-15-16-v1",
+  "training_readback_sha256": "a01d90dec9ef44c640f02a46666db80f11e6e61cc53d553a7c8198f8b87dd23b",
+  "eval_readback_sha256": "fdadeffa7683a19627f759001304ace481084a134b97eec2e866b2bd82646d36",
+  "engineering_valid": true,
+  "training_first_rollout_byte_exact": true,
+  "training_clip_summary": {
+    "global": {
+      "actor_delta_mean": 0.003000584395388828,
+      "actor_delta_median": 0.0029352626592617716,
+      "actor_delta_relative_mean": 0.00013196649852407176,
+      "actual_actor_scale_mean": 0.0007980484666631053,
+      "actual_actor_scale_median": 0.0007950915890704532,
+      "actual_critic_scale_mean": 0.0007980484668035032,
+      "actual_critic_scale_median": 0.0007950915901036532,
+      "clip_attempted": 256,
+      "critic_delta_mean": 0.0038816304435238093,
+      "critic_delta_median": 0.003853471210075421,
+      "critic_delta_relative_mean": 0.00016464900947233983,
+      "hypothetical_global_alpha_mean": 0.0007980484697953315,
+      "hypothetical_global_alpha_median": 0.0007950915974759053,
+      "native_clip": 256
+    },
+    "grouped": {
+      "actor_delta_mean": 0.029421171427913666,
+      "actor_delta_median": 0.02549474295542437,
+      "actor_delta_relative_mean": 0.0012970523385166426,
+      "actual_actor_scale_mean": 0.1879923786566378,
+      "actual_actor_scale_median": 0.17449440756907422,
+      "actual_critic_scale_mean": 0.0007963341136434394,
+      "actual_critic_scale_median": 0.0007932839786380262,
+      "clip_attempted": 256,
+      "critic_delta_mean": 0.003913366346144214,
+      "critic_delta_median": 0.003878938858720739,
+      "critic_delta_relative_mean": 0.0001659810175531801,
+      "hypothetical_global_alpha_mean": 0.0007963180224012032,
+      "hypothetical_global_alpha_median": 0.0007932801931085098,
+      "native_clip": 512
+    }
+  },
+  "actors": {
+    "zero": {
+      "tasks_passed": 5,
+      "tasks_completed": 6,
+      "all_safety_passed": true,
+      "all_final_window_passed": true
+    },
+    "global_continue": {
+      "tasks_passed": 4,
+      "tasks_completed": 6,
+      "all_safety_passed": true,
+      "all_final_window_passed": true,
+      "relative_to_zero": {
+        "contribution_passed": false,
+        "pooled_common_pass_sse_ratio": 1.4308042206348195,
+        "pooled_torque_squared_cost_ratio": 1.2251297749921495,
+        "task_regressions": [
+          "flat_1p2_yaw"
+        ],
+        "converted_tasks": [],
+        "sse_ratio_by_task": {
+          "flat_0p6": 1.6551163120601486,
+          "flat_1p6": 2.0321737712476167,
+          "flat_1p2_yaw": 1.2378120846570186,
+          "bumps_0p4": 1.2380407354558063,
+          "rough_0p35": 1.3412603579862157,
+          "ramp_0p45_complete": 1.3244413368877508
+        }
+      }
+    },
+    "grouped_continue": {
+      "tasks_passed": 4,
+      "tasks_completed": 6,
+      "all_safety_passed": true,
+      "all_final_window_passed": true,
+      "relative_to_zero": {
+        "contribution_passed": false,
+        "pooled_common_pass_sse_ratio": 1.0393999130616522,
+        "pooled_torque_squared_cost_ratio": 1.165286558888279,
+        "task_regressions": [
+          "flat_1p2_yaw"
+        ],
+        "converted_tasks": [],
+        "sse_ratio_by_task": {
+          "flat_0p6": 1.1296663052899403,
+          "flat_1p6": 0.88552978711028,
+          "flat_1p2_yaw": 1.2712659768695107,
+          "bumps_0p4": 1.1389600396538277,
+          "rough_0p35": 1.0297094091862806,
+          "ramp_0p45_complete": 1.1416151892690505
+        }
+      }
+    }
+  },
+  "tasks": [
+    {
+      "case_id": "flat_0p6",
+      "actor": "zero",
+      "seed": 151101,
+      "controls": 1600,
+      "task_passed": true,
+      "failure_reasons": [],
+      "safety_passed": true,
+      "final_window_passed": true,
+      "ramp_geometry_passed": null,
+      "mean_com_vx_mps": 0.6058500584763832,
+      "hold_vx_rms_mps": 0.007248223726104766,
+      "ticks_above_1p5_of_400": 0,
+      "yaw_hold_rms_rps": null,
+      "drive_sse": 2.357431942831454,
+      "normalized_torque_squared_cost_sum": 11.219842509582286,
+      "brake_time_s": 1.4000000000000001,
+      "brake_max_forward_excursion_m": 0.3965095340332354
+    },
+    {
+      "case_id": "flat_0p6",
+      "actor": "global_continue",
+      "seed": 151101,
+      "controls": 1600,
+      "task_passed": true,
+      "failure_reasons": [],
+      "safety_passed": true,
+      "final_window_passed": true,
+      "ramp_geometry_passed": null,
+      "mean_com_vx_mps": 0.6194183022020057,
+      "hold_vx_rms_mps": 0.019820535862492616,
+      "ticks_above_1p5_of_400": 0,
+      "yaw_hold_rms_rps": null,
+      "drive_sse": 3.901824063151987,
+      "normalized_torque_squared_cost_sum": 12.981860250292844,
+      "brake_time_s": 1.4000000000000001,
+      "brake_max_forward_excursion_m": 0.39992435529368375
+    },
+    {
+      "case_id": "flat_0p6",
+      "actor": "grouped_continue",
+      "seed": 151101,
+      "controls": 1600,
+      "task_passed": true,
+      "failure_reasons": [],
+      "safety_passed": true,
+      "final_window_passed": true,
+      "ramp_geometry_passed": null,
+      "mean_com_vx_mps": 0.6127685489071859,
+      "hold_vx_rms_mps": 0.01333380843255076,
+      "ticks_above_1p5_of_400": 0,
+      "yaw_hold_rms_rps": null,
+      "drive_sse": 2.663111432830894,
+      "normalized_torque_squared_cost_sum": 11.946533802902147,
+      "brake_time_s": 1.4000000000000001,
+      "brake_max_forward_excursion_m": 0.40112153860255706
+    },
+    {
+      "case_id": "flat_1p6",
+      "actor": "zero",
+      "seed": 151102,
+      "controls": 1600,
+      "task_passed": true,
+      "failure_reasons": [],
+      "safety_passed": true,
+      "final_window_passed": true,
+      "ramp_geometry_passed": null,
+      "mean_com_vx_mps": 1.6108069836338392,
+      "hold_vx_rms_mps": 0.012400630725358195,
+      "ticks_above_1p5_of_400": 400,
+      "yaw_hold_rms_rps": null,
+      "drive_sse": 3.8410527805543215,
+      "normalized_torque_squared_cost_sum": 19.48369874534053,
+      "brake_time_s": 3.38,
+      "brake_max_forward_excursion_m": 2.638335514859266
+    },
+    {
+      "case_id": "flat_1p6",
+      "actor": "global_continue",
+      "seed": 151102,
+      "controls": 1600,
+      "task_passed": true,
+      "failure_reasons": [],
+      "safety_passed": true,
+      "final_window_passed": true,
+      "ramp_geometry_passed": null,
+      "mean_com_vx_mps": 1.6297060598207287,
+      "hold_vx_rms_mps": 0.0308320986954105,
+      "ticks_above_1p5_of_400": 400,
+      "yaw_hold_rms_rps": null,
+      "drive_sse": 7.80568671462022,
+      "normalized_torque_squared_cost_sum": 25.706657896280184,
+      "brake_time_s": 3.37,
+      "brake_max_forward_excursion_m": 2.6256061555968646
+    },
+    {
+      "case_id": "flat_1p6",
+      "actor": "grouped_continue",
+      "seed": 151102,
+      "controls": 1600,
+      "task_passed": true,
+      "failure_reasons": [],
+      "safety_passed": true,
+      "final_window_passed": true,
+      "ramp_geometry_passed": null,
+      "mean_com_vx_mps": 1.6105898513150276,
+      "hold_vx_rms_mps": 0.014046231576356476,
+      "ticks_above_1p5_of_400": 400,
+      "yaw_hold_rms_rps": null,
+      "drive_sse": 3.401366651043617,
+      "normalized_torque_squared_cost_sum": 25.655434770519157,
+      "brake_time_s": 3.38,
+      "brake_max_forward_excursion_m": 2.6277973772063987
+    },
+    {
+      "case_id": "flat_1p2_yaw",
+      "actor": "zero",
+      "seed": 151103,
+      "controls": 1600,
+      "task_passed": true,
+      "failure_reasons": [],
+      "safety_passed": true,
+      "final_window_passed": true,
+      "ramp_geometry_passed": null,
+      "mean_com_vx_mps": 1.2085556381499771,
+      "hold_vx_rms_mps": 0.010460254593235813,
+      "ticks_above_1p5_of_400": 0,
+      "yaw_hold_rms_rps": 0.11377547847060276,
+      "drive_sse": 35.73006141287536,
+      "normalized_torque_squared_cost_sum": 18.289936190723637,
+      "brake_time_s": 2.58,
+      "brake_max_forward_excursion_m": 1.4992174699900715
+    },
+    {
+      "case_id": "flat_1p2_yaw",
+      "actor": "global_continue",
+      "seed": 151103,
+      "controls": 1600,
+      "task_passed": false,
+      "failure_reasons": [
+        "yaw: yaw rate RMS error 0.12466549726654089 rad/s exceeds 0.12"
+      ],
+      "safety_passed": true,
+      "final_window_passed": true,
+      "ramp_geometry_passed": null,
+      "mean_com_vx_mps": 1.2229468658000502,
+      "hold_vx_rms_mps": 0.02472556866362325,
+      "ticks_above_1p5_of_400": 0,
+      "yaw_hold_rms_rps": 0.12466549726654089,
+      "drive_sse": 44.22710180239455,
+      "normalized_torque_squared_cost_sum": 22.08141665275194,
+      "brake_time_s": 2.58,
+      "brake_max_forward_excursion_m": 1.5117898174560054
+    },
+    {
+      "case_id": "flat_1p2_yaw",
+      "actor": "grouped_continue",
+      "seed": 151103,
+      "controls": 1600,
+      "task_passed": false,
+      "failure_reasons": [
+        "yaw: yaw rate RMS error 0.13036746766567778 rad/s exceeds 0.12"
+      ],
+      "safety_passed": true,
+      "final_window_passed": true,
+      "ramp_geometry_passed": null,
+      "mean_com_vx_mps": 1.2115494020307922,
+      "hold_vx_rms_mps": 0.012561653294878834,
+      "ticks_above_1p5_of_400": 0,
+      "yaw_hold_rms_rps": 0.13036746766567778,
+      "drive_sse": 45.4224114256466,
+      "normalized_torque_squared_cost_sum": 22.146612498948393,
+      "brake_time_s": 2.58,
+      "brake_max_forward_excursion_m": 1.4989726522204556
+    },
+    {
+      "case_id": "bumps_0p4",
+      "actor": "zero",
+      "seed": 151104,
+      "controls": 1600,
+      "task_passed": true,
+      "failure_reasons": [],
+      "safety_passed": true,
+      "final_window_passed": true,
+      "ramp_geometry_passed": null,
+      "mean_com_vx_mps": 0.4006468351109031,
+      "hold_vx_rms_mps": 0.02553785745507599,
+      "ticks_above_1p5_of_400": 0,
+      "yaw_hold_rms_rps": null,
+      "drive_sse": 5.691956349631844,
+      "normalized_torque_squared_cost_sum": 10.868493162597485,
+      "brake_time_s": 1.01,
+      "brake_max_forward_excursion_m": 0.18407948077003145
+    },
+    {
+      "case_id": "bumps_0p4",
+      "actor": "global_continue",
+      "seed": 151104,
+      "controls": 1600,
+      "task_passed": true,
+      "failure_reasons": [],
+      "safety_passed": true,
+      "final_window_passed": true,
+      "ramp_geometry_passed": null,
+      "mean_com_vx_mps": 0.41210199736140374,
+      "hold_vx_rms_mps": 0.028357867659343422,
+      "ticks_above_1p5_of_400": 0,
+      "yaw_hold_rms_rps": null,
+      "drive_sse": 7.046873825280555,
+      "normalized_torque_squared_cost_sum": 12.0904488812751,
+      "brake_time_s": 1.06,
+      "brake_max_forward_excursion_m": 0.19325468284748215
+    },
+    {
+      "case_id": "bumps_0p4",
+      "actor": "grouped_continue",
+      "seed": 151104,
+      "controls": 1600,
+      "task_passed": true,
+      "failure_reasons": [],
+      "safety_passed": true,
+      "final_window_passed": true,
+      "ramp_geometry_passed": null,
+      "mean_com_vx_mps": 0.40820086025458735,
+      "hold_vx_rms_mps": 0.02677764847941899,
+      "ticks_above_1p5_of_400": 0,
+      "yaw_hold_rms_rps": null,
+      "drive_sse": 6.482910829684541,
+      "normalized_torque_squared_cost_sum": 11.297688422283962,
+      "brake_time_s": 1.02,
+      "brake_max_forward_excursion_m": 0.1886072750823482
+    },
+    {
+      "case_id": "rough_0p35",
+      "actor": "zero",
+      "seed": 151105,
+      "controls": 1600,
+      "task_passed": true,
+      "failure_reasons": [],
+      "safety_passed": true,
+      "final_window_passed": true,
+      "ramp_geometry_passed": null,
+      "mean_com_vx_mps": 0.3441949570701175,
+      "hold_vx_rms_mps": 0.04293215813877128,
+      "ticks_above_1p5_of_400": 0,
+      "yaw_hold_rms_rps": null,
+      "drive_sse": 19.44847228004519,
+      "normalized_torque_squared_cost_sum": 12.680126946472381,
+      "brake_time_s": 0.9,
+      "brake_max_forward_excursion_m": 0.13593047654300383
+    },
+    {
+      "case_id": "rough_0p35",
+      "actor": "global_continue",
+      "seed": 151105,
+      "controls": 1600,
+      "task_passed": true,
+      "failure_reasons": [],
+      "safety_passed": true,
+      "final_window_passed": true,
+      "ramp_geometry_passed": null,
+      "mean_com_vx_mps": 0.35904655367784577,
+      "hold_vx_rms_mps": 0.04882887753406943,
+      "ticks_above_1p5_of_400": 0,
+      "yaw_hold_rms_rps": null,
+      "drive_sse": 26.085464892618408,
+      "normalized_torque_squared_cost_sum": 13.413352496821213,
+      "brake_time_s": 0.93,
+      "brake_max_forward_excursion_m": 0.14911597247913422
+    },
+    {
+      "case_id": "rough_0p35",
+      "actor": "grouped_continue",
+      "seed": 151105,
+      "controls": 1600,
+      "task_passed": true,
+      "failure_reasons": [],
+      "safety_passed": true,
+      "final_window_passed": true,
+      "ramp_geometry_passed": null,
+      "mean_com_vx_mps": 0.3520868476630251,
+      "hold_vx_rms_mps": 0.0428559194306657,
+      "ticks_above_1p5_of_400": 0,
+      "yaw_hold_rms_rps": null,
+      "drive_sse": 20.02627490106109,
+      "normalized_torque_squared_cost_sum": 13.000590012569136,
+      "brake_time_s": 1.22,
+      "brake_max_forward_excursion_m": 0.1670203376103716
+    },
+    {
+      "case_id": "ramp_0p45_complete",
+      "actor": "zero",
+      "seed": 151106,
+      "controls": 1800,
+      "task_passed": false,
+      "failure_reasons": [
+        "speed: hold COM vx RMS error 0.05025548850763067 m/s exceeds 0.05",
+        "speed: hold mean COM vx 0.49719613249187566 m/s outside target 0.45 +/- 0.04"
+      ],
+      "safety_passed": true,
+      "final_window_passed": true,
+      "ramp_geometry_passed": true,
+      "mean_com_vx_mps": 0.49719613249187566,
+      "hold_vx_rms_mps": 0.05025548850763067,
+      "ticks_above_1p5_of_400": 0,
+      "yaw_hold_rms_rps": null,
+      "drive_sse": 36.353022657809056,
+      "normalized_torque_squared_cost_sum": 29.427175931039088,
+      "brake_time_s": 1.1,
+      "brake_max_forward_excursion_m": 0.22667513755205793
+    },
+    {
+      "case_id": "ramp_0p45_complete",
+      "actor": "global_continue",
+      "seed": 151106,
+      "controls": 1800,
+      "task_passed": false,
+      "failure_reasons": [
+        "speed: hold COM vx RMS error 0.06915876796032416 m/s exceeds 0.05",
+        "speed: hold mean COM vx 0.5166333847571122 m/s outside target 0.45 +/- 0.04"
+      ],
+      "safety_passed": true,
+      "final_window_passed": true,
+      "ramp_geometry_passed": true,
+      "mean_com_vx_mps": 0.5166333847571122,
+      "hold_vx_rms_mps": 0.06915876796032416,
+      "ticks_above_1p5_of_400": 0,
+      "yaw_hold_rms_rps": null,
+      "drive_sse": 48.14744592881932,
+      "normalized_torque_squared_cost_sum": 38.65185690429523,
+      "brake_time_s": 1.1,
+      "brake_max_forward_excursion_m": 0.2256208839549334
+    },
+    {
+      "case_id": "ramp_0p45_complete",
+      "actor": "grouped_continue",
+      "seed": 151106,
+      "controls": 1800,
+      "task_passed": false,
+      "failure_reasons": [
+        "speed: hold COM vx RMS error 0.062368568044230605 m/s exceeds 0.05",
+        "speed: hold mean COM vx 0.510070419136454 m/s outside target 0.45 +/- 0.04"
+      ],
+      "safety_passed": true,
+      "final_window_passed": true,
+      "ramp_geometry_passed": true,
+      "mean_com_vx_mps": 0.510070419136454,
+      "hold_vx_rms_mps": 0.062368568044230605,
+      "ticks_above_1p5_of_400": 0,
+      "yaw_hold_rms_rps": null,
+      "drive_sse": 41.501162841996766,
+      "normalized_torque_squared_cost_sum": 34.776564305331,
+      "brake_time_s": 1.1,
+      "brake_max_forward_excursion_m": 0.22963576240603079
+    }
+  ],
+  "grouped_vs_global": {
+    "common_task_count": 4,
+    "common_tasks": [
+      "flat_0p6",
+      "flat_1p6",
+      "bumps_0p4",
+      "rough_0p35"
+    ],
+    "drive_sse_by_task": {
+      "bumps_0p4": {
+        "at_most_1p02": true,
+        "global_sse": 7.046873825280555,
+        "grouped_sse": 6.482910829684541,
+        "ratio": 0.9199697611197741
+      },
+      "flat_0p6": {
+        "at_most_1p02": true,
+        "global_sse": 3.901824063151987,
+        "grouped_sse": 2.663111432830894,
+        "ratio": 0.6825298603237299
+      },
+      "flat_1p6": {
+        "at_most_1p02": true,
+        "global_sse": 7.80568671462022,
+        "grouped_sse": 3.401366651043617,
+        "ratio": 0.4357549534588397
+      },
+      "rough_0p35": {
+        "at_most_1p02": true,
+        "global_sse": 26.085464892618408,
+        "grouped_sse": 20.02627490106109,
+        "ratio": 0.7677177686309156
+      }
+    },
+    "flat_1p6_vx_rms_gate": true,
+    "flat_1p6_vx_rms_ratio": 0.45557169867412634,
+    "hold_diagnostics": {
+      "bumps_0p4": {
+        "at_most_1p02": true,
+        "global_hold_sse": 5.840892087018189,
+        "grouped_hold_sse": 5.329026718294946,
+        "ratio": 0.91236520704416
+      },
+      "flat_0p6": {
+        "at_most_1p02": true,
+        "global_hold_sse": 2.518201614373651,
+        "grouped_hold_sse": 1.1436642187711756,
+        "ratio": 0.4541591158719187
+      },
+      "flat_1p2_yaw": {
+        "at_most_1p02": true,
+        "global_hold_sse": 42.76637949451789,
+        "grouped_hold_sse": 43.49908041830858,
+        "ratio": 1.017132638592533
+      },
+      "flat_1p6": {
+        "at_most_1p02": true,
+        "global_hold_sse": 6.237687641306113,
+        "grouped_hold_sse": 1.3846340591571407,
+        "ratio": 0.22197874256929148
+      }
+    },
+    "individual_drive_sse_ratios_at_most_1p02": 4,
+    "passed": false,
+    "pooled_drive_sse_ratio": 0.7264445394216765,
+    "pooled_torque_cost_ratio": 0.9511535697479445,
+    "reasons": [
+      "grouped did not pass all six tasks"
+    ],
+    "six_task_drive_cost_complete": true,
+    "torque_cost_by_task": {
+      "bumps_0p4": {
+        "both_drive_complete": true,
+        "global": 12.0904488812751,
+        "grouped": 11.297688422283962,
+        "ratio": 0.9344308497744105
+      },
+      "flat_0p6": {
+        "both_drive_complete": true,
+        "global": 12.981860250292844,
+        "grouped": 11.946533802902147,
+        "ratio": 0.9202482211771351
+      },
+      "flat_1p2_yaw": {
+        "both_drive_complete": true,
+        "global": 22.08141665275194,
+        "grouped": 22.146612498948393,
+        "ratio": 1.0029525209918235
+      },
+      "flat_1p6": {
+        "both_drive_complete": true,
+        "global": 25.706657896280184,
+        "grouped": 25.655434770519157,
+        "ratio": 0.9980073984736678
+      },
+      "ramp_0p45_complete": {
+        "both_drive_complete": true,
+        "global": 38.65185690429523,
+        "grouped": 34.776564305331,
+        "ratio": 0.899738514282516
+      },
+      "rough_0p35": {
+        "both_drive_complete": true,
+        "global": 13.413352496821213,
+        "grouped": 13.000590012569136,
+        "ratio": 0.9692274929515274
+      }
+    },
+    "torque_cost_is_normalized_squared_proxy_not_energy": true
+  },
+  "qualified_for_default_GUI": false,
+  "limits": [
+    "Single paired training seed; one fixed seed per task; no statistical reliability claim.",
+    "No new physical old-final comparison.",
+    "No new 15 mm single-step, lateral, jump, hardware or GUI qualification.",
+    "Squared normalized motor torque is a cost proxy, not energy.",
+    "Post-release baseline braking has zero residual and is not an RL contribution."
+  ]
+}

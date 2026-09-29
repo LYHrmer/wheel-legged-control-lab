@@ -1,0 +1,121 @@
+{
+  "schema": "d1-continuation-state-16-v1",
+  "work_directory": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16",
+  "status": "diagnosis_and_one_paired_training_advance_closed",
+  "stage14": "completed_and_published_481e494",
+  "stage15_training": "two_16384_control_arms_complete",
+  "stage15_eval": "closed_failed_before_load_or_control_do_not_retry",
+  "stage16_eval": "complete_30600_controls_18_formal_cases_two_floors_independent_readback_passed",
+  "source_checkpoint_parent_sha256": "6cf2db80be7b990efc8be40eff307e58351eae839970b0c78ce5c9b5193f8e70",
+  "new_checkpoint_sha256": {
+    "global_continue": "db324c8ba2c7a4821352f1d564b47d4fcffb97784d751e9ea20b23d525674d2b",
+    "grouped_continue": "1fcfe833d8a7cfdbbc224c9007a35e44c035674ce948b51557434b77838476fb"
+  },
+  "actual_counts": {
+    "controls_attempted": 63368,
+    "controls_completed": 63368,
+    "normal_native_attempted": 316840,
+    "normal_native_returned": 316840,
+    "compiler_native_attempted": 8,
+    "compiler_native_returned": 8,
+    "actor_rows": 184896,
+    "critic_rows": 163904,
+    "model_calls": {
+      "backward": {
+        "attempted": 512,
+        "returned": 512
+      },
+      "evaluate_actions": {
+        "attempted": 512,
+        "returned": 512
+      },
+      "forward": {
+        "attempted": 32768,
+        "returned": 32768
+      },
+      "learn": {
+        "attempted": 2,
+        "returned": 2
+      },
+      "load": {
+        "attempted": 6,
+        "returned": 6
+      },
+      "predict": {
+        "attempted": 20808,
+        "returned": 20808
+      },
+      "predict_values": {
+        "attempted": 64,
+        "returned": 64
+      },
+      "save": {
+        "attempted": 2,
+        "returned": 2
+      },
+      "torch_load": {
+        "attempted": 18,
+        "returned": 18
+      },
+      "train": {
+        "attempted": 32,
+        "returned": 32
+      }
+    }
+  },
+  "reserved_counts": {
+    "controls": 93968,
+    "normal_native": 469840,
+    "compiler_native": 8
+  },
+  "all_reservations_closed": true,
+  "no_retry_or_refund": true,
+  "qualified_for_default_GUI": false,
+  "grouped_global_promoted": false,
+  "zero_contribution_by_actor": {
+    "global_continue": false,
+    "grouped_continue": false
+  },
+  "observed_task_counts": {
+    "zero": 5,
+    "global_continue": 4,
+    "grouped_continue": 4
+  },
+  "next_direction": {
+    "question": "Locate how saved learned residuals and training command coverage relate to the shared yaw-task regression.",
+    "method": "Saved-record diagnosis of signed turning windows, effective left/right drive residuals, applied commands/torques and yaw errors, plus corresponding command coverage in already saved training blocks.",
+    "status": "proposed_not_executed",
+    "new_budget_reserved": false,
+    "model_loads_authorized_by_this_state": 0,
+    "new_physics_authorized_by_this_state": 0,
+    "no_causal_claim_from_correlation": true
+  },
+  "do_not_repeat": [
+    "old65k_or_G1_batches",
+    "completed_stage14_value_forward_and_backward",
+    "stage15_two_trainings",
+    "stage15_failed_eval",
+    "stage16_completed_eval"
+  ],
+  "retained_limits": [
+    "new99D16D single15mm step unqualified",
+    "no new keyboard GUI qualification",
+    "no lateral or jump qualification",
+    "R remains simulation reset",
+    "no physical self-righting",
+    "simulation oracle and one paired training seed"
+  ],
+  "frozen77": "unchanged; see frozen_source_post16.json",
+  "local_full_archive_inventory": "local_archive_inventory_15_16.json",
+  "main_report": "/home/lyh/wheel-legged-control-lab/docs/main_route_execution_20260930_15_16.md",
+  "publication": {
+    "target": "GitHub main via verified SSH443",
+    "receipt_after_push": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/final_publication_receipt_15_16.json"
+  },
+  "actual_roles": {
+    "plan_review": "gpt-6-astra ultra",
+    "bounded_implementation_and_data": "gpt-6-sol high",
+    "tests_training_physics_budget_integration_publication": "root",
+    "claude_new_execution_this_stage": false
+  }
+}

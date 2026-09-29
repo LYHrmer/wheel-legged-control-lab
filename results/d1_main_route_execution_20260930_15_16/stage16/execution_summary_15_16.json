@@ -1,0 +1,558 @@
+{
+  "schema": "d1-execution-summary-15-16-v1",
+  "scope": "Stages15+16 only; stage14 offline diagnosis separately closed and published.",
+  "runs": [
+    {
+      "run": "continuation15/global_01",
+      "execution_complete": true,
+      "failure": null,
+      "worker_wall_s": 146.98152823300006,
+      "host_wall_s": 153.99119007599984,
+      "controls_attempted": 16384,
+      "controls_completed": 16384,
+      "normal_native_attempted": 81920,
+      "normal_native_returned": 81920,
+      "compiler_native_attempted": 2,
+      "compiler_native_returned": 2,
+      "actor_rows": 82016,
+      "critic_rows": 81952,
+      "model_calls": {
+        "backward": {
+          "attempted": 256,
+          "phases": {
+            "training": {
+              "attempted": 256,
+              "returned": 256,
+              "rows": 0
+            }
+          },
+          "returned": 256,
+          "rows_attempted": 0,
+          "rows_returned": 0
+        },
+        "evaluate_actions": {
+          "attempted": 256,
+          "phases": {
+            "training": {
+              "attempted": 256,
+              "returned": 256,
+              "rows": 65536
+            }
+          },
+          "returned": 256,
+          "rows_attempted": 65536,
+          "rows_returned": 65536
+        },
+        "forward": {
+          "attempted": 16384,
+          "phases": {
+            "training": {
+              "attempted": 16384,
+              "returned": 16384,
+              "rows": 16384
+            }
+          },
+          "returned": 16384,
+          "rows_attempted": 16384,
+          "rows_returned": 16384
+        },
+        "learn": {
+          "attempted": 1,
+          "phases": {
+            "training": {
+              "attempted": 1,
+              "returned": 1,
+              "rows": 0
+            }
+          },
+          "returned": 1,
+          "rows_attempted": 0,
+          "rows_returned": 0
+        },
+        "load": {
+          "attempted": 2,
+          "phases": {
+            "probe": {
+              "attempted": 1,
+              "returned": 1,
+              "rows": 0
+            },
+            "warm_load": {
+              "attempted": 1,
+              "returned": 1,
+              "rows": 0
+            }
+          },
+          "returned": 2,
+          "rows_attempted": 0,
+          "rows_returned": 0
+        },
+        "predict": {
+          "attempted": 3,
+          "phases": {
+            "probe": {
+              "attempted": 3,
+              "returned": 3,
+              "rows": 96
+            }
+          },
+          "returned": 3,
+          "rows_attempted": 96,
+          "rows_returned": 96
+        },
+        "predict_values": {
+          "attempted": 32,
+          "phases": {
+            "training": {
+              "attempted": 32,
+              "returned": 32,
+              "rows": 32
+            }
+          },
+          "returned": 32,
+          "rows_attempted": 32,
+          "rows_returned": 32
+        },
+        "save": {
+          "attempted": 1,
+          "phases": {
+            "probe": {
+              "attempted": 1,
+              "returned": 1,
+              "rows": 0
+            }
+          },
+          "returned": 1,
+          "rows_attempted": 0,
+          "rows_returned": 0
+        },
+        "torch_load": {
+          "attempted": 6,
+          "phases": {
+            "probe": {
+              "attempted": 3,
+              "returned": 3,
+              "rows": 0
+            },
+            "warm_load": {
+              "attempted": 3,
+              "returned": 3,
+              "rows": 0
+            }
+          },
+          "returned": 6,
+          "rows_attempted": 0,
+          "rows_returned": 0
+        },
+        "train": {
+          "attempted": 16,
+          "phases": {
+            "training": {
+              "attempted": 16,
+              "returned": 16,
+              "rows": 0
+            }
+          },
+          "returned": 16,
+          "rows_attempted": 0,
+          "rows_returned": 0
+        }
+      },
+      "host_exit_code": 0,
+      "sources_unchanged": true,
+      "no_live_owned_processes": true,
+      "cleanup_errors": [],
+      "worker_receipt_sha256": "0b37d5d68a7ededf3d9a50adbf85a9ea29593eb1f3bf82dfc574ec9c43a4ed85",
+      "host_receipt_sha256": "1db7d3b1639755bd01d498e044b9772bad26f07960d8afb9d13fd873350d5582"
+    },
+    {
+      "run": "continuation15/grouped_01",
+      "execution_complete": true,
+      "failure": null,
+      "worker_wall_s": 143.7248360800004,
+      "host_wall_s": 150.52635753699997,
+      "controls_attempted": 16384,
+      "controls_completed": 16384,
+      "normal_native_attempted": 81920,
+      "normal_native_returned": 81920,
+      "compiler_native_attempted": 2,
+      "compiler_native_returned": 2,
+      "actor_rows": 82016,
+      "critic_rows": 81952,
+      "model_calls": {
+        "backward": {
+          "attempted": 256,
+          "phases": {
+            "training": {
+              "attempted": 256,
+              "returned": 256,
+              "rows": 0
+            }
+          },
+          "returned": 256,
+          "rows_attempted": 0,
+          "rows_returned": 0
+        },
+        "evaluate_actions": {
+          "attempted": 256,
+          "phases": {
+            "training": {
+              "attempted": 256,
+              "returned": 256,
+              "rows": 65536
+            }
+          },
+          "returned": 256,
+          "rows_attempted": 65536,
+          "rows_returned": 65536
+        },
+        "forward": {
+          "attempted": 16384,
+          "phases": {
+            "training": {
+              "attempted": 16384,
+              "returned": 16384,
+              "rows": 16384
+            }
+          },
+          "returned": 16384,
+          "rows_attempted": 16384,
+          "rows_returned": 16384
+        },
+        "learn": {
+          "attempted": 1,
+          "phases": {
+            "training": {
+              "attempted": 1,
+              "returned": 1,
+              "rows": 0
+            }
+          },
+          "returned": 1,
+          "rows_attempted": 0,
+          "rows_returned": 0
+        },
+        "load": {
+          "attempted": 2,
+          "phases": {
+            "probe": {
+              "attempted": 1,
+              "returned": 1,
+              "rows": 0
+            },
+            "warm_load": {
+              "attempted": 1,
+              "returned": 1,
+              "rows": 0
+            }
+          },
+          "returned": 2,
+          "rows_attempted": 0,
+          "rows_returned": 0
+        },
+        "predict": {
+          "attempted": 3,
+          "phases": {
+            "probe": {
+              "attempted": 3,
+              "returned": 3,
+              "rows": 96
+            }
+          },
+          "returned": 3,
+          "rows_attempted": 96,
+          "rows_returned": 96
+        },
+        "predict_values": {
+          "attempted": 32,
+          "phases": {
+            "training": {
+              "attempted": 32,
+              "returned": 32,
+              "rows": 32
+            }
+          },
+          "returned": 32,
+          "rows_attempted": 32,
+          "rows_returned": 32
+        },
+        "save": {
+          "attempted": 1,
+          "phases": {
+            "probe": {
+              "attempted": 1,
+              "returned": 1,
+              "rows": 0
+            }
+          },
+          "returned": 1,
+          "rows_attempted": 0,
+          "rows_returned": 0
+        },
+        "torch_load": {
+          "attempted": 6,
+          "phases": {
+            "probe": {
+              "attempted": 3,
+              "returned": 3,
+              "rows": 0
+            },
+            "warm_load": {
+              "attempted": 3,
+              "returned": 3,
+              "rows": 0
+            }
+          },
+          "returned": 6,
+          "rows_attempted": 0,
+          "rows_returned": 0
+        },
+        "train": {
+          "attempted": 16,
+          "phases": {
+            "training": {
+              "attempted": 16,
+              "returned": 16,
+              "rows": 0
+            }
+          },
+          "returned": 16,
+          "rows_attempted": 0,
+          "rows_returned": 0
+        }
+      },
+      "host_exit_code": 0,
+      "sources_unchanged": true,
+      "no_live_owned_processes": true,
+      "cleanup_errors": [],
+      "worker_receipt_sha256": "e6c5a0c22fcdf889928bf0f908211008ddb4641cd6c652989706134096f89597",
+      "host_receipt_sha256": "94872e02151fe32ec397b1d22938dedfd5ebdd1814dcc7f509e3aae0fd6170b0"
+    },
+    {
+      "run": "continuation15/eval_01",
+      "execution_complete": false,
+      "failure": {
+        "message": "physics/policy already imported into E verifier",
+        "traceback": "Traceback (most recent call last):\n  File \"/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/worker15.py\", line 149, in main\n    result = evaluate(session, runtime, guard, env, output, writer, counter)\n  File \"/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/eval15.py\", line 9, in evaluate\n    from read_eval15 import read_floor\n  File \"/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/read_eval15.py\", line 35, in <module>\n    from rl11.verify_short_rl16_training_11_04 import boundary_delta, check_controller\n  File \"/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/rl11/verify_short_rl16_training_11_04.py\", line 30, in <module>\n    from upright11.verify_world_upright_reference_11 import _projection\n  File \"/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/upright11/verify_world_upright_reference_11.py\", line 20, in <module>\n    from verify_course_e_08_03 import (\n  File \"/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/verify_course_e_08_03.py\", line 31, in <module>\n    raise RuntimeError(\"physics/policy already imported into E verifier\")\nRuntimeError: physics/policy already imported into E verifier\n",
+        "training_cleanup_errors": [],
+        "type": "RuntimeError"
+      },
+      "worker_wall_s": 5.263475785000082,
+      "host_wall_s": 11.967751862999648,
+      "controls_attempted": 0,
+      "controls_completed": 0,
+      "normal_native_attempted": 0,
+      "normal_native_returned": 0,
+      "compiler_native_attempted": 2,
+      "compiler_native_returned": 2,
+      "actor_rows": 0,
+      "critic_rows": 0,
+      "model_calls": {},
+      "host_exit_code": 1,
+      "sources_unchanged": true,
+      "no_live_owned_processes": true,
+      "cleanup_errors": [],
+      "worker_receipt_sha256": "f19e5b4d324d9b4b763486be3434f9014677974ae0793c3dbb53d12b281e1414",
+      "host_receipt_sha256": "040d3d4c6d8ba42b8386bcd9fe70ac0811f43eae142fae351789fa7bb5fe979a"
+    },
+    {
+      "run": "continuation16/eval_01",
+      "execution_complete": true,
+      "failure": null,
+      "worker_wall_s": 487.6001479480001,
+      "host_wall_s": 494.4326852030008,
+      "controls_attempted": 30600,
+      "controls_completed": 30600,
+      "normal_native_attempted": 153000,
+      "normal_native_returned": 153000,
+      "compiler_native_attempted": 2,
+      "compiler_native_returned": 2,
+      "actor_rows": 20864,
+      "critic_rows": 0,
+      "model_calls": {
+        "load": {
+          "attempted": 2,
+          "phases": {
+            "probe": {
+              "attempted": 2,
+              "returned": 2,
+              "rows": 0
+            }
+          },
+          "returned": 2,
+          "rows_attempted": 0,
+          "rows_returned": 0
+        },
+        "predict": {
+          "attempted": 20802,
+          "phases": {
+            "floor:global": {
+              "attempted": 600,
+              "returned": 600,
+              "rows": 600
+            },
+            "floor:grouped": {
+              "attempted": 600,
+              "returned": 600,
+              "rows": 600
+            },
+            "heldout:bumps_0p4:global": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:bumps_0p4:grouped": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:flat_0p6:global": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:flat_0p6:grouped": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:flat_1p2_yaw:global": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:flat_1p2_yaw:grouped": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:flat_1p6:global": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:flat_1p6:grouped": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:ramp_0p45_complete:global": {
+              "attempted": 1800,
+              "returned": 1800,
+              "rows": 1800
+            },
+            "heldout:ramp_0p45_complete:grouped": {
+              "attempted": 1800,
+              "returned": 1800,
+              "rows": 1800
+            },
+            "heldout:rough_0p35:global": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:rough_0p35:grouped": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "probe": {
+              "attempted": 2,
+              "returned": 2,
+              "rows": 64
+            }
+          },
+          "returned": 20802,
+          "rows_attempted": 20864,
+          "rows_returned": 20864
+        },
+        "torch_load": {
+          "attempted": 6,
+          "phases": {
+            "probe": {
+              "attempted": 6,
+              "returned": 6,
+              "rows": 0
+            }
+          },
+          "returned": 6,
+          "rows_attempted": 0,
+          "rows_returned": 0
+        }
+      },
+      "host_exit_code": 0,
+      "sources_unchanged": true,
+      "no_live_owned_processes": true,
+      "cleanup_errors": [],
+      "worker_receipt_sha256": "41300d1c14f287eb5fa0b824c5222ada3b26bd5354ff8c92a1a9b854d5d747c3",
+      "host_receipt_sha256": "11113672c0e559c9dacefcc7cf3ba1436dcef234c19dbcc6b27d6c4d4a3f6c1a"
+    }
+  ],
+  "actual_totals": {
+    "controls_attempted": 63368,
+    "controls_completed": 63368,
+    "normal_native_attempted": 316840,
+    "normal_native_returned": 316840,
+    "compiler_native_attempted": 8,
+    "compiler_native_returned": 8,
+    "actor_rows": 184896,
+    "critic_rows": 163904,
+    "model_calls": {
+      "backward": {
+        "attempted": 512,
+        "returned": 512
+      },
+      "evaluate_actions": {
+        "attempted": 512,
+        "returned": 512
+      },
+      "forward": {
+        "attempted": 32768,
+        "returned": 32768
+      },
+      "learn": {
+        "attempted": 2,
+        "returned": 2
+      },
+      "load": {
+        "attempted": 6,
+        "returned": 6
+      },
+      "predict": {
+        "attempted": 20808,
+        "returned": 20808
+      },
+      "predict_values": {
+        "attempted": 64,
+        "returned": 64
+      },
+      "save": {
+        "attempted": 2,
+        "returned": 2
+      },
+      "torch_load": {
+        "attempted": 18,
+        "returned": 18
+      },
+      "train": {
+        "attempted": 32,
+        "returned": 32
+      }
+    }
+  },
+  "reserved_totals": {
+    "controls": 93968,
+    "normal_native": 469840,
+    "compiler_native": 8
+  },
+  "failed_stage15_eval_reservation_not_refunded": true,
+  "unused_reserved_controls": 30600,
+  "new_training_controls": 32768,
+  "new_training_optimizer_steps": 512,
+  "training_arms": 2,
+  "eval16_formal_cases": 18,
+  "eval16_floor_cases": 2,
+  "readback_performs_model_or_physics": false,
+  "source_frozen77_postcheck": "frozen_source_post16.json",
+  "physics_qualification_requires_separate_readback": true
+}
