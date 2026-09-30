@@ -1,0 +1,71 @@
+{
+  "schema": "b22-pure-test-count-correction-v1",
+  "corrects": {
+    "file": "delivery_receipt.json",
+    "field": "pure_regression_cases_passed",
+    "previous_value": 59
+  },
+  "unique_passed_cases": 58,
+  "successful_executions": 64,
+  "rows": [
+    {
+      "log": "continuation23/pure_checks_02/stdout.txt",
+      "sha256": "3419659f2e06d42fd949af02f3d7622299d38598341928ba33745227fda33cb6",
+      "successful_executions": 7,
+      "contribution_to_unique_cases": 7
+    },
+    {
+      "log": "continuation23/reader_pure_01/stdout_1.txt",
+      "sha256": "fc04c4ed459b92d32a3835538d313386aceee93bf4d005bf5bb81449e34239eb",
+      "successful_executions": 5,
+      "contribution_to_unique_cases": 5
+    },
+    {
+      "log": "continuation24/native_guard_pure_01/stdout.log",
+      "sha256": "2b0629437046edf89a33cc088f4cc22685d44b1e154e6d9af02a0954cba3ac22",
+      "successful_executions": 6,
+      "contribution_to_unique_cases": 0
+    },
+    {
+      "log": "continuation24/pure_checks_01/stdout.log",
+      "sha256": "679b8730108c02a8dc1d0249bd44fdbc0ffd80d6766f11448c4a15c539e84737",
+      "successful_executions": 18,
+      "contribution_to_unique_cases": 18
+    },
+    {
+      "log": "continuation25/reader_pure_01/output.log",
+      "sha256": "fc04c4ed459b92d32a3835538d313386aceee93bf4d005bf5bb81449e34239eb",
+      "successful_executions": 5,
+      "contribution_to_unique_cases": 5
+    },
+    {
+      "log": "continuation25/deferred_pure_01/output.log",
+      "sha256": "f62856bf55710418544da7bb61bc3570a1a293c4053b2e85426b8068f0b37ac6",
+      "successful_executions": 2,
+      "contribution_to_unique_cases": 2
+    },
+    {
+      "log": "continuation25/reader_deferred_pure_01/output.log",
+      "sha256": "d0d5fe161f7f6a5cd079c12d188d23e76a40df672399ddaac542c3ad8486b18b",
+      "successful_executions": 13,
+      "contribution_to_unique_cases": 13
+    },
+    {
+      "log": "continuation26/reader_join_pure_01/output.log",
+      "sha256": "aa779ab29c79464be52ac99280231538603b6da668a0df6198c317b8cd352bc7",
+      "successful_executions": 6,
+      "contribution_to_unique_cases": 6
+    },
+    {
+      "log": "continuation26/owner_join_pure_01/output.log",
+      "sha256": "0201b27d1c574e9573a698a4501f26229d9a420a098dcdade588a982cddf5f73",
+      "successful_executions": 2,
+      "contribution_to_unique_cases": 2
+    }
+  ],
+  "deduplication": "C24 native_guard_pure_01 six cases are included in the final 18-case pure_checks_01 batch; C23 seven-case batch already includes the one C24 diagnostics case.",
+  "reviewer": "actual gpt-6-astra ultra /root/astra_mainplan19, independently inspected saved argv/logs/source only",
+  "physical_results_and_counters_unchanged": true,
+  "additional_test_model_physics_calls": 0,
+  "original_records_preserved": true
+}
