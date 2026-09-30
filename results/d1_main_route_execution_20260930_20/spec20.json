@@ -1,0 +1,721 @@
+{
+  "controller": {
+    "action": 16,
+    "caps": {
+      "forward": 1.6,
+      "jump": false,
+      "lateral": 0,
+      "reverse": 0,
+      "yaw": 0.3
+    },
+    "dt_s": 0.01,
+    "implementation": "continuation18/controller18.py + residual18.py numerical rules unchanged",
+    "native_per_control": 5,
+    "observation": 99,
+    "variant": "combined"
+  },
+  "coverage": {
+    "B_cycle0_and_cycle2_yaw_episode_complete_required": true,
+    "B_each_cycle0_1_2_bumps_episode_complete_required": true,
+    "B_endpoint_abs_yaw_min": 0.28,
+    "B_endpoint_ticks_each_yaw_sign_min": 100,
+    "B_endpoint_vx_target": 1.2,
+    "B_endpoint_vx_tolerance": 0.005,
+    "count_from": "all saved actual controller/servo/native force records; nominal commands insufficient",
+    "each_completed_slot_episode_effective_servo_active_ticks_min": 200,
+    "each_required_bumps_episode_active_positive_load_control_intervals_min": 25,
+    "effective_definition": "action_gate_enabled and abs(servo_vx)>0; never require action norm nonzero",
+    "postwarmup_completed_1000_tick_episodes_per_slot_min": 3,
+    "role": "continuation prerequisite, failure is insufficient exposure not proven hypothesis rejection",
+    "rough_ramp_each_at_least_one_active_positive_family_load_required": true
+  },
+  "development_worker_limits": {
+    "actor_rows_max": 43296,
+    "close_s": 1740,
+    "compiler_native": 2,
+    "controls": 49600,
+    "critic_rows": 0,
+    "floor_reader_hard_s_each_within_host": 120,
+    "hard_s": 1800,
+    "normal_native": 248000,
+    "ppo_load": 3,
+    "predict_api_max": 43203,
+    "probe_batches": 3,
+    "probe_rows": 96,
+    "reader_hard_s": 1200,
+    "regular_predict_calls_rows": 43200,
+    "save": 0,
+    "soft_s": 1500,
+    "torch_load": 9,
+    "train": 0
+  },
+  "evaluation": {
+    "actors_order": [
+      "zero",
+      "old",
+      "A",
+      "B"
+    ],
+    "continue_gates": {
+      "B_all_dev_tasks_pass": true,
+      "B_all_regression_tasks_pass": true,
+      "B_over_A_cost_max_each_pool": 1.1,
+      "B_over_zero_cost_max_each_pool": 1.2,
+      "all_development_records_full_horizon_safe": true,
+      "cost_pools": [
+        "development_equal_case",
+        "original_six_regression"
+      ],
+      "dev_B_over_A_error_max": 0.9,
+      "dev_B_over_old_error_max": 0.95,
+      "each_family_B_over_A_error_max": 1.02,
+      "hold_B_over_A_error_max_each_family": 1.02,
+      "selection": "all conjunctive, no omitted failed cases, no epsilon denominator",
+      "valid_complete_pair_and_coverage": true
+    },
+    "development": [
+      {
+        "case_id": "dev_yaw_left",
+        "drive_start": 175,
+        "final": [
+          1500,
+          1600
+        ],
+        "hold": [
+          430,
+          830
+        ],
+        "horizon": 1600,
+        "release_tick": 850,
+        "seed": 201201,
+        "spawn": "unchanged COURSE_SPAWNS_M[terrain]",
+        "speed_mps": 1.2,
+        "terrain": "flat",
+        "yaw_segments": [
+          [
+            430,
+            550,
+            0.3
+          ],
+          [
+            550,
+            710,
+            -0.3
+          ],
+          [
+            710,
+            830,
+            0.3
+          ]
+        ]
+      },
+      {
+        "case_id": "dev_yaw_right",
+        "drive_start": 175,
+        "final": [
+          1500,
+          1600
+        ],
+        "hold": [
+          430,
+          830
+        ],
+        "horizon": 1600,
+        "release_tick": 850,
+        "seed": 201202,
+        "spawn": "unchanged COURSE_SPAWNS_M[terrain]",
+        "speed_mps": 1.2,
+        "terrain": "flat",
+        "yaw_segments": [
+          [
+            430,
+            550,
+            -0.3
+          ],
+          [
+            550,
+            710,
+            0.3
+          ],
+          [
+            710,
+            830,
+            -0.3
+          ]
+        ]
+      },
+      {
+        "case_id": "dev_bumps375",
+        "drive_start": 200,
+        "final": [
+          1500,
+          1600
+        ],
+        "hold": [
+          285,
+          685
+        ],
+        "horizon": 1600,
+        "release_tick": 710,
+        "seed": 201203,
+        "spawn": "unchanged COURSE_SPAWNS_M[terrain]",
+        "speed_mps": 0.375,
+        "terrain": "bumps",
+        "yaw_segments": []
+      },
+      {
+        "case_id": "dev_bumps350",
+        "drive_start": 225,
+        "final": [
+          1500,
+          1600
+        ],
+        "hold": [
+          305,
+          705
+        ],
+        "horizon": 1600,
+        "release_tick": 730,
+        "seed": 201204,
+        "spawn": "unchanged COURSE_SPAWNS_M[terrain]",
+        "speed_mps": 0.35,
+        "terrain": "bumps",
+        "yaw_segments": []
+      }
+    ],
+    "failed_floor": "skip that actor formal runs; no extension; eligible remaining actors may finish prelisted cases; no complete paired mechanism claim",
+    "final_primary_claim_gates": "B all final tasks and all original7 pass; sealed mean error B/A<=.90 and B/old<=.95, each final family B/A<=1.02, sealed cost B/zero<=1.20 and B/A<=1.10; independently report unchanged original-six RL contribution for both A and B",
+    "final_sealed": [
+      {
+        "case_id": "final_yaw_left",
+        "drive_start": 200,
+        "final": [
+          1500,
+          1600
+        ],
+        "hold": [
+          440,
+          840
+        ],
+        "horizon": 1600,
+        "release_tick": 880,
+        "seed": 201301,
+        "spawn": "unchanged COURSE_SPAWNS_M[terrain]",
+        "speed_mps": 1.1,
+        "terrain": "flat",
+        "yaw_segments": [
+          [
+            440,
+            570,
+            0.28
+          ],
+          [
+            570,
+            730,
+            -0.28
+          ],
+          [
+            730,
+            840,
+            0.28
+          ]
+        ]
+      },
+      {
+        "case_id": "final_yaw_right",
+        "drive_start": 200,
+        "final": [
+          1500,
+          1600
+        ],
+        "hold": [
+          440,
+          840
+        ],
+        "horizon": 1600,
+        "release_tick": 880,
+        "seed": 201302,
+        "spawn": "unchanged COURSE_SPAWNS_M[terrain]",
+        "speed_mps": 1.1,
+        "terrain": "flat",
+        "yaw_segments": [
+          [
+            440,
+            570,
+            -0.28
+          ],
+          [
+            570,
+            730,
+            0.28
+          ],
+          [
+            730,
+            840,
+            -0.28
+          ]
+        ]
+      },
+      {
+        "case_id": "final_bumps300",
+        "drive_start": 225,
+        "final": [
+          1500,
+          1600
+        ],
+        "hold": [
+          295,
+          695
+        ],
+        "horizon": 1600,
+        "release_tick": 720,
+        "seed": 201303,
+        "spawn": "unchanged COURSE_SPAWNS_M[terrain]",
+        "speed_mps": 0.3,
+        "terrain": "bumps",
+        "yaw_segments": []
+      },
+      {
+        "case_id": "final_bumps385",
+        "drive_start": 190,
+        "final": [
+          1500,
+          1600
+        ],
+        "hold": [
+          277,
+          677
+        ],
+        "horizon": 1600,
+        "release_tick": 702,
+        "seed": 201304,
+        "spawn": "unchanged COURSE_SPAWNS_M[terrain]",
+        "speed_mps": 0.385,
+        "terrain": "bumps",
+        "yaw_segments": []
+      }
+    ],
+    "floor": {
+      "actors": [
+        "A",
+        "B"
+      ],
+      "drive": [
+        175,
+        425
+      ],
+      "gates": "C18 floor unchanged",
+      "horizon": 600,
+      "score_hold": [
+        325,
+        425
+      ],
+      "seed_stage1": 201090,
+      "seed_stage2": 201091,
+      "vx": 0.4
+    },
+    "new_case_absolute_gates": {
+      "bumps_terrain": "C18 terrain channel unchanged",
+      "final": "C18 final100 unchanged",
+      "positive_negative_yaw_integral_signs_required": true,
+      "safety": "C18 unchanged",
+      "speed_mean_tolerance": 0.04,
+      "speed_rms_max": 0.05,
+      "stopping": "compute all; 4.2s/3.2m hard gate remains only original flat1.6",
+      "yaw_rms_max": 0.12
+    },
+    "new_case_weight": "each case 1/4 on full drive-window mean normalized squared vx/.25 and yaw/.4 error; family mean=two cases/2; torque cost same equal-case mean",
+    "regression": [
+      {
+        "case_id": "flat_0p6",
+        "drive_start": 175,
+        "final": [
+          1500,
+          1600
+        ],
+        "hold": [
+          295,
+          695
+        ],
+        "horizon": 1600,
+        "mirror": false,
+        "release_tick": 695,
+        "seed": 181201,
+        "source_case_id": "flat_0p6",
+        "speed_mps": 0.6,
+        "terrain": "flat",
+        "yaw_amplitude_rps": 0
+      },
+      {
+        "case_id": "flat_1p6",
+        "drive_start": 175,
+        "final": [
+          1500,
+          1600
+        ],
+        "hold": [
+          495,
+          895
+        ],
+        "horizon": 1600,
+        "mirror": false,
+        "release_tick": 895,
+        "seed": 181202,
+        "source_case_id": "flat_1p6",
+        "speed_mps": 1.6,
+        "terrain": "flat",
+        "yaw_amplitude_rps": 0
+      },
+      {
+        "case_id": "flat_1p2_yaw",
+        "drive_start": 175,
+        "final": [
+          1500,
+          1600
+        ],
+        "hold": [
+          415,
+          815
+        ],
+        "horizon": 1600,
+        "mirror": false,
+        "release_tick": 815,
+        "seed": 181203,
+        "source_case_id": "flat_1p2_yaw",
+        "speed_mps": 1.2,
+        "terrain": "flat",
+        "yaw_amplitude_rps": 0.3
+      },
+      {
+        "case_id": "bumps_0p4",
+        "drive_start": 175,
+        "final": [
+          1500,
+          1600
+        ],
+        "hold": [
+          255,
+          655
+        ],
+        "horizon": 1600,
+        "mirror": false,
+        "release_tick": 655,
+        "seed": 181204,
+        "source_case_id": "bumps_0p4",
+        "speed_mps": 0.4,
+        "terrain": "bumps",
+        "yaw_amplitude_rps": 0
+      },
+      {
+        "case_id": "rough_0p35",
+        "drive_start": 175,
+        "final": [
+          1500,
+          1600
+        ],
+        "hold": [
+          245,
+          645
+        ],
+        "horizon": 1600,
+        "mirror": false,
+        "release_tick": 645,
+        "seed": 181205,
+        "source_case_id": "rough_0p35",
+        "speed_mps": 0.35,
+        "terrain": "rough",
+        "yaw_amplitude_rps": 0
+      },
+      {
+        "case_id": "ramp_0p45_complete",
+        "drive_start": 175,
+        "final": [
+          1700,
+          1800
+        ],
+        "hold": [
+          600,
+          1000
+        ],
+        "horizon": 1800,
+        "mirror": false,
+        "release_tick": 1355,
+        "seed": 181206,
+        "source_case_id": "ramp_0p45_complete",
+        "speed_mps": 0.45,
+        "terrain": "ramp",
+        "yaw_amplitude_rps": 0
+      },
+      {
+        "case_id": "flat_1p2_yaw_mirror",
+        "drive_start": 175,
+        "final": [
+          1500,
+          1600
+        ],
+        "hold": [
+          415,
+          815
+        ],
+        "horizon": 1600,
+        "mirror": true,
+        "release_tick": 815,
+        "seed": 181403,
+        "source_case_id": "flat_1p2_yaw",
+        "speed_mps": 1.2,
+        "terrain": "flat",
+        "yaw_amplitude_rps": 0.3
+      }
+    ],
+    "regression_actor_order": [
+      "A",
+      "B"
+    ],
+    "regression_pool": "original six raw pooled SSE/torque sums with original windows; mirror always separate",
+    "reuse_inputs": "exact old actual seed per C18 case, full commands, scoring, compiled binding, initial qpos/qvel/ctrl/qacc_warmstart/observation plus controller PI/z/stop/servo/provider/previous-action state and numeric controller identity",
+    "reuse_old_regression": true,
+    "seal_rule": "freeze actual serialized command arrays and spec/source SHA before first model/physics; no final execution or score inspection before stage decision; final set evaluated once"
+  },
+  "final_worker_limits_with_extension": {
+    "actor_rows_max": 43296,
+    "close_s": 1740,
+    "compiler_native": 2,
+    "controls": 49600,
+    "critic_rows": 0,
+    "floor_reader_hard_s_each_within_host": 120,
+    "hard_s": 1800,
+    "normal_native": 248000,
+    "ppo_load": 3,
+    "predict_api_max": 43203,
+    "probe_batches": 3,
+    "probe_rows": 96,
+    "reader_hard_s": 1200,
+    "regular_predict_calls_rows": 43200,
+    "save": 0,
+    "soft_s": 1500,
+    "torch_load": 9,
+    "train": 0
+  },
+  "final_worker_limits_without_extension": {
+    "actor_rows_max": 19296,
+    "close_s": 1740,
+    "compiler_native": 2,
+    "controls": 25600,
+    "critic_rows": 0,
+    "hard_s": 1800,
+    "normal_native": 128000,
+    "ppo_load": 3,
+    "predict_api_max": 19203,
+    "probe_batches": 3,
+    "probe_rows": 96,
+    "reader_hard_s": 1200,
+    "regular_predict_calls_rows": 19200,
+    "save": 0,
+    "soft_s": 1500,
+    "torch_load": 9,
+    "train": 0
+  },
+  "old_sources_mutable": false,
+  "parent": {
+    "actor_mean_state": "c6add0af3ace2ad2c9051be9c6bc759737d8cc5b8b728ff142128069b4148136",
+    "adam_step": 1280,
+    "ancestral_training_controls": 81920,
+    "log_std_state": "c449b57d8aff047d0723c8053c5a9f33921616682ec7b73e06ee760570531616",
+    "model": "continuation15/grouped_01/final_checkpoint/final_model.zip",
+    "model_sha256": "1fcfe833d8a7cfdbbc224c9007a35e44c035674ce948b51557434b77838476fb",
+    "optimizer_state": "8b3d0a02fffd103a1af179b404b5b4509004560b66e9b2b65740681162bc311f",
+    "policy_state": "af21a12f75fb26fc3fed350cd2f0c93cd4ff180a99bf5acc432088c300fec732",
+    "saved_n_updates": 64,
+    "saved_num_timesteps": 16384
+  },
+  "per_training_worker_limits": {
+    "actor_rows_max": 163936,
+    "backward": 512,
+    "close_s": 1380,
+    "compiler_native": 2,
+    "controls": 32768,
+    "critic_rows_max": 163904,
+    "evaluate_actions_batches": 512,
+    "evaluate_actions_rows": 131072,
+    "group_clip_calls": 1024,
+    "hard_s": 1440,
+    "learn": 1,
+    "normal_native": 163840,
+    "optimizer": 512,
+    "ppo_load": 2,
+    "predict_probe_batches": 3,
+    "probe_actor_rows": 96,
+    "reader_hard_s": 900,
+    "rollout_forward_calls_rows": 32768,
+    "save_attempts_max": 2,
+    "soft_s": 1200,
+    "success_save": 1,
+    "torch_load": 6,
+    "train": 32,
+    "value_only_rows": 64
+  },
+  "physical_executor": "root",
+  "retry_physics": false,
+  "schema": "d1-c18-coverage-comparison-spec20-v1",
+  "scientific_reviewer": "actual gpt-6-astra ultra",
+  "source_GO_required": [
+    "all four contracts/spec hashed",
+    "runtime/new reader/learning source frozen",
+    "parent + current C18 evidence bindings",
+    "necessary new tests passed",
+    "training/dev/final command tables sealed",
+    "model/control/native counting entrypoints reviewed",
+    "exclusive reservation and output paths",
+    "original77 and historical frozen inputs unchanged"
+  ],
+  "status": "SCIENTIFIC_SPEC_AWAITING_SOURCE_GO_NOT_AN_EXECUTION_RECEIPT",
+  "training": {
+    "A_recipe": "C15 selector rules with command seed201002, cumulative source episode index",
+    "B_bumps_vx_cycles": [
+      0.4,
+      0.325,
+      0.25
+    ],
+    "B_cycle_period": 3,
+    "B_override_slots": [
+      2,
+      3
+    ],
+    "B_yaw_cycles": [
+      {
+        "segments": [
+          [
+            400,
+            500,
+            0.3
+          ],
+          [
+            500,
+            700,
+            -0.3
+          ],
+          [
+            700,
+            800,
+            0.3
+          ]
+        ],
+        "vx": 1.2
+      },
+      {
+        "segments": [
+          [
+            425,
+            575,
+            -0.25
+          ],
+          [
+            575,
+            725,
+            0.25
+          ]
+        ],
+        "vx": 1.0
+      },
+      {
+        "segments": [
+          [
+            450,
+            550,
+            -0.3
+          ],
+          [
+            550,
+            750,
+            0.3
+          ],
+          [
+            750,
+            850,
+            -0.3
+          ]
+        ],
+        "vx": 1.2
+      }
+    ],
+    "actor_clip_l2": 0.5,
+    "archive_force_sampling_mode": "heldout/full_contact while env_mode remains train; read-only sampling of existing 5T, no extra integration",
+    "arms": [
+      "A",
+      "B"
+    ],
+    "batch_kl_stage_stop_strict_above": 0.3,
+    "batch_size": 256,
+    "clip_range": 0.2,
+    "command_seed": 201002,
+    "controls_per_arm_per_stage": 32768,
+    "critic_clip_l2": 0.5,
+    "ent_coef": 0.001,
+    "episode_ticks": 1000,
+    "gae_lambda": 0.95,
+    "gamma": 0.99,
+    "learning_rate": 0.0003,
+    "max_stages": 2,
+    "measurement_seed": 201003,
+    "min_optimizer_steps_per_train": 1,
+    "n_epochs_max": 4,
+    "n_steps": 1024,
+    "net_arch": [
+      128,
+      128
+    ],
+    "ppo_seed_by_stage": [
+      201001,
+      201011
+    ],
+    "raw_start": 175,
+    "reset_actor": false,
+    "reset_adam": false,
+    "rollouts_per_arm_per_stage": 32,
+    "sb3_early_stop_strict_above": 0.045,
+    "stage2_episode_rule": "per arm next source episode index = 1 + last started source episode index; archive discarded partial tail, fresh physical reset, same command/measurement seed mapping by source index, PPO seed201011; no warmup replay",
+    "target_kl": 0.03,
+    "terrain_slots": [
+      "flat",
+      "flat",
+      "flat",
+      "bumps",
+      "rough",
+      "ramp",
+      "flat",
+      "ramp"
+    ],
+    "total_controls_max": 131072,
+    "vf_coef": 0.5,
+    "warmup_rule": "C15 first eight unchanged in both arms, stage1 only"
+  },
+  "whole_path_limits": {
+    "gui_and_single15mm_included": false,
+    "kill_reap_grace_s_per_process": 5,
+    "source_freeze_preflight_hard_s": 600,
+    "with_extension": {
+      "actor_rows": 742336,
+      "cold_workers": 6,
+      "compiler_native": 12,
+      "controls": 230272,
+      "critic_rows": 655616,
+      "host_plus_reader_hard_s": 15360,
+      "normal_native": 1151360,
+      "optimizer_max": 2048,
+      "ppo_load": 14,
+      "torch_load": 42
+    },
+    "without_extension": {
+      "actor_rows": 390464,
+      "cold_workers": 4,
+      "compiler_native": 8,
+      "controls": 140736,
+      "critic_rows": 327808,
+      "host_plus_reader_hard_s": 10680,
+      "normal_native": 703680,
+      "optimizer_max": 1024,
+      "ppo_load": 10,
+      "torch_load": 30
+    }
+  }
+}

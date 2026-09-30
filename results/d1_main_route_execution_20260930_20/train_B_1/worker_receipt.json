@@ -1,0 +1,382 @@
+{
+  "C_final": {
+    "armed": 1,
+    "ccd_attempts": 426893,
+    "ccd_returns": 426893,
+    "construction_attempts": 2,
+    "construction_limit": 2,
+    "construction_returns": 2,
+    "control_attempts": 90000,
+    "control_limit": 163840,
+    "control_returns": 90000,
+    "first_ccd_caller": 139360615292126,
+    "first_ccd_caller_dladdr": {
+      "address": 139360615292126,
+      "base": 139360613695488,
+      "offset": 1596638,
+      "path": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/libmujoco.so.3.12.0",
+      "symbol": null
+    },
+    "first_construction_step_caller": 139360617510216,
+    "first_construction_step_caller_dladdr": {
+      "address": 139360617510216,
+      "base": 139360613695488,
+      "offset": 3814728,
+      "path": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/libmujoco.so.3.12.0",
+      "symbol": null
+    },
+    "first_control_step_caller": 139360573467435,
+    "first_control_step_caller_dladdr": {
+      "address": 139360573467435,
+      "base": 139360572690432,
+      "offset": 777003,
+      "path": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/_functions.cpython-310-x86_64-linux-gnu.so",
+      "symbol": null
+    },
+    "native_ccd_caller_verified": true,
+    "native_construction_caller_verified": true,
+    "original_step": 139360615900416,
+    "phase": 0,
+    "target_data": 0,
+    "target_model": 0,
+    "violations": 0
+  },
+  "archive_failed": false,
+  "arm": "B",
+  "cleanup_errors": [],
+  "control_step_caller_verified": false,
+  "elapsed_wall_s": 291.3623079100071,
+  "execution_complete": false,
+  "failure": {
+    "message": "nominal centerline plus reset robot envelope touches course safety bounds",
+    "traceback": "Traceback (most recent call last):\n  File \"/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/worker20.py\", line 147, in main\n    result = train(session, runtime, guard, env, output, writer, counter)\n  File \"/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/train20.py\", line 65, in train\n    model.learn(total_timesteps=budget.total_controls, callback=callback, reset_num_timesteps=True)\n  File \"/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/runtime_support20.py\", line 47, in call\n    value = original(*args, **kwargs)\n  File \"/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/ppo/ppo.py\", line 311, in learn\n    return super().learn(\n  File \"/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/on_policy_algorithm.py\", line 324, in learn\n    continue_training = self.collect_rollouts(self.env, callback, self.rollout_buffer, n_rollout_steps=self.n_steps)\n  File \"/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/on_policy_algorithm.py\", line 218, in collect_rollouts\n    new_obs, rewards, dones, infos = env.step(clipped_actions)\n  File \"/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/vec_env/base_vec_env.py\", line 222, in step\n    return self.step_wait()\n  File \"/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/vec_env/dummy_vec_env.py\", line 71, in step_wait\n    obs, self.reset_infos[env_idx] = self.envs[env_idx].reset()\n  File \"/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/monitor.py\", line 85, in reset\n    return self.env.reset(**kwargs)\n  File \"/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/curriculum20.py\", line 239, in reset\n    footprint = (self._flat_footprint_after_reset(schedule, path)\n  File \"/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/curriculum20.py\", line 159, in _flat_footprint_after_reset\n    report = assert_nominal_corridor_clearance(manifest, path)\n  File \"/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/rl11/short_corridor_11.py\", line 128, in assert_nominal_corridor_clearance\n    raise ValueError(\"nominal centerline plus reset robot envelope touches course safety bounds\")\nValueError: nominal centerline plus reset robot envelope touches course safety bounds\n",
+    "training_cleanup_errors": [],
+    "type": "ValueError"
+  },
+  "model_calls": {
+    "actor_rows": 72560,
+    "counts": {
+      "backward": {
+        "attempted": 202,
+        "phases": {
+          "training": {
+            "attempted": 202,
+            "returned": 202,
+            "rows": 0
+          }
+        },
+        "returned": 202,
+        "rows_attempted": 0,
+        "rows_returned": 0
+      },
+      "evaluate_actions": {
+        "attempted": 213,
+        "phases": {
+          "training": {
+            "attempted": 213,
+            "returned": 213,
+            "rows": 54528
+          }
+        },
+        "returned": 213,
+        "rows_attempted": 54528,
+        "rows_returned": 54528
+      },
+      "forward": {
+        "attempted": 18000,
+        "phases": {
+          "training": {
+            "attempted": 18000,
+            "returned": 18000,
+            "rows": 18000
+          }
+        },
+        "returned": 18000,
+        "rows_attempted": 18000,
+        "rows_returned": 18000
+      },
+      "learn": {
+        "attempted": 1,
+        "phases": {
+          "training": {
+            "attempted": 1,
+            "returned": 0,
+            "rows": 0
+          }
+        },
+        "returned": 0,
+        "rows_attempted": 0,
+        "rows_returned": 0
+      },
+      "load": {
+        "attempted": 1,
+        "phases": {
+          "warm_load": {
+            "attempted": 1,
+            "returned": 1,
+            "rows": 0
+          }
+        },
+        "returned": 1,
+        "rows_attempted": 0,
+        "rows_returned": 0
+      },
+      "predict": {
+        "attempted": 1,
+        "phases": {
+          "probe": {
+            "attempted": 1,
+            "returned": 1,
+            "rows": 32
+          }
+        },
+        "returned": 1,
+        "rows_attempted": 32,
+        "rows_returned": 32
+      },
+      "predict_values": {
+        "attempted": 34,
+        "phases": {
+          "training": {
+            "attempted": 34,
+            "returned": 34,
+            "rows": 34
+          }
+        },
+        "returned": 34,
+        "rows_attempted": 34,
+        "rows_returned": 34
+      },
+      "save": {
+        "attempted": 1,
+        "phases": {
+          "training": {
+            "attempted": 1,
+            "returned": 1,
+            "rows": 0
+          }
+        },
+        "returned": 1,
+        "rows_attempted": 0,
+        "rows_returned": 0
+      },
+      "torch_load": {
+        "attempted": 3,
+        "phases": {
+          "warm_load": {
+            "attempted": 3,
+            "returned": 3,
+            "rows": 0
+          }
+        },
+        "returned": 3,
+        "rows_attempted": 0,
+        "rows_returned": 0
+      },
+      "train": {
+        "attempted": 17,
+        "phases": {
+          "training": {
+            "attempted": 17,
+            "returned": 17,
+            "rows": 0
+          }
+        },
+        "returned": 17,
+        "rows_attempted": 0,
+        "rows_returned": 0
+      }
+    },
+    "critic_rows": 72562,
+    "limits": {
+      "backward": 512,
+      "evaluate_actions": 512,
+      "forward": 32768,
+      "learn": 1,
+      "load": 2,
+      "predict": 3,
+      "predict_values": 64,
+      "save": 2,
+      "torch_load": 6,
+      "train": 32
+    },
+    "schema": "d1-model-api-ledger-20-v1"
+  },
+  "native_guard": {
+    "contacts_checked": 696810,
+    "failure": null,
+    "force_sampling_performed": true,
+    "full_contact_qualification_claimed": true,
+    "max_abs_pitch_deg": 8.420398616155657,
+    "max_abs_roll_deg": 1.6060189277584043,
+    "mode": "heldout",
+    "native_attempted": 90000,
+    "native_checked": 90000,
+    "native_returned": 90000,
+    "nonwheel_ground_contacts": 0,
+    "positive_wheel_load_by_family": {
+      "bump": 39788,
+      "floor": 526181,
+      "ramp": 87135,
+      "rough": 41079
+    },
+    "record_mode": "full_qualification",
+    "schema": "d1-course-native-contact-guard-08-v1",
+    "segments": [
+      {
+        "archive_block_manifests": [
+          "native_block_0000.jsonl.gz.manifest.json",
+          "native_block_0001.jsonl.gz.manifest.json",
+          "native_block_0002.jsonl.gz.manifest.json",
+          "native_block_0003.jsonl.gz.manifest.json",
+          "native_block_0004.jsonl.gz.manifest.json",
+          "native_block_0005.jsonl.gz.manifest.json",
+          "native_block_0006.jsonl.gz.manifest.json",
+          "native_block_0007.jsonl.gz.manifest.json",
+          "native_block_0008.jsonl.gz.manifest.json",
+          "native_block_0009.jsonl.gz.manifest.json",
+          "native_block_0010.jsonl.gz.manifest.json",
+          "native_block_0011.jsonl.gz.manifest.json",
+          "native_block_0012.jsonl.gz.manifest.json",
+          "native_block_0013.jsonl.gz.manifest.json",
+          "native_block_0014.jsonl.gz.manifest.json",
+          "native_block_0015.jsonl.gz.manifest.json",
+          "native_block_0016.jsonl.gz.manifest.json",
+          "native_block_0017.jsonl.gz.manifest.json"
+        ],
+        "archive_failure": null,
+        "control_limit": 32768,
+        "failure": null,
+        "folder": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/train_B_1/training",
+        "force_sampling_performed": true,
+        "full_contact_qualification_recorded": true,
+        "mode": "heldout",
+        "name": "training_B",
+        "native_attempted": 90000,
+        "native_files": [
+          "native_block_0000.jsonl.gz",
+          "native_block_0001.jsonl.gz",
+          "native_block_0002.jsonl.gz",
+          "native_block_0003.jsonl.gz",
+          "native_block_0004.jsonl.gz",
+          "native_block_0005.jsonl.gz",
+          "native_block_0006.jsonl.gz",
+          "native_block_0007.jsonl.gz",
+          "native_block_0008.jsonl.gz",
+          "native_block_0009.jsonl.gz",
+          "native_block_0010.jsonl.gz",
+          "native_block_0011.jsonl.gz",
+          "native_block_0012.jsonl.gz",
+          "native_block_0013.jsonl.gz",
+          "native_block_0014.jsonl.gz",
+          "native_block_0015.jsonl.gz",
+          "native_block_0016.jsonl.gz",
+          "native_block_0017.jsonl.gz"
+        ],
+        "native_limit": 163840,
+        "native_returned": 90000,
+        "partial_native_interval": false,
+        "record_valid": true,
+        "task_contact_failure_files": [],
+        "train_array_files": []
+      }
+    ]
+  },
+  "python": {
+    "clock_advanced_substeps": 90000,
+    "construction_records": [
+      {
+        "after": {
+          "armed": 1,
+          "ccd_attempts": 0,
+          "ccd_returns": 0,
+          "construction_attempts": 2,
+          "construction_limit": 2,
+          "construction_returns": 2,
+          "control_attempts": 0,
+          "control_limit": 163840,
+          "control_returns": 0,
+          "first_ccd_caller": 0,
+          "first_ccd_caller_dladdr": null,
+          "first_construction_step_caller": 139360617510216,
+          "first_construction_step_caller_dladdr": {
+            "address": 139360617510216,
+            "base": 139360613695488,
+            "offset": 3814728,
+            "path": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/libmujoco.so.3.12.0",
+            "symbol": null
+          },
+          "first_control_step_caller": 0,
+          "first_control_step_caller_dladdr": null,
+          "native_ccd_caller_verified": false,
+          "native_construction_caller_verified": true,
+          "original_step": 139360615900416,
+          "phase": 0,
+          "target_data": 0,
+          "target_model": 0,
+          "violations": 0
+        },
+        "before": {
+          "armed": 1,
+          "ccd_attempts": 0,
+          "ccd_returns": 0,
+          "construction_attempts": 0,
+          "construction_limit": 2,
+          "construction_returns": 0,
+          "control_attempts": 0,
+          "control_limit": 163840,
+          "control_returns": 0,
+          "first_ccd_caller": 0,
+          "first_ccd_caller_dladdr": null,
+          "first_construction_step_caller": 0,
+          "first_construction_step_caller_dladdr": null,
+          "first_control_step_caller": 0,
+          "first_control_step_caller_dladdr": null,
+          "native_ccd_caller_verified": false,
+          "native_construction_caller_verified": false,
+          "original_step": 139360615900416,
+          "phase": 0,
+          "target_data": 0,
+          "target_model": 0,
+          "violations": 0
+        }
+      }
+    ],
+    "control_attempted": 18000,
+    "control_completed": 18000,
+    "control_limit": 32768,
+    "fatal_latched": false,
+    "forbidden_entries": 0,
+    "forward_counts_by_runtime_model_data_identity": {
+      "(139357098808688, 139357261552752)": 2571,
+      "(139357276623088, 139357250560432)": 20,
+      "(139357276623088, 139357261453616)": 18020
+    },
+    "mj_forward_calls": 20611,
+    "mj_setConst_calls": 0,
+    "native_attempted": 90000,
+    "native_failed": 0,
+    "native_limit": 163840,
+    "native_returned": 90000,
+    "segments": [
+      {
+        "attempted": 18000,
+        "completed": 18000,
+        "limit": 32768,
+        "name": "training_B",
+        "native_attempted": 90000,
+        "native_returned": 90000
+      }
+    ],
+    "static_forward_is_not_dynamic_load_evidence": true
+  },
+  "result": {},
+  "retry_permitted": false,
+  "schema": "d1-coverage-worker-20-v1",
+  "session_identity": {
+    "bytes": 2158473,
+    "sha256": "618adb07f28939a6c7f3e757a6fcae1e8e8c065709a2d2bc283459f4ee4efa4a"
+  },
+  "stop_latched": false,
+  "warnings": []
+}

@@ -1,0 +1,171 @@
+{
+  "changed_sources": [],
+  "checks": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/test_training_reader20_pure.py"
+      ],
+      "elapsed_s": 0.315276672001346,
+      "exit_code": 0,
+      "failure": null,
+      "log": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/final_check_1_0.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "/usr/bin/python3",
+        "-B",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/offline_floor20.py",
+        "--probe-import",
+        "--output",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/pure_reader_import_20_1.json"
+      ],
+      "elapsed_s": 0.21572343300795183,
+      "exit_code": 0,
+      "failure": null,
+      "log": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/final_check_1_1.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "/usr/bin/python3",
+        "-B",
+        "-c",
+        "import sys; from offline_floor20 import _ForbidModelPhysicsImports, _assert_clean; _assert_clean(\"before\"); sys.meta_path.insert(0,_ForbidModelPhysicsImports()); import read_training20; _assert_clean(\"after\"); print(\"training reader clean import passed\")"
+      ],
+      "elapsed_s": 0.21536455699242651,
+      "exit_code": 0,
+      "failure": null,
+      "log": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/final_check_1_2.log"
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "ruff",
+        "check",
+        "--select",
+        "E9,F63,F7,F82",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/checkpoint20.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/curriculum20.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/decision20.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/eval20.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/finalize_checks20.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/floor_bridge20.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/freeze20.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/heldout20.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/host20.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/learning20.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/offline_floor20.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/read_eval20.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/read_training20.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/readback_host20.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/recipes20.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/runtime_support20.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/score20.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/state20.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/test_decision20_pure.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/test_eval20_pure.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/test_learning20_pure.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/test_recipes20_pure.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/test_recording20_pure.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/test_training_reader20_pure.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/train20.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/worker20.py"
+      ],
+      "elapsed_s": 0.1653141400020104,
+      "exit_code": 1,
+      "failure": null,
+      "log": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/final_check_1_3.log"
+    }
+  ],
+  "compiler_native": 0,
+  "controls": 0,
+  "earlier_checks": [
+    {
+      "identity": {
+        "bytes": 1759,
+        "sha256": "9ac921053572129b1748b825d60f66e8db0993c64c1c5cf3e4e629b6b545a047"
+      },
+      "receipt": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/pure_learning_recipes_01.json",
+      "sources_validated": [
+        "recipes20.py",
+        "test_recipes20_pure.py"
+      ]
+    },
+    {
+      "identity": {
+        "bytes": 1770,
+        "sha256": "6f7c3333c343a1f86fdb314b58a48ce4f26d27ccb4b0c4e3c51a4ee056cdd2f9"
+      },
+      "receipt": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/pure_recording_decision_02.json",
+      "sources_validated": [
+        "curriculum20.py",
+        "runtime_support20.py",
+        "state20.py",
+        "test_recording20_pure.py",
+        "decision20.py",
+        "test_decision20_pure.py"
+      ]
+    },
+    {
+      "identity": {
+        "bytes": 2819,
+        "sha256": "45f7b152c7ca94abd7738f5ff265c02e8ba8922b315dc9dc974038ac2a94b4c7"
+      },
+      "receipt": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/pure_eval_input_01.json",
+      "sources_validated": [
+        "learning20.py",
+        "checkpoint20.py",
+        "test_learning20_pure.py",
+        "score20.py",
+        "test_eval20_pure.py"
+      ]
+    }
+  ],
+  "normal_native": 0,
+  "passed": false,
+  "robot_model_calls": 0,
+  "source_sha256": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/checkpoint20.py": "b0de459fd7003f0f1905f1d54ec92209957af1d3ed5356677d08ca13cc8c6b47",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/curriculum20.py": "d329dee74c0c9d189071a44a57e4b061bcb961a932e03d273ebc3ffc2478bb02",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/decision20.py": "12b51303a6e61929a086c6540326c401c7f17b467d8cce60052f71511d319218",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/eval20.py": "c6b76d900e0c3fa0b23fff0f7d2109549fab9bcaefe01eb2013fa60627161e6c",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/finalize_checks20.py": "235da0adc188ab844ebefe5382ac0203775844ec7b73a4658d4060a1f5490167",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/floor_bridge20.py": "16e468b6f627aa8a23dbf0088c89f9b5ddb520105768f38e05f3518b4685908a",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/freeze20.py": "fb695b4be3ec3d8123c7f853d8dc1531ef231e4ac714cc03ef2222c4c1cb8f6f",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/heldout20.py": "d755290fd6883219dd5704e0e70aa53d39e22713eb7d19279ab7f4d5018e27f3",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/host20.py": "626f20bb731a5767b6c73bc193b7a49e5abc39955277409dcf69f9b908119427",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/learning20.py": "423141d1632916a605eb681d54ef15b51a90795995f9bcfdb17f41069d54b10b",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/offline_floor20.py": "d03139c0d9639f3657b6ef3827a038edc878cf37e7c27e1f3776a87848a3b912",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/read_eval20.py": "d55366d7a2a5e133034f21376607ac22d90fad357b33f7bf2de8949a54939781",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/read_training20.py": "97ffd6a10dc65a99ab792a052cfb576f5e50a0d4003bcab909437e5a2d139dcb",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/readback_host20.py": "6d7f0180b7f3e4fb4db3204b29fb497548c30a4e859edc662a48c7995bfc6142",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/recipes20.py": "eeaa72d05e70cbefeeb23b197f2fe6132b6a85583e4f37ea9e9a3020bd864bd1",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/runtime_support20.py": "921beb90512d77c16c8644efec56d78ba068c319fe019b2f1577804959df1987",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/score20.py": "53d5910757c2eba2764831bd75c3b821d13a09c093f98bd48b6ef4d3fad4a544",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/state20.py": "7db5a9d9fa0941bc47f3b893d4b80b5f82a383650f9ab16f27b4247ab75d28d3",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/test_decision20_pure.py": "c6c9f5ec84f277996f1e07f0eeccb33e8809352c83e273136c8ba7401bbdab81",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/test_eval20_pure.py": "c55d2d10c78eea778e5e0b8ae79ea9192cbb6d3cec5e2aa612cdce9f4da9c3e7",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/test_learning20_pure.py": "add3f225180c5128534f81d11755859721c40d0f53830cdc096d4ee8ca5e529b",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/test_recipes20_pure.py": "09fe2abb06da45217e29a6f917a9d92254fe4ae8dae6a4ada21e1ff932e12e26",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/test_recording20_pure.py": "a39d7a7024b95f5ccdde68820783904f260f3f6f9ffbf87aa1195d2d63677d89",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/test_training_reader20_pure.py": "dc0238bf977aed651d3a34bac95eb65b46f7ae85f5de62c4bf39e6a0c3718494",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/train20.py": "2ef553fac49636426617c13c56480c081b7bf1808d7e9e2395c8d6344813120c",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/worker20.py": "b081e90d801d404239799f6ec7b99d422df5515239c25a1e60d64fe8cb6b4409"
+  }
+}

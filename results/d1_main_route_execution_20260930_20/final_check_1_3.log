@@ -1,0 +1,12 @@
+F821 Undefined name `count`
+   --> score20.py:521:77
+    |
+519 |         cost = sum(row["rl_terms"]["torque_cost_sum"] for row in rows)
+520 |         actors[actor] = {"pooled_sse_total": sum(row["rl_terms"]["sse_total"] for row in rows),
+521 |             "pooled_torque_cost_sum": cost, "pooled_torque_cost_mean": cost/count,
+    |                                                                             ^^^^^
+522 |             "drive_completed_ticks": counts, "all_six_tasks_passed": all(row["task_passed"] for row in rows)}
+523 |     return {"complete": True, "actors": actors, "case_count": 6,
+    |
+
+Found 1 error.

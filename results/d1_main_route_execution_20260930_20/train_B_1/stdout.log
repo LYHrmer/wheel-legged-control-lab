@@ -1,0 +1,28 @@
+Traceback (most recent call last):
+  File "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/worker20.py", line 147, in main
+    result = train(session, runtime, guard, env, output, writer, counter)
+  File "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/train20.py", line 65, in train
+    model.learn(total_timesteps=budget.total_controls, callback=callback, reset_num_timesteps=True)
+  File "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/runtime_support20.py", line 47, in call
+    value = original(*args, **kwargs)
+  File "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/ppo/ppo.py", line 311, in learn
+    return super().learn(
+  File "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/on_policy_algorithm.py", line 324, in learn
+    continue_training = self.collect_rollouts(self.env, callback, self.rollout_buffer, n_rollout_steps=self.n_steps)
+  File "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/on_policy_algorithm.py", line 218, in collect_rollouts
+    new_obs, rewards, dones, infos = env.step(clipped_actions)
+  File "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/vec_env/base_vec_env.py", line 222, in step
+    return self.step_wait()
+  File "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/vec_env/dummy_vec_env.py", line 71, in step_wait
+    obs, self.reset_infos[env_idx] = self.envs[env_idx].reset()
+  File "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/common/monitor.py", line 85, in reset
+    return self.env.reset(**kwargs)
+  File "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/curriculum20.py", line 239, in reset
+    footprint = (self._flat_footprint_after_reset(schedule, path)
+  File "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/curriculum20.py", line 159, in _flat_footprint_after_reset
+    report = assert_nominal_corridor_clearance(manifest, path)
+  File "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/rl11/short_corridor_11.py", line 128, in assert_nominal_corridor_clearance
+    raise ValueError("nominal centerline plus reset robot envelope touches course safety bounds")
+ValueError: nominal centerline plus reset robot envelope touches course safety bounds
+
+{"arm": "B", "complete": false, "controls": 18000, "seconds": 291.3623079100071}
