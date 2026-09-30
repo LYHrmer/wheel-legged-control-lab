@@ -1,0 +1,1050 @@
+{
+  "development_B_before_after_task_gates": {
+    "baseline": {
+      "flat_1p2_yaw": {
+        "drive_sse": 45.4224114256466,
+        "final_window_passed": true,
+        "hold_vx_rms_mps": 0.012561653294878834,
+        "hold_yaw_rms_rps": 0.13036746766567778,
+        "record_valid": true,
+        "safety_passed": true,
+        "speed_passed": true,
+        "task_passed": false,
+        "task_reasons": [
+          "yaw: yaw rate RMS error 0.13036746766567778 rad/s exceeds 0.12"
+        ],
+        "yaw_passed": false
+      },
+      "ramp_0p45_complete": {
+        "drive_sse": 41.501162841996766,
+        "final_window_passed": true,
+        "hold_vx_rms_mps": 0.062368568044230605,
+        "hold_yaw_rms_rps": null,
+        "record_valid": true,
+        "safety_passed": true,
+        "speed_passed": false,
+        "task_passed": false,
+        "task_reasons": [
+          "speed: hold COM vx RMS error 0.062368568044230605 m/s exceeds 0.05",
+          "speed: hold mean COM vx 0.510070419136454 m/s outside target 0.45 +/- 0.04"
+        ],
+        "yaw_passed": null
+      }
+    },
+    "ramp": {
+      "ramp_0p45_complete": {
+        "drive_sse": 8.941706889950204,
+        "final_window_passed": true,
+        "hold_vx_rms_mps": 0.02120257264488338,
+        "hold_yaw_rms_rps": null,
+        "record_valid": true,
+        "safety_passed": true,
+        "speed_passed": true,
+        "task_passed": true,
+        "task_reasons": [],
+        "yaw_passed": null
+      }
+    },
+    "yaw": {
+      "flat_1p2_yaw": {
+        "drive_sse": 25.450040344766048,
+        "final_window_passed": true,
+        "hold_vx_rms_mps": 0.012963036941051964,
+        "hold_yaw_rms_rps": 0.0947655026817745,
+        "record_valid": true,
+        "safety_passed": true,
+        "speed_passed": true,
+        "task_passed": true,
+        "task_reasons": [],
+        "yaw_passed": true
+      }
+    }
+  },
+  "development_B_cross_worker_initial_state": {
+    "floor_initial_baseline_vs_ramp": {
+      "all_five_equal": true,
+      "fields_bitwise_equal": {
+        "ctrl": true,
+        "observation": true,
+        "qacc_warmstart": true,
+        "qpos": true,
+        "qvel": true
+      }
+    },
+    "floor_initial_baseline_vs_yaw": {
+      "all_five_equal": true,
+      "fields_bitwise_equal": {
+        "ctrl": true,
+        "observation": true,
+        "qacc_warmstart": true,
+        "qpos": true,
+        "qvel": true
+      }
+    },
+    "ramp_initial_baseline_vs_ramp": {
+      "all_five_equal": true,
+      "fields_bitwise_equal": {
+        "ctrl": true,
+        "observation": true,
+        "qacc_warmstart": true,
+        "qpos": true,
+        "qvel": true
+      }
+    },
+    "yaw_initial_baseline_vs_yaw": {
+      "all_five_equal": true,
+      "fields_bitwise_equal": {
+        "ctrl": true,
+        "observation": true,
+        "qacc_warmstart": true,
+        "qpos": true,
+        "qvel": true
+      }
+    }
+  },
+  "development_B_plus_C_actual_totals": {
+    "actor_rows": 21360,
+    "actual_controls": 32600,
+    "actual_normal_native": 163000,
+    "compiler_native_returns": 10,
+    "critic_rows": 0,
+    "policy_load_calls": 5,
+    "predict_api_calls": 21205,
+    "torch_load_calls": 15
+  },
+  "development_B_worker_budgets": {
+    "totals": {
+      "actor_rows": 8696,
+      "compiler_native_returns": 6,
+      "controls": 8600,
+      "critic_rows": 0,
+      "normal_native_returns": 43000,
+      "policy_load_calls": 3,
+      "predict_api_calls": 8603,
+      "torch_load_calls": 9
+    },
+    "workers": {
+      "baseline": {
+        "actor_rows": 4032,
+        "compiler_native_returns": 2,
+        "controls": 4000,
+        "critic_rows": 0,
+        "normal_native_returns": 20000,
+        "policy_load_calls": 1,
+        "predict_api_calls": 4001,
+        "torch_load_calls": 3
+      },
+      "ramp": {
+        "actor_rows": 2432,
+        "compiler_native_returns": 2,
+        "controls": 2400,
+        "critic_rows": 0,
+        "normal_native_returns": 12000,
+        "policy_load_calls": 1,
+        "predict_api_calls": 2401,
+        "torch_load_calls": 3
+      },
+      "yaw": {
+        "actor_rows": 2232,
+        "compiler_native_returns": 2,
+        "controls": 2200,
+        "critic_rows": 0,
+        "normal_native_returns": 11000,
+        "policy_load_calls": 1,
+        "predict_api_calls": 2201,
+        "torch_load_calls": 3
+      }
+    }
+  },
+  "execution": {
+    "model_runs": 0,
+    "physics_steps": 0,
+    "wall_elapsed_s": 0.042537260000244714
+  },
+  "frozen_critical_inputs_verified": [
+    "qualification_contract_17.md",
+    "qualification_spec_17.json",
+    "go_C17.md",
+    "development_summary_17.json",
+    "development_baseline_readback_17.json",
+    "development_yaw_readback_17.json",
+    "development_ramp_readback_17.json",
+    "controller17.py",
+    "residual17.py",
+    "verify_control17.py",
+    "read_eval17.py",
+    "score17.py",
+    "recipes17.py",
+    "host17.py",
+    "worker17.py",
+    "eval17.py",
+    "floor_bridge17.py",
+    "offline_floor17.py",
+    "readback_host17_v02.py"
+  ],
+  "frozen_plan_sha256": "7bcc906b572f650f088bfe2086199db8e9cfda4189d4300030f191b480f50201",
+  "grouped_passed_scene_count": 6,
+  "grouped_required_scene_count": 7,
+  "input_sha256": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/controller17.py": {
+      "bytes": 8668,
+      "sha256": "a5ee7e809212313011180ce81b1c2ef70cd3e5807bb52a67e4d08e547f9e85d3"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_baseline_01/worker_receipt.json": {
+      "bytes": 12782,
+      "sha256": "8c4a11a241675f543668789beed1eb11c475612fc7920fe92d23188e8c3cc341"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_baseline_readback_17.json": {
+      "bytes": 73730,
+      "sha256": "41d196d83e322d8c39bf353a23ea24b69dd6d31f05aae15c9179bf3fba66585b"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_ramp_01/worker_receipt.json": {
+      "bytes": 11012,
+      "sha256": "f48e4886b8fdbe22f0385d75df9d9c24c629bb45156bb720e525a6b9e20edec5"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_ramp_readback_17.json": {
+      "bytes": 46604,
+      "sha256": "b51c901d747bd3bc833ffbdfa8b966d55aea42a200147e9a4407abd773507781"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_summary_17.json": {
+      "bytes": 39389,
+      "sha256": "e5d348905cd7dff86cb6466a7415b1b8a97953b7da8acaab833688078852d668"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_yaw_01/worker_receipt.json": {
+      "bytes": 10932,
+      "sha256": "b4e18346050edd9b34bf1dce985c706d9e8e674ed53aded306ca356a88925db0"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_yaw_readback_17.json": {
+      "bytes": 28569,
+      "sha256": "d78dc80f63502e74e17f6d89459d8e1825be4b0a0311bc113b0a48460a3ff4f4"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/eval17.py": {
+      "bytes": 4034,
+      "sha256": "bf97aa2ca3614111ea4cdd54e18464a0572cc220520efd301d2b36d5c3ad0fa0"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/floor_bridge17.py": {
+      "bytes": 15772,
+      "sha256": "e9a272c56bcb1661dd68d9512c5fce97ad5b43912e8f70221439c4a54d0e236d"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/go_C17.md": {
+      "bytes": 5566,
+      "sha256": "5401190ea59860eddc6d6289a2f890930c096e723e48e79e869a6a99a2d3b9a4"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/host17.py": {
+      "bytes": 11031,
+      "sha256": "aedc41b73b8c48fae8ca807f63f5c3747eaae0c21dd67e6a310addaf4f7e3932"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/offline_floor17.py": {
+      "bytes": 4568,
+      "sha256": "4c0fc95beeb23cdcbb72891de2293c70e9d81ae08167c5140db4a51c03934d93"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/plan_go_C17.json": {
+      "bytes": 1093479,
+      "sha256": "7bcc906b572f650f088bfe2086199db8e9cfda4189d4300030f191b480f50201"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/qualification_contract_17.md": {
+      "bytes": 7895,
+      "sha256": "4ab3a9e4f1346ae1f085a40a1853ed52df1dade025f3bde1b6b9821842bb0fcf"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/qualification_mirror_01/heldout/flat_1p2_yaw_grouped_continue/initial_state.npz": {
+      "bytes": 2316,
+      "sha256": "1cb755056546896dfd83c7b5712898a00698cf32e65e9e4d506d9abc1977e51e"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/qualification_mirror_01/heldout/flat_1p2_yaw_zero/initial_state.npz": {
+      "bytes": 2316,
+      "sha256": "1cb755056546896dfd83c7b5712898a00698cf32e65e9e4d506d9abc1977e51e"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/qualification_mirror_01/host_receipt.json": {
+      "bytes": 275,
+      "sha256": "5b388eaa9d43a3f34d8cc0f6d404f58f837f4ff830f8515e2edbeee09e89254e"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/qualification_mirror_01/session.json": {
+      "bytes": 1711333,
+      "sha256": "bb036afd23903800a35c5e11c39d9527386ccbb57fe362f8101496a4b67c17b9"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/qualification_mirror_01/worker_receipt.json": {
+      "bytes": 12444,
+      "sha256": "7b69aaa21547cf6adb0f3704427ab1cd90b42364779dadc7f77b2feb7eb7ac9e"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/qualification_mirror_readback_17.json": {
+      "bytes": 55228,
+      "sha256": "f556de68240f66313b718ab63803f8c2f6ec1b0e317a688d5cb04b279bbc8f1f"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/qualification_mirror_readback_17_host_receipt.json": {
+      "bytes": 885,
+      "sha256": "364b8a3e9b9bd75090613eb8aebf208e6ff66c4dba4c82d35fee61d4479d02b3"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/qualification_primary_01/heldout/bumps_0p4_grouped_continue/initial_state.npz": {
+      "bytes": 2316,
+      "sha256": "17ba10349b9741c367f218af092858bb483d3e4b64d9d3b98dbf8bfc01dcfabf"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/qualification_primary_01/heldout/bumps_0p4_zero/initial_state.npz": {
+      "bytes": 2316,
+      "sha256": "17ba10349b9741c367f218af092858bb483d3e4b64d9d3b98dbf8bfc01dcfabf"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/qualification_primary_01/heldout/flat_0p6_grouped_continue/initial_state.npz": {
+      "bytes": 2316,
+      "sha256": "1cb755056546896dfd83c7b5712898a00698cf32e65e9e4d506d9abc1977e51e"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/qualification_primary_01/heldout/flat_0p6_zero/initial_state.npz": {
+      "bytes": 2316,
+      "sha256": "1cb755056546896dfd83c7b5712898a00698cf32e65e9e4d506d9abc1977e51e"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/qualification_primary_01/heldout/flat_1p2_yaw_grouped_continue/initial_state.npz": {
+      "bytes": 2316,
+      "sha256": "1cb755056546896dfd83c7b5712898a00698cf32e65e9e4d506d9abc1977e51e"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/qualification_primary_01/heldout/flat_1p2_yaw_zero/initial_state.npz": {
+      "bytes": 2316,
+      "sha256": "1cb755056546896dfd83c7b5712898a00698cf32e65e9e4d506d9abc1977e51e"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/qualification_primary_01/heldout/flat_1p6_grouped_continue/initial_state.npz": {
+      "bytes": 2316,
+      "sha256": "1cb755056546896dfd83c7b5712898a00698cf32e65e9e4d506d9abc1977e51e"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/qualification_primary_01/heldout/flat_1p6_zero/initial_state.npz": {
+      "bytes": 2316,
+      "sha256": "1cb755056546896dfd83c7b5712898a00698cf32e65e9e4d506d9abc1977e51e"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/qualification_primary_01/heldout/ramp_0p45_complete_grouped_continue/initial_state.npz": {
+      "bytes": 2316,
+      "sha256": "ee486b6278b76c4284ffb900225142e021c44e446282f76af8d2fdeda7f098c3"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/qualification_primary_01/heldout/ramp_0p45_complete_zero/initial_state.npz": {
+      "bytes": 2316,
+      "sha256": "ee486b6278b76c4284ffb900225142e021c44e446282f76af8d2fdeda7f098c3"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/qualification_primary_01/heldout/rough_0p35_grouped_continue/initial_state.npz": {
+      "bytes": 2316,
+      "sha256": "2a5c21a14d6d96045c6c4ab45059e851ae6f7b9736b9456378b7278fa6a1ee31"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/qualification_primary_01/heldout/rough_0p35_zero/initial_state.npz": {
+      "bytes": 2316,
+      "sha256": "2a5c21a14d6d96045c6c4ab45059e851ae6f7b9736b9456378b7278fa6a1ee31"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/qualification_primary_01/host_receipt.json": {
+      "bytes": 275,
+      "sha256": "79bf63f88d428ec2f68ee2f8407b6fe0bf8ad99524a717d31f4c93e6b4de0a48"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/qualification_primary_01/session.json": {
+      "bytes": 1712357,
+      "sha256": "ce69240025fc2745e13d54947107230f8bbea5bff3b177a19ff94551448ae698"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/qualification_primary_01/worker_receipt.json": {
+      "bytes": 28766,
+      "sha256": "caddea996d45cd6fe9eccd01fdd30624a8ee8bd11363274e53c2baa22f71f59b"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/qualification_primary_readback_17.json": {
+      "bytes": 350237,
+      "sha256": "7b32d8a5529c9c5472d01438482758f3afe49cb28abb5f4dc292bd9a856268ce"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/qualification_primary_readback_17_host_receipt.json": {
+      "bytes": 889,
+      "sha256": "ecca4bd2712a8ec8882b54acf3583ad12ccf335ab2cbf780ef629bf023887a37"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/qualification_spec_17.json": {
+      "bytes": 2434,
+      "sha256": "4c721267415d776c418c4aaf640a54f8d70592bfbf303202dcd2b28bfcc62690"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/read_eval17.py": {
+      "bytes": 43084,
+      "sha256": "d2617aba72eb6aadc92bd7fd1439ba2d41489419cade79c62b82270418babb6f"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/readback_host17_v02.py": {
+      "bytes": 2782,
+      "sha256": "88b231051d6e0f3d72691ff3839587ca9db4b2664cad532b5ec0bcfb1ef01530"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/recipes17.py": {
+      "bytes": 9153,
+      "sha256": "698a8534ce42d7a09935b31c99d6752d9b795abec7a68be4a52186ac4d8e4f3d"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/residual17.py": {
+      "bytes": 22546,
+      "sha256": "5cc145688772dcf252c7413c06e980ac047a4dd41f9462a4f50b568021cde42c"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/score17.py": {
+      "bytes": 23838,
+      "sha256": "69a78562c79ca69102e505530a5d75a2f4d32b92383e81082bc38de9ac7f98dd"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/verify_control17.py": {
+      "bytes": 12190,
+      "sha256": "a1909c215367947775241f6b8199925dcf6da5d0e5aaa92453f4ce3161a85cd2"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/worker17.py": {
+      "bytes": 12497,
+      "sha256": "0d4bc77042d7adc59431d1e9bdb4ebcadaebbbabb057de9253dbf181aed3a975"
+    }
+  },
+  "interpretation_limit": "Seven deterministic fixed oracle simulation scripts; changed seed labels do not constitute independent physical randomization or statistical reliability. Baseline control repair is not RL contribution.",
+  "not_qualified": [
+    "default GUI",
+    "free keyboard driving",
+    "hardware",
+    "lateral motion",
+    "jump",
+    "15 mm step",
+    "self recovery"
+  ],
+  "primary_six_task_RL_contribution": {
+    "RL_contribution_passed": false,
+    "all_six_policy_task_qualified": false,
+    "branch_a_task_conversion": {
+      "capability_regression_cases": [],
+      "conversion_cases": [],
+      "passed": false,
+      "reasons": [
+        "no genuine zero task_fail -> policy task_pass conversion"
+      ],
+      "requirement": ">=1 conversion, no new policy failure, shared prerequisites and the pooled cost gate"
+    },
+    "branch_b_sse_improvement": {
+      "common_task_passing_cases": [
+        "flat_0p6",
+        "flat_1p6",
+        "flat_1p2_yaw",
+        "bumps_0p4",
+        "ramp_0p45_complete"
+      ],
+      "common_task_passing_count": 5,
+      "excluded_cases": [
+        "rough_0p35"
+      ],
+      "pairs_no_worse_within_1p02": [
+        "flat_0p6",
+        "flat_1p6",
+        "ramp_0p45_complete"
+      ],
+      "passed": false,
+      "pooled_sse_policy": 42.28946545876968,
+      "pooled_sse_ratio": 1.1101164332611235,
+      "pooled_sse_ratio_reason": null,
+      "pooled_sse_zero": 38.094621601572385,
+      "reasons": [
+        "pooled policy/zero SSE ratio 1.1101164332611235 is above the required 0.85",
+        "only 3 pairs satisfy S_policy <= 1.02 * S_zero; four are required"
+      ],
+      "requirement": "|J| >= 4, pooled policy SSE <= 0.85 x pooled zero SSE, and >= 4 pairs with S_policy <= 1.02 x S_zero; excluded pairs stay fully published and are never deleted to claim success"
+    },
+    "cost_gate": {
+      "cost_ratio": 1.166665763244778,
+      "cost_ratio_reason": null,
+      "empty_common_interval_cases": [],
+      "passed": true,
+      "per_pair": [
+        {
+          "case_id": "flat_0p6",
+          "common_cost_sum_policy": 11.969236994336939,
+          "common_cost_sum_zero": 11.22676689681857,
+          "common_drive_ticks": 520,
+          "policy_only_drive_suffix_cost_sum": 0.0,
+          "policy_only_drive_suffix_ticks": 0
+        },
+        {
+          "case_id": "flat_1p6",
+          "common_cost_sum_policy": 26.194440762866193,
+          "common_cost_sum_zero": 19.457609022388453,
+          "common_drive_ticks": 720,
+          "policy_only_drive_suffix_cost_sum": 0.0,
+          "policy_only_drive_suffix_ticks": 0
+        },
+        {
+          "case_id": "flat_1p2_yaw",
+          "common_cost_sum_policy": 22.699610896781184,
+          "common_cost_sum_zero": 19.285957861809337,
+          "common_drive_ticks": 640,
+          "policy_only_drive_suffix_cost_sum": 0.0,
+          "policy_only_drive_suffix_ticks": 0
+        },
+        {
+          "case_id": "bumps_0p4",
+          "common_cost_sum_policy": 11.661096568771667,
+          "common_cost_sum_zero": 11.215353304555803,
+          "common_drive_ticks": 480,
+          "policy_only_drive_suffix_cost_sum": 0.0,
+          "policy_only_drive_suffix_ticks": 0
+        },
+        {
+          "case_id": "rough_0p35",
+          "common_cost_sum_policy": 13.584873634408984,
+          "common_cost_sum_zero": 12.993138348737792,
+          "common_drive_ticks": 470,
+          "policy_only_drive_suffix_cost_sum": 0.0,
+          "policy_only_drive_suffix_ticks": 0
+        },
+        {
+          "case_id": "ramp_0p45_complete",
+          "common_cost_sum_policy": 34.65207593456997,
+          "common_cost_sum_zero": 29.330970255475783,
+          "common_drive_ticks": 1180,
+          "policy_only_drive_suffix_cost_sum": 0.0,
+          "policy_only_drive_suffix_ticks": 0
+        }
+      ],
+      "pooled_common_drive_ticks": 4010,
+      "pooled_cost_policy": 0.030115046082726915,
+      "pooled_cost_zero": 0.02581291663086926,
+      "reasons": [],
+      "scope": "the cost comparison is defined only on the same-tick intersection of the two actually completed drive intervals of each pair"
+    },
+    "per_task": [
+      {
+        "capability_regression": false,
+        "case_id": "flat_0p6",
+        "common_cost_sum_policy": 11.969236994336939,
+        "common_cost_sum_zero": 11.22676689681857,
+        "common_task_passing": true,
+        "policy_task_passed": true,
+        "seed": 171201,
+        "sse_no_worse_within_1p02": true,
+        "sse_policy": 0.6004750727698129,
+        "sse_ratio": 0.7058390305678293,
+        "sse_zero": 0.8507252316250438,
+        "task_conversion": false,
+        "zero_task_passed": true
+      },
+      {
+        "capability_regression": false,
+        "case_id": "flat_1p6",
+        "common_cost_sum_policy": 26.194440762866193,
+        "common_cost_sum_zero": 19.457609022388453,
+        "common_task_passing": true,
+        "policy_task_passed": true,
+        "seed": 171202,
+        "sse_no_worse_within_1p02": true,
+        "sse_policy": 1.4133535077722912,
+        "sse_ratio": 1.0160736428069645,
+        "sse_zero": 1.390995148607356,
+        "task_conversion": false,
+        "zero_task_passed": true
+      },
+      {
+        "capability_regression": false,
+        "case_id": "flat_1p2_yaw",
+        "common_cost_sum_policy": 22.699610896781184,
+        "common_cost_sum_zero": 19.285957861809337,
+        "common_task_passing": true,
+        "policy_task_passed": true,
+        "seed": 171203,
+        "sse_no_worse_within_1p02": false,
+        "sse_policy": 23.803059562405124,
+        "sse_ratio": 1.2072916473997364,
+        "sse_zero": 19.716080711460343,
+        "task_conversion": false,
+        "zero_task_passed": true
+      },
+      {
+        "capability_regression": false,
+        "case_id": "bumps_0p4",
+        "common_cost_sum_policy": 11.661096568771667,
+        "common_cost_sum_zero": 11.215353304555803,
+        "common_task_passing": true,
+        "policy_task_passed": true,
+        "seed": 171204,
+        "sse_no_worse_within_1p02": false,
+        "sse_policy": 7.530870425872252,
+        "sse_ratio": 1.0514993821880294,
+        "sse_zero": 7.162030290689776,
+        "task_conversion": false,
+        "zero_task_passed": true
+      },
+      {
+        "capability_regression": false,
+        "case_id": "rough_0p35",
+        "common_cost_sum_policy": 13.584873634408984,
+        "common_cost_sum_zero": 12.993138348737792,
+        "common_task_passing": false,
+        "policy_task_passed": false,
+        "seed": 171205,
+        "sse_no_worse_within_1p02": true,
+        "sse_policy": 26.537170172765613,
+        "sse_ratio": 1.0076105186387225,
+        "sse_zero": 26.336733968018926,
+        "task_conversion": false,
+        "zero_task_passed": false
+      },
+      {
+        "capability_regression": false,
+        "case_id": "ramp_0p45_complete",
+        "common_cost_sum_policy": 34.65207593456997,
+        "common_cost_sum_zero": 29.330970255475783,
+        "common_task_passing": true,
+        "policy_task_passed": true,
+        "seed": 171206,
+        "sse_no_worse_within_1p02": true,
+        "sse_policy": 8.941706889950204,
+        "sse_ratio": 0.9963137490201256,
+        "sse_zero": 8.97479021918986,
+        "task_conversion": false,
+        "zero_task_passed": true
+      }
+    ],
+    "prerequisites": {
+      "external_independent_reader_required": [
+        "byte-exact same initial arrays and strict unique final policy",
+        "source/checkpoint/ELF hash and C/Python 5T closure",
+        "actual controller/native force and compiled ramp/wheel geometry"
+      ],
+      "passed": true,
+      "reasons": []
+    },
+    "torque_cost_is_normalized_squared_proxy_not_energy": true
+  },
+  "qualification_passed": false,
+  "schema": "d1-control-repair-seven-scene-qualification-summary-17-v1",
+  "script_sha256": "b51787eb9aad779787f85903df5969f059dc04f98b944c03cd7bca5bdb31af59",
+  "task_gates": {
+    "mirror": {
+      "flat_1p2_yaw": {
+        "grouped_continue": {
+          "completed_controls": 1600,
+          "drive_sse": 25.29682864970655,
+          "final_window_passed": true,
+          "full_horizon": true,
+          "hold_mean_com_vx_mps": 1.1986022006115702,
+          "hold_vx_rms_mps": 0.004493226815403977,
+          "hold_yaw_rms_rps": 0.09852257259668158,
+          "normalized_torque_squared_cost_sum": 22.331724819011814,
+          "ramp_geometry_passed": null,
+          "record_valid": true,
+          "safety_passed": true,
+          "speed_passed": true,
+          "stopping_passed": true,
+          "task_passed": true,
+          "task_reasons": [],
+          "terrain_channel_passed": null,
+          "yaw_passed": true
+        },
+        "zero": {
+          "completed_controls": 1600,
+          "drive_sse": 19.71451455566474,
+          "final_window_passed": true,
+          "full_horizon": true,
+          "hold_mean_com_vx_mps": 1.201113998507106,
+          "hold_vx_rms_mps": 0.004516186449472539,
+          "hold_yaw_rms_rps": 0.08591918197418978,
+          "normalized_torque_squared_cost_sum": 19.28446153680526,
+          "ramp_geometry_passed": null,
+          "record_valid": true,
+          "safety_passed": true,
+          "speed_passed": true,
+          "stopping_passed": true,
+          "task_passed": true,
+          "task_reasons": [],
+          "terrain_channel_passed": null,
+          "yaw_passed": true
+        }
+      }
+    },
+    "primary": {
+      "bumps_0p4": {
+        "grouped_continue": {
+          "completed_controls": 1600,
+          "drive_sse": 7.530870425872252,
+          "final_window_passed": true,
+          "full_horizon": true,
+          "hold_mean_com_vx_mps": 0.39976217119123175,
+          "hold_vx_rms_mps": 0.03170229297211836,
+          "hold_yaw_rms_rps": null,
+          "normalized_torque_squared_cost_sum": 11.661096568771672,
+          "ramp_geometry_passed": null,
+          "record_valid": true,
+          "safety_passed": true,
+          "speed_passed": true,
+          "stopping_passed": true,
+          "task_passed": true,
+          "task_reasons": [],
+          "terrain_channel_passed": true,
+          "yaw_passed": null
+        },
+        "zero": {
+          "completed_controls": 1600,
+          "drive_sse": 7.162030290689776,
+          "final_window_passed": true,
+          "full_horizon": true,
+          "hold_mean_com_vx_mps": 0.3987896435071153,
+          "hold_vx_rms_mps": 0.03193125565783563,
+          "hold_yaw_rms_rps": null,
+          "normalized_torque_squared_cost_sum": 11.215353304555789,
+          "ramp_geometry_passed": null,
+          "record_valid": true,
+          "safety_passed": true,
+          "speed_passed": true,
+          "stopping_passed": true,
+          "task_passed": true,
+          "task_reasons": [],
+          "terrain_channel_passed": true,
+          "yaw_passed": null
+        }
+      },
+      "flat_0p6": {
+        "grouped_continue": {
+          "completed_controls": 1600,
+          "drive_sse": 0.6004750727698129,
+          "final_window_passed": true,
+          "full_horizon": true,
+          "hold_mean_com_vx_mps": 0.6008039975373363,
+          "hold_vx_rms_mps": 0.0029485738646748724,
+          "hold_yaw_rms_rps": null,
+          "normalized_torque_squared_cost_sum": 11.969236994336928,
+          "ramp_geometry_passed": null,
+          "record_valid": true,
+          "safety_passed": true,
+          "speed_passed": true,
+          "stopping_passed": true,
+          "task_passed": true,
+          "task_reasons": [],
+          "terrain_channel_passed": null,
+          "yaw_passed": null
+        },
+        "zero": {
+          "completed_controls": 1600,
+          "drive_sse": 0.8507252316250438,
+          "final_window_passed": true,
+          "full_horizon": true,
+          "hold_mean_com_vx_mps": 0.6008631318047766,
+          "hold_vx_rms_mps": 0.002908870985606644,
+          "hold_yaw_rms_rps": null,
+          "normalized_torque_squared_cost_sum": 11.226766896818578,
+          "ramp_geometry_passed": null,
+          "record_valid": true,
+          "safety_passed": true,
+          "speed_passed": true,
+          "stopping_passed": true,
+          "task_passed": true,
+          "task_reasons": [],
+          "terrain_channel_passed": null,
+          "yaw_passed": null
+        }
+      },
+      "flat_1p2_yaw": {
+        "grouped_continue": {
+          "completed_controls": 1600,
+          "drive_sse": 23.803059562405124,
+          "final_window_passed": true,
+          "full_horizon": true,
+          "hold_mean_com_vx_mps": 1.1984945805080494,
+          "hold_vx_rms_mps": 0.004661623016176053,
+          "hold_yaw_rms_rps": 0.09542139735303773,
+          "normalized_torque_squared_cost_sum": 22.699610896781174,
+          "ramp_geometry_passed": null,
+          "record_valid": true,
+          "safety_passed": true,
+          "speed_passed": true,
+          "stopping_passed": true,
+          "task_passed": true,
+          "task_reasons": [],
+          "terrain_channel_passed": null,
+          "yaw_passed": true
+        },
+        "zero": {
+          "completed_controls": 1600,
+          "drive_sse": 19.716080711460343,
+          "final_window_passed": true,
+          "full_horizon": true,
+          "hold_mean_com_vx_mps": 1.2011136977514472,
+          "hold_vx_rms_mps": 0.004515524309591001,
+          "hold_yaw_rms_rps": 0.0859229166339648,
+          "normalized_torque_squared_cost_sum": 19.28595786180933,
+          "ramp_geometry_passed": null,
+          "record_valid": true,
+          "safety_passed": true,
+          "speed_passed": true,
+          "stopping_passed": true,
+          "task_passed": true,
+          "task_reasons": [],
+          "terrain_channel_passed": null,
+          "yaw_passed": true
+        }
+      },
+      "flat_1p6": {
+        "grouped_continue": {
+          "completed_controls": 1600,
+          "drive_sse": 1.4133535077722912,
+          "final_window_passed": true,
+          "full_horizon": true,
+          "hold_mean_com_vx_mps": 1.5985251171660235,
+          "hold_vx_rms_mps": 0.004550582319589669,
+          "hold_yaw_rms_rps": null,
+          "normalized_torque_squared_cost_sum": 26.194440762866193,
+          "ramp_geometry_passed": null,
+          "record_valid": true,
+          "safety_passed": true,
+          "speed_passed": true,
+          "stopping_passed": true,
+          "task_passed": true,
+          "task_reasons": [],
+          "terrain_channel_passed": null,
+          "yaw_passed": null
+        },
+        "zero": {
+          "completed_controls": 1600,
+          "drive_sse": 1.390995148607356,
+          "final_window_passed": true,
+          "full_horizon": true,
+          "hold_mean_com_vx_mps": 1.6013809040461633,
+          "hold_vx_rms_mps": 0.0034987903760278815,
+          "hold_yaw_rms_rps": null,
+          "normalized_torque_squared_cost_sum": 19.457609022388418,
+          "ramp_geometry_passed": null,
+          "record_valid": true,
+          "safety_passed": true,
+          "speed_passed": true,
+          "stopping_passed": true,
+          "task_passed": true,
+          "task_reasons": [],
+          "terrain_channel_passed": null,
+          "yaw_passed": null
+        }
+      },
+      "ramp_0p45_complete": {
+        "grouped_continue": {
+          "all_ramp_world_x_max_m": 6.898267975594581,
+          "completed_controls": 1800,
+          "drive_sse": 8.941706889950204,
+          "final_window_passed": true,
+          "full_horizon": true,
+          "hold_mean_com_vx_mps": 0.46985660182497285,
+          "hold_vx_rms_mps": 0.02120257264488338,
+          "hold_yaw_rms_rps": null,
+          "normalized_torque_squared_cost_sum": 34.65207593456999,
+          "ramp_geometry_passed": true,
+          "ramp_positive_wheel_load_by_geom": {
+            "terrain_ramp_deck": 1438,
+            "terrain_ramp_down": 2155,
+            "terrain_ramp_up": 2197
+          },
+          "record_valid": true,
+          "safety_passed": true,
+          "speed_passed": true,
+          "stopping_passed": true,
+          "task_passed": true,
+          "task_reasons": [],
+          "terrain_channel_passed": true,
+          "wheel_collision_world_x_min_m_by_index": {
+            "0": 8.140584995522168,
+            "1": 8.141117171863467,
+            "2": 7.7003873837105,
+            "3": 7.738477989560885
+          },
+          "yaw_passed": null
+        },
+        "zero": {
+          "all_ramp_world_x_max_m": 6.898267975594581,
+          "completed_controls": 1800,
+          "drive_sse": 8.97479021918986,
+          "final_window_passed": true,
+          "full_horizon": true,
+          "hold_mean_com_vx_mps": 0.4691147069893995,
+          "hold_vx_rms_mps": 0.02113498294950252,
+          "hold_yaw_rms_rps": null,
+          "normalized_torque_squared_cost_sum": 29.33097025547579,
+          "ramp_geometry_passed": true,
+          "ramp_positive_wheel_load_by_geom": {
+            "terrain_ramp_deck": 1363,
+            "terrain_ramp_down": 2060,
+            "terrain_ramp_up": 2162
+          },
+          "record_valid": true,
+          "safety_passed": true,
+          "speed_passed": true,
+          "stopping_passed": true,
+          "task_passed": true,
+          "task_reasons": [],
+          "terrain_channel_passed": true,
+          "wheel_collision_world_x_min_m_by_index": {
+            "0": 8.121386694683558,
+            "1": 8.121431519849885,
+            "2": 7.747055554749497,
+            "3": 7.747066094112043
+          },
+          "yaw_passed": null
+        }
+      },
+      "rough_0p35": {
+        "grouped_continue": {
+          "completed_controls": 1600,
+          "drive_sse": 26.537170172765613,
+          "final_window_passed": true,
+          "full_horizon": true,
+          "hold_mean_com_vx_mps": 0.34991819557261744,
+          "hold_vx_rms_mps": 0.05339427199909047,
+          "hold_yaw_rms_rps": null,
+          "normalized_torque_squared_cost_sum": 13.584873634408979,
+          "ramp_geometry_passed": null,
+          "record_valid": true,
+          "safety_passed": true,
+          "speed_passed": false,
+          "stopping_passed": true,
+          "task_passed": false,
+          "task_reasons": [
+            "speed: hold COM vx RMS error 0.05339427199909047 m/s exceeds 0.05"
+          ],
+          "terrain_channel_passed": true,
+          "yaw_passed": null
+        },
+        "zero": {
+          "completed_controls": 1600,
+          "drive_sse": 26.336733968018926,
+          "final_window_passed": true,
+          "full_horizon": true,
+          "hold_mean_com_vx_mps": 0.3490402957482241,
+          "hold_vx_rms_mps": 0.05422323114117235,
+          "hold_yaw_rms_rps": null,
+          "normalized_torque_squared_cost_sum": 12.993138348737787,
+          "ramp_geometry_passed": null,
+          "record_valid": true,
+          "safety_passed": true,
+          "speed_passed": false,
+          "stopping_passed": true,
+          "task_passed": false,
+          "task_reasons": [
+            "speed: hold COM vx RMS error 0.05422323114117235 m/s exceeds 0.05"
+          ],
+          "terrain_channel_passed": true,
+          "yaw_passed": null
+        }
+      }
+    }
+  },
+  "total_budget": {
+    "actor_rows": 12664,
+    "actual_controls": 24000,
+    "actual_normal_native": 120000,
+    "compiler_native_returns": 4,
+    "critic_rows": 0,
+    "policy_load_calls": 2,
+    "predict_api_calls": 12602,
+    "reserved_controls": 24000,
+    "reserved_normal_native": 120000,
+    "torch_load_calls": 6,
+    "training_calls": 0
+  },
+  "within_worker_zero_grouped_initial_state": {
+    "mirror": {
+      "flat_1p2_yaw": {
+        "all_five_bitwise_equal": true,
+        "fields": {
+          "ctrl": true,
+          "observation": true,
+          "qacc_warmstart": true,
+          "qpos": true,
+          "qvel": true
+        }
+      }
+    },
+    "primary": {
+      "bumps_0p4": {
+        "all_five_bitwise_equal": true,
+        "fields": {
+          "ctrl": true,
+          "observation": true,
+          "qacc_warmstart": true,
+          "qpos": true,
+          "qvel": true
+        }
+      },
+      "flat_0p6": {
+        "all_five_bitwise_equal": true,
+        "fields": {
+          "ctrl": true,
+          "observation": true,
+          "qacc_warmstart": true,
+          "qpos": true,
+          "qvel": true
+        }
+      },
+      "flat_1p2_yaw": {
+        "all_five_bitwise_equal": true,
+        "fields": {
+          "ctrl": true,
+          "observation": true,
+          "qacc_warmstart": true,
+          "qpos": true,
+          "qvel": true
+        }
+      },
+      "flat_1p6": {
+        "all_five_bitwise_equal": true,
+        "fields": {
+          "ctrl": true,
+          "observation": true,
+          "qacc_warmstart": true,
+          "qpos": true,
+          "qvel": true
+        }
+      },
+      "ramp_0p45_complete": {
+        "all_five_bitwise_equal": true,
+        "fields": {
+          "ctrl": true,
+          "observation": true,
+          "qacc_warmstart": true,
+          "qpos": true,
+          "qvel": true
+        }
+      },
+      "rough_0p35": {
+        "all_five_bitwise_equal": true,
+        "fields": {
+          "ctrl": true,
+          "observation": true,
+          "qacc_warmstart": true,
+          "qpos": true,
+          "qvel": true
+        }
+      }
+    }
+  },
+  "worker_ledgers": {
+    "mirror": {
+      "actor_rows": 2232,
+      "actual_controls": 3800,
+      "actual_normal_native": 19000,
+      "compiler_native_returns": 2,
+      "critic_rows": 0,
+      "host_closed": true,
+      "independent_reader_closed": true,
+      "model_calls": {
+        "backward": 0,
+        "evaluate_actions": 0,
+        "forward": 0,
+        "learn": 0,
+        "load": 1,
+        "predict": 2201,
+        "predict_values": 0,
+        "save": 0,
+        "torch_load": 3,
+        "train": 0
+      },
+      "reserved_controls": 3800,
+      "reserved_normal_native": 19000,
+      "worker_closed": true
+    },
+    "primary": {
+      "actor_rows": 10432,
+      "actual_controls": 20200,
+      "actual_normal_native": 101000,
+      "compiler_native_returns": 2,
+      "critic_rows": 0,
+      "host_closed": true,
+      "independent_reader_closed": true,
+      "model_calls": {
+        "backward": 0,
+        "evaluate_actions": 0,
+        "forward": 0,
+        "learn": 0,
+        "load": 1,
+        "predict": 10401,
+        "predict_values": 0,
+        "save": 0,
+        "torch_load": 3,
+        "train": 0
+      },
+      "reserved_controls": 20200,
+      "reserved_normal_native": 101000,
+      "worker_closed": true
+    }
+  },
+  "zero_passed_scene_count": 6,
+  "zero_recorded_scene_count": 7
+}

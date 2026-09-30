@@ -1,0 +1,38 @@
+{
+  "plan_filename": "plan_go_B18.json",
+  "contract_filename": "intervention_contract_18.md",
+  "go_filename": "go_B18.md",
+  "tests_receipt_filename": "pure_tests_receipt_18.json",
+  "purpose": "one fixed complementary integral correction filter; development before qualification",
+  "arms": {
+    "development": {
+      "controller_variant": "combined",
+      "floor_seed": 181090,
+      "case_specs": [
+        {
+          "case_id": "rough_0p35",
+          "seed": 181105,
+          "mirror": false,
+          "horizon": 1600,
+          "actors": [
+            "grouped_continue"
+          ]
+        },
+        {
+          "case_id": "ramp_0p45_complete",
+          "seed": 181106,
+          "mirror": false,
+          "horizon": 1800,
+          "actors": [
+            "grouped_continue"
+          ]
+        }
+      ],
+      "controls": 4000,
+      "soft_s": 600,
+      "close_s": 720,
+      "hard_s": 780,
+      "output_directory": "development_filtered_01"
+    }
+  }
+}

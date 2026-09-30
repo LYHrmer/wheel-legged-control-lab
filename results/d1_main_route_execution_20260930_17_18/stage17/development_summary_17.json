@@ -1,0 +1,731 @@
+{
+  "cross_worker_initial_state": {
+    "floor_initial_baseline_vs_ramp": {
+      "all_five_equal": true,
+      "fields_bitwise_equal": {
+        "ctrl": true,
+        "observation": true,
+        "qacc_warmstart": true,
+        "qpos": true,
+        "qvel": true
+      }
+    },
+    "floor_initial_baseline_vs_yaw": {
+      "all_five_equal": true,
+      "fields_bitwise_equal": {
+        "ctrl": true,
+        "observation": true,
+        "qacc_warmstart": true,
+        "qpos": true,
+        "qvel": true
+      }
+    },
+    "ramp_initial_baseline_vs_ramp": {
+      "all_five_equal": true,
+      "fields_bitwise_equal": {
+        "ctrl": true,
+        "observation": true,
+        "qacc_warmstart": true,
+        "qpos": true,
+        "qvel": true
+      }
+    },
+    "yaw_initial_baseline_vs_yaw": {
+      "all_five_equal": true,
+      "fields_bitwise_equal": {
+        "ctrl": true,
+        "observation": true,
+        "qacc_warmstart": true,
+        "qpos": true,
+        "qvel": true
+      }
+    }
+  },
+  "execution": {
+    "model_runs": 0,
+    "physics_steps": 0,
+    "wall_elapsed_s": 3.1284316689998377
+  },
+  "input_sha256": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_baseline_01/floor/grouped_continue/initial_state.npz": "1cb755056546896dfd83c7b5712898a00698cf32e65e9e4d506d9abc1977e51e",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_baseline_01/heldout/flat_1p2_yaw_grouped_continue/case_receipt.json": "92b41cffe70ad94b383c3b6f4d0aa9d125100274209b4317d010604d0ab9349d",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_baseline_01/heldout/flat_1p2_yaw_grouped_continue/control_records_0000.jsonl.gz": "1cda32c48f333b3fb6a1c9693a91512d130ee5af02f8577f76b3af2a7ddf8d46",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_baseline_01/heldout/flat_1p2_yaw_grouped_continue/control_records_0001.jsonl.gz": "8480504b3d7727a74f38a0b69dbaedf05a65c39fd7233fc4b0757a3b22fd0ac5",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_baseline_01/heldout/flat_1p2_yaw_grouped_continue/control_records_0002.jsonl.gz": "8e45eea678d35dda5f6a2d9ff03375ab39d637b6dc9b0f2bbddb77880ab94d26",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_baseline_01/heldout/flat_1p2_yaw_grouped_continue/control_records_0003.jsonl.gz": "c8179c9887a0d5cfa432af0c07d53e7b1b69906f87cf17f64f4f31c9a9942983",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_baseline_01/heldout/flat_1p2_yaw_grouped_continue/control_records_0004.jsonl.gz": "e990934d00c4bd6f9e67b5bdf71f40759f4757a7df9d507a05fa0f113d7653b6",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_baseline_01/heldout/flat_1p2_yaw_grouped_continue/control_records_0005.jsonl.gz": "01a84804741944a4f18134d729455413585a608f6dfd68ac41119976410a336f",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_baseline_01/heldout/flat_1p2_yaw_grouped_continue/control_records_0006.jsonl.gz": "00090c615c1c9b1a946bd919b8497d0668c91e280dd38115ddef694ca7b787fc",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_baseline_01/heldout/flat_1p2_yaw_grouped_continue/control_records_0007.jsonl.gz": "c2c54bdfcd815543b2c9ca88da6529dbe05dd6c0d9934cc44b93c1f44121acaf",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_baseline_01/heldout/flat_1p2_yaw_grouped_continue/initial_state.npz": "1cb755056546896dfd83c7b5712898a00698cf32e65e9e4d506d9abc1977e51e",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_baseline_01/heldout/ramp_0p45_complete_grouped_continue/case_receipt.json": "391a1a3a397cfd11460b833cb92a5b5796bae297b3ecf9649f56377cb3e86679",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_baseline_01/heldout/ramp_0p45_complete_grouped_continue/control_records_0000.jsonl.gz": "d13a3c7b8a9159c261e12ea991ef25e7e3ad3feafbd673a979df7f019d87ab38",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_baseline_01/heldout/ramp_0p45_complete_grouped_continue/control_records_0001.jsonl.gz": "77177f15ce9e4b1a6a3bc7e64eebefb97221442cb279f04b6dc8ec8f74d3ed9b",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_baseline_01/heldout/ramp_0p45_complete_grouped_continue/control_records_0002.jsonl.gz": "131effcaa881c476e2ebb5dd8601243c0b1331a3a028839f4d2e799f6aa9ed62",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_baseline_01/heldout/ramp_0p45_complete_grouped_continue/control_records_0003.jsonl.gz": "06db33b193c95e778e46dc6e3f3dc1bbfb182a580c4593a44adb8ca6d17cfdb8",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_baseline_01/heldout/ramp_0p45_complete_grouped_continue/control_records_0004.jsonl.gz": "b0ce9ab4840552df306d1f0aacaa43137f0d21ac510ef47601b5122a36f429a0",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_baseline_01/heldout/ramp_0p45_complete_grouped_continue/control_records_0005.jsonl.gz": "58b3b0d04d6e7c190c6e7e71f556fafe5c2d3b8184d825113857266964df5ecf",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_baseline_01/heldout/ramp_0p45_complete_grouped_continue/control_records_0006.jsonl.gz": "102d238e5410d60d40fb3311f9a8ce4398f27cccea02a0f7e692a990c146efed",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_baseline_01/heldout/ramp_0p45_complete_grouped_continue/control_records_0007.jsonl.gz": "78a189177c162f869210073c308ff1050ff561ed9ef19b4e997d6be80374ba7e",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_baseline_01/heldout/ramp_0p45_complete_grouped_continue/control_records_0008.jsonl.gz": "5313b13f5d3ce50d1353f5203031d2c0b795512c2eb3675b0d491fe548319726",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_baseline_01/heldout/ramp_0p45_complete_grouped_continue/initial_state.npz": "ee486b6278b76c4284ffb900225142e021c44e446282f76af8d2fdeda7f098c3",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_baseline_01/host_receipt.json": "5c6a6e403a391dcdf1c5785f991df59fc903ebfbcb2c92dfd91df32995111546",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_baseline_01/session.json": "8b8f7c3eaffb19c40add92462e6cc2a627e3a518a5ef66f97b0d8479ec274dbe",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_baseline_01/worker_receipt.json": "8c4a11a241675f543668789beed1eb11c475612fc7920fe92d23188e8c3cc341",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_baseline_readback_17.json": "41d196d83e322d8c39bf353a23ea24b69dd6d31f05aae15c9179bf3fba66585b",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_ramp_01/floor/grouped_continue/initial_state.npz": "1cb755056546896dfd83c7b5712898a00698cf32e65e9e4d506d9abc1977e51e",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_ramp_01/heldout/ramp_0p45_complete_grouped_continue/case_receipt.json": "3d702e1e96d78bf09ae207c9c5aff8f3e44bb3e8c392efe6c03efa748382e3f5",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_ramp_01/heldout/ramp_0p45_complete_grouped_continue/control_records_0000.jsonl.gz": "0ff4f29e283026d52cb57e4ae00dd6f28bc13a1b539c91b2152f95b3d4a31a1d",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_ramp_01/heldout/ramp_0p45_complete_grouped_continue/control_records_0001.jsonl.gz": "cd7b2cfc3d9243028bd479787ce014afa57d956dfb5ab354426da0101d4e7cbb",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_ramp_01/heldout/ramp_0p45_complete_grouped_continue/control_records_0002.jsonl.gz": "82445b736dfb61f41d7fe09ef26cbd119414d5f76caf286873640a852b902a63",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_ramp_01/heldout/ramp_0p45_complete_grouped_continue/control_records_0003.jsonl.gz": "8199400f3f9ce66ad6a137bc3d06985ad8560e9319fa2cf503dca2aa4e4e976b",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_ramp_01/heldout/ramp_0p45_complete_grouped_continue/control_records_0004.jsonl.gz": "3702958818a7225920b9dd4e09650f5fcb737ca5a6aa4597bc0d2d9e85678d62",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_ramp_01/heldout/ramp_0p45_complete_grouped_continue/control_records_0005.jsonl.gz": "1941430544e974b76c22629035d69397cdb02f4769b7f6a36cedbbad3524147a",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_ramp_01/heldout/ramp_0p45_complete_grouped_continue/control_records_0006.jsonl.gz": "1880b75e63ae66113c4d8d3dea07f77d04cab962a1a57868c52fc2b12f46731e",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_ramp_01/heldout/ramp_0p45_complete_grouped_continue/control_records_0007.jsonl.gz": "7a156421259e584c10d380fe34255b14cc64a60f51e338be0e4576f26076134f",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_ramp_01/heldout/ramp_0p45_complete_grouped_continue/control_records_0008.jsonl.gz": "da22d63dac8be7f9ca865ef32a46d5de64f5bb3300541bdbb62bc577af7d7f5b",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_ramp_01/heldout/ramp_0p45_complete_grouped_continue/initial_state.npz": "ee486b6278b76c4284ffb900225142e021c44e446282f76af8d2fdeda7f098c3",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_ramp_01/host_receipt.json": "70f1f3a6594a9ad1cfc0fca94754ddf9159137fa24c8bc23734d5d6902d011b7",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_ramp_01/session.json": "99e90b13608d6c4835fca0ca4dcfbfcc256aa0f821b01e51504f6d5295230d73",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_ramp_01/worker_receipt.json": "f48e4886b8fdbe22f0385d75df9d9c24c629bb45156bb720e525a6b9e20edec5",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_ramp_readback_17.json": "b51c901d747bd3bc833ffbdfa8b966d55aea42a200147e9a4407abd773507781",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_yaw_01/floor/grouped_continue/initial_state.npz": "1cb755056546896dfd83c7b5712898a00698cf32e65e9e4d506d9abc1977e51e",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_yaw_01/heldout/flat_1p2_yaw_grouped_continue/case_receipt.json": "46448bc87dc3bbeeaf9b94ebef8f80704d1f30a58e9ffc3f034173a274df3f12",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_yaw_01/heldout/flat_1p2_yaw_grouped_continue/control_records_0000.jsonl.gz": "ccd396d6134dd87ae30b5841f4ac1269a9988b28f1598415c5b3f505e3164b9c",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_yaw_01/heldout/flat_1p2_yaw_grouped_continue/control_records_0001.jsonl.gz": "bf92a70020c80424a77f8fe3dc7c309b60da0f90f79a3c95dd332a4e44343e74",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_yaw_01/heldout/flat_1p2_yaw_grouped_continue/control_records_0002.jsonl.gz": "1ddbd1d9b85d2544cb517907ae72c29f586fbd9e380b41c0a199fe48482f50c5",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_yaw_01/heldout/flat_1p2_yaw_grouped_continue/control_records_0003.jsonl.gz": "fe940f6a6929d01237f13f0e78ad6c17ad41deff3d21187332ac4abba146cdf1",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_yaw_01/heldout/flat_1p2_yaw_grouped_continue/control_records_0004.jsonl.gz": "500a9bb857f61df1e58eac8c823945f2383c44ea5a1e7ba04f56a6528db2cace",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_yaw_01/heldout/flat_1p2_yaw_grouped_continue/control_records_0005.jsonl.gz": "9c9a14e7bb3a2685cd2caabe0414fab6f8932430f355913f4ffc94f08b4b9839",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_yaw_01/heldout/flat_1p2_yaw_grouped_continue/control_records_0006.jsonl.gz": "6be8f71497fafb5dd6a405a4925a6c181ebd3e67924318ddfb284e4f2c2d3de2",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_yaw_01/heldout/flat_1p2_yaw_grouped_continue/control_records_0007.jsonl.gz": "5687adecf0c46dc5850013619f524504e5f84d0393cd3f14ed201ebc542feff0",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_yaw_01/heldout/flat_1p2_yaw_grouped_continue/initial_state.npz": "1cb755056546896dfd83c7b5712898a00698cf32e65e9e4d506d9abc1977e51e",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_yaw_01/host_receipt.json": "d43bf4f85279f73376aaa533e84e38b0940dac03df223325378adf85d96e4b5b",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_yaw_01/session.json": "aeb3e1176a482a777caed1669200521d9ad1627f6f181cb74190c19f09236589",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_yaw_01/worker_receipt.json": "b4e18346050edd9b34bf1dce985c706d9e8e674ed53aded306ca356a88925db0",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_yaw_readback_17.json": "d78dc80f63502e74e17f6d89459d8e1825be4b0a0311bc113b0a48460a3ff4f4"
+  },
+  "interpretation_limit": "Saved-run association only; the policies and resulting trajectories are not same-state counterfactuals.",
+  "ramp_diagnostics": {
+    "baseline": {
+      "hold_all_400": {
+        "common_wheel_proportional_mean_nm": -0.8062600448878134,
+        "count": 400,
+        "final_request_wheel_mean_nm": 0.2412061097300847,
+        "post_com_vx_mean_mps": 0.5100704191364539,
+        "post_minus_servo_mean_mps": 0.060070419136453924,
+        "post_minus_servo_rms_mps": 0.06236856804423052,
+        "safe_wheel_torque_mean_nm": 0.2412061097300847,
+        "servo_vx_mean_mps": 0.4500000000000001,
+        "ticks": [
+          600,
+          1000
+        ],
+        "wheel_integral_mean_nm": 1.4660645910857548,
+        "wheel_omega_mean_rad_s": 5.495845152732011,
+        "wheel_proportional_mean_nm": -0.41859843646785677,
+        "wheel_target_mean_rad_s": 5.305573136155712,
+        "wheel_target_minus_omega_mean_rad_s": -0.19027201657629855
+      },
+      "quarter_1": {
+        "common_wheel_proportional_mean_nm": -1.2964385630592878,
+        "count": 100,
+        "final_request_wheel_mean_nm": 1.4640407013935004,
+        "post_com_vx_mean_mps": 0.4995505185169371,
+        "post_minus_servo_mean_mps": 0.04955051851693702,
+        "post_minus_servo_rms_mps": 0.05157791425237241,
+        "safe_wheel_torque_mean_nm": 1.4640407013935004,
+        "servo_vx_mean_mps": 0.45000000000000023,
+        "ticks": [
+          600,
+          700
+        ],
+        "wheel_integral_mean_nm": 2.470099071972659,
+        "wheel_omega_mean_rad_s": 5.145800726489211,
+        "wheel_proportional_mean_nm": 0.2903801924801291,
+        "wheel_target_mean_rad_s": 5.27779172307109,
+        "wheel_target_minus_omega_mean_rad_s": 0.13199099658187674
+      },
+      "quarter_2": {
+        "common_wheel_proportional_mean_nm": -0.580481128136534,
+        "count": 100,
+        "final_request_wheel_mean_nm": 0.5710811724333389,
+        "post_com_vx_mean_mps": 0.5105965329587171,
+        "post_minus_servo_mean_mps": 0.06059653295871693,
+        "post_minus_servo_rms_mps": 0.06147999029242561,
+        "safe_wheel_torque_mean_nm": 0.5710811724333389,
+        "servo_vx_mean_mps": 0.45000000000000023,
+        "ticks": [
+          700,
+          800
+        ],
+        "wheel_integral_mean_nm": 1.8319403782349442,
+        "wheel_omega_mean_rad_s": 5.604651596884426,
+        "wheel_proportional_mean_nm": -0.6803780776650712,
+        "wheel_target_mean_rad_s": 5.295388834309392,
+        "wheel_target_minus_omega_mean_rad_s": -0.3092627625750324
+      },
+      "quarter_3": {
+        "common_wheel_proportional_mean_nm": -1.1732155830489166,
+        "count": 100,
+        "final_request_wheel_mean_nm": -0.3572160627867637,
+        "post_com_vx_mean_mps": 0.5311962439994663,
+        "post_minus_servo_mean_mps": 0.08119624399946627,
+        "post_minus_servo_rms_mps": 0.08127454916758244,
+        "safe_wheel_torque_mean_nm": -0.3572160627867637,
+        "servo_vx_mean_mps": 0.45000000000000023,
+        "ticks": [
+          800,
+          900
+        ],
+        "wheel_integral_mean_nm": 1.3731573509430404,
+        "wheel_omega_mean_rad_s": 5.573144553402338,
+        "wheel_proportional_mean_nm": -0.5571578306808878,
+        "wheel_target_mean_rad_s": 5.319890994001935,
+        "wheel_target_minus_omega_mean_rad_s": -0.25325355940040345
+      },
+      "quarter_4": {
+        "common_wheel_proportional_mean_nm": -0.17490490530651528,
+        "count": 100,
+        "final_request_wheel_mean_nm": -0.7130813721197368,
+        "post_com_vx_mean_mps": 0.4989383810706955,
+        "post_minus_servo_mean_mps": 0.048938381070695494,
+        "post_minus_servo_rms_mps": 0.05013711531565857,
+        "safe_wheel_torque_mean_nm": -0.7130813721197368,
+        "servo_vx_mean_mps": 0.45000000000000023,
+        "ticks": [
+          900,
+          1000
+        ],
+        "wheel_integral_mean_nm": 0.18906156319237563,
+        "wheel_omega_mean_rad_s": 5.65978373415207,
+        "wheel_proportional_mean_nm": -0.727238030005597,
+        "wheel_target_mean_rad_s": 5.329220993240435,
+        "wheel_target_minus_omega_mean_rad_s": -0.3305627409116352
+      }
+    },
+    "ramp": {
+      "hold_all_400": {
+        "common_wheel_proportional_mean_nm": -0.7629639085468577,
+        "count": 400,
+        "final_request_wheel_mean_nm": 0.16876052585926168,
+        "post_com_vx_mean_mps": 0.46985660182497285,
+        "post_minus_servo_mean_mps": 0.019856601824972828,
+        "post_minus_servo_rms_mps": 0.021202572644883417,
+        "safe_wheel_torque_mean_nm": 0.16876052585926168,
+        "servo_vx_mean_mps": 0.4500000000000001,
+        "ticks": [
+          600,
+          1000
+        ],
+        "wheel_integral_mean_nm": 0.37949886507014724,
+        "wheel_omega_mean_rad_s": 5.054186857067601,
+        "wheel_proportional_mean_nm": 0.552225569335972,
+        "wheel_target_mean_rad_s": 5.305198479493043,
+        "wheel_target_minus_omega_mean_rad_s": 0.2510116224254418
+      },
+      "quarter_1": {
+        "common_wheel_proportional_mean_nm": -1.1616884056287815,
+        "count": 100,
+        "final_request_wheel_mean_nm": 1.275297227232969,
+        "post_com_vx_mean_mps": 0.46986968703628734,
+        "post_minus_servo_mean_mps": 0.019869687036287293,
+        "post_minus_servo_rms_mps": 0.020381881700235725,
+        "safe_wheel_torque_mean_nm": 1.275297227232969,
+        "servo_vx_mean_mps": 0.45000000000000023,
+        "ticks": [
+          600,
+          700
+        ],
+        "wheel_integral_mean_nm": 1.5137910983102327,
+        "wheel_omega_mean_rad_s": 4.871466891543383,
+        "wheel_proportional_mean_nm": 0.9231945345515179,
+        "wheel_target_mean_rad_s": 5.291100770884982,
+        "wheel_target_minus_omega_mean_rad_s": 0.419633879341599
+      },
+      "quarter_2": {
+        "common_wheel_proportional_mean_nm": -0.5592907279631353,
+        "count": 100,
+        "final_request_wheel_mean_nm": 0.51875217339653,
+        "post_com_vx_mean_mps": 0.47235994489234295,
+        "post_minus_servo_mean_mps": 0.022359944892342835,
+        "post_minus_servo_rms_mps": 0.023880949215170446,
+        "safe_wheel_torque_mean_nm": 0.51875217339653,
+        "servo_vx_mean_mps": 0.45000000000000023,
+        "ticks": [
+          700,
+          800
+        ],
+        "wheel_integral_mean_nm": 0.8011030789045283,
+        "wheel_omega_mean_rad_s": 5.1741563292929245,
+        "wheel_proportional_mean_nm": 0.2769398224551368,
+        "wheel_target_mean_rad_s": 5.300038066772532,
+        "wheel_target_minus_omega_mean_rad_s": 0.1258817374796076
+      },
+      "quarter_3": {
+        "common_wheel_proportional_mean_nm": -1.1344976403188263,
+        "count": 100,
+        "final_request_wheel_mean_nm": -0.38858344838378256,
+        "post_com_vx_mean_mps": 0.47509145549033654,
+        "post_minus_servo_mean_mps": 0.025091455490336506,
+        "post_minus_servo_rms_mps": 0.025363442409381112,
+        "safe_wheel_torque_mean_nm": -0.38858344838378256,
+        "servo_vx_mean_mps": 0.45000000000000023,
+        "ticks": [
+          800,
+          900
+        ],
+        "wheel_integral_mean_nm": -0.06292021754600674,
+        "wheel_omega_mean_rad_s": 4.946763115840555,
+        "wheel_proportional_mean_nm": 0.8088344094810506,
+        "wheel_target_mean_rad_s": 5.314415120150122,
+        "wheel_target_minus_omega_mean_rad_s": 0.3676520043095685
+      },
+      "quarter_4": {
+        "common_wheel_proportional_mean_nm": -0.19637886027668702,
+        "count": 100,
+        "final_request_wheel_mean_nm": -0.7304238488086696,
+        "post_com_vx_mean_mps": 0.4621053198809247,
+        "post_minus_servo_mean_mps": 0.012105319880924675,
+        "post_minus_servo_rms_mps": 0.01300658675949567,
+        "safe_wheel_torque_mean_nm": -0.7304238488086696,
+        "servo_vx_mean_mps": 0.45000000000000023,
+        "ticks": [
+          900,
+          1000
+        ],
+        "wheel_integral_mean_nm": -0.7339784993881652,
+        "wheel_omega_mean_rad_s": 5.224361091593543,
+        "wheel_proportional_mean_nm": 0.19993351085618247,
+        "wheel_target_mean_rad_s": 5.315239960164534,
+        "wheel_target_minus_omega_mean_rad_s": 0.09087886857099207
+      }
+    }
+  },
+  "schema": "d1-control-repair-development-B-summary-17-v1",
+  "script_sha256": "80ab9471ae3b88e229c55f910216fa79f451b7510361941b731a72f41af0fd5a",
+  "source_closure_verified": true,
+  "task_gates": {
+    "baseline": {
+      "flat_1p2_yaw": {
+        "drive_sse": 45.4224114256466,
+        "final_window_passed": true,
+        "hold_vx_rms_mps": 0.012561653294878834,
+        "hold_yaw_rms_rps": 0.13036746766567778,
+        "record_valid": true,
+        "safety_passed": true,
+        "speed_passed": true,
+        "task_passed": false,
+        "task_reasons": [
+          "yaw: yaw rate RMS error 0.13036746766567778 rad/s exceeds 0.12"
+        ],
+        "yaw_passed": false
+      },
+      "ramp_0p45_complete": {
+        "drive_sse": 41.501162841996766,
+        "final_window_passed": true,
+        "hold_vx_rms_mps": 0.062368568044230605,
+        "hold_yaw_rms_rps": null,
+        "record_valid": true,
+        "safety_passed": true,
+        "speed_passed": false,
+        "task_passed": false,
+        "task_reasons": [
+          "speed: hold COM vx RMS error 0.062368568044230605 m/s exceeds 0.05",
+          "speed: hold mean COM vx 0.510070419136454 m/s outside target 0.45 +/- 0.04"
+        ],
+        "yaw_passed": null
+      }
+    },
+    "ramp": {
+      "ramp_0p45_complete": {
+        "drive_sse": 8.941706889950204,
+        "final_window_passed": true,
+        "hold_vx_rms_mps": 0.02120257264488338,
+        "hold_yaw_rms_rps": null,
+        "record_valid": true,
+        "safety_passed": true,
+        "speed_passed": true,
+        "task_passed": true,
+        "task_reasons": [],
+        "yaw_passed": null
+      }
+    },
+    "yaw": {
+      "flat_1p2_yaw": {
+        "drive_sse": 25.450040344766048,
+        "final_window_passed": true,
+        "hold_vx_rms_mps": 0.012963036941051964,
+        "hold_yaw_rms_rps": 0.0947655026817745,
+        "record_valid": true,
+        "safety_passed": true,
+        "speed_passed": true,
+        "task_passed": true,
+        "task_reasons": [],
+        "yaw_passed": true
+      }
+    }
+  },
+  "yaw_diagnostics": {
+    "baseline": {
+      "hold_all_400": {
+        "actual_mean_rps": -0.0001235405389246358,
+        "at_new_limit_fraction": 0.5175,
+        "available": true,
+        "count": 400,
+        "effective_nominal_yaw_mean_rps": -0.01561837876897913,
+        "error_rms_rps": 0.13036746766567775,
+        "error_sse": 6.798270650224613,
+        "preclip_exceeds_old_0p6_fraction": 0.5175,
+        "preclip_nominal_yaw_mean_rps": -0.0903872696278033,
+        "servo_mean_rps": -0.018374999999999978,
+        "signed_error_mean_rps": 0.018251459461075363,
+        "ticks": [
+          415,
+          815
+        ]
+      },
+      "segments": {
+        "negative": {
+          "all": {
+            "actual_mean_rps": -0.06556068588019158,
+            "at_new_limit_fraction": 0.595,
+            "available": true,
+            "count": 200,
+            "effective_nominal_yaw_mean_rps": -0.2637159745223654,
+            "error_rms_rps": 0.15001543733422726,
+            "error_sse": 4.5009262877158935,
+            "preclip_exceeds_old_0p6_fraction": 0.595,
+            "preclip_nominal_yaw_mean_rps": -0.499880391138717,
+            "servo_mean_rps": -0.15150000000000005,
+            "signed_error_mean_rps": 0.08593931411980851,
+            "ticks": [
+              515,
+              715
+            ]
+          },
+          "plateau": {
+            "actual_mean_rps": -0.10198249025286686,
+            "at_new_limit_fraction": 1.0,
+            "available": true,
+            "count": 101,
+            "effective_nominal_yaw_mean_rps": -0.6,
+            "error_rms_rps": 0.19915295386424026,
+            "error_sse": 4.005851802318073,
+            "preclip_exceeds_old_0p6_fraction": 1.0,
+            "preclip_nominal_yaw_mean_rps": -1.0891634977228104,
+            "servo_mean_rps": -0.3,
+            "signed_error_mean_rps": 0.19801750974713314,
+            "ticks": [
+              515,
+              715
+            ]
+          },
+          "transition": {
+            "actual_mean_rps": -0.028403087479785497,
+            "at_new_limit_fraction": 0.18181818181818182,
+            "available": true,
+            "count": 99,
+            "effective_nominal_yaw_mean_rps": 0.07936166763158493,
+            "error_rms_rps": 0.07071599803266418,
+            "error_sse": 0.49507448539782056,
+            "preclip_exceeds_old_0p6_fraction": 0.18181818181818182,
+            "preclip_nominal_yaw_mean_rps": 0.1013074246692974,
+            "servo_mean_rps": -1.9176579516252704e-16,
+            "signed_error_mean_rps": -0.028403087479785292,
+            "ticks": [
+              515,
+              715
+            ]
+          }
+        },
+        "positive_1": {
+          "all": {
+            "actual_mean_rps": 0.12020686801688989,
+            "at_new_limit_fraction": 0.59,
+            "available": true,
+            "count": 100,
+            "effective_nominal_yaw_mean_rps": 0.4867487173545196,
+            "error_rms_rps": 0.12067992161178023,
+            "error_sse": 1.456364348022542,
+            "preclip_exceeds_old_0p6_fraction": 0.59,
+            "preclip_nominal_yaw_mean_rps": 0.6567005104292999,
+            "servo_mean_rps": 0.22650000000000006,
+            "signed_error_mean_rps": -0.10629313198311015,
+            "ticks": [
+              415,
+              515
+            ]
+          },
+          "plateau": {
+            "actual_mean_rps": 0.14323593638426851,
+            "at_new_limit_fraction": 1.0,
+            "available": true,
+            "count": 51,
+            "effective_nominal_yaw_mean_rps": 0.6000000000000001,
+            "error_rms_rps": 0.1581804351772765,
+            "error_sse": 1.2760735537165016,
+            "preclip_exceeds_old_0p6_fraction": 1.0,
+            "preclip_nominal_yaw_mean_rps": 0.9224672646486415,
+            "servo_mean_rps": 0.30000000000000004,
+            "signed_error_mean_rps": -0.15676406361573147,
+            "ticks": [
+              415,
+              515
+            ]
+          },
+          "transition": {
+            "actual_mean_rps": 0.09623783767533253,
+            "at_new_limit_fraction": 0.16326530612244897,
+            "available": true,
+            "count": 49,
+            "effective_nominal_yaw_mean_rps": 0.36887493337657057,
+            "error_rms_rps": 0.060658090684008514,
+            "error_sse": 0.1802907943060406,
+            "preclip_exceeds_old_0p6_fraction": 0.16326530612244897,
+            "preclip_nominal_yaw_mean_rps": 0.38008613358876037,
+            "servo_mean_rps": 0.15000000000000008,
+            "signed_error_mean_rps": -0.05376216232466753,
+            "ticks": [
+              415,
+              515
+            ]
+          }
+        },
+        "positive_2": {
+          "all": {
+            "actual_mean_rps": 0.010420341587794748,
+            "at_new_limit_fraction": 0.29,
+            "available": true,
+            "count": 100,
+            "effective_nominal_yaw_mean_rps": -0.02179028338570526,
+            "error_rms_rps": 0.09170496248765266,
+            "error_sse": 0.8409800144861781,
+            "preclip_exceeds_old_0p6_fraction": 0.29,
+            "preclip_nominal_yaw_mean_rps": -0.018488806663079064,
+            "servo_mean_rps": 0.0030000000000001896,
+            "signed_error_mean_rps": 0.007420341587794541,
+            "ticks": [
+              715,
+              815
+            ]
+          },
+          "plateau": {
+            "actual_mean_rps": 0.09727413216078769,
+            "at_new_limit_fraction": 1.0,
+            "available": true,
+            "count": 1,
+            "effective_nominal_yaw_mean_rps": 0.6,
+            "error_rms_rps": 0.20272586783921231,
+            "error_sse": 0.04109777749116178,
+            "preclip_exceeds_old_0p6_fraction": 1.0,
+            "preclip_nominal_yaw_mean_rps": 1.1019693093574772,
+            "servo_mean_rps": 0.3,
+            "signed_error_mean_rps": -0.20272586783921231,
+            "ticks": [
+              715,
+              815
+            ]
+          },
+          "transition": {
+            "actual_mean_rps": 0.009543030571905932,
+            "at_new_limit_fraction": 0.2828282828282828,
+            "available": true,
+            "count": 99,
+            "effective_nominal_yaw_mean_rps": -0.0280709933188942,
+            "error_rms_rps": 0.08988669843478075,
+            "error_sse": 0.7998822369950164,
+            "preclip_exceeds_old_0p6_fraction": 0.2828282828282828,
+            "preclip_nominal_yaw_mean_rps": -0.02980656541076145,
+            "servo_mean_rps": 1.9176579516252704e-16,
+            "signed_error_mean_rps": 0.009543030571905722,
+            "ticks": [
+              715,
+              815
+            ]
+          }
+        }
+      }
+    },
+    "yaw": {
+      "hold_all_400": {
+        "actual_mean_rps": -0.009900731937498092,
+        "at_new_limit_fraction": 0.0,
+        "available": true,
+        "count": 400,
+        "effective_nominal_yaw_mean_rps": -0.05046946005450495,
+        "error_rms_rps": 0.09476550268177446,
+        "error_sse": 3.59220019941176,
+        "preclip_exceeds_old_0p6_fraction": 0.5075,
+        "preclip_nominal_yaw_mean_rps": -0.05046946005450495,
+        "servo_mean_rps": -0.018374999999999978,
+        "signed_error_mean_rps": 0.008474268062501901,
+        "ticks": [
+          415,
+          815
+        ]
+      },
+      "segments": {
+        "negative": {
+          "all": {
+            "actual_mean_rps": -0.09483035374831145,
+            "at_new_limit_fraction": 0.0,
+            "available": true,
+            "count": 200,
+            "effective_nominal_yaw_mean_rps": -0.38509194936493907,
+            "error_rms_rps": 0.10672847050836569,
+            "error_sse": 2.2781932834110172,
+            "preclip_exceeds_old_0p6_fraction": 0.59,
+            "preclip_nominal_yaw_mean_rps": -0.38509194936493907,
+            "servo_mean_rps": -0.15150000000000005,
+            "signed_error_mean_rps": 0.05666964625168867,
+            "ticks": [
+              515,
+              715
+            ]
+          },
+          "plateau": {
+            "actual_mean_rps": -0.1644902072971132,
+            "at_new_limit_fraction": 0.0,
+            "available": true,
+            "count": 101,
+            "effective_nominal_yaw_mean_rps": -0.8413069177190079,
+            "error_rms_rps": 0.13619664288379738,
+            "error_sse": 1.87350207881448,
+            "preclip_exceeds_old_0p6_fraction": 1.0,
+            "preclip_nominal_yaw_mean_rps": -0.8413069177190079,
+            "servo_mean_rps": -0.3,
+            "signed_error_mean_rps": 0.1355097927028868,
+            "ticks": [
+              515,
+              715
+            ]
+          },
+          "transition": {
+            "actual_mean_rps": -0.02376323043084704,
+            "at_new_limit_fraction": 0.0,
+            "available": true,
+            "count": 99,
+            "effective_nominal_yaw_mean_rps": 0.0803394829962826,
+            "error_rms_rps": 0.0639358267751311,
+            "error_sse": 0.40469120459653757,
+            "preclip_exceeds_old_0p6_fraction": 0.1717171717171717,
+            "preclip_nominal_yaw_mean_rps": 0.0803394829962826,
+            "servo_mean_rps": -1.9176579516252704e-16,
+            "signed_error_mean_rps": -0.023763230430846844,
+            "ticks": [
+              515,
+              715
+            ]
+          }
+        },
+        "positive_1": {
+          "all": {
+            "actual_mean_rps": 0.14454814137019908,
+            "at_new_limit_fraction": 0.0,
+            "available": true,
+            "count": 100,
+            "effective_nominal_yaw_mean_rps": 0.5614776836686817,
+            "error_rms_rps": 0.08909009995433878,
+            "error_sse": 0.7937045909874075,
+            "preclip_exceeds_old_0p6_fraction": 0.59,
+            "preclip_nominal_yaw_mean_rps": 0.5614776836686817,
+            "servo_mean_rps": 0.22650000000000006,
+            "signed_error_mean_rps": -0.08195185862980094,
+            "ticks": [
+              415,
+              515
+            ]
+          },
+          "plateau": {
+            "actual_mean_rps": 0.18998468453552816,
+            "at_new_limit_fraction": 0.0,
+            "available": true,
+            "count": 51,
+            "effective_nominal_yaw_mean_rps": 0.7383734328901584,
+            "error_rms_rps": 0.11055016374067303,
+            "error_sse": 0.6232882738575705,
+            "preclip_exceeds_old_0p6_fraction": 1.0,
+            "preclip_nominal_yaw_mean_rps": 0.7383734328901584,
+            "servo_mean_rps": 0.30000000000000004,
+            "signed_error_mean_rps": -0.1100153154644718,
+            "ticks": [
+              415,
+              515
+            ]
+          },
+          "transition": {
+            "actual_mean_rps": 0.09725704542261163,
+            "at_new_limit_fraction": 0.0,
+            "available": true,
+            "count": 49,
+            "effective_nominal_yaw_mean_rps": 0.37736169978510364,
+            "error_rms_rps": 0.058973587503711344,
+            "error_sse": 0.17041631712983704,
+            "preclip_exceeds_old_0p6_fraction": 0.16326530612244897,
+            "preclip_nominal_yaw_mean_rps": 0.37736169978510364,
+            "servo_mean_rps": 0.15000000000000008,
+            "signed_error_mean_rps": -0.05274295457738845,
+            "ticks": [
+              415,
+              515
+            ]
+          }
+        },
+        "positive_2": {
+          "all": {
+            "actual_mean_rps": 0.0055096383764314085,
+            "at_new_limit_fraction": 0.0,
+            "available": true,
+            "count": 100,
+            "effective_nominal_yaw_mean_rps": 0.006828374843176681,
+            "error_rms_rps": 0.07213198493132815,
+            "error_sse": 0.5203023250133351,
+            "preclip_exceeds_old_0p6_fraction": 0.26,
+            "preclip_nominal_yaw_mean_rps": 0.006828374843176681,
+            "servo_mean_rps": 0.0030000000000001896,
+            "signed_error_mean_rps": 0.0025096383764312068,
+            "ticks": [
+              715,
+              815
+            ]
+          },
+          "plateau": {
+            "actual_mean_rps": 0.17817853006123716,
+            "at_new_limit_fraction": 0.0,
+            "available": true,
+            "count": 1,
+            "effective_nominal_yaw_mean_rps": 0.8023532079558722,
+            "error_rms_rps": 0.12182146993876283,
+            "error_sse": 0.014840470538040896,
+            "preclip_exceeds_old_0p6_fraction": 1.0,
+            "preclip_nominal_yaw_mean_rps": 0.8023532079558722,
+            "servo_mean_rps": 0.3,
+            "signed_error_mean_rps": -0.12182146993876283,
+            "ticks": [
+              715,
+              815
+            ]
+          },
+          "transition": {
+            "actual_mean_rps": 0.003765508157392966,
+            "at_new_limit_fraction": 0.0,
+            "available": true,
+            "count": 99,
+            "effective_nominal_yaw_mean_rps": -0.001207229531699031,
+            "error_rms_rps": 0.07145400826916741,
+            "error_sse": 0.5054618544752941,
+            "preclip_exceeds_old_0p6_fraction": 0.25252525252525254,
+            "preclip_nominal_yaw_mean_rps": -0.001207229531699031,
+            "servo_mean_rps": 1.9176579516252704e-16,
+            "signed_error_mean_rps": 0.003765508157392763,
+            "ticks": [
+              715,
+              815
+            ]
+          }
+        }
+      }
+    }
+  }
+}

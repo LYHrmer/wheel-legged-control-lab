@@ -1,0 +1,4018 @@
+{
+  "schema": "d1-stage17-saved-ramp-diagnosis-v1",
+  "source_file_sha256": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/ramp17/diagnose_saved_ramp17_v02.py": "e05027456d9ecefaa6388a7305d82352c8d54af17c45ca5be3345168976d81ea",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/recipes15.py": "fbda812b00b5926e027808ffce95c8ee185b1d2ab14e12f937486f5a7c2f6a85",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/score15.py": "1be3c8407bf63ec6289cc22a74b6a6bbac77b5be50c0c4304f338a2f94a149b9",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/final_review_15_16.md": "2e0ae329f2ff56648699ce12ef9fe153f48d762b3457cc7ec2fde655eb6c93db",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/result_summary_15_16.json": "76348d19762af22730757ecec1d59e62dcd466de2267486d9ed0d8274a7271e5",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/course_impl08/full_drive_controller_08.py": "87e82de552276cf481b016c68d6338aa5567ca532ccaec96250ed53c60a50c64",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/course_impl08/residual16_math_08.py": "ff66faae8cd29779f6876a8abac2d9e0c92e0913484097059b76b5d43dd8d635",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/course_impl08/full_drive_env_08.py": "d3895e09e7f3492e58dce3ffe8d572b0223f1639f0ee6c1581c673a7ed1ff787",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/upright11/world_upright_course_11.py": "504cf329cabf889be5e2a6803b442114a6153437c87c992318bb12f8049efdb0",
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/wheel_leg_controller.py": "0c731d366e811a465248cec4b9ce345d6d3c69a8a9c387e314ca6f992ac32156",
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/model.py": "0d606a044e8f9b010976ceb7e45b6640b143371887284cc30c17acd1d0c96bc6",
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/state_estimation.py": "eea9c3969e3064819ef6bc8a7621e5541e1547bacbea741b21e1fa909e2f51b8",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_zero/schedule.json": "e0cf99348b819809041ce8d62a028655befc93e5d497e922812c6f31910a76cf",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_zero/geometry_manifest.json": "cd5919403a0cc768ce77dfe9ac59c62af5a41516863578a39f71302aa04e3a0c",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_zero/control_records_0000.jsonl.gz": "8683fab2c687195128cf9672911fc0556392996a4f1d88074f3fea6987c1e952",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_zero/control_records_0001.jsonl.gz": "a6b2928c9ced18f59f9437d72b32605240e7d5dd8ddc5f92e9d5f97b4ce38ffc",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_zero/control_records_0002.jsonl.gz": "da453e68b78a022f0e429bd836755fc92c34733b2438767d459f2ca26b3e6e6d",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_zero/control_records_0003.jsonl.gz": "5819f2c04d8c4f08232d71630845ac44e76bd3ef2ea61fa686cdc175ac20ace9",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_zero/control_records_0004.jsonl.gz": "76d24df46e8028221be16f560c60b54e782ba98553cd4de93a36562e5300f9d4",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_zero/control_records_0005.jsonl.gz": "8045fbded6d0fddd88440d797fd3bd7eea260f31f765b64a8af1e65260eb282a",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_zero/control_records_0006.jsonl.gz": "c66189ac32779654df0cfb6db5f50ba0f73a5446acfc4ab5efbd770ca24aaa7d",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_zero/control_records_0007.jsonl.gz": "2f916dd911272db4c97a141e6855a9bbada8708c0e234d320277ea4eaef92838",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_zero/control_records_0008.jsonl.gz": "13217bc51ff916a70d2136f2035e5004bf93c02f499871c6961264fc3fe35b72",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_global_continue/schedule.json": "5cebaab3b7f2425d435a9ec490586e49108faca77443dc1afacce0136a4635c5",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_global_continue/geometry_manifest.json": "cd5919403a0cc768ce77dfe9ac59c62af5a41516863578a39f71302aa04e3a0c",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_global_continue/control_records_0000.jsonl.gz": "35addeed21149f90e8b9246ea49190affe27310ce2383ae57a32ac3348672632",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_global_continue/control_records_0001.jsonl.gz": "44c3c31977e15777d8646832f42302031c780b1cf8db9e8be9efdddf6113a037",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_global_continue/control_records_0002.jsonl.gz": "1346074febe22765e9b3591794c650e642fd017256cf2221a163b54bc95e3730",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_global_continue/control_records_0003.jsonl.gz": "86be53a337cfff12779a974582b0a54f823b958ceb114a5a788a41803b213ba5",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_global_continue/control_records_0004.jsonl.gz": "d89f223b9d047c1c283f2a7b12ee956470b956b55032c1ae8019be2c3f779d97",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_global_continue/control_records_0005.jsonl.gz": "9a07939126b9edaec3497ef538bafff1d47f643f2497848296ba4ef94e494deb",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_global_continue/control_records_0006.jsonl.gz": "beac6754f57d19344fd7e8b3dcf077c071ab81cf5dd829c106a554642ed8bb06",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_global_continue/control_records_0007.jsonl.gz": "c669215a51b1a58ce83b2646aad5f6f0da0d113c9615ee08ac15cc5312ecd9ae",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_global_continue/control_records_0008.jsonl.gz": "985acde5ff69ba67ecf4b2cec653cd5844c8bb43dfa7dafd93cd1d6ed25b5314",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_grouped_continue/schedule.json": "a582d14297ad35196efd59a3b1d840888a32b73ca586a36eff61573610f3ba47",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_grouped_continue/geometry_manifest.json": "cd5919403a0cc768ce77dfe9ac59c62af5a41516863578a39f71302aa04e3a0c",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_grouped_continue/control_records_0000.jsonl.gz": "a94a2448827432ed541bb8a7f886863243618e3e2acade2af3bd500fd783a035",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_grouped_continue/control_records_0001.jsonl.gz": "d0eb4d99989cbdd9a85d5d4c03524999fa286035e6a5656954a9ad0fd0f8481d",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_grouped_continue/control_records_0002.jsonl.gz": "2221c33ccc3c51a08fcc928c36d85edd976b81826263b62757a6802bb9b8ff97",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_grouped_continue/control_records_0003.jsonl.gz": "fb419546669afdfe53277343d10cc53ca3e3270a58c0db0ecc513c99439f92e4",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_grouped_continue/control_records_0004.jsonl.gz": "5fbbaa47616d3fd6fa9740e0533669ceade53822df7ab5cb6e6bc4842e19891e",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_grouped_continue/control_records_0005.jsonl.gz": "a2ce96441e5cc63a0a6dcd18aac9eafa999491daee4022fc666a3a5ef4874364",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_grouped_continue/control_records_0006.jsonl.gz": "f2a0d4672e05aac03ebc63240f4c2acddac2296372d4520c591d9b488b17ba15",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_grouped_continue/control_records_0007.jsonl.gz": "1702a2b4b01d21870e2f4498514691afea20044f621b4b0df9e16545656633df",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/ramp_0p45_complete_grouped_continue/control_records_0008.jsonl.gz": "d592996e312812bb804c9775dc23204c93e18fc26a61cae6cda1c36502b489aa",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_0p6_zero/schedule.json": "4c28bf1ded7779744b0425b5d31f447a520a544818820d0f6eb54b34eb096fae",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_0p6_zero/geometry_manifest.json": "cd5919403a0cc768ce77dfe9ac59c62af5a41516863578a39f71302aa04e3a0c",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_0p6_zero/control_records_0000.jsonl.gz": "a3a6d3c20ba00db1cfa12488aaa8885cb5107c62d63ec4bf4b5603b2d88b1f05",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_0p6_zero/control_records_0001.jsonl.gz": "5fe1d0a1a4bed094318d64215f58451c0a4cc42980808548e60a4c86803676c2",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_0p6_zero/control_records_0002.jsonl.gz": "3d0de00b0e499e99cf9eb97a5d1388ea8156c12b8c06fd444c13f279b0fb95a7",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_0p6_zero/control_records_0003.jsonl.gz": "d9ed8e9b8ed5809d97fea55352406ef0e3622a4e43cba93396bb9602d0322ae9",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_0p6_zero/control_records_0004.jsonl.gz": "54cb977a42c2f7ee7381eca8cb915bf580955af1bc8a13ce478d032a534c0a3b",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_0p6_zero/control_records_0005.jsonl.gz": "b4e5cf150a38401ce104ff5cc22b13f01d4e9e29d08ceb6ea12071b16b698df1",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_0p6_zero/control_records_0006.jsonl.gz": "cae0e533856a46f0f317f654f8758346b6d3c2505dc01acbc544fa18e238fa62",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_0p6_zero/control_records_0007.jsonl.gz": "aa53d700d4e8dfd443374a08fedcf8ab536224ce98262abb8882d5a6483e84e6",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_0p6_global_continue/schedule.json": "359052deae0bb62f0ff3aad6c672d43e962a17fbcf8ca07327f405dda9b8c3c0",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_0p6_global_continue/geometry_manifest.json": "cd5919403a0cc768ce77dfe9ac59c62af5a41516863578a39f71302aa04e3a0c",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_0p6_global_continue/control_records_0000.jsonl.gz": "3d5dc91d5e6140ba60b5342b0167f23e0ba233d9f034256fa9d67d54b7c1b73a",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_0p6_global_continue/control_records_0001.jsonl.gz": "ae7b13f57585181db4fd072087c8251c7c23f01e2604f90f6c0030fdae434bae",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_0p6_global_continue/control_records_0002.jsonl.gz": "17448795be578a243fc06a9a1095896ae1c99561348b3df5d44aab2639395ed8",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_0p6_global_continue/control_records_0003.jsonl.gz": "aa2f02e3f0c58b70dc6cd85e13e6cd71e17cf1cca684bf1165d9c55e8f1d550e",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_0p6_global_continue/control_records_0004.jsonl.gz": "36e7b5cb5c0db4a49820812f7a3f4ac1eb048e9914cba80394c7a78e61f66e44",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_0p6_global_continue/control_records_0005.jsonl.gz": "6c7a9725fcb5ccb49c1a128df6ab2113a67f2b532a91f43f83ba733260f28c7a",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_0p6_global_continue/control_records_0006.jsonl.gz": "d91ef5927d86777b1d4ff1b0e2903ac0f0d1f6d4f53f28e5c74884d1ee92f346",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_0p6_global_continue/control_records_0007.jsonl.gz": "d36de05f437ef3d813ea4c3bae171e38cef28b88d07d0b864fde837c4b332158",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_0p6_grouped_continue/schedule.json": "4249029d1c1a12356ca4664ab47e22c6d5d37837aaba70f73a8fc0606aabee38",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_0p6_grouped_continue/geometry_manifest.json": "cd5919403a0cc768ce77dfe9ac59c62af5a41516863578a39f71302aa04e3a0c",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_0p6_grouped_continue/control_records_0000.jsonl.gz": "9c41b3125bfea0f2435f27ee668c537ec07d13bbad5b179cd65ead21362166e7",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_0p6_grouped_continue/control_records_0001.jsonl.gz": "8c1c7eb1a242f6dff428b8a3978d2d3e3b500fafcb3081dae7e6abe38966ba39",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_0p6_grouped_continue/control_records_0002.jsonl.gz": "b0fe014d2feadd64806f0e9fdc95c8b7dfd7e42bca898078012759237812f3b2",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_0p6_grouped_continue/control_records_0003.jsonl.gz": "3032ad7c8d3f45bc636b3f5eff17ddc751311e4a8661f6c97cb34c8ee7fdf558",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_0p6_grouped_continue/control_records_0004.jsonl.gz": "9cdf39be985064ce4558beda2b15dd51c73a1de2a6fcf2a0dd47435a5a6365ab",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_0p6_grouped_continue/control_records_0005.jsonl.gz": "472dd5cfd25f5c8c8fa3446296be31daa08896f1f5c4260033c77d440621a558",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_0p6_grouped_continue/control_records_0006.jsonl.gz": "aced79bdc86f9feb694e2b67227a9b3bed08ca3aa684afb75d195a497f3cf155",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_0p6_grouped_continue/control_records_0007.jsonl.gz": "40484109269bd3c5c11ad4a4cd4e4974ab64e405794862fcac31ebcda1365103"
+  },
+  "constants": {
+    "wheel_radius_m": 0.087,
+    "wheel_kp": 2.2
+  },
+  "interpretation": {
+    "com_definition": "base-body inertial COM velocity projected into visible base_link axes via model.base_velocity(local=True); controller uses pre-control estimate and score uses post-control truth of the same definition",
+    "wheel_body_slip_proxy": "wheel angular speed times nominal radius minus pre-control body COM forward speed; includes kinematic mismatch, and is not a measured slip ratio",
+    "p_identity": "when body_common_p_active, mean differential wheel PI P plus common wheel P = Kp*(mean wheel target - pre-control body COM speed/radius); otherwise common P is zero and the mean P term = Kp*(mean wheel target - mean wheel omega)",
+    "timing": "controller/calculation uses pre-control state; metrics/body_post uses post-control truth",
+    "flat_comparator": "flat target is 0.6 m/s versus ramp 0.45 m/s; compare tracking errors and control components, not absolute velocities",
+    "base_ground_query_geom": "geom at the base ground-height query; this is not a per-wheel contact or per-geom positive load classification"
+  },
+  "unidentifiable_from_saved_fields": [
+    "world-frame COM velocity and exact slope-tangent COM velocity (body COM z velocity is not recorded)",
+    "individual wheel longitudinal slip/contact force versus ground; control native summary has only aggregate ramp-family positive load, so per-ramp-geom wheel-load phase attribution is unavailable here",
+    "counterfactual effect of changing controller gain, leg target, gravity compensation, or policy action"
+  ],
+  "runtime_audit": {
+    "analysis_elapsed_seconds_before_output": 3.537818470002094,
+    "model_loads": 0,
+    "policy_predicts": 0,
+    "physics_calls": 0,
+    "native_steps": 0,
+    "backward_calls": 0,
+    "optimizer_steps": 0,
+    "forbidden_import_guard_installed": true
+  },
+  "cases": {
+    "ramp_0p45_complete": {
+      "zero": {
+        "case_id": "ramp_0p45_complete",
+        "actor": "zero",
+        "seed": 151106,
+        "raw_command_sha256": "f9d353a072201922162f47f2c15e4e29dad025b6fd7eb70a6a036da7f9244e7a",
+        "hold_window": [
+          600,
+          1000
+        ],
+        "release_tick": 1355,
+        "windows": {
+          "pre_command": {
+            "count": 175,
+            "tick_bounds": [
+              0,
+              175
+            ],
+            "mean": {
+              "raw_mps": 0.0,
+              "servo_mps": 0.0,
+              "body_pre_mps": 0.02518368051460061,
+              "body_post_mps": 0.025480805023084016,
+              "body_error_vs_servo_mps": 0.025480805023084016,
+              "body_error_vs_task_mps": -0.42451919497691604,
+              "wheel_target_equivalent_mps": -3.3660637878818384e-07,
+              "wheel_actual_equivalent_mps": 0.011064224667508744,
+              "wheel_tracking_error_mps": -0.011064561273887531,
+              "wheel_body_slip_proxy_mps": -0.014119455847091863,
+              "target_body_error_mps": -0.025184017120979396,
+              "wheel_integral_mean_nm": -0.18394173785915988,
+              "wheel_p_mean_nm": -0.2797935034776158,
+              "wheel_request_mean_nm": -0.4637352413367756,
+              "wheel_safe_mean_nm": -0.4637352413367756,
+              "wheel_native_applied_mean_nm": -0.4637352413367756,
+              "common_wheel_scalar_nm": 0.0,
+              "pitch_rad": 0.026986970467987474,
+              "pitch_target_error_rad": 0.026986970467987474,
+              "x_m": 2.773156224887047,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.0
+            },
+            "rms_body_error_vs_task_mps": 0.4251050463568214,
+            "rms_body_error_vs_servo_mps": 0.033867756920275084,
+            "flag_fraction": {
+              "body_common_p_active": 0.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.220446049250313e-16,
+            "ground_geom_counts": {
+              "floor": 175
+            },
+            "tick_spans": [
+              [
+                0,
+                175
+              ]
+            ]
+          },
+          "drive_before_hold": {
+            "count": 425,
+            "tick_bounds": [
+              175,
+              600
+            ],
+            "mean": {
+              "raw_mps": 0.45,
+              "servo_mps": 0.4028823529411765,
+              "body_pre_mps": 0.3652913989197899,
+              "body_post_mps": 0.3662199217396797,
+              "body_error_vs_servo_mps": -0.03666243120149677,
+              "body_error_vs_task_mps": -0.08378007826032029,
+              "wheel_target_equivalent_mps": 0.4028823025926844,
+              "wheel_actual_equivalent_mps": 0.3842180236813244,
+              "wheel_tracking_error_mps": 0.01866427891136005,
+              "wheel_body_slip_proxy_mps": 0.01892662476153448,
+              "target_body_error_mps": 0.037590903672894534,
+              "wheel_integral_mean_nm": 0.7767581008387563,
+              "wheel_p_mean_nm": 0.9505745756364136,
+              "wheel_request_mean_nm": 1.72733267647517,
+              "wheel_safe_mean_nm": 1.72733267647517,
+              "wheel_native_applied_mean_nm": 1.72733267647517,
+              "common_wheel_scalar_nm": 0.4786043043146651,
+              "pitch_rad": -0.08041808389475899,
+              "pitch_target_error_rad": -0.08041808389475899,
+              "x_m": 3.458248445076578,
+              "ramp_load_count": 42.55764705882353,
+              "applied_wheel_residual_mean_rad_s": 0.0
+            },
+            "rms_body_error_vs_task_mps": 0.14337120406321244,
+            "rms_body_error_vs_servo_mps": 0.045311185101097794,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.6645352591003757e-15,
+            "ground_geom_counts": {
+              "floor": 130,
+              "terrain_ramp_up": 295
+            },
+            "tick_spans": [
+              [
+                175,
+                600
+              ]
+            ]
+          },
+          "hold": {
+            "count": 400,
+            "tick_bounds": [
+              600,
+              1000
+            ],
+            "mean": {
+              "raw_mps": 0.45,
+              "servo_mps": 0.45,
+              "body_pre_mps": 0.4971384535799983,
+              "body_post_mps": 0.49719613249187555,
+              "body_error_vs_servo_mps": 0.04719613249187551,
+              "body_error_vs_task_mps": 0.04719613249187551,
+              "wheel_target_equivalent_mps": 0.45000000078853303,
+              "wheel_actual_equivalent_mps": 0.4666004914395648,
+              "wheel_tracking_error_mps": -0.016600490651031675,
+              "wheel_body_slip_proxy_mps": -0.030537962140433583,
+              "target_body_error_mps": -0.04713845279146525,
+              "wheel_integral_mean_nm": 1.4713043259364609,
+              "wheel_p_mean_nm": -1.1920068521979723,
+              "wheel_request_mean_nm": 0.2792974737384884,
+              "wheel_safe_mean_nm": 0.2792974737384884,
+              "wheel_native_applied_mean_nm": 0.2792974737384884,
+              "common_wheel_scalar_nm": -0.7722243299879759,
+              "pitch_rad": 0.038504335268844864,
+              "pitch_target_error_rad": 0.038504335268844864,
+              "x_m": 5.330951168948619,
+              "ramp_load_count": 58.95,
+              "applied_wheel_residual_mean_rad_s": 0.0
+            },
+            "rms_body_error_vs_task_mps": 0.050255488507630515,
+            "rms_body_error_vs_servo_mps": 0.050255488507630515,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 3.1086244689504383e-15,
+            "ground_geom_counts": {
+              "floor": 1,
+              "terrain_ramp_deck": 160,
+              "terrain_ramp_down": 185,
+              "terrain_ramp_up": 54
+            },
+            "tick_spans": [
+              [
+                600,
+                1000
+              ]
+            ]
+          },
+          "drive_after_hold": {
+            "count": 355,
+            "tick_bounds": [
+              1000,
+              1355
+            ],
+            "mean": {
+              "raw_mps": 0.45,
+              "servo_mps": 0.45,
+              "body_pre_mps": 0.42905656109146484,
+              "body_post_mps": 0.42898237931828603,
+              "body_error_vs_servo_mps": -0.021017620681713943,
+              "body_error_vs_task_mps": -0.021017620681713943,
+              "wheel_target_equivalent_mps": 0.4499999998070126,
+              "wheel_actual_equivalent_mps": 0.4436781122624176,
+              "wheel_tracking_error_mps": 0.00632188754459499,
+              "wheel_body_slip_proxy_mps": 0.014621551170952768,
+              "target_body_error_mps": 0.020943438715547758,
+              "wheel_integral_mean_nm": -0.3511954348303784,
+              "wheel_p_mean_nm": 0.529604197404656,
+              "wheel_request_mean_nm": 0.1784087625742775,
+              "wheel_safe_mean_nm": 0.1784087625742775,
+              "wheel_native_applied_mean_nm": 0.1784087625742775,
+              "common_wheel_scalar_nm": 0.36974037443788604,
+              "pitch_rad": 0.045728067472554985,
+              "pitch_target_error_rad": 0.045728067472554985,
+              "x_m": 7.090076357452556,
+              "ramp_load_count": 23.780281690140846,
+              "applied_wheel_residual_mean_rad_s": 0.0
+            },
+            "rms_body_error_vs_task_mps": 0.03310528862717495,
+            "rms_body_error_vs_servo_mps": 0.03310528862717495,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.886579864025407e-15,
+            "ground_geom_counts": {
+              "floor": 227,
+              "terrain_ramp_down": 128
+            },
+            "tick_spans": [
+              [
+                1000,
+                1355
+              ]
+            ]
+          },
+          "release_to_end": {
+            "count": 445,
+            "tick_bounds": [
+              1355,
+              1800
+            ],
+            "mean": {
+              "raw_mps": 0.0,
+              "servo_mps": 0.044999999999999964,
+              "body_pre_mps": 0.04835163441246087,
+              "body_post_mps": 0.047356913981625524,
+              "body_error_vs_servo_mps": 0.002356913981625559,
+              "body_error_vs_task_mps": -0.40264308601837445,
+              "wheel_target_equivalent_mps": 0.04500000022844661,
+              "wheel_actual_equivalent_mps": 0.04760476492255494,
+              "wheel_tracking_error_mps": -0.0026047646941083323,
+              "wheel_body_slip_proxy_mps": -0.000746869489905928,
+              "target_body_error_mps": -0.0033516341840142605,
+              "wheel_integral_mean_nm": 0.30169710932460625,
+              "wheel_p_mean_nm": -0.19822209696897355,
+              "wheel_request_mean_nm": 0.1034750123556327,
+              "wheel_safe_mean_nm": 0.1034750123556327,
+              "wheel_native_applied_mean_nm": 0.1034750123556327,
+              "common_wheel_scalar_nm": -0.13235448401450997,
+              "pitch_rad": 0.0030901083720930203,
+              "pitch_target_error_rad": 0.0030901083720930203,
+              "x_m": 8.036575469098711,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.0
+            },
+            "rms_body_error_vs_task_mps": 0.4192627269390012,
+            "rms_body_error_vs_servo_mps": 0.01661918225545467,
+            "flag_fraction": {
+              "body_common_p_active": 0.2,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 1.5543122344752192e-15,
+            "ground_geom_counts": {
+              "floor": 445
+            },
+            "tick_spans": [
+              [
+                1355,
+                1800
+              ]
+            ]
+          },
+          "hold_quarter_1": {
+            "count": 100,
+            "tick_bounds": [
+              600,
+              700
+            ],
+            "mean": {
+              "raw_mps": 0.45,
+              "servo_mps": 0.45,
+              "body_pre_mps": 0.4854115296486834,
+              "body_post_mps": 0.4860275149458621,
+              "body_error_vs_servo_mps": 0.03602751494586205,
+              "body_error_vs_task_mps": 0.03602751494586205,
+              "wheel_target_equivalent_mps": 0.45000000176626087,
+              "wheel_actual_equivalent_mps": 0.435125807544721,
+              "wheel_tracking_error_mps": 0.014874194221539842,
+              "wheel_body_slip_proxy_mps": -0.050285722103962316,
+              "target_body_error_mps": -0.03541152788242248,
+              "wheel_integral_mean_nm": 2.4228349464842647,
+              "wheel_p_mean_nm": -0.8954639234635571,
+              "wheel_request_mean_nm": 1.5273710230207072,
+              "wheel_safe_mean_nm": 1.5273710230207072,
+              "wheel_native_applied_mean_nm": 1.5273710230207072,
+              "common_wheel_scalar_nm": -1.271592972743875,
+              "pitch_rad": -0.0533278992055477,
+              "pitch_target_error_rad": -0.0533278992055477,
+              "x_m": 4.578478153416977,
+              "ramp_load_count": 57.9,
+              "applied_wheel_residual_mean_rad_s": 0.0
+            },
+            "rms_body_error_vs_task_mps": 0.0390110453151312,
+            "rms_body_error_vs_servo_mps": 0.0390110453151312,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 3.1086244689504383e-15,
+            "ground_geom_counts": {
+              "floor": 1,
+              "terrain_ramp_deck": 45,
+              "terrain_ramp_up": 54
+            },
+            "tick_spans": [
+              [
+                600,
+                700
+              ]
+            ]
+          },
+          "hold_quarter_2": {
+            "count": 100,
+            "tick_bounds": [
+              700,
+              800
+            ],
+            "mean": {
+              "raw_mps": 0.45,
+              "servo_mps": 0.45,
+              "body_pre_mps": 0.4980468499070356,
+              "body_post_mps": 0.49813893421954225,
+              "body_error_vs_servo_mps": 0.048138934219542254,
+              "body_error_vs_task_mps": 0.048138934219542254,
+              "wheel_target_equivalent_mps": 0.4500000010492046,
+              "wheel_actual_equivalent_mps": 0.4867048075113891,
+              "wheel_tracking_error_mps": -0.03670480646218446,
+              "wheel_body_slip_proxy_mps": -0.011342042395646535,
+              "target_body_error_mps": -0.04804684885783099,
+              "wheel_integral_mean_nm": 1.8496030183214516,
+              "wheel_p_mean_nm": -1.2149777872095195,
+              "wheel_request_mean_nm": 0.6346252311119321,
+              "wheel_safe_mean_nm": 0.6346252311119321,
+              "wheel_native_applied_mean_nm": 0.6346252311119321,
+              "common_wheel_scalar_nm": -0.2868102674761195,
+              "pitch_rad": 0.005595031719533449,
+              "pitch_target_error_rad": 0.005595031719533449,
+              "x_m": 5.077451532017462,
+              "ramp_load_count": 58.93,
+              "applied_wheel_residual_mean_rad_s": 0.0
+            },
+            "rms_body_error_vs_task_mps": 0.0498689347952001,
+            "rms_body_error_vs_servo_mps": 0.0498689347952001,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.886579864025407e-15,
+            "ground_geom_counts": {
+              "terrain_ramp_deck": 100
+            },
+            "tick_spans": [
+              [
+                700,
+                800
+              ]
+            ]
+          },
+          "hold_quarter_3": {
+            "count": 100,
+            "tick_bounds": [
+              800,
+              900
+            ],
+            "mean": {
+              "raw_mps": 0.45,
+              "servo_mps": 0.45,
+              "body_pre_mps": 0.5173727070308006,
+              "body_post_mps": 0.5173221253674819,
+              "body_error_vs_servo_mps": 0.06732212536748194,
+              "body_error_vs_task_mps": 0.06732212536748194,
+              "wheel_target_equivalent_mps": 0.45000000006675606,
+              "wheel_actual_equivalent_mps": 0.4618945988567067,
+              "wheel_tracking_error_mps": -0.011894598789950639,
+              "wheel_body_slip_proxy_mps": -0.055478108174093925,
+              "target_body_error_mps": -0.06737270696404457,
+              "wheel_integral_mean_nm": 1.3881064517835362,
+              "wheel_p_mean_nm": -1.7036776473666444,
+              "wheel_request_mean_nm": -0.31557119558310837,
+              "wheel_safe_mean_nm": -0.31557119558310837,
+              "wheel_native_applied_mean_nm": -0.31557119558310837,
+              "common_wheel_scalar_nm": -1.4028946894598464,
+              "pitch_rad": 0.08401918140581933,
+              "pitch_target_error_rad": 0.08401918140581933,
+              "x_m": 5.582386024095347,
+              "ramp_load_count": 58.96,
+              "applied_wheel_residual_mean_rad_s": 0.0
+            },
+            "rms_body_error_vs_task_mps": 0.06742347826327891,
+            "rms_body_error_vs_servo_mps": 0.06742347826327891,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.4424906541753444e-15,
+            "ground_geom_counts": {
+              "terrain_ramp_deck": 15,
+              "terrain_ramp_down": 85
+            },
+            "tick_spans": [
+              [
+                800,
+                900
+              ]
+            ]
+          },
+          "hold_quarter_4": {
+            "count": 100,
+            "tick_bounds": [
+              900,
+              1000
+            ],
+            "mean": {
+              "raw_mps": 0.45,
+              "servo_mps": 0.45,
+              "body_pre_mps": 0.4877227277334737,
+              "body_post_mps": 0.4872959554346158,
+              "body_error_vs_servo_mps": 0.037295955434615786,
+              "body_error_vs_task_mps": 0.037295955434615786,
+              "wheel_target_equivalent_mps": 0.4500000002719107,
+              "wheel_actual_equivalent_mps": 0.4826767518454422,
+              "wheel_tracking_error_mps": -0.032676751573531455,
+              "wheel_body_slip_proxy_mps": -0.00504597588803155,
+              "target_body_error_mps": -0.03772272746156301,
+              "wheel_integral_mean_nm": 0.2246728871565907,
+              "wheel_p_mean_nm": -0.953908050752168,
+              "wheel_request_mean_nm": -0.7292351635955775,
+              "wheel_safe_mean_nm": -0.7292351635955775,
+              "wheel_native_applied_mean_nm": -0.7292351635955775,
+              "common_wheel_scalar_nm": -0.12759939027206244,
+              "pitch_rad": 0.11773102715557437,
+              "pitch_target_error_rad": 0.11773102715557437,
+              "x_m": 6.085488966264692,
+              "ramp_load_count": 60.01,
+              "applied_wheel_residual_mean_rad_s": 0.0
+            },
+            "rms_body_error_vs_task_mps": 0.03934156536357379,
+            "rms_body_error_vs_servo_mps": 0.03934156536357379,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.9976021664879227e-15,
+            "ground_geom_counts": {
+              "terrain_ramp_down": 100
+            },
+            "tick_spans": [
+              [
+                900,
+                1000
+              ]
+            ]
+          }
+        },
+        "by_base_ground_query_geom": {
+          "floor": {
+            "count": 978,
+            "tick_bounds": [
+              0,
+              1800
+            ],
+            "mean": {
+              "raw_mps": 0.1647239263803681,
+              "servo_mps": 0.1647239263803681,
+              "body_pre_mps": 0.15473247822665315,
+              "body_post_mps": 0.1547133385548118,
+              "body_error_vs_servo_mps": -0.010010587825556281,
+              "body_error_vs_task_mps": -0.2952866614451882,
+              "wheel_target_equivalent_mps": 0.16472384313638158,
+              "wheel_actual_equivalent_mps": 0.1609951766814078,
+              "wheel_tracking_error_mps": 0.0037286664549737326,
+              "wheel_body_slip_proxy_mps": 0.006262698454754669,
+              "target_body_error_mps": 0.009991364909728403,
+              "wheel_integral_mean_nm": -0.03483991687539451,
+              "wheel_p_mean_nm": 0.26491423527840247,
+              "wheel_request_mean_nm": 0.23007431840300793,
+              "wheel_safe_mean_nm": 0.23007431840300793,
+              "wheel_native_applied_mean_nm": 0.23007431840300793,
+              "common_wheel_scalar_nm": 0.17062611802619307,
+              "pitch_rad": 0.005254910486142519,
+              "pitch_target_error_rad": 0.005254910486142519,
+              "x_m": 6.250597261087409,
+              "ramp_load_count": 3.2280163599182004,
+              "applied_wheel_residual_mean_rad_s": 0.0
+            },
+            "rms_body_error_vs_task_mps": 0.3482093220988095,
+            "rms_body_error_vs_servo_mps": 0.034952330914743715,
+            "flag_fraction": {
+              "body_common_p_active": 0.4570552147239264,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.886579864025407e-15,
+            "ground_geom_counts": {
+              "floor": 978
+            },
+            "tick_spans": [
+              [
+                0,
+                305
+              ],
+              [
+                654,
+                655
+              ],
+              [
+                1128,
+                1800
+              ]
+            ]
+          },
+          "terrain_ramp_deck": {
+            "count": 160,
+            "tick_bounds": [
+              655,
+              815
+            ],
+            "mean": {
+              "raw_mps": 0.45,
+              "servo_mps": 0.45,
+              "body_pre_mps": 0.4992237385544963,
+              "body_post_mps": 0.49933977773754445,
+              "body_error_vs_servo_mps": 0.0493397777375445,
+              "body_error_vs_task_mps": 0.0493397777375445,
+              "wheel_target_equivalent_mps": 0.450000001124551,
+              "wheel_actual_equivalent_mps": 0.46825841177792304,
+              "wheel_tracking_error_mps": -0.018258410653371995,
+              "wheel_body_slip_proxy_mps": -0.030965326776573338,
+              "target_body_error_mps": -0.04922373742994533,
+              "wheel_integral_mean_nm": 2.0236555308428326,
+              "wheel_p_mean_nm": -1.2447381878836754,
+              "wheel_request_mean_nm": 0.7789173429591572,
+              "wheel_safe_mean_nm": 0.7789173429591572,
+              "wheel_native_applied_mean_nm": 0.7789173429591572,
+              "common_wheel_scalar_nm": -0.783031251821395,
+              "pitch_rad": 0.001281738074519833,
+              "pitch_target_error_rad": 0.001281738074519833,
+              "x_m": 5.001802790161261,
+              "ramp_load_count": 58.7,
+              "applied_wheel_residual_mean_rad_s": 0.0
+            },
+            "rms_body_error_vs_task_mps": 0.050643662389569674,
+            "rms_body_error_vs_servo_mps": 0.050643662389569674,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 3.1086244689504383e-15,
+            "ground_geom_counts": {
+              "terrain_ramp_deck": 160
+            },
+            "tick_spans": [
+              [
+                655,
+                815
+              ]
+            ]
+          },
+          "terrain_ramp_down": {
+            "count": 313,
+            "tick_bounds": [
+              815,
+              1128
+            ],
+            "mean": {
+              "raw_mps": 0.44999999999999996,
+              "servo_mps": 0.44999999999999996,
+              "body_pre_mps": 0.4815249394388959,
+              "body_post_mps": 0.4812303010198315,
+              "body_error_vs_servo_mps": 0.03123030101983146,
+              "body_error_vs_task_mps": 0.03123030101983146,
+              "wheel_target_equivalent_mps": 0.45000000013123076,
+              "wheel_actual_equivalent_mps": 0.47277244302014004,
+              "wheel_tracking_error_mps": -0.0227724428889093,
+              "wheel_body_slip_proxy_mps": -0.008752496418755898,
+              "target_body_error_mps": -0.0315249393076652,
+              "wheel_integral_mean_nm": 0.2616714091920683,
+              "wheel_p_mean_nm": -0.7971823732972811,
+              "wheel_request_mean_nm": -0.5355109641052128,
+              "wheel_safe_mean_nm": -0.5355109641052128,
+              "wheel_native_applied_mean_nm": -0.5355109641052128,
+              "common_wheel_scalar_nm": -0.22132749564670098,
+              "pitch_rad": 0.10891377202450604,
+              "pitch_target_error_rad": 0.10891377202450604,
+              "x_m": 6.17623633914235,
+              "ramp_load_count": 56.96166134185304,
+              "applied_wheel_residual_mean_rad_s": 0.0
+            },
+            "rms_body_error_vs_task_mps": 0.043972515958630685,
+            "rms_body_error_vs_servo_mps": 0.043972515958630685,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.9976021664879227e-15,
+            "ground_geom_counts": {
+              "terrain_ramp_down": 313
+            },
+            "tick_spans": [
+              [
+                815,
+                1128
+              ]
+            ]
+          },
+          "terrain_ramp_up": {
+            "count": 349,
+            "tick_bounds": [
+              305,
+              654
+            ],
+            "mean": {
+              "raw_mps": 0.45,
+              "servo_mps": 0.45,
+              "body_pre_mps": 0.4310070448287095,
+              "body_post_mps": 0.4312737485133191,
+              "body_error_vs_servo_mps": -0.018726251486680872,
+              "body_error_vs_task_mps": -0.018726251486680872,
+              "wheel_target_equivalent_mps": 0.4500000035414083,
+              "wheel_actual_equivalent_mps": 0.43039124027710496,
+              "wheel_tracking_error_mps": 0.01960876326430334,
+              "wheel_body_slip_proxy_mps": -0.0006158045516045732,
+              "target_body_error_mps": 0.018992958712698765,
+              "wheel_integral_mean_nm": 1.5026371234456546,
+              "wheel_p_mean_nm": 0.4802817145739918,
+              "wheel_request_mean_nm": 1.9829188380196463,
+              "wheel_safe_mean_nm": 1.9829188380196463,
+              "wheel_native_applied_mean_nm": 1.9829188380196463,
+              "common_wheel_scalar_nm": -0.015572069121035153,
+              "pitch_rad": -0.10280533160039927,
+              "pitch_target_error_rad": -0.10280533160039927,
+              "x_m": 3.822799555346613,
+              "ramp_load_count": 56.53581661891118,
+              "applied_wheel_residual_mean_rad_s": 0.0
+            },
+            "rms_body_error_vs_task_mps": 0.033220316671316856,
+            "rms_body_error_vs_servo_mps": 0.033220316671316856,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.6645352591003757e-15,
+            "ground_geom_counts": {
+              "terrain_ramp_up": 349
+            },
+            "tick_spans": [
+              [
+                305,
+                654
+              ]
+            ]
+          }
+        },
+        "ramp_loaded_ticks": {
+          "count": 927,
+          "tick_bounds": [
+            255,
+            1182
+          ],
+          "mean": {
+            "raw_mps": 0.45,
+            "servo_mps": 0.44975728155339806,
+            "body_pre_mps": 0.45570854947361567,
+            "body_post_mps": 0.45577396277273696,
+            "body_error_vs_servo_mps": 0.006016681219338909,
+            "body_error_vs_task_mps": 0.00577396277273697,
+            "wheel_target_equivalent_mps": 0.4497572839291863,
+            "wheel_actual_equivalent_mps": 0.4518628175474859,
+            "wheel_tracking_error_mps": -0.0021055336182996508,
+            "wheel_body_slip_proxy_mps": -0.0038457319261297265,
+            "target_body_error_mps": -0.005951265544429377,
+            "wheel_integral_mean_nm": 0.9433175252194449,
+            "wheel_p_mean_nm": -0.15049177238786934,
+            "wheel_request_mean_nm": 0.7928257528315755,
+            "wheel_safe_mean_nm": 0.7928257528315755,
+            "wheel_native_applied_mean_nm": 0.7928257528315755,
+            "common_wheel_scalar_nm": -0.097248393534315,
+            "pitch_rad": -0.0014675147489905827,
+            "pitch_target_error_rad": -0.0014675147489905827,
+            "x_m": 4.963059223314173,
+            "ramp_load_count": 54.055016181229774,
+            "applied_wheel_residual_mean_rad_s": 0.0
+          },
+          "rms_body_error_vs_task_mps": 0.0435644810550271,
+          "rms_body_error_vs_servo_mps": 0.043078805129674665,
+          "flag_fraction": {
+            "body_common_p_active": 1.0,
+            "wheel_target_clipped": 0.0,
+            "wheel_torque_clipped": 0.0,
+            "wheel_protected": 0.0,
+            "support_force_clipped": 0.0,
+            "native_wheel_limited": 0.0,
+            "native_wheel_delayed": 0.0
+          },
+          "integral_commit_all_fraction": 1.0,
+          "max_p_identity_abs_error_nm": 3.1086244689504383e-15,
+          "ground_geom_counts": {
+            "floor": 105,
+            "terrain_ramp_deck": 160,
+            "terrain_ramp_down": 313,
+            "terrain_ramp_up": 349
+          },
+          "tick_spans": [
+            [
+              255,
+              1182
+            ]
+          ]
+        },
+        "identity_max_abs_error_nm": 3.1086244689504383e-15
+      },
+      "global_continue": {
+        "case_id": "ramp_0p45_complete",
+        "actor": "global_continue",
+        "seed": 151106,
+        "raw_command_sha256": "f9d353a072201922162f47f2c15e4e29dad025b6fd7eb70a6a036da7f9244e7a",
+        "hold_window": [
+          600,
+          1000
+        ],
+        "release_tick": 1355,
+        "windows": {
+          "pre_command": {
+            "count": 175,
+            "tick_bounds": [
+              0,
+              175
+            ],
+            "mean": {
+              "raw_mps": 0.0,
+              "servo_mps": 0.0,
+              "body_pre_mps": 0.02518368051460061,
+              "body_post_mps": 0.025480805023084016,
+              "body_error_vs_servo_mps": 0.025480805023084016,
+              "body_error_vs_task_mps": -0.42451919497691604,
+              "wheel_target_equivalent_mps": -3.3660637878818384e-07,
+              "wheel_actual_equivalent_mps": 0.011064224667508744,
+              "wheel_tracking_error_mps": -0.011064561273887531,
+              "wheel_body_slip_proxy_mps": -0.014119455847091863,
+              "target_body_error_mps": -0.025184017120979396,
+              "wheel_integral_mean_nm": -0.18394173785915988,
+              "wheel_p_mean_nm": -0.2797935034776158,
+              "wheel_request_mean_nm": -0.4637352413367756,
+              "wheel_safe_mean_nm": -0.4637352413367756,
+              "wheel_native_applied_mean_nm": -0.4637352413367756,
+              "common_wheel_scalar_nm": 0.0,
+              "pitch_rad": 0.026986970467987474,
+              "pitch_target_error_rad": 0.026986970467987474,
+              "x_m": 2.773156224887047,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.0
+            },
+            "rms_body_error_vs_task_mps": 0.4251050463568214,
+            "rms_body_error_vs_servo_mps": 0.033867756920275084,
+            "flag_fraction": {
+              "body_common_p_active": 0.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.220446049250313e-16,
+            "ground_geom_counts": {
+              "floor": 175
+            },
+            "tick_spans": [
+              [
+                0,
+                175
+              ]
+            ]
+          },
+          "drive_before_hold": {
+            "count": 425,
+            "tick_bounds": [
+              175,
+              600
+            ],
+            "mean": {
+              "raw_mps": 0.45,
+              "servo_mps": 0.4028823529411765,
+              "body_pre_mps": 0.3682330033529548,
+              "body_post_mps": 0.3691907336877113,
+              "body_error_vs_servo_mps": -0.03369161925346519,
+              "body_error_vs_task_mps": -0.0808092663122887,
+              "wheel_target_equivalent_mps": 0.40781347869265633,
+              "wheel_actual_equivalent_mps": 0.38903120085198645,
+              "wheel_tracking_error_mps": 0.018782277840669867,
+              "wheel_body_slip_proxy_mps": 0.020798197499031685,
+              "target_body_error_mps": 0.03958047533970155,
+              "wheel_integral_mean_nm": 0.7373475210230679,
+              "wheel_p_mean_nm": 1.0008855833027979,
+              "wheel_request_mean_nm": 1.7382331043258659,
+              "wheel_safe_mean_nm": 1.7382331043258659,
+              "wheel_native_applied_mean_nm": 1.7382331043258659,
+              "common_wheel_scalar_nm": 0.5259314310099966,
+              "pitch_rad": -0.07714144990960849,
+              "pitch_target_error_rad": -0.07714144990960849,
+              "x_m": 3.4622489764016824,
+              "ramp_load_count": 42.88235294117647,
+              "applied_wheel_residual_mean_rad_s": 0.056661434725015974
+            },
+            "rms_body_error_vs_task_mps": 0.1428425311587961,
+            "rms_body_error_vs_servo_mps": 0.04394399010637357,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.6645352591003757e-15,
+            "ground_geom_counts": {
+              "floor": 130,
+              "terrain_ramp_up": 295
+            },
+            "tick_spans": [
+              [
+                175,
+                600
+              ]
+            ]
+          },
+          "hold": {
+            "count": 400,
+            "tick_bounds": [
+              600,
+              1000
+            ],
+            "mean": {
+              "raw_mps": 0.45,
+              "servo_mps": 0.45,
+              "body_pre_mps": 0.5165542854061302,
+              "body_post_mps": 0.5166333847571124,
+              "body_error_vs_servo_mps": 0.06663338475711235,
+              "body_error_vs_task_mps": 0.06663338475711235,
+              "wheel_target_equivalent_mps": 0.4641537618692817,
+              "wheel_actual_equivalent_mps": 0.47984213630164096,
+              "wheel_tracking_error_mps": -0.01568837443235925,
+              "wheel_body_slip_proxy_mps": -0.036712149104489236,
+              "target_body_error_mps": -0.05240052353684848,
+              "wheel_integral_mean_nm": 1.5779534440743896,
+              "wheel_p_mean_nm": -1.3250707101272032,
+              "wheel_request_mean_nm": 0.25288273394718636,
+              "wheel_safe_mean_nm": 0.25288273394718636,
+              "wheel_native_applied_mean_nm": 0.25288273394718636,
+              "common_wheel_scalar_nm": -0.9283531957457051,
+              "pitch_rad": 0.06141261173321844,
+              "pitch_target_error_rad": 0.06141261173321844,
+              "x_m": 5.379533932559183,
+              "ramp_load_count": 61.88,
+              "applied_wheel_residual_mean_rad_s": 0.1627276649317355
+            },
+            "rms_body_error_vs_task_mps": 0.06915876796032443,
+            "rms_body_error_vs_servo_mps": 0.06915876796032443,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 3.552713678800501e-15,
+            "ground_geom_counts": {
+              "floor": 2,
+              "terrain_ramp_deck": 154,
+              "terrain_ramp_down": 194,
+              "terrain_ramp_up": 50
+            },
+            "tick_spans": [
+              [
+                600,
+                1000
+              ]
+            ]
+          },
+          "drive_after_hold": {
+            "count": 355,
+            "tick_bounds": [
+              1000,
+              1355
+            ],
+            "mean": {
+              "raw_mps": 0.45,
+              "servo_mps": 0.45,
+              "body_pre_mps": 0.44054472268006667,
+              "body_post_mps": 0.44044555571650623,
+              "body_error_vs_servo_mps": -0.009554444283493764,
+              "body_error_vs_task_mps": -0.009554444283493764,
+              "wheel_target_equivalent_mps": 0.462003680969279,
+              "wheel_actual_equivalent_mps": 0.45656579706298067,
+              "wheel_tracking_error_mps": 0.0054378839062982805,
+              "wheel_body_slip_proxy_mps": 0.016021074382914013,
+              "target_body_error_mps": 0.021458958289212293,
+              "wheel_integral_mean_nm": -0.2634278606346202,
+              "wheel_p_mean_nm": 0.5426403245547936,
+              "wheel_request_mean_nm": 0.27921246392017357,
+              "wheel_safe_mean_nm": 0.27921246392017357,
+              "wheel_native_applied_mean_nm": 0.27921246392017357,
+              "common_wheel_scalar_nm": 0.40513061657943494,
+              "pitch_rad": 0.07147452667374596,
+              "pitch_target_error_rad": 0.07147452667374596,
+              "x_m": 7.199586072675036,
+              "ramp_load_count": 21.729577464788733,
+              "applied_wheel_residual_mean_rad_s": 0.13733217533822106
+            },
+            "rms_body_error_vs_task_mps": 0.027204263525528984,
+            "rms_body_error_vs_servo_mps": 0.027204263525528984,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 3.219646771412954e-15,
+            "ground_geom_counts": {
+              "floor": 250,
+              "terrain_ramp_down": 105
+            },
+            "tick_spans": [
+              [
+                1000,
+                1355
+              ]
+            ]
+          },
+          "release_to_end": {
+            "count": 445,
+            "tick_bounds": [
+              1355,
+              1800
+            ],
+            "mean": {
+              "raw_mps": 0.0,
+              "servo_mps": 0.044999999999999964,
+              "body_pre_mps": 0.048848610226662426,
+              "body_post_mps": 0.04782502309040389,
+              "body_error_vs_servo_mps": 0.002825023090403928,
+              "body_error_vs_task_mps": -0.4021749769095961,
+              "wheel_target_equivalent_mps": 0.04501639825549736,
+              "wheel_actual_equivalent_mps": 0.04838134054822035,
+              "wheel_tracking_error_mps": -0.0033649422927229874,
+              "wheel_body_slip_proxy_mps": -0.00046726967844207837,
+              "target_body_error_mps": -0.0038322119711650658,
+              "wheel_integral_mean_nm": 0.24745938790976604,
+              "wheel_p_mean_nm": -0.1985379881167293,
+              "wheel_request_mean_nm": 0.04892139979303675,
+              "wheel_safe_mean_nm": 0.04892139979303675,
+              "wheel_native_applied_mean_nm": 0.04892139979303675,
+              "common_wheel_scalar_nm": -0.11344749335821694,
+              "pitch_rad": 0.024625954733145834,
+              "pitch_target_error_rad": 0.024625954733145834,
+              "x_m": 8.170992638797484,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.0
+            },
+            "rms_body_error_vs_task_mps": 0.4186690852498354,
+            "rms_body_error_vs_servo_mps": 0.0140765127000774,
+            "flag_fraction": {
+              "body_common_p_active": 0.2,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 1.4988010832439613e-15,
+            "ground_geom_counts": {
+              "floor": 445
+            },
+            "tick_spans": [
+              [
+                1355,
+                1800
+              ]
+            ]
+          },
+          "hold_quarter_1": {
+            "count": 100,
+            "tick_bounds": [
+              600,
+              700
+            ],
+            "mean": {
+              "raw_mps": 0.45,
+              "servo_mps": 0.45,
+              "body_pre_mps": 0.4991110399922365,
+              "body_post_mps": 0.49980078730401317,
+              "body_error_vs_servo_mps": 0.04980078730401318,
+              "body_error_vs_task_mps": 0.04980078730401318,
+              "wheel_target_equivalent_mps": 0.4595851673913777,
+              "wheel_actual_equivalent_mps": 0.4449976186536855,
+              "wheel_tracking_error_mps": 0.01458754873769226,
+              "wheel_body_slip_proxy_mps": -0.05411342133855101,
+              "target_body_error_mps": -0.03952587260085875,
+              "wheel_integral_mean_nm": 2.4988678033825895,
+              "wheel_p_mean_nm": -0.9995048243895317,
+              "wheel_request_mean_nm": 1.4993629789930578,
+              "wheel_safe_mean_nm": 1.4993629789930578,
+              "wheel_native_applied_mean_nm": 1.4993629789930578,
+              "common_wheel_scalar_nm": -1.3683853671817499,
+              "pitch_rad": -0.0393562509442944,
+              "pitch_target_error_rad": -0.0393562509442944,
+              "x_m": 4.598840073153287,
+              "ramp_load_count": 59.98,
+              "applied_wheel_residual_mean_rad_s": 0.11017143210046924
+            },
+            "rms_body_error_vs_task_mps": 0.0514542176724133,
+            "rms_body_error_vs_servo_mps": 0.0514542176724133,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.4424906541753444e-15,
+            "ground_geom_counts": {
+              "floor": 1,
+              "terrain_ramp_deck": 49,
+              "terrain_ramp_up": 50
+            },
+            "tick_spans": [
+              [
+                600,
+                700
+              ]
+            ]
+          },
+          "hold_quarter_2": {
+            "count": 100,
+            "tick_bounds": [
+              700,
+              800
+            ],
+            "mean": {
+              "raw_mps": 0.45,
+              "servo_mps": 0.45,
+              "body_pre_mps": 0.5186512262242744,
+              "body_post_mps": 0.5186848032928851,
+              "body_error_vs_servo_mps": 0.0686848032928851,
+              "body_error_vs_task_mps": 0.0686848032928851,
+              "wheel_target_equivalent_mps": 0.46381398466661894,
+              "wheel_actual_equivalent_mps": 0.48977222378930435,
+              "wheel_tracking_error_mps": -0.025958239122685387,
+              "wheel_body_slip_proxy_mps": -0.02887900243497006,
+              "target_body_error_mps": -0.05483724155765546,
+              "wheel_integral_mean_nm": 1.9235847595014741,
+              "wheel_p_mean_nm": -1.3866888669751956,
+              "wheel_request_mean_nm": 0.5368958925262786,
+              "wheel_safe_mean_nm": 0.5368958925262786,
+              "wheel_native_applied_mean_nm": 0.5368958925262786,
+              "common_wheel_scalar_nm": -0.7302736247923466,
+              "pitch_rad": 0.022965214825907066,
+              "pitch_target_error_rad": 0.022965214825907066,
+              "x_m": 5.112600512353307,
+              "ramp_load_count": 59.49,
+              "applied_wheel_residual_mean_rad_s": 0.1591421832051128
+            },
+            "rms_body_error_vs_task_mps": 0.06975976895309932,
+            "rms_body_error_vs_servo_mps": 0.06975976895309932,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.886579864025407e-15,
+            "ground_geom_counts": {
+              "terrain_ramp_deck": 100
+            },
+            "tick_spans": [
+              [
+                700,
+                800
+              ]
+            ]
+          },
+          "hold_quarter_3": {
+            "count": 100,
+            "tick_bounds": [
+              800,
+              900
+            ],
+            "mean": {
+              "raw_mps": 0.45,
+              "servo_mps": 0.45,
+              "body_pre_mps": 0.5396446916305808,
+              "body_post_mps": 0.5396585471490635,
+              "body_error_vs_servo_mps": 0.08965854714906348,
+              "body_error_vs_task_mps": 0.08965854714906348,
+              "wheel_target_equivalent_mps": 0.4664935021282359,
+              "wheel_actual_equivalent_mps": 0.4867351914811455,
+              "wheel_tracking_error_mps": -0.0202416893529096,
+              "wheel_body_slip_proxy_mps": -0.052909500149435275,
+              "target_body_error_mps": -0.07315118950234488,
+              "wheel_integral_mean_nm": 1.5394399738113784,
+              "wheel_p_mean_nm": -1.8498001943121696,
+              "wheel_request_mean_nm": -0.3103602205007912,
+              "wheel_safe_mean_nm": -0.3103602205007912,
+              "wheel_native_applied_mean_nm": -0.3103602205007912,
+              "common_wheel_scalar_nm": -1.3379413830891682,
+              "pitch_rad": 0.11491134336084462,
+              "pitch_target_error_rad": 0.11491134336084462,
+              "x_m": 5.641240544978142,
+              "ramp_load_count": 62.94,
+              "applied_wheel_residual_mean_rad_s": 0.18957247524522244
+            },
+            "rms_body_error_vs_task_mps": 0.08974860160609476,
+            "rms_body_error_vs_servo_mps": 0.08974860160609476,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 3.552713678800501e-15,
+            "ground_geom_counts": {
+              "floor": 1,
+              "terrain_ramp_deck": 5,
+              "terrain_ramp_down": 94
+            },
+            "tick_spans": [
+              [
+                800,
+                900
+              ]
+            ]
+          },
+          "hold_quarter_4": {
+            "count": 100,
+            "tick_bounds": [
+              900,
+              1000
+            ],
+            "mean": {
+              "raw_mps": 0.45,
+              "servo_mps": 0.45,
+              "body_pre_mps": 0.5088101837774291,
+              "body_post_mps": 0.5083894012824877,
+              "body_error_vs_servo_mps": 0.05838940128248762,
+              "body_error_vs_task_mps": 0.05838940128248762,
+              "wheel_target_equivalent_mps": 0.4667223932908944,
+              "wheel_actual_equivalent_mps": 0.4978635112824286,
+              "wheel_tracking_error_mps": -0.031141117991534264,
+              "wheel_body_slip_proxy_mps": -0.010946672495000588,
+              "target_body_error_mps": -0.042087790486534854,
+              "wheel_integral_mean_nm": 0.34992123960211635,
+              "wheel_p_mean_nm": -1.064288954831916,
+              "wheel_request_mean_nm": -0.7143677152297997,
+              "wheel_safe_mean_nm": -0.7143677152297997,
+              "wheel_native_applied_mean_nm": -0.7143677152297997,
+              "common_wheel_scalar_nm": -0.27681240791955536,
+              "pitch_rad": 0.1471301396904165,
+              "pitch_target_error_rad": 0.1471301396904165,
+              "x_m": 6.165454599751995,
+              "ramp_load_count": 65.11,
+              "applied_wheel_residual_mean_rad_s": 0.19202456917613744
+            },
+            "rms_body_error_vs_task_mps": 0.059690597016955525,
+            "rms_body_error_vs_servo_mps": 0.059690597016955525,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.6645352591003757e-15,
+            "ground_geom_counts": {
+              "terrain_ramp_down": 100
+            },
+            "tick_spans": [
+              [
+                900,
+                1000
+              ]
+            ]
+          }
+        },
+        "by_base_ground_query_geom": {
+          "floor": {
+            "count": 1002,
+            "tick_bounds": [
+              0,
+              1800
+            ],
+            "mean": {
+              "raw_mps": 0.17155688622754492,
+              "servo_mps": 0.17155688622754492,
+              "body_pre_mps": 0.16475246887923684,
+              "body_post_mps": 0.1647310810176454,
+              "body_error_vs_servo_mps": -0.006825805209899513,
+              "body_error_vs_task_mps": -0.28526891898235457,
+              "wheel_target_equivalent_mps": 0.17501079436545264,
+              "wheel_actual_equivalent_mps": 0.17240106349914136,
+              "wheel_tracking_error_mps": 0.0026097308663112885,
+              "wheel_body_slip_proxy_mps": 0.007648594619904537,
+              "target_body_error_mps": 0.010258325486215827,
+              "wheel_integral_mean_nm": -0.05846367641521531,
+              "wheel_p_mean_nm": 0.2766281289464286,
+              "wheel_request_mean_nm": 0.21816445253121325,
+              "wheel_safe_mean_nm": 0.21816445253121325,
+              "wheel_native_applied_mean_nm": 0.21816445253121325,
+              "common_wheel_scalar_nm": 0.21063493462591323,
+              "pitch_rad": 0.023572756234838083,
+              "pitch_target_error_rad": 0.023572756234838083,
+              "x_m": 6.35172947106459,
+              "ramp_load_count": 3.661676646706587,
+              "applied_wheel_residual_mean_rad_s": 0.03944304750911906
+            },
+            "rms_body_error_vs_task_mps": 0.34343791787491634,
+            "rms_body_error_vs_servo_mps": 0.031545747251309736,
+            "flag_fraction": {
+              "body_common_p_active": 0.47005988023952094,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 3.1086244689504383e-15,
+            "ground_geom_counts": {
+              "floor": 1002
+            },
+            "tick_spans": [
+              [
+                0,
+                305
+              ],
+              [
+                650,
+                651
+              ],
+              [
+                805,
+                806
+              ],
+              [
+                1105,
+                1800
+              ]
+            ]
+          },
+          "terrain_ramp_deck": {
+            "count": 154,
+            "tick_bounds": [
+              651,
+              805
+            ],
+            "mean": {
+              "raw_mps": 0.44999999999999996,
+              "servo_mps": 0.44999999999999996,
+              "body_pre_mps": 0.5161668056409154,
+              "body_post_mps": 0.516375367878256,
+              "body_error_vs_servo_mps": 0.06637536787825606,
+              "body_error_vs_task_mps": 0.06637536787825606,
+              "wheel_target_equivalent_mps": 0.46287331167315904,
+              "wheel_actual_equivalent_mps": 0.479490143681572,
+              "wheel_tracking_error_mps": -0.016616832008413056,
+              "wheel_body_slip_proxy_mps": -0.0366766619593434,
+              "target_body_error_mps": -0.05329349396775646,
+              "wheel_integral_mean_nm": 2.1497661734743723,
+              "wheel_p_mean_nm": -1.3476515715984394,
+              "wheel_request_mean_nm": 0.8021146018759329,
+              "wheel_safe_mean_nm": 0.8021146018759329,
+              "wheel_native_applied_mean_nm": 0.8021146018759329,
+              "common_wheel_scalar_nm": -0.9274558196615575,
+              "pitch_rad": 0.014683830883000256,
+              "pitch_target_error_rad": 0.014683830883000256,
+              "x_m": 4.998732061038028,
+              "ramp_load_count": 59.188311688311686,
+              "applied_wheel_residual_mean_rad_s": 0.1482206482376734
+            },
+            "rms_body_error_vs_task_mps": 0.06737244478358892,
+            "rms_body_error_vs_servo_mps": 0.06737244478358892,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.886579864025407e-15,
+            "ground_geom_counts": {
+              "terrain_ramp_deck": 154
+            },
+            "tick_spans": [
+              [
+                651,
+                805
+              ]
+            ]
+          },
+          "terrain_ramp_down": {
+            "count": 299,
+            "tick_bounds": [
+              806,
+              1105
+            ],
+            "mean": {
+              "raw_mps": 0.45,
+              "servo_mps": 0.45,
+              "body_pre_mps": 0.5042074554213282,
+              "body_post_mps": 0.5038440167640306,
+              "body_error_vs_servo_mps": 0.05384401676403057,
+              "body_error_vs_task_mps": 0.05384401676403057,
+              "wheel_target_equivalent_mps": 0.4657957450574957,
+              "wheel_actual_equivalent_mps": 0.4896820116606004,
+              "wheel_tracking_error_mps": -0.023886266603104642,
+              "wheel_body_slip_proxy_mps": -0.014525443760727806,
+              "target_body_error_mps": -0.03841171036383245,
+              "wheel_integral_mean_nm": 0.4804883483065631,
+              "wheel_p_mean_nm": -0.9713306069015105,
+              "wheel_request_mean_nm": -0.4908422585949472,
+              "wheel_safe_mean_nm": -0.4908422585949472,
+              "wheel_native_applied_mean_nm": -0.4908422585949472,
+              "common_wheel_scalar_nm": -0.3673100721103584,
+              "pitch_rad": 0.1366938788205107,
+              "pitch_target_error_rad": 0.1366938788205107,
+              "x_m": 6.180420391854319,
+              "ramp_load_count": 60.725752508361204,
+              "applied_wheel_residual_mean_rad_s": 0.1812886709665076
+            },
+            "rms_body_error_vs_task_mps": 0.06353082728237147,
+            "rms_body_error_vs_servo_mps": 0.06353082728237147,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 3.552713678800501e-15,
+            "ground_geom_counts": {
+              "terrain_ramp_down": 299
+            },
+            "tick_spans": [
+              [
+                806,
+                1105
+              ]
+            ]
+          },
+          "terrain_ramp_up": {
+            "count": 345,
+            "tick_bounds": [
+              305,
+              650
+            ],
+            "mean": {
+              "raw_mps": 0.45,
+              "servo_mps": 0.45,
+              "body_pre_mps": 0.4357368165887769,
+              "body_post_mps": 0.4360207342271714,
+              "body_error_vs_servo_mps": -0.013979265772828587,
+              "body_error_vs_task_mps": -0.013979265772828587,
+              "wheel_target_equivalent_mps": 0.45538998414412885,
+              "wheel_actual_equivalent_mps": 0.4342598245253902,
+              "wheel_tracking_error_mps": 0.021130159618738622,
+              "wheel_body_slip_proxy_mps": -0.001476992063386678,
+              "target_body_error_mps": 0.019653167555351944,
+              "wheel_integral_mean_nm": 1.486427257806065,
+              "wheel_p_mean_nm": 0.49697665082499165,
+              "wheel_request_mean_nm": 1.9834039086310566,
+              "wheel_safe_mean_nm": 1.9834039086310566,
+              "wheel_native_applied_mean_nm": 1.9834039086310566,
+              "common_wheel_scalar_nm": -0.03734922459138733,
+              "pitch_rad": -0.09831311980171366,
+              "pitch_target_error_rad": -0.09831311980171366,
+              "x_m": 3.8212554865018036,
+              "ramp_load_count": 57.2463768115942,
+              "applied_wheel_residual_mean_rad_s": 0.06194745485266574
+            },
+            "rms_body_error_vs_task_mps": 0.03329970592940576,
+            "rms_body_error_vs_servo_mps": 0.03329970592940576,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.6645352591003757e-15,
+            "ground_geom_counts": {
+              "terrain_ramp_up": 345
+            },
+            "tick_spans": [
+              [
+                305,
+                650
+              ]
+            ]
+          }
+        },
+        "ramp_loaded_ticks": {
+          "count": 924,
+          "tick_bounds": [
+            252,
+            1176
+          ],
+          "mean": {
+            "raw_mps": 0.45,
+            "servo_mps": 0.44957792207792213,
+            "body_pre_mps": 0.4668527368295003,
+            "body_post_mps": 0.46694408547889293,
+            "body_error_vs_servo_mps": 0.01736616340097087,
+            "body_error_vs_task_mps": 0.016944085478892954,
+            "wheel_target_equivalent_mps": 0.46008376461562045,
+            "wheel_actual_equivalent_mps": 0.46127447679196776,
+            "wheel_tracking_error_mps": -0.0011907121763472463,
+            "wheel_body_slip_proxy_mps": -0.005578260037532531,
+            "target_body_error_mps": -0.006768972213879778,
+            "wheel_integral_mean_nm": 0.9921554233334284,
+            "wheel_p_mean_nm": -0.17116941230500593,
+            "wheel_request_mean_nm": 0.8209860110284226,
+            "wheel_safe_mean_nm": 0.8209860110284226,
+            "wheel_native_applied_mean_nm": 0.8209860110284226,
+            "common_wheel_scalar_nm": -0.1410594492249606,
+            "pitch_rad": 0.013275604379274988,
+            "pitch_target_error_rad": 0.013275604379274988,
+            "x_m": 4.984300232440718,
+            "ramp_load_count": 54.86038961038961,
+            "applied_wheel_residual_mean_rad_s": 0.12069497771464731
+          },
+          "rms_body_error_vs_task_mps": 0.053665026178951074,
+          "rms_body_error_vs_servo_mps": 0.05292512556532661,
+          "flag_fraction": {
+            "body_common_p_active": 1.0,
+            "wheel_target_clipped": 0.0,
+            "wheel_torque_clipped": 0.0,
+            "wheel_protected": 0.0,
+            "support_force_clipped": 0.0,
+            "native_wheel_limited": 0.0,
+            "native_wheel_delayed": 0.0
+          },
+          "integral_commit_all_fraction": 1.0,
+          "max_p_identity_abs_error_nm": 3.552713678800501e-15,
+          "ground_geom_counts": {
+            "floor": 126,
+            "terrain_ramp_deck": 154,
+            "terrain_ramp_down": 299,
+            "terrain_ramp_up": 345
+          },
+          "tick_spans": [
+            [
+              252,
+              1176
+            ]
+          ]
+        },
+        "identity_max_abs_error_nm": 3.552713678800501e-15
+      },
+      "grouped_continue": {
+        "case_id": "ramp_0p45_complete",
+        "actor": "grouped_continue",
+        "seed": 151106,
+        "raw_command_sha256": "f9d353a072201922162f47f2c15e4e29dad025b6fd7eb70a6a036da7f9244e7a",
+        "hold_window": [
+          600,
+          1000
+        ],
+        "release_tick": 1355,
+        "windows": {
+          "pre_command": {
+            "count": 175,
+            "tick_bounds": [
+              0,
+              175
+            ],
+            "mean": {
+              "raw_mps": 0.0,
+              "servo_mps": 0.0,
+              "body_pre_mps": 0.02518368051460061,
+              "body_post_mps": 0.025480805023084016,
+              "body_error_vs_servo_mps": 0.025480805023084016,
+              "body_error_vs_task_mps": -0.42451919497691604,
+              "wheel_target_equivalent_mps": -3.3660637878818384e-07,
+              "wheel_actual_equivalent_mps": 0.011064224667508744,
+              "wheel_tracking_error_mps": -0.011064561273887531,
+              "wheel_body_slip_proxy_mps": -0.014119455847091863,
+              "target_body_error_mps": -0.025184017120979396,
+              "wheel_integral_mean_nm": -0.18394173785915988,
+              "wheel_p_mean_nm": -0.2797935034776158,
+              "wheel_request_mean_nm": -0.4637352413367756,
+              "wheel_safe_mean_nm": -0.4637352413367756,
+              "wheel_native_applied_mean_nm": -0.4637352413367756,
+              "common_wheel_scalar_nm": 0.0,
+              "pitch_rad": 0.026986970467987474,
+              "pitch_target_error_rad": 0.026986970467987474,
+              "x_m": 2.773156224887047,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.0
+            },
+            "rms_body_error_vs_task_mps": 0.4251050463568214,
+            "rms_body_error_vs_servo_mps": 0.033867756920275084,
+            "flag_fraction": {
+              "body_common_p_active": 0.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.220446049250313e-16,
+            "ground_geom_counts": {
+              "floor": 175
+            },
+            "tick_spans": [
+              [
+                0,
+                175
+              ]
+            ]
+          },
+          "drive_before_hold": {
+            "count": 425,
+            "tick_bounds": [
+              175,
+              600
+            ],
+            "mean": {
+              "raw_mps": 0.45,
+              "servo_mps": 0.4028823529411765,
+              "body_pre_mps": 0.370545955409454,
+              "body_post_mps": 0.37151650990545054,
+              "body_error_vs_servo_mps": -0.03136584303572591,
+              "body_error_vs_task_mps": -0.07848349009454943,
+              "wheel_target_equivalent_mps": 0.41019709660465536,
+              "wheel_actual_equivalent_mps": 0.39139851883565957,
+              "wheel_tracking_error_mps": 0.01879857776899576,
+              "wheel_body_slip_proxy_mps": 0.02085256342620554,
+              "target_body_error_mps": 0.0396511411952013,
+              "wheel_integral_mean_nm": 0.7438113878663145,
+              "wheel_p_mean_nm": 1.0026725359706077,
+              "wheel_request_mean_nm": 1.7464839238369223,
+              "wheel_safe_mean_nm": 1.7464839238369223,
+              "wheel_native_applied_mean_nm": 1.7464839238369223,
+              "common_wheel_scalar_nm": 0.5273062015822091,
+              "pitch_rad": -0.08227229380846858,
+              "pitch_target_error_rad": -0.08227229380846858,
+              "x_m": 3.467480555801531,
+              "ramp_load_count": 45.16,
+              "applied_wheel_residual_mean_rad_s": 0.08417012929094626
+            },
+            "rms_body_error_vs_task_mps": 0.14099714239397146,
+            "rms_body_error_vs_servo_mps": 0.04190818333125797,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.886579864025407e-15,
+            "ground_geom_counts": {
+              "floor": 129,
+              "terrain_ramp_up": 296
+            },
+            "tick_spans": [
+              [
+                175,
+                600
+              ]
+            ]
+          },
+          "hold": {
+            "count": 400,
+            "tick_bounds": [
+              600,
+              1000
+            ],
+            "mean": {
+              "raw_mps": 0.45,
+              "servo_mps": 0.45,
+              "body_pre_mps": 0.5100224482446121,
+              "body_post_mps": 0.5100704191364539,
+              "body_error_vs_servo_mps": 0.06007041913645393,
+              "body_error_vs_task_mps": 0.06007041913645393,
+              "wheel_target_equivalent_mps": 0.461584862845547,
+              "wheel_actual_equivalent_mps": 0.47813852828768494,
+              "wheel_tracking_error_mps": -0.01655366544213797,
+              "wheel_body_slip_proxy_mps": -0.031883919956927166,
+              "target_body_error_mps": -0.04843758539906513,
+              "wheel_integral_mean_nm": 1.4660645910857548,
+              "wheel_p_mean_nm": -1.2248584813556702,
+              "wheel_request_mean_nm": 0.24120610973008463,
+              "wheel_safe_mean_nm": 0.24120610973008463,
+              "wheel_native_applied_mean_nm": 0.24120610973008463,
+              "common_wheel_scalar_nm": -0.8062600448878134,
+              "pitch_rad": 0.041419874585989634,
+              "pitch_target_error_rad": 0.041419874585989634,
+              "x_m": 5.3787129371759645,
+              "ramp_load_count": 62.225,
+              "applied_wheel_residual_mean_rad_s": 0.1331800073874183
+            },
+            "rms_body_error_vs_task_mps": 0.06236856804423052,
+            "rms_body_error_vs_servo_mps": 0.06236856804423052,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.886579864025407e-15,
+            "ground_geom_counts": {
+              "floor": 2,
+              "terrain_ramp_deck": 156,
+              "terrain_ramp_down": 194,
+              "terrain_ramp_up": 48
+            },
+            "tick_spans": [
+              [
+                600,
+                1000
+              ]
+            ]
+          },
+          "drive_after_hold": {
+            "count": 355,
+            "tick_bounds": [
+              1000,
+              1355
+            ],
+            "mean": {
+              "raw_mps": 0.45,
+              "servo_mps": 0.45,
+              "body_pre_mps": 0.43928066155584383,
+              "body_post_mps": 0.43919473868347586,
+              "body_error_vs_servo_mps": -0.01080526131652412,
+              "body_error_vs_task_mps": -0.01080526131652412,
+              "wheel_target_equivalent_mps": 0.4599837163183386,
+              "wheel_actual_equivalent_mps": 0.45322507094724196,
+              "wheel_tracking_error_mps": 0.006758645371096636,
+              "wheel_body_slip_proxy_mps": 0.01394440939139813,
+              "target_body_error_mps": 0.020703054762494767,
+              "wheel_integral_mean_nm": -0.2620620138363098,
+              "wheel_p_mean_nm": 0.5235255227297527,
+              "wheel_request_mean_nm": 0.261463508893443,
+              "wheel_safe_mean_nm": 0.261463508893443,
+              "wheel_native_applied_mean_nm": 0.261463508893443,
+              "common_wheel_scalar_nm": 0.3526172489778838,
+              "pitch_rad": 0.05531880117026883,
+              "pitch_target_error_rad": 0.05531880117026883,
+              "x_m": 7.179213731265995,
+              "ramp_load_count": 21.8112676056338,
+              "applied_wheel_residual_mean_rad_s": 0.11483712966724391
+            },
+            "rms_body_error_vs_task_mps": 0.027178731086755906,
+            "rms_body_error_vs_servo_mps": 0.027178731086755906,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 3.1086244689504383e-15,
+            "ground_geom_counts": {
+              "floor": 246,
+              "terrain_ramp_down": 109
+            },
+            "tick_spans": [
+              [
+                1000,
+                1355
+              ]
+            ]
+          },
+          "release_to_end": {
+            "count": 445,
+            "tick_bounds": [
+              1355,
+              1800
+            ],
+            "mean": {
+              "raw_mps": 0.0,
+              "servo_mps": 0.044999999999999964,
+              "body_pre_mps": 0.04958557650591452,
+              "body_post_mps": 0.0485677523004822,
+              "body_error_vs_servo_mps": 0.0035677523004822367,
+              "body_error_vs_task_mps": -0.40143224769951785,
+              "wheel_target_equivalent_mps": 0.04500176362199696,
+              "wheel_actual_equivalent_mps": 0.04823053573135613,
+              "wheel_tracking_error_mps": -0.003228772109359179,
+              "wheel_body_slip_proxy_mps": -0.001355040774558375,
+              "target_body_error_mps": -0.004583812883917553,
+              "wheel_integral_mean_nm": 0.31969533204336137,
+              "wheel_p_mean_nm": -0.22590614350964927,
+              "wheel_request_mean_nm": 0.09378918853371208,
+              "wheel_safe_mean_nm": 0.09378918853371208,
+              "wheel_native_applied_mean_nm": 0.09378918853371208,
+              "common_wheel_scalar_nm": -0.14425903269826776,
+              "pitch_rad": 0.01489507830205361,
+              "pitch_target_error_rad": 0.01489507830205361,
+              "x_m": 8.150903671926029,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.0
+            },
+            "rms_body_error_vs_task_mps": 0.4183754287888794,
+            "rms_body_error_vs_servo_mps": 0.01612075348788906,
+            "flag_fraction": {
+              "body_common_p_active": 0.2,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 1.9984014443252818e-15,
+            "ground_geom_counts": {
+              "floor": 445
+            },
+            "tick_spans": [
+              [
+                1355,
+                1800
+              ]
+            ]
+          },
+          "hold_quarter_1": {
+            "count": 100,
+            "tick_bounds": [
+              600,
+              700
+            ],
+            "mean": {
+              "raw_mps": 0.45,
+              "servo_mps": 0.45,
+              "body_pre_mps": 0.4989529154709969,
+              "body_post_mps": 0.49955051851693705,
+              "body_error_vs_servo_mps": 0.04955051851693703,
+              "body_error_vs_task_mps": 0.04955051851693703,
+              "wheel_target_equivalent_mps": 0.45916787990718466,
+              "wheel_actual_equivalent_mps": 0.44768466320456135,
+              "wheel_tracking_error_mps": 0.011483216702623285,
+              "wheel_body_slip_proxy_mps": -0.05126825226643547,
+              "target_body_error_mps": -0.039785035563812195,
+              "wheel_integral_mean_nm": 2.4700990719726588,
+              "wheel_p_mean_nm": -1.0060583705791588,
+              "wheel_request_mean_nm": 1.4640407013935002,
+              "wheel_safe_mean_nm": 1.4640407013935002,
+              "wheel_native_applied_mean_nm": 1.4640407013935002,
+              "common_wheel_scalar_nm": -1.2964385630592878,
+              "pitch_rad": -0.053729222470516015,
+              "pitch_target_error_rad": -0.053729222470516015,
+              "x_m": 4.607397498931813,
+              "ramp_load_count": 60.36,
+              "applied_wheel_residual_mean_rad_s": 0.10568594531621783
+            },
+            "rms_body_error_vs_task_mps": 0.05157791425237241,
+            "rms_body_error_vs_servo_mps": 0.05157791425237241,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.886579864025407e-15,
+            "ground_geom_counts": {
+              "floor": 1,
+              "terrain_ramp_deck": 51,
+              "terrain_ramp_up": 48
+            },
+            "tick_spans": [
+              [
+                600,
+                700
+              ]
+            ]
+          },
+          "hold_quarter_2": {
+            "count": 100,
+            "tick_bounds": [
+              700,
+              800
+            ],
+            "mean": {
+              "raw_mps": 0.45,
+              "servo_mps": 0.45,
+              "body_pre_mps": 0.5105600789961624,
+              "body_post_mps": 0.5105965329587169,
+              "body_error_vs_servo_mps": 0.06059653295871693,
+              "body_error_vs_task_mps": 0.06059653295871693,
+              "wheel_target_equivalent_mps": 0.4606988285849172,
+              "wheel_actual_equivalent_mps": 0.48760468892894493,
+              "wheel_tracking_error_mps": -0.026905860344027817,
+              "wheel_body_slip_proxy_mps": -0.022955390067217477,
+              "target_body_error_mps": -0.04986125041124529,
+              "wheel_integral_mean_nm": 1.8319403782349442,
+              "wheel_p_mean_nm": -1.2608592058016053,
+              "wheel_request_mean_nm": 0.5710811724333389,
+              "wheel_safe_mean_nm": 0.5710811724333389,
+              "wheel_native_applied_mean_nm": 0.5710811724333389,
+              "common_wheel_scalar_nm": -0.580481128136534,
+              "pitch_rad": 0.003470461230158696,
+              "pitch_target_error_rad": 0.003470461230158696,
+              "x_m": 5.117668554350005,
+              "ramp_load_count": 63.32,
+              "applied_wheel_residual_mean_rad_s": 0.12299187340773642
+            },
+            "rms_body_error_vs_task_mps": 0.06147999029242561,
+            "rms_body_error_vs_servo_mps": 0.06147999029242561,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.4424906541753444e-15,
+            "ground_geom_counts": {
+              "terrain_ramp_deck": 100
+            },
+            "tick_spans": [
+              [
+                700,
+                800
+              ]
+            ]
+          },
+          "hold_quarter_3": {
+            "count": 100,
+            "tick_bounds": [
+              800,
+              900
+            ],
+            "mean": {
+              "raw_mps": 0.45,
+              "servo_mps": 0.45,
+              "body_pre_mps": 0.5312589196574833,
+              "body_post_mps": 0.5311962439994663,
+              "body_error_vs_servo_mps": 0.08119624399946627,
+              "body_error_vs_task_mps": 0.08119624399946627,
+              "wheel_target_equivalent_mps": 0.46283051647816825,
+              "wheel_actual_equivalent_mps": 0.4848635761460034,
+              "wheel_tracking_error_mps": -0.022033059667835107,
+              "wheel_body_slip_proxy_mps": -0.046395343511479885,
+              "target_body_error_mps": -0.06842840317931499,
+              "wheel_integral_mean_nm": 1.3731573509430408,
+              "wheel_p_mean_nm": -1.7303734137298046,
+              "wheel_request_mean_nm": -0.3572160627867637,
+              "wheel_safe_mean_nm": -0.3572160627867637,
+              "wheel_native_applied_mean_nm": -0.3572160627867637,
+              "common_wheel_scalar_nm": -1.1732155830489168,
+              "pitch_rad": 0.0923865462634469,
+              "pitch_target_error_rad": 0.0923865462634469,
+              "x_m": 5.6376773482581495,
+              "ramp_load_count": 62.27,
+              "applied_wheel_residual_mean_rad_s": 0.1473086962895468
+            },
+            "rms_body_error_vs_task_mps": 0.08127454916758244,
+            "rms_body_error_vs_servo_mps": 0.08127454916758244,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.886579864025407e-15,
+            "ground_geom_counts": {
+              "floor": 1,
+              "terrain_ramp_deck": 5,
+              "terrain_ramp_down": 94
+            },
+            "tick_spans": [
+              [
+                800,
+                900
+              ]
+            ]
+          },
+          "hold_quarter_4": {
+            "count": 100,
+            "tick_bounds": [
+              900,
+              1000
+            ],
+            "mean": {
+              "raw_mps": 0.45,
+              "servo_mps": 0.45,
+              "body_pre_mps": 0.49931787885380585,
+              "body_post_mps": 0.4989383810706955,
+              "body_error_vs_servo_mps": 0.048938381070695494,
+              "body_error_vs_task_mps": 0.048938381070695494,
+              "wheel_target_equivalent_mps": 0.4636422264119178,
+              "wheel_actual_equivalent_mps": 0.49240118487122997,
+              "wheel_tracking_error_mps": -0.028758958459312246,
+              "wheel_body_slip_proxy_mps": -0.006916693982575824,
+              "target_body_error_mps": -0.03567565244188807,
+              "wheel_integral_mean_nm": 0.18906156319237558,
+              "wheel_p_mean_nm": -0.9021429353121124,
+              "wheel_request_mean_nm": -0.7130813721197369,
+              "wheel_safe_mean_nm": -0.7130813721197369,
+              "wheel_native_applied_mean_nm": -0.7130813721197369,
+              "common_wheel_scalar_nm": -0.1749049053065153,
+              "pitch_rad": 0.12355171332086895,
+              "pitch_target_error_rad": 0.12355171332086895,
+              "x_m": 6.1521083471638915,
+              "ramp_load_count": 62.95,
+              "applied_wheel_residual_mean_rad_s": 0.15673351453617215
+            },
+            "rms_body_error_vs_task_mps": 0.05013711531565858,
+            "rms_body_error_vs_servo_mps": 0.05013711531565858,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.4424906541753444e-15,
+            "ground_geom_counts": {
+              "terrain_ramp_down": 100
+            },
+            "tick_spans": [
+              [
+                900,
+                1000
+              ]
+            ]
+          }
+        },
+        "by_base_ground_query_geom": {
+          "floor": {
+            "count": 997,
+            "tick_bounds": [
+              0,
+              1800
+            ],
+            "mean": {
+              "raw_mps": 0.17016048144433302,
+              "servo_mps": 0.17016048144433302,
+              "body_pre_mps": 0.16381443895561923,
+              "body_post_mps": 0.16379094404367514,
+              "body_error_vs_servo_mps": -0.006369537400657877,
+              "body_error_vs_task_mps": -0.2862090559563249,
+              "wheel_target_equivalent_mps": 0.1733569615903015,
+              "wheel_actual_equivalent_mps": 0.1703402879337352,
+              "wheel_tracking_error_mps": 0.0030166736565663235,
+              "wheel_body_slip_proxy_mps": 0.006525848978115986,
+              "target_body_error_mps": 0.00954252263468231,
+              "wheel_integral_mean_nm": -0.015047411884497456,
+              "wheel_p_mean_nm": 0.2548813811021774,
+              "wheel_request_mean_nm": 0.2398339692176799,
+              "wheel_safe_mean_nm": 0.2398339692176799,
+              "wheel_native_applied_mean_nm": 0.2398339692176799,
+              "common_wheel_scalar_nm": 0.17859767944187954,
+              "pitch_rad": 0.015342988371445196,
+              "pitch_target_error_rad": 0.015342988371445196,
+              "x_m": 6.3389405207150595,
+              "ramp_load_count": 3.6680040120361084,
+              "applied_wheel_residual_mean_rad_s": 0.03672730808478846
+            },
+            "rms_body_error_vs_task_mps": 0.3438689617070046,
+            "rms_body_error_vs_servo_mps": 0.03147863129572016,
+            "flag_fraction": {
+              "body_common_p_active": 0.4674022066198596,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 3.1086244689504383e-15,
+            "ground_geom_counts": {
+              "floor": 997
+            },
+            "tick_spans": [
+              [
+                0,
+                304
+              ],
+              [
+                648,
+                649
+              ],
+              [
+                805,
+                806
+              ],
+              [
+                1109,
+                1800
+              ]
+            ]
+          },
+          "terrain_ramp_deck": {
+            "count": 156,
+            "tick_bounds": [
+              649,
+              805
+            ],
+            "mean": {
+              "raw_mps": 0.45,
+              "servo_mps": 0.45,
+              "body_pre_mps": 0.5109272439017378,
+              "body_post_mps": 0.5111001803180062,
+              "body_error_vs_servo_mps": 0.06110018031800614,
+              "body_error_vs_task_mps": 0.06110018031800614,
+              "wheel_target_equivalent_mps": 0.4604121691187153,
+              "wheel_actual_equivalent_mps": 0.47838518473627484,
+              "wheel_tracking_error_mps": -0.01797301561755949,
+              "wheel_body_slip_proxy_mps": -0.032542059165462996,
+              "target_body_error_mps": -0.050515074783022494,
+              "wheel_integral_mean_nm": 2.071527809267624,
+              "wheel_p_mean_nm": -1.2773926956626378,
+              "wheel_request_mean_nm": 0.7941351136049862,
+              "wheel_safe_mean_nm": 0.7941351136049862,
+              "wheel_native_applied_mean_nm": 0.7941351136049862,
+              "common_wheel_scalar_nm": -0.8229026455634321,
+              "pitch_rad": -0.0043428272970384915,
+              "pitch_target_error_rad": -0.0043428272970384915,
+              "x_m": 4.999588745744436,
+              "ramp_load_count": 62.52564102564103,
+              "applied_wheel_residual_mean_rad_s": 0.11975837578005993
+            },
+            "rms_body_error_vs_task_mps": 0.061882008110610405,
+            "rms_body_error_vs_servo_mps": 0.061882008110610405,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.886579864025407e-15,
+            "ground_geom_counts": {
+              "terrain_ramp_deck": 156
+            },
+            "tick_spans": [
+              [
+                649,
+                805
+              ]
+            ]
+          },
+          "terrain_ramp_down": {
+            "count": 303,
+            "tick_bounds": [
+              806,
+              1109
+            ],
+            "mean": {
+              "raw_mps": 0.44999999999999996,
+              "servo_mps": 0.44999999999999996,
+              "body_pre_mps": 0.497047648677481,
+              "body_post_mps": 0.49672059375930616,
+              "body_error_vs_servo_mps": 0.04672059375930614,
+              "body_error_vs_task_mps": 0.04672059375930614,
+              "wheel_target_equivalent_mps": 0.46330870186010703,
+              "wheel_actual_equivalent_mps": 0.4865229377089931,
+              "wheel_tracking_error_mps": -0.02321423584888604,
+              "wheel_body_slip_proxy_mps": -0.010524710968488017,
+              "target_body_error_mps": -0.033738946817374056,
+              "wheel_integral_mean_nm": 0.3356641214991362,
+              "wheel_p_mean_nm": -0.8531687700945165,
+              "wheel_request_mean_nm": -0.5175046485953805,
+              "wheel_safe_mean_nm": -0.5175046485953805,
+              "wheel_native_applied_mean_nm": -0.5175046485953805,
+              "common_wheel_scalar_nm": -0.2661421164445247,
+              "pitch_rad": 0.11469981772442003,
+              "pitch_target_error_rad": 0.11469981772442003,
+              "x_m": 6.177470555855766,
+              "ramp_load_count": 59.12871287128713,
+              "applied_wheel_residual_mean_rad_s": 0.1529953077945723
+            },
+            "rms_body_error_vs_task_mps": 0.055958624857429154,
+            "rms_body_error_vs_servo_mps": 0.055958624857429154,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.886579864025407e-15,
+            "ground_geom_counts": {
+              "terrain_ramp_down": 303
+            },
+            "tick_spans": [
+              [
+                806,
+                1109
+              ]
+            ]
+          },
+          "terrain_ramp_up": {
+            "count": 344,
+            "tick_bounds": [
+              304,
+              648
+            ],
+            "mean": {
+              "raw_mps": 0.45,
+              "servo_mps": 0.45,
+              "body_pre_mps": 0.43684676627230873,
+              "body_post_mps": 0.43712519767314967,
+              "body_error_vs_servo_mps": -0.012874802326850348,
+              "body_error_vs_task_mps": -0.012874802326850348,
+              "wheel_target_equivalent_mps": 0.45710444954132917,
+              "wheel_actual_equivalent_mps": 0.43610378985218,
+              "wheel_tracking_error_mps": 0.021000659689149097,
+              "wheel_body_slip_proxy_mps": -0.0007429764201286909,
+              "target_body_error_mps": 0.0202576832690204,
+              "wheel_integral_mean_nm": 1.4817615772918455,
+              "wheel_p_mean_nm": 0.5122632550786769,
+              "wheel_request_mean_nm": 1.9940248323705223,
+              "wheel_safe_mean_nm": 1.9940248323705223,
+              "wheel_native_applied_mean_nm": 1.9940248323705223,
+              "common_wheel_scalar_nm": -0.018787909474518708,
+              "pitch_rad": -0.1069246920376114,
+              "pitch_target_error_rad": -0.1069246920376114,
+              "x_m": 3.821530921902434,
+              "ramp_load_count": 59.59011627906977,
+              "applied_wheel_residual_mean_rad_s": 0.0818444124753262
+            },
+            "rms_body_error_vs_task_mps": 0.031753473400405886,
+            "rms_body_error_vs_servo_mps": 0.031753473400405886,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.6367796834847468e-15,
+            "ground_geom_counts": {
+              "terrain_ramp_up": 344
+            },
+            "tick_spans": [
+              [
+                304,
+                648
+              ]
+            ]
+          }
+        },
+        "ramp_loaded_ticks": {
+          "count": 922,
+          "tick_bounds": [
+            251,
+            1173
+          ],
+          "mean": {
+            "raw_mps": 0.45,
+            "servo_mps": 0.4495065075921909,
+            "body_pre_mps": 0.4645737688338361,
+            "body_post_mps": 0.46466263980235784,
+            "body_error_vs_servo_mps": 0.015156132210166902,
+            "body_error_vs_task_mps": 0.014662639802357795,
+            "wheel_target_equivalent_mps": 0.45945896267147485,
+            "wheel_actual_equivalent_mps": 0.4605075614906108,
+            "wheel_tracking_error_mps": -0.0010485988191359262,
+            "wheel_body_slip_proxy_mps": -0.004066207343225384,
+            "target_body_error_mps": -0.005114806162361311,
+            "wheel_integral_mean_nm": 0.9416447870857501,
+            "wheel_p_mean_nm": -0.1293399259447688,
+            "wheel_request_mean_nm": 0.8123048611409813,
+            "wheel_safe_mean_nm": 0.8123048611409813,
+            "wheel_native_applied_mean_nm": 0.8123048611409813,
+            "common_wheel_scalar_nm": -0.10282363396661898,
+            "pitch_rad": -0.001431881163800837,
+            "pitch_target_error_rad": -0.001431881163800837,
+            "x_m": 4.973189874110435,
+            "ramp_load_count": 56.21041214750542,
+            "applied_wheel_residual_mean_rad_s": 0.11447270507767691
+          },
+          "rms_body_error_vs_task_mps": 0.04959509725381404,
+          "rms_body_error_vs_servo_mps": 0.04867477478923997,
+          "flag_fraction": {
+            "body_common_p_active": 1.0,
+            "wheel_target_clipped": 0.0,
+            "wheel_torque_clipped": 0.0,
+            "wheel_protected": 0.0,
+            "support_force_clipped": 0.0,
+            "native_wheel_limited": 0.0,
+            "native_wheel_delayed": 0.0
+          },
+          "integral_commit_all_fraction": 1.0,
+          "max_p_identity_abs_error_nm": 2.886579864025407e-15,
+          "ground_geom_counts": {
+            "floor": 119,
+            "terrain_ramp_deck": 156,
+            "terrain_ramp_down": 303,
+            "terrain_ramp_up": 344
+          },
+          "tick_spans": [
+            [
+              251,
+              1173
+            ]
+          ]
+        },
+        "identity_max_abs_error_nm": 3.1086244689504383e-15
+      }
+    },
+    "flat_0p6": {
+      "zero": {
+        "case_id": "flat_0p6",
+        "actor": "zero",
+        "seed": 151101,
+        "raw_command_sha256": "b43d0e04541ef95b45f138101b4903c56f1c5370628dbaa2f0171757745036fa",
+        "hold_window": [
+          295,
+          695
+        ],
+        "release_tick": 695,
+        "windows": {
+          "pre_command": {
+            "count": 175,
+            "tick_bounds": [
+              0,
+              175
+            ],
+            "mean": {
+              "raw_mps": 0.0,
+              "servo_mps": 0.0,
+              "body_pre_mps": 0.00042635691112480974,
+              "body_post_mps": 0.00042701007693788165,
+              "body_error_vs_servo_mps": 0.00042701007693788165,
+              "body_error_vs_task_mps": -0.5995729899230622,
+              "wheel_target_equivalent_mps": -4.3281819130568584e-10,
+              "wheel_actual_equivalent_mps": 2.0672699667114472e-05,
+              "wheel_tracking_error_mps": -2.067313248530578e-05,
+              "wheel_body_slip_proxy_mps": -0.0004056842114576953,
+              "target_body_error_mps": -0.0004263573439430011,
+              "wheel_integral_mean_nm": -0.0012456273156259184,
+              "wheel_p_mean_nm": -0.000522768867444514,
+              "wheel_request_mean_nm": -0.0017683961830704331,
+              "wheel_safe_mean_nm": -0.0017683961830704331,
+              "wheel_native_applied_mean_nm": -0.0017683961830704334,
+              "common_wheel_scalar_nm": 0.0,
+              "pitch_rad": 0.00017762526669197346,
+              "pitch_target_error_rad": 0.00017762526669197346,
+              "x_m": -7.99934786789061,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.0
+            },
+            "rms_body_error_vs_task_mps": 0.5995754703568061,
+            "rms_body_error_vs_servo_mps": 0.001776723363610381,
+            "flag_fraction": {
+              "body_common_p_active": 0.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 1.1102230246251565e-16,
+            "ground_geom_counts": {
+              "floor": 175
+            },
+            "tick_spans": [
+              [
+                0,
+                175
+              ]
+            ]
+          },
+          "drive_before_hold": {
+            "count": 120,
+            "tick_bounds": [
+              175,
+              295
+            ],
+            "mean": {
+              "raw_mps": 0.6,
+              "servo_mps": 0.30250000000000016,
+              "body_pre_mps": 0.2657705652320102,
+              "body_post_mps": 0.2705637252537059,
+              "body_error_vs_servo_mps": -0.031936274746294256,
+              "body_error_vs_task_mps": -0.3294362747462941,
+              "wheel_target_equivalent_mps": 0.3024999999817398,
+              "wheel_actual_equivalent_mps": 0.28434464851849517,
+              "wheel_tracking_error_mps": 0.01815535146324465,
+              "wheel_body_slip_proxy_mps": 0.01857408328648495,
+              "target_body_error_mps": 0.036729434749729596,
+              "wheel_integral_mean_nm": 0.20171125351135663,
+              "wheel_p_mean_nm": 0.9287903040161507,
+              "wheel_request_mean_nm": 1.1305015575275077,
+              "wheel_safe_mean_nm": 1.1305015575275077,
+              "wheel_native_applied_mean_nm": 1.1305015575275077,
+              "common_wheel_scalar_nm": 0.4696894624168608,
+              "pitch_rad": -0.01186266076804795,
+              "pitch_target_error_rad": -0.01186266076804795,
+              "x_m": -7.897387342376019,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.0
+            },
+            "rms_body_error_vs_task_mps": 0.37304718566342243,
+            "rms_body_error_vs_servo_mps": 0.03244543964664145,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.55351295663786e-15,
+            "ground_geom_counts": {
+              "floor": 120
+            },
+            "tick_spans": [
+              [
+                175,
+                295
+              ]
+            ]
+          },
+          "hold": {
+            "count": 400,
+            "tick_bounds": [
+              295,
+              695
+            ],
+            "mean": {
+              "raw_mps": 0.6,
+              "servo_mps": 0.6,
+              "body_pre_mps": 0.6057828696853873,
+              "body_post_mps": 0.6058500584763833,
+              "body_error_vs_servo_mps": 0.005850058476383324,
+              "body_error_vs_task_mps": 0.005850058476383324,
+              "wheel_target_equivalent_mps": 0.5999999999968342,
+              "wheel_actual_equivalent_mps": 0.5985861843391319,
+              "wheel_tracking_error_mps": 0.0014138156577022023,
+              "wheel_body_slip_proxy_mps": -0.007196685346255338,
+              "target_body_error_mps": -0.005782869688553139,
+              "wheel_integral_mean_nm": 1.04287843815521,
+              "wheel_p_mean_nm": -0.14623348637720576,
+              "wheel_request_mean_nm": 0.8966449517780045,
+              "wheel_safe_mean_nm": 0.8966449517780045,
+              "wheel_native_applied_mean_nm": 0.8966449517780045,
+              "common_wheel_scalar_nm": -0.18198514668691657,
+              "pitch_rad": -0.0006620590415231777,
+              "pitch_target_error_rad": -0.0006620590415231777,
+              "x_m": -6.459083534071402,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.0
+            },
+            "rms_body_error_vs_task_mps": 0.007248223726104952,
+            "rms_body_error_vs_servo_mps": 0.007248223726104952,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.9698465908722937e-15,
+            "ground_geom_counts": {
+              "floor": 400
+            },
+            "tick_spans": [
+              [
+                295,
+                695
+              ]
+            ]
+          },
+          "drive_after_hold": {
+            "count": 0
+          },
+          "release_to_end": {
+            "count": 905,
+            "tick_bounds": [
+              695,
+              1600
+            ],
+            "mean": {
+              "raw_mps": 0.0,
+              "servo_mps": 0.03944751381215466,
+              "body_pre_mps": 0.04266373251481771,
+              "body_post_mps": 0.04199870428075676,
+              "body_error_vs_servo_mps": 0.002551190468602105,
+              "body_error_vs_task_mps": -0.5580012957192432,
+              "wheel_target_equivalent_mps": 0.03944751381150118,
+              "wheel_actual_equivalent_mps": 0.042260460800357835,
+              "wheel_tracking_error_mps": -0.0028129469888566517,
+              "wheel_body_slip_proxy_mps": -0.00040327171445988434,
+              "target_body_error_mps": -0.0032162187033165355,
+              "wheel_integral_mean_nm": 0.23151898245231686,
+              "wheel_p_mean_nm": -0.14031491788262634,
+              "wheel_request_mean_nm": 0.09120406456969049,
+              "wheel_safe_mean_nm": 0.09120406456969049,
+              "wheel_native_applied_mean_nm": 0.09120406456969049,
+              "common_wheel_scalar_nm": -0.06918292506096388,
+              "pitch_rad": 0.0027936928374658852,
+              "pitch_target_error_rad": 0.0027936928374658852,
+              "x_m": -4.888321750633065,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.0
+            },
+            "rms_body_error_vs_task_mps": 0.572647585340926,
+            "rms_body_error_vs_servo_mps": 0.014065911306759786,
+            "flag_fraction": {
+              "body_common_p_active": 0.13149171270718232,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.886579864025407e-15,
+            "ground_geom_counts": {
+              "floor": 905
+            },
+            "tick_spans": [
+              [
+                695,
+                1600
+              ]
+            ]
+          },
+          "hold_quarter_1": {
+            "count": 100,
+            "tick_bounds": [
+              295,
+              395
+            ],
+            "mean": {
+              "raw_mps": 0.6,
+              "servo_mps": 0.6,
+              "body_pre_mps": 0.609422261236799,
+              "body_post_mps": 0.6097780722717063,
+              "body_error_vs_servo_mps": 0.009778072271706403,
+              "body_error_vs_task_mps": 0.009778072271706403,
+              "wheel_target_equivalent_mps": 0.6000000000025257,
+              "wheel_actual_equivalent_mps": 0.5879310682466852,
+              "wheel_tracking_error_mps": 0.012068931755840596,
+              "wheel_body_slip_proxy_mps": -0.021491192990113938,
+              "target_body_error_mps": -0.00942226123427334,
+              "wheel_integral_mean_nm": 1.1571568687695777,
+              "wheel_p_mean_nm": -0.23826407718852124,
+              "wheel_request_mean_nm": 0.9188927915810565,
+              "wheel_safe_mean_nm": 0.9188927915810565,
+              "wheel_native_applied_mean_nm": 0.9188927915810565,
+              "common_wheel_scalar_nm": -0.5434554549224214,
+              "pitch_rad": -0.002356955895572827,
+              "pitch_target_error_rad": -0.002356955895572827,
+              "x_m": -7.3701045093129025,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.0
+            },
+            "rms_body_error_vs_task_mps": 0.01144826868167819,
+            "rms_body_error_vs_servo_mps": 0.01144826868167819,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.733924198139448e-15,
+            "ground_geom_counts": {
+              "floor": 100
+            },
+            "tick_spans": [
+              [
+                295,
+                395
+              ]
+            ]
+          },
+          "hold_quarter_2": {
+            "count": 100,
+            "tick_bounds": [
+              395,
+              495
+            ],
+            "mean": {
+              "raw_mps": 0.6,
+              "servo_mps": 0.6,
+              "body_pre_mps": 0.6075552229498854,
+              "body_post_mps": 0.607496197722021,
+              "body_error_vs_servo_mps": 0.007496197722021036,
+              "body_error_vs_task_mps": 0.007496197722021036,
+              "wheel_target_equivalent_mps": 0.5999999999955845,
+              "wheel_actual_equivalent_mps": 0.604370348534238,
+              "wheel_tracking_error_mps": -0.004370348538653431,
+              "wheel_body_slip_proxy_mps": -0.0031848744156474573,
+              "target_body_error_mps": -0.007555222954300891,
+              "wheel_integral_mean_nm": 1.0794561966920546,
+              "wheel_p_mean_nm": -0.1910516149363444,
+              "wheel_request_mean_nm": 0.8884045817557106,
+              "wheel_safe_mean_nm": 0.8884045817557106,
+              "wheel_native_applied_mean_nm": 0.8884045817557106,
+              "common_wheel_scalar_nm": -0.0805370541887863,
+              "pitch_rad": -0.00011738243764527346,
+              "pitch_target_error_rad": -0.00011738243764527346,
+              "x_m": -6.7599059152780345,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.0
+            },
+            "rms_body_error_vs_task_mps": 0.00768915589356836,
+            "rms_body_error_vs_servo_mps": 0.00768915589356836,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.831068712794149e-15,
+            "ground_geom_counts": {
+              "floor": 100
+            },
+            "tick_spans": [
+              [
+                395,
+                495
+              ]
+            ]
+          },
+          "hold_quarter_3": {
+            "count": 100,
+            "tick_bounds": [
+              495,
+              595
+            ],
+            "mean": {
+              "raw_mps": 0.6,
+              "servo_mps": 0.6,
+              "body_pre_mps": 0.603713388681378,
+              "body_post_mps": 0.6036920024569212,
+              "body_error_vs_servo_mps": 0.0036920024569212207,
+              "body_error_vs_task_mps": 0.0036920024569212207,
+              "wheel_target_equivalent_mps": 0.5999999999942692,
+              "wheel_actual_equivalent_mps": 0.6015601937188031,
+              "wheel_tracking_error_mps": -0.0015601937245338377,
+              "wheel_body_slip_proxy_mps": -0.002153194962574916,
+              "target_body_error_mps": -0.003713388687108755,
+              "wheel_integral_mean_nm": 0.9832444499541512,
+              "wheel_p_mean_nm": -0.09390178289240508,
+              "wheel_request_mean_nm": 0.8893426670617461,
+              "wheel_safe_mean_nm": 0.8893426670617461,
+              "wheel_native_applied_mean_nm": 0.8893426670617461,
+              "common_wheel_scalar_nm": -0.05444860824902063,
+              "pitch_rad": -8.983669152510733e-05,
+              "pitch_target_error_rad": -8.983669152510733e-05,
+              "x_m": -6.154632836454235,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.0
+            },
+            "rms_body_error_vs_task_mps": 0.0037418044077979743,
+            "rms_body_error_vs_servo_mps": 0.0037418044077979743,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.4980018054066022e-15,
+            "ground_geom_counts": {
+              "floor": 100
+            },
+            "tick_spans": [
+              [
+                495,
+                595
+              ]
+            ]
+          },
+          "hold_quarter_4": {
+            "count": 100,
+            "tick_bounds": [
+              595,
+              695
+            ],
+            "mean": {
+              "raw_mps": 0.6,
+              "servo_mps": 0.6,
+              "body_pre_mps": 0.6024406058734867,
+              "body_post_mps": 0.6024339614548846,
+              "body_error_vs_servo_mps": 0.0024339614548846344,
+              "body_error_vs_task_mps": 0.0024339614548846344,
+              "wheel_target_equivalent_mps": 0.5999999999949571,
+              "wheel_actual_equivalent_mps": 0.6004831268568016,
+              "wheel_tracking_error_mps": -0.0004831268618445183,
+              "wheel_body_slip_proxy_mps": -0.0019574790166850464,
+              "target_body_error_mps": -0.0024406058785295713,
+              "wheel_integral_mean_nm": 0.9516562372050569,
+              "wheel_p_mean_nm": -0.0617164704915523,
+              "wheel_request_mean_nm": 0.8899397667135047,
+              "wheel_safe_mean_nm": 0.8899397667135047,
+              "wheel_native_applied_mean_nm": 0.8899397667135047,
+              "common_wheel_scalar_nm": -0.04949946938743799,
+              "pitch_rad": -8.406114134950306e-05,
+              "pitch_target_error_rad": -8.406114134950306e-05,
+              "x_m": -5.551690875240438,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.0
+            },
+            "rms_body_error_vs_task_mps": 0.0024412935802512396,
+            "rms_body_error_vs_servo_mps": 0.0024412935802512396,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.9698465908722937e-15,
+            "ground_geom_counts": {
+              "floor": 100
+            },
+            "tick_spans": [
+              [
+                595,
+                695
+              ]
+            ]
+          }
+        },
+        "by_base_ground_query_geom": {
+          "floor": {
+            "count": 1600,
+            "tick_bounds": [
+              0,
+              1600
+            ],
+            "mean": {
+              "raw_mps": 0.195,
+              "servo_mps": 0.195,
+              "body_pre_mps": 0.19555681630459565,
+              "body_post_mps": 0.1955570153490919,
+              "body_error_vs_servo_mps": 0.0005570153490919083,
+              "body_error_vs_task_mps": -0.4044429846509081,
+              "wheel_target_equivalent_mps": 0.19499999995012987,
+              "wheel_actual_equivalent_mps": 0.19487822894039863,
+              "wheel_tracking_error_mps": 0.00012177100973127568,
+              "wheel_body_slip_proxy_mps": -0.0006785873641970212,
+              "target_body_error_mps": -0.0005568163544657463,
+              "wheel_integral_mean_nm": 0.4066646375140994,
+              "wheel_p_mean_nm": -0.0463219020653274,
+              "wheel_request_mean_nm": 0.36034273544877204,
+              "wheel_safe_mean_nm": 0.36034273544877204,
+              "wheel_native_applied_mean_nm": 0.36034273544877204,
+              "common_wheel_scalar_nm": -0.049401168978072285,
+              "pitch_rad": 0.0005443959567516851,
+              "pitch_target_error_rad": 0.0005443959567516851,
+              "x_m": -5.846960597448416,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.0
+            },
+            "rms_body_error_vs_task_mps": 0.48502832193280004,
+            "rms_body_error_vs_servo_mps": 0.014294798878801997,
+            "flag_fraction": {
+              "body_common_p_active": 0.399375,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.9698465908722937e-15,
+            "ground_geom_counts": {
+              "floor": 1600
+            },
+            "tick_spans": [
+              [
+                0,
+                1600
+              ]
+            ]
+          }
+        },
+        "ramp_loaded_ticks": {
+          "count": 0
+        },
+        "identity_max_abs_error_nm": 2.9698465908722937e-15
+      },
+      "global_continue": {
+        "case_id": "flat_0p6",
+        "actor": "global_continue",
+        "seed": 151101,
+        "raw_command_sha256": "b43d0e04541ef95b45f138101b4903c56f1c5370628dbaa2f0171757745036fa",
+        "hold_window": [
+          295,
+          695
+        ],
+        "release_tick": 695,
+        "windows": {
+          "pre_command": {
+            "count": 175,
+            "tick_bounds": [
+              0,
+              175
+            ],
+            "mean": {
+              "raw_mps": 0.0,
+              "servo_mps": 0.0,
+              "body_pre_mps": 0.00042635691112480974,
+              "body_post_mps": 0.00042701007693788165,
+              "body_error_vs_servo_mps": 0.00042701007693788165,
+              "body_error_vs_task_mps": -0.5995729899230622,
+              "wheel_target_equivalent_mps": -4.3281819130568584e-10,
+              "wheel_actual_equivalent_mps": 2.0672699667114472e-05,
+              "wheel_tracking_error_mps": -2.067313248530578e-05,
+              "wheel_body_slip_proxy_mps": -0.0004056842114576953,
+              "target_body_error_mps": -0.0004263573439430011,
+              "wheel_integral_mean_nm": -0.0012456273156259184,
+              "wheel_p_mean_nm": -0.000522768867444514,
+              "wheel_request_mean_nm": -0.0017683961830704331,
+              "wheel_safe_mean_nm": -0.0017683961830704331,
+              "wheel_native_applied_mean_nm": -0.0017683961830704334,
+              "common_wheel_scalar_nm": 0.0,
+              "pitch_rad": 0.00017762526669197346,
+              "pitch_target_error_rad": 0.00017762526669197346,
+              "x_m": -7.99934786789061,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.0
+            },
+            "rms_body_error_vs_task_mps": 0.5995754703568061,
+            "rms_body_error_vs_servo_mps": 0.001776723363610381,
+            "flag_fraction": {
+              "body_common_p_active": 0.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 1.1102230246251565e-16,
+            "ground_geom_counts": {
+              "floor": 175
+            },
+            "tick_spans": [
+              [
+                0,
+                175
+              ]
+            ]
+          },
+          "drive_before_hold": {
+            "count": 120,
+            "tick_bounds": [
+              175,
+              295
+            ],
+            "mean": {
+              "raw_mps": 0.6,
+              "servo_mps": 0.30250000000000016,
+              "body_pre_mps": 0.27158916578931763,
+              "body_post_mps": 0.27646983134088254,
+              "body_error_vs_servo_mps": -0.02603016865911767,
+              "body_error_vs_task_mps": -0.3235301686591175,
+              "wheel_target_equivalent_mps": 0.3113262913519368,
+              "wheel_actual_equivalent_mps": 0.29388904648826614,
+              "wheel_tracking_error_mps": 0.017437244863670636,
+              "wheel_body_slip_proxy_mps": 0.02229988069894856,
+              "target_body_error_mps": 0.0397371255626192,
+              "wheel_integral_mean_nm": 0.14705968498575123,
+              "wheel_p_mean_nm": 1.004846853307612,
+              "wheel_request_mean_nm": 1.1519065382933635,
+              "wheel_safe_mean_nm": 1.1519065382933635,
+              "wheel_native_applied_mean_nm": 1.1519065382933633,
+              "common_wheel_scalar_nm": 0.5639050291688144,
+              "pitch_rad": -0.006476339419077926,
+              "pitch_target_error_rad": -0.006476339419077926,
+              "x_m": -7.894617553777946,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.10142406560456342
+            },
+            "rms_body_error_vs_task_mps": 0.3690144605959309,
+            "rms_body_error_vs_servo_mps": 0.026826777018009413,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.886579864025407e-15,
+            "ground_geom_counts": {
+              "floor": 120
+            },
+            "tick_spans": [
+              [
+                175,
+                295
+              ]
+            ]
+          },
+          "hold": {
+            "count": 400,
+            "tick_bounds": [
+              295,
+              695
+            ],
+            "mean": {
+              "raw_mps": 0.6,
+              "servo_mps": 0.6,
+              "body_pre_mps": 0.6193419393480546,
+              "body_post_mps": 0.6194183022020061,
+              "body_error_vs_servo_mps": 0.019418302202006195,
+              "body_error_vs_task_mps": 0.019418302202006195,
+              "wheel_target_equivalent_mps": 0.6128106503936133,
+              "wheel_actual_equivalent_mps": 0.6108393344399196,
+              "wheel_tracking_error_mps": 0.0019713159536936,
+              "wheel_body_slip_proxy_mps": -0.008502604908134908,
+              "target_body_error_mps": -0.006531288954441311,
+              "wheel_integral_mean_nm": 1.0766367048501935,
+              "wheel_p_mean_nm": -0.16515903103184926,
+              "wheel_request_mean_nm": 0.9114776738183441,
+              "wheel_safe_mean_nm": 0.9114776738183441,
+              "wheel_native_applied_mean_nm": 0.9114776738183441,
+              "common_wheel_scalar_nm": -0.2150083999758254,
+              "pitch_rad": 0.013032517517801389,
+              "pitch_target_error_rad": 0.013032517517801389,
+              "x_m": -6.4255611755799755,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.14719930472783743
+            },
+            "rms_body_error_vs_task_mps": 0.01982053586249298,
+            "rms_body_error_vs_servo_mps": 0.01982053586249298,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.9698465908722937e-15,
+            "ground_geom_counts": {
+              "floor": 400
+            },
+            "tick_spans": [
+              [
+                295,
+                695
+              ]
+            ]
+          },
+          "drive_after_hold": {
+            "count": 0
+          },
+          "release_to_end": {
+            "count": 905,
+            "tick_bounds": [
+              695,
+              1600
+            ],
+            "mean": {
+              "raw_mps": 0.0,
+              "servo_mps": 0.03944751381215466,
+              "body_pre_mps": 0.04308486109762722,
+              "body_post_mps": 0.04240370323527806,
+              "body_error_vs_servo_mps": 0.002956189423123402,
+              "body_error_vs_task_mps": -0.5575962967647219,
+              "wheel_target_equivalent_mps": 0.039448083945812444,
+              "wheel_actual_equivalent_mps": 0.042524239235508604,
+              "wheel_tracking_error_mps": -0.0030761552896961604,
+              "wheel_body_slip_proxy_mps": -0.0005606218621186141,
+              "target_body_error_mps": -0.003636777151814774,
+              "wheel_integral_mean_nm": 0.22589708992604116,
+              "wheel_p_mean_nm": -0.15514852449726393,
+              "wheel_request_mean_nm": 0.07074856542877721,
+              "wheel_safe_mean_nm": 0.07074856542877721,
+              "wheel_native_applied_mean_nm": 0.07074856542877721,
+              "common_wheel_scalar_nm": -0.07736068958540701,
+              "pitch_rad": 0.013383806319101906,
+              "pitch_target_error_rad": 0.013383806319101906,
+              "x_m": -4.821626081877869,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.0
+            },
+            "rms_body_error_vs_task_mps": 0.5724694837482582,
+            "rms_body_error_vs_servo_mps": 0.013945678895359576,
+            "flag_fraction": {
+              "body_common_p_active": 0.13149171270718232,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.6645352591003757e-15,
+            "ground_geom_counts": {
+              "floor": 905
+            },
+            "tick_spans": [
+              [
+                695,
+                1600
+              ]
+            ]
+          },
+          "hold_quarter_1": {
+            "count": 100,
+            "tick_bounds": [
+              295,
+              395
+            ],
+            "mean": {
+              "raw_mps": 0.6,
+              "servo_mps": 0.6,
+              "body_pre_mps": 0.6212642872994716,
+              "body_post_mps": 0.6216485906594135,
+              "body_error_vs_servo_mps": 0.02164859065941352,
+              "body_error_vs_task_mps": 0.02164859065941352,
+              "wheel_target_equivalent_mps": 0.612699080816527,
+              "wheel_actual_equivalent_mps": 0.5989385168097632,
+              "wheel_tracking_error_mps": 0.013760564006763832,
+              "wheel_body_slip_proxy_mps": -0.022325770489708407,
+              "target_body_error_mps": -0.00856520648294458,
+              "wheel_integral_mean_nm": 1.1513076538120977,
+              "wheel_p_mean_nm": -0.21659142830434563,
+              "wheel_request_mean_nm": 0.9347162255077518,
+              "wheel_safe_mean_nm": 0.9347162255077518,
+              "wheel_native_applied_mean_nm": 0.9347162255077518,
+              "common_wheel_scalar_nm": -0.5645597135328565,
+              "pitch_rad": 0.006729726981886378,
+              "pitch_target_error_rad": 0.006729726981886378,
+              "x_m": -7.357193002721844,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.14588563174009322
+            },
+            "rms_body_error_vs_task_mps": 0.02258929494244338,
+            "rms_body_error_vs_servo_mps": 0.02258929494244338,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.942091015256665e-15,
+            "ground_geom_counts": {
+              "floor": 100
+            },
+            "tick_spans": [
+              [
+                295,
+                395
+              ]
+            ]
+          },
+          "hold_quarter_2": {
+            "count": 100,
+            "tick_bounds": [
+              395,
+              495
+            ],
+            "mean": {
+              "raw_mps": 0.6,
+              "servo_mps": 0.6,
+              "body_pre_mps": 0.6214814035958947,
+              "body_post_mps": 0.6214318341890837,
+              "body_error_vs_servo_mps": 0.021431834189083673,
+              "body_error_vs_task_mps": 0.021431834189083673,
+              "wheel_target_equivalent_mps": 0.6128322488176586,
+              "wheel_actual_equivalent_mps": 0.6165504783203426,
+              "wheel_tracking_error_mps": -0.003718229502683864,
+              "wheel_body_slip_proxy_mps": -0.004930925275552083,
+              "target_body_error_mps": -0.00864915477823595,
+              "wheel_integral_mean_nm": 1.1221919093663095,
+              "wheel_p_mean_nm": -0.21871425875998962,
+              "wheel_request_mean_nm": 0.9034776506063199,
+              "wheel_safe_mean_nm": 0.9034776506063199,
+              "wheel_native_applied_mean_nm": 0.9034776506063199,
+              "common_wheel_scalar_nm": -0.12469006443924834,
+              "pitch_rad": 0.012020053602242821,
+              "pitch_target_error_rad": 0.012020053602242821,
+              "x_m": -6.733829056292007,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.1474758952856064
+            },
+            "rms_body_error_vs_task_mps": 0.02148089080011625,
+            "rms_body_error_vs_servo_mps": 0.02148089080011625,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.9698465908722937e-15,
+            "ground_geom_counts": {
+              "floor": 100
+            },
+            "tick_spans": [
+              [
+                395,
+                495
+              ]
+            ]
+          },
+          "hold_quarter_3": {
+            "count": 100,
+            "tick_bounds": [
+              495,
+              595
+            ],
+            "mean": {
+              "raw_mps": 0.6,
+              "servo_mps": 0.6,
+              "body_pre_mps": 0.6180010417439435,
+              "body_post_mps": 0.6179789732712829,
+              "body_error_vs_servo_mps": 0.01797897327128298,
+              "body_error_vs_task_mps": 0.01797897327128298,
+              "wheel_target_equivalent_mps": 0.6128506491307845,
+              "wheel_actual_equivalent_mps": 0.6144778647480488,
+              "wheel_tracking_error_mps": -0.0016272156172643204,
+              "wheel_body_slip_proxy_mps": -0.0035231769958947168,
+              "target_body_error_mps": -0.005150392613159035,
+              "wheel_integral_mean_nm": 1.0338546824829167,
+              "wheel_p_mean_nm": -0.13023981320632042,
+              "wheel_request_mean_nm": 0.9036148692765962,
+              "wheel_safe_mean_nm": 0.9036148692765962,
+              "wheel_native_applied_mean_nm": 0.9036148692765962,
+              "common_wheel_scalar_nm": -0.08909183208009626,
+              "pitch_rad": 0.01530450392778907,
+              "pitch_target_error_rad": 0.01530450392778907,
+              "x_m": -6.114258349612685,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.14765004705637694
+            },
+            "rms_body_error_vs_task_mps": 0.01799018881833006,
+            "rms_body_error_vs_servo_mps": 0.01799018881833006,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.914335439641036e-15,
+            "ground_geom_counts": {
+              "floor": 100
+            },
+            "tick_spans": [
+              [
+                495,
+                595
+              ]
+            ]
+          },
+          "hold_quarter_4": {
+            "count": 100,
+            "tick_bounds": [
+              595,
+              695
+            ],
+            "mean": {
+              "raw_mps": 0.6,
+              "servo_mps": 0.6,
+              "body_pre_mps": 0.6166210247529084,
+              "body_post_mps": 0.6166138106882446,
+              "body_error_vs_servo_mps": 0.01661381068824461,
+              "body_error_vs_task_mps": 0.01661381068824461,
+              "wheel_target_equivalent_mps": 0.6128606228094826,
+              "wheel_actual_equivalent_mps": 0.6133904778815239,
+              "wheel_tracking_error_mps": -0.0005298550720412441,
+              "wheel_body_slip_proxy_mps": -0.003230546871384431,
+              "target_body_error_mps": -0.0037604019434256774,
+              "wheel_integral_mean_nm": 0.99919257373945,
+              "wheel_p_mean_nm": -0.09509062385674136,
+              "wheel_request_mean_nm": 0.9041019498827088,
+              "wheel_safe_mean_nm": 0.9041019498827088,
+              "wheel_native_applied_mean_nm": 0.9041019498827088,
+              "common_wheel_scalar_nm": -0.08169198985110068,
+              "pitch_rad": 0.018075785559287287,
+              "pitch_target_error_rad": 0.018075785559287287,
+              "x_m": -5.496964293693368,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.14778564482927323
+            },
+            "rms_body_error_vs_task_mps": 0.016615136419033588,
+            "rms_body_error_vs_servo_mps": 0.016615136419033588,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.456368441983159e-15,
+            "ground_geom_counts": {
+              "floor": 100
+            },
+            "tick_spans": [
+              [
+                595,
+                695
+              ]
+            ]
+          }
+        },
+        "by_base_ground_query_geom": {
+          "floor": {
+            "count": 1600,
+            "tick_bounds": [
+              0,
+              1600
+            ],
+            "mean": {
+              "raw_mps": 0.195,
+              "servo_mps": 0.195,
+              "body_pre_mps": 0.1996211796167121,
+              "body_post_mps": 0.19962111177068695,
+              "body_error_vs_servo_mps": 0.0046211117706869784,
+              "body_error_vs_task_mps": -0.400378888229313,
+              "wheel_target_equivalent_mps": 0.19886495688430922,
+              "wheel_actual_equivalent_mps": 0.19880654599071051,
+              "wheel_tracking_error_mps": 5.841089359872676e-05,
+              "wheel_body_slip_proxy_mps": -0.0008146336260016117,
+              "target_body_error_mps": -0.0007562227324028854,
+              "wheel_integral_mean_nm": 0.4078254535882501,
+              "wheel_p_mean_nm": -0.05373930577353306,
+              "wheel_request_mean_nm": 0.35408614781471703,
+              "wheel_safe_mean_nm": 0.35408614781471703,
+              "wheel_native_applied_mean_nm": 0.35408614781471703,
+              "common_wheel_scalar_nm": -0.05521636285304112,
+              "pitch_rad": 0.010362047135805954,
+              "pitch_target_error_rad": 0.010362047135805954,
+              "x_m": -5.800647536041046,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.044406631102301614
+            },
+            "rms_body_error_vs_task_mps": 0.4847656700770546,
+            "rms_body_error_vs_servo_mps": 0.016203031675667785,
+            "flag_fraction": {
+              "body_common_p_active": 0.399375,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.9698465908722937e-15,
+            "ground_geom_counts": {
+              "floor": 1600
+            },
+            "tick_spans": [
+              [
+                0,
+                1600
+              ]
+            ]
+          }
+        },
+        "ramp_loaded_ticks": {
+          "count": 0
+        },
+        "identity_max_abs_error_nm": 2.9698465908722937e-15
+      },
+      "grouped_continue": {
+        "case_id": "flat_0p6",
+        "actor": "grouped_continue",
+        "seed": 151101,
+        "raw_command_sha256": "b43d0e04541ef95b45f138101b4903c56f1c5370628dbaa2f0171757745036fa",
+        "hold_window": [
+          295,
+          695
+        ],
+        "release_tick": 695,
+        "windows": {
+          "pre_command": {
+            "count": 175,
+            "tick_bounds": [
+              0,
+              175
+            ],
+            "mean": {
+              "raw_mps": 0.0,
+              "servo_mps": 0.0,
+              "body_pre_mps": 0.00042635691112480974,
+              "body_post_mps": 0.00042701007693788165,
+              "body_error_vs_servo_mps": 0.00042701007693788165,
+              "body_error_vs_task_mps": -0.5995729899230622,
+              "wheel_target_equivalent_mps": -4.3281819130568584e-10,
+              "wheel_actual_equivalent_mps": 2.0672699667114472e-05,
+              "wheel_tracking_error_mps": -2.067313248530578e-05,
+              "wheel_body_slip_proxy_mps": -0.0004056842114576953,
+              "target_body_error_mps": -0.0004263573439430011,
+              "wheel_integral_mean_nm": -0.0012456273156259184,
+              "wheel_p_mean_nm": -0.000522768867444514,
+              "wheel_request_mean_nm": -0.0017683961830704331,
+              "wheel_safe_mean_nm": -0.0017683961830704331,
+              "wheel_native_applied_mean_nm": -0.0017683961830704334,
+              "common_wheel_scalar_nm": 0.0,
+              "pitch_rad": 0.00017762526669197346,
+              "pitch_target_error_rad": 0.00017762526669197346,
+              "x_m": -7.99934786789061,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.0
+            },
+            "rms_body_error_vs_task_mps": 0.5995754703568061,
+            "rms_body_error_vs_servo_mps": 0.001776723363610381,
+            "flag_fraction": {
+              "body_common_p_active": 0.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 1.1102230246251565e-16,
+            "ground_geom_counts": {
+              "floor": 175
+            },
+            "tick_spans": [
+              [
+                0,
+                175
+              ]
+            ]
+          },
+          "drive_before_hold": {
+            "count": 120,
+            "tick_bounds": [
+              175,
+              295
+            ],
+            "mean": {
+              "raw_mps": 0.6,
+              "servo_mps": 0.30250000000000016,
+              "body_pre_mps": 0.2701506252158253,
+              "body_post_mps": 0.2749774126618067,
+              "body_error_vs_servo_mps": -0.02752258733819347,
+              "body_error_vs_task_mps": -0.3250225873381933,
+              "wheel_target_equivalent_mps": 0.3108336795495042,
+              "wheel_actual_equivalent_mps": 0.29438828118659305,
+              "wheel_tracking_error_mps": 0.016445398362911125,
+              "wheel_body_slip_proxy_mps": 0.02423765597076779,
+              "target_body_error_mps": 0.04068305433367892,
+              "wheel_integral_mean_nm": 0.11829228798062504,
+              "wheel_p_mean_nm": 1.0287668911964787,
+              "wheel_request_mean_nm": 1.1470591791771034,
+              "wheel_safe_mean_nm": 1.1470591791771034,
+              "wheel_native_applied_mean_nm": 1.1470591791771034,
+              "common_wheel_scalar_nm": 0.6129062429389557,
+              "pitch_rad": -0.00933291419459288,
+              "pitch_target_error_rad": -0.00933291419459288,
+              "x_m": -7.8946617358268165,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.09574236133388088
+            },
+            "rms_body_error_vs_task_mps": 0.36909396064085404,
+            "rms_body_error_vs_servo_mps": 0.02792517745397618,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.6645352591003757e-15,
+            "ground_geom_counts": {
+              "floor": 120
+            },
+            "tick_spans": [
+              [
+                175,
+                295
+              ]
+            ]
+          },
+          "hold": {
+            "count": 400,
+            "tick_bounds": [
+              295,
+              695
+            ],
+            "mean": {
+              "raw_mps": 0.6,
+              "servo_mps": 0.6,
+              "body_pre_mps": 0.6126930071450911,
+              "body_post_mps": 0.6127685489071858,
+              "body_error_vs_servo_mps": 0.012768548907185834,
+              "body_error_vs_task_mps": 0.012768548907185834,
+              "wheel_target_equivalent_mps": 0.6066362544471307,
+              "wheel_actual_equivalent_mps": 0.6044233511643509,
+              "wheel_tracking_error_mps": 0.0022129032827797653,
+              "wheel_body_slip_proxy_mps": -0.008269655980740203,
+              "target_body_error_mps": -0.006056752697960437,
+              "wheel_integral_mean_nm": 1.0571629857463591,
+              "wheel_p_mean_nm": -0.15315926362658575,
+              "wheel_request_mean_nm": 0.9040037221197735,
+              "wheel_safe_mean_nm": 0.9040037221197735,
+              "wheel_native_applied_mean_nm": 0.9040037221197735,
+              "common_wheel_scalar_nm": -0.20911773744400508,
+              "pitch_rad": 0.005461881383613468,
+              "pitch_target_error_rad": 0.005461881383613468,
+              "x_m": -6.44105762440349,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.0762877778604161
+            },
+            "rms_body_error_vs_task_mps": 0.013333808432550607,
+            "rms_body_error_vs_servo_mps": 0.013333808432550607,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.831068712794149e-15,
+            "ground_geom_counts": {
+              "floor": 400
+            },
+            "tick_spans": [
+              [
+                295,
+                695
+              ]
+            ]
+          },
+          "drive_after_hold": {
+            "count": 0
+          },
+          "release_to_end": {
+            "count": 905,
+            "tick_bounds": [
+              695,
+              1600
+            ],
+            "mean": {
+              "raw_mps": 0.0,
+              "servo_mps": 0.03944751381215466,
+              "body_pre_mps": 0.04354248186902833,
+              "body_post_mps": 0.04286924883112296,
+              "body_error_vs_servo_mps": 0.0034217350189683043,
+              "body_error_vs_task_mps": -0.557130751168877,
+              "wheel_target_equivalent_mps": 0.03944828642211275,
+              "wheel_actual_equivalent_mps": 0.042389960646168956,
+              "wheel_tracking_error_mps": -0.0029416742240562163,
+              "wheel_body_slip_proxy_mps": -0.001152521222859377,
+              "target_body_error_mps": -0.004094195446915593,
+              "wheel_integral_mean_nm": 0.25352057271816975,
+              "wheel_p_mean_nm": -0.15765555405386517,
+              "wheel_request_mean_nm": 0.09586501866430461,
+              "wheel_safe_mean_nm": 0.09586501866430461,
+              "wheel_native_applied_mean_nm": 0.09586501866430461,
+              "common_wheel_scalar_nm": -0.08326838976738611,
+              "pitch_rad": 0.009904865219471547,
+              "pitch_target_error_rad": 0.009904865219471547,
+              "x_m": -4.8481464981227775,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.0
+            },
+            "rms_body_error_vs_task_mps": 0.5720333851489966,
+            "rms_body_error_vs_servo_mps": 0.01438868773580054,
+            "flag_fraction": {
+              "body_common_p_active": 0.13149171270718232,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.6645352591003757e-15,
+            "ground_geom_counts": {
+              "floor": 905
+            },
+            "tick_spans": [
+              [
+                695,
+                1600
+              ]
+            ]
+          },
+          "hold_quarter_1": {
+            "count": 100,
+            "tick_bounds": [
+              295,
+              395
+            ],
+            "mean": {
+              "raw_mps": 0.6,
+              "servo_mps": 0.6,
+              "body_pre_mps": 0.6143445974082172,
+              "body_post_mps": 0.6147248650227515,
+              "body_error_vs_servo_mps": 0.01472486502275157,
+              "body_error_vs_task_mps": 0.01472486502275157,
+              "wheel_target_equivalent_mps": 0.6069417087286949,
+              "wheel_actual_equivalent_mps": 0.5928498877833716,
+              "wheel_tracking_error_mps": 0.014091820945323357,
+              "wheel_body_slip_proxy_mps": -0.02149470962484564,
+              "target_body_error_mps": -0.0074028886795222725,
+              "wheel_integral_mean_nm": 1.1138575262267276,
+              "wheel_p_mean_nm": -0.1871994838499888,
+              "wheel_request_mean_nm": 0.926658042376739,
+              "wheel_safe_mean_nm": 0.926658042376739,
+              "wheel_native_applied_mean_nm": 0.926658042376739,
+              "common_wheel_scalar_nm": -0.5435443813179359,
+              "pitch_rad": -0.00024391332882825023,
+              "pitch_target_error_rad": -0.00024391332882825023,
+              "x_m": -7.362553910099186,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.0798020745627582
+            },
+            "rms_body_error_vs_task_mps": 0.01603066407395814,
+            "rms_body_error_vs_servo_mps": 0.01603066407395814,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.67841304690819e-15,
+            "ground_geom_counts": {
+              "floor": 100
+            },
+            "tick_spans": [
+              [
+                295,
+                395
+              ]
+            ]
+          },
+          "hold_quarter_2": {
+            "count": 100,
+            "tick_bounds": [
+              395,
+              495
+            ],
+            "mean": {
+              "raw_mps": 0.6,
+              "servo_mps": 0.6,
+              "body_pre_mps": 0.6147969598607924,
+              "body_post_mps": 0.6147502607249413,
+              "body_error_vs_servo_mps": 0.014750260724941355,
+              "body_error_vs_task_mps": 0.014750260724941355,
+              "wheel_target_equivalent_mps": 0.6067951194191972,
+              "wheel_actual_equivalent_mps": 0.6101798630434192,
+              "wheel_tracking_error_mps": -0.0033847436242221336,
+              "wheel_body_slip_proxy_mps": -0.004617096817373187,
+              "target_body_error_mps": -0.008001840441595319,
+              "wheel_integral_mean_nm": 1.0989418668401538,
+              "wheel_p_mean_nm": -0.20234539047712288,
+              "wheel_request_mean_nm": 0.8965964763630311,
+              "wheel_safe_mean_nm": 0.8965964763630311,
+              "wheel_native_applied_mean_nm": 0.8965964763630311,
+              "common_wheel_scalar_nm": -0.11675417239334468,
+              "pitch_rad": 0.004009845373197946,
+              "pitch_target_error_rad": 0.004009845373197946,
+              "x_m": -6.746102310946152,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.07812394856940955
+            },
+            "rms_body_error_vs_task_mps": 0.014813194253682025,
+            "rms_body_error_vs_servo_mps": 0.014813194253682025,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.831068712794149e-15,
+            "ground_geom_counts": {
+              "floor": 100
+            },
+            "tick_spans": [
+              [
+                395,
+                495
+              ]
+            ]
+          },
+          "hold_quarter_3": {
+            "count": 100,
+            "tick_bounds": [
+              495,
+              595
+            ],
+            "mean": {
+              "raw_mps": 0.6,
+              "servo_mps": 0.6,
+              "body_pre_mps": 0.6115455409874994,
+              "body_post_mps": 0.6115254071624332,
+              "body_error_vs_servo_mps": 0.011525407162433277,
+              "body_error_vs_task_mps": 0.011525407162433277,
+              "wheel_target_equivalent_mps": 0.6065692042579272,
+              "wheel_actual_equivalent_mps": 0.6078451957034626,
+              "wheel_tracking_error_mps": -0.0012759914455354932,
+              "wheel_body_slip_proxy_mps": -0.0037003452840366846,
+              "target_body_error_mps": -0.004976336729572181,
+              "wheel_integral_mean_nm": 1.0224226524451163,
+              "wheel_p_mean_nm": -0.12583840005814706,
+              "wheel_request_mean_nm": 0.8965842523869694,
+              "wheel_safe_mean_nm": 0.8965842523869694,
+              "wheel_native_applied_mean_nm": 0.8965842523869694,
+              "common_wheel_scalar_nm": -0.09357194971127235,
+              "pitch_rad": 0.007407677142460411,
+              "pitch_target_error_rad": 0.007407677142460411,
+              "x_m": -6.133169167930543,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.07552244886755943
+            },
+            "rms_body_error_vs_task_mps": 0.01153954188021514,
+            "rms_body_error_vs_servo_mps": 0.01153954188021514,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.525757381022231e-15,
+            "ground_geom_counts": {
+              "floor": 100
+            },
+            "tick_spans": [
+              [
+                495,
+                595
+              ]
+            ]
+          },
+          "hold_quarter_4": {
+            "count": 100,
+            "tick_bounds": [
+              595,
+              695
+            ],
+            "mean": {
+              "raw_mps": 0.6,
+              "servo_mps": 0.6,
+              "body_pre_mps": 0.6100849303238554,
+              "body_post_mps": 0.6100736627186172,
+              "body_error_vs_servo_mps": 0.010073662718617133,
+              "body_error_vs_task_mps": 0.010073662718617133,
+              "wheel_target_equivalent_mps": 0.6062389853827033,
+              "wheel_actual_equivalent_mps": 0.60681845812715,
+              "wheel_tracking_error_mps": -0.0005794727444466708,
+              "wheel_body_slip_proxy_mps": -0.003266472196705297,
+              "target_body_error_mps": -0.003845944941151974,
+              "wheel_integral_mean_nm": 0.993429897473439,
+              "wheel_p_mean_nm": -0.09725378012108424,
+              "wheel_request_mean_nm": 0.8961761173523548,
+              "wheel_safe_mean_nm": 0.8961761173523548,
+              "wheel_native_applied_mean_nm": 0.8961761173523548,
+              "common_wheel_scalar_nm": -0.08260044635346737,
+              "pitch_rad": 0.010673916347623767,
+              "pitch_target_error_rad": 0.010673916347623767,
+              "x_m": -5.522405108638077,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.07170263944193721
+            },
+            "rms_body_error_vs_task_mps": 0.01007907971042898,
+            "rms_body_error_vs_servo_mps": 0.01007907971042898,
+            "flag_fraction": {
+              "body_common_p_active": 1.0,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.4841240175987878e-15,
+            "ground_geom_counts": {
+              "floor": 100
+            },
+            "tick_spans": [
+              [
+                595,
+                695
+              ]
+            ]
+          }
+        },
+        "by_base_ground_query_geom": {
+          "floor": {
+            "count": 1600,
+            "tick_bounds": [
+              0,
+              1600
+            ],
+            "mean": {
+              "raw_mps": 0.195,
+              "servo_mps": 0.195,
+              "body_pre_mps": 0.19810989777178312,
+              "body_post_mps": 0.19811006627370098,
+              "body_error_vs_servo_mps": 0.003110066273700976,
+              "body_error_vs_task_mps": -0.401889933726299,
+              "wheel_target_equivalent_mps": 0.1972845265381635,
+              "wheel_actual_equivalent_mps": 0.1971640414470976,
+              "wheel_tracking_error_mps": 0.00012048509106589812,
+              "wheel_body_slip_proxy_mps": -0.0009458563246854868,
+              "target_body_error_mps": -0.0008253712336195882,
+              "wheel_integral_mean_nm": 0.41642400149120484,
+              "wheel_p_mean_nm": -0.05036339967350477,
+              "wheel_request_mean_nm": 0.3660606018177001,
+              "wheel_safe_mean_nm": 0.3660606018177001,
+              "wheel_native_applied_mean_nm": 0.3660606018177001,
+              "common_wheel_scalar_nm": -0.05341014910275736,
+              "pitch_rad": 0.00628736893461693,
+              "pitch_target_error_rad": 0.00628736893461693,
+              "x_m": -5.819525572339115,
+              "ramp_load_count": 0.0,
+              "applied_wheel_residual_mean_rad_s": 0.02625262156514509
+            },
+            "rms_body_error_vs_task_mps": 0.48442344856297564,
+            "rms_body_error_vs_servo_mps": 0.01484529695554772,
+            "flag_fraction": {
+              "body_common_p_active": 0.399375,
+              "wheel_target_clipped": 0.0,
+              "wheel_torque_clipped": 0.0,
+              "wheel_protected": 0.0,
+              "support_force_clipped": 0.0,
+              "native_wheel_limited": 0.0,
+              "native_wheel_delayed": 0.0
+            },
+            "integral_commit_all_fraction": 1.0,
+            "max_p_identity_abs_error_nm": 2.831068712794149e-15,
+            "ground_geom_counts": {
+              "floor": 1600
+            },
+            "tick_spans": [
+              [
+                0,
+                1600
+              ]
+            ]
+          }
+        },
+        "ramp_loaded_ticks": {
+          "count": 0
+        },
+        "identity_max_abs_error_nm": 2.831068712794149e-15
+      }
+    }
+  },
+  "ramp_speed_gate": {
+    "zero": {
+      "target_mps": 0.45,
+      "mean_tolerance_mps": 0.04,
+      "rms_limit_mps": 0.05,
+      "mean_body_com_vx_mps": 0.49719613249187555,
+      "hold_vx_rms_mps": 0.050255488507630515,
+      "passed": false,
+      "matches_official_c16": true
+    },
+    "global_continue": {
+      "target_mps": 0.45,
+      "mean_tolerance_mps": 0.04,
+      "rms_limit_mps": 0.05,
+      "mean_body_com_vx_mps": 0.5166333847571124,
+      "hold_vx_rms_mps": 0.06915876796032443,
+      "passed": false,
+      "matches_official_c16": true
+    },
+    "grouped_continue": {
+      "target_mps": 0.45,
+      "mean_tolerance_mps": 0.04,
+      "rms_limit_mps": 0.05,
+      "mean_body_com_vx_mps": 0.5100704191364539,
+      "hold_vx_rms_mps": 0.06236856804423052,
+      "passed": false,
+      "matches_official_c16": true
+    }
+  },
+  "paired_hold_ramp_minus_flat": {
+    "zero": {
+      "body_error_vs_task_mps": 0.04134607401549218,
+      "body_error_vs_servo_mps": 0.04134607401549218,
+      "wheel_tracking_error_mps": -0.01801430630873388,
+      "wheel_body_slip_proxy_mps": -0.023341276794178245,
+      "target_body_error_mps": -0.04135558310291211,
+      "wheel_integral_mean_nm": 0.4284258877812508,
+      "wheel_p_mean_nm": -1.0457733658207666,
+      "wheel_native_applied_mean_nm": -0.6173474780395161,
+      "pitch_target_error_rad": 0.039166394310368044,
+      "applied_wheel_residual_mean_rad_s": 0.0
+    },
+    "global_continue": {
+      "body_error_vs_task_mps": 0.047215082555106154,
+      "body_error_vs_servo_mps": 0.047215082555106154,
+      "wheel_tracking_error_mps": -0.01765969038605285,
+      "wheel_body_slip_proxy_mps": -0.028209544196354328,
+      "target_body_error_mps": -0.045869234582407166,
+      "wheel_integral_mean_nm": 0.5013167392241962,
+      "wheel_p_mean_nm": -1.1599116790953539,
+      "wheel_native_applied_mean_nm": -0.6585949398711577,
+      "pitch_target_error_rad": 0.04838009421541706,
+      "applied_wheel_residual_mean_rad_s": 0.015528360203898056
+    },
+    "grouped_continue": {
+      "body_error_vs_task_mps": 0.0473018702292681,
+      "body_error_vs_servo_mps": 0.0473018702292681,
+      "wheel_tracking_error_mps": -0.018766568724917734,
+      "wheel_body_slip_proxy_mps": -0.02361426397618696,
+      "target_body_error_mps": -0.042380832701104695,
+      "wheel_integral_mean_nm": 0.4089016053393957,
+      "wheel_p_mean_nm": -1.0716992177290845,
+      "wheel_native_applied_mean_nm": -0.6627976123896889,
+      "pitch_target_error_rad": 0.035957993202376165,
+      "applied_wheel_residual_mean_rad_s": 0.05689222952700221
+    }
+  }
+}

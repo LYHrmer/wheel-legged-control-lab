@@ -1,0 +1,76 @@
+{
+  "schema": "d1-continuation-state-18-v1",
+  "work_directory": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation18",
+  "status": "fixed_script_turning_ramp_and_seven_scene_qualification_complete_ready_for_publication",
+  "grouped_task_scenes_passed": 7,
+  "zero_task_scenes_passed": 7,
+  "RL_contribution_passed": false,
+  "qualified_for_default_GUI": false,
+  "actual_counts_C17_plus_C18": {
+    "actor_rows": 38056,
+    "actual_controls": 60600,
+    "actual_normal_native": 303000,
+    "compiler_native_returns": 16,
+    "critic_rows": 0,
+    "policy_load_calls": 8,
+    "predict_api_calls": 37808,
+    "torch_load_calls": 24
+  },
+  "actual_counts_C18": {
+    "actor_rows": 16696,
+    "actual_controls": 28000,
+    "actual_normal_native": 140000,
+    "compiler_native_returns": 6,
+    "critic_rows": 0,
+    "policy_load_calls": 3,
+    "predict_api_calls": 16603,
+    "reserved_controls": 28000,
+    "reserved_normal_native": 140000,
+    "torch_load_calls": 9,
+    "training_calls": 0
+  },
+  "training_calls": 0,
+  "new_checkpoints": 0,
+  "fixed_checkpoint_sha256": "1fcfe833d8a7cfdbbc224c9007a35e44c035674ce948b51557434b77838476fb",
+  "all_reservations_closed": true,
+  "original77_and_frozen_sources_unchanged": true,
+  "all_owned_physics_workers_reaped": true,
+  "scientific_boundary": "Fixed oracle deterministic scripts; seed identifiers are not independent physical randomization; baseline controller repair is not PPO training gain.",
+  "C17_failed_rough_regression_preserved": true,
+  "unqualified": [
+    "default GUI",
+    "free keyboard",
+    "physical single15mm step",
+    "lateral and jump",
+    "noise/delay/initial-state robustness",
+    "hardware",
+    "physical self-righting"
+  ],
+  "R_behavior": "simulation reset",
+  "do_not_repeat": [
+    "historical65k/G1/flatjump batches",
+    "C14 value-gradient diagnosis",
+    "C15 two training arms and failed eval",
+    "C16 eval",
+    "C17 development/qualification",
+    "C18 development/qualification"
+  ],
+  "next_direction": {
+    "status": "proposed_not_executed",
+    "description": "Freeze C18 baseline; address current learned residual yaw and bumps SSE regressions using verified command coverage and a preregistered bounded training/evaluation comparison with zero anchor. No new training or physics budget is reserved by this state.",
+    "review": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation18/final_review_17_18.md"
+  },
+  "publication": {
+    "status_at_state_creation": "ready_not_yet_pushed",
+    "target": "GitHub main via SSH443",
+    "main_report": "docs/main_route_execution_20260930_17_18.md",
+    "package": "results/d1_main_route_execution_20260930_17_18",
+    "receipt_after_actual_push_and_CI": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation18/final_publication_receipt_17_18.json"
+  },
+  "actual_roles": {
+    "direction_review": "gpt-6-astra ultra",
+    "bounded_code_and_data": "gpt-6-sol high",
+    "integration_actual_tests_physics_budget_publication": "root",
+    "Claude_new_execution": false
+  }
+}

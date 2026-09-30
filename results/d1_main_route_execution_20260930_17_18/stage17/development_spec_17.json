@@ -1,0 +1,78 @@
+{
+  "plan_filename": "plan_go_B17.json",
+  "contract_filename": "intervention_contract_17.md",
+  "go_filename": "go_B17.md",
+  "tests_receipt_filename": "pure_tests_receipt_17.json",
+  "purpose": "single-factor development, not final qualification",
+  "arms": {
+    "baseline": {
+      "controller_variant": "baseline",
+      "floor_seed": 171090,
+      "case_specs": [
+        {
+          "case_id": "flat_1p2_yaw",
+          "seed": 171103,
+          "mirror": false,
+          "horizon": 1600,
+          "actors": [
+            "grouped_continue"
+          ]
+        },
+        {
+          "case_id": "ramp_0p45_complete",
+          "seed": 171106,
+          "mirror": false,
+          "horizon": 1800,
+          "actors": [
+            "grouped_continue"
+          ]
+        }
+      ],
+      "controls": 4000,
+      "soft_s": 600,
+      "close_s": 720,
+      "hard_s": 780,
+      "output_directory": "development_baseline_01"
+    },
+    "yaw": {
+      "controller_variant": "yaw",
+      "floor_seed": 171090,
+      "case_specs": [
+        {
+          "case_id": "flat_1p2_yaw",
+          "seed": 171103,
+          "mirror": false,
+          "horizon": 1600,
+          "actors": [
+            "grouped_continue"
+          ]
+        }
+      ],
+      "controls": 2200,
+      "soft_s": 420,
+      "close_s": 480,
+      "hard_s": 540,
+      "output_directory": "development_yaw_01"
+    },
+    "ramp": {
+      "controller_variant": "ramp",
+      "floor_seed": 171090,
+      "case_specs": [
+        {
+          "case_id": "ramp_0p45_complete",
+          "seed": 171106,
+          "mirror": false,
+          "horizon": 1800,
+          "actors": [
+            "grouped_continue"
+          ]
+        }
+      ],
+      "controls": 2400,
+      "soft_s": 450,
+      "close_s": 510,
+      "hard_s": 570,
+      "output_directory": "development_ramp_01"
+    }
+  }
+}

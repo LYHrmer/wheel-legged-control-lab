@@ -1,0 +1,4539 @@
+{
+  "cautions": [
+    "Different actors produce different trajectories; same-tick subtraction is not a causal counterfactual.",
+    "Wheel torque and target differences are observed controller quantities, not isolated residual contributions.",
+    "Training exposure and heldout associations do not identify a causal training mechanism."
+  ],
+  "differential": "(FR+RR-FL-RL)/2",
+  "execution": {
+    "forbidden_imports_loaded": [],
+    "model_runs": 0,
+    "physics_steps": 0,
+    "wall_elapsed_s": 2.675955924001755
+  },
+  "heldout": {
+    "global_continue": {
+      "servo_phase_by_segment": {
+        "negative": {
+          "plateau_servo_equals_raw": {
+            "action_disabled_fraction": 0.0,
+            "actual_yaw": {
+              "max": -0.09374672257135958,
+              "mean": -0.1177135745109613,
+              "mean_abs": 0.1177135745109613,
+              "min": -0.16342855666912007,
+              "rms": 0.11943702340557096
+            },
+            "applied_wheel_diff": {
+              "max": -0.02470979653298855,
+              "mean": -0.029144027998836915,
+              "mean_abs": 0.029144027998836915,
+              "min": -0.03215572610497475,
+              "rms": 0.029229774781285175
+            },
+            "available": true,
+            "base_torque_diff": {
+              "max": 0.5650724051275053,
+              "mean": -1.325255092625896,
+              "mean_abs": 1.4068990731943036,
+              "min": -3.1184191580237988,
+              "rms": 1.7090761070824314
+            },
+            "count": 101,
+            "effective_nominal_yaw": {
+              "max": -0.6,
+              "mean": -0.6,
+              "mean_abs": 0.6,
+              "min": -0.6,
+              "rms": 0.6
+            },
+            "effective_nominal_yaw_at_0p6_limit_fraction": 1.0,
+            "nominal_diff_opposed_by_effective_residual_fraction": 0.0,
+            "nominal_target_diff": {
+              "max": -2.915017664442816,
+              "mean": -2.9180303471289424,
+              "mean_abs": 2.9180303471289424,
+              "min": -2.924102545209304,
+              "rms": 2.9180315454653067
+            },
+            "raw_wheel_diff": {
+              "max": -0.02470979653298855,
+              "mean": -0.029144027998836915,
+              "mean_abs": 0.029144027998836915,
+              "min": -0.03215572610497475,
+              "rms": 0.029229774781285175
+            },
+            "raw_yaw": {
+              "max": -0.3,
+              "mean": -0.3,
+              "mean_abs": 0.3,
+              "min": -0.3,
+              "rms": 0.3
+            },
+            "request_torque_diff": {
+              "max": 0.5650724051275053,
+              "mean": -1.325255092625896,
+              "mean_abs": 1.4068990731943036,
+              "min": -3.1184191580237988,
+              "rms": 1.7090761070824314
+            },
+            "safe_torque_diff": {
+              "max": 0.5650724051275053,
+              "mean": -1.325255092625896,
+              "mean_abs": 1.4068990731943036,
+              "min": -3.1184191580237988,
+              "rms": 1.7090761070824314
+            },
+            "servo_equals_raw_yaw_fraction": 1.0,
+            "servo_yaw": {
+              "max": -0.3,
+              "mean": -0.3,
+              "mean_abs": 0.3,
+              "min": -0.3,
+              "rms": 0.3
+            },
+            "signed_yaw_error_rps": {
+              "max": 0.2062532774286404,
+              "mean": 0.1822864254890387,
+              "mean_abs": 0.1822864254890387,
+              "min": 0.13657144333087992,
+              "rms": 0.18340408352434828
+            },
+            "ticks": [
+              515,
+              715
+            ],
+            "wheel_error_diff": {
+              "max": -0.5386509815054854,
+              "mean": -0.8620539968906082,
+              "mean_abs": 0.8620539968906082,
+              "min": -1.0334248169720368,
+              "rms": 0.8741525724564962
+            },
+            "wheel_integral_not_committed_fraction": 0.0,
+            "wheel_offset_diff": {
+              "max": -0.0988391861319542,
+              "mean": -0.11657611199534766,
+              "mean_abs": 0.11657611199534766,
+              "min": -0.128622904419899,
+              "rms": 0.1169190991251407
+            },
+            "wheel_protected_fraction": 0.0,
+            "wheel_speed_diff": {
+              "max": -1.9898169841600888,
+              "mean": -2.1725524622336816,
+              "mean_abs": 2.1725524622336816,
+              "min": -2.5118332412564346,
+              "rms": 2.177894670214715
+            },
+            "wheel_target_clipped_fraction": 0.0,
+            "wheel_target_diff": {
+              "max": -3.022941731341258,
+              "mean": -3.0346064591242903,
+              "mean_abs": 3.0346064591242903,
+              "min": -3.050484222761919,
+              "rms": 3.0346159052202815
+            },
+            "wheel_torque_clipped_fraction": 0.0,
+            "yaw_squared_error_share_of_hold": 0.5464958108847356,
+            "yaw_squared_error_sum": 3.3973428431940182
+          },
+          "transition_servo_differs_from_raw": {
+            "action_disabled_fraction": 0.0,
+            "actual_yaw": {
+              "max": 0.12270901336860793,
+              "mean": -0.021408818016731883,
+              "mean_abs": 0.09411198261469927,
+              "min": -0.17094734770350645,
+              "rms": 0.10577132176892136
+            },
+            "applied_wheel_diff": {
+              "max": -0.025717129930853844,
+              "mean": -0.030647289892188227,
+              "mean_abs": 0.030647289892188227,
+              "min": -0.03242547810077667,
+              "rms": 0.030699328938328243
+            },
+            "available": true,
+            "base_torque_diff": {
+              "max": 4.002203427956532,
+              "mean": 2.639820586328552,
+              "mean_abs": 2.639820586328552,
+              "min": 0.6042226027359456,
+              "rms": 2.8208657840257145
+            },
+            "count": 99,
+            "effective_nominal_yaw": {
+              "max": 0.6,
+              "mean": 0.05065322020393572,
+              "mean_abs": 0.33750844429882754,
+              "min": -0.6,
+              "rms": 0.39235052630053124
+            },
+            "effective_nominal_yaw_at_0p6_limit_fraction": 0.2222222222222222,
+            "nominal_diff_opposed_by_effective_residual_fraction": 0.5454545454545454,
+            "nominal_target_diff": {
+              "max": 2.978147312698743,
+              "mean": 0.2595242098130998,
+              "mean_abs": 1.6601634571095525,
+              "min": -2.9257369949508467,
+              "rms": 1.9307851460735195
+            },
+            "raw_wheel_diff": {
+              "max": -0.025717129930853844,
+              "mean": -0.030647289892188227,
+              "mean_abs": 0.030647289892188227,
+              "min": -0.03242547810077667,
+              "rms": 0.030699328938328243
+            },
+            "raw_yaw": {
+              "max": -0.3,
+              "mean": -0.29999999999999993,
+              "mean_abs": 0.29999999999999993,
+              "min": -0.3,
+              "rms": 0.3
+            },
+            "request_torque_diff": {
+              "max": 4.002203427956532,
+              "mean": 2.639820586328552,
+              "mean_abs": 2.639820586328552,
+              "min": 0.6042226027359456,
+              "rms": 2.8208657840257145
+            },
+            "safe_torque_diff": {
+              "max": 4.002203427956532,
+              "mean": 2.639820586328552,
+              "mean_abs": 2.639820586328552,
+              "min": 0.6042226027359456,
+              "rms": 2.8208657840257145
+            },
+            "servo_equals_raw_yaw_fraction": 0.0,
+            "servo_yaw": {
+              "max": 0.294,
+              "mean": -1.9176579516252704e-16,
+              "mean_abs": 0.14848484848484858,
+              "min": -0.29400000000000037,
+              "rms": 0.17146428199482258
+            },
+            "signed_yaw_error_rps": {
+              "max": 0.12837418119843405,
+              "mean": -0.02140881801673168,
+              "mean_abs": 0.05884816825614893,
+              "min": -0.18286526077591295,
+              "rms": 0.0737909766277066
+            },
+            "ticks": [
+              515,
+              715
+            ],
+            "wheel_error_diff": {
+              "max": 0.9959918199868412,
+              "mean": 0.3193575582771037,
+              "mean_abs": 0.492244280853888,
+              "min": -0.5282006777949055,
+              "rms": 0.567597819870053
+            },
+            "wheel_integral_not_committed_fraction": 0.0,
+            "wheel_offset_diff": {
+              "max": -0.10286851972341537,
+              "mean": -0.12258915956875291,
+              "mean_abs": 0.12258915956875291,
+              "min": -0.1297019124031067,
+              "rms": 0.12279731575331297
+            },
+            "wheel_protected_fraction": 0.0,
+            "wheel_speed_diff": {
+              "max": 1.9404884452007565,
+              "mean": -0.18242250803275697,
+              "mean_abs": 1.2567482743327887,
+              "min": -2.579961771494701,
+              "rms": 1.4649906059319402
+            },
+            "wheel_target_clipped_fraction": 0.0,
+            "wheel_target_diff": {
+              "max": 2.8709452687081187,
+              "mean": 0.1369350502443469,
+              "mean_abs": 1.6533811707875297,
+              "min": -3.0554107516098776,
+              "rms": 1.9245370020309271
+            },
+            "wheel_torque_clipped_fraction": 0.0,
+            "yaw_squared_error_share_of_hold": 0.08671399049229223,
+            "yaw_squared_error_sum": 0.5390657149354036
+          }
+        },
+        "positive_1": {
+          "plateau_servo_equals_raw": {
+            "action_disabled_fraction": 0.0,
+            "actual_yaw": {
+              "max": 0.1763744968051549,
+              "mean": 0.13714746969985048,
+              "mean_abs": 0.13714746969985048,
+              "min": 0.11132678050039338,
+              "rms": 0.13869169044448587
+            },
+            "applied_wheel_diff": {
+              "max": -0.024169111624360085,
+              "mean": -0.025491492494064218,
+              "mean_abs": 0.025491492494064218,
+              "min": -0.027030929923057556,
+              "rms": 0.025504165249306557
+            },
+            "available": true,
+            "base_torque_diff": {
+              "max": 3.739060590770456,
+              "mean": 2.9723576265179776,
+              "mean_abs": 2.9723576265179776,
+              "min": 2.1632453198975186,
+              "rms": 3.0101071699547712
+            },
+            "count": 51,
+            "effective_nominal_yaw": {
+              "max": 0.6,
+              "mean": 0.6000000000000001,
+              "mean_abs": 0.6000000000000001,
+              "min": 0.6,
+              "rms": 0.6
+            },
+            "effective_nominal_yaw_at_0p6_limit_fraction": 1.0,
+            "nominal_diff_opposed_by_effective_residual_fraction": 1.0,
+            "nominal_target_diff": {
+              "max": 2.977987915551518,
+              "mean": 2.9754082300006925,
+              "mean_abs": 2.9754082300006925,
+              "min": 2.973013089746596,
+              "rms": 2.975408620423726
+            },
+            "raw_wheel_diff": {
+              "max": -0.024169111624360085,
+              "mean": -0.025491492494064218,
+              "mean_abs": 0.025491492494064218,
+              "min": -0.027030929923057556,
+              "rms": 0.025504165249306557
+            },
+            "raw_yaw": {
+              "max": 0.3,
+              "mean": 0.30000000000000004,
+              "mean_abs": 0.30000000000000004,
+              "min": 0.3,
+              "rms": 0.3
+            },
+            "request_torque_diff": {
+              "max": 3.739060590770456,
+              "mean": 2.9723576265179776,
+              "mean_abs": 2.9723576265179776,
+              "min": 2.1632453198975186,
+              "rms": 3.0101071699547712
+            },
+            "safe_torque_diff": {
+              "max": 3.739060590770456,
+              "mean": 2.9723576265179776,
+              "mean_abs": 2.9723576265179776,
+              "min": 2.1632453198975186,
+              "rms": 3.0101071699547712
+            },
+            "servo_equals_raw_yaw_fraction": 1.0,
+            "servo_yaw": {
+              "max": 0.3,
+              "mean": 0.30000000000000004,
+              "mean_abs": 0.30000000000000004,
+              "min": 0.3,
+              "rms": 0.3
+            },
+            "signed_yaw_error_rps": {
+              "max": -0.12362550319484508,
+              "mean": -0.16285253030014957,
+              "mean_abs": 0.16285253030014957,
+              "min": -0.1886732194996066,
+              "rms": 0.16415511925748405
+            },
+            "ticks": [
+              415,
+              515
+            ],
+            "wheel_error_diff": {
+              "max": 0.9709760796836289,
+              "mean": 0.8070526845126477,
+              "mean_abs": 0.8070526845126477,
+              "min": 0.6537375515967492,
+              "rms": 0.8132338296319751
+            },
+            "wheel_integral_not_committed_fraction": 0.0,
+            "wheel_offset_diff": {
+              "max": -0.09667644649744034,
+              "mean": -0.10196596997625687,
+              "mean_abs": 0.10196596997625687,
+              "min": -0.10812371969223022,
+              "rms": 0.10201666099722623
+            },
+            "wheel_protected_fraction": 0.0,
+            "wheel_speed_diff": {
+              "max": 2.222599091652408,
+              "mean": 2.0663895755117876,
+              "mean_abs": 2.0663895755117876,
+              "min": 1.898888116175658,
+              "rms": 2.06889278139508
+            },
+            "wheel_target_clipped_fraction": 0.0,
+            "wheel_target_diff": {
+              "max": 2.876356476391412,
+              "mean": 2.8734422600244356,
+              "mean_abs": 2.8734422600244356,
+              "min": 2.8698641958592876,
+              "rms": 2.8734427679619183
+            },
+            "wheel_torque_clipped_fraction": 0.0,
+            "yaw_squared_error_share_of_hold": 0.22106831413102426,
+            "yaw_squared_error_sum": 1.3742920621003794
+          },
+          "transition_servo_differs_from_raw": {
+            "action_disabled_fraction": 0.0,
+            "actual_yaw": {
+              "max": 0.17664414722616856,
+              "mean": 0.09638030840444844,
+              "mean_abs": 0.0964884019251927,
+              "min": -0.0021923470996068543,
+              "rms": 0.11171524887950958
+            },
+            "applied_wheel_diff": {
+              "max": -0.024164924398064613,
+              "mean": -0.02519422389414846,
+              "mean_abs": 0.02519422389414846,
+              "min": -0.027930907905101776,
+              "rms": 0.02522032264617758
+            },
+            "available": true,
+            "base_torque_diff": {
+              "max": 2.1393780241873257,
+              "mean": 1.2386045449554672,
+              "mean_abs": 1.2386045449554672,
+              "min": 0.3679168571151993,
+              "rms": 1.3733940410094254
+            },
+            "count": 49,
+            "effective_nominal_yaw": {
+              "max": 0.6,
+              "mean": 0.3653817367005971,
+              "mean_abs": 0.3653817367005971,
+              "min": 0.039368943375275314,
+              "rms": 0.40620886030958836
+            },
+            "effective_nominal_yaw_at_0p6_limit_fraction": 0.1836734693877551,
+            "nominal_diff_opposed_by_effective_residual_fraction": 1.0,
+            "nominal_target_diff": {
+              "max": 2.9729571819885505,
+              "mean": 1.8105307521799763,
+              "mean_abs": 1.8105307521799763,
+              "min": 0.19520010790772524,
+              "rms": 2.012730184330446
+            },
+            "raw_wheel_diff": {
+              "max": -0.024164924398064613,
+              "mean": -0.02519422389414846,
+              "mean_abs": 0.02519422389414846,
+              "min": -0.027930907905101776,
+              "rms": 0.02522032264617758
+            },
+            "raw_yaw": {
+              "max": 0.3,
+              "mean": 0.30000000000000004,
+              "mean_abs": 0.30000000000000004,
+              "min": 0.3,
+              "rms": 0.3
+            },
+            "request_torque_diff": {
+              "max": 2.139378024187326,
+              "mean": 1.2386045449554672,
+              "mean_abs": 1.2386045449554672,
+              "min": 0.3679168571151993,
+              "rms": 1.3733940410094254
+            },
+            "safe_torque_diff": {
+              "max": 2.139378024187326,
+              "mean": 1.2386045449554672,
+              "mean_abs": 1.2386045449554672,
+              "min": 0.3679168571151993,
+              "rms": 1.3733940410094254
+            },
+            "servo_equals_raw_yaw_fraction": 0.0,
+            "servo_yaw": {
+              "max": 0.29400000000000015,
+              "mean": 0.15000000000000008,
+              "mean_abs": 0.15000000000000008,
+              "min": 0.006,
+              "rms": 0.17233687939614095
+            },
+            "signed_yaw_error_rps": {
+              "max": -0.008192347099606855,
+              "mean": -0.053619691595551626,
+              "mean_abs": 0.053619691595551626,
+              "min": -0.11735585277383159,
+              "rms": 0.061000192057682985
+            },
+            "ticks": [
+              415,
+              515
+            ],
+            "wheel_error_diff": {
+              "max": 0.6971410721320348,
+              "mean": 0.41336510524248027,
+              "mean_abs": 0.41336510524248027,
+              "min": 0.12114483497079753,
+              "rms": 0.4547154273131693
+            },
+            "wheel_integral_not_committed_fraction": 0.0,
+            "wheel_offset_diff": {
+              "max": -0.09665969759225845,
+              "mean": -0.10077689557659383,
+              "mean_abs": 0.10077689557659383,
+              "min": -0.1117236316204071,
+              "rms": 0.10088129058471032
+            },
+            "wheel_protected_fraction": 0.0,
+            "wheel_speed_diff": {
+              "max": 2.2250580726300075,
+              "mean": 1.2963887513609023,
+              "mean_abs": 1.2979262353887993,
+              "min": -0.0376683586834794,
+              "rms": 1.4710402389338848
+            },
+            "wheel_target_clipped_fraction": 0.0,
+            "wheel_target_diff": {
+              "max": 2.876297484396292,
+              "mean": 1.709753856603382,
+              "mean_abs": 1.709753856603382,
+              "min": 0.08347647628731814,
+              "rms": 1.9242177859224534
+            },
+            "wheel_torque_clipped_fraction": 0.0,
+            "yaw_squared_error_share_of_hold": 0.029329586899547306,
+            "yaw_squared_error_sum": 0.1823301481226363
+          }
+        },
+        "positive_2": {
+          "plateau_servo_equals_raw": {
+            "action_disabled_fraction": 0.0,
+            "actual_yaw": {
+              "max": 0.12065310112326652,
+              "mean": 0.12065310112326652,
+              "mean_abs": 0.12065310112326652,
+              "min": 0.12065310112326652,
+              "rms": 0.12065310112326652
+            },
+            "applied_wheel_diff": {
+              "max": -0.017211835831403732,
+              "mean": -0.017211835831403732,
+              "mean_abs": 0.017211835831403732,
+              "min": -0.017211835831403732,
+              "rms": 0.017211835831403732
+            },
+            "available": true,
+            "base_torque_diff": {
+              "max": -0.31388893140449925,
+              "mean": -0.31388893140449925,
+              "mean_abs": 0.31388893140449925,
+              "min": -0.31388893140449925,
+              "rms": 0.31388893140449925
+            },
+            "count": 1,
+            "effective_nominal_yaw": {
+              "max": 0.6,
+              "mean": 0.6,
+              "mean_abs": 0.6,
+              "min": 0.6,
+              "rms": 0.6
+            },
+            "effective_nominal_yaw_at_0p6_limit_fraction": 1.0,
+            "nominal_diff_opposed_by_effective_residual_fraction": 1.0,
+            "nominal_target_diff": {
+              "max": 2.9077508329580963,
+              "mean": 2.9077508329580963,
+              "mean_abs": 2.9077508329580963,
+              "min": 2.9077508329580963,
+              "rms": 2.9077508329580963
+            },
+            "raw_wheel_diff": {
+              "max": -0.017211835831403732,
+              "mean": -0.017211835831403732,
+              "mean_abs": 0.017211835831403732,
+              "min": -0.017211835831403732,
+              "rms": 0.017211835831403732
+            },
+            "raw_yaw": {
+              "max": 0.3,
+              "mean": 0.3,
+              "mean_abs": 0.3,
+              "min": 0.3,
+              "rms": 0.3
+            },
+            "request_torque_diff": {
+              "max": -0.31388893140449925,
+              "mean": -0.31388893140449925,
+              "mean_abs": 0.31388893140449925,
+              "min": -0.31388893140449925,
+              "rms": 0.31388893140449925
+            },
+            "safe_torque_diff": {
+              "max": -0.31388893140449925,
+              "mean": -0.31388893140449925,
+              "mean_abs": 0.31388893140449925,
+              "min": -0.31388893140449925,
+              "rms": 0.31388893140449925
+            },
+            "servo_equals_raw_yaw_fraction": 1.0,
+            "servo_yaw": {
+              "max": 0.3,
+              "mean": 0.3,
+              "mean_abs": 0.3,
+              "min": 0.3,
+              "rms": 0.3
+            },
+            "signed_yaw_error_rps": {
+              "max": -0.17934689887673347,
+              "mean": -0.17934689887673347,
+              "mean_abs": 0.17934689887673347,
+              "min": -0.17934689887673347,
+              "rms": 0.17934689887673347
+            },
+            "ticks": [
+              715,
+              815
+            ],
+            "wheel_error_diff": {
+              "max": 0.6534283797212295,
+              "mean": 0.6534283797212295,
+              "mean_abs": 0.6534283797212295,
+              "min": 0.6534283797212295,
+              "rms": 0.6534283797212295
+            },
+            "wheel_integral_not_committed_fraction": 0.0,
+            "wheel_offset_diff": {
+              "max": -0.06884734332561493,
+              "mean": -0.06884734332561493,
+              "mean_abs": 0.06884734332561493,
+              "min": -0.06884734332561493,
+              "rms": 0.06884734332561493
+            },
+            "wheel_protected_fraction": 0.0,
+            "wheel_speed_diff": {
+              "max": 2.1854751099112537,
+              "mean": 2.1854751099112537,
+              "mean_abs": 2.1854751099112537,
+              "min": 2.1854751099112537,
+              "rms": 2.1854751099112537
+            },
+            "wheel_target_clipped_fraction": 0.0,
+            "wheel_target_diff": {
+              "max": 2.8389034896324814,
+              "mean": 2.8389034896324814,
+              "mean_abs": 2.8389034896324814,
+              "min": 2.8389034896324814,
+              "rms": 2.8389034896324814
+            },
+            "wheel_torque_clipped_fraction": 0.0,
+            "yaw_squared_error_share_of_hold": 0.005174104603758324,
+            "yaw_squared_error_sum": 0.032165310136701264
+          },
+          "transition_servo_differs_from_raw": {
+            "action_disabled_fraction": 0.0,
+            "actual_yaw": {
+              "max": 0.13910413670067395,
+              "mean": 0.017179702102612153,
+              "mean_abs": 0.08498247056074387,
+              "min": -0.12229631015723302,
+              "rms": 0.0946281749415183
+            },
+            "applied_wheel_diff": {
+              "max": -0.017214367166161537,
+              "mean": -0.020258640983339512,
+              "mean_abs": 0.020258640983339512,
+              "min": -0.024637509137392044,
+              "rms": 0.020394155658214695
+            },
+            "available": true,
+            "base_torque_diff": {
+              "max": -0.35984447917138884,
+              "mean": -2.4577229996952874,
+              "mean_abs": 2.4577229996952874,
+              "min": -3.519787532353273,
+              "rms": 2.643217041568283
+            },
+            "count": 99,
+            "effective_nominal_yaw": {
+              "max": 0.6,
+              "mean": -0.048252756616575354,
+              "mean_abs": 0.3621848469963206,
+              "min": -0.6,
+              "rms": 0.4140002356178124
+            },
+            "effective_nominal_yaw_at_0p6_limit_fraction": 0.26262626262626265,
+            "nominal_diff_opposed_by_effective_residual_fraction": 0.42424242424242425,
+            "nominal_target_diff": {
+              "max": 2.9129398460774736,
+              "mean": -0.2393169630414108,
+              "mean_abs": 1.7643087580743024,
+              "min": -2.928087955310617,
+              "rms": 2.0159042435703056
+            },
+            "raw_wheel_diff": {
+              "max": -0.017214367166161537,
+              "mean": -0.020258640983339512,
+              "mean_abs": 0.020258640983339512,
+              "min": -0.024637509137392044,
+              "rms": 0.020394155658214695
+            },
+            "raw_yaw": {
+              "max": 0.3,
+              "mean": 0.29999999999999993,
+              "mean_abs": 0.29999999999999993,
+              "min": 0.3,
+              "rms": 0.3
+            },
+            "request_torque_diff": {
+              "max": -0.35984447917138884,
+              "mean": -2.4577229996952874,
+              "mean_abs": 2.4577229996952874,
+              "min": -3.519787532353273,
+              "rms": 2.643217041568283
+            },
+            "safe_torque_diff": {
+              "max": -0.35984447917138884,
+              "mean": -2.4577229996952874,
+              "mean_abs": 2.4577229996952874,
+              "min": -3.519787532353273,
+              "rms": 2.643217041568283
+            },
+            "servo_equals_raw_yaw_fraction": 0.0,
+            "servo_yaw": {
+              "max": 0.29400000000000037,
+              "mean": 1.9176579516252704e-16,
+              "mean_abs": 0.14848484848484858,
+              "min": -0.294,
+              "rms": 0.17146428199482258
+            },
+            "signed_yaw_error_rps": {
+              "max": 0.18728595389668684,
+              "mean": 0.017179702102611945,
+              "mean_abs": 0.06849186281416363,
+              "min": -0.17121076213774694,
+              "rms": 0.08356926631657825
+            },
+            "ticks": [
+              715,
+              815
+            ],
+            "wheel_error_diff": {
+              "max": 0.6414498813688416,
+              "mean": -0.31154030353166173,
+              "mean_abs": 0.5515002999686319,
+              "min": -1.0326842346778804,
+              "rms": 0.6263301105824214
+            },
+            "wheel_integral_not_committed_fraction": 0.0,
+            "wheel_offset_diff": {
+              "max": -0.06885746866464615,
+              "mean": -0.08103456393335805,
+              "mean_abs": 0.08103456393335805,
+              "min": -0.09855003654956818,
+              "rms": 0.08157662263285878
+            },
+            "wheel_protected_fraction": 0.0,
+            "wheel_speed_diff": {
+              "max": 2.3131632192251663,
+              "mean": -0.008811223443107252,
+              "mean_abs": 1.2836962278082942,
+              "min": -2.0035266264168508,
+              "rms": 1.4697082398610193
+            },
+            "wheel_target_clipped_fraction": 0.0,
+            "wheel_target_diff": {
+              "max": 2.8434205125360803,
+              "mean": -0.3203515269747689,
+              "mean_abs": 1.783120183820682,
+              "min": -3.0228864678013547,
+              "rms": 2.0361686560127272
+            },
+            "wheel_torque_clipped_fraction": 0.0,
+            "yaw_squared_error_share_of_hold": 0.11121819298864234,
+            "yaw_squared_error_sum": 0.6913984049964269
+          }
+        }
+      },
+      "windows": {
+        "full_drive_175_815": {
+          "action_disabled_fraction": 0.0,
+          "actual_yaw": {
+            "max": 0.17664414722616856,
+            "mean": -0.0005482492064729256,
+            "mean_abs": 0.0652463428802812,
+            "min": -0.17094734770350645,
+            "rms": 0.08876258216970681
+          },
+          "applied_wheel_diff": {
+            "max": 0.057109537345240824,
+            "mean": -0.014017274043021643,
+            "mean_abs": 0.023338618515094823,
+            "min": -0.03242547810077667,
+            "rms": 0.02492161960914833
+          },
+          "available": true,
+          "base_torque_diff": {
+            "max": 4.002203427956532,
+            "mean": 0.20733031071221025,
+            "mean_abs": 1.3998373459470792,
+            "min": -3.519787532353273,
+            "rms": 1.9103410249592367
+          },
+          "count": 640,
+          "effective_nominal_yaw": {
+            "max": 0.6,
+            "mean": -0.01835046460188915,
+            "mean_abs": 0.28147581130654126,
+            "min": -0.6,
+            "rms": 0.38604788213297186
+          },
+          "effective_nominal_yaw_at_0p6_limit_fraction": 0.328125,
+          "nominal_diff_opposed_by_effective_residual_fraction": 0.3078125,
+          "nominal_target_diff": {
+            "max": 2.978147312698743,
+            "mean": -0.08089326683860701,
+            "mean_abs": 1.379600423868311,
+            "min": -2.928087955310617,
+            "rms": 1.8916129121615581
+          },
+          "raw_wheel_diff": {
+            "max": 0.057109537345240824,
+            "mean": -0.014017274043021643,
+            "mean_abs": 0.023338618515094823,
+            "min": -0.03242547810077667,
+            "rms": 0.02492161960914833
+          },
+          "raw_yaw": {
+            "max": 0.3,
+            "mean": -1.1102230246251566e-17,
+            "mean_abs": 0.18749999999999997,
+            "min": -0.3,
+            "rms": 0.23717082451262841
+          },
+          "request_torque_diff": {
+            "max": 4.002203427956532,
+            "mean": 0.20733031071221025,
+            "mean_abs": 1.3998373459470792,
+            "min": -3.519787532353273,
+            "rms": 1.9103410249592367
+          },
+          "safe_torque_diff": {
+            "max": 4.002203427956532,
+            "mean": 0.20733031071221025,
+            "mean_abs": 1.3998373459470792,
+            "min": -3.519787532353273,
+            "rms": 1.9103410249592367
+          },
+          "servo_equals_raw_yaw_fraction": 0.6140625,
+          "servo_yaw": {
+            "max": 0.3,
+            "mean": -0.011484374999999991,
+            "mean_abs": 0.12914062500000004,
+            "min": -0.3,
+            "rms": 0.181342648734378
+          },
+          "signed_yaw_error_rps": {
+            "max": 0.2062532774286404,
+            "mean": 0.010936125793527065,
+            "mean_abs": 0.06628892919683463,
+            "min": -0.1886732194996066,
+            "rms": 0.09856056017487902
+          },
+          "ticks": [
+            175,
+            815
+          ],
+          "wheel_error_diff": {
+            "max": 0.9959918199868412,
+            "mean": -0.032848660276474685,
+            "mean_abs": 0.4056137449414966,
+            "min": -1.0334248169720368,
+            "rms": 0.5485567316811599
+          },
+          "wheel_integral_not_committed_fraction": 0.0,
+          "wheel_offset_diff": {
+            "max": 0.2284381493809633,
+            "mean": -0.05606909617208657,
+            "mean_abs": 0.09335447406037929,
+            "min": -0.1297019124031067,
+            "rms": 0.09968647843659333
+          },
+          "wheel_protected_fraction": 0.0,
+          "wheel_speed_diff": {
+            "max": 2.3131632192251663,
+            "mean": -0.10411370273421902,
+            "mean_abs": 1.016595304889032,
+            "min": -2.579961771494701,
+            "rms": 1.3891090485349011
+          },
+          "wheel_target_clipped_fraction": 0.0,
+          "wheel_target_diff": {
+            "max": 2.876356476391412,
+            "mean": -0.13696236301069362,
+            "mean_abs": 1.3988659061850446,
+            "min": -3.0554107516098776,
+            "rms": 1.9037058818808459
+          },
+          "wheel_torque_clipped_fraction": 0.0,
+          "yaw_squared_error_share_of_hold": null,
+          "yaw_squared_error_sum": 6.217077774071007
+        },
+        "hold": {
+          "action_disabled_fraction": 0.0,
+          "actual_yaw": {
+            "max": 0.17664414722616856,
+            "mean": -0.0011748608336783306,
+            "mean_abs": 0.10365631910031511,
+            "min": -0.17094734770350645,
+            "rms": 0.11227139156094361
+          },
+          "applied_wheel_diff": {
+            "max": -0.017211835831403732,
+            "mean": -0.02633757227100432,
+            "mean_abs": 0.02633757227100432,
+            "min": -0.03242547810077667,
+            "rms": 0.02671179617654471
+          },
+          "available": true,
+          "base_torque_diff": {
+            "max": 4.002203427956532,
+            "mean": 0.24036217361327006,
+            "mean_abs": 2.1483734299890602,
+            "min": -3.519787532353273,
+            "rms": 2.413027177437366
+          },
+          "count": 400,
+          "effective_nominal_yaw": {
+            "max": 0.6,
+            "mean": -0.02814662251630514,
+            "mean_abs": 0.4474333523413722,
+            "min": -0.6,
+            "rms": 0.4882966675058248
+          },
+          "effective_nominal_yaw_at_0p6_limit_fraction": 0.525,
+          "nominal_diff_opposed_by_effective_residual_fraction": 0.4925,
+          "nominal_target_diff": {
+            "max": 2.978147312698743,
+            "mean": -0.12337742552453435,
+            "mean_abs": 2.192783479457592,
+            "min": -2.928087955310617,
+            "rms": 2.3926230313865906
+          },
+          "raw_wheel_diff": {
+            "max": -0.017211835831403732,
+            "mean": -0.02633757227100432,
+            "mean_abs": 0.02633757227100432,
+            "min": -0.03242547810077667,
+            "rms": 0.02671179617654471
+          },
+          "raw_yaw": {
+            "max": 0.3,
+            "mean": 0.0,
+            "mean_abs": 0.29999999999999993,
+            "min": -0.3,
+            "rms": 0.3
+          },
+          "request_torque_diff": {
+            "max": 4.002203427956532,
+            "mean": 0.24036217361327006,
+            "mean_abs": 2.1483734299890602,
+            "min": -3.519787532353273,
+            "rms": 2.413027177437366
+          },
+          "safe_torque_diff": {
+            "max": 4.002203427956532,
+            "mean": 0.24036217361327006,
+            "mean_abs": 2.1483734299890602,
+            "min": -3.519787532353273,
+            "rms": 2.413027177437366
+          },
+          "servo_equals_raw_yaw_fraction": 0.3825,
+          "servo_yaw": {
+            "max": 0.3,
+            "mean": -0.018374999999999978,
+            "mean_abs": 0.206625,
+            "min": -0.3,
+            "rms": 0.22938232277139406
+          },
+          "signed_yaw_error_rps": {
+            "max": 0.2062532774286404,
+            "mean": 0.017200139166321664,
+            "mean_abs": 0.10532445720680059,
+            "min": -0.1886732194996066,
+            "rms": 0.12466549726654089
+          },
+          "ticks": [
+            415,
+            815
+          ],
+          "wheel_error_diff": {
+            "max": 0.9959918199868412,
+            "mean": -0.060563850048512224,
+            "mean_abs": 0.6311654315853217,
+            "min": -1.0334248169720368,
+            "rms": 0.6931755696411501
+          },
+          "wheel_integral_not_committed_fraction": 0.0,
+          "wheel_offset_diff": {
+            "max": -0.06884734332561493,
+            "mean": -0.10535028908401728,
+            "mean_abs": 0.10535028908401728,
+            "min": -0.1297019124031067,
+            "rms": 0.10684718470617884
+          },
+          "wheel_protected_fraction": 0.0,
+          "wheel_speed_diff": {
+            "max": 2.3131632192251663,
+            "mean": -0.16816386456003948,
+            "mean_abs": 1.6052538334815816,
+            "min": -2.579961771494701,
+            "rms": 1.7567654788901867
+          },
+          "wheel_target_clipped_fraction": 0.0,
+          "wheel_target_diff": {
+            "max": 2.876356476391412,
+            "mean": -0.22872771460855154,
+            "mean_abs": 2.1996782105055264,
+            "min": -3.0554107516098776,
+            "rms": 2.4071813329777245
+          },
+          "wheel_torque_clipped_fraction": 0.0,
+          "yaw_squared_error_share_of_hold": 1.0,
+          "yaw_squared_error_sum": 6.216594483485565
+        },
+        "negative": {
+          "action_disabled_fraction": 0.0,
+          "actual_yaw": {
+            "max": 0.12270901336860793,
+            "mean": -0.07004272004631774,
+            "mean_abs": 0.10603078652231161,
+            "min": -0.17094734770350645,
+            "rms": 0.11287947415106074
+          },
+          "applied_wheel_diff": {
+            "max": -0.02470979653298855,
+            "mean": -0.029888142636045813,
+            "mean_abs": 0.029888142636045813,
+            "min": -0.03242547810077667,
+            "rms": 0.029966212977229394
+          },
+          "available": true,
+          "base_torque_diff": {
+            "max": 4.002203427956532,
+            "mean": 0.6374573684565561,
+            "mean_abs": 2.017195222195757,
+            "min": -3.1184191580237988,
+            "rms": 2.326785495589374
+          },
+          "count": 200,
+          "effective_nominal_yaw": {
+            "max": 0.6,
+            "mean": -0.27792665599905175,
+            "mean_abs": 0.47006667992791956,
+            "min": -0.6,
+            "rms": 0.5079367805807239
+          },
+          "effective_nominal_yaw_at_0p6_limit_fraction": 0.615,
+          "nominal_diff_opposed_by_effective_residual_fraction": 0.27,
+          "nominal_target_diff": {
+            "max": 2.978147312698743,
+            "mean": -1.3451408414426314,
+            "mean_abs": 2.2953862365693443,
+            "min": -2.9257369949508467,
+            "rms": 2.4789825683966713
+          },
+          "raw_wheel_diff": {
+            "max": -0.02470979653298855,
+            "mean": -0.029888142636045813,
+            "mean_abs": 0.029888142636045813,
+            "min": -0.03242547810077667,
+            "rms": 0.029966212977229394
+          },
+          "raw_yaw": {
+            "max": -0.3,
+            "mean": -0.29999999999999993,
+            "mean_abs": 0.29999999999999993,
+            "min": -0.3,
+            "rms": 0.3
+          },
+          "request_torque_diff": {
+            "max": 4.002203427956532,
+            "mean": 0.6374573684565561,
+            "mean_abs": 2.017195222195757,
+            "min": -3.1184191580237988,
+            "rms": 2.326785495589374
+          },
+          "safe_torque_diff": {
+            "max": 4.002203427956532,
+            "mean": 0.6374573684565561,
+            "mean_abs": 2.017195222195757,
+            "min": -3.1184191580237988,
+            "rms": 2.326785495589374
+          },
+          "servo_equals_raw_yaw_fraction": 0.505,
+          "servo_yaw": {
+            "max": 0.294,
+            "mean": -0.15150000000000005,
+            "mean_abs": 0.225,
+            "min": -0.3,
+            "rms": 0.24495509792613016
+          },
+          "signed_yaw_error_rps": {
+            "max": 0.2062532774286404,
+            "mean": 0.08145727995368235,
+            "mean_abs": 0.12118448815875826,
+            "min": -0.18286526077591295,
+            "rms": 0.1402927039822353
+          },
+          "ticks": [
+            515,
+            715
+          ],
+          "wheel_error_diff": {
+            "max": 0.9959918199868412,
+            "mean": -0.27725527708259085,
+            "mean_abs": 0.6789981874524318,
+            "min": -1.0334248169720368,
+            "rms": 0.7384882393788198
+          },
+          "wheel_integral_not_committed_fraction": 0.0,
+          "wheel_offset_diff": {
+            "max": -0.0988391861319542,
+            "mean": -0.11955257054418325,
+            "mean_abs": 0.11955257054418325,
+            "min": -0.1297019124031067,
+            "rms": 0.11986485190891757
+          },
+          "wheel_protected_fraction": 0.0,
+          "wheel_speed_diff": {
+            "max": 1.9404884452007565,
+            "mean": -1.187438134904224,
+            "mean_abs": 1.7192293892227397,
+            "min": -2.579961771494701,
+            "rms": 1.859488228950281
+          },
+          "wheel_target_clipped_fraction": 0.0,
+          "wheel_target_diff": {
+            "max": 2.8709452687081187,
+            "mean": -1.4646934119868147,
+            "mean_abs": 2.3508999413975933,
+            "min": -3.0554107516098776,
+            "rms": 2.5463490407446496
+          },
+          "wheel_torque_clipped_fraction": 0.0,
+          "yaw_squared_error_share_of_hold": 0.6332098013770278,
+          "yaw_squared_error_sum": 3.9364085581294215
+        },
+        "positive_1": {
+          "action_disabled_fraction": 0.0,
+          "actual_yaw": {
+            "max": 0.17664414722616856,
+            "mean": 0.11717156066510347,
+            "mean_abs": 0.11722452649026815,
+            "min": -0.0021923470996068543,
+            "rms": 0.12619584698769334
+          },
+          "applied_wheel_diff": {
+            "max": -0.024164924398064613,
+            "mean": -0.025345830880105495,
+            "mean_abs": 0.025345830880105495,
+            "min": -0.027930907905101776,
+            "rms": 0.025365479246950633
+          },
+          "available": true,
+          "base_torque_diff": {
+            "max": 3.739060590770456,
+            "mean": 2.1228186165523475,
+            "mean_abs": 2.1228186165523475,
+            "min": 0.3679168571151993,
+            "rms": 2.3548298288993177
+          },
+          "count": 100,
+          "effective_nominal_yaw": {
+            "max": 0.6,
+            "mean": 0.4850370509832926,
+            "mean_abs": 0.4850370509832926,
+            "min": 0.039368943375275314,
+            "rms": 0.5142497085221022
+          },
+          "effective_nominal_yaw_at_0p6_limit_fraction": 0.6,
+          "nominal_diff_opposed_by_effective_residual_fraction": 1.0,
+          "nominal_target_diff": {
+            "max": 2.977987915551518,
+            "mean": 2.4046182658685415,
+            "mean_abs": 2.4046182658685415,
+            "min": 0.19520010790772524,
+            "rms": 2.5495272823288464
+          },
+          "raw_wheel_diff": {
+            "max": -0.024164924398064613,
+            "mean": -0.025345830880105495,
+            "mean_abs": 0.025345830880105495,
+            "min": -0.027930907905101776,
+            "rms": 0.025365479246950633
+          },
+          "raw_yaw": {
+            "max": 0.3,
+            "mean": 0.3,
+            "mean_abs": 0.3,
+            "min": 0.3,
+            "rms": 0.3
+          },
+          "request_torque_diff": {
+            "max": 3.739060590770456,
+            "mean": 2.1228186165523475,
+            "mean_abs": 2.1228186165523475,
+            "min": 0.3679168571151993,
+            "rms": 2.3548298288993177
+          },
+          "safe_torque_diff": {
+            "max": 3.739060590770456,
+            "mean": 2.1228186165523475,
+            "mean_abs": 2.1228186165523475,
+            "min": 0.3679168571151993,
+            "rms": 2.3548298288993177
+          },
+          "servo_equals_raw_yaw_fraction": 0.51,
+          "servo_yaw": {
+            "max": 0.3,
+            "mean": 0.22650000000000006,
+            "mean_abs": 0.22650000000000006,
+            "min": 0.006,
+            "rms": 0.24587191787595425
+          },
+          "signed_yaw_error_rps": {
+            "max": -0.008192347099606855,
+            "mean": -0.10932843933489655,
+            "mean_abs": 0.10932843933489655,
+            "min": -0.1886732194996066,
+            "rms": 0.12476466688221531
+          },
+          "ticks": [
+            415,
+            515
+          ],
+          "wheel_error_diff": {
+            "max": 0.9709760796836289,
+            "mean": 0.6141457706702657,
+            "mean_abs": 0.6141457706702657,
+            "min": 0.12114483497079753,
+            "rms": 0.6622714867525673
+          },
+          "wheel_integral_not_committed_fraction": 0.0,
+          "wheel_offset_diff": {
+            "max": -0.09665969759225845,
+            "mean": -0.10138332352042198,
+            "mean_abs": 0.10138332352042198,
+            "min": -0.1117236316204071,
+            "rms": 0.10146191698780253
+          },
+          "wheel_protected_fraction": 0.0,
+          "wheel_speed_diff": {
+            "max": 2.2250580726300075,
+            "mean": 1.6890891716778538,
+            "mean_abs": 1.6898425388515232,
+            "min": -0.0376683586834794,
+            "rms": 1.8009169726278684
+          },
+          "wheel_target_clipped_fraction": 0.0,
+          "wheel_target_diff": {
+            "max": 2.876356476391412,
+            "mean": 2.3032349423481198,
+            "mean_abs": 2.3032349423481198,
+            "min": 0.08347647628731814,
+            "rms": 2.454625084760889
+          },
+          "wheel_torque_clipped_fraction": 0.0,
+          "yaw_squared_error_share_of_hold": 0.2503979010305715,
+          "yaw_squared_error_sum": 1.5566222102230154
+        },
+        "positive_2": {
+          "action_disabled_fraction": 0.0,
+          "actual_yaw": {
+            "max": 0.13910413670067395,
+            "mean": 0.018214436092818694,
+            "mean_abs": 0.0853391768663691,
+            "min": -0.12229631015723302,
+            "rms": 0.09492374985187627
+          },
+          "applied_wheel_diff": {
+            "max": -0.017211835831403732,
+            "mean": -0.020228172931820155,
+            "mean_abs": 0.020228172931820155,
+            "min": -0.024637509137392044,
+            "rms": 0.020364794182319828
+          },
+          "available": true,
+          "base_torque_diff": {
+            "max": -0.31388893140449925,
+            "mean": -2.43628465901238,
+            "mean_abs": 2.43628465901238,
+            "min": -3.519787532353273,
+            "rms": 2.630155057817162
+          },
+          "count": 100,
+          "effective_nominal_yaw": {
+            "max": 0.6,
+            "mean": -0.041770229050409606,
+            "mean_abs": 0.3645629985263574,
+            "min": -0.6,
+            "rms": 0.41627182602319857
+          },
+          "effective_nominal_yaw_at_0p6_limit_fraction": 0.27,
+          "nominal_diff_opposed_by_effective_residual_fraction": 0.43,
+          "nominal_target_diff": {
+            "max": 2.9129398460774736,
+            "mean": -0.20784628508141573,
+            "mean_abs": 1.7757431788231404,
+            "min": -2.928087955310617,
+            "rms": 2.0267662344528055
+          },
+          "raw_wheel_diff": {
+            "max": -0.017211835831403732,
+            "mean": -0.020228172931820155,
+            "mean_abs": 0.020228172931820155,
+            "min": -0.024637509137392044,
+            "rms": 0.020364794182319828
+          },
+          "raw_yaw": {
+            "max": 0.3,
+            "mean": 0.3,
+            "mean_abs": 0.3,
+            "min": 0.3,
+            "rms": 0.3
+          },
+          "request_torque_diff": {
+            "max": -0.31388893140449925,
+            "mean": -2.43628465901238,
+            "mean_abs": 2.43628465901238,
+            "min": -3.519787532353273,
+            "rms": 2.630155057817162
+          },
+          "safe_torque_diff": {
+            "max": -0.31388893140449925,
+            "mean": -2.43628465901238,
+            "mean_abs": 2.43628465901238,
+            "min": -3.519787532353273,
+            "rms": 2.630155057817162
+          },
+          "servo_equals_raw_yaw_fraction": 0.01,
+          "servo_yaw": {
+            "max": 0.3,
+            "mean": 0.0030000000000001896,
+            "mean_abs": 0.1500000000000001,
+            "min": -0.294,
+            "rms": 0.1732224003990247
+          },
+          "signed_yaw_error_rps": {
+            "max": 0.18728595389668684,
+            "mean": 0.01521443609281849,
+            "mean_abs": 0.06960041317478932,
+            "min": -0.17934689887673347,
+            "rms": 0.08506254846482841
+          },
+          "ticks": [
+            715,
+            815
+          ],
+          "wheel_error_diff": {
+            "max": 0.6534283797212295,
+            "mean": -0.3018906166991328,
+            "mean_abs": 0.5525195807661578,
+            "min": -1.0326842346778804,
+            "rms": 0.6266068941706734
+          },
+          "wheel_integral_not_committed_fraction": 0.0,
+          "wheel_offset_diff": {
+            "max": -0.06884734332561493,
+            "mean": -0.08091269172728062,
+            "mean_abs": 0.08091269172728062,
+            "min": -0.09855003654956818,
+            "rms": 0.08145917672927931
+          },
+          "wheel_protected_fraction": 0.0,
+          "wheel_speed_diff": {
+            "max": 2.3131632192251663,
+            "mean": 0.013131639890436357,
+            "mean_abs": 1.2927140166293238,
+            "min": -2.0035266264168508,
+            "rms": 1.4785820578421198
+          },
+          "wheel_target_clipped_fraction": 0.0,
+          "wheel_target_diff": {
+            "max": 2.8434205125360803,
+            "mean": -0.28875897680869633,
+            "mean_abs": 1.7936780168788002,
+            "min": -3.0228864678013547,
+            "rms": 2.045755776725527
+          },
+          "wheel_torque_clipped_fraction": 0.0,
+          "yaw_squared_error_share_of_hold": 0.11639229759240068,
+          "yaw_squared_error_sum": 0.7235637151331282
+        }
+      }
+    },
+    "grouped_continue": {
+      "servo_phase_by_segment": {
+        "negative": {
+          "plateau_servo_equals_raw": {
+            "action_disabled_fraction": 0.0,
+            "actual_yaw": {
+              "max": -0.07638242395861795,
+              "mean": -0.10198249025286688,
+              "mean_abs": 0.10198249025286688,
+              "min": -0.17721875401424333,
+              "rms": 0.10417002056528706
+            },
+            "applied_wheel_diff": {
+              "max": -0.07783504389226437,
+              "mean": -0.07871068499539749,
+              "mean_abs": 0.07871068499539749,
+              "min": -0.07903058640658855,
+              "rms": 0.07871138984542599
+            },
+            "available": true,
+            "base_torque_diff": {
+              "max": 0.819599076941628,
+              "mean": -1.5216483638252043,
+              "mean_abs": 1.651549987515187,
+              "min": -3.570442343711354,
+              "rms": 1.9800414113157192
+            },
+            "count": 101,
+            "effective_nominal_yaw": {
+              "max": -0.6,
+              "mean": -0.6,
+              "mean_abs": 0.6,
+              "min": -0.6,
+              "rms": 0.6
+            },
+            "effective_nominal_yaw_at_0p6_limit_fraction": 1.0,
+            "nominal_diff_opposed_by_effective_residual_fraction": 0.0,
+            "nominal_target_diff": {
+              "max": -2.93822520483422,
+              "mean": -2.941190731644872,
+              "mean_abs": 2.941190731644872,
+              "min": -2.947576463810133,
+              "rms": 2.9411919462441016
+            },
+            "raw_wheel_diff": {
+              "max": -0.07783504389226437,
+              "mean": -0.07871068499539749,
+              "mean_abs": 0.07871068499539749,
+              "min": -0.07903058640658855,
+              "rms": 0.07871138984542599
+            },
+            "raw_yaw": {
+              "max": -0.3,
+              "mean": -0.3,
+              "mean_abs": 0.3,
+              "min": -0.3,
+              "rms": 0.3
+            },
+            "request_torque_diff": {
+              "max": 0.8195990769416279,
+              "mean": -1.5216483638252043,
+              "mean_abs": 1.651549987515187,
+              "min": -3.5704423437113544,
+              "rms": 1.9800414113157192
+            },
+            "safe_torque_diff": {
+              "max": 0.8195990769416279,
+              "mean": -1.5216483638252043,
+              "mean_abs": 1.651549987515187,
+              "min": -3.5704423437113544,
+              "rms": 1.9800414113157192
+            },
+            "servo_equals_raw_yaw_fraction": 1.0,
+            "servo_yaw": {
+              "max": -0.3,
+              "mean": -0.3,
+              "mean_abs": 0.3,
+              "min": -0.3,
+              "rms": 0.3
+            },
+            "signed_yaw_error_rps": {
+              "max": 0.22361757604138205,
+              "mean": 0.19801750974713309,
+              "mean_abs": 0.19801750974713309,
+              "min": 0.12278124598575665,
+              "rms": 0.19915295386424023
+            },
+            "ticks": [
+              515,
+              715
+            ],
+            "wheel_error_diff": {
+              "max": -0.6283015384128845,
+              "mean": -1.0392035920589027,
+              "mean_abs": 1.0392035920589027,
+              "min": -1.2131110723904168,
+              "rms": 1.0516286535100483
+            },
+            "wheel_integral_not_committed_fraction": 0.0,
+            "wheel_offset_diff": {
+              "max": -0.31134017556905746,
+              "mean": -0.31484273998158996,
+              "mean_abs": 0.31484273998158996,
+              "min": -0.3161223456263542,
+              "rms": 0.31484555938170394
+            },
+            "wheel_protected_fraction": 0.0,
+            "wheel_speed_diff": {
+              "max": -2.0477298485077213,
+              "mean": -2.2168298795675594,
+              "mean_abs": 2.2168298795675594,
+              "min": -2.6268054794010753,
+              "rms": 2.22249978155361
+            },
+            "wheel_target_clipped_fraction": 0.0,
+            "wheel_target_diff": {
+              "max": -3.2522636160479186,
+              "mean": -3.256033471626462,
+              "mean_abs": 3.256033471626462,
+              "min": -3.2636988094364874,
+              "rms": 3.256035125542267
+            },
+            "wheel_torque_clipped_fraction": 0.0,
+            "yaw_squared_error_share_of_hold": 0.5892457079780603,
+            "yaw_squared_error_sum": 4.005851802318071
+          },
+          "transition_servo_differs_from_raw": {
+            "action_disabled_fraction": 0.0,
+            "actual_yaw": {
+              "max": 0.12460367071700677,
+              "mean": -0.02840308747978553,
+              "mean_abs": 0.097695804434029,
+              "min": -0.18937889579468153,
+              "rms": 0.11170593252620316
+            },
+            "applied_wheel_diff": {
+              "max": -0.0671470738016069,
+              "mean": -0.07423775535396705,
+              "mean_abs": 0.07423775535396705,
+              "min": -0.0779008250683546,
+              "rms": 0.07430692264276886
+            },
+            "available": true,
+            "base_torque_diff": {
+              "max": 3.871829188033499,
+              "mean": 2.8683308898942372,
+              "mean_abs": 2.8683308898942372,
+              "min": 0.7959066257329944,
+              "rms": 3.0048085447735216
+            },
+            "count": 99,
+            "effective_nominal_yaw": {
+              "max": 0.6,
+              "mean": 0.07936166763158493,
+              "mean_abs": 0.34126698579530057,
+              "min": -0.6,
+              "rms": 0.3915900853407312
+            },
+            "effective_nominal_yaw_at_0p6_limit_fraction": 0.18181818181818182,
+            "nominal_diff_opposed_by_effective_residual_fraction": 0.5656565656565656,
+            "nominal_target_diff": {
+              "max": 2.977765921311991,
+              "mean": 0.39922318347532953,
+              "mean_abs": 1.6881047704533834,
+              "min": -2.946510087714416,
+              "rms": 1.9369001149446532
+            },
+            "raw_wheel_diff": {
+              "max": -0.0671470738016069,
+              "mean": -0.07423775535396705,
+              "mean_abs": 0.07423775535396705,
+              "min": -0.0779008250683546,
+              "rms": 0.07430692264276886
+            },
+            "raw_yaw": {
+              "max": -0.3,
+              "mean": -0.29999999999999993,
+              "mean_abs": 0.29999999999999993,
+              "min": -0.3,
+              "rms": 0.3
+            },
+            "request_torque_diff": {
+              "max": 3.871829188033499,
+              "mean": 2.8683308898942372,
+              "mean_abs": 2.8683308898942372,
+              "min": 0.7959066257329942,
+              "rms": 3.0048085447735216
+            },
+            "safe_torque_diff": {
+              "max": 3.871829188033499,
+              "mean": 2.8683308898942372,
+              "mean_abs": 2.8683308898942372,
+              "min": 0.7959066257329942,
+              "rms": 3.0048085447735216
+            },
+            "servo_equals_raw_yaw_fraction": 0.0,
+            "servo_yaw": {
+              "max": 0.294,
+              "mean": -1.9176579516252704e-16,
+              "mean_abs": 0.14848484848484858,
+              "min": -0.29400000000000037,
+              "rms": 0.17146428199482258
+            },
+            "signed_yaw_error_rps": {
+              "max": 0.11306997299882848,
+              "mean": -0.028403087479785316,
+              "mean_abs": 0.05834405880696716,
+              "min": -0.17022687450161983,
+              "rms": 0.07071599803266404
+            },
+            "ticks": [
+              515,
+              715
+            ],
+            "wheel_error_diff": {
+              "max": 0.8306051170519595,
+              "mean": 0.23247961625643473,
+              "mean_abs": 0.4420414240519839,
+              "min": -0.6803650339947236,
+              "rms": 0.5054449276480065
+            },
+            "wheel_integral_not_committed_fraction": 0.0,
+            "wheel_offset_diff": {
+              "max": -0.2685882952064276,
+              "mean": -0.2969510214158682,
+              "mean_abs": 0.2969510214158682,
+              "min": -0.3116033002734184,
+              "rms": 0.29722769057107545
+            },
+            "wheel_protected_fraction": 0.0,
+            "wheel_speed_diff": {
+              "max": 1.8884482613263627,
+              "mean": -0.13020745419697316,
+              "mean_abs": 1.275192069118614,
+              "min": -2.6841387962363035,
+              "rms": 1.466806284267672
+            },
+            "wheel_target_clipped_fraction": 0.0,
+            "wheel_target_diff": {
+              "max": 2.7070932713549967,
+              "mean": 0.10227216205946137,
+              "mean_abs": 1.663491094595226,
+              "min": -3.2581133879878346,
+              "rms": 1.9101122230766894
+            },
+            "wheel_torque_clipped_fraction": 0.0,
+            "yaw_squared_error_share_of_hold": 0.07282359159699849,
+            "yaw_squared_error_sum": 0.4950744853978187
+          }
+        },
+        "positive_1": {
+          "plateau_servo_equals_raw": {
+            "action_disabled_fraction": 0.0,
+            "actual_yaw": {
+              "max": 0.1822574807455187,
+              "mean": 0.14323593638426826,
+              "mean_abs": 0.14323593638426826,
+              "min": 0.12274489025862849,
+              "rms": 0.1447847088039121
+            },
+            "applied_wheel_diff": {
+              "max": -0.05882714525796473,
+              "mean": -0.06290879336815766,
+              "mean_abs": 0.06290879336815766,
+              "min": -0.06700196478050202,
+              "rms": 0.06295230034121363
+            },
+            "available": true,
+            "base_torque_diff": {
+              "max": 3.51992315740103,
+              "mean": 2.7365047570075682,
+              "mean_abs": 2.7365047570075682,
+              "min": 1.9674736211614967,
+              "rms": 2.777447553583963
+            },
+            "count": 51,
+            "effective_nominal_yaw": {
+              "max": 0.6,
+              "mean": 0.6000000000000001,
+              "mean_abs": 0.6000000000000001,
+              "min": 0.6,
+              "rms": 0.6
+            },
+            "effective_nominal_yaw_at_0p6_limit_fraction": 1.0,
+            "nominal_diff_opposed_by_effective_residual_fraction": 1.0,
+            "nominal_target_diff": {
+              "max": 2.9755234829358095,
+              "mean": 2.972952213896896,
+              "mean_abs": 2.972952213896896,
+              "min": 2.971356899696901,
+              "rms": 2.9729524741896185
+            },
+            "raw_wheel_diff": {
+              "max": -0.05882714525796473,
+              "mean": -0.06290879336815766,
+              "mean_abs": 0.06290879336815766,
+              "min": -0.06700196478050202,
+              "rms": 0.06295230034121363
+            },
+            "raw_yaw": {
+              "max": 0.3,
+              "mean": 0.30000000000000004,
+              "mean_abs": 0.30000000000000004,
+              "min": 0.3,
+              "rms": 0.3
+            },
+            "request_torque_diff": {
+              "max": 3.51992315740103,
+              "mean": 2.7365047570075682,
+              "mean_abs": 2.7365047570075682,
+              "min": 1.9674736211614972,
+              "rms": 2.777447553583963
+            },
+            "safe_torque_diff": {
+              "max": 3.51992315740103,
+              "mean": 2.7365047570075682,
+              "mean_abs": 2.7365047570075682,
+              "min": 1.9674736211614972,
+              "rms": 2.777447553583963
+            },
+            "servo_equals_raw_yaw_fraction": 1.0,
+            "servo_yaw": {
+              "max": 0.3,
+              "mean": 0.30000000000000004,
+              "mean_abs": 0.30000000000000004,
+              "min": 0.3,
+              "rms": 0.3
+            },
+            "signed_yaw_error_rps": {
+              "max": -0.11774251925448129,
+              "mean": -0.1567640636157317,
+              "mean_abs": 0.1567640636157317,
+              "min": -0.17725510974137149,
+              "rms": 0.15818043517727673
+            },
+            "ticks": [
+              415,
+              515
+            ],
+            "wheel_error_diff": {
+              "max": 0.8170349279404405,
+              "mean": 0.7207146214184176,
+              "mean_abs": 0.7207146214184176,
+              "min": 0.6043590475334595,
+              "rms": 0.7241733513139615
+            },
+            "wheel_integral_not_committed_fraction": 0.0,
+            "wheel_offset_diff": {
+              "max": -0.23530858103185892,
+              "mean": -0.25163517347263065,
+              "mean_abs": 0.25163517347263065,
+              "min": -0.2680078591220081,
+              "rms": 0.2518092013648545
+            },
+            "wheel_protected_fraction": 0.0,
+            "wheel_speed_diff": {
+              "max": 2.1316892711315827,
+              "mean": 2.000602419005848,
+              "mean_abs": 2.000602419005848,
+              "min": 1.89048069587336,
+              "rms": 2.0021511978710356
+            },
+            "wheel_target_clipped_fraction": 0.0,
+            "wheel_target_diff": {
+              "max": 2.736048318665042,
+              "mean": 2.7213170404242657,
+              "mean_abs": 2.7213170404242657,
+              "min": 2.7075156238138014,
+              "rms": 2.7213291974845424
+            },
+            "wheel_torque_clipped_fraction": 0.0,
+            "yaw_squared_error_share_of_hold": 0.1877056121139195,
+            "yaw_squared_error_sum": 1.2760735537165049
+          },
+          "transition_servo_differs_from_raw": {
+            "action_disabled_fraction": 0.0,
+            "actual_yaw": {
+              "max": 0.18212649306457981,
+              "mean": 0.09623783767533241,
+              "mean_abs": 0.09635926304147759,
+              "min": -0.0026151140763438093,
+              "rms": 0.11183818649897065
+            },
+            "applied_wheel_diff": {
+              "max": -0.054208952002227306,
+              "mean": -0.05652617118606458,
+              "mean_abs": 0.05652617118606458,
+              "min": -0.058689457131549716,
+              "rms": 0.05654555881602531
+            },
+            "available": true,
+            "base_torque_diff": {
+              "max": 1.9464396705250695,
+              "mean": 1.111452430414059,
+              "mean_abs": 1.111452430414059,
+              "min": 0.2697989214789812,
+              "rms": 1.246679407603028
+            },
+            "count": 49,
+            "effective_nominal_yaw": {
+              "max": 0.6,
+              "mean": 0.36887493337657057,
+              "mean_abs": 0.36887493337657057,
+              "min": 0.038330757956099325,
+              "rms": 0.4101249382582978
+            },
+            "effective_nominal_yaw_at_0p6_limit_fraction": 0.16326530612244897,
+            "nominal_diff_opposed_by_effective_residual_fraction": 1.0,
+            "nominal_target_diff": {
+              "max": 2.9714953099965573,
+              "mean": 1.8272437818484726,
+              "mean_abs": 1.8272437818484726,
+              "min": 0.1900350195820213,
+              "rms": 2.031391691222261
+            },
+            "raw_wheel_diff": {
+              "max": -0.054208952002227306,
+              "mean": -0.05652617118606458,
+              "mean_abs": 0.05652617118606458,
+              "min": -0.058689457131549716,
+              "rms": 0.05654555881602531
+            },
+            "raw_yaw": {
+              "max": 0.3,
+              "mean": 0.30000000000000004,
+              "mean_abs": 0.30000000000000004,
+              "min": 0.3,
+              "rms": 0.3
+            },
+            "request_torque_diff": {
+              "max": 1.9464396705250697,
+              "mean": 1.111452430414059,
+              "mean_abs": 1.111452430414059,
+              "min": 0.2697989214789813,
+              "rms": 1.246679407603028
+            },
+            "safe_torque_diff": {
+              "max": 1.9464396705250697,
+              "mean": 1.111452430414059,
+              "mean_abs": 1.111452430414059,
+              "min": 0.2697989214789813,
+              "rms": 1.246679407603028
+            },
+            "servo_equals_raw_yaw_fraction": 0.0,
+            "servo_yaw": {
+              "max": 0.29400000000000015,
+              "mean": 0.15000000000000008,
+              "mean_abs": 0.15000000000000008,
+              "min": 0.006,
+              "rms": 0.17233687939614095
+            },
+            "signed_yaw_error_rps": {
+              "max": -0.00861511407634381,
+              "mean": -0.05376216232466764,
+              "mean_abs": 0.05376216232466764,
+              "min": -0.11187350693542034,
+              "rms": 0.060658090684008695
+            },
+            "ticks": [
+              415,
+              515
+            ],
+            "wheel_error_diff": {
+              "max": 0.6493484428321707,
+              "mean": 0.38343565310529787,
+              "mean_abs": 0.38343565310529787,
+              "min": 0.09582797595600301,
+              "rms": 0.4242612859342766
+            },
+            "wheel_integral_not_committed_fraction": 0.0,
+            "wheel_offset_diff": {
+              "max": -0.21683580800890923,
+              "mean": -0.22610468474425832,
+              "mean_abs": 0.22610468474425832,
+              "min": -0.23475782852619886,
+              "rms": 0.22618223526410125
+            },
+            "wheel_protected_fraction": 0.0,
+            "wheel_speed_diff": {
+              "max": 2.1359558164999877,
+              "mean": 1.2177034439989165,
+              "mean_abs": 1.2232999490538565,
+              "min": -0.12985162915974158,
+              "rms": 1.4056387008971813
+            },
+            "wheel_target_clipped_fraction": 0.0,
+            "wheel_target_diff": {
+              "max": 2.7389409627422214,
+              "mean": 1.6011390971042143,
+              "mean_abs": 1.6025278176431426,
+              "min": -0.03402365320373768,
+              "rms": 1.8283118546438133
+            },
+            "wheel_torque_clipped_fraction": 0.0,
+            "yaw_squared_error_share_of_hold": 0.0265200965925187,
+            "yaw_squared_error_sum": 0.1802907943060417
+          }
+        },
+        "positive_2": {
+          "plateau_servo_equals_raw": {
+            "action_disabled_fraction": 0.0,
+            "actual_yaw": {
+              "max": 0.09727413216078767,
+              "mean": 0.09727413216078767,
+              "mean_abs": 0.09727413216078767,
+              "min": 0.09727413216078767,
+              "rms": 0.09727413216078767
+            },
+            "applied_wheel_diff": {
+              "max": -0.07754904218018055,
+              "mean": -0.07754904218018055,
+              "mean_abs": 0.07754904218018055,
+              "min": -0.07754904218018055,
+              "rms": 0.07754904218018055
+            },
+            "available": true,
+            "base_torque_diff": {
+              "max": -0.4204935783913366,
+              "mean": -0.4204935783913366,
+              "mean_abs": 0.4204935783913366,
+              "min": -0.4204935783913366,
+              "rms": 0.4204935783913366
+            },
+            "count": 1,
+            "effective_nominal_yaw": {
+              "max": 0.6,
+              "mean": 0.6,
+              "mean_abs": 0.6,
+              "min": 0.6,
+              "rms": 0.6
+            },
+            "effective_nominal_yaw_at_0p6_limit_fraction": 1.0,
+            "nominal_diff_opposed_by_effective_residual_fraction": 1.0,
+            "nominal_target_diff": {
+              "max": 2.918180730641345,
+              "mean": 2.918180730641345,
+              "mean_abs": 2.918180730641345,
+              "min": 2.918180730641345,
+              "rms": 2.918180730641345
+            },
+            "raw_wheel_diff": {
+              "max": -0.07754904218018055,
+              "mean": -0.07754904218018055,
+              "mean_abs": 0.07754904218018055,
+              "min": -0.07754904218018055,
+              "rms": 0.07754904218018055
+            },
+            "raw_yaw": {
+              "max": 0.3,
+              "mean": 0.3,
+              "mean_abs": 0.3,
+              "min": 0.3,
+              "rms": 0.3
+            },
+            "request_torque_diff": {
+              "max": -0.42049357839133644,
+              "mean": -0.42049357839133644,
+              "mean_abs": 0.42049357839133644,
+              "min": -0.42049357839133644,
+              "rms": 0.42049357839133644
+            },
+            "safe_torque_diff": {
+              "max": -0.42049357839133644,
+              "mean": -0.42049357839133644,
+              "mean_abs": 0.42049357839133644,
+              "min": -0.42049357839133644,
+              "rms": 0.42049357839133644
+            },
+            "servo_equals_raw_yaw_fraction": 1.0,
+            "servo_yaw": {
+              "max": 0.3,
+              "mean": 0.3,
+              "mean_abs": 0.3,
+              "min": 0.3,
+              "rms": 0.3
+            },
+            "signed_yaw_error_rps": {
+              "max": -0.20272586783921231,
+              "mean": -0.20272586783921231,
+              "mean_abs": 0.20272586783921231,
+              "min": -0.20272586783921231,
+              "rms": 0.20272586783921231
+            },
+            "ticks": [
+              715,
+              815
+            ],
+            "wheel_error_diff": {
+              "max": 0.5060077478988019,
+              "mean": 0.5060077478988019,
+              "mean_abs": 0.5060077478988019,
+              "min": 0.5060077478988019,
+              "rms": 0.5060077478988019
+            },
+            "wheel_integral_not_committed_fraction": 0.0,
+            "wheel_offset_diff": {
+              "max": -0.3101961687207222,
+              "mean": -0.3101961687207222,
+              "mean_abs": 0.3101961687207222,
+              "min": -0.3101961687207222,
+              "rms": 0.3101961687207222
+            },
+            "wheel_protected_fraction": 0.0,
+            "wheel_speed_diff": {
+              "max": 2.101976814021823,
+              "mean": 2.101976814021823,
+              "mean_abs": 2.101976814021823,
+              "min": 2.101976814021823,
+              "rms": 2.101976814021823
+            },
+            "wheel_target_clipped_fraction": 0.0,
+            "wheel_target_diff": {
+              "max": 2.607984561920623,
+              "mean": 2.607984561920623,
+              "mean_abs": 2.607984561920623,
+              "min": 2.607984561920623,
+              "rms": 2.607984561920623
+            },
+            "wheel_torque_clipped_fraction": 0.0,
+            "yaw_squared_error_share_of_hold": 0.006045328232085598,
+            "yaw_squared_error_sum": 0.04109777749116178
+          },
+          "transition_servo_differs_from_raw": {
+            "action_disabled_fraction": 0.0,
+            "actual_yaw": {
+              "max": 0.12298945055100086,
+              "mean": 0.00954303057190591,
+              "mean_abs": 0.07731228337455814,
+              "min": -0.11432797971499616,
+              "rms": 0.08555625098347137
+            },
+            "applied_wheel_diff": {
+              "max": -0.07410964742302895,
+              "mean": -0.07548893981547368,
+              "mean_abs": 0.07548893981547368,
+              "min": -0.0790997426956892,
+              "rms": 0.07550135969879758
+            },
+            "available": true,
+            "base_torque_diff": {
+              "max": -0.46514935613624436,
+              "mean": -2.6204195182273873,
+              "mean_abs": 2.6204195182273873,
+              "min": -3.901991437214191,
+              "rms": 2.830860386662965
+            },
+            "count": 99,
+            "effective_nominal_yaw": {
+              "max": 0.6,
+              "mean": -0.0280709933188942,
+              "mean_abs": 0.37842255859614626,
+              "min": -0.6,
+              "rms": 0.4286048583542462
+            },
+            "effective_nominal_yaw_at_0p6_limit_fraction": 0.2828282828282828,
+            "nominal_diff_opposed_by_effective_residual_fraction": 0.43434343434343436,
+            "nominal_target_diff": {
+              "max": 2.9227430861474595,
+              "mean": -0.14423135626525807,
+              "mean_abs": 1.851381994779228,
+              "min": -2.9509097118420673,
+              "rms": 2.0969782149483316
+            },
+            "raw_wheel_diff": {
+              "max": -0.07410964742302895,
+              "mean": -0.07548893981547368,
+              "mean_abs": 0.07548893981547368,
+              "min": -0.0790997426956892,
+              "rms": 0.07550135969879758
+            },
+            "raw_yaw": {
+              "max": 0.3,
+              "mean": 0.29999999999999993,
+              "mean_abs": 0.29999999999999993,
+              "min": 0.3,
+              "rms": 0.3
+            },
+            "request_torque_diff": {
+              "max": -0.46514935613624436,
+              "mean": -2.6204195182273873,
+              "mean_abs": 2.6204195182273873,
+              "min": -3.901991437214191,
+              "rms": 2.830860386662965
+            },
+            "safe_torque_diff": {
+              "max": -0.46514935613624436,
+              "mean": -2.6204195182273873,
+              "mean_abs": 2.6204195182273873,
+              "min": -3.901991437214191,
+              "rms": 2.830860386662965
+            },
+            "servo_equals_raw_yaw_fraction": 0.0,
+            "servo_yaw": {
+              "max": 0.29400000000000037,
+              "mean": 1.9176579516252704e-16,
+              "mean_abs": 0.14848484848484858,
+              "min": -0.294,
+              "rms": 0.17146428199482258
+            },
+            "signed_yaw_error_rps": {
+              "max": 0.18494123510621704,
+              "mean": 0.009543030571905713,
+              "mean_abs": 0.0746276195846854,
+              "min": -0.19449232733936977,
+              "rms": 0.08988669843478077
+            },
+            "ticks": [
+              715,
+              815
+            ],
+            "wheel_error_diff": {
+              "max": 0.49260977275882745,
+              "mean": -0.4787485334537741,
+              "mean_abs": 0.6367640659047252,
+              "min": -1.218467204925508,
+              "rms": 0.7354322467931692
+            },
+            "wheel_integral_not_committed_fraction": 0.0,
+            "wheel_offset_diff": {
+              "max": -0.2964385896921158,
+              "mean": -0.3019557592618947,
+              "mean_abs": 0.3019557592618947,
+              "min": -0.3163989707827568,
+              "rms": 0.3020054387951903
+            },
+            "wheel_protected_fraction": 0.0,
+            "wheel_speed_diff": {
+              "max": 2.2879755821211782,
+              "mean": 0.03256141792662125,
+              "mean_abs": 1.3566504897682607,
+              "min": -2.0650077051573943,
+              "rms": 1.5401387004381835
+            },
+            "wheel_target_clipped_fraction": 0.0,
+            "wheel_target_diff": {
+              "max": 2.6190943982483468,
+              "mean": -0.44618711552715273,
+              "mean_abs": 1.893846418203673,
+              "min": -3.2642576321734866,
+              "rms": 2.140298682385346
+            },
+            "wheel_torque_clipped_fraction": 0.0,
+            "yaw_squared_error_share_of_hold": 0.11765966348641749,
+            "yaw_squared_error_sum": 0.7998822369950168
+          }
+        }
+      },
+      "windows": {
+        "full_drive_175_815": {
+          "action_disabled_fraction": 0.0,
+          "actual_yaw": {
+            "max": 0.1822574807455187,
+            "mean": 0.0010399119646222227,
+            "mean_abs": 0.06344744575787807,
+            "min": -0.18937889579468153,
+            "rms": 0.08616356888228373
+          },
+          "applied_wheel_diff": {
+            "max": 0.08404812309890985,
+            "mean": -0.04238815955095561,
+            "mean_abs": 0.05704355271636814,
+            "min": -0.0790997426956892,
+            "rms": 0.06161352886037171
+          },
+          "available": true,
+          "base_torque_diff": {
+            "max": 3.871829188033499,
+            "mean": 0.1521464710839507,
+            "mean_abs": 1.4670655514745632,
+            "min": -3.901991437214191,
+            "rms": 1.9999426116351875
+          },
+          "count": 640,
+          "effective_nominal_yaw": {
+            "max": 0.6,
+            "mean": -0.014243034042589453,
+            "mean_abs": 0.2883461173451435,
+            "min": -0.6,
+            "rms": 0.38881569818688083
+          },
+          "effective_nominal_yaw_at_0p6_limit_fraction": 0.3234375,
+          "nominal_diff_opposed_by_effective_residual_fraction": 0.4296875,
+          "nominal_target_diff": {
+            "max": 2.977765921311991,
+            "mean": -0.06570562623076097,
+            "mean_abs": 1.4196511042618094,
+            "min": -2.9509097118420673,
+            "rms": 1.9135745390208292
+          },
+          "raw_wheel_diff": {
+            "max": 0.08404812309890985,
+            "mean": -0.04238815955095561,
+            "mean_abs": 0.05704355271636814,
+            "min": -0.0790997426956892,
+            "rms": 0.06161352886037171
+          },
+          "raw_yaw": {
+            "max": 0.3,
+            "mean": -1.1102230246251566e-17,
+            "mean_abs": 0.18749999999999997,
+            "min": -0.3,
+            "rms": 0.23717082451262841
+          },
+          "request_torque_diff": {
+            "max": 3.871829188033499,
+            "mean": 0.15214647108395085,
+            "mean_abs": 1.4670655514745632,
+            "min": -3.901991437214191,
+            "rms": 1.9999426116351877
+          },
+          "safe_torque_diff": {
+            "max": 3.871829188033499,
+            "mean": 0.15214647108395085,
+            "mean_abs": 1.4670655514745632,
+            "min": -3.901991437214191,
+            "rms": 1.9999426116351877
+          },
+          "servo_equals_raw_yaw_fraction": 0.6140625,
+          "servo_yaw": {
+            "max": 0.3,
+            "mean": -0.011484374999999991,
+            "mean_abs": 0.12914062500000004,
+            "min": -0.3,
+            "rms": 0.181342648734378
+          },
+          "signed_yaw_error_rps": {
+            "max": 0.22361757604138205,
+            "mean": 0.012524286964622221,
+            "mean_abs": 0.07008191564225892,
+            "min": -0.20272586783921231,
+            "rms": 0.10309503644533358
+          },
+          "ticks": [
+            175,
+            815
+          ],
+          "wheel_error_diff": {
+            "max": 0.8306051170519595,
+            "mean": -0.11168077976573094,
+            "mean_abs": 0.43297989051793034,
+            "min": -1.218467204925508,
+            "rms": 0.5954468735479291
+          },
+          "wheel_integral_not_committed_fraction": 0.0,
+          "wheel_offset_diff": {
+            "max": 0.3361924923956394,
+            "mean": -0.16955263820382244,
+            "mean_abs": 0.22817421086547257,
+            "min": -0.3163989707827568,
+            "rms": 0.24645411544148685
+          },
+          "wheel_protected_fraction": 0.0,
+          "wheel_speed_diff": {
+            "max": 2.2879755821211782,
+            "mean": -0.1235774846688525,
+            "mean_abs": 1.032957607381454,
+            "min": -2.6841387962363035,
+            "rms": 1.399434497398158
+          },
+          "wheel_target_clipped_fraction": 0.0,
+          "wheel_target_diff": {
+            "max": 2.7389409627422214,
+            "mean": -0.23525826443458353,
+            "mean_abs": 1.4399440974580795,
+            "min": -3.2642576321734866,
+            "rms": 1.9510444679791485
+          },
+          "wheel_torque_clipped_fraction": 0.0,
+          "yaw_squared_error_share_of_hold": null,
+          "yaw_squared_error_sum": 6.8022953853853805
+        },
+        "hold": {
+          "action_disabled_fraction": 0.0,
+          "actual_yaw": {
+            "max": 0.1822574807455187,
+            "mean": -0.00012354053892469353,
+            "mean_abs": 0.09937485746345139,
+            "min": -0.18937889579468153,
+            "rms": 0.10894308204814736
+          },
+          "applied_wheel_diff": {
+            "max": -0.054208952002227306,
+            "mean": -0.0720710047459579,
+            "mean_abs": 0.0720710047459579,
+            "min": -0.0790997426956892,
+            "rms": 0.07248307160478344
+          },
+          "available": true,
+          "base_torque_diff": {
+            "max": 3.871829188033499,
+            "mean": 0.16114789791989012,
+            "mean_abs": 2.2615906110478523,
+            "min": -3.901991437214191,
+            "rms": 2.526339670949484
+          },
+          "count": 400,
+          "effective_nominal_yaw": {
+            "max": 0.6,
+            "mean": -0.01561837876897913,
+            "mean_abs": 0.4528103415755129,
+            "min": -0.6,
+            "rms": 0.4916537598217563
+          },
+          "effective_nominal_yaw_at_0p6_limit_fraction": 0.5175,
+          "nominal_diff_opposed_by_effective_residual_fraction": 0.5,
+          "nominal_target_diff": {
+            "max": 2.977765921311991,
+            "mean": -0.06935596013094183,
+            "mean_abs": 2.228857856510297,
+            "min": -2.9509097118420673,
+            "rms": 2.419674714501795
+          },
+          "raw_wheel_diff": {
+            "max": -0.054208952002227306,
+            "mean": -0.0720710047459579,
+            "mean_abs": 0.0720710047459579,
+            "min": -0.0790997426956892,
+            "rms": 0.07248307160478344
+          },
+          "raw_yaw": {
+            "max": 0.3,
+            "mean": 0.0,
+            "mean_abs": 0.29999999999999993,
+            "min": -0.3,
+            "rms": 0.3
+          },
+          "request_torque_diff": {
+            "max": 3.871829188033499,
+            "mean": 0.16114789791989012,
+            "mean_abs": 2.2615906110478523,
+            "min": -3.901991437214191,
+            "rms": 2.526339670949484
+          },
+          "safe_torque_diff": {
+            "max": 3.871829188033499,
+            "mean": 0.16114789791989012,
+            "mean_abs": 2.2615906110478523,
+            "min": -3.901991437214191,
+            "rms": 2.526339670949484
+          },
+          "servo_equals_raw_yaw_fraction": 0.3825,
+          "servo_yaw": {
+            "max": 0.3,
+            "mean": -0.018374999999999978,
+            "mean_abs": 0.206625,
+            "min": -0.3,
+            "rms": 0.22938232277139406
+          },
+          "signed_yaw_error_rps": {
+            "max": 0.22361757604138205,
+            "mean": 0.0182514594610753,
+            "mean_abs": 0.10999000927846073,
+            "min": -0.20272586783921231,
+            "rms": 0.13036746766567778
+          },
+          "ticks": [
+            415,
+            815
+          ],
+          "wheel_error_diff": {
+            "max": 0.8306051170519595,
+            "mean": -0.1832234628952201,
+            "mean_abs": 0.6695302668651526,
+            "min": -1.218467204925508,
+            "rms": 0.7522584228828627
+          },
+          "wheel_integral_not_committed_fraction": 0.0,
+          "wheel_offset_diff": {
+            "max": -0.21683580800890923,
+            "mean": -0.2882840189838316,
+            "mean_abs": 0.2882840189838316,
+            "min": -0.3163989707827568,
+            "rms": 0.28993228641913377
+          },
+          "wheel_protected_fraction": 0.0,
+          "wheel_speed_diff": {
+            "max": 2.2879755821211782,
+            "mean": -0.17441651621955345,
+            "mean_abs": 1.6213165721327079,
+            "min": -2.6841387962363035,
+            "rms": 1.7694588502710862
+          },
+          "wheel_target_clipped_fraction": 0.0,
+          "wheel_target_diff": {
+            "max": 2.7389409627422214,
+            "mean": -0.35763997911477363,
+            "mean_abs": 2.2523870277235893,
+            "min": -3.2642576321734866,
+            "rms": 2.4666636782816376
+          },
+          "wheel_torque_clipped_fraction": 0.0,
+          "yaw_squared_error_share_of_hold": 1.0,
+          "yaw_squared_error_sum": 6.798270650224615
+        },
+        "negative": {
+          "action_disabled_fraction": 0.0,
+          "actual_yaw": {
+            "max": 0.12460367071700677,
+            "mean": -0.06556068588019162,
+            "mean_abs": 0.09986058077254213,
+            "min": -0.18937889579468153,
+            "rms": 0.10796606023272133
+          },
+          "applied_wheel_diff": {
+            "max": -0.0671470738016069,
+            "mean": -0.07649658482288942,
+            "mean_abs": 0.07649658482288942,
+            "min": -0.07903058640658855,
+            "rms": 0.07656285419648574
+          },
+          "available": true,
+          "base_torque_diff": {
+            "max": 3.871829188033499,
+            "mean": 0.6513913667659194,
+            "mean_abs": 2.2538565341928165,
+            "min": -3.570442343711354,
+            "rms": 2.539523112443252
+          },
+          "count": 200,
+          "effective_nominal_yaw": {
+            "max": 0.6,
+            "mean": -0.2637159745223654,
+            "mean_abs": 0.4719271579686737,
+            "min": -0.6,
+            "rms": 0.507646218831476
+          },
+          "effective_nominal_yaw_at_0p6_limit_fraction": 0.595,
+          "nominal_diff_opposed_by_effective_residual_fraction": 0.28,
+          "nominal_target_diff": {
+            "max": 2.977765921311991,
+            "mean": -1.2876858436603718,
+            "mean_abs": 2.3209131808550847,
+            "min": -2.947576463810133,
+            "rms": 2.4951134643556356
+          },
+          "raw_wheel_diff": {
+            "max": -0.0671470738016069,
+            "mean": -0.07649658482288942,
+            "mean_abs": 0.07649658482288942,
+            "min": -0.07903058640658855,
+            "rms": 0.07656285419648574
+          },
+          "raw_yaw": {
+            "max": -0.3,
+            "mean": -0.29999999999999993,
+            "mean_abs": 0.29999999999999993,
+            "min": -0.3,
+            "rms": 0.3
+          },
+          "request_torque_diff": {
+            "max": 3.871829188033499,
+            "mean": 0.6513913667659191,
+            "mean_abs": 2.2538565341928165,
+            "min": -3.5704423437113544,
+            "rms": 2.539523112443252
+          },
+          "safe_torque_diff": {
+            "max": 3.871829188033499,
+            "mean": 0.6513913667659191,
+            "mean_abs": 2.2538565341928165,
+            "min": -3.5704423437113544,
+            "rms": 2.539523112443252
+          },
+          "servo_equals_raw_yaw_fraction": 0.505,
+          "servo_yaw": {
+            "max": 0.294,
+            "mean": -0.15150000000000005,
+            "mean_abs": 0.225,
+            "min": -0.3,
+            "rms": 0.24495509792613016
+          },
+          "signed_yaw_error_rps": {
+            "max": 0.22361757604138205,
+            "mean": 0.08593931411980849,
+            "mean_abs": 0.12887915153175097,
+            "min": -0.17022687450161983,
+            "rms": 0.1500154373342272
+          },
+          "ticks": [
+            515,
+            715
+          ],
+          "wheel_error_diff": {
+            "max": 0.8306051170519595,
+            "mean": -0.4097204039428105,
+            "mean_abs": 0.7436083188954776,
+            "min": -1.2131110723904168,
+            "rms": 0.8276176297869802
+          },
+          "wheel_integral_not_committed_fraction": 0.0,
+          "wheel_offset_diff": {
+            "max": -0.2685882952064276,
+            "mean": -0.30598633929155766,
+            "mean_abs": 0.30598633929155766,
+            "min": -0.3161223456263542,
+            "rms": 0.306251416785943
+          },
+          "wheel_protected_fraction": 0.0,
+          "wheel_speed_diff": {
+            "max": 1.8884482613263627,
+            "mean": -1.1839517790091192,
+            "mean_abs": 1.7507191633953314,
+            "min": -2.6841387962363035,
+            "rms": 1.8866512397111668
+          },
+          "wheel_target_clipped_fraction": 0.0,
+          "wheel_target_diff": {
+            "max": 2.7070932713549967,
+            "mean": -1.5936721829519294,
+            "mean_abs": 2.467724994996,
+            "min": -3.2636988094364874,
+            "rms": 2.6758013569631998
+          },
+          "wheel_torque_clipped_fraction": 0.0,
+          "yaw_squared_error_share_of_hold": 0.6620692995750588,
+          "yaw_squared_error_sum": 4.50092628771589
+        },
+        "positive_1": {
+          "action_disabled_fraction": 0.0,
+          "actual_yaw": {
+            "max": 0.1822574807455187,
+            "mean": 0.1202068680168897,
+            "mean_abs": 0.12026636644630084,
+            "min": -0.0026151140763438093,
+            "rms": 0.1296909567041844
+          },
+          "applied_wheel_diff": {
+            "max": -0.054208952002227306,
+            "mean": -0.05978130849893205,
+            "mean_abs": 0.05978130849893205,
+            "min": -0.06700196478050202,
+            "rms": 0.059898681863608735
+          },
+          "available": true,
+          "base_torque_diff": {
+            "max": 3.51992315740103,
+            "mean": 1.940229116976749,
+            "mean_abs": 1.940229116976749,
+            "min": 0.2697989214789812,
+            "rms": 2.1669822986820106
+          },
+          "count": 100,
+          "effective_nominal_yaw": {
+            "max": 0.6,
+            "mean": 0.4867487173545196,
+            "mean_abs": 0.4867487173545196,
+            "min": 0.038330757956099325,
+            "rms": 0.515770499195982
+          },
+          "effective_nominal_yaw_at_0p6_limit_fraction": 0.59,
+          "nominal_diff_opposed_by_effective_residual_fraction": 1.0,
+          "nominal_target_diff": {
+            "max": 2.9755234829358095,
+            "mean": 2.4115550821931686,
+            "mean_abs": 2.4115550821931686,
+            "min": 0.1900350195820213,
+            "rms": 2.555311771699246
+          },
+          "raw_wheel_diff": {
+            "max": -0.054208952002227306,
+            "mean": -0.05978130849893205,
+            "mean_abs": 0.05978130849893205,
+            "min": -0.06700196478050202,
+            "rms": 0.059898681863608735
+          },
+          "raw_yaw": {
+            "max": 0.3,
+            "mean": 0.3,
+            "mean_abs": 0.3,
+            "min": 0.3,
+            "rms": 0.3
+          },
+          "request_torque_diff": {
+            "max": 3.51992315740103,
+            "mean": 1.940229116976749,
+            "mean_abs": 1.940229116976749,
+            "min": 0.2697989214789813,
+            "rms": 2.1669822986820106
+          },
+          "safe_torque_diff": {
+            "max": 3.51992315740103,
+            "mean": 1.940229116976749,
+            "mean_abs": 1.940229116976749,
+            "min": 0.2697989214789813,
+            "rms": 2.1669822986820106
+          },
+          "servo_equals_raw_yaw_fraction": 0.51,
+          "servo_yaw": {
+            "max": 0.3,
+            "mean": 0.22650000000000006,
+            "mean_abs": 0.22650000000000006,
+            "min": 0.006,
+            "rms": 0.24587191787595425
+          },
+          "signed_yaw_error_rps": {
+            "max": -0.00861511407634381,
+            "mean": -0.1062931319831103,
+            "mean_abs": 0.1062931319831103,
+            "min": -0.17725510974137149,
+            "rms": 0.12067992161178043
+          },
+          "ticks": [
+            415,
+            515
+          ],
+          "wheel_error_diff": {
+            "max": 0.8170349279404405,
+            "mean": 0.5554479269449889,
+            "mean_abs": 0.5554479269449889,
+            "min": 0.09582797595600301,
+            "rms": 0.5963695454900905
+          },
+          "wheel_integral_not_committed_fraction": 0.0,
+          "wheel_offset_diff": {
+            "max": -0.21683580800890923,
+            "mean": -0.2391252339957282,
+            "mean_abs": 0.2391252339957282,
+            "min": -0.2680078591220081,
+            "rms": 0.23959472745443494
+          },
+          "wheel_protected_fraction": 0.0,
+          "wheel_speed_diff": {
+            "max": 2.1359558164999877,
+            "mean": 1.616981921252451,
+            "mean_abs": 1.6197242087293717,
+            "min": -0.12985162915974158,
+            "rms": 1.735667791057648
+          },
+          "wheel_target_clipped_fraction": 0.0,
+          "wheel_target_diff": {
+            "max": 2.7389409627422214,
+            "mean": 2.1724298481974404,
+            "mean_abs": 2.173110321261515,
+            "min": -0.03402365320373768,
+            "rms": 2.3269738939423
+          },
+          "wheel_torque_clipped_fraction": 0.0,
+          "yaw_squared_error_share_of_hold": 0.21422570870643823,
+          "yaw_squared_error_sum": 1.4563643480225468
+        },
+        "positive_2": {
+          "action_disabled_fraction": 0.0,
+          "actual_yaw": {
+            "max": 0.12298945055100086,
+            "mean": 0.010420341587794727,
+            "mean_abs": 0.07751190186242043,
+            "min": -0.11432797971499616,
+            "rms": 0.08568136278911315
+          },
+          "applied_wheel_diff": {
+            "max": -0.07410964742302895,
+            "mean": -0.07550954083912075,
+            "mean_abs": 0.07550954083912075,
+            "min": -0.0790997426956892,
+            "rms": 0.07552211134915507
+          },
+          "available": true,
+          "base_torque_diff": {
+            "max": -0.4204935783913366,
+            "mean": -2.598420258829027,
+            "mean_abs": 2.598420258829027,
+            "min": -3.901991437214191,
+            "rms": 2.8169843755307733
+          },
+          "count": 100,
+          "effective_nominal_yaw": {
+            "max": 0.6,
+            "mean": -0.02179028338570526,
+            "mean_abs": 0.38063833301018485,
+            "min": -0.6,
+            "rms": 0.43065659562906367
+          },
+          "effective_nominal_yaw_at_0p6_limit_fraction": 0.29,
+          "nominal_diff_opposed_by_effective_residual_fraction": 0.44,
+          "nominal_target_diff": {
+            "max": 2.9227430861474595,
+            "mean": -0.11360723539619205,
+            "mean_abs": 1.8620499821378493,
+            "min": -2.9509097118420673,
+            "rms": 2.1067753191536767
+          },
+          "raw_wheel_diff": {
+            "max": -0.07410964742302895,
+            "mean": -0.07550954083912075,
+            "mean_abs": 0.07550954083912075,
+            "min": -0.0790997426956892,
+            "rms": 0.07552211134915507
+          },
+          "raw_yaw": {
+            "max": 0.3,
+            "mean": 0.3,
+            "mean_abs": 0.3,
+            "min": 0.3,
+            "rms": 0.3
+          },
+          "request_torque_diff": {
+            "max": -0.42049357839133644,
+            "mean": -2.598420258829027,
+            "mean_abs": 2.598420258829027,
+            "min": -3.901991437214191,
+            "rms": 2.8169843755307733
+          },
+          "safe_torque_diff": {
+            "max": -0.42049357839133644,
+            "mean": -2.598420258829027,
+            "mean_abs": 2.598420258829027,
+            "min": -3.901991437214191,
+            "rms": 2.8169843755307733
+          },
+          "servo_equals_raw_yaw_fraction": 0.01,
+          "servo_yaw": {
+            "max": 0.3,
+            "mean": 0.0030000000000001896,
+            "mean_abs": 0.1500000000000001,
+            "min": -0.294,
+            "rms": 0.1732224003990247
+          },
+          "signed_yaw_error_rps": {
+            "max": 0.18494123510621704,
+            "mean": 0.007420341587794532,
+            "mean_abs": 0.07590860206723067,
+            "min": -0.20272586783921231,
+            "rms": 0.09170496248765268
+          },
+          "ticks": [
+            715,
+            815
+          ],
+          "wheel_error_diff": {
+            "max": 0.5060077478988019,
+            "mean": -0.4689009706402484,
+            "mean_abs": 0.6354565027246659,
+            "min": -1.218467204925508,
+            "rms": 0.7334933006758498
+          },
+          "wheel_integral_not_committed_fraction": 0.0,
+          "wheel_offset_diff": {
+            "max": -0.2964385896921158,
+            "mean": -0.302038163356483,
+            "mean_abs": 0.302038163356483,
+            "min": -0.3163989707827568,
+            "rms": 0.3020884453966203
+          },
+          "wheel_protected_fraction": 0.0,
+          "wheel_speed_diff": {
+            "max": 2.2879755821211782,
+            "mean": 0.05325557188757326,
+            "mean_abs": 1.3641037530107962,
+            "min": -2.0650077051573943,
+            "rms": 1.546767600413325
+          },
+          "wheel_target_clipped_fraction": 0.0,
+          "wheel_target_diff": {
+            "max": 2.6190943982483468,
+            "mean": -0.415645398752675,
+            "mean_abs": 1.9009877996408426,
+            "min": -3.2642576321734866,
+            "rms": 2.145480249285555
+          },
+          "wheel_torque_clipped_fraction": 0.0,
+          "yaw_squared_error_share_of_hold": 0.12370499171850308,
+          "yaw_squared_error_sum": 0.8409800144861785
+        }
+      }
+    },
+    "zero": {
+      "servo_phase_by_segment": {
+        "negative": {
+          "plateau_servo_equals_raw": {
+            "action_disabled_fraction": 0.0,
+            "actual_yaw": {
+              "max": -0.09313487967516103,
+              "mean": -0.12212106751567793,
+              "mean_abs": 0.12212106751567793,
+              "min": -0.2055424424437445,
+              "rms": 0.12457669591308987
+            },
+            "applied_wheel_diff": {
+              "max": 0.0,
+              "mean": 0.0,
+              "mean_abs": 0.0,
+              "min": 0.0,
+              "rms": 0.0
+            },
+            "available": true,
+            "base_torque_diff": {
+              "max": 1.2437732407736184,
+              "mean": -0.6252710907252349,
+              "mean_abs": 0.9971980003525008,
+              "min": -2.2674487696435195,
+              "rms": 1.1782550282681175
+            },
+            "count": 101,
+            "effective_nominal_yaw": {
+              "max": -0.6,
+              "mean": -0.6,
+              "mean_abs": 0.6,
+              "min": -0.6,
+              "rms": 0.6
+            },
+            "effective_nominal_yaw_at_0p6_limit_fraction": 1.0,
+            "nominal_diff_opposed_by_effective_residual_fraction": 0.0,
+            "nominal_target_diff": {
+              "max": -2.9330901287415614,
+              "mean": -2.936775787506175,
+              "mean_abs": 2.936775787506175,
+              "min": -2.951260388748068,
+              "rms": 2.9367792206160543
+            },
+            "raw_wheel_diff": {
+              "max": 0.0,
+              "mean": 0.0,
+              "mean_abs": 0.0,
+              "min": 0.0,
+              "rms": 0.0
+            },
+            "raw_yaw": {
+              "max": -0.3,
+              "mean": -0.3,
+              "mean_abs": 0.3,
+              "min": -0.3,
+              "rms": 0.3
+            },
+            "request_torque_diff": {
+              "max": 1.2437732407736186,
+              "mean": -0.6252710907252349,
+              "mean_abs": 0.9971980003525008,
+              "min": -2.2674487696435195,
+              "rms": 1.1782550282681175
+            },
+            "safe_torque_diff": {
+              "max": 1.2437732407736186,
+              "mean": -0.6252710907252349,
+              "mean_abs": 0.9971980003525008,
+              "min": -2.2674487696435195,
+              "rms": 1.1782550282681175
+            },
+            "servo_equals_raw_yaw_fraction": 1.0,
+            "servo_yaw": {
+              "max": -0.3,
+              "mean": -0.3,
+              "mean_abs": 0.3,
+              "min": -0.3,
+              "rms": 0.3
+            },
+            "signed_yaw_error_rps": {
+              "max": 0.20686512032483895,
+              "mean": 0.1778789324843221,
+              "mean_abs": 0.1778789324843221,
+              "min": 0.09445755755625548,
+              "rms": 0.17957369700269493
+            },
+            "ticks": [
+              515,
+              715
+            ],
+            "wheel_error_diff": {
+              "max": -0.524907475845029,
+              "mean": -0.8408420829815143,
+              "mean_abs": 0.8408420829815143,
+              "min": -0.9707625498026387,
+              "rms": 0.8497227368706908
+            },
+            "wheel_integral_not_committed_fraction": 0.0,
+            "wheel_offset_diff": {
+              "max": 0.0,
+              "mean": 0.0,
+              "mean_abs": 0.0,
+              "min": 0.0,
+              "rms": 0.0
+            },
+            "wheel_protected_fraction": 0.0,
+            "wheel_speed_diff": {
+              "max": -1.9648784186804118,
+              "mean": -2.09593370452466,
+              "mean_abs": 2.09593370452466,
+              "min": -2.425866289427506,
+              "rms": 2.0997622048668747
+            },
+            "wheel_target_clipped_fraction": 0.0,
+            "wheel_target_diff": {
+              "max": -2.9330901287415614,
+              "mean": -2.936775787506175,
+              "mean_abs": 2.936775787506175,
+              "min": -2.951260388748068,
+              "rms": 2.9367792206160543
+            },
+            "wheel_torque_clipped_fraction": 0.0,
+            "yaw_squared_error_share_of_hold": 0.6289983251404146,
+            "yaw_squared_error_sum": 3.256917978176785
+          },
+          "transition_servo_differs_from_raw": {
+            "action_disabled_fraction": 0.0,
+            "actual_yaw": {
+              "max": 0.15064012820774764,
+              "mean": -0.018309829879071392,
+              "mean_abs": 0.10030940517491878,
+              "min": -0.20586437889505818,
+              "rms": 0.11529896078506889
+            },
+            "applied_wheel_diff": {
+              "max": 0.0,
+              "mean": 0.0,
+              "mean_abs": 0.0,
+              "min": 0.0,
+              "rms": 0.0
+            },
+            "available": true,
+            "base_torque_diff": {
+              "max": 3.8952649381274,
+              "mean": 2.9453037513276232,
+              "mean_abs": 2.9453037513276232,
+              "min": 1.2415608167162961,
+              "rms": 3.053370952552573
+            },
+            "count": 99,
+            "effective_nominal_yaw": {
+              "max": 0.6,
+              "mean": 0.04563629491858933,
+              "mean_abs": 0.33315455432609026,
+              "min": -0.6,
+              "rms": 0.3828483804263309
+            },
+            "effective_nominal_yaw_at_0p6_limit_fraction": 0.1414141414141414,
+            "nominal_diff_opposed_by_effective_residual_fraction": 0.0,
+            "nominal_target_diff": {
+              "max": 2.9893947926205335,
+              "mean": 0.2336058207153267,
+              "mean_abs": 1.6544903447547865,
+              "min": -2.9550417329727807,
+              "rms": 1.900472093720602
+            },
+            "raw_wheel_diff": {
+              "max": 0.0,
+              "mean": 0.0,
+              "mean_abs": 0.0,
+              "min": 0.0,
+              "rms": 0.0
+            },
+            "raw_yaw": {
+              "max": -0.3,
+              "mean": -0.29999999999999993,
+              "mean_abs": 0.29999999999999993,
+              "min": -0.3,
+              "rms": 0.3
+            },
+            "request_torque_diff": {
+              "max": 3.8952649381274,
+              "mean": 2.9453037513276232,
+              "mean_abs": 2.9453037513276232,
+              "min": 1.241560816716296,
+              "rms": 3.053370952552573
+            },
+            "safe_torque_diff": {
+              "max": 3.8952649381274,
+              "mean": 2.9453037513276232,
+              "mean_abs": 2.9453037513276232,
+              "min": 1.241560816716296,
+              "rms": 3.053370952552573
+            },
+            "servo_equals_raw_yaw_fraction": 0.0,
+            "servo_yaw": {
+              "max": 0.294,
+              "mean": -1.9176579516252704e-16,
+              "mean_abs": 0.14848484848484858,
+              "min": -0.29400000000000037,
+              "rms": 0.17146428199482258
+            },
+            "signed_yaw_error_rps": {
+              "max": 0.08813562110494219,
+              "mean": -0.018309829879071184,
+              "mean_abs": 0.051103983043578216,
+              "min": -0.14723292587145428,
+              "rms": 0.06107842274119714
+            },
+            "ticks": [
+              515,
+              715
+            ],
+            "wheel_error_diff": {
+              "max": 0.8494221509622886,
+              "mean": 0.21630156952420787,
+              "mean_abs": 0.42087606680585254,
+              "min": -0.55488319292692,
+              "rms": 0.48734698042667063
+            },
+            "wheel_integral_not_committed_fraction": 0.0,
+            "wheel_offset_diff": {
+              "max": 0.0,
+              "mean": 0.0,
+              "mean_abs": 0.0,
+              "min": 0.0,
+              "rms": 0.0
+            },
+            "wheel_protected_fraction": 0.0,
+            "wheel_speed_diff": {
+              "max": 2.14602484274865,
+              "mean": 0.017304251191118943,
+              "mean_abs": 1.261867142282982,
+              "min": -2.437460009205987,
+              "rms": 1.4507236409273971
+            },
+            "wheel_target_clipped_fraction": 0.0,
+            "wheel_target_diff": {
+              "max": 2.9893947926205335,
+              "mean": 0.2336058207153267,
+              "mean_abs": 1.6544903447547865,
+              "min": -2.9550417329727807,
+              "rms": 1.900472093720602
+            },
+            "wheel_torque_clipped_fraction": 0.0,
+            "yaw_squared_error_share_of_hold": 0.07132692299519225,
+            "yaw_squared_error_sum": 0.3693267987306864
+          }
+        },
+        "positive_1": {
+          "plateau_servo_equals_raw": {
+            "action_disabled_fraction": 0.0,
+            "actual_yaw": {
+              "max": 0.20438752008611394,
+              "mean": 0.16775933218553782,
+              "mean_abs": 0.16775933218553782,
+              "min": 0.14495147876924624,
+              "rms": 0.16920564812162828
+            },
+            "applied_wheel_diff": {
+              "max": 0.0,
+              "mean": 0.0,
+              "mean_abs": 0.0,
+              "min": 0.0,
+              "rms": 0.0
+            },
+            "available": true,
+            "base_torque_diff": {
+              "max": 3.618652410136489,
+              "mean": 2.8228848539765594,
+              "mean_abs": 2.8228848539765594,
+              "min": 2.074641769147976,
+              "rms": 2.8627640259663996
+            },
+            "count": 51,
+            "effective_nominal_yaw": {
+              "max": 0.6,
+              "mean": 0.6000000000000001,
+              "mean_abs": 0.6000000000000001,
+              "min": 0.6,
+              "rms": 0.6
+            },
+            "effective_nominal_yaw_at_0p6_limit_fraction": 1.0,
+            "nominal_diff_opposed_by_effective_residual_fraction": 0.0,
+            "nominal_target_diff": {
+              "max": 2.9860033956656142,
+              "mean": 2.97991308080553,
+              "mean_abs": 2.97991308080553,
+              "min": 2.9747956505629523,
+              "rms": 2.9799149049315385
+            },
+            "raw_wheel_diff": {
+              "max": 0.0,
+              "mean": 0.0,
+              "mean_abs": 0.0,
+              "min": 0.0,
+              "rms": 0.0
+            },
+            "raw_yaw": {
+              "max": 0.3,
+              "mean": 0.30000000000000004,
+              "mean_abs": 0.30000000000000004,
+              "min": 0.3,
+              "rms": 0.3
+            },
+            "request_torque_diff": {
+              "max": 3.618652410136489,
+              "mean": 2.8228848539765594,
+              "mean_abs": 2.8228848539765594,
+              "min": 2.074641769147976,
+              "rms": 2.8627640259664
+            },
+            "safe_torque_diff": {
+              "max": 3.618652410136489,
+              "mean": 2.8228848539765594,
+              "mean_abs": 2.8228848539765594,
+              "min": 2.074641769147976,
+              "rms": 2.8627640259664
+            },
+            "servo_equals_raw_yaw_fraction": 1.0,
+            "servo_yaw": {
+              "max": 0.3,
+              "mean": 0.30000000000000004,
+              "mean_abs": 0.30000000000000004,
+              "min": 0.3,
+              "rms": 0.3
+            },
+            "signed_yaw_error_rps": {
+              "max": -0.09561247991388605,
+              "mean": -0.13224066781446212,
+              "mean_abs": 0.13224066781446212,
+              "min": -0.15504852123075374,
+              "rms": 0.1340706979355951
+            },
+            "ticks": [
+              415,
+              515
+            ],
+            "wheel_error_diff": {
+              "max": 0.838939086074963,
+              "mean": 0.7442316104173694,
+              "mean_abs": 0.7442316104173694,
+              "min": 0.6457685422555377,
+              "rms": 0.7472081541830904
+            },
+            "wheel_integral_not_committed_fraction": 0.0,
+            "wheel_offset_diff": {
+              "max": 0.0,
+              "mean": 0.0,
+              "mean_abs": 0.0,
+              "min": 0.0,
+              "rms": 0.0
+            },
+            "wheel_protected_fraction": 0.0,
+            "wheel_speed_diff": {
+              "max": 2.329165102889407,
+              "mean": 2.235681470388161,
+              "mean_abs": 2.235681470388161,
+              "min": 2.147064309590653,
+              "rms": 2.2365793084237064
+            },
+            "wheel_target_clipped_fraction": 0.0,
+            "wheel_target_diff": {
+              "max": 2.9860033956656142,
+              "mean": 2.97991308080553,
+              "mean_abs": 2.97991308080553,
+              "min": 2.9747956505629523,
+              "rms": 2.9799149049315385
+            },
+            "wheel_torque_clipped_fraction": 0.0,
+            "yaw_squared_error_share_of_hold": 0.17704374354271712,
+            "yaw_squared_error_sum": 0.9167225542918167
+          },
+          "transition_servo_differs_from_raw": {
+            "action_disabled_fraction": 0.0,
+            "actual_yaw": {
+              "max": 0.2013204471801065,
+              "mean": 0.10150265237707529,
+              "mean_abs": 0.10150265237707529,
+              "min": 0.0012538602562287488,
+              "rms": 0.11804177843096748
+            },
+            "applied_wheel_diff": {
+              "max": 0.0,
+              "mean": 0.0,
+              "mean_abs": 0.0,
+              "min": 0.0,
+              "rms": 0.0
+            },
+            "available": true,
+            "base_torque_diff": {
+              "max": 2.056731733185086,
+              "mean": 1.1987095760759756,
+              "mean_abs": 1.1987095760759756,
+              "min": 0.33219645525268304,
+              "rms": 1.3286794346071762
+            },
+            "count": 49,
+            "effective_nominal_yaw": {
+              "max": 0.6,
+              "mean": 0.35632362688030816,
+              "mean_abs": 0.35632362688030816,
+              "min": 0.029998435446028225,
+              "rms": 0.39817201837886274
+            },
+            "effective_nominal_yaw_at_0p6_limit_fraction": 0.12244897959183673,
+            "nominal_diff_opposed_by_effective_residual_fraction": 0.0,
+            "nominal_target_diff": {
+              "max": 2.9746683149185813,
+              "mean": 1.7662542266448298,
+              "mean_abs": 1.7662542266448298,
+              "min": 0.14878635703990106,
+              "rms": 1.973639954675103
+            },
+            "raw_wheel_diff": {
+              "max": 0.0,
+              "mean": 0.0,
+              "mean_abs": 0.0,
+              "min": 0.0,
+              "rms": 0.0
+            },
+            "raw_yaw": {
+              "max": 0.3,
+              "mean": 0.30000000000000004,
+              "mean_abs": 0.30000000000000004,
+              "min": 0.3,
+              "rms": 0.3
+            },
+            "request_torque_diff": {
+              "max": 2.056731733185087,
+              "mean": 1.1987095760759756,
+              "mean_abs": 1.1987095760759756,
+              "min": 0.3321964552526828,
+              "rms": 1.3286794346071762
+            },
+            "safe_torque_diff": {
+              "max": 2.056731733185087,
+              "mean": 1.1987095760759756,
+              "mean_abs": 1.1987095760759756,
+              "min": 0.3321964552526828,
+              "rms": 1.3286794346071762
+            },
+            "servo_equals_raw_yaw_fraction": 0.0,
+            "servo_yaw": {
+              "max": 0.29400000000000015,
+              "mean": 0.15000000000000008,
+              "mean_abs": 0.15000000000000008,
+              "min": 0.006,
+              "rms": 0.17233687939614095
+            },
+            "signed_yaw_error_rps": {
+              "max": -0.004746139743771251,
+              "mean": -0.04849734762292476,
+              "mean_abs": 0.04849734762292476,
+              "min": -0.09267955281989365,
+              "rms": 0.054404904430086456
+            },
+            "ticks": [
+              415,
+              515
+            ],
+            "wheel_error_diff": {
+              "max": 0.6789983745397645,
+              "mean": 0.4312508454880436,
+              "mean_abs": 0.4312508454880436,
+              "min": 0.14879961492695593,
+              "rms": 0.4658548316056122
+            },
+            "wheel_integral_not_committed_fraction": 0.0,
+            "wheel_offset_diff": {
+              "max": 0.0,
+              "mean": 0.0,
+              "mean_abs": 0.0,
+              "min": 0.0,
+              "rms": 0.0
+            },
+            "wheel_protected_fraction": 0.0,
+            "wheel_speed_diff": {
+              "max": 2.328113916576722,
+              "mean": 1.335003381156786,
+              "mean_abs": 1.3350039222950332,
+              "min": -1.3257887055750928e-05,
+              "rms": 1.5099461705830994
+            },
+            "wheel_target_clipped_fraction": 0.0,
+            "wheel_target_diff": {
+              "max": 2.9746683149185813,
+              "mean": 1.7662542266448298,
+              "mean_abs": 1.7662542266448298,
+              "min": 0.14878635703990106,
+              "rms": 1.973639954675103
+            },
+            "wheel_torque_clipped_fraction": 0.0,
+            "yaw_squared_error_share_of_hold": 0.028010112365971764,
+            "yaw_squared_error_sum": 0.14503478767629518
+          }
+        },
+        "positive_2": {
+          "plateau_servo_equals_raw": {
+            "action_disabled_fraction": 0.0,
+            "actual_yaw": {
+              "max": 0.1830908737209209,
+              "mean": 0.1830908737209209,
+              "mean_abs": 0.1830908737209209,
+              "min": 0.1830908737209209,
+              "rms": 0.1830908737209209
+            },
+            "applied_wheel_diff": {
+              "max": 0.0,
+              "mean": 0.0,
+              "mean_abs": 0.0,
+              "min": 0.0,
+              "rms": 0.0
+            },
+            "available": true,
+            "base_torque_diff": {
+              "max": 0.1492740173699807,
+              "mean": 0.1492740173699807,
+              "mean_abs": 0.1492740173699807,
+              "min": 0.1492740173699807,
+              "rms": 0.1492740173699807
+            },
+            "count": 1,
+            "effective_nominal_yaw": {
+              "max": 0.6,
+              "mean": 0.6,
+              "mean_abs": 0.6,
+              "min": 0.6,
+              "rms": 0.6
+            },
+            "effective_nominal_yaw_at_0p6_limit_fraction": 1.0,
+            "nominal_diff_opposed_by_effective_residual_fraction": 0.0,
+            "nominal_target_diff": {
+              "max": 2.9219148625414286,
+              "mean": 2.9219148625414286,
+              "mean_abs": 2.9219148625414286,
+              "min": 2.9219148625414286,
+              "rms": 2.9219148625414286
+            },
+            "raw_wheel_diff": {
+              "max": 0.0,
+              "mean": 0.0,
+              "mean_abs": 0.0,
+              "min": 0.0,
+              "rms": 0.0
+            },
+            "raw_yaw": {
+              "max": 0.3,
+              "mean": 0.3,
+              "mean_abs": 0.3,
+              "min": 0.3,
+              "rms": 0.3
+            },
+            "request_torque_diff": {
+              "max": 0.1492740173699807,
+              "mean": 0.1492740173699807,
+              "mean_abs": 0.1492740173699807,
+              "min": 0.1492740173699807,
+              "rms": 0.1492740173699807
+            },
+            "safe_torque_diff": {
+              "max": 0.1492740173699807,
+              "mean": 0.1492740173699807,
+              "mean_abs": 0.1492740173699807,
+              "min": 0.1492740173699807,
+              "rms": 0.1492740173699807
+            },
+            "servo_equals_raw_yaw_fraction": 1.0,
+            "servo_yaw": {
+              "max": 0.3,
+              "mean": 0.3,
+              "mean_abs": 0.3,
+              "min": 0.3,
+              "rms": 0.3
+            },
+            "signed_yaw_error_rps": {
+              "max": -0.1169091262790791,
+              "mean": -0.1169091262790791,
+              "mean_abs": 0.1169091262790791,
+              "min": -0.1169091262790791,
+              "rms": 0.1169091262790791
+            },
+            "ticks": [
+              715,
+              815
+            ],
+            "wheel_error_diff": {
+              "max": 0.5141167849233206,
+              "mean": 0.5141167849233206,
+              "mean_abs": 0.5141167849233206,
+              "min": 0.5141167849233206,
+              "rms": 0.5141167849233206
+            },
+            "wheel_integral_not_committed_fraction": 0.0,
+            "wheel_offset_diff": {
+              "max": 0.0,
+              "mean": 0.0,
+              "mean_abs": 0.0,
+              "min": 0.0,
+              "rms": 0.0
+            },
+            "wheel_protected_fraction": 0.0,
+            "wheel_speed_diff": {
+              "max": 2.407798077618108,
+              "mean": 2.407798077618108,
+              "mean_abs": 2.407798077618108,
+              "min": 2.407798077618108,
+              "rms": 2.407798077618108
+            },
+            "wheel_target_clipped_fraction": 0.0,
+            "wheel_target_diff": {
+              "max": 2.9219148625414286,
+              "mean": 2.9219148625414286,
+              "mean_abs": 2.9219148625414286,
+              "min": 2.9219148625414286,
+              "rms": 2.9219148625414286
+            },
+            "wheel_torque_clipped_fraction": 0.0,
+            "yaw_squared_error_share_of_hold": 0.0026396083723533733,
+            "yaw_squared_error_sum": 0.013667743807337662
+          },
+          "transition_servo_differs_from_raw": {
+            "action_disabled_fraction": 0.0,
+            "actual_yaw": {
+              "max": 0.18281771452368548,
+              "mean": 0.019513580308674065,
+              "mean_abs": 0.09523660171337538,
+              "min": -0.14056136601018523,
+              "rms": 0.10823645979726823
+            },
+            "applied_wheel_diff": {
+              "max": 0.0,
+              "mean": 0.0,
+              "mean_abs": 0.0,
+              "min": 0.0,
+              "rms": 0.0
+            },
+            "available": true,
+            "base_torque_diff": {
+              "max": 0.12463063289070198,
+              "mean": -1.6134559838446154,
+              "mean_abs": 1.62380927407983,
+              "min": -2.5545435609402776,
+              "rms": 1.816049250204617
+            },
+            "count": 99,
+            "effective_nominal_yaw": {
+              "max": 0.6,
+              "mean": -0.04839271248070097,
+              "mean_abs": 0.3444884947318263,
+              "min": -0.6,
+              "rms": 0.39592954013595505
+            },
+            "effective_nominal_yaw_at_0p6_limit_fraction": 0.1919191919191919,
+            "nominal_diff_opposed_by_effective_residual_fraction": 0.0,
+            "nominal_target_diff": {
+              "max": 2.9245239542688664,
+              "mean": -0.23986687440113288,
+              "mean_abs": 1.684364746908893,
+              "min": -2.93765889408055,
+              "rms": 1.9353816982106111
+            },
+            "raw_wheel_diff": {
+              "max": 0.0,
+              "mean": 0.0,
+              "mean_abs": 0.0,
+              "min": 0.0,
+              "rms": 0.0
+            },
+            "raw_yaw": {
+              "max": 0.3,
+              "mean": 0.29999999999999993,
+              "mean_abs": 0.29999999999999993,
+              "min": 0.3,
+              "rms": 0.3
+            },
+            "request_torque_diff": {
+              "max": 0.12463063289070198,
+              "mean": -1.6134559838446154,
+              "mean_abs": 1.62380927407983,
+              "min": -2.554543560940277,
+              "rms": 1.816049250204617
+            },
+            "safe_torque_diff": {
+              "max": 0.12463063289070198,
+              "mean": -1.6134559838446154,
+              "mean_abs": 1.62380927407983,
+              "min": -2.554543560940277,
+              "rms": 1.816049250204617
+            },
+            "servo_equals_raw_yaw_fraction": 0.0,
+            "servo_yaw": {
+              "max": 0.29400000000000037,
+              "mean": 1.9176579516252704e-16,
+              "mean_abs": 0.14848484848484858,
+              "min": -0.294,
+              "rms": 0.17146428199482258
+            },
+            "signed_yaw_error_rps": {
+              "max": 0.17016959438983065,
+              "mean": 0.01951358030867386,
+              "mean_abs": 0.057616715548427275,
+              "min": -0.1111822854763149,
+              "rms": 0.06936027578228851
+            },
+            "ticks": [
+              715,
+              815
+            ],
+            "wheel_error_diff": {
+              "max": 0.5386507755162153,
+              "mean": -0.29119763765437906,
+              "mean_abs": 0.4854562947071069,
+              "min": -0.9699748161149353,
+              "rms": 0.5575912676916123
+            },
+            "wheel_integral_not_committed_fraction": 0.0,
+            "wheel_offset_diff": {
+              "max": 0.0,
+              "mean": 0.0,
+              "mean_abs": 0.0,
+              "min": 0.0,
+              "rms": 0.0
+            },
+            "wheel_protected_fraction": 0.0,
+            "wheel_speed_diff": {
+              "max": 2.440864200683996,
+              "mean": 0.05133076325324607,
+              "mean_abs": 1.2544140324602242,
+              "min": -1.9836261549148437,
+              "rms": 1.4472172201715725
+            },
+            "wheel_target_clipped_fraction": 0.0,
+            "wheel_target_diff": {
+              "max": 2.9245239542688664,
+              "mean": -0.23986687440113288,
+              "mean_abs": 1.684364746908893,
+              "min": -2.93765889408055,
+              "rms": 1.9353816982106111
+            },
+            "wheel_torque_clipped_fraction": 0.0,
+            "yaw_squared_error_share_of_hold": 0.09198128758335089,
+            "yaw_squared_error_sum": 0.47627393780291666
+          }
+        }
+      },
+      "windows": {
+        "full_drive_175_815": {
+          "action_disabled_fraction": 0.0,
+          "actual_yaw": {
+            "max": 0.20438752008611394,
+            "mean": 0.0023426445645897244,
+            "mean_abs": 0.07094946657181557,
+            "min": -0.20586437889505818,
+            "rms": 0.0985820048345335
+          },
+          "applied_wheel_diff": {
+            "max": 0.0,
+            "mean": 0.0,
+            "mean_abs": 0.0,
+            "min": 0.0,
+            "rms": 0.0
+          },
+          "available": true,
+          "base_torque_diff": {
+            "max": 3.8952649381274,
+            "mean": 0.4244295714600524,
+            "mean_abs": 1.1812399444809454,
+            "min": -2.5545435609402776,
+            "rms": 1.7203738970552804
+          },
+          "count": 640,
+          "effective_nominal_yaw": {
+            "max": 0.6,
+            "mean": -0.019094773674809096,
+            "mean_abs": 0.27555352395690813,
+            "min": -0.6,
+            "rms": 0.38094964098030915
+          },
+          "effective_nominal_yaw_at_0p6_limit_fraction": 0.3,
+          "nominal_diff_opposed_by_effective_residual_fraction": 0.0,
+          "nominal_target_diff": {
+            "max": 2.9893947926205335,
+            "mean": -0.087231735039171,
+            "mean_abs": 1.3572555238667623,
+            "min": -2.9550417329727807,
+            "rms": 1.8757347126604884
+          },
+          "raw_wheel_diff": {
+            "max": 0.0,
+            "mean": 0.0,
+            "mean_abs": 0.0,
+            "min": 0.0,
+            "rms": 0.0
+          },
+          "raw_yaw": {
+            "max": 0.3,
+            "mean": -1.1102230246251566e-17,
+            "mean_abs": 0.18749999999999997,
+            "min": -0.3,
+            "rms": 0.23717082451262841
+          },
+          "request_torque_diff": {
+            "max": 3.8952649381274,
+            "mean": 0.4244295714600524,
+            "mean_abs": 1.1812399444809452,
+            "min": -2.554543560940277,
+            "rms": 1.7203738970552804
+          },
+          "safe_torque_diff": {
+            "max": 3.8952649381274,
+            "mean": 0.4244295714600524,
+            "mean_abs": 1.1812399444809452,
+            "min": -2.554543560940277,
+            "rms": 1.7203738970552804
+          },
+          "servo_equals_raw_yaw_fraction": 0.6140625,
+          "servo_yaw": {
+            "max": 0.3,
+            "mean": -0.011484374999999991,
+            "mean_abs": 0.12914062500000004,
+            "min": -0.3,
+            "rms": 0.181342648734378
+          },
+          "signed_yaw_error_rps": {
+            "max": 0.20686512032483895,
+            "mean": 0.013827019564589722,
+            "mean_abs": 0.05932594356740993,
+            "min": -0.15504852123075374,
+            "rms": 0.08994741370469272
+          },
+          "ticks": [
+            175,
+            815
+          ],
+          "wheel_error_diff": {
+            "max": 0.8494221509622886,
+            "mean": -0.051222649026969526,
+            "mean_abs": 0.36609070893365725,
+            "min": -0.9707625498026387,
+            "rms": 0.5101939948220156
+          },
+          "wheel_integral_not_committed_fraction": 0.0,
+          "wheel_offset_diff": {
+            "max": 0.0,
+            "mean": 0.0,
+            "mean_abs": 0.0,
+            "min": 0.0,
+            "rms": 0.0
+          },
+          "wheel_protected_fraction": 0.0,
+          "wheel_speed_diff": {
+            "max": 2.440864200683996,
+            "mean": -0.03600908601220145,
+            "mean_abs": 1.0041436610795678,
+            "min": -2.437460009205987,
+            "rms": 1.3883695678996388
+          },
+          "wheel_target_clipped_fraction": 0.0,
+          "wheel_target_diff": {
+            "max": 2.9893947926205335,
+            "mean": -0.087231735039171,
+            "mean_abs": 1.3572555238667623,
+            "min": -2.9550417329727807,
+            "rms": 1.8757347126604884
+          },
+          "wheel_torque_clipped_fraction": 0.0,
+          "yaw_squared_error_share_of_hold": null,
+          "yaw_squared_error_sum": 5.177943828584413
+        },
+        "hold": {
+          "action_disabled_fraction": 0.0,
+          "actual_yaw": {
+            "max": 0.20438752008611394,
+            "mean": 0.0037434756377680858,
+            "mean_abs": 0.11351432320671158,
+            "min": -0.20586437889505818,
+            "rms": 0.12469746835147515
+          },
+          "applied_wheel_diff": {
+            "max": 0.0,
+            "mean": 0.0,
+            "mean_abs": 0.0,
+            "min": 0.0,
+            "rms": 0.0
+          },
+          "available": true,
+          "base_torque_diff": {
+            "max": 3.8952649381274,
+            "mean": 0.6788842990386661,
+            "mean_abs": 1.8897808958720947,
+            "min": -2.5545435609402776,
+            "rms": 2.176119958380624
+          },
+          "count": 400,
+          "effective_nominal_yaw": {
+            "max": 0.6,
+            "mean": -0.03053256905378486,
+            "mean_abs": 0.440866298934672,
+            "min": -0.6,
+            "rms": 0.48186741456120735
+          },
+          "effective_nominal_yaw_at_0p6_limit_fraction": 0.48,
+          "nominal_diff_opposed_by_effective_residual_fraction": 0.0,
+          "nominal_target_diff": {
+            "max": 2.9893947926205335,
+            "mean": -0.1394756494094959,
+            "mean_abs": 2.17151236925512,
+            "min": -2.9550417329727807,
+            "rms": 2.37263758538681
+          },
+          "raw_wheel_diff": {
+            "max": 0.0,
+            "mean": 0.0,
+            "mean_abs": 0.0,
+            "min": 0.0,
+            "rms": 0.0
+          },
+          "raw_yaw": {
+            "max": 0.3,
+            "mean": 0.0,
+            "mean_abs": 0.29999999999999993,
+            "min": -0.3,
+            "rms": 0.3
+          },
+          "request_torque_diff": {
+            "max": 3.8952649381274,
+            "mean": 0.678884299038666,
+            "mean_abs": 1.8897808958720947,
+            "min": -2.554543560940277,
+            "rms": 2.176119958380624
+          },
+          "safe_torque_diff": {
+            "max": 3.8952649381274,
+            "mean": 0.678884299038666,
+            "mean_abs": 1.8897808958720947,
+            "min": -2.554543560940277,
+            "rms": 2.176119958380624
+          },
+          "servo_equals_raw_yaw_fraction": 0.3825,
+          "servo_yaw": {
+            "max": 0.3,
+            "mean": -0.018374999999999978,
+            "mean_abs": 0.206625,
+            "min": -0.3,
+            "rms": 0.22938232277139406
+          },
+          "signed_yaw_error_rps": {
+            "max": 0.20686512032483895,
+            "mean": 0.022118475637768066,
+            "mean_abs": 0.09491668639966257,
+            "min": -0.15504852123075374,
+            "rms": 0.11377547847060276
+          },
+          "ticks": [
+            415,
+            815
+          ],
+          "wheel_error_diff": {
+            "max": 0.8494221509622886,
+            "mean": -0.08184635195224153,
+            "mean_abs": 0.585632936290098,
+            "min": -0.9707625498026387,
+            "rms": 0.6453500010810027
+          },
+          "wheel_integral_not_committed_fraction": 0.0,
+          "wheel_offset_diff": {
+            "max": 0.0,
+            "mean": 0.0,
+            "mean_abs": 0.0,
+            "min": 0.0,
+            "rms": 0.0
+          },
+          "wheel_protected_fraction": 0.0,
+          "wheel_speed_diff": {
+            "max": 2.440864200683996,
+            "mean": -0.05762929745725429,
+            "mean_abs": 1.6066097142910976,
+            "min": -2.437460009205987,
+            "rms": 1.7561640270170322
+          },
+          "wheel_target_clipped_fraction": 0.0,
+          "wheel_target_diff": {
+            "max": 2.9893947926205335,
+            "mean": -0.1394756494094959,
+            "mean_abs": 2.17151236925512,
+            "min": -2.9550417329727807,
+            "rms": 2.37263758538681
+          },
+          "wheel_torque_clipped_fraction": 0.0,
+          "yaw_squared_error_share_of_hold": 1.0,
+          "yaw_squared_error_sum": 5.177943800485838
+        },
+        "negative": {
+          "action_disabled_fraction": 0.0,
+          "actual_yaw": {
+            "max": 0.15064012820774764,
+            "mean": -0.0707345048855577,
+            "mean_abs": 0.11132429465700217,
+            "min": -0.20586437889505818,
+            "rms": 0.12007384925703923
+          },
+          "applied_wheel_diff": {
+            "max": 0.0,
+            "mean": 0.0,
+            "mean_abs": 0.0,
+            "min": 0.0,
+            "rms": 0.0
+          },
+          "available": true,
+          "base_torque_diff": {
+            "max": 3.8952649381274,
+            "mean": 1.14216345609093,
+            "mean_abs": 1.9615103470851867,
+            "min": -2.2674487696435195,
+            "rms": 2.305646459554064
+          },
+          "count": 200,
+          "effective_nominal_yaw": {
+            "max": 0.6,
+            "mean": -0.2804100340152982,
+            "mean_abs": 0.4679115043914146,
+            "min": -0.6,
+            "rms": 0.5043347864123165
+          },
+          "effective_nominal_yaw_at_0p6_limit_fraction": 0.575,
+          "nominal_diff_opposed_by_effective_residual_fraction": 0.0,
+          "nominal_target_diff": {
+            "max": 2.9893947926205335,
+            "mean": -1.3674368914365318,
+            "mean_abs": 2.302044493344238,
+            "min": -2.9550417329727807,
+            "rms": 2.4785676458157564
+          },
+          "raw_wheel_diff": {
+            "max": 0.0,
+            "mean": 0.0,
+            "mean_abs": 0.0,
+            "min": 0.0,
+            "rms": 0.0
+          },
+          "raw_yaw": {
+            "max": -0.3,
+            "mean": -0.29999999999999993,
+            "mean_abs": 0.29999999999999993,
+            "min": -0.3,
+            "rms": 0.3
+          },
+          "request_torque_diff": {
+            "max": 3.8952649381274,
+            "mean": 1.14216345609093,
+            "mean_abs": 1.9615103470851867,
+            "min": -2.2674487696435195,
+            "rms": 2.305646459554064
+          },
+          "safe_torque_diff": {
+            "max": 3.8952649381274,
+            "mean": 1.14216345609093,
+            "mean_abs": 1.9615103470851867,
+            "min": -2.2674487696435195,
+            "rms": 2.305646459554064
+          },
+          "servo_equals_raw_yaw_fraction": 0.505,
+          "servo_yaw": {
+            "max": 0.294,
+            "mean": -0.15150000000000005,
+            "mean_abs": 0.225,
+            "min": -0.3,
+            "rms": 0.24495509792613016
+          },
+          "signed_yaw_error_rps": {
+            "max": 0.20686512032483895,
+            "mean": 0.08076549511444242,
+            "mean_abs": 0.11512533251115388,
+            "min": -0.14723292587145428,
+            "rms": 0.1346522331212422
+          },
+          "ticks": [
+            515,
+            715
+          ],
+          "wheel_error_diff": {
+            "max": 0.8494221509622886,
+            "mean": -0.3175559749911819,
+            "mean_abs": 0.6329589049745618,
+            "min": -0.9707625498026387,
+            "rms": 0.6943993899004559
+          },
+          "wheel_integral_not_committed_fraction": 0.0,
+          "wheel_offset_diff": {
+            "max": 0.0,
+            "mean": 0.0,
+            "mean_abs": 0.0,
+            "min": 0.0,
+            "rms": 0.0
+          },
+          "wheel_protected_fraction": 0.0,
+          "wheel_speed_diff": {
+            "max": 2.14602484274865,
+            "mean": -1.0498809164453495,
+            "mean_abs": 1.6830707562150298,
+            "min": -2.437460009205987,
+            "rms": 1.8078501627180639
+          },
+          "wheel_target_clipped_fraction": 0.0,
+          "wheel_target_diff": {
+            "max": 2.9893947926205335,
+            "mean": -1.3674368914365318,
+            "mean_abs": 2.302044493344238,
+            "min": -2.9550417329727807,
+            "rms": 2.4785676458157564
+          },
+          "wheel_torque_clipped_fraction": 0.0,
+          "yaw_squared_error_share_of_hold": 0.7003252481356068,
+          "yaw_squared_error_sum": 3.626244776907471
+        },
+        "positive_1": {
+          "action_disabled_fraction": 0.0,
+          "actual_yaw": {
+            "max": 0.20438752008611394,
+            "mean": 0.1352935590793912,
+            "mean_abs": 0.1352935590793912,
+            "min": 0.0012538602562287488,
+            "rms": 0.146387066726245
+          },
+          "applied_wheel_diff": {
+            "max": 0.0,
+            "mean": 0.0,
+            "mean_abs": 0.0,
+            "min": 0.0,
+            "rms": 0.0
+          },
+          "available": true,
+          "base_torque_diff": {
+            "max": 3.618652410136489,
+            "mean": 2.0270389678052734,
+            "mean_abs": 2.0270389678052734,
+            "min": 0.33219645525268304,
+            "rms": 2.2460417944557247
+          },
+          "count": 100,
+          "effective_nominal_yaw": {
+            "max": 0.6,
+            "mean": 0.48059857717135096,
+            "mean_abs": 0.48059857717135096,
+            "min": 0.029998435446028225,
+            "rms": 0.5111605115301354
+          },
+          "effective_nominal_yaw_at_0p6_limit_fraction": 0.57,
+          "nominal_diff_opposed_by_effective_residual_fraction": 0.0,
+          "nominal_target_diff": {
+            "max": 2.9860033956656142,
+            "mean": 2.3852202422667874,
+            "mean_abs": 2.3852202422667874,
+            "min": 0.14878635703990106,
+            "rms": 2.53720715302495
+          },
+          "raw_wheel_diff": {
+            "max": 0.0,
+            "mean": 0.0,
+            "mean_abs": 0.0,
+            "min": 0.0,
+            "rms": 0.0
+          },
+          "raw_yaw": {
+            "max": 0.3,
+            "mean": 0.3,
+            "mean_abs": 0.3,
+            "min": 0.3,
+            "rms": 0.3
+          },
+          "request_torque_diff": {
+            "max": 3.618652410136489,
+            "mean": 2.0270389678052734,
+            "mean_abs": 2.0270389678052734,
+            "min": 0.3321964552526828,
+            "rms": 2.2460417944557247
+          },
+          "safe_torque_diff": {
+            "max": 3.618652410136489,
+            "mean": 2.0270389678052734,
+            "mean_abs": 2.0270389678052734,
+            "min": 0.3321964552526828,
+            "rms": 2.2460417944557247
+          },
+          "servo_equals_raw_yaw_fraction": 0.51,
+          "servo_yaw": {
+            "max": 0.3,
+            "mean": 0.22650000000000006,
+            "mean_abs": 0.22650000000000006,
+            "min": 0.006,
+            "rms": 0.24587191787595425
+          },
+          "signed_yaw_error_rps": {
+            "max": -0.004746139743771251,
+            "mean": -0.09120644092060883,
+            "mean_abs": 0.09120644092060883,
+            "min": -0.15504852123075374,
+            "rms": 0.10304161013726988
+          },
+          "ticks": [
+            415,
+            515
+          ],
+          "wheel_error_diff": {
+            "max": 0.838939086074963,
+            "mean": 0.5908710356019998,
+            "mean_abs": 0.5908710356019998,
+            "min": 0.14879961492695593,
+            "rms": 0.6253665868268556
+          },
+          "wheel_integral_not_committed_fraction": 0.0,
+          "wheel_offset_diff": {
+            "max": 0.0,
+            "mean": 0.0,
+            "mean_abs": 0.0,
+            "min": 0.0,
+            "rms": 0.0
+          },
+          "wheel_protected_fraction": 0.0,
+          "wheel_speed_diff": {
+            "max": 2.329165102889407,
+            "mean": 1.794349206664788,
+            "mean_abs": 1.794349471822529,
+            "min": -1.3257887055750928e-05,
+            "rms": 1.9152899822512308
+          },
+          "wheel_target_clipped_fraction": 0.0,
+          "wheel_target_diff": {
+            "max": 2.9860033956656142,
+            "mean": 2.3852202422667874,
+            "mean_abs": 2.3852202422667874,
+            "min": 0.14878635703990106,
+            "rms": 2.53720715302495
+          },
+          "wheel_torque_clipped_fraction": 0.0,
+          "yaw_squared_error_share_of_hold": 0.20505385590868888,
+          "yaw_squared_error_sum": 1.061757341968112
+        },
+        "positive_2": {
+          "action_disabled_fraction": 0.0,
+          "actual_yaw": {
+            "max": 0.1830908737209209,
+            "mean": 0.021149353242796532,
+            "mean_abs": 0.09611514443345083,
+            "min": -0.14056136601018523,
+            "rms": 0.10923919899720111
+          },
+          "applied_wheel_diff": {
+            "max": 0.0,
+            "mean": 0.0,
+            "mean_abs": 0.0,
+            "min": 0.0,
+            "rms": 0.0
+          },
+          "available": true,
+          "base_torque_diff": {
+            "max": 0.1492740173699807,
+            "mean": -1.5958286838324696,
+            "mean_abs": 1.6090639215127314,
+            "min": -2.5545435609402776,
+            "rms": 1.8070078466071147
+          },
+          "count": 100,
+          "effective_nominal_yaw": {
+            "max": 0.6,
+            "mean": -0.041908785355893964,
+            "mean_abs": 0.3470436097845081,
+            "min": -0.6,
+            "rms": 0.3984878903363892
+          },
+          "effective_nominal_yaw_at_0p6_limit_fraction": 0.2,
+          "nominal_diff_opposed_by_effective_residual_fraction": 0.0,
+          "nominal_target_diff": {
+            "max": 2.9245239542688664,
+            "mean": -0.2082490570317073,
+            "mean_abs": 1.6967402480652183,
+            "min": -2.93765889408055,
+            "rms": 1.9477220436269411
+          },
+          "raw_wheel_diff": {
+            "max": 0.0,
+            "mean": 0.0,
+            "mean_abs": 0.0,
+            "min": 0.0,
+            "rms": 0.0
+          },
+          "raw_yaw": {
+            "max": 0.3,
+            "mean": 0.3,
+            "mean_abs": 0.3,
+            "min": 0.3,
+            "rms": 0.3
+          },
+          "request_torque_diff": {
+            "max": 0.1492740173699807,
+            "mean": -1.5958286838324696,
+            "mean_abs": 1.6090639215127314,
+            "min": -2.554543560940277,
+            "rms": 1.8070078466071147
+          },
+          "safe_torque_diff": {
+            "max": 0.1492740173699807,
+            "mean": -1.5958286838324696,
+            "mean_abs": 1.6090639215127314,
+            "min": -2.554543560940277,
+            "rms": 1.8070078466071147
+          },
+          "servo_equals_raw_yaw_fraction": 0.01,
+          "servo_yaw": {
+            "max": 0.3,
+            "mean": 0.0030000000000001896,
+            "mean_abs": 0.1500000000000001,
+            "min": -0.294,
+            "rms": 0.1732224003990247
+          },
+          "signed_yaw_error_rps": {
+            "max": 0.17016959438983065,
+            "mean": 0.018149353242796328,
+            "mean_abs": 0.058209639655733794,
+            "min": -0.1169091262790791,
+            "rms": 0.06999583427678066
+          },
+          "ticks": [
+            715,
+            815
+          ],
+          "wheel_error_diff": {
+            "max": 0.5386507755162153,
+            "mean": -0.28314449342860204,
+            "mean_abs": 0.48574289960926903,
+            "min": -0.9699748161149353,
+            "rms": 0.557173314394434
+          },
+          "wheel_integral_not_committed_fraction": 0.0,
+          "wheel_offset_diff": {
+            "max": 0.0,
+            "mean": 0.0,
+            "mean_abs": 0.0,
+            "min": 0.0,
+            "rms": 0.0
+          },
+          "wheel_protected_fraction": 0.0,
+          "wheel_speed_diff": {
+            "max": 2.440864200683996,
+            "mean": 0.0748954363968947,
+            "mean_abs": 1.265947872911803,
+            "min": -1.9836261549148437,
+            "rms": 1.4599548696323925
+          },
+          "wheel_target_clipped_fraction": 0.0,
+          "wheel_target_diff": {
+            "max": 2.9245239542688664,
+            "mean": -0.2082490570317073,
+            "mean_abs": 1.6967402480652183,
+            "min": -2.93765889408055,
+            "rms": 1.9477220436269411
+          },
+          "wheel_torque_clipped_fraction": 0.0,
+          "yaw_squared_error_share_of_hold": 0.09462089595570425,
+          "yaw_squared_error_sum": 0.4899416816102543
+        }
+      }
+    }
+  },
+  "input_sha256": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_episode_000000_schedule.json": "b5d55311d92f36709337defdd925743234e118952a153d18d9ddbe30796696e7",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_episode_000001_schedule.json": "e3af13fb1c282e71ea3a9e55bdc21e0cdda90ae981ce5c0c73398b3b77a4ba72",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_episode_000002_schedule.json": "dae976c92ef76ec144f96c5956f3f639cb767b2137da5df75e354d2f4f0cc48c",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_episode_000003_schedule.json": "2f929bc8f1d7c48a2bdc23656baa7d340fb99628fc636c1ed9a1866627f9d400",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_episode_000004_schedule.json": "d245d42bd4401ecc6c6d2268c4b5e37433cc4f7a381f9028334b049ced8648bb",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_episode_000005_schedule.json": "d52e6e8970beaa154b8f149d550586f9c07a65036cd974e03c0fb241343fd68f",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_episode_000006_schedule.json": "7055b76c1440bf58cee6197be3a370a15da6dfac5fce5a46125a49bd9b0cab01",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_episode_000007_schedule.json": "0ca1ee86a10460194793111d431fb3a575c5bd27147bee544ed5cce491a986e2",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_episode_000008_schedule.json": "537f9ae5dd7894a21b3ca8a2bbbce10bacb0fd4fead9b6a49c1215d68cd49e63",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_episode_000009_schedule.json": "e0d62d0c78d4880f0e8525d26fa880c9d185cff5ca35cd61008b2f69ac4c37ff",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_episode_000010_schedule.json": "28a13500e11d0dfe3b5a5747bfba6022d18a44668f64de7f8feb710c82c0d141",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_episode_000011_schedule.json": "b3b36fe5800be4682a5d101f03ada5d4d82b9d9ff5d204a7d3a7b0ddc67a12ee",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_episode_000012_schedule.json": "4c9b5286acc8b0cbf64326e5d9616f8bb66f9585a5a8ef2241a13966da3ffca5",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_episode_000013_schedule.json": "a3ec4c2d0caeaffe11fe93bdaa66a9f6e9b9ab8b7debc530a742973edda98df4",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_episode_000014_schedule.json": "d73179ec499129dbf8a47687014ee410d66430fe528392bf7599c87d17b55173",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_episode_000015_schedule.json": "87712a956c864409f5182a99dd96d69af003096913811865d361f7a43dfee7e9",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_episode_000016_schedule.json": "4e401d4cee74434ad7c781d78d4986cebb5550c4cf7e6f9f287c6b30caa70d2e",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_numeric_blocks/controls_0000.npz": "ad5f3516878d8185116ec839a485d5911f3554e1af168fbb50abf1678ff4d378",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_numeric_blocks/controls_0001.npz": "975f020a1b10e8368f4f29460bfc6959e8bb03a704431bc343b16bef17b16a46",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_numeric_blocks/controls_0002.npz": "f69c846dcd35f5799a655b222cd70f16c999fc14083fb030aa78e65cf6a07928",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_numeric_blocks/controls_0003.npz": "783438f3b90ee41665085683d95f701558975f42f3d8e669e98fe25e4a9b7d6f",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_numeric_blocks/controls_0004.npz": "641c31a993867e1357712751bad4f4728608c34223f4c0c22ca2432cc466146f",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_numeric_blocks/controls_0005.npz": "e1f8bae7c5fba0a5904c4d5a284b8e19fc6dbea0db434ba961656ac7d31720ea",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_numeric_blocks/controls_0006.npz": "337d327f4c69310eecc6d0d75265c00316142ad8e43b5e1bdcd8afb9fc89dc06",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_numeric_blocks/controls_0007.npz": "1adf1ede51cdb74e3918de621b7186f2eb7e3716a3c44e42f869c65bf23d3abf",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_numeric_blocks/controls_0008.npz": "7930416a4b16420abd4d83e266ce955480cc006dedc3b163b5f03cd814579aef",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_numeric_blocks/controls_0009.npz": "5b6b97ce37e25c5f532732c27d5ab1b4801a3813a6afb82789a89a03d9dcb24b",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_numeric_blocks/controls_0010.npz": "e7357190cbb674852eedeb8416448832c873fbaf3908b30c6dfe9d5ea546c3cd",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_numeric_blocks/controls_0011.npz": "c44f3830047d9f9d6662eef32c5c43362509a3bf43f277df3e6e9df4f0b3622a",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_numeric_blocks/controls_0012.npz": "b86400de30c900bbfd9d1faedd156db111b1072d057c105b4fce22bc116bd19f",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_numeric_blocks/controls_0013.npz": "d1ba925cfcc941755aeea318c9ef58a7f4de6f0090ebacc4ed805c12ff87e09c",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_numeric_blocks/controls_0014.npz": "91a2208e9772fd3e9c5f1b45c73bffb219ac297083162c2e7579f00be8eb8a6c",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/global_01/training/training_numeric_blocks/controls_0015.npz": "53cd07d7f57ee4145d6d319362e80542e52b626235dcf006bf6bafa3104d1f88",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_episode_000000_schedule.json": "b5d55311d92f36709337defdd925743234e118952a153d18d9ddbe30796696e7",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_episode_000001_schedule.json": "e3af13fb1c282e71ea3a9e55bdc21e0cdda90ae981ce5c0c73398b3b77a4ba72",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_episode_000002_schedule.json": "dae976c92ef76ec144f96c5956f3f639cb767b2137da5df75e354d2f4f0cc48c",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_episode_000003_schedule.json": "2f929bc8f1d7c48a2bdc23656baa7d340fb99628fc636c1ed9a1866627f9d400",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_episode_000004_schedule.json": "d245d42bd4401ecc6c6d2268c4b5e37433cc4f7a381f9028334b049ced8648bb",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_episode_000005_schedule.json": "d52e6e8970beaa154b8f149d550586f9c07a65036cd974e03c0fb241343fd68f",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_episode_000006_schedule.json": "7055b76c1440bf58cee6197be3a370a15da6dfac5fce5a46125a49bd9b0cab01",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_episode_000007_schedule.json": "0ca1ee86a10460194793111d431fb3a575c5bd27147bee544ed5cce491a986e2",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_episode_000008_schedule.json": "537f9ae5dd7894a21b3ca8a2bbbce10bacb0fd4fead9b6a49c1215d68cd49e63",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_episode_000009_schedule.json": "e0d62d0c78d4880f0e8525d26fa880c9d185cff5ca35cd61008b2f69ac4c37ff",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_episode_000010_schedule.json": "28a13500e11d0dfe3b5a5747bfba6022d18a44668f64de7f8feb710c82c0d141",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_episode_000011_schedule.json": "b3b36fe5800be4682a5d101f03ada5d4d82b9d9ff5d204a7d3a7b0ddc67a12ee",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_episode_000012_schedule.json": "4c9b5286acc8b0cbf64326e5d9616f8bb66f9585a5a8ef2241a13966da3ffca5",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_episode_000013_schedule.json": "a3ec4c2d0caeaffe11fe93bdaa66a9f6e9b9ab8b7debc530a742973edda98df4",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_episode_000014_schedule.json": "d73179ec499129dbf8a47687014ee410d66430fe528392bf7599c87d17b55173",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_episode_000015_schedule.json": "87712a956c864409f5182a99dd96d69af003096913811865d361f7a43dfee7e9",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_episode_000016_schedule.json": "4e401d4cee74434ad7c781d78d4986cebb5550c4cf7e6f9f287c6b30caa70d2e",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_numeric_blocks/controls_0000.npz": "ad5f3516878d8185116ec839a485d5911f3554e1af168fbb50abf1678ff4d378",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_numeric_blocks/controls_0001.npz": "a833fd1466eded770f6ebfb04b268d7f6e2ad396a0ecca9aee53d33a0b778b5a",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_numeric_blocks/controls_0002.npz": "b5ed66369800d7252a956dd9285eb5ce718941e161924e804d748d0de1f3de20",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_numeric_blocks/controls_0003.npz": "548722074b32f4a3058c2cd358b8014c4aea2286555fd8343481be529983dc6d",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_numeric_blocks/controls_0004.npz": "6ee6155fcfeb5c57860192d21c9636cf40ffb2101c010340f7486b16dc71ff8f",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_numeric_blocks/controls_0005.npz": "89410ca14cc6a0c26f8cb80fb2eb9ec30bc1caa1a6fa1eeb5bb49b56eb5b238c",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_numeric_blocks/controls_0006.npz": "4656a2e8546b5b384351ab1313ce04926011373b48dfd60f64b4b240ce295b38",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_numeric_blocks/controls_0007.npz": "9bef8e76af0b6f083cb4901f17d198204fccd55130f9be1751d871ebbf4a48f9",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_numeric_blocks/controls_0008.npz": "85356c0c44d9e3b9184de523401f31819e85c3adeafbf0d8e1c004654b485f80",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_numeric_blocks/controls_0009.npz": "452296360b3f0d291652b65ac0ae5b6485aaa26f395c75ecdf642c098c13b9a2",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_numeric_blocks/controls_0010.npz": "f247996d3880dcd9c47b973ebc04e1a557bfe1771a26e4ef361163f3b6323ce4",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_numeric_blocks/controls_0011.npz": "b68107d536eb9bc3b45dfab98cbbf39556dc9a8171bd253fd80b0777707b2ebe",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_numeric_blocks/controls_0012.npz": "87dd79e2aa22b76f1b717f1b401fb4db88fbbce3b78b817bc571a70a49b932f0",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_numeric_blocks/controls_0013.npz": "1c7e5ff10bd2357c21a5ce3250bba76a6b1720f6098beae59a0c1bca3572ba0b",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_numeric_blocks/controls_0014.npz": "cfff3d2475c006b20f0a8779e19f0b043d98edd0f28364d42b48384725197210",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/training/training_numeric_blocks/controls_0015.npz": "b2b34b6f43c214973423e1ca314141e68f5f0cf0d4e7c860a85c91ccc9a35917",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_global_continue/case_receipt.json": "26dbdafe0b67f2deca2f8330902a4d0c2d9e1ce67bda2966ce8771dbc7deb840",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_global_continue/control_records_0000.jsonl.gz": "f51528651f19abe224b498b2e875ec5b480e3c33c590edd529bdf4cd9095a3e8",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_global_continue/control_records_0001.jsonl.gz": "6e9dca6968c6c51d2c9ea8afa0e4af620e302ae1731192f59cfe1a7c0bbc151d",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_global_continue/control_records_0002.jsonl.gz": "2b29e0f961b05f6e6fe7f2a92e0c61270eaf6ce56caa0ffdd41af9c152369927",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_global_continue/control_records_0003.jsonl.gz": "53c6ef8317c9757fab183f2e382272bf9cbf7bb86f2d263e60d7b6bd82246e7c",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_global_continue/control_records_0004.jsonl.gz": "b50aaa73dd5d3a903994ac6e692deeec98113b8034c32c7beae81bfb3521d53b",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_global_continue/control_records_0005.jsonl.gz": "4d139e80f9c9fbbde904f7ef5ba58b4a79b515c326615983b80f4a6305a7e418",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_global_continue/control_records_0006.jsonl.gz": "3395c4a4bdd68bb89e130027aba89d04e1271c61134db1c5712654a9af6bc971",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_global_continue/control_records_0007.jsonl.gz": "d52708de9bf343b05f0e0fcb74cf5daba0098e98e5e4afad6b7bccaaa8702e89",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_global_continue/schedule.json": "967bdba4668558cea687250f7cb160079bd41d87eada02c27fa99c6852133597",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_global_continue/states.npz": "7247cc194b0ceb3dad700c4dc8636f72b20b276f5c36f173259446d161ce7143",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_grouped_continue/case_receipt.json": "4fd1a85c8dff5ea2be95dde7c26c12b6eae6c6ae6ec81b8872c8eb2f21d7574c",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_grouped_continue/control_records_0000.jsonl.gz": "3640dc252b425a1f1045b26b30ba55d280691ef9e099cfbb1a32cac8a3b342fa",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_grouped_continue/control_records_0001.jsonl.gz": "08290282e93443762f810c554d44922bd5d1556c778754f9f40802f69484292e",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_grouped_continue/control_records_0002.jsonl.gz": "a651dd1820117ef308b62e31af3927e83ed997df4097ab14601688d964732e7e",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_grouped_continue/control_records_0003.jsonl.gz": "afdd1772fc96c95a4eac7a1fbfd15660017d5059ecc35e5677ec8c915cf4be4f",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_grouped_continue/control_records_0004.jsonl.gz": "9e77abf957611b4b1cf2d866b109a313edf7e540baa48ff4e632a2aa70218cd1",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_grouped_continue/control_records_0005.jsonl.gz": "614b0dabf3650b2a146c3ca4b2b37f30568ad4bea26478f6dcb4be5128027938",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_grouped_continue/control_records_0006.jsonl.gz": "8813a964f0350d7396fec00958cd2d8af6baf232a06badfe464d9a8861e12feb",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_grouped_continue/control_records_0007.jsonl.gz": "45458f44509988f5baf2b5f0f3b66eadcc8a57386cb17bcab30005ac30008c1c",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_grouped_continue/schedule.json": "12c389a0522bc5a89867e76c38d6a03f89bb0ec6fb46aa1fe94c80cb41b04d40",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_grouped_continue/states.npz": "eaca4e9f904e9ac7090e6f9a867a3d2859b5da22a16f580aaebabbd96f012a84",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_zero/case_receipt.json": "7bd9dd5114204cba0e87d8a4ef617926ad28b1ece9ad2264dd820ae9564af1ea",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_zero/control_records_0000.jsonl.gz": "0a8ca467d25a87efc986712d88dae32a83efafe8425fd1ab5454171cf78299ac",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_zero/control_records_0001.jsonl.gz": "9d29deda963cffe537b50199e52002b751fe020612314f2852bf278a9fe23529",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_zero/control_records_0002.jsonl.gz": "6828241e54c014d2aaa63c2697652940ba312af4e0b5bc7f71a5d987d2a85a24",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_zero/control_records_0003.jsonl.gz": "bb2438d3cf7b61a3ec663bcc71c069d7e8def72bdccb05c3a24fe3ac04052b0e",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_zero/control_records_0004.jsonl.gz": "ab16378b0feafc53d62803472f69bc988f0ae74f37d7734b44fe4879972689b2",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_zero/control_records_0005.jsonl.gz": "db2e7ea84ea57e48cc9de284041999669fc44650f12befe7739af441e5368a43",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_zero/control_records_0006.jsonl.gz": "76db01291c1beb7b946acfea918ef09d0803fc93db03d5e05ca47c84c86b94a7",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_zero/control_records_0007.jsonl.gz": "9446f8631f47056719482a5af34e56e7b9496d29370fbc76f1726dc4f802f866",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_zero/schedule.json": "5b7169bd18c66d424d4140b098e3472421254d5372fbb116d2fb031fa9660fd6",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation16/eval_01/heldout/flat_1p2_yaw_zero/states.npz": "d1d54428586b55b7161e1675dd8eadb1b2a0d9b467d856a54488608b97a0eca5"
+  },
+  "schema": "saved-yaw17-descriptive-v1",
+  "scope": "C16 three flat_1p2_yaw heldout cases; C15 two 16384-control numeric training ledgers and schedules",
+  "script_sha256": "f14e192f743c6e0ba2a598156987938949091e9f17420255ed2444b4903c4bf2",
+  "training_exposure": {
+    "global_continue": {
+      "controls": 16384,
+      "episodes": [
+        {
+          "controls_saved": 1000,
+          "episode": 0,
+          "nonzero_raw_yaw_controls": 0,
+          "speed_mps": 0.4,
+          "terrain": "flat",
+          "yaw_amplitude_rps": 0.0
+        },
+        {
+          "controls_saved": 1000,
+          "episode": 1,
+          "nonzero_raw_yaw_controls": 0,
+          "speed_mps": 0.6,
+          "terrain": "flat",
+          "yaw_amplitude_rps": 0.0
+        },
+        {
+          "controls_saved": 1000,
+          "episode": 2,
+          "nonzero_raw_yaw_controls": 0,
+          "speed_mps": 0.8,
+          "terrain": "flat",
+          "yaw_amplitude_rps": 0.0
+        },
+        {
+          "controls_saved": 1000,
+          "episode": 3,
+          "nonzero_raw_yaw_controls": 0,
+          "speed_mps": 1.0,
+          "terrain": "flat",
+          "yaw_amplitude_rps": 0.0
+        },
+        {
+          "controls_saved": 1000,
+          "episode": 4,
+          "nonzero_raw_yaw_controls": 0,
+          "speed_mps": 1.2,
+          "terrain": "flat",
+          "yaw_amplitude_rps": 0.0
+        },
+        {
+          "controls_saved": 1000,
+          "episode": 5,
+          "nonzero_raw_yaw_controls": 0,
+          "speed_mps": 1.6,
+          "terrain": "flat",
+          "yaw_amplitude_rps": 0.0
+        },
+        {
+          "controls_saved": 1000,
+          "episode": 6,
+          "nonzero_raw_yaw_controls": 400,
+          "speed_mps": 0.6,
+          "terrain": "flat",
+          "yaw_amplitude_rps": 0.15
+        },
+        {
+          "controls_saved": 1000,
+          "episode": 7,
+          "nonzero_raw_yaw_controls": 400,
+          "speed_mps": 0.9,
+          "terrain": "flat",
+          "yaw_amplitude_rps": 0.2
+        },
+        {
+          "controls_saved": 1000,
+          "episode": 8,
+          "nonzero_raw_yaw_controls": 0,
+          "speed_mps": 0.7445392617254595,
+          "terrain": "flat",
+          "yaw_amplitude_rps": 0.0
+        },
+        {
+          "controls_saved": 1000,
+          "episode": 9,
+          "nonzero_raw_yaw_controls": 0,
+          "speed_mps": 1.466638413699966,
+          "terrain": "flat",
+          "yaw_amplitude_rps": 0.0
+        },
+        {
+          "controls_saved": 1000,
+          "episode": 10,
+          "nonzero_raw_yaw_controls": 400,
+          "speed_mps": 0.946112202794916,
+          "terrain": "flat",
+          "yaw_amplitude_rps": 0.16041785600463557
+        },
+        {
+          "controls_saved": 1000,
+          "episode": 11,
+          "nonzero_raw_yaw_controls": 0,
+          "speed_mps": 0.32887825688321487,
+          "terrain": "bumps",
+          "yaw_amplitude_rps": 0.0
+        },
+        {
+          "controls_saved": 1000,
+          "episode": 12,
+          "nonzero_raw_yaw_controls": 0,
+          "speed_mps": 0.3653596010288525,
+          "terrain": "rough",
+          "yaw_amplitude_rps": 0.0
+        },
+        {
+          "controls_saved": 1000,
+          "episode": 13,
+          "nonzero_raw_yaw_controls": 0,
+          "speed_mps": 0.4390839210436813,
+          "terrain": "ramp",
+          "yaw_amplitude_rps": 0.0
+        },
+        {
+          "controls_saved": 1000,
+          "episode": 14,
+          "nonzero_raw_yaw_controls": 0,
+          "speed_mps": 1.6,
+          "terrain": "flat",
+          "yaw_amplitude_rps": 0.0
+        },
+        {
+          "controls_saved": 1000,
+          "episode": 15,
+          "nonzero_raw_yaw_controls": 0,
+          "speed_mps": 0.48421599053696296,
+          "terrain": "ramp",
+          "yaw_amplitude_rps": 0.0
+        },
+        {
+          "controls_saved": 384,
+          "episode": 16,
+          "nonzero_raw_yaw_controls": 0,
+          "speed_mps": 0.4487339062307101,
+          "terrain": "flat",
+          "yaw_amplitude_rps": 0.0
+        }
+      ],
+      "mean_abs_effective_wheel_action_when_yaw_requested": 0.12600335553307862,
+      "ramp_controls_from_saved_schedules": 2000,
+      "ramp_raw_neighborhood_controls": 0,
+      "ramp_raw_nonzero_yaw_controls": 0,
+      "ramp_servo_nonzero_yaw_controls": 0,
+      "raw_exact_1p2_abs0p3_controls": 0,
+      "raw_exact_1p2_and_negative_0p3_controls": 0,
+      "raw_exact_1p2_and_positive_0p3_controls": 0,
+      "raw_neighborhood_vx_ge_1p1_absyaw_ge_0p25_controls": 0,
+      "raw_nonzero_yaw_controls": 1200,
+      "servo_exact_1p2_abs0p3_controls": 0,
+      "servo_exact_1p2_and_negative_0p3_controls": 0,
+      "servo_exact_1p2_and_positive_0p3_controls": 0,
+      "servo_neighborhood_vx_ge_1p1_absyaw_ge_0p25_controls": 0,
+      "servo_nonzero_yaw_controls": 1281,
+      "yaw_negative_controls": 600,
+      "yaw_positive_controls": 600
+    },
+    "grouped_continue": {
+      "controls": 16384,
+      "episodes": [
+        {
+          "controls_saved": 1000,
+          "episode": 0,
+          "nonzero_raw_yaw_controls": 0,
+          "speed_mps": 0.4,
+          "terrain": "flat",
+          "yaw_amplitude_rps": 0.0
+        },
+        {
+          "controls_saved": 1000,
+          "episode": 1,
+          "nonzero_raw_yaw_controls": 0,
+          "speed_mps": 0.6,
+          "terrain": "flat",
+          "yaw_amplitude_rps": 0.0
+        },
+        {
+          "controls_saved": 1000,
+          "episode": 2,
+          "nonzero_raw_yaw_controls": 0,
+          "speed_mps": 0.8,
+          "terrain": "flat",
+          "yaw_amplitude_rps": 0.0
+        },
+        {
+          "controls_saved": 1000,
+          "episode": 3,
+          "nonzero_raw_yaw_controls": 0,
+          "speed_mps": 1.0,
+          "terrain": "flat",
+          "yaw_amplitude_rps": 0.0
+        },
+        {
+          "controls_saved": 1000,
+          "episode": 4,
+          "nonzero_raw_yaw_controls": 0,
+          "speed_mps": 1.2,
+          "terrain": "flat",
+          "yaw_amplitude_rps": 0.0
+        },
+        {
+          "controls_saved": 1000,
+          "episode": 5,
+          "nonzero_raw_yaw_controls": 0,
+          "speed_mps": 1.6,
+          "terrain": "flat",
+          "yaw_amplitude_rps": 0.0
+        },
+        {
+          "controls_saved": 1000,
+          "episode": 6,
+          "nonzero_raw_yaw_controls": 400,
+          "speed_mps": 0.6,
+          "terrain": "flat",
+          "yaw_amplitude_rps": 0.15
+        },
+        {
+          "controls_saved": 1000,
+          "episode": 7,
+          "nonzero_raw_yaw_controls": 400,
+          "speed_mps": 0.9,
+          "terrain": "flat",
+          "yaw_amplitude_rps": 0.2
+        },
+        {
+          "controls_saved": 1000,
+          "episode": 8,
+          "nonzero_raw_yaw_controls": 0,
+          "speed_mps": 0.7445392617254595,
+          "terrain": "flat",
+          "yaw_amplitude_rps": 0.0
+        },
+        {
+          "controls_saved": 1000,
+          "episode": 9,
+          "nonzero_raw_yaw_controls": 0,
+          "speed_mps": 1.466638413699966,
+          "terrain": "flat",
+          "yaw_amplitude_rps": 0.0
+        },
+        {
+          "controls_saved": 1000,
+          "episode": 10,
+          "nonzero_raw_yaw_controls": 400,
+          "speed_mps": 0.946112202794916,
+          "terrain": "flat",
+          "yaw_amplitude_rps": 0.16041785600463557
+        },
+        {
+          "controls_saved": 1000,
+          "episode": 11,
+          "nonzero_raw_yaw_controls": 0,
+          "speed_mps": 0.32887825688321487,
+          "terrain": "bumps",
+          "yaw_amplitude_rps": 0.0
+        },
+        {
+          "controls_saved": 1000,
+          "episode": 12,
+          "nonzero_raw_yaw_controls": 0,
+          "speed_mps": 0.3653596010288525,
+          "terrain": "rough",
+          "yaw_amplitude_rps": 0.0
+        },
+        {
+          "controls_saved": 1000,
+          "episode": 13,
+          "nonzero_raw_yaw_controls": 0,
+          "speed_mps": 0.4390839210436813,
+          "terrain": "ramp",
+          "yaw_amplitude_rps": 0.0
+        },
+        {
+          "controls_saved": 1000,
+          "episode": 14,
+          "nonzero_raw_yaw_controls": 0,
+          "speed_mps": 1.6,
+          "terrain": "flat",
+          "yaw_amplitude_rps": 0.0
+        },
+        {
+          "controls_saved": 1000,
+          "episode": 15,
+          "nonzero_raw_yaw_controls": 0,
+          "speed_mps": 0.48421599053696296,
+          "terrain": "ramp",
+          "yaw_amplitude_rps": 0.0
+        },
+        {
+          "controls_saved": 384,
+          "episode": 16,
+          "nonzero_raw_yaw_controls": 0,
+          "speed_mps": 0.4487339062307101,
+          "terrain": "flat",
+          "yaw_amplitude_rps": 0.0
+        }
+      ],
+      "mean_abs_effective_wheel_action_when_yaw_requested": 0.11406888731818375,
+      "ramp_controls_from_saved_schedules": 2000,
+      "ramp_raw_neighborhood_controls": 0,
+      "ramp_raw_nonzero_yaw_controls": 0,
+      "ramp_servo_nonzero_yaw_controls": 0,
+      "raw_exact_1p2_abs0p3_controls": 0,
+      "raw_exact_1p2_and_negative_0p3_controls": 0,
+      "raw_exact_1p2_and_positive_0p3_controls": 0,
+      "raw_neighborhood_vx_ge_1p1_absyaw_ge_0p25_controls": 0,
+      "raw_nonzero_yaw_controls": 1200,
+      "servo_exact_1p2_abs0p3_controls": 0,
+      "servo_exact_1p2_and_negative_0p3_controls": 0,
+      "servo_exact_1p2_and_positive_0p3_controls": 0,
+      "servo_neighborhood_vx_ge_1p1_absyaw_ge_0p25_controls": 0,
+      "servo_nonzero_yaw_controls": 1281,
+      "yaw_negative_controls": 600,
+      "yaw_positive_controls": 600
+    }
+  },
+  "wheel_order": [
+    "FL",
+    "FR",
+    "RL",
+    "RR"
+  ]
+}

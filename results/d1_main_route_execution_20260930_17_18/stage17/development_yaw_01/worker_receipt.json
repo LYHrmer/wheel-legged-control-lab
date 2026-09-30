@@ -1,0 +1,346 @@
+{
+  "C_final": {
+    "armed": 1,
+    "ccd_attempts": 35134,
+    "ccd_returns": 35134,
+    "construction_attempts": 2,
+    "construction_limit": 2,
+    "construction_returns": 2,
+    "control_attempts": 11000,
+    "control_limit": 11000,
+    "control_returns": 11000,
+    "first_ccd_caller": 138690464079070,
+    "first_ccd_caller_dladdr": {
+      "address": 138690464079070,
+      "base": 138690462482432,
+      "offset": 1596638,
+      "path": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/libmujoco.so.3.12.0",
+      "symbol": null
+    },
+    "first_construction_step_caller": 138690466297160,
+    "first_construction_step_caller_dladdr": {
+      "address": 138690466297160,
+      "base": 138690462482432,
+      "offset": 3814728,
+      "path": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/libmujoco.so.3.12.0",
+      "symbol": null
+    },
+    "first_control_step_caller": 138690424351531,
+    "first_control_step_caller_dladdr": {
+      "address": 138690424351531,
+      "base": 138690423574528,
+      "offset": 777003,
+      "path": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/_functions.cpython-310-x86_64-linux-gnu.so",
+      "symbol": null
+    },
+    "native_ccd_caller_verified": true,
+    "native_construction_caller_verified": true,
+    "original_step": 138690464687360,
+    "phase": 0,
+    "target_data": 0,
+    "target_model": 0,
+    "violations": 0
+  },
+  "archive_failed": false,
+  "arm": "yaw",
+  "cleanup_errors": [],
+  "control_step_caller_verified": true,
+  "elapsed_wall_s": 42.07233995199931,
+  "execution_complete": true,
+  "failure": null,
+  "model_calls": {
+    "actor_rows": 2232,
+    "counts": {
+      "load": {
+        "attempted": 1,
+        "phases": {
+          "probe": {
+            "attempted": 1,
+            "returned": 1,
+            "rows": 0
+          }
+        },
+        "returned": 1,
+        "rows_attempted": 0,
+        "rows_returned": 0
+      },
+      "predict": {
+        "attempted": 2201,
+        "phases": {
+          "floor:grouped": {
+            "attempted": 600,
+            "returned": 600,
+            "rows": 600
+          },
+          "heldout:flat_1p2_yaw:grouped_continue": {
+            "attempted": 1600,
+            "returned": 1600,
+            "rows": 1600
+          },
+          "probe": {
+            "attempted": 1,
+            "returned": 1,
+            "rows": 32
+          }
+        },
+        "returned": 2201,
+        "rows_attempted": 2232,
+        "rows_returned": 2232
+      },
+      "torch_load": {
+        "attempted": 3,
+        "phases": {
+          "probe": {
+            "attempted": 3,
+            "returned": 3,
+            "rows": 0
+          }
+        },
+        "returned": 3,
+        "rows_attempted": 0,
+        "rows_returned": 0
+      }
+    },
+    "critic_rows": 0,
+    "limits": {
+      "backward": 0,
+      "evaluate_actions": 0,
+      "forward": 0,
+      "learn": 0,
+      "load": 1,
+      "predict": 2201,
+      "predict_values": 0,
+      "save": 0,
+      "torch_load": 3,
+      "train": 0
+    },
+    "schema": "d1-model-api-ledger-15-v1"
+  },
+  "native_guard": {
+    "contacts_checked": 74334,
+    "failure": null,
+    "force_sampling_performed": true,
+    "full_contact_qualification_claimed": true,
+    "max_abs_pitch_deg": 2.4627932819305287,
+    "max_abs_roll_deg": 1.5770555734239298,
+    "mode": "heldout",
+    "native_attempted": 11000,
+    "native_checked": 11000,
+    "native_returned": 11000,
+    "nonwheel_ground_contacts": 0,
+    "positive_wheel_load_by_family": {
+      "floor": 74334
+    },
+    "record_mode": "full_qualification",
+    "schema": "d1-course-native-contact-guard-08-v1",
+    "segments": [
+      {
+        "archive_block_manifests": [
+          "native_block_0000.jsonl.gz.manifest.json"
+        ],
+        "archive_failure": null,
+        "control_limit": 600,
+        "failure": null,
+        "folder": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_yaw_01/floor/grouped_continue",
+        "force_sampling_performed": true,
+        "full_contact_qualification_recorded": true,
+        "mode": "heldout",
+        "name": "heldout_floor_0p4_600_grouped_continue",
+        "native_attempted": 3000,
+        "native_files": [
+          "native_block_0000.jsonl.gz"
+        ],
+        "native_limit": 3000,
+        "native_returned": 3000,
+        "partial_native_interval": false,
+        "record_valid": true,
+        "task_contact_failure_files": [],
+        "train_array_files": []
+      },
+      {
+        "archive_block_manifests": [
+          "native_block_0000.jsonl.gz.manifest.json",
+          "native_block_0001.jsonl.gz.manifest.json"
+        ],
+        "archive_failure": null,
+        "control_limit": 1600,
+        "failure": null,
+        "folder": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation17/development_yaw_01/heldout/flat_1p2_yaw_grouped_continue",
+        "force_sampling_performed": true,
+        "full_contact_qualification_recorded": true,
+        "mode": "heldout",
+        "name": "heldout_flat_1p2_yaw_grouped_continue",
+        "native_attempted": 8000,
+        "native_files": [
+          "native_block_0000.jsonl.gz",
+          "native_block_0001.jsonl.gz"
+        ],
+        "native_limit": 8000,
+        "native_returned": 8000,
+        "partial_native_interval": false,
+        "record_valid": true,
+        "task_contact_failure_files": [],
+        "train_array_files": []
+      }
+    ]
+  },
+  "python": {
+    "clock_advanced_substeps": 11000,
+    "construction_records": [
+      {
+        "after": {
+          "armed": 1,
+          "ccd_attempts": 0,
+          "ccd_returns": 0,
+          "construction_attempts": 2,
+          "construction_limit": 2,
+          "construction_returns": 2,
+          "control_attempts": 0,
+          "control_limit": 11000,
+          "control_returns": 0,
+          "first_ccd_caller": 0,
+          "first_ccd_caller_dladdr": null,
+          "first_construction_step_caller": 138690466297160,
+          "first_construction_step_caller_dladdr": {
+            "address": 138690466297160,
+            "base": 138690462482432,
+            "offset": 3814728,
+            "path": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/libmujoco.so.3.12.0",
+            "symbol": null
+          },
+          "first_control_step_caller": 0,
+          "first_control_step_caller_dladdr": null,
+          "native_ccd_caller_verified": false,
+          "native_construction_caller_verified": true,
+          "original_step": 138690464687360,
+          "phase": 0,
+          "target_data": 0,
+          "target_model": 0,
+          "violations": 0
+        },
+        "before": {
+          "armed": 1,
+          "ccd_attempts": 0,
+          "ccd_returns": 0,
+          "construction_attempts": 0,
+          "construction_limit": 2,
+          "construction_returns": 0,
+          "control_attempts": 0,
+          "control_limit": 11000,
+          "control_returns": 0,
+          "first_ccd_caller": 0,
+          "first_ccd_caller_dladdr": null,
+          "first_construction_step_caller": 0,
+          "first_construction_step_caller_dladdr": null,
+          "first_control_step_caller": 0,
+          "first_control_step_caller_dladdr": null,
+          "native_ccd_caller_verified": false,
+          "native_construction_caller_verified": false,
+          "original_step": 138690464687360,
+          "phase": 0,
+          "target_data": 0,
+          "target_model": 0,
+          "violations": 0
+        }
+      }
+    ],
+    "control_attempted": 2200,
+    "control_completed": 2200,
+    "control_limit": 2200,
+    "fatal_latched": false,
+    "forbidden_entries": 0,
+    "forward_counts_by_runtime_model_data_identity": {
+      "(138686947005872, 138687105049072)": 2571,
+      "(138687113390512, 138687113546992)": 2203,
+      "(138687113390512, 138690195439664)": 3
+    },
+    "mj_forward_calls": 4777,
+    "mj_setConst_calls": 0,
+    "native_attempted": 11000,
+    "native_failed": 0,
+    "native_limit": 11000,
+    "native_returned": 11000,
+    "segments": [
+      {
+        "attempted": 600,
+        "completed": 600,
+        "limit": 600,
+        "name": "heldout_floor_0p4_600_grouped_continue",
+        "native_attempted": 3000,
+        "native_returned": 3000
+      },
+      {
+        "attempted": 1600,
+        "completed": 1600,
+        "limit": 1600,
+        "name": "heldout_flat_1p2_yaw_grouped_continue",
+        "native_attempted": 8000,
+        "native_returned": 8000
+      }
+    ],
+    "static_forward_is_not_dynamic_load_evidence": true
+  },
+  "result": {
+    "cases": [
+      {
+        "actor": "grouped_continue",
+        "case_id": "flat_1p2_yaw",
+        "checkpoint_sha256": "1fcfe833d8a7cfdbbc224c9007a35e44c035674ce948b51557434b77838476fb",
+        "completed_controls": 1600,
+        "policy_predictions": 1600,
+        "record_valid": true,
+        "seed": 171103,
+        "stop_reason": "time_limit",
+        "terminated": false,
+        "truncated": true
+      }
+    ],
+    "completed_controls": 2200,
+    "enabled_arms": [
+      "grouped"
+    ],
+    "floors": {
+      "grouped": {
+        "C_Python_5T_boundary_verified": true,
+        "archive_manifests_verified": true,
+        "case_id": "floor_0p4_600",
+        "checkpoint_sha256": "1fcfe833d8a7cfdbbc224c9007a35e44c035674ce948b51557434b77838476fb",
+        "complete_stopping_qualification_from_600_controls": false,
+        "completed_controls": 600,
+        "controller_native_contact_force_chain_verified": true,
+        "experiment_actor": "grouped_continue",
+        "five_initial_state_arrays_matched": true,
+        "independent_archive_source_controller_force_verification_required": true,
+        "last_drive_mean_abs_target_error_mps": 0.013970499933926128,
+        "last_drive_observed_ticks": 100,
+        "last_drive_vx_rms_error_mps": 0.013986222097940584,
+        "last_drive_window": [
+          325,
+          425
+        ],
+        "last_drive_yaw_rms_rps": 0.0037084213639363836,
+        "max_abs_world_pitch_deg": 0.9820523415007187,
+        "max_abs_world_roll_deg": 0.38062034211654966,
+        "max_initial_or_native_abs_x_m": 8.0001973117698,
+        "max_initial_or_native_abs_y_m": 4.700374657773274,
+        "min_initial_or_native_clearance_m": 0.4548614515702445,
+        "native_nonwheel_count": 0,
+        "numeric_gate_passed": true,
+        "reasons": [],
+        "schema": "d1-world-upright-stage17-floor-pure-score-v1",
+        "seed": 171090,
+        "terrain_aware_min_initial_native_clearance_m": 0.4548614515702445
+      }
+    },
+    "full_comparison_executed": true,
+    "qualification_pending_independent_readback": true
+  },
+  "retry_permitted": false,
+  "schema": "d1-control-repair-worker-17-v1",
+  "session_identity": {
+    "bytes": 1617431,
+    "sha256": "aeb3e1176a482a777caed1669200521d9ad1627f6f181cb74190c19f09236589"
+  },
+  "stop_latched": false,
+  "warnings": []
+}

@@ -1,0 +1,101 @@
+{
+  "plan_filename": "plan_go_C18.json",
+  "contract_filename": "qualification_contract_18.md",
+  "go_filename": "go_C18.md",
+  "tests_receipt_filename": "pure_tests_receipt_18.json",
+  "purpose": "seven distinct fixed-script qualification scenarios; deterministic oracle seeds are identifiers, not independent physical randomization",
+  "arms": {
+    "primary": {
+      "controller_variant": "combined",
+      "floor_seed": 181190,
+      "case_specs": [
+        {
+          "case_id": "flat_0p6",
+          "seed": 181201,
+          "mirror": false,
+          "horizon": 1600,
+          "actors": [
+            "zero",
+            "grouped_continue"
+          ]
+        },
+        {
+          "case_id": "flat_1p6",
+          "seed": 181202,
+          "mirror": false,
+          "horizon": 1600,
+          "actors": [
+            "zero",
+            "grouped_continue"
+          ]
+        },
+        {
+          "case_id": "flat_1p2_yaw",
+          "seed": 181203,
+          "mirror": false,
+          "horizon": 1600,
+          "actors": [
+            "zero",
+            "grouped_continue"
+          ]
+        },
+        {
+          "case_id": "bumps_0p4",
+          "seed": 181204,
+          "mirror": false,
+          "horizon": 1600,
+          "actors": [
+            "zero",
+            "grouped_continue"
+          ]
+        },
+        {
+          "case_id": "rough_0p35",
+          "seed": 181205,
+          "mirror": false,
+          "horizon": 1600,
+          "actors": [
+            "zero",
+            "grouped_continue"
+          ]
+        },
+        {
+          "case_id": "ramp_0p45_complete",
+          "seed": 181206,
+          "mirror": false,
+          "horizon": 1800,
+          "actors": [
+            "zero",
+            "grouped_continue"
+          ]
+        }
+      ],
+      "controls": 20200,
+      "soft_s": 1200,
+      "close_s": 1320,
+      "hard_s": 1380,
+      "output_directory": "qualification_primary_01"
+    },
+    "mirror": {
+      "controller_variant": "combined",
+      "floor_seed": 181390,
+      "case_specs": [
+        {
+          "case_id": "flat_1p2_yaw",
+          "seed": 181403,
+          "mirror": true,
+          "horizon": 1600,
+          "actors": [
+            "zero",
+            "grouped_continue"
+          ]
+        }
+      ],
+      "controls": 3800,
+      "soft_s": 600,
+      "close_s": 720,
+      "hard_s": 780,
+      "output_directory": "qualification_mirror_01"
+    }
+  }
+}
