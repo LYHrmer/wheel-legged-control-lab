@@ -3,6 +3,19 @@
 仓库里的文档地图，只回答四个问题：从哪开始、按什么顺序学、当前主线在哪、历史路线和证据在
 哪。每份文档自己维护细节和数字，这里不复制它们的结论。
 
+## 最新研究主线：99 维观测、16 维残差
+
+2026-09-30 当前组合是 C18 基控与 C15 grouped final。当前入口、后续方向和证据从这里开始：
+
+- [后续主方案](main_plan_20260930.md)：同基控的课程覆盖对照、有限续段、GUI 与单台阶依赖。
+- [当前状态与运行入口](current_status_20260930.md)：区分当前研究包、旧 `d1-rl` 和教学入口。
+- [C17–18 完整验收](main_route_execution_20260930_17_18.md)：七场景通过、RL 收益未达标与失败记录。
+- [C15–16 裁剪比较](main_route_execution_20260930_15_16.md)、[C14 价值梯度诊断](main_route_execution_20260929_14.md)：已完成的研究链。
+- [09-29 历史方案](main_plan_20260929.md)：保留当时状态，后续执行采用 09-30 方案。
+
+当前 99D/16D 固定脚本与 GUI 自由驾驶的资格不同。下文为已运行的教学路线和旧版本索引，
+checkpoint 不跨观测／动作接口混用。
+
 ## 从哪开始
 
 1. 按 [README](../README.md) 装好依赖，跑一个 12 s 零残差回合，先看得懂自己的输出目录。
@@ -21,7 +34,7 @@
 | 2 | [ppo_learning_lab.md](ppo_learning_lab.md) | 手算 TD/GAE，区分摔倒终止与时间上限 | 1 |
 | 3 | [ppo_update_lab.md](ppo_update_lab.md) | 小型 actor/critic 上一次真实 SGD 更新 | 2 |
 | 4 | [control_ppo_checks.md](control_ppo_checks.md) | 纸笔检查题，答案可以逐步核对 | 2 |
-| 5 | [locomotion_lab.md](locomotion_lab.md) | 当前主线：82 维观测、八维动作、奖励单位 | 1–3 |
+| 5 | [locomotion_lab.md](locomotion_lab.md) | 教学路线：82 维观测、八维动作、奖励单位 | 1–3 |
 | 6 | [evaluation_protocol.md](evaluation_protocol.md) | 成功定义、配对统计、三类证据的分工 | 5 |
 | 7 | [actuator_identification.md](actuator_identification.md)、[wheel_control_lab.md](wheel_control_lab.md) | 单转轴辨识台架，单轮 PI 与前馈对照 | 1 |
 | 8 | [sensor_estimation.md](sensor_estimation.md) | 测量包与融合器分开的 IMU/编码器估计 | 5 |
@@ -36,7 +49,7 @@
 
 第 7、9、12–14 行是独立支线，没接进主线控制器；第 8 行的融合器同时被主线的 `sensor` 状态源使用。
 
-## 当前主线：82 维共用循环
+## 82 维教学路线：共用循环
 
 训练、评测和键盘共用一个控制循环与一份 82 维观测。文档入口是
 [locomotion_lab.md](locomotion_lab.md)，代码分布在
