@@ -1,0 +1,38 @@
+{
+  "schema": "c23-root-host-pure-tests-v1",
+  "exit_code": 0,
+  "test_results": [
+    {
+      "revision": "initial",
+      "passed": 1,
+      "pytest_seconds": 0.11
+    },
+    {
+      "revision": "explicit_setsid_readiness",
+      "passed": 1,
+      "pytest_seconds": 0.13
+    }
+  ],
+  "assertions": [
+    "setsid helper actually ready",
+    "birth mismatch never signalled",
+    "owned descendants terminated",
+    "cleanup under 5 seconds"
+  ],
+  "model_calls": 0,
+  "physics_calls": 0,
+  "source_hashes": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation23/root23/host23.py": {
+      "sha256": "3427fa996608fd61a44b4e852bd54f4ce54a8b090bf714ef322ddcad3b97a08c",
+      "bytes": 12719
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation23/root23/x11_events23.py": {
+      "sha256": "7c76347596e97411450bd1c975b6e1f20e5db6173578e3393079304163fa7c6d",
+      "bytes": 5128
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation23/root23/test_host23_pure.py": {
+      "sha256": "496f2a4937aefc991e612c18b0806ad9776c0ee5c25be7a723fc407b4e5cd02a",
+      "bytes": 1319
+    }
+  }
+}

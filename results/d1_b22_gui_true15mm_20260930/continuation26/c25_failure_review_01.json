@@ -1,0 +1,71 @@
+{
+  "GUI_qualified": false,
+  "actual_physics_from_saved_boundary": {
+    "compiler_native": 2,
+    "controls": 1102,
+    "normal_native": 5510
+  },
+  "claim_limit": "saved partial run supports failure mechanism and actual counts only; no requalification or improved GUI performance claim; no model/physics/test execution by this reviewer",
+  "correction": "new C26 owner join uses remaining absolute preflight+115s deadline, tested first with actual delayed9s non-daemon thread and short timeout, before new separate1200-control GO",
+  "direct_cause": "normal exit thread.join(timeout=8) expires before same owner finishes deferred archives; initial readiness-error branch has5s join but was not this trigger",
+  "evidence": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation25/keyboard_gui_01/deferred_archive_receipt.json": {
+      "bytes": 12340,
+      "sha256": "705b5dfc366d93cf21e638a45933d907da9d818c6cd880023018840424b6403c"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation25/keyboard_gui_01/episode_0/segment_receipt.json": {
+      "bytes": 4280,
+      "sha256": "0c49b7bafb8253b9fe68d5f83228b37825743f32671d259b8a4a0a3e1ac37dcc"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation25/keyboard_gui_01/episode_1/segment_receipt.json": {
+      "bytes": 4289,
+      "sha256": "1161277b865567ac21fcd1e39965391b866bee48cf4acf236c52ff0b84aa4951"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation25/keyboard_gui_01/host_receipt.json": {
+      "bytes": 534,
+      "sha256": "dab97cd89b2b391b686343e74652278b69cb584ad0b157cb2190b2626f5e71c1"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation25/keyboard_gui_01/preflight_ready.json": {
+      "bytes": 286,
+      "sha256": "3793b1e643bdd5d9b69cc0faf8f806a5ee46a4208b43af71f4b056b29b2fab48"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation25/keyboard_gui_01/supervisor_receipt.json": {
+      "bytes": 302,
+      "sha256": "c6ec95b51733cbc5fe2eeac9a2e326d737523a07d7f973a96c1dc3533f79a332"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation25/keyboard_gui_01/worker_receipt.json": {
+      "bytes": 739,
+      "sha256": "dd5c8f193a9b3715cd3df4e9578a4c3256fe2a5cc135eeffe8c52859bfe496af"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation25/keyboard_gui_01/x11_events_receipt.json": {
+      "bytes": 4446,
+      "sha256": "55185b084e064148709e38f8fb8a1ffc9a0d5b8b01709f71195b04d9c61b32fb"
+    }
+  },
+  "failure": {
+    "message": "owner still active; cannot serialize concurrent evidence",
+    "phase": "preflight_or_import",
+    "traceback": "Traceback (most recent call last):\n  File \"/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/continuation25/gui25/run_gui25.py\", line 1023, in main\n    return run(session,session_path,output)\n  File \"/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/continuation25/gui25/run_gui25.py\", line 973, in run\n    raise TimeoutError('owner still active; cannot serialize concurrent evidence')\nTimeoutError: owner still active; cannot serialize concurrent evidence\n",
+    "type": "TimeoutError"
+  },
+  "full_reader_qualification_possible": false,
+  "missing_main_evidence": [
+    "input_snapshots.jsonl.gz",
+    "owner_decisions.jsonl.gz",
+    "render_frames.json",
+    "performance.json"
+  ],
+  "new_C25_or_C24_physics_allowed": 0,
+  "responsibility": "source integration review failed to connect the proven >8s archive drain with the pre-existing 8s normal owner join; earlier pure replay tested Writer only and could not prove whole worker closure",
+  "retired_unused_controls": 98,
+  "reviewer": "actual gpt-6-astra ultra",
+  "saved_archive_diagnostic": {
+    "active_wall_s": 13.623432071,
+    "diagnostic_RTF": 0.808900425573238,
+    "episodes": 2,
+    "flush_wall_s": 11.251018191,
+    "pending_count": 0,
+    "qualification_proof": false
+  },
+  "schema": "d1-c26-C25-failure-review-v1"
+}

@@ -1,0 +1,483 @@
+{
+  "active_RTF_ge_0p8": false,
+  "actual_active_RTF": 0.6412344782688877,
+  "actual_episode_count": 2,
+  "actual_nonzero_B22_residual": true,
+  "arm": "keyboard_gui",
+  "arm_qualification_passed": false,
+  "checkpoint_sha256": "7bd58b5d6114745b12b4284be3f861f973a5d31d9d596365a5b54cb5e0d76691",
+  "compiler_native_returns": 2,
+  "completed_controls": 1005,
+  "execution_contract_id": "C23_B22_GUI_v1",
+  "execution_prerequisite_passed": false,
+  "input": {
+    "actual_reset_count": 1,
+    "controls_with_exact_preparation": 1005,
+    "owner_consumptions": 1006,
+    "pending_edges_preserved": true,
+    "published_snapshot_count": 185
+  },
+  "last100_stop": {
+    "clearance_std_m": 0.00029067308094012177,
+    "complete_raw_servo_zero_last100": false,
+    "mean_abs_body_vx_mps": 0.016421846915181997,
+    "mean_abs_yaw_rate_rps": 0.0003208834947367587,
+    "passed": false,
+    "thresholds": {
+      "clearance_std_m": 0.02,
+      "mean_abs_body_vx_mps": 0.04,
+      "mean_abs_yaw_rate_rps": 0.05
+    }
+  },
+  "model_calls": {
+    "actor_rows": 1037,
+    "counts": {
+      "load": {
+        "attempted": 1,
+        "phases": {
+          "probe": {
+            "attempted": 1,
+            "returned": 1,
+            "rows": 0
+          }
+        },
+        "returned": 1,
+        "rows_attempted": 0,
+        "rows_returned": 0
+      },
+      "predict": {
+        "attempted": 1006,
+        "phases": {
+          "control": {
+            "attempted": 1005,
+            "returned": 1005,
+            "rows": 1005
+          },
+          "probe": {
+            "attempted": 1,
+            "returned": 1,
+            "rows": 32
+          }
+        },
+        "returned": 1006,
+        "rows_attempted": 1037,
+        "rows_returned": 1037
+      },
+      "torch_load": {
+        "attempted": 3,
+        "phases": {
+          "probe": {
+            "attempted": 3,
+            "returned": 3,
+            "rows": 0
+          }
+        },
+        "returned": 3,
+        "rows_attempted": 0,
+        "rows_returned": 0
+      }
+    },
+    "critic_rows": 0,
+    "limits": {
+      "backward": 0,
+      "evaluate_actions": 0,
+      "forward": 0,
+      "learn": 0,
+      "load": 1,
+      "predict": 1201,
+      "predict_values": 0,
+      "save": 0,
+      "torch_load": 3,
+      "train": 0
+    },
+    "schema": "d1-model-api-ledger-20-v1"
+  },
+  "normal_native_returns": 5025,
+  "observation_action_shape": [
+    99,
+    16
+  ],
+  "original_reader_source_identity": {
+    "bytes": 62540,
+    "sha256": "8dd033fd50b8f08799e926b0eda7faeb9a70ccc392606a152aeeb9e3174ed1b3"
+  },
+  "original_v1_arm_qualification_passed": false,
+  "physical_safety_passed": true,
+  "reader_model_calls": 0,
+  "reader_physics_calls": 0,
+  "reader_source_identity": {
+    "bytes": 67204,
+    "sha256": "9931e01e2dc327a21a05b3dafb1b795194eed9d06e6b25f467b34c67b3b97767"
+  },
+  "real_events": {
+    "actual_callbacks_matched": 26,
+    "decision_reasons": [
+      "exit_requested",
+      "focus_lost",
+      "held_command",
+      "operator_stop",
+      "release_w_to_rearm",
+      "released",
+      "reset_limit",
+      "simulation_reset_request",
+      "stale_snapshot"
+    ],
+    "event_source": "actual XTest OS input through GLFW callbacks and owner preparation",
+    "matching": {
+      "actual_callback_count": 28,
+      "callback_reuse": false,
+      "clock_bounds_ns": [
+        -50000000,
+        1000000000
+      ],
+      "matches": [
+        {
+          "button": null,
+          "callback_index": 1,
+          "callback_wall_ns": 95373436871082,
+          "event_index": 0,
+          "injection_wall_ns": 95373396874519,
+          "key": "w",
+          "latency_ms": 39.996563,
+          "operation": "key_down",
+          "planned_tick": 100
+        },
+        {
+          "button": null,
+          "callback_index": 2,
+          "callback_wall_ns": 95374345088753,
+          "event_index": 1,
+          "injection_wall_ns": 95374278770184,
+          "key": "q",
+          "latency_ms": 66.318569,
+          "operation": "key_down",
+          "planned_tick": 180
+        },
+        {
+          "button": null,
+          "callback_index": 3,
+          "callback_wall_ns": 95374503807306,
+          "event_index": 2,
+          "injection_wall_ns": 95374473523436,
+          "key": "q",
+          "latency_ms": 30.28387,
+          "operation": "key_up",
+          "planned_tick": 200
+        },
+        {
+          "button": null,
+          "callback_index": 4,
+          "callback_wall_ns": 95374817208876,
+          "event_index": 3,
+          "injection_wall_ns": 95374752213775,
+          "key": "e",
+          "latency_ms": 64.995101,
+          "operation": "key_down",
+          "planned_tick": 230
+        },
+        {
+          "button": null,
+          "callback_index": 5,
+          "callback_wall_ns": 95374973933576,
+          "event_index": 4,
+          "injection_wall_ns": 95374936759466,
+          "key": "e",
+          "latency_ms": 37.17411,
+          "operation": "key_up",
+          "planned_tick": 250
+        },
+        {
+          "button": null,
+          "callback_index": 6,
+          "callback_wall_ns": 95375390480944,
+          "event_index": 5,
+          "injection_wall_ns": 95375349290903,
+          "key": "w",
+          "latency_ms": 41.190041,
+          "operation": "key_up",
+          "planned_tick": 280
+        },
+        {
+          "button": null,
+          "callback_index": 7,
+          "callback_wall_ns": 95376080677876,
+          "event_index": 6,
+          "injection_wall_ns": 95376008590726,
+          "key": "w",
+          "latency_ms": 72.08715,
+          "operation": "key_down",
+          "planned_tick": 350
+        },
+        {
+          "button": null,
+          "callback_index": 8,
+          "callback_wall_ns": 95376540035734,
+          "event_index": 7,
+          "injection_wall_ns": 95376469755363,
+          "key": "space",
+          "latency_ms": 70.280371,
+          "operation": "key_down",
+          "planned_tick": 400
+        },
+        {
+          "button": null,
+          "callback_index": 9,
+          "callback_wall_ns": 95376540043419,
+          "event_index": 8,
+          "injection_wall_ns": 95376521225294,
+          "key": "space",
+          "latency_ms": 18.818125,
+          "operation": "key_up",
+          "planned_tick": 405
+        },
+        {
+          "button": null,
+          "callback_index": 10,
+          "callback_wall_ns": 95376973240463,
+          "event_index": 9,
+          "injection_wall_ns": 95376901824233,
+          "key": "w",
+          "latency_ms": 71.41623,
+          "operation": "key_up",
+          "planned_tick": 430
+        },
+        {
+          "button": null,
+          "callback_index": 11,
+          "callback_wall_ns": 95377127213576,
+          "event_index": 10,
+          "injection_wall_ns": 95377086531349,
+          "key": "w",
+          "latency_ms": 40.682227,
+          "operation": "key_down",
+          "planned_tick": 450
+        },
+        {
+          "button": null,
+          "callback_index": 12,
+          "callback_wall_ns": 95377275603071,
+          "event_index": 11,
+          "injection_wall_ns": 95377270992167,
+          "key": null,
+          "latency_ms": 4.610904,
+          "operation": "focus_lost",
+          "planned_tick": 470
+        },
+        {
+          "button": null,
+          "callback_index": 14,
+          "callback_wall_ns": 95377578728571,
+          "event_index": 12,
+          "injection_wall_ns": 95377547958823,
+          "key": null,
+          "latency_ms": 30.769748,
+          "operation": "focus_return",
+          "planned_tick": 500
+        },
+        {
+          "button": null,
+          "callback_index": 15,
+          "callback_wall_ns": 95377811269866,
+          "event_index": 14,
+          "injection_wall_ns": 95377732928594,
+          "key": "w",
+          "latency_ms": 78.341272,
+          "operation": "key_down",
+          "planned_tick": 520
+        },
+        {
+          "button": null,
+          "callback_index": 16,
+          "callback_wall_ns": 95378593810449,
+          "event_index": 15,
+          "injection_wall_ns": 95378551714601,
+          "key": "w",
+          "latency_ms": 42.095848,
+          "operation": "key_up",
+          "planned_tick": 590
+        },
+        {
+          "button": null,
+          "callback_index": 17,
+          "callback_wall_ns": 95378814877167,
+          "event_index": 16,
+          "injection_wall_ns": 95378807363321,
+          "key": "w",
+          "latency_ms": 7.513846,
+          "operation": "key_down",
+          "planned_tick": 610
+        },
+        {
+          "button": "stop",
+          "callback_index": 18,
+          "callback_wall_ns": 95379623241227,
+          "event_index": 17,
+          "injection_wall_ns": 95379524359541,
+          "key": null,
+          "latency_ms": 98.881686,
+          "operation": "button_click",
+          "planned_tick": 650
+        },
+        {
+          "button": null,
+          "callback_index": 19,
+          "callback_wall_ns": 95379709511942,
+          "event_index": 18,
+          "injection_wall_ns": 95379657308762,
+          "key": "w",
+          "latency_ms": 52.20318,
+          "operation": "key_up",
+          "planned_tick": 660
+        },
+        {
+          "button": null,
+          "callback_index": 20,
+          "callback_wall_ns": 95380428639191,
+          "event_index": 19,
+          "injection_wall_ns": 95380413731855,
+          "key": "r",
+          "latency_ms": 14.907336,
+          "operation": "key_down",
+          "planned_tick": 720
+        },
+        {
+          "button": null,
+          "callback_index": 21,
+          "callback_wall_ns": 95385059709070,
+          "event_index": 20,
+          "injection_wall_ns": 95384999541529,
+          "key": "r",
+          "latency_ms": 60.167541,
+          "operation": "key_up",
+          "planned_tick": 725
+        },
+        {
+          "button": "reset",
+          "callback_index": 22,
+          "callback_wall_ns": 95385361705870,
+          "event_index": 21,
+          "injection_wall_ns": 95385328735671,
+          "key": null,
+          "latency_ms": 32.970199,
+          "operation": "button_click",
+          "planned_tick": 760
+        },
+        {
+          "button": null,
+          "callback_index": 23,
+          "callback_wall_ns": 95385745673124,
+          "event_index": 22,
+          "injection_wall_ns": 95385708695606,
+          "key": "w",
+          "latency_ms": 36.977518,
+          "operation": "key_down",
+          "planned_tick": 800
+        },
+        {
+          "button": null,
+          "callback_index": 24,
+          "callback_wall_ns": 95386351609911,
+          "event_index": 23,
+          "injection_wall_ns": 95386292350834,
+          "key": "x",
+          "latency_ms": 59.259077,
+          "operation": "key_down",
+          "planned_tick": 850
+        },
+        {
+          "button": null,
+          "callback_index": 25,
+          "callback_wall_ns": 95386427739799,
+          "event_index": 24,
+          "injection_wall_ns": 95386343817223,
+          "key": "x",
+          "latency_ms": 83.922576,
+          "operation": "key_up",
+          "planned_tick": 855
+        },
+        {
+          "button": null,
+          "callback_index": 26,
+          "callback_wall_ns": 95386427748791,
+          "event_index": 25,
+          "injection_wall_ns": 95386384953540,
+          "key": "w",
+          "latency_ms": 42.795251,
+          "operation": "key_up",
+          "planned_tick": 860
+        },
+        {
+          "button": null,
+          "callback_index": 27,
+          "callback_wall_ns": 95387927026683,
+          "event_index": 26,
+          "injection_wall_ns": 95387894112273,
+          "key": "Escape",
+          "latency_ms": 32.91441,
+          "operation": "key_down",
+          "planned_tick": 1000
+        }
+      ],
+      "method": "maximum_cardinality_ordered_minimum_absolute_lag",
+      "passed": false,
+      "unmatched_events": [
+        {
+          "event_index": 13,
+          "key": "w",
+          "observed_completed_controls": 510,
+          "operation": "key_up",
+          "tick": 510,
+          "wall_ns": 95377640445124
+        }
+      ]
+    },
+    "passed": false,
+    "path_checks": {
+      "actual_button_stop": true,
+      "actual_key_stop": true,
+      "negative_yaw": true,
+      "one_reset_request": true,
+      "positive_yaw": true,
+      "required_reasons": true
+    },
+    "physical_human_keyboard_tested": false,
+    "preregistered_events": 27,
+    "ttl_injection": {
+      "actual_duration_s": 0.435521163,
+      "declared_duration_s": 0.35,
+      "kind": "publication pause with callback edges retained"
+    }
+  },
+  "record_valid": true,
+  "render": {
+    "active_rtf": 0.6412344782688877,
+    "captures_verified": [
+      "frame_drive.png",
+      "frame_final.png",
+      "frame_initial.png"
+    ],
+    "draw_fps": 11.803818754203403,
+    "drawn_active_frames": 185,
+    "passed": false,
+    "poll_interval_p95_ns": 129706684,
+    "render_api_calls": 189,
+    "rendered": true,
+    "snapshot_age_p95_ns": 3880872924
+  },
+  "renderer_changes_physics_pending_pair": false,
+  "run": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation23/keyboard_gui_01",
+  "same_trajectory_input_eligible": false,
+  "schema": "d1-c25-independent-saved-readback-v1",
+  "scope": "one finite B22/C18 GUI arm; no all-profile GUI retest, arbitrary driving, or RL superiority claim",
+  "scope_correction_id": "C25_saved_diagnosis_of_immutable_C23",
+  "session_identity": {
+    "bytes": 872290,
+    "sha256": "2936453997205d22ead7b8632fe0c169e239aa836ecbe0ffe5835a0014d18c18"
+  },
+  "source_and_actual_origin_verified": true,
+  "stop_qualification_required_for_delivery": true,
+  "worker_receipt_identity": {
+    "bytes": 28368,
+    "sha256": "f912fcbe96f107c71686eb83930ecddea9b80a8c4224300458badeca25303d5c"
+  }
+}

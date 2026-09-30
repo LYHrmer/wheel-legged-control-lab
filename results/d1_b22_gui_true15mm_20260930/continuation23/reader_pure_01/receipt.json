@@ -1,0 +1,34 @@
+{
+  "runs": [
+    {
+      "command": [
+        "rtk",
+        "proxy",
+        "/usr/bin/python3",
+        "-B",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation23/root23/reader23.py",
+        "--help"
+      ],
+      "returncode": 0,
+      "elapsed_s": 0.16873374399438035
+    },
+    {
+      "command": [
+        "rtk",
+        "proxy",
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation23/root23/test_reader23_pure.py"
+      ],
+      "returncode": 0,
+      "elapsed_s": 0.5501969429897144
+    }
+  ],
+  "model_calls": 0,
+  "physics": 0
+}

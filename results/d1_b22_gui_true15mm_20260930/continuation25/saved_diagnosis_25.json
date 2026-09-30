@@ -1,0 +1,78 @@
+{
+  "schema": "d1-c25-saved-diagnosis-v1",
+  "actual_reviewer": "gpt-6-astra ultra /root/astra_mainplan19",
+  "sources": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation23/keyboard_gui_01/owner_decisions.jsonl.gz": {
+      "bytes": 24546,
+      "sha256": "54add1a1266da1eaf270b1e3534026e90e6b34d1b48f2aa8ca434da85f619857"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation23/keyboard_gui_01/input_snapshots.jsonl.gz": {
+      "bytes": 10071,
+      "sha256": "18a4f4a1ec80ec8658f210f1d0a6bd3a70578b586001567c55455f789c5adb5a"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation23/keyboard_gui_01/x11_events_receipt.json": {
+      "bytes": 4446,
+      "sha256": "ba89f60d2bd6dfb75f0fbc1f12a11901816ce3adf64e56b3f6f1cb5ddf3abc71"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation23/keyboard_gui_01/performance.json": {
+      "bytes": 296572,
+      "sha256": "6526f2276c3f35197067efd2f41a8a78429da976b67e8f0b80a5a25f14cc4485"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation23/keyboard_gui_01/episode_1/reset.json": {
+      "bytes": 11236,
+      "sha256": "027329951a505a06dd4c4e1a0f6a7428ca81f29deb5b9658c8c0a90ed4ba7912"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation23/gui23/run_gui23_v03.py": {
+      "bytes": 48952,
+      "sha256": "0446855fa900a560bc034a40e283468d557f26d2617aae16597e54c3e97ee94b"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation23/root23/reader23_v03.py": {
+      "bytes": 64277,
+      "sha256": "def5785986d79f33b1b6f620b316d290f2ac96a6098b3e3d2d114a91a2da6c8b"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation23/reader_keyboard_gui_v03.log": {
+      "bytes": 1113,
+      "sha256": "c0d2fc1496269c5222cad1a6f96c55fbe248ed55e0ccc3b550eeba522d6efd9d"
+    }
+  },
+  "new_model_calls": 0,
+  "new_physics_calls": 0,
+  "new_tests": 0,
+  "actual_completed_controls": 1005,
+  "active_wall_s": 15.672893989,
+  "actual_RTF": 0.6412344782688877,
+  "original_RTF_gate_passed": false,
+  "required_saving_to_RTF_0p8_s": 3.1103939890000003,
+  "largest_prepare_gap": {
+    "s": 4.51162404,
+    "before_ns": 95380432975726,
+    "after_ns": 95384944599766,
+    "global_control_index": 723,
+    "episode_before": 0,
+    "episode_after": 1,
+    "GLFW_polls_during_gap": 54,
+    "render_frames_during_gap": 54,
+    "frames_reusing_control720": 54
+  },
+  "cause_supported": "The dominant stall is on the owner reset boundary. Frozen source synchronously calls finish_segment, serializes/compresses/commits the old native/control/state archive, then starts and prepares the reset. GLFW polling and rendering continue during this owner stall.",
+  "cause_not_yet_separated": "There are no wall timestamps bracketing finish_episode versus env.reset in the saved record. The entire4.511624s must not be claimed as measured gzip time. A bounded pure saved-data replay must discriminate compression cost.",
+  "input_callback_diagnosis": {
+    "original_reader_failed_event_label": "W key_up planned tick590",
+    "actual_missing_callback": "redundant W key_up planned tick510 after focus-loss auto release",
+    "GLFW_automatic_W_release_control": 470,
+    "GLFW_automatic_W_release_wall_ns": 95377275608873,
+    "W_release_510_injection_wall_ns": 95377640445124,
+    "W_release_590_injection_wall_ns": 95378551714601,
+    "W_release_590_actual_callback_wall_ns": 95378593810449,
+    "W_release_590_actual_latency_ms": 42.095848,
+    "old_greedy_wrong_assignment_latency_ms": 953.365325,
+    "old_keyboard_event_qualification_passed": false,
+    "new_plan_change": "Add one W key_down at505, preserving the original27 injection rows, to make the510 release a real focused edge. Require all28 callbacks and all independent input paths.",
+    "new_matching": "Maximum-cardinality globally ordered callback matching within unchanged[-50ms,+1s] bounds; minimum total absolute lag resolves ties. No callback reuse."
+  },
+  "design_priority": [
+    "First replay both complete saved episode0 native/control payload writes once at gzip9 and once at gzip1 with identical JSON+atomic protocol; verify decompressed payload equality and compare saved wall to required3.110394s.",
+    "Use only compression-level change if its measured saving adequately supports the original GUI gate. If insufficient, choose one bounded deferred-archive design before source GO; do not combine speculative fixes."
+  ],
+  "budget_boundary": "C23 remains2205controls/11025normalnative/+6compiler and three cold physics workers; unused195 controls are not carried forward. C24 remains qualified2400/12000/+2 and receives no further physics. C25 must be a new separately reserved single keyboard worker<=1200/6000/+2."
+}

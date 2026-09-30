@@ -1,0 +1,149 @@
+{
+  "schema": "d1-c25-saved-c24-delivery-review-v1",
+  "actual_reviewer": "gpt-6-astra /root/astra_turn_ramp17",
+  "scope": "Saved-only C24 results, host/worker/GO closure, public bytecopy, publication wording; no GUI qualification or new physical run.",
+  "saved_evidence_passed": true,
+  "public_C24_copy_passed": true,
+  "inputs": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation24/independent_read_01.json": {
+      "bytes": 52440,
+      "sha256": "7af78b2143dab31858c5eb44d7bbb0a8957750dbcc38b072fd26204b94a1bdd1"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation24/step_pair_01/worker_receipt.json": {
+      "bytes": 9824,
+      "sha256": "71e1ad9f022fd2427c687d54fad90c65984b2e72c99dad4a44ba4e945b30e292"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation24/step_pair_01/host_receipt.json": {
+      "bytes": 494,
+      "sha256": "d978b5a0ebb101a8ec9c2ebf057cc32661d90a6b6ab9d203ee3b9d96c0380de6"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation24/step_pair_01/session.json": {
+      "bytes": 824687,
+      "sha256": "3facad6b0afc91cf30dd5efa4a35f5c7d24fefdad3b80a4bd23ff78661a8e9d6"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation24/step_source_go_01.json": {
+      "bytes": 830108,
+      "sha256": "e130cff27e34a25183d1a3b2a29a2b686d74303fe3c5469398a14077cb2c6eb2"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation24/reader_host_01.json": {
+      "bytes": 550,
+      "sha256": "ff2973e2b6501a6443fb8cc2d2892e86a059b893e1d85391c8609c83a7e64948"
+    },
+    "/home/lyh/wheel-legged-control-lab/results/d1_b22_gui_true15mm_20260930/step_publication_copy.json": {
+      "bytes": 47375,
+      "sha256": "ffd393422893f03fb2b4587cc7766ada6f91290dcbb6c962b2960e71002f7251"
+    },
+    "/home/lyh/wheel-legged-control-lab/docs/b22_gui_true15mm_20261001.md": {
+      "bytes": 3340,
+      "sha256": "e04038901a612be3a4983c7fbf41abfda8e8e0a1ce13adacb959b8530212ddaf"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation23/reader_keyboard_gui_v03.log": {
+      "bytes": 1113,
+      "sha256": "c0d2fc1496269c5222cad1a6f96c55fbe248ed55e0ccc3b550eeba522d6efd9d"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation23/reader_keyboard_gui_host_v03.json": {
+      "bytes": 595,
+      "sha256": "d78c172ded61019ba3c81f838cdb1acb5bc88be7a809e99ee7959c236b601c74"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation25/saved_diagnosis_25.json": {
+      "bytes": 5100,
+      "sha256": "298e6152dc45cdaf2b68c5043485909fdd863761e03c447baa00e7a5bab53d09"
+    }
+  },
+  "public_copy": {
+    "files": 126,
+    "bytes": 50230986,
+    "source_manifest_public_sha256_all_equal": true,
+    "no_missing_extra_or_unlisted_C24_files": true,
+    "missing_document_links": []
+  },
+  "actual_C24_counts": {
+    "controls": 2400,
+    "normal_native_returns": 12000,
+    "compiler_native_returns": 2,
+    "ppo_load": 1,
+    "torch_load": 3,
+    "policy_predict_calls_including_probe": 1201,
+    "actor_rows_including_probe": 1232,
+    "critic_rows": 0,
+    "optimizer_steps": 0,
+    "readonly_mj_objectVelocity_calls": 40834,
+    "readonly_query_count_is_not_total_all_native_API_calls": true
+  },
+  "cases": {
+    "zero": {
+      "passed_gate_count": 16,
+      "completed_controls": 1200,
+      "speed_samples": 601,
+      "speed_endpoint_window_inclusive": [
+        275,
+        875
+      ],
+      "speed_mean_mps": 0.20020826366393707,
+      "speed_rms_mps": 0.03759668339551019,
+      "max_heading_change_deg": 0.006532877557739649,
+      "positive_box_loaded_native_intervals": 2080,
+      "all_collision_minimum_far_edge_margin_m": 0.3020668743379934,
+      "full_torque_cost_mean": 0.02097143910393889
+    },
+    "B": {
+      "passed_gate_count": 16,
+      "completed_controls": 1200,
+      "speed_samples": 601,
+      "speed_endpoint_window_inclusive": [
+        275,
+        875
+      ],
+      "speed_mean_mps": 0.20044089488780134,
+      "speed_rms_mps": 0.03481278110382594,
+      "max_heading_change_deg": 3.207109940131873,
+      "positive_box_loaded_native_intervals": 2070,
+      "all_collision_minimum_far_edge_margin_m": 0.29598620817844334,
+      "full_torque_cost_mean": 0.021687020488714327
+    }
+  },
+  "cost_check": {
+    "B_over_zero_minus_one": 0.03412171101987149,
+    "percent": 3.4121711019871492,
+    "definition": "Full-window mean over controls of mean over 5 native samples and 16 motors of squared actual torque divided by nominal per-motor limit.",
+    "energy_claim": false,
+    "window_arithmetic_checked": true
+  },
+  "claim_boundaries": {
+    "actual_15mm_collision_box_in_MuJoCo": true,
+    "hardware_robot_experiment": false,
+    "one_preregistered_paired_scenario": true,
+    "zero_also_passes": true,
+    "RL_better_than_zero_claim": false,
+    "learned_exclusive_step_skill_claim": false,
+    "GUI_pass_claim_in_document": false,
+    "all_16_gates_per_actor_remain_unchanged": true
+  },
+  "publication_wording_requests": [
+    {
+      "priority": "precision",
+      "request": "Distinguish five-array byte equality from control-reset dictionary field equality.",
+      "resolved_in_observed_document": true
+    },
+    {
+      "priority": "scope",
+      "request": "Explicitly state this is MuJoCo collision-geometry simulation qualification, not a hardware robot experiment.",
+      "resolved_in_observed_document": true
+    }
+  ],
+  "failure_history": {
+    "C23_failed_independent_reader_log_retained_locally": true,
+    "C25_saved_diagnosis_retains_RTF_gate_failure": true,
+    "C23_public_copy_present_now": false,
+    "final_GUI_delivery_must_include_failed_run_and_reader_history": true,
+    "C24_public_completeness_does_not_claim_GUI_bundle_complete": true
+  },
+  "new_activity": {
+    "model_calls": 0,
+    "physics_calls": 0,
+    "test_runs": 0,
+    "training": 0,
+    "frozen_files_modified": 0
+  },
+  "decision": "C24 physical qualification and public archive accepted. Apply wording precision and include preserved GUI failure history at final GUI publication."
+}

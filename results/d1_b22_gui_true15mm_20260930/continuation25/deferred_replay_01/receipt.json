@@ -1,0 +1,99 @@
+{
+  "schema": "d1-c25-full-saved-deferred-replay-v1",
+  "model_calls": 0,
+  "physics_calls": 0,
+  "controls_replayed": 723,
+  "native_rows_replayed": 3615,
+  "enqueue_s": 0.0011040620011044666,
+  "flush_s": 8.6149792829965,
+  "pending_after": 0,
+  "all_manifests_valid": true,
+  "byte_exact": {
+    "native_block_0000.jsonl.gz": true,
+    "controls.jsonl.gz": true,
+    "state_arrays": true,
+    "reset_json": true
+  },
+  "writer_source_sha256": "c5343c4ad15542f35aa773c7a8587415a8db4198a1c1e960988b51b5b42bcc01",
+  "queued_jobs": [
+    {
+      "id": 0,
+      "kind": "native",
+      "payload_paths": [
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation25/deferred_replay_01/native_block_0000.jsonl.gz"
+      ],
+      "manifest_name": "native_block_0000.jsonl.gz.manifest.json",
+      "enqueued_ns": 97433387989947,
+      "archive_status": "pending"
+    },
+    {
+      "id": 1,
+      "kind": "controls.jsonl.gz",
+      "payload_paths": [
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation25/deferred_replay_01/controls.jsonl.gz"
+      ],
+      "manifest_name": "controls.jsonl.gz.manifest.json",
+      "enqueued_ns": 97433388143828,
+      "archive_status": "pending"
+    },
+    {
+      "id": 2,
+      "kind": "states.npz",
+      "payload_paths": [
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation25/deferred_replay_01/states.npz"
+      ],
+      "manifest_name": "states.npz.manifest.json",
+      "enqueued_ns": 97433388228991,
+      "archive_status": "pending"
+    },
+    {
+      "id": 3,
+      "kind": "reset.json",
+      "payload_paths": [
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation25/deferred_replay_01/reset.json"
+      ],
+      "manifest_name": "reset.json.manifest.json",
+      "enqueued_ns": 97433388921234,
+      "archive_status": "pending"
+    }
+  ],
+  "flushed_jobs": [
+    {
+      "id": 0,
+      "manifest_name": "native_block_0000.jsonl.gz.manifest.json",
+      "actual_manifest_identity": {
+        "bytes": 185,
+        "sha256": "1c38a9ebeadb157b152ebe575ae45156d6e8fe0e53e1192d9e829b85a3d566a4"
+      },
+      "completed_ns": 97437971516626
+    },
+    {
+      "id": 1,
+      "manifest_name": "controls.jsonl.gz.manifest.json",
+      "actual_manifest_identity": {
+        "bytes": 176,
+        "sha256": "4c906d163f5db4c88c724a6cdc3045cb65c84d999fd90beef78550b8857a851d"
+      },
+      "completed_ns": 97441973929931
+    },
+    {
+      "id": 2,
+      "manifest_name": "states.npz.manifest.json",
+      "actual_manifest_identity": {
+        "bytes": 168,
+        "sha256": "bd8d138e406d5dfddb7aac97c371757e931662e2469f3b6e554ce0a2188f6958"
+      },
+      "completed_ns": 97441990970476
+    },
+    {
+      "id": 3,
+      "manifest_name": "reset.json.manifest.json",
+      "actual_manifest_identity": {
+        "bytes": 167,
+        "sha256": "58a2891169de2c0440a53484f6ec983c32d0900c5e4e1f1dc1a7393c57989a5a"
+      },
+      "completed_ns": 97442003929882
+    }
+  ],
+  "is_physical_GUI_qualification": false
+}

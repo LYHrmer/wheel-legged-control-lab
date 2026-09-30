@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/continuation23/root23/reader23_v03.py", line 1117, in <module>
+    raise SystemExit(main())
+  File "/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/continuation23/root23/reader23_v03.py", line 1098, in main
+    actual = read_run_details(args.run)
+  File "/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/continuation23/root23/reader23_v03.py", line 1047, in read_run_details
+    events = check_real_events(run,session,go,inputs,decisions)
+  File "/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/continuation23/root23/reader23_v03.py", line 906, in check_real_events
+    require(bool(matches), 'OS event lacks bounded actual GLFW callback: '+str(event))
+  File "/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/continuation23/root23/reader23_v03.py", line 56, in require
+    raise ValueError(message)
+ValueError: OS event lacks bounded actual GLFW callback: {'key': 'w', 'operation': 'key_up', 'tick': 590, 'observed_completed_controls': 590, 'wall_ns': 95378551714601}

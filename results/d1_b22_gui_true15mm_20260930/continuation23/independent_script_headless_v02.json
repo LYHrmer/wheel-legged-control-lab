@@ -1,0 +1,135 @@
+{
+  "active_RTF_ge_0p8": false,
+  "actual_active_RTF": 0.7884732058104053,
+  "actual_episode_count": 1,
+  "actual_nonzero_B22_residual": true,
+  "arm": "script_headless",
+  "arm_qualification_passed": false,
+  "checkpoint_sha256": "7bd58b5d6114745b12b4284be3f861f973a5d31d9d596365a5b54cb5e0d76691",
+  "compiler_native_returns": 2,
+  "completed_controls": 600,
+  "execution_contract_id": "C23_B22_GUI_v1",
+  "execution_prerequisite_passed": true,
+  "input": {
+    "actual_reset_count": 0,
+    "controls_with_exact_preparation": 600,
+    "owner_consumptions": 0,
+    "pending_edges_preserved": true,
+    "published_snapshot_count": 0
+  },
+  "last100_stop": {
+    "clearance_std_m": 0.00042468755049973546,
+    "complete_raw_servo_zero_last100": false,
+    "mean_abs_body_vx_mps": 0.07550535533625337,
+    "mean_abs_yaw_rate_rps": 0.000751203731997519,
+    "passed": false,
+    "thresholds": {
+      "clearance_std_m": 0.02,
+      "mean_abs_body_vx_mps": 0.04,
+      "mean_abs_yaw_rate_rps": 0.05
+    }
+  },
+  "model_calls": {
+    "actor_rows": 632,
+    "counts": {
+      "load": {
+        "attempted": 1,
+        "phases": {
+          "probe": {
+            "attempted": 1,
+            "returned": 1,
+            "rows": 0
+          }
+        },
+        "returned": 1,
+        "rows_attempted": 0,
+        "rows_returned": 0
+      },
+      "predict": {
+        "attempted": 601,
+        "phases": {
+          "control": {
+            "attempted": 600,
+            "returned": 600,
+            "rows": 600
+          },
+          "probe": {
+            "attempted": 1,
+            "returned": 1,
+            "rows": 32
+          }
+        },
+        "returned": 601,
+        "rows_attempted": 632,
+        "rows_returned": 632
+      },
+      "torch_load": {
+        "attempted": 3,
+        "phases": {
+          "probe": {
+            "attempted": 3,
+            "returned": 3,
+            "rows": 0
+          }
+        },
+        "returned": 3,
+        "rows_attempted": 0,
+        "rows_returned": 0
+      }
+    },
+    "critic_rows": 0,
+    "limits": {
+      "backward": 0,
+      "evaluate_actions": 0,
+      "forward": 0,
+      "learn": 0,
+      "load": 1,
+      "predict": 601,
+      "predict_values": 0,
+      "save": 0,
+      "torch_load": 3,
+      "train": 0
+    },
+    "schema": "d1-model-api-ledger-20-v1"
+  },
+  "normal_native_returns": 3000,
+  "observation_action_shape": [
+    99,
+    16
+  ],
+  "original_reader_source_identity": {
+    "bytes": 62540,
+    "sha256": "8dd033fd50b8f08799e926b0eda7faeb9a70ccc392606a152aeeb9e3174ed1b3"
+  },
+  "original_v1_arm_qualification_passed": false,
+  "physical_safety_passed": true,
+  "reader_model_calls": 0,
+  "reader_physics_calls": 0,
+  "reader_source_identity": {
+    "bytes": 64256,
+    "sha256": "61bf46fcc6f16926096bf825f4e463ba2db2dc2e0178ffcd3f7b72f98e679c31"
+  },
+  "real_events": null,
+  "record_valid": true,
+  "render": {
+    "passed": true,
+    "render_api_calls": 0,
+    "rendered": false
+  },
+  "renderer_changes_physics_pending_pair": true,
+  "run": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation23/script_headless_01",
+  "same_trajectory_input_eligible": true,
+  "schema": "d1-c23-independent-saved-readback-v02",
+  "scope": "one finite B22/C18 GUI arm; no all-profile GUI retest, arbitrary driving, or RL superiority claim",
+  "scope_correction_id": "C23_GUI_scope_correction_v02",
+  "session_identity": {
+    "bytes": 862621,
+    "sha256": "8bc1517aa494e670c12f239086a4ba419f61c6894c297810298096879090edd0"
+  },
+  "source_and_actual_origin_verified": true,
+  "stop_qualification_required_for_delivery": false,
+  "worker_receipt_identity": {
+    "bytes": 25373,
+    "sha256": "a176ad5f31aa469e69a564067afcc7ff6f5a90135f9be6392d98e3deb077ec39"
+  }
+}

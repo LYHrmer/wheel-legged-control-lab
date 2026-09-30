@@ -1,0 +1,354 @@
+{
+  "B22_GUI_qualified": true,
+  "B22_true_15mm_simulation_qualified": true,
+  "GUI": {
+    "OS_bookkeeping_releases": 1,
+    "PPO_load": 1,
+    "active_RTF": 0.9797505745155126,
+    "active_wall_s": 11.247760692,
+    "actor_rows_including_probe": 1134,
+    "actual_OS_injections": 27,
+    "actual_controls": 1102,
+    "actual_draw_calls": 140,
+    "actual_meaningful_callbacks_matched": 26,
+    "actual_nonzero_residual_verified": true,
+    "actual_reset_count": 1,
+    "bookkeeping_tick": 510,
+    "checkpoint_sha256": "7bd58b5d6114745b12b4284be3f861f973a5d31d9d596365a5b54cb5e0d76691",
+    "compiler_native": 2,
+    "controller": "C18 combined",
+    "critic_rows": 0,
+    "deferred_archive": {
+      "all_jobs_durable": true,
+      "flush_started_after_actual_active_end": true,
+      "flush_wall_s": 6.669235741,
+      "jobs": 12,
+      "passed": true,
+      "payloads": 12,
+      "pending_count": 0,
+      "receipt_identity": {
+        "bytes": 12340,
+        "sha256": "3ac6052f3192f48afff2f664d924b0c9b01cd4fac6467bf876a33444ca99f3c7"
+      },
+      "unchanged_physical_boundary_verified": true
+    },
+    "draw_FPS": 12.091295656452788,
+    "host_closed_no_owned_orphans": true,
+    "input": {
+      "actual_reset_count": 1,
+      "controls_with_exact_preparation": 1102,
+      "owner_consumptions": 1103,
+      "pending_edges_preserved": true,
+      "published_snapshot_count": 136
+    },
+    "input_checks": {
+      "OS_cleanup_between_focus_return_request_and_new_press_request": true,
+      "W_was_observed_pressed_before_focus_loss": true,
+      "all26_meaningful_callbacks": true,
+      "all_original_input_paths": true,
+      "focus_and_press_anchors_observed": true,
+      "focus_loss_auto_W_release_observed": true,
+      "fresh_focused_released_snapshot_before_new_press": true
+    },
+    "last100_stop": {
+      "clearance_std_m": 7.206015762739119e-05,
+      "complete_raw_servo_zero_last100": true,
+      "mean_abs_body_vx_mps": 0.001428711405541391,
+      "mean_abs_yaw_rate_rps": 0.00033869790022684527,
+      "passed": true,
+      "thresholds": {
+        "clearance_std_m": 0.02,
+        "mean_abs_body_vx_mps": 0.04,
+        "mean_abs_yaw_rate_rps": 0.05
+      }
+    },
+    "manual_human_driving_tested": false,
+    "normal_native": 5510,
+    "observation_action_dimensions": [
+      99,
+      16
+    ],
+    "one_cold_worker": true,
+    "original_thresholds_unchanged": true,
+    "owner_join": {
+      "absolute_deadline_from_preflight_verified": true,
+      "actual_receipt": {
+        "deadline_monotonic_s": 98906.643711202,
+        "join_end_monotonic_s": 98814.035254279,
+        "join_start_monotonic_s": 98807.123858587,
+        "owner_alive_after": false
+      },
+      "join_wall_s": 6.911395692004589,
+      "owner_dead_before_main_serialization": true,
+      "passed": true
+    },
+    "path_checks": {
+      "actual_button_stop": true,
+      "actual_key_stop": true,
+      "negative_yaw": true,
+      "one_reset_request": true,
+      "positive_yaw": true,
+      "required_reasons": true
+    },
+    "poll_p95_ms": 97.637873,
+    "predict_calls_including_probe": 1103,
+    "real_XTest_GLFW_window_input_tested": true,
+    "record_valid": true,
+    "second_reset_request_rejected": true,
+    "snapshot_age_p95_ms": 188.646819,
+    "source_and_actual_origin_verified": true,
+    "torch_load": 3,
+    "training_optimizer_calls": 0
+  },
+  "actual_physical_totals_for_C23_C24_C25_C26": {
+    "compiler_native": 12,
+    "controls": 6809,
+    "normal_native": 34045,
+    "not_included": "OS-only probe and CLI parse failure made zero model/normal/compiler calls; reserved-but-unused compiler allowance is excluded; readonly C24 objectVelocity queries40834 are separate",
+    "physical_cold_workers": 6,
+    "training_optimizer_calls": 0
+  },
+  "actual_reviewer": "gpt-6-astra, reasoning effort ultra; /root/astra_mainplan19",
+  "decision": "PASS",
+  "inputs": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation23/independent_script_gui_v02.json": {
+      "bytes": 9186,
+      "sha256": "aca172de19f3e7ac368ee21cff3059b5714ae8cec60def022aed7b1449771b01"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation24/independent_read_01.json": {
+      "bytes": 52440,
+      "sha256": "7af78b2143dab31858c5eb44d7bbb0a8957750dbcc38b072fd26204b94a1bdd1"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation24/reader_host_01.json": {
+      "bytes": 550,
+      "sha256": "ff2973e2b6501a6443fb8cc2d2892e86a059b893e1d85391c8609c83a7e64948"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation25/independent_old_keyboard_01.json": {
+      "bytes": 13856,
+      "sha256": "7a2bee1b4489e1bf3ec5b8b691d72039123eba472a39be65d51734517e768f5e"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation25/keyboard_gui_01/host_receipt.json": {
+      "bytes": 534,
+      "sha256": "dab97cd89b2b391b686343e74652278b69cb584ad0b157cb2190b2626f5e71c1"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation25/keyboard_gui_01/worker_receipt.json": {
+      "bytes": 739,
+      "sha256": "dd5c8f193a9b3715cd3df4e9578a4c3256fe2a5cc135eeffe8c52859bfe496af"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation25/step_delivery_review_01.json": {
+      "bytes": 6459,
+      "sha256": "0a51e5a43bb4f25bf1545a89357c6581d810c122585153f6874800b52a0f211c"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation26/c25_failure_review_01.json": {
+      "bytes": 4316,
+      "sha256": "bee7d22cc4441ee5df6cb24fa21403fcecda089b205eec8540e59ca35a112619"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation26/cli_check_26.json": {
+      "bytes": 377,
+      "sha256": "4e19eacc4f0cf3ca21cbf4ea3784feeb2ec3f7091157a625cf99b66a79ea3627"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation26/cli_check_26.log": {
+      "bytes": 423,
+      "sha256": "0f2dec46d6da747b474fff404cddfd0bb4b9e2ebaa7c0073f1ca2158d9e58484"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation26/contract_26.md": {
+      "bytes": 4103,
+      "sha256": "351ae8673b33e3c82997075d2ea1fae2b9fa5becb9dad026b13ff3b01da9cd74"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation26/gui26/run_gui26.py": {
+      "bytes": 57635,
+      "sha256": "a138805d43cacde6405837149fb1652e04dee08f6ab47c812fa5b3a9b2017e18"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation26/gui_source_go_26.json": {
+      "bytes": 895449,
+      "sha256": "f819a94455a5561eed702545e53d901cb301ed712f904434acf4a5beb77e1315"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation26/host_cli_parse_failure_01.json": {
+      "bytes": 328,
+      "sha256": "5d27f63b0f3595d5099284eb6ef7ac85f630ff0c15bd1c3e711fe2ebabb2116d"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation26/independent_keyboard_gui_26.json": {
+      "bytes": 25363,
+      "sha256": "69da5ebda2a8e07ff7ccabd9149981b33b016c7f3595470712c624f421f5fe01"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation26/keyboard_gui_01/deferred_archive_receipt.json": {
+      "bytes": 12340,
+      "sha256": "3ac6052f3192f48afff2f664d924b0c9b01cd4fac6467bf876a33444ca99f3c7"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation26/keyboard_gui_01/frame_drive.png": {
+      "bytes": 20942,
+      "sha256": "aceea1673234697e85a052a8bb5d7e1175151f93ea89a88306f8acc73a372a2a"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation26/keyboard_gui_01/frame_final.png": {
+      "bytes": 22328,
+      "sha256": "6387daed1c18eb21ee53b412b2a54a5a58c0b3ad8e37481d849364b54fde1d98"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation26/keyboard_gui_01/host_receipt.json": {
+      "bytes": 496,
+      "sha256": "ae08e9fd0fd68d851b166d5a88cd1a9be75d40a8788bcb8562bfcdd7a0ec9250"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation26/keyboard_gui_01/session.json": {
+      "bytes": 890387,
+      "sha256": "b6d93f7997653a78b21b2cabbc5b6701fbd41c496200e27eba9c3b13f0e74dcf"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation26/keyboard_gui_01/supervisor_receipt.json": {
+      "bytes": 304,
+      "sha256": "b1afe43ba88fbb42d0c67ef27c10bd6576e61d49e72ac18db0d326c04e59b687"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation26/keyboard_gui_01/worker_receipt.json": {
+      "bytes": 28858,
+      "sha256": "16e0c06087739d9aa1b90fdb7894b79b1cadd0e71cb1389f83e2f925922346f2"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation26/keyboard_gui_01/x11_events_receipt.json": {
+      "bytes": 4446,
+      "sha256": "56e7e1593a05dc4ad7326329d556fa423005b8c2b5ae834508f64da200abac24"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation26/lint_26.json": {
+      "bytes": 745,
+      "sha256": "a90ba2084f16d5d92546eada764d543a60477fc9b94a4cde7f029412261a7bd4"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation26/owner_join_pure_01/receipt.json": {
+      "bytes": 379,
+      "sha256": "a7c8a061786fc27c505787f9530f8fe03686cd8d1cb103e976e9f4b994b2d752"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation26/reader_execution_26.json": {
+      "bytes": 582,
+      "sha256": "5584cd6b661cf1d01a4d1e3800bc928531a2fa7e00126efb76d77d3d96e94da7"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation26/reader_join_pure_01/receipt.json": {
+      "bytes": 382,
+      "sha256": "3391c962fa2c21ee5b6b13506480d3f0b2e3f341cbae4209245fea95696595aa"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation26/root26/reader26.py": {
+      "bytes": 67194,
+      "sha256": "bedcd547353ee876797bf7f96882c1761355894c664c531932202bbe3bb7f2f7"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation26/root26/reader26_deferred.py": {
+      "bytes": 14329,
+      "sha256": "0997007b87ad36659f26cf013f56e998e8d62484bd8585de82c87d13d088ba59"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation26/source_bridge_26.json": {
+      "bytes": 933,
+      "sha256": "e9b8f8d8dfc3e7cb996635071632a60027d647d5da762b55f9b75ec8e7587b08"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation26/spec26.json": {
+      "bytes": 8491,
+      "sha256": "2da89f07a65bc9f4a91fe1e5a2b4dfb0e1f4365a7887ce4a8208bd8486a47261"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation26/visual_review_26.json": {
+      "bytes": 558,
+      "sha256": "f235f5dfbccdd9b7b23590b853cc5bf5aa28f8b9fed6017f5dccfb091bbf7098"
+    },
+    "/home/lyh/wheel-legged-control-lab/runtime/d1_b22/runtime_manifest_v26.json": {
+      "bytes": 854599,
+      "sha256": "6466fb0310295c7bfb564c3795f3652652d9cc6e282ec8da3876f1d9cddb6f21"
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/play_b22.py": {
+      "bytes": 5606,
+      "sha256": "35897daec7bd4ea41a7b8714bb5a7026293e07ce1f0eb1a52a918f07776ee094"
+    }
+  },
+  "preserved_failures": {
+    "C23": "original headless performance/stop, script stop, button layout and keyboard event/performance/stop failures retain their original outcomes and records",
+    "C25": "1102/5510/+2 completed physically but8s owner join expired during11.251s archive drain; main evidence missing; qualification remainsfalse",
+    "C26_initial_CLI_parse": "one omitted --isolated-x11 wrapper argument caused argparse rc2 before reservation, models, compiler or physics; preserved separate zero-call receipt",
+    "budgets": "C23 unused195 and C25 unused98 retired; C26 unused98 closed; no silent cap reuse or automatic retry"
+  },
+  "publication": {
+    "GitHub_push_or_remote_CI_success_claimed": false,
+    "public_archive_copy_and_final_hash_validation_pending_root": true,
+    "required_history": "publish C23/C25 failures, C26 zero-call invocation error, corrected contracts/GO, source bridges, readbacks and actual screenshots along with C24 result",
+    "source_and_local_qualification_ready": true
+  },
+  "review_activity": {
+    "actual_drive_and_final_PNG_visually_inspected": true,
+    "frozen_files_modified": 0,
+    "new_model_calls": 0,
+    "new_physics_calls": 0,
+    "saved_reports_and_receipts_read": true,
+    "test_runs": 0
+  },
+  "reviewed_at_utc": "2026-09-30T17:39:58.442646+00:00",
+  "same_trajectory_inheritance": {
+    "C26_script_rerun": false,
+    "basis": "reviewed numerical paths unchanged across C23 HUD/serialization and C26 owner-exit changes; actual final keyboard evidence independently closed",
+    "checks_passed": 24,
+    "controls_each": 600,
+    "normal_native_each": 3000,
+    "original_headless_performance_and_script_stop_failures_preserved": true,
+    "source": "C23 actual600-control headless/script-GUI pair"
+  },
+  "schema": "d1-c26-final-gui-and-true15mm-delivery-review-v1",
+  "scientific_conclusion": "The requested bounded usable B22 GUI and actual15mm collision-geometry simulation capability are both locally qualified. This does not establish RL superiority over the zero-residual controller or generalize to arbitrary driving/terrain.",
+  "true_15mm": {
+    "B_and_zero_both_pass_all16_gates": true,
+    "B_full_normalized_torque_cost_over_zero_percent": 3.4121711019871492,
+    "RL_advantage_or_exclusive_learned_step_skill_demonstrated": false,
+    "actual_controls": 2400,
+    "cases": {
+      "B": {
+        "all_collision_minimum_far_edge_margin_m": 0.29598620817844334,
+        "completed_controls": 1200,
+        "full_torque_cost_mean": 0.021687020488714327,
+        "max_heading_change_deg": 3.207109940131873,
+        "passed_gate_count": 16,
+        "positive_box_loaded_native_intervals": 2070,
+        "speed_endpoint_window_inclusive": [
+          275,
+          875
+        ],
+        "speed_mean_mps": 0.20044089488780134,
+        "speed_rms_mps": 0.03481278110382594,
+        "speed_samples": 601
+      },
+      "zero": {
+        "all_collision_minimum_far_edge_margin_m": 0.3020668743379934,
+        "completed_controls": 1200,
+        "full_torque_cost_mean": 0.02097143910393889,
+        "max_heading_change_deg": 0.006532877557739649,
+        "passed_gate_count": 16,
+        "positive_box_loaded_native_intervals": 2080,
+        "speed_endpoint_window_inclusive": [
+          275,
+          875
+        ],
+        "speed_mean_mps": 0.20020826366393707,
+        "speed_rms_mps": 0.03759668339551019,
+        "speed_samples": 601
+      }
+    },
+    "compiler_native": 2,
+    "complete_control_reset_fields_equal": true,
+    "cost_is_energy": false,
+    "environment": "MuJoCo actual compiled collision box, not hardware robot",
+    "five_initial_arrays_byte_exact": true,
+    "new_C26_step_physics": 0,
+    "normal_native": 12000,
+    "scenario": "one preregistered matched 15mm single-step .20m/s command scenario"
+  },
+  "two_requested_local_delivery_capabilities_complete": true,
+  "user_entry": {
+    "actual_worker_executed_from_delivered_bundle": true,
+    "keyboard_scope": "bounded yaw_1p2, W forward/Q,E yaw/Space or X or STOP brake, focus/TTL safety, R simulation reset once and rejected second reset, Escape exit",
+    "path": "/home/lyh/wheel-legged-control-lab/scripts/play_b22.py",
+    "script_profiles": "six bounded profiles use inherited C22/C18 control evidence; actual same-track GUI test is flat.6 only",
+    "source_and_4070_file_check_passed": true,
+    "unsupported": [
+      "A/D lateral motion",
+      "jump",
+      "self-righting",
+      "unbounded arbitrary free driving",
+      "hardware qualification"
+    ]
+  },
+  "visual_review": {
+    "HUD_B22_SHA_C18_99D_16D_profile_and_command_values_readable": true,
+    "STOP_and_RESET_readable_inside_distinct_rectangles": true,
+    "drive_PNG": "frame_drive.png",
+    "final_PNG": "frame_final.png",
+    "final_displayed_actual_velocity_mps": 0.001,
+    "final_raw_and_applied_velocity_zero_visible": true,
+    "scope": "actual saved rendered images viewed by this reviewer; no additional rendering or physics",
+    "upright_robot_visible": true
+  }
+}

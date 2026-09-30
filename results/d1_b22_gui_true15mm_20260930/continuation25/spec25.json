@@ -1,0 +1,250 @@
+{
+  "schema": "d1-c25-gui-corrective-contract-v1",
+  "execution_contract_id": "C25_B22_GUI_reset_archive_v1",
+  "numeric_worker_schema": "d1-c23-gui-worker-v1",
+  "numeric_worker_receipt_schema": "d1-c23-gui-worker-receipt-v1",
+  "worker": "gui25/run_gui25.py",
+  "base_reader": "root25/reader25.py",
+  "final_reader": "root25/reader25_deferred.py",
+  "qualification_arm": "keyboard_gui",
+  "seed": 231002,
+  "actor": "B",
+  "profile": "yaw_1p2",
+  "control_limit": 1200,
+  "normal_native_limit": 6000,
+  "compiler_native_limit": 2,
+  "cold_workers": 1,
+  "PPO_load_limit": 1,
+  "torch_load_limit": 3,
+  "probe_rows": 32,
+  "actor_rows_limit": 1232,
+  "training_optimizer_calls": 0,
+  "retry_permitted": false,
+  "x11_events": [
+    {
+      "key": "w",
+      "operation": "key_down",
+      "tick": 100
+    },
+    {
+      "key": "q",
+      "operation": "key_down",
+      "tick": 180
+    },
+    {
+      "key": "q",
+      "operation": "key_up",
+      "tick": 200
+    },
+    {
+      "key": "e",
+      "operation": "key_down",
+      "tick": 230
+    },
+    {
+      "key": "e",
+      "operation": "key_up",
+      "tick": 250
+    },
+    {
+      "key": "w",
+      "operation": "key_up",
+      "tick": 280
+    },
+    {
+      "key": "w",
+      "operation": "key_down",
+      "tick": 350
+    },
+    {
+      "key": "space",
+      "operation": "key_down",
+      "tick": 400
+    },
+    {
+      "key": "space",
+      "operation": "key_up",
+      "tick": 405
+    },
+    {
+      "key": "w",
+      "operation": "key_up",
+      "tick": 430
+    },
+    {
+      "key": "w",
+      "operation": "key_down",
+      "tick": 450
+    },
+    {
+      "operation": "focus_lost",
+      "tick": 470
+    },
+    {
+      "operation": "focus_return",
+      "tick": 500
+    },
+    {
+      "key": "w",
+      "operation": "key_up",
+      "tick": 510
+    },
+    {
+      "key": "w",
+      "operation": "key_down",
+      "tick": 520
+    },
+    {
+      "key": "w",
+      "operation": "key_up",
+      "tick": 590
+    },
+    {
+      "key": "w",
+      "operation": "key_down",
+      "tick": 610
+    },
+    {
+      "button": "stop",
+      "operation": "button_click",
+      "tick": 650
+    },
+    {
+      "key": "w",
+      "operation": "key_up",
+      "tick": 660
+    },
+    {
+      "key": "r",
+      "operation": "key_down",
+      "tick": 720
+    },
+    {
+      "key": "r",
+      "operation": "key_up",
+      "tick": 725
+    },
+    {
+      "button": "reset",
+      "operation": "button_click",
+      "tick": 760
+    },
+    {
+      "key": "w",
+      "operation": "key_down",
+      "tick": 800
+    },
+    {
+      "key": "x",
+      "operation": "key_down",
+      "tick": 850
+    },
+    {
+      "key": "x",
+      "operation": "key_up",
+      "tick": 855
+    },
+    {
+      "key": "w",
+      "operation": "key_up",
+      "tick": 860
+    },
+    {
+      "key": "Escape",
+      "operation": "key_down",
+      "tick": 1100
+    }
+  ],
+  "test_input_pause": {
+    "duration_s": 0.35,
+    "semantics": "publisher pause; OS polling and rendering continue; pending edges retained",
+    "start_control": 530
+  },
+  "wall_limits": {
+    "preflight_s": 240,
+    "soft_s": 95,
+    "close_s": 115,
+    "hard_s": 120,
+    "postcheck_s": 180,
+    "supervisor_total_s": 600,
+    "reader_s": 300
+  },
+  "performance_gates": {
+    "active_RTF_min": 0.8,
+    "active_draw_FPS_min": 8,
+    "actual_poll_interval_p95_ms_max": 250,
+    "actual_snapshot_age_p95_ms_max": 250,
+    "only_excluded_windows": "preregistered no-control initial/final render pauses"
+  },
+  "stop_gates": {
+    "clearance_std_m_max": 0.02,
+    "early_close": "may close at a complete control boundary; insufficient/nonzero-command stop window cannot be called settled and unused budget cannot be appended",
+    "mean_abs_body_COM_vx_mps_max": 0.04,
+    "mean_abs_body_yaw_rate_rps_max": 0.05,
+    "origin": "existing C22 stop thresholds, explicitly fixed before GUI physical execution",
+    "sample_scope": "last 100 actual controls in the final episode, after raw and applied forward/yaw commands have all become zero"
+  },
+  "archive_design": {
+    "choice": "bounded FIFO deferred original atomic commits after active_end; original gzip default level9 retained",
+    "new_threads": 0,
+    "live_model_or_data_in_queue": false,
+    "max_queued_jobs": 64,
+    "max_episode_count": 2,
+    "max_retained_control_rows": "session control_limit",
+    "max_retained_native_rows": "5*session control_limit",
+    "qualification_control_limit": 1200,
+    "user_session_control_limit_max": 6000,
+    "enqueue_receipt_status": "pending, not durable",
+    "final_acceptance": "all queued jobs committed by original atomic protocol; every manifest/payload SHA checked; FIFO; pending0; no writer error or partial; durable receipt independent readback required",
+    "capacity_or_flush_failure": "stop/fail closed; no successful qualification and no retry"
+  },
+  "original_runs_preserved": {
+    "C23": {
+      "controls": 2205,
+      "normal_native": 11025,
+      "compiler_native": 6,
+      "cold_workers": 3,
+      "unused_controls_retired": 195,
+      "GUI_qualification_passed": false
+    },
+    "C24": {
+      "controls": 2400,
+      "normal_native": 12000,
+      "compiler_native": 2,
+      "both_actors_true15mm_passed": true,
+      "new_step_physics_allowed": 0
+    }
+  },
+  "reused_evidence": {
+    "C23_full_script_pair": "v02 actual600/600 state/99D/16D/controller/native24fields byteexact; no new script simulation",
+    "C24": "qualified sameB22/C18 true15mm result, zero also passes; no RL superiority"
+  },
+  "GO_prerequisites": [
+    "five reader regressions and complete immutable old keyboard diagnostic",
+    "bounded deferred archive saved-data/fault tests prove pending honesty, complete atomic durability and unchanged decompressed bytes",
+    "actual source byte hashes and runtime origins frozen, source GO explicit decision=GO",
+    "root exclusive reservation for this new C25 budget, all C23/C24 counts remain immutable"
+  ],
+  "final_gates": [
+    "source/integrity/model/native/owner/rendering isolation complete",
+    "all27 actual OS injections; all26 meaningful callbacks globally ordered within original[-50ms,+1s] clockbounds; exact510 OS cleanup proof; every independent input path; exactlyone actual reset and secondrequest rejected",
+    "physical safety; originalperformance thresholds with full activewall includingR reset",
+    "last100 actual final-episode controls raw/servozero and original.04/.05/.02 thresholds",
+    "actual saved keyboard PNG has legible STOP/RESET labels inside correct hitrectangles",
+    "all deferred archives durable and independently verified before runqualifies"
+  ],
+  "input_semantics": {
+    "planned_OS_injections": 27,
+    "meaningful_callbacks_required": 26,
+    "OS_cleanup_injections": 1,
+    "only_cleanup_event": {
+      "tick": 510,
+      "operation": "key_up",
+      "key": "w"
+    },
+    "cleanup_proof": "successful frozen XTest injection and XSync record; actual470 focus-loss automatic W release; actual500 focus return then520 fresh PRESS; independent immutable snapshot/rearm replay; no duplicate GLFW release required for already released internal key",
+    "old_C23_contract_remains_failed": true,
+    "rejected_before_physics": "505 additional W-down candidate creates no PRESS when Xserver still holds W, as one bounded real GLFW/XTest probe demonstrated",
+    "input_only_probe_sha256": "c0692b756eecf851d69891127e489f262c0f3c4ff522f2980aeab01b244ae470"
+  }
+}
