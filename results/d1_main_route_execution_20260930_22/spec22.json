@@ -1,0 +1,1081 @@
+{
+  "A_reuse": {
+    "bridge_required": "Freeze historical input/result/host/checkpoint identities and prove unchanged common numerical protocol; compare fresh B first1024 and initial five arrays+complete reset to A archive",
+    "coverage_valid_required": true,
+    "final_manifest": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/train_A_1/final_checkpoint_manifest.json",
+    "final_model": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/train_A_1/final_checkpoint/final_model.zip",
+    "model_sha256": "1a630229fe9b44abe75abe4e47c98be50a55a043f0163f20f57b0b97640904e5",
+    "no_hidden_model_calls": true,
+    "optimizer_steps": 351,
+    "reader": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/train_A_1_readback.json",
+    "reader_host_receipt": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/train_A_1_readback_host_receipt.json",
+    "repeat_training_or_full_old_reader": false,
+    "run": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/train_A_1",
+    "source_contract_id": "C20",
+    "training_controls": 32768,
+    "training_valid_required": true
+  },
+  "controller": {
+    "action": 16,
+    "caps": {
+      "forward": 1.6,
+      "jump": false,
+      "lateral": 0,
+      "reverse": 0,
+      "yaw": 0.3
+    },
+    "dt_s": 0.01,
+    "implementation": "continuation18/controller18.py + residual18.py numerical rules unchanged",
+    "native_per_control": 5,
+    "observation": 99,
+    "variant": "combined"
+  },
+  "coverage": {
+    "B_cycle0_and_cycle2_yaw_episode_complete_required": true,
+    "B_each_cycle0_1_2_bumps_episode_complete_required": true,
+    "B_endpoint_abs_yaw_min": 0.28,
+    "B_endpoint_ticks_each_yaw_sign_min": 100,
+    "B_endpoint_vx_target": 1.2,
+    "B_endpoint_vx_tolerance": 0.005,
+    "count_from": "all saved actual controller/servo/native force records; nominal commands insufficient",
+    "each_completed_slot_episode_effective_servo_active_ticks_min": 200,
+    "each_required_bumps_episode_active_positive_load_control_intervals_min": 25,
+    "effective_definition": "action_gate_enabled and abs(servo_vx)>0; never require action norm nonzero",
+    "postwarmup_completed_1000_tick_episodes_per_slot_min": 3,
+    "role": "Intended-exposure and scientific-support prerequisite; insufficiency permits fixed evaluation of valid models but never extra training or a positive coverage-benefit claim",
+    "rough_ramp_each_at_least_one_active_positive_family_load_required": true
+  },
+  "development_worker_limits": {
+    "actor_rows_max": 43296,
+    "close_s": 1740,
+    "compiler_native": 2,
+    "controls": 49600,
+    "critic_rows": 0,
+    "floor_reader_hard_s_each_within_host": 120,
+    "hard_s": 1800,
+    "normal_native": 248000,
+    "ppo_load": 3,
+    "predict_api_max": 43203,
+    "probe_batches": 3,
+    "probe_rows": 96,
+    "reader_hard_s": 1200,
+    "regular_predict_calls_rows": 43200,
+    "save": 0,
+    "soft_s": 1500,
+    "torch_load": 9,
+    "train": 0
+  },
+  "evaluation": {
+    "actors_order": [
+      "zero",
+      "old",
+      "A",
+      "B"
+    ],
+    "development": [
+      {
+        "case_id": "dev_yaw_left",
+        "drive_start": 175,
+        "final": [
+          1500,
+          1600
+        ],
+        "hold": [
+          430,
+          830
+        ],
+        "horizon": 1600,
+        "release_tick": 850,
+        "seed": 201201,
+        "spawn": "unchanged COURSE_SPAWNS_M[terrain]",
+        "speed_mps": 1.2,
+        "terrain": "flat",
+        "yaw_segments": [
+          [
+            430,
+            530,
+            0.3
+          ],
+          [
+            530,
+            730,
+            -0.3
+          ],
+          [
+            730,
+            830,
+            0.3
+          ]
+        ]
+      },
+      {
+        "case_id": "dev_yaw_right",
+        "drive_start": 175,
+        "final": [
+          1500,
+          1600
+        ],
+        "hold": [
+          430,
+          830
+        ],
+        "horizon": 1600,
+        "release_tick": 850,
+        "seed": 201202,
+        "spawn": "unchanged COURSE_SPAWNS_M[terrain]",
+        "speed_mps": 1.2,
+        "terrain": "flat",
+        "yaw_segments": [
+          [
+            430,
+            530,
+            -0.3
+          ],
+          [
+            530,
+            730,
+            0.3
+          ],
+          [
+            730,
+            830,
+            -0.3
+          ]
+        ]
+      },
+      {
+        "case_id": "dev_bumps375",
+        "drive_start": 200,
+        "final": [
+          1500,
+          1600
+        ],
+        "hold": [
+          285,
+          685
+        ],
+        "horizon": 1600,
+        "release_tick": 710,
+        "seed": 201203,
+        "spawn": "unchanged COURSE_SPAWNS_M[terrain]",
+        "speed_mps": 0.375,
+        "terrain": "bumps",
+        "yaw_segments": []
+      },
+      {
+        "case_id": "dev_bumps350",
+        "drive_start": 225,
+        "final": [
+          1500,
+          1600
+        ],
+        "hold": [
+          305,
+          705
+        ],
+        "horizon": 1600,
+        "release_tick": 730,
+        "seed": 201204,
+        "spawn": "unchanged COURSE_SPAWNS_M[terrain]",
+        "speed_mps": 0.35,
+        "terrain": "bumps",
+        "yaw_segments": []
+      }
+    ],
+    "development_descriptive_gates": {
+      "B_all_dev_tasks_pass": true,
+      "B_all_regression_tasks_pass": true,
+      "B_over_A_cost_max_each_pool": 1.1,
+      "B_over_zero_cost_max_each_pool": 1.2,
+      "all_development_records_full_horizon_safe": true,
+      "cost_pools": [
+        "development_equal_case",
+        "original_six_regression"
+      ],
+      "dev_B_over_A_error_max": 0.9,
+      "dev_B_over_old_error_max": 0.95,
+      "each_family_B_over_A_error_max": 1.02,
+      "hold_B_over_A_error_max_each_family": 1.02,
+      "role": "reported development comparison, never selects models or authorizes extension",
+      "selection": "all conjunctive, no omitted failed cases, no epsilon denominator",
+      "valid_complete_pair_and_coverage": true
+    },
+    "extension_permitted": false,
+    "failed_floor": "skip that actor formal runs as in C20; eligible remaining actors may finish prelisted development; either A/B failed floor forbids final worker",
+    "final_claim_gates": {
+      "B_all_final_tasks_pass": true,
+      "B_all_original_seven_pass": true,
+      "all_final_records_full_horizon_safe": true,
+      "each_final_family_drive_B_over_A_error_max": 1.02,
+      "family_hold_and_transition_results_required_to_report": true,
+      "final_B_over_A_cost_max": 1.1,
+      "final_B_over_A_error_max": 0.9,
+      "final_B_over_old_error_max": 0.95,
+      "final_B_over_zero_cost_max": 1.2,
+      "meaning": "Finite preregistered command-set support only; no statistical reliability or domain-randomization claim",
+      "old_six_RL_contribution_independent_unchanged": true,
+      "valid_complete_pair_and_coverage": true
+    },
+    "final_execution_gate": {
+      "A_reuse_bridge_valid": true,
+      "B_training_valid": true,
+      "all_prelisted_eligible_development_case_records_present_and_legitimate": true,
+      "both_A_B_floors_passed": true,
+      "coverage_or_performance_selects_final": false,
+      "development_reader_source_and_archive_valid": true,
+      "development_worker_no_software_engine_source_archive_failure": true,
+      "final_models_fixed_before_development_scores": true,
+      "fresh_first1024_A20_B22_pair_valid": true,
+      "legitimate_task_early_failure_blocks_final": false,
+      "old_regression_reuse_complete": true
+    },
+    "final_primary_claim_gates": "See final_claim_gates; C20 final thresholds retained, exposure required, family hold/transition reported; developmental thresholds do not select the fixed final pair",
+    "final_sealed": [
+      {
+        "case_id": "final_yaw_left",
+        "drive_start": 200,
+        "final": [
+          1500,
+          1600
+        ],
+        "hold": [
+          440,
+          840
+        ],
+        "horizon": 1600,
+        "release_tick": 880,
+        "seed": 201301,
+        "spawn": "unchanged COURSE_SPAWNS_M[terrain]",
+        "speed_mps": 1.1,
+        "terrain": "flat",
+        "yaw_segments": [
+          [
+            440,
+            540,
+            0.28
+          ],
+          [
+            540,
+            740,
+            -0.28
+          ],
+          [
+            740,
+            840,
+            0.28
+          ]
+        ]
+      },
+      {
+        "case_id": "final_yaw_right",
+        "drive_start": 200,
+        "final": [
+          1500,
+          1600
+        ],
+        "hold": [
+          440,
+          840
+        ],
+        "horizon": 1600,
+        "release_tick": 880,
+        "seed": 201302,
+        "spawn": "unchanged COURSE_SPAWNS_M[terrain]",
+        "speed_mps": 1.1,
+        "terrain": "flat",
+        "yaw_segments": [
+          [
+            440,
+            540,
+            -0.28
+          ],
+          [
+            540,
+            740,
+            0.28
+          ],
+          [
+            740,
+            840,
+            -0.28
+          ]
+        ]
+      },
+      {
+        "case_id": "final_bumps300",
+        "drive_start": 225,
+        "final": [
+          1500,
+          1600
+        ],
+        "hold": [
+          295,
+          695
+        ],
+        "horizon": 1600,
+        "release_tick": 720,
+        "seed": 201303,
+        "spawn": "unchanged COURSE_SPAWNS_M[terrain]",
+        "speed_mps": 0.3,
+        "terrain": "bumps",
+        "yaw_segments": []
+      },
+      {
+        "case_id": "final_bumps385",
+        "drive_start": 190,
+        "final": [
+          1500,
+          1600
+        ],
+        "hold": [
+          277,
+          677
+        ],
+        "horizon": 1600,
+        "release_tick": 702,
+        "seed": 201304,
+        "spawn": "unchanged COURSE_SPAWNS_M[terrain]",
+        "speed_mps": 0.385,
+        "terrain": "bumps",
+        "yaw_segments": []
+      }
+    ],
+    "floor": {
+      "actors": [
+        "A",
+        "B"
+      ],
+      "drive": [
+        175,
+        425
+      ],
+      "gates": "C18 floor unchanged",
+      "horizon": 600,
+      "score_hold": [
+        325,
+        425
+      ],
+      "seed_stage1": 201090,
+      "vx": 0.4
+    },
+    "new_case_absolute_gates": {
+      "bumps_terrain": "C18 terrain channel unchanged",
+      "final": "C18 final100 unchanged",
+      "positive_negative_yaw_integral_signs_required": true,
+      "safety": "C18 unchanged",
+      "speed_mean_tolerance": 0.04,
+      "speed_rms_max": 0.05,
+      "stopping": "compute all; 4.2s/3.2m hard gate remains only original flat1.6",
+      "yaw_rms_max": 0.12
+    },
+    "new_case_weight": "each case 1/4 on full drive-window mean normalized squared vx/.25 and yaw/.4 error; family mean=two cases/2; torque cost same equal-case mean",
+    "regression": [
+      {
+        "case_id": "flat_0p6",
+        "drive_start": 175,
+        "final": [
+          1500,
+          1600
+        ],
+        "hold": [
+          295,
+          695
+        ],
+        "horizon": 1600,
+        "mirror": false,
+        "release_tick": 695,
+        "seed": 181201,
+        "source_case_id": "flat_0p6",
+        "speed_mps": 0.6,
+        "terrain": "flat",
+        "yaw_amplitude_rps": 0
+      },
+      {
+        "case_id": "flat_1p6",
+        "drive_start": 175,
+        "final": [
+          1500,
+          1600
+        ],
+        "hold": [
+          495,
+          895
+        ],
+        "horizon": 1600,
+        "mirror": false,
+        "release_tick": 895,
+        "seed": 181202,
+        "source_case_id": "flat_1p6",
+        "speed_mps": 1.6,
+        "terrain": "flat",
+        "yaw_amplitude_rps": 0
+      },
+      {
+        "case_id": "flat_1p2_yaw",
+        "drive_start": 175,
+        "final": [
+          1500,
+          1600
+        ],
+        "hold": [
+          415,
+          815
+        ],
+        "horizon": 1600,
+        "mirror": false,
+        "release_tick": 815,
+        "seed": 181203,
+        "source_case_id": "flat_1p2_yaw",
+        "speed_mps": 1.2,
+        "terrain": "flat",
+        "yaw_amplitude_rps": 0.3
+      },
+      {
+        "case_id": "bumps_0p4",
+        "drive_start": 175,
+        "final": [
+          1500,
+          1600
+        ],
+        "hold": [
+          255,
+          655
+        ],
+        "horizon": 1600,
+        "mirror": false,
+        "release_tick": 655,
+        "seed": 181204,
+        "source_case_id": "bumps_0p4",
+        "speed_mps": 0.4,
+        "terrain": "bumps",
+        "yaw_amplitude_rps": 0
+      },
+      {
+        "case_id": "rough_0p35",
+        "drive_start": 175,
+        "final": [
+          1500,
+          1600
+        ],
+        "hold": [
+          245,
+          645
+        ],
+        "horizon": 1600,
+        "mirror": false,
+        "release_tick": 645,
+        "seed": 181205,
+        "source_case_id": "rough_0p35",
+        "speed_mps": 0.35,
+        "terrain": "rough",
+        "yaw_amplitude_rps": 0
+      },
+      {
+        "case_id": "ramp_0p45_complete",
+        "drive_start": 175,
+        "final": [
+          1700,
+          1800
+        ],
+        "hold": [
+          600,
+          1000
+        ],
+        "horizon": 1800,
+        "mirror": false,
+        "release_tick": 1355,
+        "seed": 181206,
+        "source_case_id": "ramp_0p45_complete",
+        "speed_mps": 0.45,
+        "terrain": "ramp",
+        "yaw_amplitude_rps": 0
+      },
+      {
+        "case_id": "flat_1p2_yaw_mirror",
+        "drive_start": 175,
+        "final": [
+          1500,
+          1600
+        ],
+        "hold": [
+          415,
+          815
+        ],
+        "horizon": 1600,
+        "mirror": true,
+        "release_tick": 815,
+        "seed": 181403,
+        "source_case_id": "flat_1p2_yaw",
+        "speed_mps": 1.2,
+        "terrain": "flat",
+        "yaw_amplitude_rps": 0.3
+      }
+    ],
+    "regression_actor_order": [
+      "A",
+      "B"
+    ],
+    "regression_pool": "original six raw pooled SSE/torque sums with original windows; mirror always separate",
+    "reuse_inputs": "exact old actual seed per C18 case, full commands, scoring, compiled binding, initial qpos/qvel/ctrl/qacc_warmstart/observation plus controller PI/z/stop/servo/provider/previous-action state and numeric controller identity",
+    "reuse_old_regression": true,
+    "seal_rule": "Seal all finite training and eval command identities before first C22 model/physics; final scores accessed only after immutable execution-eligibility receipt; candidate fixed to A20_1 and B22_1; no stage2 or model selection"
+  },
+  "execution_contract_id": "C22_fixed_B_eval_repair_v1",
+  "final_worker_limits": {
+    "actor_rows_max": 19296,
+    "close_s": 1740,
+    "compiler_native": 2,
+    "controls": 25600,
+    "critic_rows": 0,
+    "hard_s": 1800,
+    "normal_native": 128000,
+    "ppo_load": 3,
+    "predict_api_max": 19203,
+    "probe_batches": 3,
+    "probe_rows": 96,
+    "reader_hard_s": 1200,
+    "regular_predict_calls_rows": 19200,
+    "save": 0,
+    "soft_s": 1500,
+    "torch_load": 9,
+    "train": 0
+  },
+  "finite_geometry": {
+    "C20_candidate_sha256": "6c542dede9be02762b3b5e02aed7d46410637599fa6ba3d04eed1ee9405c9a87",
+    "C21_plus_C22_actual_pure_servo_calls_max": 191200,
+    "additional_margin_m": 0.0,
+    "candidate_saved_geometry": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/train_B_1/training/training_episode_000018_flat_corridor_geometry.json",
+    "caps_source": "unchanged FullDriveCommandServo and QualifiedCommandCaps from C20",
+    "coarse_nominal_abs_x_strict_lt_m": 10.5,
+    "coarse_nominal_abs_y_strict_lt_m": 5.8,
+    "evaluation_nominal_intervals": 24800,
+    "evaluation_unique_schedules": {
+      "development": 4,
+      "final_sealed": 4,
+      "floor": 1,
+      "regression": 7
+    },
+    "expected_templates_directory": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/finite_geometry_preflight_21",
+    "failed_new_candidate_rule": "stop before any model or physics; no alternate command scan, boundary/spawn relaxation, or retry in this contract",
+    "flat_nominal_y_strict_lt_m": -3.6,
+    "flat_original_guard_math_unchanged": true,
+    "flat_saved_geometry": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/train_A_1/training/training_episode_000000_flat_corridor_geometry.json",
+    "full_arrays_and_identities_sealed": true,
+    "future_reset_proof_kind": "source_derived_expected_reset_not_observed_future_reset",
+    "geometry_numeric_atol": 1e-12,
+    "initial_arrays_comparison": "shape/dtype/bytes exact within same terrain baseline",
+    "new_nominal_intervals": 6400,
+    "new_preflight_case_ids": [
+      "dev_yaw_left",
+      "dev_yaw_right",
+      "final_yaw_left",
+      "final_yaw_right"
+    ],
+    "new_template_generation_permitted": false,
+    "nonflat_rule": "same model/reset shape proof plus envelope map bounds and declared terrain/spawn/raw-command identity; intended bump/rough/ramp intersections are not forbidden flat obstacles; dynamic contact/load qualification remains actual-native only",
+    "not_a_domain_wide_or_dynamic_safety_proof": true,
+    "prior_A_reuse_identity": {
+      "bytes": 1549654,
+      "sha256": "81d12d9579901eb017d2f5da2b279d4cf0021efb1402b65c1ad0257418d11954"
+    },
+    "prior_A_reuse_path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/a_reuse_21.json",
+    "prior_C21_actual_pure_servo_calls": 184800,
+    "prior_evaluation_rows_passed": 12,
+    "prior_failed_evaluation_case_ids": [
+      "dev_yaw_left",
+      "dev_yaw_right",
+      "final_yaw_left",
+      "final_yaw_right"
+    ],
+    "prior_preflight_identity": {
+      "bytes": 424440,
+      "sha256": "6d8ce10aca5977952a1c117e86af5c43cf0a2af8b0c8fafd678e212e951392ae"
+    },
+    "prior_preflight_passed": false,
+    "prior_preflight_path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/finite_geometry_preflight_21/finite_preflight21.json",
+    "prior_spec_identity": {
+      "bytes": 25618,
+      "sha256": "889b6819190b23983a3e3ea587aeff6f46df90b938b73c34a28805482166fff0"
+    },
+    "prior_spec_path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/spec21.json",
+    "prior_training_rows_passed": 160,
+    "pure_test_servo_accounting": "synthetic necessary test calls recorded separately; tests must not repeat full preflight or search candidates",
+    "qualification_mode": "delta-only four revised evaluation yaw schedules plus exact reuse of C21 passed 160 training and 12 evaluation rows",
+    "qualified_schedule_nominal_intervals": 184800,
+    "reference_episode_by_terrain": {
+      "bumps": 11,
+      "flat": 0,
+      "ramp": 13,
+      "rough": 12
+    },
+    "reference_run": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/train_A_1/training",
+    "reuse_conditions": [
+      "prior preflight and all inputs byte/hash unchanged",
+      "old 4 failing rows remain failing historical evidence and are excluded only from reuse, replaced by all four declared new rows",
+      "new 160 training raw command SHAs and unchanged 12 evaluation SHAs equal saved prior rows",
+      "shared geometry helper algorithm and CAPS/servo/corridor/scoring/reset semantics unchanged",
+      "reuse same frozen source-derived expected geometry, initial arrays, full control reset; no future actual-reset claim",
+      "new four rows include full N+1 path and all segments; all original lane/envelope/obstacle gates conjunctive"
+    ],
+    "reused_nominal_intervals": 178400,
+    "runtime_actual_reset_revalidation_required": true,
+    "runtime_extra_native_steps": 0,
+    "runtime_extra_reset_for_preflight": 0,
+    "safe_envelope_abs_x_strict_lt_m": 11.0,
+    "safe_envelope_abs_y_strict_lt_m": 6.0,
+    "source_range_inclusive": [
+      0,
+      79
+    ],
+    "sources_each": 80,
+    "total_pure_servo_advance_max": 6400,
+    "training_arms_for_static_audit": [
+      "A",
+      "B"
+    ],
+    "training_nominal_intervals": 160000,
+    "unknown_geometry_or_source_out_of_range": "stop before new controls; no fabricated pass",
+    "variable_horizon_generalization": "check all N+1 points and every segment; only remove fixed1001 shape assumption for eval schedules"
+  },
+  "geometry_driven_evaluation_revision": {
+    "candidate_search_permitted": false,
+    "changes": [
+      {
+        "case_id": "dev_yaw_left",
+        "new_segments": [
+          [
+            430,
+            530,
+            0.3
+          ],
+          [
+            530,
+            730,
+            -0.3
+          ],
+          [
+            730,
+            830,
+            0.3
+          ]
+        ],
+        "old_segments": [
+          [
+            430,
+            550,
+            0.3
+          ],
+          [
+            550,
+            710,
+            -0.3
+          ],
+          [
+            710,
+            830,
+            0.3
+          ]
+        ],
+        "only_changed_field": "yaw_segments"
+      },
+      {
+        "case_id": "dev_yaw_right",
+        "new_segments": [
+          [
+            430,
+            530,
+            -0.3
+          ],
+          [
+            530,
+            730,
+            0.3
+          ],
+          [
+            730,
+            830,
+            -0.3
+          ]
+        ],
+        "old_segments": [
+          [
+            430,
+            550,
+            -0.3
+          ],
+          [
+            550,
+            710,
+            0.3
+          ],
+          [
+            710,
+            830,
+            -0.3
+          ]
+        ],
+        "only_changed_field": "yaw_segments"
+      },
+      {
+        "case_id": "final_yaw_left",
+        "new_segments": [
+          [
+            440,
+            540,
+            0.28
+          ],
+          [
+            540,
+            740,
+            -0.28
+          ],
+          [
+            740,
+            840,
+            0.28
+          ]
+        ],
+        "old_segments": [
+          [
+            440,
+            570,
+            0.28
+          ],
+          [
+            570,
+            730,
+            -0.28
+          ],
+          [
+            730,
+            840,
+            0.28
+          ]
+        ],
+        "only_changed_field": "yaw_segments"
+      },
+      {
+        "case_id": "final_yaw_right",
+        "new_segments": [
+          [
+            440,
+            540,
+            -0.28
+          ],
+          [
+            540,
+            740,
+            0.28
+          ],
+          [
+            740,
+            840,
+            -0.28
+          ]
+        ],
+        "old_segments": [
+          [
+            440,
+            570,
+            -0.28
+          ],
+          [
+            570,
+            730,
+            0.28
+          ],
+          [
+            730,
+            840,
+            -0.28
+          ]
+        ],
+        "only_changed_field": "yaw_segments"
+      }
+    ],
+    "revision_count": 1,
+    "scientific_difference": "The revised heldouts test balanced 100/200/100 yaw maneuvers at shifted onset and final off-grid speed/amplitude; they no longer test the invalid 120/160/120 or 130/160/110 net-turn patterns. No comparability claim for those unexecuted old patterns.",
+    "selection_basis": "C21 saved pure geometry failures only; no C21 model/physical/development/final score was executed",
+    "servo_reason": "At max amplitude .30 and yaw slew .006 per tick, a full opposite-sign crossing needs 100 ticks. Each outer pulse has 100 and middle 200. Raw zero integral does not certify actual heading, clearance, or robot tracking; report the sole actual nominal integration.",
+    "unchanged_fields": [
+      "speed_mps",
+      "drive_start",
+      "hold",
+      "release_tick",
+      "final",
+      "horizon",
+      "seed",
+      "terrain",
+      "spawn",
+      "actor order",
+      "absolute gates",
+      "pool weights",
+      "comparative thresholds",
+      "regression and floor commands",
+      "B training and optimizer"
+    ]
+  },
+  "old_sources_mutable": false,
+  "parent": {
+    "actor_mean_state": "c6add0af3ace2ad2c9051be9c6bc759737d8cc5b8b728ff142128069b4148136",
+    "adam_step": 1280,
+    "ancestral_training_controls": 81920,
+    "log_std_state": "c449b57d8aff047d0723c8053c5a9f33921616682ec7b73e06ee760570531616",
+    "model": "continuation15/grouped_01/final_checkpoint/final_model.zip",
+    "model_sha256": "1fcfe833d8a7cfdbbc224c9007a35e44c035674ce948b51557434b77838476fb",
+    "optimizer_state": "8b3d0a02fffd103a1af179b404b5b4509004560b66e9b2b65740681162bc311f",
+    "policy_state": "af21a12f75fb26fc3fed350cd2f0c93cd4ff180a99bf5acc432088c300fec732",
+    "saved_n_updates": 64,
+    "saved_num_timesteps": 16384
+  },
+  "per_training_worker_limits": {
+    "actor_rows_max": 163936,
+    "backward": 512,
+    "close_s": 1380,
+    "compiler_native": 2,
+    "controls": 32768,
+    "critic_rows_max": 163904,
+    "evaluate_actions_batches": 512,
+    "evaluate_actions_rows": 131072,
+    "group_clip_calls": 1024,
+    "hard_s": 1440,
+    "learn": 1,
+    "normal_native": 163840,
+    "optimizer": 512,
+    "ppo_load": 2,
+    "predict_probe_batches": 3,
+    "probe_actor_rows": 96,
+    "reader_hard_s": 900,
+    "rollout_forward_calls_rows": 32768,
+    "save_attempts_max": 2,
+    "soft_s": 1200,
+    "success_save": 1,
+    "torch_load": 6,
+    "train": 32,
+    "value_only_rows": 64
+  },
+  "physical_executor": "root",
+  "prior_evidence": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/continuation_state_after_publication_20.json": {
+      "bytes": 668,
+      "sha256": "2422ae42e4f29c1ba3e1451213df6a33dd24591129735b4ab0d47049532c23e5"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/execution_summary_20.json": {
+      "bytes": 4467,
+      "sha256": "f2be064f8fbe030b432518d1c9d22be1ce465d1ebdfc3e6932d59856d959b46b"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/failure_review_20.md": {
+      "bytes": 11614,
+      "sha256": "13ef180bb846720527736a09c7bd662a499e184e894641e1497c732379e67aab"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/final_publication_receipt_20.json": {
+      "bytes": 1996,
+      "sha256": "c7151b072d3946ed5d3fb0e6329515cdd39daa668994f1d7371914ffe5eee2eb"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/offline_corridor_20_02.json": {
+      "bytes": 969961,
+      "sha256": "dc84e8b4d31ed40c126b8e5ed0d09dec67fd6832203e3983161b0e9f2198c1aa"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/train_A_1_readback.json": {
+      "bytes": 2150,
+      "sha256": "189792963dc0ff54513fe5091b0feb34d9547dfc0f9ccf45f517f06a68d26925"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/train_A_1_readback_host_receipt.json": {
+      "bytes": 861,
+      "sha256": "1633777e831238730ea5f4866bd6f26b9fb3ffb12ab97ade0a7e1da61d2dd489"
+    },
+    "C21_finite_geometry_failure": {
+      "bytes": 424440,
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/finite_geometry_preflight_21/finite_preflight21.json",
+      "sha256": "6d8ce10aca5977952a1c117e86af5c43cf0a2af8b0c8fafd678e212e951392ae"
+    },
+    "C21_spec": {
+      "bytes": 25618,
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/spec21.json",
+      "sha256": "889b6819190b23983a3e3ea587aeff6f46df90b938b73c34a28805482166fff0"
+    }
+  },
+  "record_protocol": {
+    "numeric_controller_learning": "Frozen C20 v20 protocols retained unchanged; C22 session/GO/source origins bind this contract explicitly",
+    "old_sources_mutable": false,
+    "version_new_runtime_sources": true
+  },
+  "retry_physics": false,
+  "schema": "d1-fixed-B-and-eval-geometry-repair-spec22-v1",
+  "scientific_reviewer": "actual gpt-6-astra ultra",
+  "source_GO_required": [
+    "all four contracts/spec hashed",
+    "runtime/new reader/learning source frozen",
+    "parent + current C18 evidence bindings",
+    "necessary new tests passed",
+    "training/dev/final command tables sealed",
+    "model/control/native counting entrypoints reviewed",
+    "exclusive reservation and output paths",
+    "original77 and historical frozen inputs unchanged",
+    "finite_geometry_22.json delta plus reused finite closure complete and all applicable gates passed before any robot worker reservation",
+    "a_reuse_22.json and reset/source equivalence bridge passed",
+    "C22 session execution_contract_id and actual loaded module origins recorded",
+    "no phase stage2/A training arm accepted; final eligibility uses validity/floor only, never benefit selection"
+  ],
+  "status": "SCIENTIFIC_SPEC_AWAITING_GEOMETRY_AND_SOURCE_GO_NOT_EXECUTION_RECEIPT",
+  "training": {
+    "A_recipe": "C20 A1 historical complete training only; original selector regenerated for provenance/preflight, never retrained in C22",
+    "B_bumps_vx_cycles": [
+      0.4,
+      0.325,
+      0.25
+    ],
+    "B_cycle_period": 3,
+    "B_override_slots": [
+      2,
+      3
+    ],
+    "B_yaw_cycles": [
+      {
+        "segments": [
+          [
+            400,
+            500,
+            0.3
+          ],
+          [
+            500,
+            700,
+            -0.3
+          ],
+          [
+            700,
+            800,
+            0.3
+          ]
+        ],
+        "vx": 1.2
+      },
+      {
+        "segments": [
+          [
+            425,
+            525,
+            -0.25
+          ],
+          [
+            525,
+            725,
+            0.25
+          ],
+          [
+            725,
+            825,
+            -0.25
+          ]
+        ],
+        "vx": 1.0
+      },
+      {
+        "segments": [
+          [
+            450,
+            550,
+            -0.3
+          ],
+          [
+            550,
+            750,
+            0.3
+          ],
+          [
+            750,
+            850,
+            -0.3
+          ]
+        ],
+        "vx": 1.2
+      }
+    ],
+    "actor_clip_l2": 0.5,
+    "archive_force_sampling_mode": "heldout/full_contact while env_mode remains train; read-only sampling of existing 5T, no extra integration",
+    "arms": [
+      "B"
+    ],
+    "batch_kl_stage_stop_strict_above": 0.3,
+    "batch_size": 256,
+    "clip_range": 0.2,
+    "command_seed": 201002,
+    "comparison_arms": [
+      "A",
+      "B"
+    ],
+    "controls_per_arm_per_stage": 32768,
+    "critic_clip_l2": 0.5,
+    "ent_coef": 0.001,
+    "episode_ticks": 1000,
+    "gae_lambda": 0.95,
+    "gamma": 0.99,
+    "learning_rate": 0.0003,
+    "max_stages": 1,
+    "measurement_seed": 201003,
+    "min_optimizer_steps_per_train": 1,
+    "n_epochs_max": 4,
+    "n_steps": 1024,
+    "net_arch": [
+      128,
+      128
+    ],
+    "out_of_range": "fatal before env.reset; no replacement or resampling; already-qualified zero-control postbudget reset unchanged",
+    "ppo_seed_by_stage": [
+      201001
+    ],
+    "raw_start": 175,
+    "reset_actor": false,
+    "reset_adam": false,
+    "rollouts_per_arm_per_stage": 32,
+    "sb3_early_stop_strict_above": 0.045,
+    "source_episode_index_max_inclusive": 79,
+    "source_episode_index_min": 0,
+    "source_offset": 0,
+    "target_kl": 0.03,
+    "terrain_slots": [
+      "flat",
+      "flat",
+      "flat",
+      "bumps",
+      "rough",
+      "ramp",
+      "flat",
+      "ramp"
+    ],
+    "total_controls_max": 32768,
+    "vf_coef": 0.5,
+    "warmup_rule": "New B first8 equals historical A1 first8; first1024 byte pairing is performed anew"
+  },
+  "whole_path_limits": {
+    "A_training_controls": 0,
+    "actor_rows": 226528,
+    "cold_workers": 3,
+    "compiler_native": 6,
+    "controls": 107968,
+    "critic_rows": 163904,
+    "extension_permitted": false,
+    "geometry_preflight_hard_s": 600,
+    "geometry_preflight_pure_servo_advance_max": 6400,
+    "gui_and_single15mm_included": false,
+    "historical_C20_consumption_excluded_from_new_quota_but_reported": true,
+    "historical_C21_consumption": {
+      "compiler_native": 0,
+      "model_calls": 0,
+      "normal_native": 0,
+      "not_refunded": true,
+      "physical_controls": 0,
+      "pure_servo_calls": 184800
+    },
+    "host_plus_reader_hard_s": 8340,
+    "kill_reap_grace_s_per_process": 5,
+    "new_training_stages": 1,
+    "normal_native": 539840,
+    "optimizer_max": 512,
+    "ppo_load": 8,
+    "source_freeze_preflight_hard_s": 600,
+    "torch_load": 24,
+    "training_controls": 32768
+  }
+}

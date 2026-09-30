@@ -1,0 +1,138 @@
+{
+  "created_utc": "2026-09-30T13:31:33.435217+00:00",
+  "evidence": {
+    "A_reuse": {
+      "bytes": 1551382,
+      "sha256": "e4ba9bfcfd89a3c6a096d75cce23ece613e23acf0f4bd1d087357557e4635522"
+    },
+    "C21_failure_review": {
+      "bytes": 3860,
+      "sha256": "191bc19197d858dfd5daab0a7eb412734ae7ae0767032970bd9a252f230d561d"
+    },
+    "finite_geometry": {
+      "bytes": 55235,
+      "sha256": "ccd031b983148abef757290fb77374aa146163293ee26d9ea2b112617c032630"
+    },
+    "pure_checks": {
+      "bytes": 6707,
+      "sha256": "722a492c2b13b6722acf6555af9c8e331aac8bee9593dc0f7af141954b3304ad"
+    },
+    "sealed_commands": {
+      "bytes": 4847027,
+      "sha256": "45732c0afee22c3500000cfe6afd071c00830e33f1703c8e82ec72aebda2074f"
+    }
+  },
+  "execution_contract_id": "C22_fixed_B_eval_repair_v1",
+  "fixed_limits": {
+    "actor_rows_max": 226528,
+    "cold_workers_max": 3,
+    "critic_rows_max": 163904,
+    "development_controls": 49600,
+    "final_controls": 25600,
+    "host_plus_reader_hard_s": 8340,
+    "new_compiler_native_max": 6,
+    "new_controls_max": 107968,
+    "new_normal_native_max": 539840,
+    "new_training_A_controls": 0,
+    "new_training_B_controls": 32768,
+    "optimizer_max": 512,
+    "ppo_load_max": 8,
+    "retry_or_extension_permitted": false,
+    "torch_load_max": 24
+  },
+  "geometry_review": {
+    "C21_historical_pure_servo_calls": 184800,
+    "C21_total_preflight_passed": false,
+    "combined_current_finite_rows": 176,
+    "expanded_input_closure": 33,
+    "future_reset_actual_evidence_claimed": false,
+    "new_C22_pure_servo_calls": 6400,
+    "new_candidate_search_permitted": false,
+    "new_yaw_rows_passed": 4,
+    "nominal_geometry_is_not_robot_trajectory_or_RL_performance": true,
+    "prior_failed_yaw_rows_retained": 4,
+    "reused_passed_evaluation_rows": 12,
+    "reused_passed_training_rows": 160
+  },
+  "necessary_checks": {
+    "forbidden_model_physics_modules_absent": true,
+    "isolated_eval_and_training_reader_imports_passed": true,
+    "new_servo_model_physics_calls_by_checks": 0,
+    "pytest_passed": 20,
+    "ruff_selection": "E9,F63,F7,F82",
+    "source_drift": false
+  },
+  "open_source_or_contract_blockers": [],
+  "remaining_execution_requirements": [
+    "freeze22 must verify original77 and inherited frozen inputs, all reviewed sources/receipts, then reserve uniquely before worker creation",
+    "one fresh B from common C15 grouped parent; never resume B20 failure or train A again",
+    "full B independent reader plus host closure before development; fresh A20/B22 initial and first1024 byte pairing",
+    "both actual floor qualifications and complete legitimate development evidence before immutable final-execution decision",
+    "root must finish eligible fixed final, independent result review and publication; no success/CI or policy-benefit claim is prewritten"
+  ],
+  "reviewed_source_count": 34,
+  "reviewer": {
+    "actual_model_role": "gpt-6-astra ultra",
+    "model_calls_performed": 0,
+    "physics_calls_performed": 0,
+    "task": "contract/scientific/source review",
+    "tests_executed_by_reviewer": 0
+  },
+  "schema": "d1-c22-astra-source-review-v1",
+  "scientific_limits": [
+    "C21 failed due raw net-yaw ±.240/±.224; distinct from C20 raw-zero/servo−.10416 failure mechanism",
+    "Current test supports only the fixed balanced command set; no claim for the discarded invalid net-turn patterns",
+    "Single A/B training comparison with deterministic oracle is not multi-seed physical generalization",
+    "No new GUI/free-keyboard,15mm step,lateral,jump,self-righting capability is qualified by this GO"
+  ],
+  "scope": "Source and prerequisite GO for the fixed C22 contract only; root must still complete freeze22, exclusive reservations, actual worker/readback closure and phase-specific gates.",
+  "source_semantics_review": [
+    "Production full_drive_env explicitly builds oracle provider; oracle reset deletes seed, so seed labels do not create physical randomization.",
+    "D1Plant.reset uses mj_resetData, supplied spawn, fixed nominal joints/default identity quaternion, zero velocity/warmstart; CoursePlant and FullDriveLoop inherit that reset path.",
+    "Loop resets plant/controller/provider; env resets servo then prepare(0) without a control interval. Same-terrain saved initial states plus these semantics support conditional expected resets; hashes bind versions, not a formal proof by themselves.",
+    "C21 source-derived templates translate robot geometry only; fixed world terrain is unchanged. C22 loads those sealed templates directly, with 1e-12 geometry tolerance and byte-exact initial arrays/full control reset.",
+    "Each new physical episode qualifies actual reset geometry before its first action, archives the result, checks no added physical calls, and is recomputed by independent saved-data readers.",
+    "The existing one zero-control postbudget reset may reuse its already-qualified final schedule; it never selects an unqualified source or adds control/native credit.",
+    "B source range0..79, stage1/32768 and development49600/final25600 are hard bounded; A retraining and stage2 are unreachable worker contracts.",
+    "Common targetKL .03/normal stop>.045/hard stop>.30 and clipping/Adam/reward math remain shared. Actual optimizer steps may differ from reused A351; endpoint coverage aggregates signs across designated B cycle0/2 sources, not per-episode100.",
+    "Only three metadata identity substitutions and four explicit new evaluation yaw windows are allowed in C21-to-C22 bridge; common learning, floor, original seven, other cases and all scientific numeric gates remain fixed.",
+    "Development final-execution gate uses valid full evidence and both floor qualifications, not favorable score/coverage selection. Legitimate task failures remain results. Final and original-six scientific benefit gates remain separate."
+  ],
+  "source_sha256": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/checkpoint21.py": "ef23653bd0419a8fd10d12d05325b8d2ad932ff0426175e60eab96b86aa0019f",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/geometry21.py": "166734144ff69582fe1e7eef97be8fd49a008f133d10b50aaddc9aab5a9575ef",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/learning21.py": "423141d1632916a605eb681d54ef15b51a90795995f9bcfdb17f41069d54b10b",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/state21.py": "7db5a9d9fa0941bc47f3b893d4b80b5f82a383650f9ab16f27b4247ab75d28d3",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/a_reuse_22.json": "e4ba9bfcfd89a3c6a096d75cce23ece613e23acf0f4bd1d087357557e4635522",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/curriculum22.py": "53932c20efc59ec0488328a9ea82d7a1904ec9f9f3e497bf9583d6a686db57e5",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/decision22.py": "98d0cee180d7069d299c141da02e997469369ded2e1e854339ae4f08ce377a7d",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/eval22.py": "ff0b9ff5da65e9334068e364ecaa607dd7c92c09ecaf2a257064affe463575d2",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/evaluation_contract_22.md": "8463f1bfc55cd2c5bed2552f82005ad11a2c67a79e33bd5ad370f42e0d073a70",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/finite_geometry_22.json": "ccd031b983148abef757290fb77374aa146163293ee26d9ea2b112617c032630",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/floor_bridge22.py": "add7fa71ce73c4a8b7420846a9f295146ff93985e4ce0d952faa7d1918ae3e0b",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/freeze22.py": "7cbb96c65e6882aa4b99119fa351ca02f915a84f59a60553cd433d88e771827d",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/geometry_runtime22.py": "f1bba2219a06c3e61de259f48fc6066aaa56ced7324ccd2a3fa365cb80a02781",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/heldout22.py": "3fba56a53ac216c1f7dd9370bbb3f90f09f16f79a0de5df51a6bb739c4e86863",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/host22.py": "d32fc0f4396e2af4c55779da670c8803a4e4499e445e081fe4075fde4041177c",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/offline_floor22.py": "60f9863d1b4a4a8fd1f927b2035cbde3ff32a055d5b2e82c9dd481e05e1ae2d4",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/plan_22.md": "e710dcdb2b6eb2633322f6d053183ba6563c5c5b7221aa3975e307b1a0a1acad",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/pure_tests_receipt_22.json": "722a492c2b13b6722acf6555af9c8e331aac8bee9593dc0f7af141954b3304ad",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/read_eval22.py": "edda8aa55b183d65c78b6c9ee016987232e137e2075326cc7f5c19d0593d055b",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/read_training22.py": "39291ddeeb9951b4d078d8d60de81eaa0f51a3bf796bf9464bb5dfe997ffa1bd",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/readback_host22.py": "71862315d63121080f407e16c32126253ab72cef6e4080c7eeb86d406756755e",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/recipes22.py": "335cfbcb1e36a35112cb23896894bbf1c0e7c80cea9725bc4bf2dac2253090d4",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/reuse22.py": "c609c326ac2bed7c7c555ac8c937eada59e30d68156697d5cdb887596e48ecc5",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/run_preflight22.py": "3932fac99fb527bd2865ec9d334924b574d72531fdf17b3114cb00b2e87ab074",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/runtime_support22.py": "ffed9b03e0baa329f87691fe3376cf93d9db916996df075c2da5193cde677411",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/score22.py": "aa00850fa9b6bf239067225e822da24ba449a8c772e362e44aba1b69afca71cd",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/sealed_command_tables_22.json": "45732c0afee22c3500000cfe6afd071c00830e33f1703c8e82ec72aebda2074f",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/spec22.json": "f061b64320e8fae35dd8ca0d186242579b4640bd5fecdd3e6da63d2f6983f8f4",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/test_decision22_pure.py": "6533b0576bff1fff6e67c16dde51676b2ad015ad7c7af40000303ab3df2ed786",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/test_geometry22_pure.py": "df2179448007b49444ba7a18b4e1c20a0134ac6f0572a3d6411406c9b869ea23",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/test_reuse_eval22_pure.py": "81e7d2f72e66243924eec597f354ea2a597b807066ad9d34e0df062506871a64",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/train22.py": "5bf26ed060ebcf5638bb0a1877b3ec0e339be18164f5c2f3a222899f44bcf008",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/training_contract_22.md": "d112a9a63ece79e930b5cb4f05342c49ab91c69ee044175858b3be840cfac5df",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/worker22.py": "9c02f789c3b15f0e57a6d0bc535595ee6a9d5c515ec07bd2b2283c735fa57fd1"
+  },
+  "status": "GO"
+}

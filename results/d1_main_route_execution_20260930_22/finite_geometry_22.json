@@ -1,0 +1,1168 @@
+{
+  "actual_future_resets_verified": false,
+  "elapsed_s": 3.8372285770019516,
+  "execution_contract_id": "C22_fixed_B_eval_repair_v1",
+  "forbidden_modules_loaded": [],
+  "historical_C21_failed_rows": {
+    "dev_yaw_left": {
+      "actual_future_reset_verified": false,
+      "case_id": "dev_yaw_left",
+      "command_sha256": "d548fe4b123399cb4abcc2df0f9b4b6171568c5771cf1be666bb066630755ab7",
+      "conditional_template_passed": false,
+      "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+      "first_safety_bound_bad_point": null,
+      "maximum_expanded_abs_x_m": 8.472163819771485,
+      "maximum_expanded_abs_y_m": 5.172163819771484,
+      "path_sha256": "23e88315039204caa34c97ff29019c765cbe4dc200deb3c3e5a80190269bd4dc",
+      "reason": "selected nominal path exceeds its declared course lane",
+      "reset_robot_radial_bound_m": 0.4721638197714839,
+      "terrain": "flat",
+      "x_safety_margin_m": 2.5278361802285163,
+      "y_safety_margin_m": 0.8278361802285159
+    },
+    "dev_yaw_right": {
+      "actual_future_reset_verified": false,
+      "case_id": "dev_yaw_right",
+      "command_sha256": "30d74de66ecab2ed2c2944c67b99919434759be427fddb6744be3d037cb6c236",
+      "conditional_template_passed": false,
+      "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+      "first_safety_bound_bad_point": 845,
+      "maximum_expanded_abs_x_m": 8.472163819771485,
+      "maximum_expanded_abs_y_m": 6.352635585782303,
+      "path_sha256": "0c5a1e4f0dc7b41cc600266a3df71650e82079210af3834ae798e85376651939",
+      "reason": "selected nominal path exceeds its declared course lane",
+      "reset_robot_radial_bound_m": 0.4721638197714839,
+      "terrain": "flat",
+      "x_safety_margin_m": 2.5278361802285163,
+      "y_safety_margin_m": -0.35263558578230314
+    },
+    "final_yaw_left": {
+      "actual_future_reset_verified": false,
+      "case_id": "final_yaw_left",
+      "command_sha256": "25f75530ef35aeb500cdf8700df0a3b8cf8f5d6eb189d43f235e9c6d8e3d35aa",
+      "conditional_template_passed": false,
+      "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+      "first_safety_bound_bad_point": null,
+      "maximum_expanded_abs_x_m": 8.472163819771485,
+      "maximum_expanded_abs_y_m": 5.172163819771484,
+      "path_sha256": "b0f4ecfe3c80d17d5da23f5dd3c591bb8ff785061bf03c4027c9288c0d9bea51",
+      "reason": "selected nominal path exceeds its declared course lane",
+      "reset_robot_radial_bound_m": 0.4721638197714839,
+      "terrain": "flat",
+      "x_safety_margin_m": 2.5278361802285163,
+      "y_safety_margin_m": 0.8278361802285159
+    },
+    "final_yaw_right": {
+      "actual_future_reset_verified": false,
+      "case_id": "final_yaw_right",
+      "command_sha256": "8c02ccbdf2b18830a90a4d3c65972baf902845bc4dac908bcf39c6da3e57ef81",
+      "conditional_template_passed": false,
+      "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+      "first_safety_bound_bad_point": 870,
+      "maximum_expanded_abs_x_m": 8.472163819771485,
+      "maximum_expanded_abs_y_m": 6.291914334528569,
+      "path_sha256": "ee88e7caa6e305d80f17a5f34aa3f55d1d6456bf2fb4607cee7f8959b02145c0",
+      "reason": "selected nominal path exceeds its declared course lane",
+      "reset_robot_radial_bound_m": 0.4721638197714839,
+      "terrain": "flat",
+      "x_safety_margin_m": 2.5278361802285163,
+      "y_safety_margin_m": -0.29191433452856885
+    }
+  },
+  "inputs": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/train_A_1/training/training_episode_000000_control_reset.json": {
+      "bytes": 3539,
+      "sha256": "f827779512cfe5d2c56eb62a0a65d938d7c935a37ecfaddba0d2f8e5c0ff7e03"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/train_A_1/training/training_episode_000000_flat_corridor_geometry.json": {
+      "bytes": 28889,
+      "sha256": "81be4438fa24f62697b6ccdf9292058d4d665daaa6c54ece1329b296c24277a2"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/train_A_1/training/training_episode_000000_initial_state.npz": {
+      "bytes": 2564,
+      "sha256": "71e70783662bf51265688ffc662a17d89883479ad239b510d9fbee9e8aec65ae"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/train_A_1/training/training_episode_000011_control_reset.json": {
+      "bytes": 3542,
+      "sha256": "54dc1f7eaaa99a21e40fc9bf9a91de93989a4c886990a19ca499497e9ca13452"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/train_A_1/training/training_episode_000011_initial_state.npz": {
+      "bytes": 2564,
+      "sha256": "505d959369f2bd6e26096c85ad413b365cbb386d7e5571cfd37134f0578a7924"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/train_A_1/training/training_episode_000012_control_reset.json": {
+      "bytes": 3537,
+      "sha256": "cf56a122b03809be9a787d26971f817b3de18c390adcd63226abe5b3816e45b9"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/train_A_1/training/training_episode_000012_initial_state.npz": {
+      "bytes": 2564,
+      "sha256": "e69a933ebc4af23b413e65f82f5980dbce67ccf4f3139dd9688d3f72f6df4934"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/train_A_1/training/training_episode_000013_control_reset.json": {
+      "bytes": 4147,
+      "sha256": "0bf5d26af46edc33ae41f52c5d2f1dc289770f94dac3e564f5245d15c2aa4c0a"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/train_A_1/training/training_episode_000013_initial_state.npz": {
+      "bytes": 2564,
+      "sha256": "9be70206fbe7057f1ed2e15541ffea41c6b3299a617f36a465273816702bfd35"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/train_B_1/training/training_episode_000018_flat_corridor_geometry.json": {
+      "bytes": 28887,
+      "sha256": "dc633768980a188785a7da41828d96f01e13d1208b57b51b80cbf66cee87cd0a"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/finite_geometry_preflight_21/all_nominal_traces21.npz": {
+      "bytes": 1339529,
+      "sha256": "541fd624cbc0aee2fd42bdac2830e963ec8fcf8642d6c243a6c3ab79435b504f"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/finite_geometry_preflight_21/expected_bumps_control_reset21.json": {
+      "bytes": 3542,
+      "sha256": "54dc1f7eaaa99a21e40fc9bf9a91de93989a4c886990a19ca499497e9ca13452"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/finite_geometry_preflight_21/expected_bumps_geometry21.json": {
+      "bytes": 32389,
+      "sha256": "228a61c97dd07ad774fe3d874ff64d9e0e96fa360f6780a4d95db9502d95afe8"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/finite_geometry_preflight_21/expected_bumps_initial_state21.npz": {
+      "bytes": 1210,
+      "sha256": "4ce7407351e6eefb8ed8a14d276a6acd01868db6394c3035a99020154b12800f"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/finite_geometry_preflight_21/expected_flat_control_reset21.json": {
+      "bytes": 3539,
+      "sha256": "f827779512cfe5d2c56eb62a0a65d938d7c935a37ecfaddba0d2f8e5c0ff7e03"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/finite_geometry_preflight_21/expected_flat_geometry21.json": {
+      "bytes": 32075,
+      "sha256": "d7ea871122f6044c79dcada27c7c1a8f3557cecec1d59d8deed187af9d8dcd06"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/finite_geometry_preflight_21/expected_flat_initial_state21.npz": {
+      "bytes": 1199,
+      "sha256": "b46af1adef327a85a8bee4c5dc064d0dac3d33b075fa9f5b1bd5da1ef9230777"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/finite_geometry_preflight_21/expected_ramp_control_reset21.json": {
+      "bytes": 4147,
+      "sha256": "0bf5d26af46edc33ae41f52c5d2f1dc289770f94dac3e564f5245d15c2aa4c0a"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/finite_geometry_preflight_21/expected_ramp_geometry21.json": {
+      "bytes": 32403,
+      "sha256": "2899754170650e5396918f7c1e40db2be88bf45922dd7b7a1eb59b2fe02e8297"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/finite_geometry_preflight_21/expected_ramp_initial_state21.npz": {
+      "bytes": 1225,
+      "sha256": "564b6d40b6f83f1165fd1db4253e6430e4f94472951c196f7e3646dce6f0e495"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/finite_geometry_preflight_21/expected_rough_control_reset21.json": {
+      "bytes": 3537,
+      "sha256": "cf56a122b03809be9a787d26971f817b3de18c390adcd63226abe5b3816e45b9"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/finite_geometry_preflight_21/expected_rough_geometry21.json": {
+      "bytes": 32499,
+      "sha256": "1645b07d587ce4a1b51b8451f3a30195d31983b370965f106d82cb223e5068cd"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/finite_geometry_preflight_21/expected_rough_initial_state21.npz": {
+      "bytes": 1209,
+      "sha256": "2f4afc9b25361d7ba876394a73d48cbbb3a646c6df13f4ae5f4693ade65a2c75"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/finite_geometry_preflight_21/finite_preflight21.json": {
+      "bytes": 424440,
+      "sha256": "6d8ce10aca5977952a1c117e86af5c43cf0a2af8b0c8fafd678e212e951392ae"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/geometry21.py": {
+      "bytes": 24120,
+      "sha256": "166734144ff69582fe1e7eef97be8fd49a008f133d10b50aaddc9aab5a9575ef"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/recipes21.py": {
+      "bytes": 6062,
+      "sha256": "1330412928c70a450147b52e6a692f03bf90091fff33968f1fa4c622088384ae"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/run_preflight21.py": {
+      "bytes": 5746,
+      "sha256": "ad81c6798c9343156364e0d8f5d24540b9f308b76192595be9dbabf8b0c55d7c"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/spec21.json": {
+      "bytes": 25618,
+      "sha256": "889b6819190b23983a3e3ea587aeff6f46df90b938b73c34a28805482166fff0"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/finite_geometry_preflight_22/four_revised_nominal_traces22.npz": {
+      "bytes": 54945,
+      "sha256": "de42a42c9564447d94eb59f4a76eb17af98028eb799dc3dea6ff20b6671e354e"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/geometry_runtime22.py": {
+      "bytes": 3502,
+      "sha256": "f1bba2219a06c3e61de259f48fc6066aaa56ced7324ccd2a3fa365cb80a02781"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/recipes22.py": {
+      "bytes": 6062,
+      "sha256": "335cfbcb1e36a35112cb23896894bbf1c0e7c80cea9725bc4bf2dac2253090d4"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/run_preflight22.py": {
+      "bytes": 10194,
+      "sha256": "3932fac99fb527bd2865ec9d334924b574d72531fdf17b3114cb00b2e87ab074"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/spec22.json": {
+      "bytes": 33019,
+      "sha256": "f061b64320e8fae35dd8ca0d186242579b4640bd5fecdd3e6da63d2f6983f8f4"
+    }
+  },
+  "model_calls": 0,
+  "new_pure_servo_advance_count": 6400,
+  "new_rows": [
+    {
+      "case_id": "dev_yaw_left",
+      "command_sha256": "b413fc4f9600afc9123af7a6c4060c789ac8a074a8474682bcab6c9d308cb270",
+      "conditional_receipt": {
+        "actual_initial_state_digest": "cf47844a58a06fa437d010bcc5da3fadf2cd6ecb6164fffe01d97cfdcfa1507c",
+        "actual_reset_geometry_sha256": "dabc7315a7a0e87c15b800aab28a81606bb920190eb9a26eb1a767ab8671dba6",
+        "case_id": "dev_yaw_left",
+        "command_sha256": "b413fc4f9600afc9123af7a6c4060c789ac8a074a8474682bcab6c9d308cb270",
+        "controls": 1600,
+        "endpoint_heading_rad": -4.3212232837125386e-17,
+        "endpoint_xy_m": [
+          0.029133871050649195,
+          -4.344532158509901
+        ],
+        "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+        "flat_compiled_obstacle_segments_checked": 1600,
+        "flat_obstacle_guard": "pass",
+        "kind": "fixed_eval",
+        "model_identity": {
+          "data_address": 101784892170304,
+          "model_address": 101784890139648,
+          "model_ngeom": 158,
+          "source": "actual_compiled_course_reset_geometry_v1"
+        },
+        "nominal_bounds_m": {
+          "x_max": 0.029133871050649195,
+          "x_min": -8.0,
+          "y_max": -4.16882170536348,
+          "y_min": -4.7
+        },
+        "nominal_only_not_actual_trajectory": true,
+        "passed": true,
+        "path_sha256": "9a04b0f555237aff5c28d8cb905038a68738d22f386d063d21bd43fd51424f2c",
+        "reset_robot_radial_bound_m": 0.4721638197714839,
+        "schema": "d1-c21-finite-command-compiled-reset-geometry-v1",
+        "spawn_position_m": [
+          -8.0,
+          -4.7,
+          0.455
+        ],
+        "terrain": "flat",
+        "x_safety_margin_m": 2.5278361802285154,
+        "y_safety_margin_m": 0.8278361802285161
+      },
+      "conditional_template_passed": true,
+      "controls": 1600,
+      "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+      "first_safety_bound_bad_point": null,
+      "maximum_expanded_abs_x_m": 8.472163819771485,
+      "maximum_expanded_abs_y_m": 5.172163819771484,
+      "old_C21_failed_command_sha256": "d548fe4b123399cb4abcc2df0f9b4b6171568c5771cf1be666bb066630755ab7",
+      "path_sha256": "9a04b0f555237aff5c28d8cb905038a68738d22f386d063d21bd43fd51424f2c",
+      "reset_robot_radial_bound_m": 0.4721638197714839,
+      "terrain": "flat",
+      "x_safety_margin_m": 2.5278361802285154,
+      "y_safety_margin_m": 0.8278361802285161
+    },
+    {
+      "case_id": "dev_yaw_right",
+      "command_sha256": "48f62ed32238c404eb9cf07177d96c12c23563631d8d94db52297eb6a7f3fe60",
+      "conditional_receipt": {
+        "actual_initial_state_digest": "cf47844a58a06fa437d010bcc5da3fadf2cd6ecb6164fffe01d97cfdcfa1507c",
+        "actual_reset_geometry_sha256": "dabc7315a7a0e87c15b800aab28a81606bb920190eb9a26eb1a767ab8671dba6",
+        "case_id": "dev_yaw_right",
+        "command_sha256": "48f62ed32238c404eb9cf07177d96c12c23563631d8d94db52297eb6a7f3fe60",
+        "controls": 1600,
+        "endpoint_heading_rad": 4.3212232837125386e-17,
+        "endpoint_xy_m": [
+          0.029133871050649195,
+          -5.055467841490099
+        ],
+        "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+        "flat_compiled_obstacle_segments_checked": 1600,
+        "flat_obstacle_guard": "pass",
+        "kind": "fixed_eval",
+        "model_identity": {
+          "data_address": 101784892170304,
+          "model_address": 101784890139648,
+          "model_ngeom": 158,
+          "source": "actual_compiled_course_reset_geometry_v1"
+        },
+        "nominal_bounds_m": {
+          "x_max": 0.029133871050649195,
+          "x_min": -8.0,
+          "y_max": -4.7,
+          "y_min": -5.23117829463652
+        },
+        "nominal_only_not_actual_trajectory": true,
+        "passed": true,
+        "path_sha256": "f9d32514a6e04037c136c78e4b87bda089bf52412ca140bef92e41686ccd469c",
+        "reset_robot_radial_bound_m": 0.4721638197714839,
+        "schema": "d1-c21-finite-command-compiled-reset-geometry-v1",
+        "spawn_position_m": [
+          -8.0,
+          -4.7,
+          0.455
+        ],
+        "terrain": "flat",
+        "x_safety_margin_m": 2.5278361802285154,
+        "y_safety_margin_m": 0.2966578855919959
+      },
+      "conditional_template_passed": true,
+      "controls": 1600,
+      "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+      "first_safety_bound_bad_point": null,
+      "maximum_expanded_abs_x_m": 8.472163819771485,
+      "maximum_expanded_abs_y_m": 5.703342114408004,
+      "old_C21_failed_command_sha256": "30d74de66ecab2ed2c2944c67b99919434759be427fddb6744be3d037cb6c236",
+      "path_sha256": "f9d32514a6e04037c136c78e4b87bda089bf52412ca140bef92e41686ccd469c",
+      "reset_robot_radial_bound_m": 0.4721638197714839,
+      "terrain": "flat",
+      "x_safety_margin_m": 2.5278361802285154,
+      "y_safety_margin_m": 0.2966578855919959
+    },
+    {
+      "case_id": "final_yaw_left",
+      "command_sha256": "ecb84316928c0da87314feb1aaeab3f136a6cdcf20ee2672ce8e9395f8323e01",
+      "conditional_receipt": {
+        "actual_initial_state_digest": "cf47844a58a06fa437d010bcc5da3fadf2cd6ecb6164fffe01d97cfdcfa1507c",
+        "actual_reset_geometry_sha256": "dabc7315a7a0e87c15b800aab28a81606bb920190eb9a26eb1a767ab8671dba6",
+        "case_id": "final_yaw_left",
+        "command_sha256": "ecb84316928c0da87314feb1aaeab3f136a6cdcf20ee2672ce8e9395f8323e01",
+        "controls": 1600,
+        "endpoint_heading_rad": 3.533821455944941e-17,
+        "endpoint_xy_m": [
+          -0.5765350400450859,
+          -4.415831956383285
+        ],
+        "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+        "flat_compiled_obstacle_segments_checked": 1600,
+        "flat_obstacle_guard": "pass",
+        "kind": "fixed_eval",
+        "model_identity": {
+          "data_address": 101784892170304,
+          "model_address": 101784890139648,
+          "model_ngeom": 158,
+          "source": "actual_compiled_course_reset_geometry_v1"
+        },
+        "nominal_bounds_m": {
+          "x_max": -0.5765350400450859,
+          "x_min": -8.0,
+          "y_max": -4.254746990698692,
+          "y_min": -4.7
+        },
+        "nominal_only_not_actual_trajectory": true,
+        "passed": true,
+        "path_sha256": "c2283c4bf82c8d73cef5f831a5ea3b9587a30c396abcb867a20dee23dafe36c7",
+        "reset_robot_radial_bound_m": 0.4721638197714839,
+        "schema": "d1-c21-finite-command-compiled-reset-geometry-v1",
+        "spawn_position_m": [
+          -8.0,
+          -4.7,
+          0.455
+        ],
+        "terrain": "flat",
+        "x_safety_margin_m": 2.5278361802285154,
+        "y_safety_margin_m": 0.8278361802285161
+      },
+      "conditional_template_passed": true,
+      "controls": 1600,
+      "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+      "first_safety_bound_bad_point": null,
+      "maximum_expanded_abs_x_m": 8.472163819771485,
+      "maximum_expanded_abs_y_m": 5.172163819771484,
+      "old_C21_failed_command_sha256": "25f75530ef35aeb500cdf8700df0a3b8cf8f5d6eb189d43f235e9c6d8e3d35aa",
+      "path_sha256": "c2283c4bf82c8d73cef5f831a5ea3b9587a30c396abcb867a20dee23dafe36c7",
+      "reset_robot_radial_bound_m": 0.4721638197714839,
+      "terrain": "flat",
+      "x_safety_margin_m": 2.5278361802285154,
+      "y_safety_margin_m": 0.8278361802285161
+    },
+    {
+      "case_id": "final_yaw_right",
+      "command_sha256": "c24276e1d58c02aa4ed49d1523fc6dd1e4b20574ec50bd75babbedeecfc6d14d",
+      "conditional_receipt": {
+        "actual_initial_state_digest": "cf47844a58a06fa437d010bcc5da3fadf2cd6ecb6164fffe01d97cfdcfa1507c",
+        "actual_reset_geometry_sha256": "dabc7315a7a0e87c15b800aab28a81606bb920190eb9a26eb1a767ab8671dba6",
+        "case_id": "final_yaw_right",
+        "command_sha256": "c24276e1d58c02aa4ed49d1523fc6dd1e4b20574ec50bd75babbedeecfc6d14d",
+        "controls": 1600,
+        "endpoint_heading_rad": -3.533821455944941e-17,
+        "endpoint_xy_m": [
+          -0.5765350400450859,
+          -4.984168043616715
+        ],
+        "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+        "flat_compiled_obstacle_segments_checked": 1600,
+        "flat_obstacle_guard": "pass",
+        "kind": "fixed_eval",
+        "model_identity": {
+          "data_address": 101784892170304,
+          "model_address": 101784890139648,
+          "model_ngeom": 158,
+          "source": "actual_compiled_course_reset_geometry_v1"
+        },
+        "nominal_bounds_m": {
+          "x_max": -0.5765350400450859,
+          "x_min": -8.0,
+          "y_max": -4.7,
+          "y_min": -5.1452530093013085
+        },
+        "nominal_only_not_actual_trajectory": true,
+        "passed": true,
+        "path_sha256": "f5f58c11e69ef4197e00c934789d6297d32292190becae38f4dca677c161ea93",
+        "reset_robot_radial_bound_m": 0.4721638197714839,
+        "schema": "d1-c21-finite-command-compiled-reset-geometry-v1",
+        "spawn_position_m": [
+          -8.0,
+          -4.7,
+          0.455
+        ],
+        "terrain": "flat",
+        "x_safety_margin_m": 2.5278361802285154,
+        "y_safety_margin_m": 0.38258317092720784
+      },
+      "conditional_template_passed": true,
+      "controls": 1600,
+      "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+      "first_safety_bound_bad_point": null,
+      "maximum_expanded_abs_x_m": 8.472163819771485,
+      "maximum_expanded_abs_y_m": 5.617416829072792,
+      "old_C21_failed_command_sha256": "8c02ccbdf2b18830a90a4d3c65972baf902845bc4dac908bcf39c6da3e57ef81",
+      "path_sha256": "f5f58c11e69ef4197e00c934789d6297d32292190becae38f4dca677c161ea93",
+      "reset_robot_radial_bound_m": 0.4721638197714839,
+      "terrain": "flat",
+      "x_safety_margin_m": 2.5278361802285154,
+      "y_safety_margin_m": 0.38258317092720784
+    }
+  ],
+  "old_C21_actual_pure_servo_calls": 184800,
+  "passed": true,
+  "physics_calls": 0,
+  "qualified_schedule_nominal_intervals": 184800,
+  "reused_C21_training_rows": 160,
+  "reused_C21_unchanged_evaluation_rows": {
+    "bumps_0p4": {
+      "actual_future_reset_verified": false,
+      "case_id": "bumps_0p4",
+      "command_sha256": "d571d81a680a5134155bf3887cc59ae94542421aca067dc87a309102be584068",
+      "conditional_receipt": {
+        "actual_initial_state_digest": "da9fc1d91f7a882d6a6d20242f4938ae9745eda4d0e2ebfa78a087bb935e0b06",
+        "actual_reset_geometry_sha256": "5ddc6fafe8eb30616c714e80bfa7ea22af1bed27faa11ced5ae703d304021c85",
+        "case_id": "bumps_0p4",
+        "command_sha256": "d571d81a680a5134155bf3887cc59ae94542421aca067dc87a309102be584068",
+        "controls": 1600,
+        "endpoint_heading_rad": 0.0,
+        "endpoint_xy_m": [
+          2.270000000000001,
+          -2.2
+        ],
+        "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+        "flat_obstacle_guard": "not_applicable_nonflat_intended_terrain_contact",
+        "kind": "fixed_eval",
+        "model_identity": {
+          "data_address": 101784892170304,
+          "model_address": 101784890139648,
+          "model_ngeom": 158,
+          "source": "actual_compiled_course_reset_geometry_v1"
+        },
+        "nominal_bounds_m": {
+          "x_max": 2.270000000000001,
+          "x_min": 0.35,
+          "y_max": -2.2,
+          "y_min": -2.2
+        },
+        "nominal_only_not_actual_trajectory": true,
+        "passed": true,
+        "path_sha256": "f5a0e9a3b8cb79781a3d06a5f3c5eb63e7767bdb4e1c0273b348f4f1ddd93e98",
+        "reset_robot_radial_bound_m": 0.4721638197714842,
+        "schema": "d1-c21-finite-command-compiled-reset-geometry-v1",
+        "spawn_position_m": [
+          0.35,
+          -2.2,
+          0.455
+        ],
+        "terrain": "bumps",
+        "x_safety_margin_m": 8.257836180228516,
+        "y_safety_margin_m": 3.3278361802285157
+      },
+      "conditional_template_passed": true,
+      "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+      "first_safety_bound_bad_point": null,
+      "maximum_expanded_abs_x_m": 2.742163819771485,
+      "maximum_expanded_abs_y_m": 2.6721638197714843,
+      "path_sha256": "f5a0e9a3b8cb79781a3d06a5f3c5eb63e7767bdb4e1c0273b348f4f1ddd93e98",
+      "reset_robot_radial_bound_m": 0.4721638197714842,
+      "terrain": "bumps",
+      "x_safety_margin_m": 8.257836180228514,
+      "y_safety_margin_m": 3.3278361802285157
+    },
+    "dev_bumps350": {
+      "actual_future_reset_verified": false,
+      "case_id": "dev_bumps350",
+      "command_sha256": "4efe129292ec281c54bb1f4c5a7161b50bc77152b8864b2ad66e65be2993bdc6",
+      "conditional_receipt": {
+        "actual_initial_state_digest": "da9fc1d91f7a882d6a6d20242f4938ae9745eda4d0e2ebfa78a087bb935e0b06",
+        "actual_reset_geometry_sha256": "5ddc6fafe8eb30616c714e80bfa7ea22af1bed27faa11ced5ae703d304021c85",
+        "case_id": "dev_bumps350",
+        "command_sha256": "4efe129292ec281c54bb1f4c5a7161b50bc77152b8864b2ad66e65be2993bdc6",
+        "controls": 1600,
+        "endpoint_heading_rad": 0.0,
+        "endpoint_xy_m": [
+          2.1175000000000095,
+          -2.2
+        ],
+        "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+        "flat_obstacle_guard": "not_applicable_nonflat_intended_terrain_contact",
+        "kind": "fixed_eval",
+        "model_identity": {
+          "data_address": 101784892170304,
+          "model_address": 101784890139648,
+          "model_ngeom": 158,
+          "source": "actual_compiled_course_reset_geometry_v1"
+        },
+        "nominal_bounds_m": {
+          "x_max": 2.1175000000000095,
+          "x_min": 0.35,
+          "y_max": -2.2,
+          "y_min": -2.2
+        },
+        "nominal_only_not_actual_trajectory": true,
+        "passed": true,
+        "path_sha256": "d345c6324a2614283b4b256443877d06337b330646acc6ef0444d127dab6e455",
+        "reset_robot_radial_bound_m": 0.4721638197714842,
+        "schema": "d1-c21-finite-command-compiled-reset-geometry-v1",
+        "spawn_position_m": [
+          0.35,
+          -2.2,
+          0.455
+        ],
+        "terrain": "bumps",
+        "x_safety_margin_m": 8.410336180228507,
+        "y_safety_margin_m": 3.3278361802285157
+      },
+      "conditional_template_passed": true,
+      "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+      "first_safety_bound_bad_point": null,
+      "maximum_expanded_abs_x_m": 2.5896638197714936,
+      "maximum_expanded_abs_y_m": 2.6721638197714843,
+      "path_sha256": "d345c6324a2614283b4b256443877d06337b330646acc6ef0444d127dab6e455",
+      "reset_robot_radial_bound_m": 0.4721638197714842,
+      "terrain": "bumps",
+      "x_safety_margin_m": 8.410336180228505,
+      "y_safety_margin_m": 3.3278361802285157
+    },
+    "dev_bumps375": {
+      "actual_future_reset_verified": false,
+      "case_id": "dev_bumps375",
+      "command_sha256": "9830548811c73b70d8c041cfbc20b477555e79ebeda98647d27217f0979d9dc2",
+      "conditional_receipt": {
+        "actual_initial_state_digest": "da9fc1d91f7a882d6a6d20242f4938ae9745eda4d0e2ebfa78a087bb935e0b06",
+        "actual_reset_geometry_sha256": "5ddc6fafe8eb30616c714e80bfa7ea22af1bed27faa11ced5ae703d304021c85",
+        "case_id": "dev_bumps375",
+        "command_sha256": "9830548811c73b70d8c041cfbc20b477555e79ebeda98647d27217f0979d9dc2",
+        "controls": 1600,
+        "endpoint_heading_rad": 0.0,
+        "endpoint_xy_m": [
+          2.2624999999999873,
+          -2.2
+        ],
+        "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+        "flat_obstacle_guard": "not_applicable_nonflat_intended_terrain_contact",
+        "kind": "fixed_eval",
+        "model_identity": {
+          "data_address": 101784892170304,
+          "model_address": 101784890139648,
+          "model_ngeom": 158,
+          "source": "actual_compiled_course_reset_geometry_v1"
+        },
+        "nominal_bounds_m": {
+          "x_max": 2.2624999999999873,
+          "x_min": 0.35,
+          "y_max": -2.2,
+          "y_min": -2.2
+        },
+        "nominal_only_not_actual_trajectory": true,
+        "passed": true,
+        "path_sha256": "615e04e6a58b1b2992300827d20c2bd469a170555c2694d702e847615f5acee5",
+        "reset_robot_radial_bound_m": 0.4721638197714842,
+        "schema": "d1-c21-finite-command-compiled-reset-geometry-v1",
+        "spawn_position_m": [
+          0.35,
+          -2.2,
+          0.455
+        ],
+        "terrain": "bumps",
+        "x_safety_margin_m": 8.265336180228529,
+        "y_safety_margin_m": 3.3278361802285157
+      },
+      "conditional_template_passed": true,
+      "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+      "first_safety_bound_bad_point": null,
+      "maximum_expanded_abs_x_m": 2.7346638197714714,
+      "maximum_expanded_abs_y_m": 2.6721638197714843,
+      "path_sha256": "615e04e6a58b1b2992300827d20c2bd469a170555c2694d702e847615f5acee5",
+      "reset_robot_radial_bound_m": 0.4721638197714842,
+      "terrain": "bumps",
+      "x_safety_margin_m": 8.265336180228529,
+      "y_safety_margin_m": 3.3278361802285157
+    },
+    "final_bumps300": {
+      "actual_future_reset_verified": false,
+      "case_id": "final_bumps300",
+      "command_sha256": "5a27f7cc1a7dadef1c8b8d6a5bdb837fb097103c2bc2c98cb669733f03ce35bd",
+      "conditional_receipt": {
+        "actual_initial_state_digest": "da9fc1d91f7a882d6a6d20242f4938ae9745eda4d0e2ebfa78a087bb935e0b06",
+        "actual_reset_geometry_sha256": "5ddc6fafe8eb30616c714e80bfa7ea22af1bed27faa11ced5ae703d304021c85",
+        "case_id": "final_bumps300",
+        "command_sha256": "5a27f7cc1a7dadef1c8b8d6a5bdb837fb097103c2bc2c98cb669733f03ce35bd",
+        "controls": 1600,
+        "endpoint_heading_rad": 0.0,
+        "endpoint_xy_m": [
+          1.8349999999999735,
+          -2.2
+        ],
+        "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+        "flat_obstacle_guard": "not_applicable_nonflat_intended_terrain_contact",
+        "kind": "fixed_eval",
+        "model_identity": {
+          "data_address": 101784892170304,
+          "model_address": 101784890139648,
+          "model_ngeom": 158,
+          "source": "actual_compiled_course_reset_geometry_v1"
+        },
+        "nominal_bounds_m": {
+          "x_max": 1.8349999999999735,
+          "x_min": 0.35,
+          "y_max": -2.2,
+          "y_min": -2.2
+        },
+        "nominal_only_not_actual_trajectory": true,
+        "passed": true,
+        "path_sha256": "a879c44c5709415aa12c094552bdd34590e206289519d60adc92a1600ba71e11",
+        "reset_robot_radial_bound_m": 0.4721638197714842,
+        "schema": "d1-c21-finite-command-compiled-reset-geometry-v1",
+        "spawn_position_m": [
+          0.35,
+          -2.2,
+          0.455
+        ],
+        "terrain": "bumps",
+        "x_safety_margin_m": 8.692836180228543,
+        "y_safety_margin_m": 3.3278361802285157
+      },
+      "conditional_template_passed": true,
+      "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+      "first_safety_bound_bad_point": null,
+      "maximum_expanded_abs_x_m": 2.307163819771458,
+      "maximum_expanded_abs_y_m": 2.6721638197714843,
+      "path_sha256": "a879c44c5709415aa12c094552bdd34590e206289519d60adc92a1600ba71e11",
+      "reset_robot_radial_bound_m": 0.4721638197714842,
+      "terrain": "bumps",
+      "x_safety_margin_m": 8.692836180228541,
+      "y_safety_margin_m": 3.3278361802285157
+    },
+    "final_bumps385": {
+      "actual_future_reset_verified": false,
+      "case_id": "final_bumps385",
+      "command_sha256": "b9f2a95af797db14ed7118c740ed4d74af68aaa8ff0ac0b4e68323c32bfb34b0",
+      "conditional_receipt": {
+        "actual_initial_state_digest": "da9fc1d91f7a882d6a6d20242f4938ae9745eda4d0e2ebfa78a087bb935e0b06",
+        "actual_reset_geometry_sha256": "5ddc6fafe8eb30616c714e80bfa7ea22af1bed27faa11ced5ae703d304021c85",
+        "case_id": "final_bumps385",
+        "command_sha256": "b9f2a95af797db14ed7118c740ed4d74af68aaa8ff0ac0b4e68323c32bfb34b0",
+        "controls": 1600,
+        "endpoint_heading_rad": 0.0,
+        "endpoint_xy_m": [
+          2.321199999999975,
+          -2.2
+        ],
+        "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+        "flat_obstacle_guard": "not_applicable_nonflat_intended_terrain_contact",
+        "kind": "fixed_eval",
+        "model_identity": {
+          "data_address": 101784892170304,
+          "model_address": 101784890139648,
+          "model_ngeom": 158,
+          "source": "actual_compiled_course_reset_geometry_v1"
+        },
+        "nominal_bounds_m": {
+          "x_max": 2.321199999999975,
+          "x_min": 0.35,
+          "y_max": -2.2,
+          "y_min": -2.2
+        },
+        "nominal_only_not_actual_trajectory": true,
+        "passed": true,
+        "path_sha256": "4809c8b66efd1fae0e9bc66ab88e74caafb3954a6963b1c2e0e4eaed6ba5bc26",
+        "reset_robot_radial_bound_m": 0.4721638197714842,
+        "schema": "d1-c21-finite-command-compiled-reset-geometry-v1",
+        "spawn_position_m": [
+          0.35,
+          -2.2,
+          0.455
+        ],
+        "terrain": "bumps",
+        "x_safety_margin_m": 8.206636180228541,
+        "y_safety_margin_m": 3.3278361802285157
+      },
+      "conditional_template_passed": true,
+      "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+      "first_safety_bound_bad_point": null,
+      "maximum_expanded_abs_x_m": 2.793363819771459,
+      "maximum_expanded_abs_y_m": 2.6721638197714843,
+      "path_sha256": "4809c8b66efd1fae0e9bc66ab88e74caafb3954a6963b1c2e0e4eaed6ba5bc26",
+      "reset_robot_radial_bound_m": 0.4721638197714842,
+      "terrain": "bumps",
+      "x_safety_margin_m": 8.206636180228541,
+      "y_safety_margin_m": 3.3278361802285157
+    },
+    "flat_0p6": {
+      "actual_future_reset_verified": false,
+      "case_id": "flat_0p6",
+      "command_sha256": "b43d0e04541ef95b45f138101b4903c56f1c5370628dbaa2f0171757745036fa",
+      "conditional_receipt": {
+        "actual_initial_state_digest": "cf47844a58a06fa437d010bcc5da3fadf2cd6ecb6164fffe01d97cfdcfa1507c",
+        "actual_reset_geometry_sha256": "dabc7315a7a0e87c15b800aab28a81606bb920190eb9a26eb1a767ab8671dba6",
+        "case_id": "flat_0p6",
+        "command_sha256": "b43d0e04541ef95b45f138101b4903c56f1c5370628dbaa2f0171757745036fa",
+        "controls": 1600,
+        "endpoint_heading_rad": 0.0,
+        "endpoint_xy_m": [
+          -4.87999999999991,
+          -4.7
+        ],
+        "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+        "flat_compiled_obstacle_segments_checked": 1600,
+        "flat_obstacle_guard": "pass",
+        "kind": "fixed_eval",
+        "model_identity": {
+          "data_address": 101784892170304,
+          "model_address": 101784890139648,
+          "model_ngeom": 158,
+          "source": "actual_compiled_course_reset_geometry_v1"
+        },
+        "nominal_bounds_m": {
+          "x_max": -4.87999999999991,
+          "x_min": -8.0,
+          "y_max": -4.7,
+          "y_min": -4.7
+        },
+        "nominal_only_not_actual_trajectory": true,
+        "passed": true,
+        "path_sha256": "5ee42e318e5298d1dc1cb5afb8414074ba8667df9da3da31abae5717d123defc",
+        "reset_robot_radial_bound_m": 0.4721638197714839,
+        "schema": "d1-c21-finite-command-compiled-reset-geometry-v1",
+        "spawn_position_m": [
+          -8.0,
+          -4.7,
+          0.455
+        ],
+        "terrain": "flat",
+        "x_safety_margin_m": 2.5278361802285154,
+        "y_safety_margin_m": 0.8278361802285161
+      },
+      "conditional_template_passed": true,
+      "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+      "first_safety_bound_bad_point": null,
+      "maximum_expanded_abs_x_m": 8.472163819771485,
+      "maximum_expanded_abs_y_m": 5.172163819771484,
+      "path_sha256": "5ee42e318e5298d1dc1cb5afb8414074ba8667df9da3da31abae5717d123defc",
+      "reset_robot_radial_bound_m": 0.4721638197714839,
+      "terrain": "flat",
+      "x_safety_margin_m": 2.5278361802285163,
+      "y_safety_margin_m": 0.8278361802285159
+    },
+    "flat_1p2_yaw": {
+      "actual_future_reset_verified": false,
+      "case_id": "flat_1p2_yaw",
+      "command_sha256": "ad5bd63898cc1b0bf7a9deb75cfc2367678b394d8fd0d6c35c4fe64bb8340309",
+      "conditional_receipt": {
+        "actual_initial_state_digest": "cf47844a58a06fa437d010bcc5da3fadf2cd6ecb6164fffe01d97cfdcfa1507c",
+        "actual_reset_geometry_sha256": "dabc7315a7a0e87c15b800aab28a81606bb920190eb9a26eb1a767ab8671dba6",
+        "case_id": "flat_1p2_yaw",
+        "command_sha256": "ad5bd63898cc1b0bf7a9deb75cfc2367678b394d8fd0d6c35c4fe64bb8340309",
+        "controls": 1600,
+        "endpoint_heading_rad": -4.3212232837125386e-17,
+        "endpoint_xy_m": [
+          -0.39085431087029615,
+          -4.343828030047446
+        ],
+        "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+        "flat_compiled_obstacle_segments_checked": 1600,
+        "flat_obstacle_guard": "pass",
+        "kind": "fixed_eval",
+        "model_identity": {
+          "data_address": 101784892170304,
+          "model_address": 101784890139648,
+          "model_ngeom": 158,
+          "source": "actual_compiled_course_reset_geometry_v1"
+        },
+        "nominal_bounds_m": {
+          "x_max": -0.39085431087029615,
+          "x_min": -8.0,
+          "y_max": -4.16882170536348,
+          "y_min": -4.7
+        },
+        "nominal_only_not_actual_trajectory": true,
+        "passed": true,
+        "path_sha256": "aa32bea365e59b35c5f68b8928e1cf41c95e4f022db8ce715889f1a7f329e499",
+        "reset_robot_radial_bound_m": 0.4721638197714839,
+        "schema": "d1-c21-finite-command-compiled-reset-geometry-v1",
+        "spawn_position_m": [
+          -8.0,
+          -4.7,
+          0.455
+        ],
+        "terrain": "flat",
+        "x_safety_margin_m": 2.5278361802285154,
+        "y_safety_margin_m": 0.8278361802285161
+      },
+      "conditional_template_passed": true,
+      "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+      "first_safety_bound_bad_point": null,
+      "maximum_expanded_abs_x_m": 8.472163819771485,
+      "maximum_expanded_abs_y_m": 5.172163819771484,
+      "path_sha256": "aa32bea365e59b35c5f68b8928e1cf41c95e4f022db8ce715889f1a7f329e499",
+      "reset_robot_radial_bound_m": 0.4721638197714839,
+      "terrain": "flat",
+      "x_safety_margin_m": 2.5278361802285163,
+      "y_safety_margin_m": 0.8278361802285159
+    },
+    "flat_1p2_yaw_mirror": {
+      "actual_future_reset_verified": false,
+      "case_id": "flat_1p2_yaw_mirror",
+      "command_sha256": "52f10431e4f2397430b72f42faf70cf7aa643018c9fbcfcd9335a6bb1a7ab658",
+      "conditional_receipt": {
+        "actual_initial_state_digest": "cf47844a58a06fa437d010bcc5da3fadf2cd6ecb6164fffe01d97cfdcfa1507c",
+        "actual_reset_geometry_sha256": "dabc7315a7a0e87c15b800aab28a81606bb920190eb9a26eb1a767ab8671dba6",
+        "case_id": "flat_1p2_yaw_mirror",
+        "command_sha256": "52f10431e4f2397430b72f42faf70cf7aa643018c9fbcfcd9335a6bb1a7ab658",
+        "controls": 1600,
+        "endpoint_heading_rad": 4.3212232837125386e-17,
+        "endpoint_xy_m": [
+          -0.39085431087029615,
+          -5.056171969952555
+        ],
+        "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+        "flat_compiled_obstacle_segments_checked": 1600,
+        "flat_obstacle_guard": "pass",
+        "kind": "fixed_eval",
+        "model_identity": {
+          "data_address": 101784892170304,
+          "model_address": 101784890139648,
+          "model_ngeom": 158,
+          "source": "actual_compiled_course_reset_geometry_v1"
+        },
+        "nominal_bounds_m": {
+          "x_max": -0.39085431087029615,
+          "x_min": -8.0,
+          "y_max": -4.7,
+          "y_min": -5.23117829463652
+        },
+        "nominal_only_not_actual_trajectory": true,
+        "passed": true,
+        "path_sha256": "bc5567588cbb1403916a2b6bb38b220ed981f0cef5f98e287e8eb39a4e44c9b7",
+        "reset_robot_radial_bound_m": 0.4721638197714839,
+        "schema": "d1-c21-finite-command-compiled-reset-geometry-v1",
+        "spawn_position_m": [
+          -8.0,
+          -4.7,
+          0.455
+        ],
+        "terrain": "flat",
+        "x_safety_margin_m": 2.5278361802285154,
+        "y_safety_margin_m": 0.2966578855919959
+      },
+      "conditional_template_passed": true,
+      "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+      "first_safety_bound_bad_point": null,
+      "maximum_expanded_abs_x_m": 8.472163819771485,
+      "maximum_expanded_abs_y_m": 5.703342114408004,
+      "path_sha256": "bc5567588cbb1403916a2b6bb38b220ed981f0cef5f98e287e8eb39a4e44c9b7",
+      "reset_robot_radial_bound_m": 0.4721638197714839,
+      "terrain": "flat",
+      "x_safety_margin_m": 2.5278361802285163,
+      "y_safety_margin_m": 0.2966578855919957
+    },
+    "flat_1p6": {
+      "actual_future_reset_verified": false,
+      "case_id": "flat_1p6",
+      "command_sha256": "8da75378892f612634246929b9aaf710ed94744ee0fb03e92be0bd02680dff29",
+      "conditional_receipt": {
+        "actual_initial_state_digest": "cf47844a58a06fa437d010bcc5da3fadf2cd6ecb6164fffe01d97cfdcfa1507c",
+        "actual_reset_geometry_sha256": "dabc7315a7a0e87c15b800aab28a81606bb920190eb9a26eb1a767ab8671dba6",
+        "case_id": "flat_1p6",
+        "command_sha256": "8da75378892f612634246929b9aaf710ed94744ee0fb03e92be0bd02680dff29",
+        "controls": 1600,
+        "endpoint_heading_rad": 0.0,
+        "endpoint_xy_m": [
+          3.520000000000032,
+          -4.7
+        ],
+        "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+        "flat_compiled_obstacle_segments_checked": 1600,
+        "flat_obstacle_guard": "pass",
+        "kind": "fixed_eval",
+        "model_identity": {
+          "data_address": 101784892170304,
+          "model_address": 101784890139648,
+          "model_ngeom": 158,
+          "source": "actual_compiled_course_reset_geometry_v1"
+        },
+        "nominal_bounds_m": {
+          "x_max": 3.520000000000032,
+          "x_min": -8.0,
+          "y_max": -4.7,
+          "y_min": -4.7
+        },
+        "nominal_only_not_actual_trajectory": true,
+        "passed": true,
+        "path_sha256": "6021305710be961f35b9f1aa7edcbebac3a707df590141e7cfec5f1522b4e761",
+        "reset_robot_radial_bound_m": 0.4721638197714839,
+        "schema": "d1-c21-finite-command-compiled-reset-geometry-v1",
+        "spawn_position_m": [
+          -8.0,
+          -4.7,
+          0.455
+        ],
+        "terrain": "flat",
+        "x_safety_margin_m": 2.5278361802285154,
+        "y_safety_margin_m": 0.8278361802285161
+      },
+      "conditional_template_passed": true,
+      "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+      "first_safety_bound_bad_point": null,
+      "maximum_expanded_abs_x_m": 8.472163819771485,
+      "maximum_expanded_abs_y_m": 5.172163819771484,
+      "path_sha256": "6021305710be961f35b9f1aa7edcbebac3a707df590141e7cfec5f1522b4e761",
+      "reset_robot_radial_bound_m": 0.4721638197714839,
+      "terrain": "flat",
+      "x_safety_margin_m": 2.5278361802285163,
+      "y_safety_margin_m": 0.8278361802285159
+    },
+    "floor_0p4_600": {
+      "actual_future_reset_verified": false,
+      "case_id": "floor_0p4_600",
+      "command_sha256": "50627a030e74e416225c651a6dd943151d040bf3922ba796cb1772665b3375c0",
+      "conditional_receipt": {
+        "actual_initial_state_digest": "cf47844a58a06fa437d010bcc5da3fadf2cd6ecb6164fffe01d97cfdcfa1507c",
+        "actual_reset_geometry_sha256": "dabc7315a7a0e87c15b800aab28a81606bb920190eb9a26eb1a767ab8671dba6",
+        "case_id": "floor_0p4_600",
+        "command_sha256": "50627a030e74e416225c651a6dd943151d040bf3922ba796cb1772665b3375c0",
+        "controls": 600,
+        "endpoint_heading_rad": 0.0,
+        "endpoint_xy_m": [
+          -7.000000000000076,
+          -4.7
+        ],
+        "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+        "flat_compiled_obstacle_segments_checked": 600,
+        "flat_obstacle_guard": "pass",
+        "kind": "fixed_eval",
+        "model_identity": {
+          "data_address": 101784892170304,
+          "model_address": 101784890139648,
+          "model_ngeom": 158,
+          "source": "actual_compiled_course_reset_geometry_v1"
+        },
+        "nominal_bounds_m": {
+          "x_max": -7.000000000000076,
+          "x_min": -8.0,
+          "y_max": -4.7,
+          "y_min": -4.7
+        },
+        "nominal_only_not_actual_trajectory": true,
+        "passed": true,
+        "path_sha256": "5ac1e1d67aa6d06fceb0398affb85230c8c1304412456011f90ba9a2a4e4c488",
+        "reset_robot_radial_bound_m": 0.4721638197714839,
+        "schema": "d1-c21-finite-command-compiled-reset-geometry-v1",
+        "spawn_position_m": [
+          -8.0,
+          -4.7,
+          0.455
+        ],
+        "terrain": "flat",
+        "x_safety_margin_m": 2.5278361802285154,
+        "y_safety_margin_m": 0.8278361802285161
+      },
+      "conditional_template_passed": true,
+      "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+      "first_safety_bound_bad_point": null,
+      "maximum_expanded_abs_x_m": 8.472163819771485,
+      "maximum_expanded_abs_y_m": 5.172163819771484,
+      "path_sha256": "5ac1e1d67aa6d06fceb0398affb85230c8c1304412456011f90ba9a2a4e4c488",
+      "reset_robot_radial_bound_m": 0.4721638197714839,
+      "terrain": "flat",
+      "x_safety_margin_m": 2.5278361802285163,
+      "y_safety_margin_m": 0.8278361802285159
+    },
+    "ramp_0p45_complete": {
+      "actual_future_reset_verified": false,
+      "case_id": "ramp_0p45_complete",
+      "command_sha256": "f9d353a072201922162f47f2c15e4e29dad025b6fd7eb70a6a036da7f9244e7a",
+      "conditional_receipt": {
+        "actual_initial_state_digest": "92ab44cb1459bc49212678208068a60700570d106dd7190f5ec2426d0a5f9814",
+        "actual_reset_geometry_sha256": "09061570a2b32b3e54e60497370178a1fdaf06f081e60e0f0a46ee93af9389bb",
+        "case_id": "ramp_0p45_complete",
+        "command_sha256": "f9d353a072201922162f47f2c15e4e29dad025b6fd7eb70a6a036da7f9244e7a",
+        "controls": 1800,
+        "endpoint_heading_rad": 0.0,
+        "endpoint_xy_m": [
+          8.060000000000185,
+          0.0
+        ],
+        "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+        "flat_obstacle_guard": "not_applicable_nonflat_intended_terrain_contact",
+        "kind": "fixed_eval",
+        "model_identity": {
+          "data_address": 101784892170304,
+          "model_address": 101784890139648,
+          "model_ngeom": 158,
+          "source": "actual_compiled_course_reset_geometry_v1"
+        },
+        "nominal_bounds_m": {
+          "x_max": 8.060000000000185,
+          "x_min": 2.75,
+          "y_max": 0.0,
+          "y_min": 0.0
+        },
+        "nominal_only_not_actual_trajectory": true,
+        "passed": true,
+        "path_sha256": "948151b7f4a05413ed8d76dd8c2dd2c62b5b45e2bfd8c5cfb00df9bd4f9b9c21",
+        "reset_robot_radial_bound_m": 0.4721638197714839,
+        "schema": "d1-c21-finite-command-compiled-reset-geometry-v1",
+        "spawn_position_m": [
+          2.75,
+          0.0,
+          0.455
+        ],
+        "terrain": "ramp",
+        "x_safety_margin_m": 2.46783618022833,
+        "y_safety_margin_m": 5.527836180228516
+      },
+      "conditional_template_passed": true,
+      "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+      "first_safety_bound_bad_point": null,
+      "maximum_expanded_abs_x_m": 8.53216381977167,
+      "maximum_expanded_abs_y_m": 0.4721638197714839,
+      "path_sha256": "948151b7f4a05413ed8d76dd8c2dd2c62b5b45e2bfd8c5cfb00df9bd4f9b9c21",
+      "reset_robot_radial_bound_m": 0.4721638197714839,
+      "terrain": "ramp",
+      "x_safety_margin_m": 2.467836180228331,
+      "y_safety_margin_m": 5.527836180228516
+    },
+    "rough_0p35": {
+      "actual_future_reset_verified": false,
+      "case_id": "rough_0p35",
+      "command_sha256": "11107295e40ff47fbf61950d6447e4562e20d3fc468c2ad40902d38841b96b89",
+      "conditional_receipt": {
+        "actual_initial_state_digest": "340a2f17c96bf54fd324690bce3d9564b5b77483d0080c5a56a19adbf1337fe5",
+        "actual_reset_geometry_sha256": "2b249d8f6af2767fc2fb7f7e9959ac7c51378c6082b5668229c1fea79aac9abb",
+        "case_id": "rough_0p35",
+        "command_sha256": "11107295e40ff47fbf61950d6447e4562e20d3fc468c2ad40902d38841b96b89",
+        "controls": 1600,
+        "endpoint_heading_rad": 0.0,
+        "endpoint_xy_m": [
+          1.9950000000000072,
+          0.0
+        ],
+        "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+        "flat_obstacle_guard": "not_applicable_nonflat_intended_terrain_contact",
+        "kind": "fixed_eval",
+        "model_identity": {
+          "data_address": 101784892170304,
+          "model_address": 101784890139648,
+          "model_ngeom": 158,
+          "source": "actual_compiled_course_reset_geometry_v1"
+        },
+        "nominal_bounds_m": {
+          "x_max": 1.9950000000000072,
+          "x_min": 0.35,
+          "y_max": 0.0,
+          "y_min": 0.0
+        },
+        "nominal_only_not_actual_trajectory": true,
+        "passed": true,
+        "path_sha256": "450cabfb71db25ba5681fe49881751b6dc6a94f9fd802128cae003be65aa4ed9",
+        "reset_robot_radial_bound_m": 0.4721638197714842,
+        "schema": "d1-c21-finite-command-compiled-reset-geometry-v1",
+        "spawn_position_m": [
+          0.35,
+          0.0,
+          0.455
+        ],
+        "terrain": "rough",
+        "x_safety_margin_m": 8.532836180228509,
+        "y_safety_margin_m": 5.527836180228515
+      },
+      "conditional_template_passed": true,
+      "evidence_basis": "source_derived_expected_reset_not_observed_future_reset",
+      "first_safety_bound_bad_point": null,
+      "maximum_expanded_abs_x_m": 2.4671638197714914,
+      "maximum_expanded_abs_y_m": 0.4721638197714842,
+      "path_sha256": "450cabfb71db25ba5681fe49881751b6dc6a94f9fd802128cae003be65aa4ed9",
+      "reset_robot_radial_bound_m": 0.4721638197714842,
+      "terrain": "rough",
+      "x_safety_margin_m": 8.532836180228507,
+      "y_safety_margin_m": 5.527836180228515
+    }
+  },
+  "reused_nominal_intervals": 178400,
+  "schema": "d1-c22-delta-finite-geometry-preflight-v1",
+  "sealed_template_inputs": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/finite_geometry_preflight_21/expected_bumps_control_reset21.json": {
+      "bytes": 3542,
+      "sha256": "54dc1f7eaaa99a21e40fc9bf9a91de93989a4c886990a19ca499497e9ca13452"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/finite_geometry_preflight_21/expected_bumps_geometry21.json": {
+      "bytes": 32389,
+      "sha256": "228a61c97dd07ad774fe3d874ff64d9e0e96fa360f6780a4d95db9502d95afe8"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/finite_geometry_preflight_21/expected_bumps_initial_state21.npz": {
+      "bytes": 1210,
+      "sha256": "4ce7407351e6eefb8ed8a14d276a6acd01868db6394c3035a99020154b12800f"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/finite_geometry_preflight_21/expected_flat_control_reset21.json": {
+      "bytes": 3539,
+      "sha256": "f827779512cfe5d2c56eb62a0a65d938d7c935a37ecfaddba0d2f8e5c0ff7e03"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/finite_geometry_preflight_21/expected_flat_geometry21.json": {
+      "bytes": 32075,
+      "sha256": "d7ea871122f6044c79dcada27c7c1a8f3557cecec1d59d8deed187af9d8dcd06"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/finite_geometry_preflight_21/expected_flat_initial_state21.npz": {
+      "bytes": 1199,
+      "sha256": "b46af1adef327a85a8bee4c5dc064d0dac3d33b075fa9f5b1bd5da1ef9230777"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/finite_geometry_preflight_21/expected_ramp_control_reset21.json": {
+      "bytes": 4147,
+      "sha256": "0bf5d26af46edc33ae41f52c5d2f1dc289770f94dac3e564f5245d15c2aa4c0a"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/finite_geometry_preflight_21/expected_ramp_geometry21.json": {
+      "bytes": 32403,
+      "sha256": "2899754170650e5396918f7c1e40db2be88bf45922dd7b7a1eb59b2fe02e8297"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/finite_geometry_preflight_21/expected_ramp_initial_state21.npz": {
+      "bytes": 1225,
+      "sha256": "564b6d40b6f83f1165fd1db4253e6430e4f94472951c196f7e3646dce6f0e495"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/finite_geometry_preflight_21/expected_rough_control_reset21.json": {
+      "bytes": 3537,
+      "sha256": "cf56a122b03809be9a787d26971f817b3de18c390adcd63226abe5b3816e45b9"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/finite_geometry_preflight_21/expected_rough_geometry21.json": {
+      "bytes": 32499,
+      "sha256": "1645b07d587ce4a1b51b8451f3a30195d31983b370965f106d82cb223e5068cd"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/finite_geometry_preflight_21/expected_rough_initial_state21.npz": {
+      "bytes": 1209,
+      "sha256": "2f4afc9b25361d7ba876394a73d48cbbb3a646c6df13f4ae5f4693ade65a2c75"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation21/finite_geometry_preflight_21/finite_preflight21.json": {
+      "bytes": 424440,
+      "sha256": "6d8ce10aca5977952a1c117e86af5c43cf0a2af8b0c8fafd678e212e951392ae"
+    }
+  },
+  "trace_arrays": 12,
+  "trace_file": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/finite_geometry_preflight_22/four_revised_nominal_traces22.npz"
+}

@@ -1,0 +1,822 @@
+{
+  "actual_native_including_compiler": 539846,
+  "actual_totals": {
+    "actor_rows": 191968,
+    "compiler_native": 6,
+    "critic_rows": 129344,
+    "independent_reader_nominal_intervals_verified": 108200,
+    "normal_native": 539840,
+    "optimizer_steps": 355,
+    "physical_controls": 107968,
+    "ppo_load": 8,
+    "reserved_controls": 107968,
+    "torch_load": 24,
+    "worker_processes": 3
+  },
+  "all_executed_workers_independently_verified": true,
+  "all_three_workers_executed": true,
+  "contract_upper_bounds": {
+    "A_training_controls": 0,
+    "actor_rows": 226528,
+    "cold_workers": 3,
+    "compiler_native": 6,
+    "controls": 107968,
+    "critic_rows": 163904,
+    "extension_permitted": false,
+    "geometry_preflight_hard_s": 600,
+    "geometry_preflight_pure_servo_advance_max": 6400,
+    "gui_and_single15mm_included": false,
+    "historical_C20_consumption_excluded_from_new_quota_but_reported": true,
+    "historical_C21_consumption": {
+      "compiler_native": 0,
+      "model_calls": 0,
+      "normal_native": 0,
+      "not_refunded": true,
+      "physical_controls": 0,
+      "pure_servo_calls": 184800
+    },
+    "host_plus_reader_hard_s": 8340,
+    "kill_reap_grace_s_per_process": 5,
+    "new_training_stages": 1,
+    "normal_native": 539840,
+    "optimizer_max": 512,
+    "ppo_load": 8,
+    "source_freeze_preflight_hard_s": 600,
+    "torch_load": 24,
+    "training_controls": 32768
+  },
+  "execution_contract_id": "C22_fixed_B_eval_repair_v1",
+  "extra_trials": 0,
+  "historical_A20_excluded_from_new_totals": {
+    "checkpoint_sha256": "1a630229fe9b44abe75abe4e47c98be50a55a043f0163f20f57b0b97640904e5",
+    "optimizer_steps": 351,
+    "source_reader": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/train_A_1_readback.json",
+    "training_controls": 32768
+  },
+  "historical_A20_is_a_subset_of_C20_not_an_additional_cost": true,
+  "historical_C20_all_workers_excluded_from_new_totals": {
+    "actor_rows": 200912,
+    "compiler_native": 4,
+    "critic_rows": 200882,
+    "normal_native": 253840,
+    "optimizer_steps": 553,
+    "physical_controls": 50768
+  },
+  "historical_shared_parent_excluded_from_new_totals": {
+    "ancestral_training_controls": 81920,
+    "checkpoint_sha256": "1fcfe833d8a7cfdbbc224c9007a35e44c035674ce948b51557434b77838476fb"
+  },
+  "inputs": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation20/execution_ledger_20.json": {
+      "bytes": 34418,
+      "sha256": "4745a00b38e167e2dbb387d12c2e8fe462d9cc24ef17e60e53cadc7087f68e20"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/a_reuse_22.json": {
+      "bytes": 1551382,
+      "sha256": "e4ba9bfcfd89a3c6a096d75cce23ece613e23acf0f4bd1d087357557e4635522"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/development_1/host_receipt.json": {
+      "bytes": 320,
+      "sha256": "7416826597dc33a39991b4d42bbf07536067dd3773add470456b92945a06d710"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/development_1/session.json": {
+      "bytes": 2207807,
+      "sha256": "f84e6c82cca8af93a42d4f4590dbdd17810e1c8a28cfbb0766d81b490f5cedb2"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/development_1/worker_receipt.json": {
+      "bytes": 62111,
+      "sha256": "df750e290130449763c41630397583dd80dfc12bce281da0f9e8e22eb7c5cc99"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/development_1_readback.json": {
+      "bytes": 3266173,
+      "sha256": "c7f51921676eec1354a8a675f045be06fe8f81c34d7b4a671545827ac4cec3a0"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/development_1_readback_host_receipt.json": {
+      "bytes": 867,
+      "sha256": "efed4f73d15770058e0f71bdb1fe7c90fd8b6287ec3a0a73ea0b42f822cae129"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/development_1_reservation.json": {
+      "bytes": 709,
+      "sha256": "6f9c1a9c93ac40036b4b1b39c61c91c8f79896d4880f024f612195230bddae49"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/final_1/host_receipt.json": {
+      "bytes": 308,
+      "sha256": "2d40830c1fe1eb9aebe02599fb0da5f69a645a4a76b4561d9f74c29ecb98ee8a"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/final_1/session.json": {
+      "bytes": 2205716,
+      "sha256": "01ced4f1393322d393f2c07b9448030d24cba4842381dd25829b290d65640c6e"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/final_1/worker_receipt.json": {
+      "bytes": 32773,
+      "sha256": "fa66898ac6ec2075f21051532325788bf720136e4f1999c5124bdf263e07b840"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/final_1_readback.json": {
+      "bytes": 3315390,
+      "sha256": "940f9731b7ab93cb64c872739fd244d4c61415a4831406a386c575f61c71810b"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/final_1_readback_host_receipt.json": {
+      "bytes": 856,
+      "sha256": "ec66d86785ae8709b0004448930abd81f2436b8bb949243233e0e2f2c2075417"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/final_1_reservation.json": {
+      "bytes": 691,
+      "sha256": "3b5334d664b270da03c0ab17eb75d1c00335bd3faaa22e614f0ff3f67a839154"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/final_execution_decision_22.json": {
+      "bytes": 3143,
+      "sha256": "5940536dda03164a84e46a41e8061a44dd63c26c45200d7cef761361594318d8"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/finite_geometry_22.json": {
+      "bytes": 55235,
+      "sha256": "ccd031b983148abef757290fb77374aa146163293ee26d9ea2b112617c032630"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/first1024_pair_22.json": {
+      "bytes": 6501,
+      "sha256": "e4a6e1a83e31679fa944d9388971bd4d1bb4ea3be547f8f934e8c1f10f927c64"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/plan_go_development_1_22.json": {
+      "bytes": 1578196,
+      "sha256": "755cc639a79aa1e66c7cc1a5579868799e17ff2eaf4f1747d4f13677b89cda0b"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/plan_go_final_1_22.json": {
+      "bytes": 1575415,
+      "sha256": "b63f2fff0960011c19bf28ff5fb2f8744e59eb51412d77f556db71df49bf3f5e"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/plan_go_training_1_22.json": {
+      "bytes": 1565255,
+      "sha256": "b001f73cb4e98eb70e4c531e2f1929de80c9d7f8e976a697c94f1aa03149008c"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/read_eval22.py": {
+      "bytes": 63383,
+      "sha256": "edda8aa55b183d65c78b6c9ee016987232e137e2075326cc7f5c19d0593d055b"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/read_training22.py": {
+      "bytes": 49672,
+      "sha256": "39291ddeeb9951b4d078d8d60de81eaa0f51a3bf796bf9464bb5dfe997ffa1bd"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/spec22.json": {
+      "bytes": 33019,
+      "sha256": "f061b64320e8fae35dd8ca0d186242579b4640bd5fecdd3e6da63d2f6983f8f4"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/train_B_1/clip_audit.json": {
+      "bytes": 569687,
+      "sha256": "4f69717b0e924e4d6a661db2c363ecc8dc1fb1e7be3801aae4bfc294ffa449f1"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/train_B_1/final_checkpoint_manifest.json": {
+      "bytes": 3570,
+      "sha256": "899d1f21094c1df366201bb1b3e0a6d2a910fd183eb5763fe894edab3a52c34d"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/train_B_1/host_receipt.json": {
+      "bytes": 304,
+      "sha256": "c66f6b78b1369005f55eb243fb904852ef6833f62d30c01a895d9d34d2a8c61b"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/train_B_1/session.json": {
+      "bytes": 2180511,
+      "sha256": "a10844e311a1b841d2a898187e17a59d2ca50a41091c34d07d6fc56b72f03749"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/train_B_1/training/learning_receipt.json": {
+      "bytes": 41115,
+      "sha256": "d4d271c5f007f99bfc45ae6f03e8f89656ad5000f45ec69768516b583205e742"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/train_B_1/training/training_blocks_manifest.json": {
+      "bytes": 49407,
+      "sha256": "a2d8c7c7605fe87cdbdbf02a65c8beec48f73e76da064f2a621e591a66877b0b"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/train_B_1/worker_receipt.json": {
+      "bytes": 75478,
+      "sha256": "a4d15182e76c7eb53cfd399568a19b9cf006d8986e0b9266da7d6a2f029897f3"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/train_B_1_readback.json": {
+      "bytes": 15695,
+      "sha256": "adcf023553c2593501a29b7c06da87b1fe23448f7319d4c278c213e1e5dbd1c8"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/train_B_1_readback_host_receipt.json": {
+      "bytes": 861,
+      "sha256": "4a03980e7ea5f5a19265efa7a135231f98f0374a6df78ac9b1ea56b7d9ba0dc1"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/train_B_1_reservation.json": {
+      "bytes": 689,
+      "sha256": "202ca485793ad13665dff8180c768d3ed92b2407642a140d52b3fb4550d36ff5"
+    }
+  },
+  "ledger_source_identity": {
+    "bytes": 17806,
+    "sha256": "881a49095b271e76f89636687fa6945df8789a863688f3bd45a0739a1edcdd67"
+  },
+  "model_api_totals": {
+    "backward": {
+      "calls": 355,
+      "rows": 0
+    },
+    "evaluate_actions": {
+      "calls": 377,
+      "rows": 96512
+    },
+    "forward": {
+      "calls": 32768,
+      "rows": 32768
+    },
+    "learn": {
+      "calls": 1,
+      "rows": 0
+    },
+    "load": {
+      "calls": 8,
+      "rows": 0
+    },
+    "predict": {
+      "calls": 62409,
+      "rows": 62688
+    },
+    "predict_values": {
+      "calls": 64,
+      "rows": 64
+    },
+    "save": {
+      "calls": 1,
+      "rows": 0
+    },
+    "torch_load": {
+      "calls": 24,
+      "rows": 0
+    },
+    "train": {
+      "calls": 32,
+      "rows": 0
+    }
+  },
+  "new_A_training_controls": 0,
+  "new_model_calls_by_this_script": 0,
+  "new_physics_calls_by_this_script": 0,
+  "new_servo_calls_by_this_script": 0,
+  "optional_decision_evidence": {
+    "final_execution_decision_22.json": {
+      "final_execution_allowed": true,
+      "schema": "d1-c22-fixed-final-execution-decision-v1"
+    },
+    "first1024_pair_22.json": {
+      "passed": true,
+      "schema": "d1-c22-first1024-byte-pair-v1"
+    }
+  },
+  "pure_geometry_separate_from_robot_budget": {
+    "C21_plus_C22_preflight_servo_intervals": 191200,
+    "historical_C21_compiler_native": 0,
+    "historical_C21_model_calls": 0,
+    "historical_C21_preflight_passed": false,
+    "historical_C21_robot_controls": 0,
+    "historical_C21_servo_intervals": 184800,
+    "new_C22_preflight_servo_intervals": 6400,
+    "new_independent_reader_servo_intervals": 108200,
+    "reader_intervals_are_separate_from_preflight_6400_and_from_robot_controls": true,
+    "reused_qualified_intervals_not_reexecuted": 178400
+  },
+  "schema": "d1-c22-closed-execution-ledger-v1",
+  "scientific_benefit_claim_not_inferred_from_ledger": true,
+  "stage2_controls": 0,
+  "unexecuted_phases_not_counted": true,
+  "unused_reserved_controls_are_not_refunded": true,
+  "workers": {
+    "development_1": {
+      "actor_rows": 43296,
+      "case_count": 30,
+      "compiler_native": 2,
+      "critic_rows": 0,
+      "floor_count": 2,
+      "full_comparison_executed": true,
+      "host_elapsed_s": 837.1993514329952,
+      "host_failure": null,
+      "independent_reader_nominal_intervals_verified": 49600,
+      "independent_reader_valid": true,
+      "model_api_counts": {
+        "load": {
+          "attempted": 3,
+          "phases": {
+            "probe": {
+              "attempted": 3,
+              "returned": 3,
+              "rows": 0
+            }
+          },
+          "returned": 3,
+          "rows_attempted": 0,
+          "rows_returned": 0
+        },
+        "predict": {
+          "attempted": 43203,
+          "phases": {
+            "floor:A": {
+              "attempted": 600,
+              "returned": 600,
+              "rows": 600
+            },
+            "floor:B": {
+              "attempted": 600,
+              "returned": 600,
+              "rows": 600
+            },
+            "heldout:bumps_0p4:A": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:bumps_0p4:B": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:dev_bumps350:A": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:dev_bumps350:B": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:dev_bumps350:old": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:dev_bumps375:A": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:dev_bumps375:B": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:dev_bumps375:old": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:dev_yaw_left:A": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:dev_yaw_left:B": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:dev_yaw_left:old": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:dev_yaw_right:A": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:dev_yaw_right:B": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:dev_yaw_right:old": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:flat_0p6:A": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:flat_0p6:B": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:flat_1p2_yaw:A": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:flat_1p2_yaw:B": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:flat_1p2_yaw_mirror:A": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:flat_1p2_yaw_mirror:B": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:flat_1p6:A": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:flat_1p6:B": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:ramp_0p45_complete:A": {
+              "attempted": 1800,
+              "returned": 1800,
+              "rows": 1800
+            },
+            "heldout:ramp_0p45_complete:B": {
+              "attempted": 1800,
+              "returned": 1800,
+              "rows": 1800
+            },
+            "heldout:rough_0p35:A": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:rough_0p35:B": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "probe": {
+              "attempted": 3,
+              "returned": 3,
+              "rows": 96
+            }
+          },
+          "returned": 43203,
+          "rows_attempted": 43296,
+          "rows_returned": 43296
+        },
+        "torch_load": {
+          "attempted": 9,
+          "phases": {
+            "probe": {
+              "attempted": 9,
+              "returned": 9,
+              "rows": 0
+            }
+          },
+          "returned": 9,
+          "rows_attempted": 0,
+          "rows_returned": 0
+        }
+      },
+      "normal_native": 248000,
+      "optimizer_steps": 0,
+      "physical_controls": 49600,
+      "ppo_load": 3,
+      "reader_elapsed_s": 582.2470099849888,
+      "regular_policy_prediction_rows": 43200,
+      "reserved_controls": 49600,
+      "status": "closed",
+      "torch_load": 9,
+      "worker_execution_complete": true,
+      "worker_failure": null,
+      "worker_processes": 1
+    },
+    "final_1": {
+      "actor_rows": 19296,
+      "case_count": 16,
+      "compiler_native": 2,
+      "critic_rows": 0,
+      "floor_count": 0,
+      "full_comparison_executed": true,
+      "host_elapsed_s": 491.9194196680037,
+      "host_failure": null,
+      "independent_reader_nominal_intervals_verified": 25600,
+      "independent_reader_valid": true,
+      "model_api_counts": {
+        "load": {
+          "attempted": 3,
+          "phases": {
+            "probe": {
+              "attempted": 3,
+              "returned": 3,
+              "rows": 0
+            }
+          },
+          "returned": 3,
+          "rows_attempted": 0,
+          "rows_returned": 0
+        },
+        "predict": {
+          "attempted": 19203,
+          "phases": {
+            "heldout:final_bumps300:A": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:final_bumps300:B": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:final_bumps300:old": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:final_bumps385:A": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:final_bumps385:B": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:final_bumps385:old": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:final_yaw_left:A": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:final_yaw_left:B": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:final_yaw_left:old": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:final_yaw_right:A": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:final_yaw_right:B": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "heldout:final_yaw_right:old": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "probe": {
+              "attempted": 3,
+              "returned": 3,
+              "rows": 96
+            }
+          },
+          "returned": 19203,
+          "rows_attempted": 19296,
+          "rows_returned": 19296
+        },
+        "torch_load": {
+          "attempted": 9,
+          "phases": {
+            "probe": {
+              "attempted": 9,
+              "returned": 9,
+              "rows": 0
+            }
+          },
+          "returned": 9,
+          "rows_attempted": 0,
+          "rows_returned": 0
+        }
+      },
+      "normal_native": 128000,
+      "optimizer_steps": 0,
+      "physical_controls": 25600,
+      "ppo_load": 3,
+      "reader_elapsed_s": 333.94767581199994,
+      "regular_policy_prediction_rows": 19200,
+      "reserved_controls": 25600,
+      "status": "closed",
+      "torch_load": 9,
+      "worker_execution_complete": true,
+      "worker_failure": null,
+      "worker_processes": 1
+    },
+    "train_B_1": {
+      "actor_rows": 129376,
+      "actual_learning": {
+        "epochs": 104,
+        "evaluated_minibatches": 377,
+        "kl_early_stop_train_calls": 22,
+        "num_timesteps": 32768,
+        "optimizer_steps": 355,
+        "rollouts": 32,
+        "train_calls": 32,
+        "transitions": 32768
+      },
+      "checkpoint_model_identity": {
+        "bytes": 764484,
+        "sha256": "7bd58b5d6114745b12b4284be3f861f973a5d31d9d596365a5b54cb5e0d76691"
+      },
+      "compiler_native": 2,
+      "coverage": {
+        "active_loaded_episodes_by_terrain": {
+          "bumps": 3,
+          "ramp": 6,
+          "rough": 3
+        },
+        "applicability": "fixed_final_claim_exposure_gate_not_final_execution_gate",
+        "coverage_valid": true,
+        "endpoint_ticks_by_yaw_sign": {
+          "negative": 171,
+          "positive": 171
+        },
+        "postwarmup_completed_effective_episodes_by_slot": {
+          "0": 3,
+          "1": 3,
+          "2": 3,
+          "3": 3,
+          "4": 3,
+          "5": 3,
+          "6": 3,
+          "7": 3
+        },
+        "required_bump_sources": [
+          11,
+          19,
+          27
+        ],
+        "required_yaw_sources": [
+          10,
+          26
+        ]
+      },
+      "coverage_valid": true,
+      "critic_rows": 129344,
+      "geometry_resets_verified": 33,
+      "host_elapsed_s": 571.5636866690038,
+      "host_failure": null,
+      "independent_reader_nominal_intervals_verified": 33000,
+      "independent_reader_valid": true,
+      "model_api_counts": {
+        "backward": {
+          "attempted": 355,
+          "phases": {
+            "training": {
+              "attempted": 355,
+              "returned": 355,
+              "rows": 0
+            }
+          },
+          "returned": 355,
+          "rows_attempted": 0,
+          "rows_returned": 0
+        },
+        "evaluate_actions": {
+          "attempted": 377,
+          "phases": {
+            "training": {
+              "attempted": 377,
+              "returned": 377,
+              "rows": 96512
+            }
+          },
+          "returned": 377,
+          "rows_attempted": 96512,
+          "rows_returned": 96512
+        },
+        "forward": {
+          "attempted": 32768,
+          "phases": {
+            "training": {
+              "attempted": 32768,
+              "returned": 32768,
+              "rows": 32768
+            }
+          },
+          "returned": 32768,
+          "rows_attempted": 32768,
+          "rows_returned": 32768
+        },
+        "learn": {
+          "attempted": 1,
+          "phases": {
+            "training": {
+              "attempted": 1,
+              "returned": 1,
+              "rows": 0
+            }
+          },
+          "returned": 1,
+          "rows_attempted": 0,
+          "rows_returned": 0
+        },
+        "load": {
+          "attempted": 2,
+          "phases": {
+            "probe": {
+              "attempted": 1,
+              "returned": 1,
+              "rows": 0
+            },
+            "warm_load": {
+              "attempted": 1,
+              "returned": 1,
+              "rows": 0
+            }
+          },
+          "returned": 2,
+          "rows_attempted": 0,
+          "rows_returned": 0
+        },
+        "predict": {
+          "attempted": 3,
+          "phases": {
+            "probe": {
+              "attempted": 3,
+              "returned": 3,
+              "rows": 96
+            }
+          },
+          "returned": 3,
+          "rows_attempted": 96,
+          "rows_returned": 96
+        },
+        "predict_values": {
+          "attempted": 64,
+          "phases": {
+            "training": {
+              "attempted": 64,
+              "returned": 64,
+              "rows": 64
+            }
+          },
+          "returned": 64,
+          "rows_attempted": 64,
+          "rows_returned": 64
+        },
+        "save": {
+          "attempted": 1,
+          "phases": {
+            "probe": {
+              "attempted": 1,
+              "returned": 1,
+              "rows": 0
+            }
+          },
+          "returned": 1,
+          "rows_attempted": 0,
+          "rows_returned": 0
+        },
+        "torch_load": {
+          "attempted": 6,
+          "phases": {
+            "probe": {
+              "attempted": 3,
+              "returned": 3,
+              "rows": 0
+            },
+            "warm_load": {
+              "attempted": 3,
+              "returned": 3,
+              "rows": 0
+            }
+          },
+          "returned": 6,
+          "rows_attempted": 0,
+          "rows_returned": 0
+        },
+        "train": {
+          "attempted": 32,
+          "phases": {
+            "training": {
+              "attempted": 32,
+              "returned": 32,
+              "rows": 0
+            }
+          },
+          "returned": 32,
+          "rows_attempted": 0,
+          "rows_returned": 0
+        }
+      },
+      "normal_native": 163840,
+      "optimizer_steps": 355,
+      "physical_controls": 32768,
+      "ppo_load": 2,
+      "reader_elapsed_s": 328.2230210540001,
+      "reserved_controls": 32768,
+      "status": "closed",
+      "torch_load": 6,
+      "worker_execution_complete": true,
+      "worker_failure": null,
+      "worker_processes": 1
+    }
+  }
+}
