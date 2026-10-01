@@ -1,0 +1,220 @@
+{
+  "B22_training_worker_caps": {
+    "actor_rows": 38432,
+    "control_predict": 38400,
+    "load": 1,
+    "optimizer": 0,
+    "predict_total": 38401,
+    "probe_calls": 1,
+    "probe_rows": 32,
+    "torch_load": 3,
+    "train": 0
+  },
+  "action": {
+    "early_lower_enabled": false,
+    "extra_IK_per_leg_cap": 1,
+    "fixed_base": "C30 eight-millimetre-or-span retraction and lambda .5",
+    "lambda_map": ".5+.5*tanh(z[2])",
+    "latent_likelihood_not_projected_action_likelihood": true,
+    "physical_xy_component_cap_m": 0.012,
+    "xy_tanh_residual_m": 0.004
+  },
+  "action_size": 3,
+  "automatic_extra_training": false,
+  "automatic_retry": false,
+  "controlled_failure_stop": {
+    "consecutive": 2,
+    "total": 8
+  },
+  "episode": {
+    "controls_cap": 2200,
+    "native_per_control": 5,
+    "new_data_objects_per_reset": 0,
+    "prepare_controls": 200,
+    "retention_controls": 400,
+    "side_compute_cap": 1500,
+    "side_prepares_cap": 4,
+    "side_starts_cap": 1,
+    "tail_controls": 100
+  },
+  "evaluation": {
+    "B22_model_caps": {
+      "actor_rows": 6032,
+      "control_predict": 6000,
+      "load": 1,
+      "optimizer": 0,
+      "predict_total": 6001,
+      "probe_calls": 1,
+      "probe_rows": 32,
+      "torch_load": 3,
+      "train": 0
+    },
+    "GUI_qualification": false,
+    "close_s": 960,
+    "compiler_native_cap": 2,
+    "controls_cap": 22000,
+    "full_tau2_over_fixed_max": 1.1,
+    "full_tau2_over_zero_max": 1.2,
+    "global_torch_load_cap": 4,
+    "goal_error_over_zero_delta_max_m": 0.002,
+    "hard_s": 1020,
+    "heldout_actors": [
+      "zero",
+      "fixed",
+      "learned"
+    ],
+    "lateral_model_caps": {
+      "actor_rows_total": 40,
+      "actual_event_actor_rows": 24,
+      "backward": 0,
+      "checkpoint_load": 1,
+      "optimizer": 0,
+      "parameter_sets": 1,
+      "probe_actor_rows": 16,
+      "probe_value_rows": 16,
+      "rng_samples": 0,
+      "save": 0,
+      "train": 0,
+      "value_rows_total": 16
+    },
+    "learned_cancel_directions": [
+      1,
+      -1
+    ],
+    "learned_over_fixed_cycle_max": 0.95,
+    "learned_over_zero_cycle_max": 0.9,
+    "new_cases_cap": 10,
+    "new_heldout_conditions": [
+      {
+        "direction": 1,
+        "initial_yaw_rad": 0.04
+      },
+      {
+        "direction": -1,
+        "initial_yaw_rad": -0.04
+      }
+    ],
+    "nominal_learned_directions": [
+      1,
+      -1
+    ],
+    "normal_native_cap": 110000,
+    "outer_s": 1500,
+    "reader_hard_s": 1200,
+    "retention_absolute_min": 0.9,
+    "retention_over_zero_delta_min": -0.02,
+    "soft_s": 900,
+    "torch_load_phase_caps": {
+      "lateral_load": 1,
+      "probe": 3
+    }
+  },
+  "execution_contract_id": "C31_event_lateral_RL_pilot_v1",
+  "lateral_training_worker_caps": {
+    "actor_rows": 2848,
+    "backward": 64,
+    "failure_save": 1,
+    "final_save": 1,
+    "minibatch_forwards": 64,
+    "optimizer": 64,
+    "parameter_sets": 2,
+    "reload": 1,
+    "sample_events": 256,
+    "value_rows": 800
+  },
+  "observation_elapsed_seconds": "0.01*(current_local_control_index-side_start_local_control_index); excludes pending physical interval",
+  "observation_size": 54,
+  "parent_final_review": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/final_review_30.json",
+  "parent_final_review_sha256": "9d07859fc14ce43e7939a4b69aba9a1bc8c7391183742dd506c4abcaf51508c5",
+  "record_index_fields": [
+    "cycle_index",
+    "local_control_index",
+    "global_control_index",
+    "local_native_start",
+    "global_native_start"
+  ],
+  "reward": {
+    "backtrack_normalized": -0.05,
+    "elapsed_s": -1.0,
+    "failure_unelapsed_horizon_charge_s": 22.0,
+    "lateral_goal_error_normalized_square_integral_s": -0.02,
+    "longitudinal_normalized_square_integral_s": -0.02,
+    "progress": 10.0,
+    "terminal_failure": -50.0,
+    "terminal_success": 5.0,
+    "torque_is_energy": false,
+    "torque_normalized_square_integral_s": -0.5,
+    "yaw_error_normalized_square_integral_s": -0.02
+  },
+  "schema": "d1-c31-event-pilot-draft-v1",
+  "static_API_global_caps": {
+    "copy": 97024,
+    "forward": 10812416,
+    "fullM": 96000,
+    "jac": 384000,
+    "jacBody": 9265152,
+    "objectVelocity": 192064
+  },
+  "status": "DRAFT_NO_TRAINING_GO",
+  "training": {
+    "actor_architecture": [
+      54,
+      3
+    ],
+    "actor_dtype": "float64",
+    "actor_grad_norm_cap": 0.5,
+    "actual_macros_cap": 256,
+    "adam_betas": [
+      0.9,
+      0.999
+    ],
+    "adam_eps": 1e-08,
+    "advantage_normalization": "(A-mean)/(sqrt(mean((A-mean)^2))+1e-8)",
+    "batch_size": 8,
+    "batches_cap": 8,
+    "clip_ratio": 0.2,
+    "close_s": 4500,
+    "compiler_native_cap": 2,
+    "controls_cap": 140800,
+    "critic_architecture": [
+      54,
+      1
+    ],
+    "critic_grad_norm_cap": 0.5,
+    "cycles_cap": 64,
+    "cycles_per_batch": 8,
+    "environment_seed": 271001,
+    "epochs": 2,
+    "gae_lambda_per_second": 0.95,
+    "gamma": 1.0,
+    "global_torch_load_cap": 4,
+    "gradient_clip_eps": 1e-06,
+    "gradient_clip_error_if_nonfinite": true,
+    "gradient_clip_factor": "min(1,0.5/(group_raw_l2_norm+1e-6))",
+    "gradient_clip_foreach": false,
+    "gradient_clip_groups": "independent_actor_and_critic",
+    "hard_post_update_kl": 0.1,
+    "hard_s": 4560,
+    "latent_std_fixed": 0.35,
+    "learning_rate": 0.001,
+    "macro_rows_per_batch_cap": 32,
+    "minibatch_attempts_cap": 64,
+    "normal_kl_stop": 0.03,
+    "normal_native_cap": 704000,
+    "optimizer_step_count_semantics": "one optimizer.step updates both parameter groups; at most 64 calls; actual moments/steps reported per group",
+    "optimizer_steps_cap": 64,
+    "outer_s": 4800,
+    "policy_seed": 310031,
+    "post_update_kl_rows": "all actual n rollout rows, actor only without gradient",
+    "pre_update_kl_rows": "actual minibatch; same actor forward reused for loss; rejected attempt still counted",
+    "reader_hard_s": 3600,
+    "soft_s": 4200,
+    "source_postcheck_s": 180,
+    "source_preflight_s": 240,
+    "torch_load_phase_caps": {
+      "lateral_final": 1,
+      "probe": 3
+    }
+  },
+  "training_authorized": false
+}

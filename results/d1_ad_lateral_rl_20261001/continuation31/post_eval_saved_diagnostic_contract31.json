@@ -1,0 +1,120 @@
+{
+  "RL_speed_conclusion_predeclared": false,
+  "allowed_computation": "stdlib and NumPy arithmetic over saved values, hashes, gzip/JSON/NPZ decoding; no Torch/MuJoCo/SB3/gym/runtime imports or policy replay; no new fitted model or hypothetical control rollout",
+  "budget": {
+    "exclusive_creation": true,
+    "executions": 1,
+    "hard_wall_s": 900,
+    "new_output_directory": "post_eval_saved_diagnostic_01",
+    "no_retry_or_timeout_extension": true,
+    "tests_optional_new_pure_fixture_nodes_max": 2,
+    "tests_scope": "synthetic saved-field fixtures only, not simulation or training"
+  },
+  "calls": {
+    "GUI": 0,
+    "backward": 0,
+    "compiler_native": 0,
+    "engine_or_robot_API": 0,
+    "model_construction": 0,
+    "model_load": 0,
+    "network": 0,
+    "normal_native": 0,
+    "optimizer": 0,
+    "policy_or_value_forward": 0,
+    "runtime_source_mutations": 0
+  },
+  "contract_id": "C31_post_eval_saved_difference_diagnostic_v1",
+  "created_at_utc": "2026-10-01T09:22:57.117272+00:00",
+  "execution_authorized_scope": "One saved-only descriptive diagnosis after the unique evaluation worker and its independent v2 readback close; no physical or learning authorization.",
+  "formal_training_or_evaluation_source_GO_changed": false,
+  "frozen_gate_examples": {
+    "goal_error_delta_max_m": 0.002,
+    "learned_over_fixed_cycle_max": 0.95,
+    "learned_over_zero_cycle_max": 0.9,
+    "retention_delta_min": -0.02,
+    "retention_min": 0.9,
+    "tau2_over_fixed_max": 1.1,
+    "tau2_over_zero_max": 1.2
+  },
+  "input_scope": {
+    "C30_and_eval_allowed": [
+      "independent_reports_and_execution_receipts",
+      "host_worker_session_source_and_atomic_manifests",
+      "controls.jsonl.gz",
+      "states.npz",
+      "initial_state.npz",
+      "reset.json",
+      "macro_transitions30.json",
+      "macro_transitions31.json",
+      "cycle_receipt.json",
+      "segment_receipt.json",
+      "task31.json"
+    ],
+    "C30_baseline_cases": [
+      "zero_left",
+      "zero_right",
+      "fixed_nonzero_left",
+      "fixed_nonzero_right"
+    ],
+    "C30_complete_case_limit": 4,
+    "C31_evaluation_case_limit": 10,
+    "C31_training_cycle_limit": 64,
+    "actual_latches_cap": 312,
+    "all_used_paths_and_current_SHA256_in_output": true,
+    "archived_independent_native_qualification_reused": true,
+    "endpoint_rows_cap": 30814,
+    "latch_cap_explanation": "16 baseline + at most256 training + at most40 evaluation; fewer for real cancellations",
+    "normal_native_payload_rescan": false,
+    "numeric_control_rows_streamed_cap": 30800,
+    "training_allowed": [
+      "training_readback_02.json",
+      "training_readback_execution_02/receipt.json",
+      "episode_0..63/macro_transitions31.json",
+      "episode_0..63/cycle_receipt.json",
+      "saved_learning_diagnostics_31.json",
+      "future_notes_data_31.json",
+      "spec31_draft.json",
+      "pilot_contract_31_draft.md"
+    ],
+    "training_raw_control_or_native_rescan": false,
+    "unknown_extra_files_or_episodes": "reject; do not discover additional experiments or select cases by outcomes"
+  },
+  "interpretation_rules": [
+    "Final evaluation result is not yet known at contract creation; current online nominal timing cannot substitute for final report.",
+    "Report learned versus fixed and zero per matched direction/condition. No cancellation or missing case may be dropped from qualification.",
+    "Phase changes, raw actions and clipping/fallback correlations are observational decompositions, not causal counterfactuals.",
+    "Do not sum overlapping timing spans, call all post-nominal delay unnecessary waiting, or infer speed from 37mm overshoot without the fixed30mm/time metric.",
+    "The400-control retention is an observation/qualification interval, not a forced intercycle dwell; separate cycle speed from preparation+retention experiment throughput.",
+    "Pre-update value EV belongs to each distinct collected batch/target and is neither a fixed validation curve nor final64-update critic EV.",
+    "Actor/value clipping is independent; do not infer shared-gradient suppression. Small latent KL is not proof of convergence or physical speed gain.",
+    "If final gates pass, only recommend a separately budgeted minimal GUI join. If any gain gate fails, stop expansion; this diagnosis does not authorize more training.",
+    "No selection of another checkpoint, reward retuning, threshold relaxation, new heldout cases or policy simulation is allowed."
+  ],
+  "outputs": [
+    "input identities and evidence status; report branch pending/qualified/gain_gate_failed/physical_or_record_failure",
+    "four condition/direction groups and every original final gain gate, copied with report identity; no averaging or new gate",
+    "phase-before-compute integer counts and half-open control windows; sum equals actual side controls; preparation and 400 retention separately accounted",
+    "per-leg nominal timing versus observed phase timing; same-phase post-nominal counts and actual saved readiness reasons, missing reasons explicitly unknown",
+    "per-latch raw latent/proposed residual/fixed base/projected/consumed actions and body waypoints where saved; exact projection and fallback reasons; lambda distinct from achieved overlap",
+    "per-leg actual lift-horizontal overlap ticks and observed first whole-wheel/prior5T eligibility versus horizontal start; early descent remains disabled",
+    "task net displacement, nominal30mm/time, actual net/time, retained displacement and ratio, rollback, goal error, longitudinal drift and yaw",
+    "true saved native-torque normalized-square mean and time integral for full scene, side and retention when saved control traces permit; label torque-square cost not energy",
+    "training action/fallback/overlap/reward distributions across all64 cycles with direction and leg labels; distinct from deterministic evaluation; value diagnostics explicitly pre-update changing batches",
+    "at most one conditional next research question, with evidence limits; no automatic training, source change or GUI qualification"
+  ],
+  "owner": {
+    "implementation": "existing Sol agent",
+    "scientific_review": "gpt-6-astra ultra",
+    "sole_executor": "root"
+  },
+  "preconditions": {
+    "evaluation_host_and_supervisor_closed": true,
+    "evaluation_run": "eval_01",
+    "gate_result_may_be_false": true,
+    "independent_eval_v2_report_and_execution_closed": true,
+    "missing_or_invalid_eval_evidence": "stop complete paired diagnostic; report unavailable sections and preserve failure; do not infer task success or read live data",
+    "train_readback": "training_readback_02.json",
+    "train_valid_required": true
+  },
+  "schema": "d1-c31-post-eval-saved-diagnostic-contract-v1"
+}

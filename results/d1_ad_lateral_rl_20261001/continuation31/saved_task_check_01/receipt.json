@@ -1,0 +1,25 @@
+{
+  "source_before": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/root31/saved_task31_regression.py": "3d087e7d68ee37ca53e3366cec8d3f20d16bcaaae8bb4ef1781a74478e25175a",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/root31/task31.py": "bed5eda99b4d5039c3e54b92465c936e3f972fd72ab83c6b64ac5ffd5bdb3946"
+  },
+  "source_after": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/root31/saved_task31_regression.py": "3d087e7d68ee37ca53e3366cec8d3f20d16bcaaae8bb4ef1781a74478e25175a",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/root31/task31.py": "bed5eda99b4d5039c3e54b92465c936e3f972fd72ab83c6b64ac5ffd5bdb3946"
+  },
+  "argv": [
+    "rtk",
+    "proxy",
+    "/usr/bin/python3",
+    "-B",
+    "-c",
+    "import sys,importlib.abc,runpy\nclass Fence(importlib.abc.MetaPathFinder):\n def find_spec(self,fullname,path=None,target=None):\n  if fullname.split(\".\")[0] in (\"torch\",\"mujoco\",\"stable_baselines3\",\"engine_binding\"): raise RuntimeError(\"saved fixture imported \"+fullname)\nsys.meta_path.insert(0,Fence())\nsys.argv=sys.argv[1:]\nrunpy.run_path(sys.argv[0],run_name=\"__main__\")",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/root31/saved_task31_regression.py",
+    "--output",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/saved_task_check_01/result.json"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 18.166827948007267,
+  "model_calls": 0,
+  "physics_calls": 0
+}

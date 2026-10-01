@@ -1,0 +1,57 @@
+{
+  "schema": "d1-c31-independent-math-pure-check-v1",
+  "source_sha256": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/read31/math_read31.py": "6b97472e3147c1db2c02bf3a835a283a37ff61a6651191e92c003376f3b9cb8a",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/read31/test_math_read31_pure.py": "82a5cf5b8e68cd9de2d3f631555d5b96cf1b654b87f894b6ef13f1e8cabe36cc"
+  },
+  "source_unchanged": true,
+  "ast_files": 2,
+  "runs": [
+    {
+      "command": [
+        "rtk",
+        "proxy",
+        "timeout",
+        "--signal=TERM",
+        "--kill-after=5s",
+        "60s",
+        "env",
+        "-u",
+        "LD_PRELOAD",
+        "-u",
+        "LD_LIBRARY_PATH",
+        "PYTHONPATH=/home/lyh/.local/lib/python3.10/site-packages:/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/read31",
+        "OPENBLAS_NUM_THREADS=1",
+        "OMP_NUM_THREADS=1",
+        "MKL_NUM_THREADS=1",
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/read31/test_math_read31_pure.py"
+      ],
+      "exit_code": 0,
+      "elapsed_wall_s": 0.26020672399317846
+    },
+    {
+      "command": [
+        "rtk",
+        "proxy",
+        "/home/lyh/wheel-legged-control-lab/.local-deps/bin/ruff",
+        "check",
+        "--no-cache",
+        "--select",
+        "E9,F63,F7,F82",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/read31/math_read31.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/read31/test_math_read31_pure.py"
+      ],
+      "exit_code": 0,
+      "elapsed_wall_s": 0.02734035099274479
+    }
+  ],
+  "passed": true,
+  "scope": "pure analytical fixtures only; no production learner/torch/mujoco import"
+}

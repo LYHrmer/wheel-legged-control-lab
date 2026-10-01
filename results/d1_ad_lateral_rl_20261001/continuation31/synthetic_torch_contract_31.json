@@ -1,0 +1,118 @@
+{
+  "cold_processes_cap": 1,
+  "count_derivation": {
+    "group_1": "observation arrays only; imports Torch but constructs no network",
+    "group_2": "synthetic closed-cycle labels and SMDP arrays only; no actual cycles or optimization",
+    "group_3": "two policy sets/two Adam objects; first at most two accepted n=8 updates gives actor32/value16 rows; second pre-KL rejection gives actor8/value0 rows; at most two backward/steps",
+    "group_4": "one initial policy plus independent save-reload plus evaluation load = three sets; train/eval latch gives actor2/value1 rows; three 16-row double-head probes give actor48/value48; one torch.save, two torch.load; duplicate save rejects before probe/load/constructor",
+    "total": "five parameter sets, actor<=90 rows/value<=65 rows; caps count synthetic operations, not a false claim of zero neural-model calls"
+  },
+  "decision": "GO",
+  "environment": {
+    "CUDA_VISIBLE_DEVICES": "",
+    "LD_LIBRARY_PATH": null,
+    "LD_PRELOAD": null,
+    "MKL_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "hard_wall_s": 90,
+  "invocations_cap": 1,
+  "other_pure_tests": "Root may execute separately scoped fake-runtime/side-interface fixtures without engine or neural network construction and record them separately; this receipt must not silently count them as these four tests.",
+  "outer_wall_s": 120,
+  "prior_C31_work": {
+    "independent_NumPy_test_cases_passed_reported_by_root": 6,
+    "note": "Six NumPy tests remain distinct saved tests; no repeat requested. Syntax/source reads are not tests or model executions.",
+    "prior_Torch_network_constructions_reported_by_root": 0,
+    "prior_optimizer_steps_reported_by_root": 0,
+    "robot_model_constructions": 0,
+    "robot_physics_calls": 0
+  },
+  "required_receipt": {
+    "actual_attempted_and_returned_counts": true,
+    "network_counts_not_merged_into_future_robot_pilot_actuals": true,
+    "no_project_model_or_engine_imports": true,
+    "no_retry_within_this_contract": true,
+    "preserve_first_failure": true,
+    "source_pre_post_hashes": true,
+    "synthetic_checkpoint_and_fake_complete_training_receipt_labelled": true,
+    "test_argv_exit_and_elapsed": true
+  },
+  "reviewed_at_utc": "2026-10-01T07:17:10.938794+00:00",
+  "reviewer": {
+    "model": "gpt-6-astra",
+    "reasoning_effort": "ultra"
+  },
+  "reviewer_execution": {
+    "model_calls": 0,
+    "physics_calls": 0,
+    "tests": 0
+  },
+  "schema": "d1-c31-synthetic-torch-test-contract-v1",
+  "scope": "Exactly one root-executed synthetic Torch/NumPy test invocation; not robot construction, environment reset, rollout, or pilot training authorization.",
+  "simulation_authorized": false,
+  "soft_wall_s": 60,
+  "source_identities": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/sol31/checkpoint31.py": {
+      "bytes": 5520,
+      "sha256": "bd3dc59012970065c5347aa38633a3d2523110e78f91636ed795ba40026d2b46"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/sol31/learning31.py": {
+      "bytes": 18428,
+      "sha256": "090bd2037b02cf61166b1736933643991cff41826550a505e506af7bee8696a4"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/sol31/observation31.py": {
+      "bytes": 8938,
+      "sha256": "e30b3d5688598a1282776e81226772cda3422e2d5d58b20876a188be6b291b1c"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/sol31/test_learning31_pure.py": {
+      "bytes": 7016,
+      "sha256": "ad783e0b12921ec6b5f6dcb9ef25c20e80fceca68cd9a5c33ab967e030e63723"
+    }
+  },
+  "synthetic_model_caps": {
+    "Adam_constructions": 2,
+    "LinearEventPolicy31_constructed_parameter_sets": 5,
+    "actor_forward_calls": 10,
+    "actor_forward_rows": 90,
+    "backward_calls": 2,
+    "checkpoint_probe_calls": 3,
+    "checkpoint_probe_rows_each": 16,
+    "deterministic_eval_latch_calls": 1,
+    "file_exists_rejected_save_attempts": 1,
+    "latent_normal_draw_coordinates": 3,
+    "minibatch_actor_forward_attempts": 3,
+    "optimizer_step_calls": 2,
+    "shuffle_randperm_calls": 3,
+    "shuffle_rows_each_cap": 8,
+    "torch_load_calls": 2,
+    "torch_nn_Linear_constructions": 10,
+    "torch_save_calls": 1,
+    "train_latch_rng_samples": 1,
+    "update_batch_calls": 2,
+    "value_forward_calls": 6,
+    "value_forward_rows": 65
+  },
+  "test_module": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/sol31/test_learning31_pure.py",
+  "test_nodes": [
+    "test_observation_uses_pre_state_and_actual_joint_addresses",
+    "test_smdp_gae_stays_within_cycle_and_failure_cost_is_real",
+    "test_actual_grouped_adam_and_pre_kl_rejection_are_distinct",
+    "test_sampling_train_vs_eval_and_one_final_reload"
+  ],
+  "training_authorized": false,
+  "zero_caps": {
+    "B22_checkpoint_load": 0,
+    "GUI_calls": 0,
+    "MuJoCo_static_calls": 0,
+    "PPO_load": 0,
+    "compiler_native_steps": 0,
+    "control_steps": 0,
+    "environment_resets": 0,
+    "normal_native_steps": 0,
+    "robot_MjData": 0,
+    "robot_MjModel": 0,
+    "robot_cycles": 0
+  }
+}

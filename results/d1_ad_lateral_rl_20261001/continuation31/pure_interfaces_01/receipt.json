@@ -1,0 +1,82 @@
+{
+  "source_before": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/root31/runtime31.py": {
+      "bytes": 10417,
+      "sha256": "45ce9b5ebeea85f881033b47aba938cbc637552278f50b2926c6498fb416bebc"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/root31/test_runtime31_pure.py": {
+      "bytes": 3428,
+      "sha256": "79f8cbf62514886585ec2cf3d8e2808a9a5f1d0c3d9d9fb89eeac5929ec0f3d2"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/sol31/side_skill31.py": {
+      "bytes": 29639,
+      "sha256": "debdffe735746d3410f3cf0e5c7a52e25ebed56a4f75944bce476acf78360d3e"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/sol31/observation31.py": {
+      "bytes": 8938,
+      "sha256": "e30b3d5688598a1282776e81226772cda3422e2d5d58b20876a188be6b291b1c"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/sol31/test_side_skill31_pure.py": {
+      "bytes": 4911,
+      "sha256": "9465316e07e42ce3f461ac7b5003606f1b132cd9f7f9fd02a925e982ceae502c"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/read31/math_read31.py": {
+      "bytes": 12852,
+      "sha256": "77f3610843d7b1ce331d68b1e4dc3cbcc568afb35afe35b997838822fe5ea9ae"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/read31/test_math_read31_pure.py": {
+      "bytes": 5106,
+      "sha256": "82a5cf5b8e68cd9de2d3f631555d5b96cf1b654b87f894b6ef13f1e8cabe36cc"
+    }
+  },
+  "source_after": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/root31/runtime31.py": {
+      "bytes": 10417,
+      "sha256": "45ce9b5ebeea85f881033b47aba938cbc637552278f50b2926c6498fb416bebc"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/root31/test_runtime31_pure.py": {
+      "bytes": 3428,
+      "sha256": "79f8cbf62514886585ec2cf3d8e2808a9a5f1d0c3d9d9fb89eeac5929ec0f3d2"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/sol31/side_skill31.py": {
+      "bytes": 29639,
+      "sha256": "debdffe735746d3410f3cf0e5c7a52e25ebed56a4f75944bce476acf78360d3e"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/sol31/observation31.py": {
+      "bytes": 8938,
+      "sha256": "e30b3d5688598a1282776e81226772cda3422e2d5d58b20876a188be6b291b1c"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/sol31/test_side_skill31_pure.py": {
+      "bytes": 4911,
+      "sha256": "9465316e07e42ce3f461ac7b5003606f1b132cd9f7f9fd02a925e982ceae502c"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/read31/math_read31.py": {
+      "bytes": 12852,
+      "sha256": "77f3610843d7b1ce331d68b1e4dc3cbcc568afb35afe35b997838822fe5ea9ae"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/read31/test_math_read31_pure.py": {
+      "bytes": 5106,
+      "sha256": "82a5cf5b8e68cd9de2d3f631555d5b96cf1b654b87f894b6ef13f1e8cabe36cc"
+    }
+  },
+  "argv": [
+    "rtk",
+    "proxy",
+    "/usr/bin/python3",
+    "-B",
+    "-c",
+    "import sys,importlib.abc\nclass Fence(importlib.abc.MetaPathFinder):\n def find_spec(self,fullname,path=None,target=None):\n  if fullname.split(\".\")[0] in (\"torch\",\"mujoco\",\"stable_baselines3\",\"engine_binding\"): raise RuntimeError(\"pure fixture imported \"+fullname)\nsys.meta_path.insert(0,Fence())\nimport pytest\nraise SystemExit(pytest.main(sys.argv[1:]))",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/root31/test_runtime31_pure.py",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/sol31/test_side_skill31_pure.py",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/read31/test_math_read31_pure.py::test_failure_time_charge_and_unsafe_cycle_rejection"
+  ],
+  "exit_code": 0,
+  "elapsed_s": 0.575242655002512,
+  "engine_and_torch_imports_forbidden": true,
+  "model_calls": 0,
+  "physics_calls": 0,
+  "tests": "3 new runtime +2 side +1 affected reward-format regression"
+}

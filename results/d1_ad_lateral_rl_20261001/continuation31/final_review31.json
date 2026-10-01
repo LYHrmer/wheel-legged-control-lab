@@ -1,0 +1,387 @@
+{
+  "actual_robot_budget": {
+    "B22_control_predictions_train_eval": [
+      38400,
+      6000
+    ],
+    "B22_probe_rows_per_run": 32,
+    "B22_training": 0,
+    "evaluation": {
+      "compiler_native": 2,
+      "controls": 14311,
+      "cycles": 10,
+      "normal_native": 71555,
+      "optimizer_steps": 0,
+      "reserved_controls": 22000,
+      "true_macros": 34,
+      "unused_controls_closed_not_transferable": 7689,
+      "unused_normal_native_closed": 38445
+    },
+    "lateral_actor_rows_train_eval": [
+      2848,
+      34
+    ],
+    "lateral_value_rows_train_eval": [
+      800,
+      16
+    ],
+    "static_FK_Jacobian_CCD_queries_counted_as_integrations": false,
+    "synthetic_model_calls_are_separate_from_robot_execution": true,
+    "total": {
+      "compiler_native": 4,
+      "controls": 115028,
+      "cycles": 74,
+      "normal_native": 575140,
+      "optimizer_steps": 64,
+      "true_macros": 290,
+      "unused_controls_closed": 47772,
+      "unused_normal_native_closed": 238860
+    },
+    "training": {
+      "compiler_native": 2,
+      "controls": 100717,
+      "cycles": 64,
+      "normal_native": 503585,
+      "optimizer_steps": 64,
+      "reserved_controls": 140800,
+      "true_macros": 256,
+      "unused_controls_closed_not_transferable": 40083,
+      "unused_normal_native_closed": 200415
+    }
+  },
+  "cancellation": {
+    "both_safe": true,
+    "controls_each": 795,
+    "negative_retention_ratios_are_not_successful_displacement_retention": true,
+    "post_handoff_retention_controls_each": 400,
+    "request_to_safe_handoff_controls_each": 93,
+    "side_duration_s_each": 1.95,
+    "signed_handoff_lateral_m": {
+      "left": -0.023267507243991934,
+      "right": -0.023121305221892617
+    },
+    "successful_goal_speed_not_reported_for_cancel": true,
+    "tail_stopped_and_loaded": true
+  },
+  "evidence_boundaries": {
+    "C30_fixed_reference_improvement_not_attributed_to_RL": true,
+    "all_four_groups_required_without_averaging": true,
+    "four_full_tensors_equal_last_Adam": true,
+    "net_overshoot_not_redefined_as_larger_goal": true,
+    "new_heldout_conditions": [
+      {
+        "direction": 1,
+        "yaw_rad": 0.04
+      },
+      {
+        "direction": -1,
+        "yaw_rad": -0.04
+      }
+    ],
+    "nominal_C30_baselines_reused_not_rerun": true,
+    "nominal_goal_m": 0.03,
+    "retention_400_controls_not_forced_intercycle_wait": true,
+    "seed_labels_not_independent_physical_randomization": true,
+    "torque_square_not_energy": true,
+    "unique_final_checkpoint": {
+      "bytes": 4061,
+      "sha256": "8adaeadd62e0fa885b496574ca028c52343ca48236e61da1f1bac55bf8501e62"
+    }
+  },
+  "inputs": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/eval_01/host_receipt.json": {
+      "bytes": 493,
+      "sha256": "430556835700cc1ea91ff2573330306b027ea078c5d75baf4b9525652976f8fc"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/eval_01/session.json": {
+      "bytes": 2055495,
+      "sha256": "132841ee4aa754406b812ccadfdc9db750cd959969d3267e189550ea4e9c10e5"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/eval_01/supervisor_receipt.json": {
+      "bytes": 306,
+      "sha256": "cdccb655d6884b15163086e17bb03eb800256593b0a9481bc1eda2cc413a22f7"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/eval_01/worker_receipt.json": {
+      "bytes": 4623661,
+      "sha256": "adf71a9e740d2de468618ec5ef136889ef241db4bc610615dc0f2955362dd438"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/eval_readback_execution_01/receipt.json": {
+      "bytes": 11507,
+      "sha256": "d235ee88fbacb56b8f3145106c74cdf7f2d5475df8e6fb6b80aac89120de0ff4"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/eval_reader_interfaces_01/receipt.json": {
+      "bytes": 3121,
+      "sha256": "0f447df19f003f0688e0b5490ecc217e0ea25671465f921200a0ebdd72658d94"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/eval_reader_source_review_31_v2.json": {
+      "bytes": 12704,
+      "sha256": "306c4bb5108d2291f564a1c6292c9136dc7f33bfcd45286371d15efabc368591"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/final_readback_01.json": {
+      "bytes": 381700,
+      "sha256": "4d5cc0095e3ece5abbfe470677d82d5161094e8e2747e4d8219c3ad47324f9af"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/pilot_contract_31_draft.md": {
+      "bytes": 13894,
+      "sha256": "4c61258572ce526d787eabf88ab1737bb660c4ff1cd3aaa572e82e5d096228ac"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/post_eval_pure_checks_01/receipt.json": {
+      "bytes": 2015,
+      "sha256": "bca4e33f90f93fd943494247750fb736066b609a5d1e060807b3571f88d4b996"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/post_eval_saved_diagnostic_01/diagnostic.json": {
+      "bytes": 372004,
+      "sha256": "c3222152239fcdfbdc830e2a6f86cb6347b41755cae598a17c26a1d04582bb3a"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/post_eval_saved_diagnostic_01/summary.md": {
+      "bytes": 951,
+      "sha256": "f7e44e90b6c315ac24477082d6801f5db09cf0bfda2e0caab7c14c2a9fb0420e"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/post_eval_saved_diagnostic_addendum31_01.md": {
+      "bytes": 1056,
+      "sha256": "2f6003d268e0bffa48f07a5ee7271840a86a4bbf71d04491c80bb74afa3e661a"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/post_eval_saved_diagnostic_contract31.json": {
+      "bytes": 6743,
+      "sha256": "3f5b689c3d9dbf58e0529730c3c0fb5d75df102ceca4afeb40bc9564d5046176"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/post_eval_saved_diagnostic_contract31.md": {
+      "bytes": 3960,
+      "sha256": "c42f81469786b3e44835458571968b59cfa1eff45e8ea9c6dce8662c903859bf"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/post_eval_saved_diagnostic_execution_01/receipt.json": {
+      "bytes": 471,
+      "sha256": "1367d2b809ba63b6c6e916b7eef916a082bb36e58a03db8b7447fe1fab9a330d"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/post_eval_saved_diagnostic_source_go31.json": {
+      "bytes": 11880,
+      "sha256": "b91cafe679eb562fd1f22e1cf5ec8f91b3380e1204d3065392298cdc9ba45ff6"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/pure_interfaces_01/receipt.json": {
+      "bytes": 4771,
+      "sha256": "07df6fc76edfc13e507f1eb96c3bbcb370ec6e0459e421e51907fe5c0f40d2db"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/pure_math_01/receipt.json": {
+      "bytes": 2103,
+      "sha256": "21bd472f2c115d4facc7a4cf3c4ece51c1e5fea33afc4f2f49bc551acfc509f8"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/reader_interfaces_01/receipt.json": {
+      "bytes": 6842,
+      "sha256": "06dbeb254ecbb630593d3adf52a229f76784fa956f149b8ac40ecdebc454e5f4"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/reader_source_review_31_v2.json": {
+      "bytes": 12692,
+      "sha256": "3114f0fb9c7df3b367974288a984ef7a26200aba4e2b67323c8f46a35f0c1096"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/reader_v2_interfaces_01/receipt.json": {
+      "bytes": 5348,
+      "sha256": "ac95a23a2cbd9e45540bb84e8b9f1380e3dd50edb3f6a22fd7dc686603342008"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/saved_learning_diagnostics_31.json": {
+      "bytes": 11599,
+      "sha256": "67c8684f2fbf87b4a1fbc92c1449715943d745899b879586724b6a98cbcb906d"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/source_go_eval_31.json": {
+      "bytes": 2102173,
+      "sha256": "9c51f31a55d7282413364ea596ecef67367666c2a1b25d5b7786ad8fe5fc31b6"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/source_go_train_31.json": {
+      "bytes": 988688,
+      "sha256": "407b2b25a922780ef411cf6aa6ef709f46d3cf7e5ab46ad13bb3c02073e11b9a"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/spec31_draft.json": {
+      "bytes": 6125,
+      "sha256": "f350538af29c80aaa8dc7307b896f8d31d17b42e64529e9fe783659e4ff430fb"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/synthetic_torch_01/receipt.json": {
+      "bytes": 4246,
+      "sha256": "acd35a72e10708bdc7563d59568895cb37aab964acb0a898eb2ec7229a99e2a7"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/train_01/final_checkpoint/lateral_final.pt": {
+      "bytes": 4061,
+      "sha256": "8adaeadd62e0fa885b496574ca028c52343ca48236e61da1f1bac55bf8501e62"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/train_01/host_receipt.json": {
+      "bytes": 488,
+      "sha256": "b0d1ada8b4c1a395e5265079fc668889c981a6ae6babee05b6777d86479b58fa"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/train_01/session.json": {
+      "bytes": 981866,
+      "sha256": "ede2010ae6641ca57c1db6777b6caa27a0d8719ccdaab30b5cafe14d6de94ee4"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/train_01/supervisor_receipt.json": {
+      "bytes": 305,
+      "sha256": "6cedefcb5adcb36e72988f14ee422dee9467564214f1b21e1eb9655e5fe84278"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/train_01/worker_receipt.json": {
+      "bytes": 34699714,
+      "sha256": "34e2d6f6d2d138fefa89ecf0ded8ae4201b8e7a589b99072f8d3e076eefaf701"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/training_readback_02.json": {
+      "bytes": 2596767,
+      "sha256": "32a535b2eda83943d91487e35c720156bd94549caa3d4254125cf1a023b06f2e"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/training_readback_execution_01/receipt.json": {
+      "bytes": 5538,
+      "sha256": "4615a65a9558ae5fa33e77ad2b4d8f18ba0ef97ef633b30014d6594ec6ce44bc"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/training_readback_execution_01/stdout.log": {
+      "bytes": 1058,
+      "sha256": "84376116cf051dd533b1f7dfead7973ec9eeb46cecd008316caecfbb767eeeef"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/training_readback_execution_02/receipt.json": {
+      "bytes": 11503,
+      "sha256": "825943bed2024a9bc073a0df6c14cd737222606519cb58351c0657a4cd2da917"
+    }
+  },
+  "next_research_question": {
+    "authorization": "Question only. Any fitted model, optimization, new observation/critic or physical test requires a new explicit finite contract; nothing is started here.",
+    "causal_limit": "Even a better saved-target fit would not prove a faster physical policy, and this deterministic data would not establish statistical generalization.",
+    "question": "With the present action authority unchanged, can the existing 54-to-1 linear value baseline fit the frozen 256-event phase-dependent targets on a cycle-separated saved-data check well enough to distinguish insufficient numerical fitting from inadequate representation?",
+    "reason": "The final policy used small non-rejected residuals, while collection-time value fit remained weak; neither fact proves a geometric authority ceiling. A bounded value-fit question is more specific than automatically increasing samples or widening safety permissions."
+  },
+  "paired_groups": {
+    "heldout_left": {
+      "all_other_original_gates_passed": true,
+      "cycle_learned_over_fixed": 0.998968008255934,
+      "cycle_learned_over_zero": 0.9175355450236966,
+      "entry_paired": true,
+      "failed_gates": [
+        "cycle_le_0p90zero",
+        "cycle_le_0p95fixed"
+      ],
+      "fixed_cycle_s": 9.69,
+      "learned_cycle_s": 9.68,
+      "observed_cycle_reduction_vs_fixed_percent": 0.10319917440659854,
+      "qualification_passed": false,
+      "zero_cycle_s": 10.55
+    },
+    "heldout_right": {
+      "all_other_original_gates_passed": true,
+      "cycle_learned_over_fixed": 0.9958805355303809,
+      "cycle_learned_over_zero": 0.9165876777251184,
+      "entry_paired": true,
+      "failed_gates": [
+        "cycle_le_0p90zero",
+        "cycle_le_0p95fixed"
+      ],
+      "fixed_cycle_s": 9.71,
+      "learned_cycle_s": 9.67,
+      "observed_cycle_reduction_vs_fixed_percent": 0.4119464469619083,
+      "qualification_passed": false,
+      "zero_cycle_s": 10.55
+    },
+    "nominal_left": {
+      "all_other_original_gates_passed": true,
+      "cycle_learned_over_fixed": 0.998968008255934,
+      "cycle_learned_over_zero": 0.9175355450236966,
+      "entry_paired": true,
+      "failed_gates": [
+        "cycle_le_0p90zero",
+        "cycle_le_0p95fixed"
+      ],
+      "fixed_cycle_s": 9.69,
+      "learned_cycle_s": 9.68,
+      "observed_cycle_reduction_vs_fixed_percent": 0.10319917440659854,
+      "qualification_passed": false,
+      "zero_cycle_s": 10.55
+    },
+    "nominal_right": {
+      "all_other_original_gates_passed": true,
+      "cycle_learned_over_fixed": 0.9969104016477857,
+      "cycle_learned_over_zero": 0.9175355450236966,
+      "entry_paired": true,
+      "failed_gates": [
+        "cycle_le_0p90zero",
+        "cycle_le_0p95fixed"
+      ],
+      "fixed_cycle_s": 9.71,
+      "learned_cycle_s": 9.68,
+      "observed_cycle_reduction_vs_fixed_percent": 0.308959835221434,
+      "qualification_passed": false,
+      "zero_cycle_s": 10.55
+    }
+  },
+  "publication_boundary": "This review does not assert repository push, CI success, portable replay, GUI delivery or hardware qualification. Public artifacts must preserve the failed reader, original contracts and declared local-only large trajectory inventory.",
+  "reviewed_at_utc": "2026-10-01T09:43:53.916680+00:00",
+  "reviewer": {
+    "actual_model": "gpt-6-astra",
+    "reasoning_effort": "ultra"
+  },
+  "saved_diagnostic": {
+    "actual_latches_including_training": 306,
+    "body_shift_plus_recenter_s": 5.47,
+    "controls_read": 20761,
+    "execution_elapsed_s": 16.31778789300006,
+    "final_full_case_XY_fallbacks": 0,
+    "fixed_overlap_controls_per_leg": 11,
+    "fixed_phase_controls": {
+      "recenter": [
+        117,
+        118
+      ],
+      "shift": 429,
+      "swing": 96
+    },
+    "interpretation": "The consumed final residuals were small and not removed by XY fallback. Observed phase accounting explains the small final difference; it neither proves the safe action authority exhausted nor proves extra optimization would yield a faster valid controller.",
+    "learned_overlap_controls_per_leg": [
+      11,
+      12
+    ],
+    "learned_phase_controls": {
+      "recenter": 117,
+      "shift": 430,
+      "swing": [
+        93,
+        94
+      ]
+    },
+    "max_final_full_case_axis_residual_mm": 0.5975370093842316,
+    "model_or_value_replayed": false,
+    "native_payload_rescanned": false,
+    "new_physics_or_models": 0,
+    "train_XY_projected_and_consumed": 256
+  },
+  "schema": "d1-c31-final-scientific-review-v1",
+  "scientific_result": "The actual event-level PPO update and complete physical validation are supported. Every one of four paired direction/condition groups failed both preregistered cycle-reduction requirements; other error, retention, torque-cost, entry and physical gates passed. The small observed 0.10%-0.41% cycle reduction over fixed reference is descriptive, not the preregistered RL gain qualification.",
+  "status": "COMPLETE_VALID_EXPERIMENT_GAIN_NOT_QUALIFIED",
+  "value_diagnostic": {
+    "actor_and_value_clipping_independent": true,
+    "cause_not_resolved": "reward/feature scale, finite optimization and representation cannot be distinguished from this EV alone",
+    "last_batch_collection_pre_update_EV": 0.013373637347854128,
+    "not_final64update_EV": true,
+    "not_fixed_validation_curve": true,
+    "optimizer_steps_before_last_batch_update": 56,
+    "small_latent_KL_not_proof_of_convergence_or_speed": true,
+    "weak_critic_fit_supported_at_collection": true
+  },
+  "verdict": {
+    "GUI_AD_qualified": false,
+    "additional_physics_authorized": false,
+    "additional_training_authorized": false,
+    "all_current_physical_budgets_closed": true,
+    "complete_train_and_eval_records_valid": true,
+    "final_physical_cases_qualified": 10,
+    "formal_RL_speed_benefit_gate_passed": false,
+    "hardware_evidence": false,
+    "learned_research_candidate_qualified": false,
+    "real_actor_update": true,
+    "training_cycles_qualified": 64,
+    "training_valid": true
+  },
+  "verification_and_failures": {
+    "complete_eval_readback_elapsed_s": 337.5325314179936,
+    "complete_training_readback_elapsed_s": 2411.706413464999,
+    "failed_first_saved_training_reader_executions": 1,
+    "first_failure_elapsed_s": 0.47480448498390615,
+    "first_failure_model_physics": 0,
+    "first_failure_reason": "incorrect equality between RTK-wrapper PID and actual Python-worker PID in source reader; original evidence retained",
+    "one_existing_reward_format_regression_repeat": true,
+    "reader_new_model_physics_calls": 0,
+    "reviewer_new_model_physics_test_calls": 0,
+    "runtime_or_checkpoint_retry": false,
+    "successful_test_node_executions": 28,
+    "unique_C31_pure_test_nodes": 27,
+    "v2_repair": "new version only; exact frozen successful host online descendant admission plus command/session/time/source closure; numerical gates unchanged"
+  }
+}
