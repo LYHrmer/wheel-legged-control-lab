@@ -1,0 +1,1409 @@
+{
+  "GUI_qualified": false,
+  "RL_trained": false,
+  "cancel_trigger_or_absence_correct": true,
+  "case_id": "fixed_nonzero_left",
+  "effective_permission_coverage": true,
+  "end_reason": "success_after_retention",
+  "execution_contract_id": "C30_lateral_skill_feasibility_v1",
+  "faster_than_zero_claim": false,
+  "future_training_overlap_threshold_only": true,
+  "hardware_evidence": false,
+  "latches": [
+    {
+      "action": [
+        -0.006180053148971385,
+        0.005080053452070053,
+        0.5
+      ],
+      "control_index": 200,
+      "leg_index": 2,
+      "macro_index": 0,
+      "projection_reason": "body_xy_projected_and_consumed"
+    },
+    {
+      "action": [
+        0.007799970519670281,
+        0.0017777682335654848,
+        0.5
+      ],
+      "control_index": 380,
+      "leg_index": 0,
+      "macro_index": 1,
+      "projection_reason": "body_xy_projected_and_consumed"
+    },
+    {
+      "action": [
+        -0.005624233266837356,
+        -0.005689288194510805,
+        0.5
+      ],
+      "control_index": 593,
+      "leg_index": 3,
+      "macro_index": 2,
+      "projection_reason": "body_xy_projected_and_consumed"
+    },
+    {
+      "action": [
+        0.007175572936609392,
+        -0.003537110831087832,
+        0.5
+      ],
+      "control_index": 824,
+      "leg_index": 1,
+      "macro_index": 3,
+      "projection_reason": "body_xy_projected_and_consumed"
+    }
+  ],
+  "ledger": {
+    "actual_data_objects": 3,
+    "actual_native_FK_calls": 7845,
+    "actual_static_API": {
+      "copy": 985,
+      "forward": 39309,
+      "fullM": 311,
+      "jac": 3557,
+      "jacBody": 11873,
+      "objectVelocity": 1939
+    },
+    "compiler_native": 2,
+    "controls": 1569,
+    "leg_prepares": 4,
+    "normal_native": 7845,
+    "passed": true,
+    "side_compute_controls": 969,
+    "static_queries_are_not_integration_or_native_contact_load": true
+  },
+  "macros": {
+    "100Hz_controls_not_relabelled_as_macro_samples": true,
+    "actual_macro_transitions": 4,
+    "full_scene_components": {
+      "actual_native_steps": 7845,
+      "backtrack_m": 0.0997198165508451,
+      "backtrack_normalized": 3.32399388502817,
+      "control_range": [
+        0,
+        1569
+      ],
+      "direction": 1,
+      "elapsed_controls": 1569,
+      "elapsed_s": 15.69,
+      "lateral_goal_error_normalized_square_integral_s": 25.851528387708893,
+      "lateral_goal_error_square_integral_m2_s": 0.023266375548938,
+      "longitudinal_normalized_square_integral_s": 13.014264575005255,
+      "longitudinal_square_integral_m2_s": 0.01171283811750473,
+      "potential_end": 1.0,
+      "potential_start": -0.0003804239640117794,
+      "progress_potential_difference": 1.0003804239640117,
+      "progress_sum_of_control_differences": 1.0003804239640122,
+      "reference_side_start_control": 200,
+      "reward_weights_defined": false,
+      "signed_net_displacement_m": 0.03671255072452587,
+      "signed_position_end_m": 0.03670113800560552,
+      "signed_position_start_m": -1.141271892035338e-05,
+      "torque_cost_is_energy": false,
+      "torque_normalized_square_integral_s": 0.3496333145523943,
+      "torque_normalized_square_mean": 0.02228383139275936,
+      "weighted_scalar_reward": null,
+      "yaw_error_normalized_square_integral_s": 0.005700442497039621,
+      "yaw_error_square_integral_rad2_s": 8.208637195737054e-05
+    },
+    "macro_components": [
+      {
+        "actual_native_steps": 900,
+        "backtrack_m": 0.024902049623533262,
+        "backtrack_normalized": 0.8300683207844421,
+        "control_range": [
+          200,
+          380
+        ],
+        "direction": 1,
+        "elapsed_controls": 180,
+        "elapsed_s": 1.8,
+        "lateral_goal_error_normalized_square_integral_s": 4.310957977099646,
+        "lateral_goal_error_square_integral_m2_s": 0.0038798621793896815,
+        "longitudinal_normalized_square_integral_s": 0.7591134039146488,
+        "longitudinal_square_integral_m2_s": 0.0006832020635231838,
+        "potential_end": -0.7407317970668881,
+        "potential_start": 0.0,
+        "progress_potential_difference": -0.7407317970668881,
+        "progress_sum_of_control_differences": -0.7407317970668881,
+        "reference_side_start_control": 200,
+        "reward_weights_defined": false,
+        "signed_net_displacement_m": -0.022221953912006643,
+        "signed_position_end_m": -0.022221953912006643,
+        "signed_position_start_m": 0.0,
+        "torque_cost_is_energy": false,
+        "torque_normalized_square_integral_s": 0.04123426617973609,
+        "torque_normalized_square_mean": 0.02290792565540894,
+        "weighted_scalar_reward": null,
+        "yaw_error_normalized_square_integral_s": 0.0008419631175383562,
+        "yaw_error_square_integral_rad2_s": 1.2124268892552328e-05
+      },
+      {
+        "actual_native_steps": 1065,
+        "backtrack_m": 0.02144826066109352,
+        "backtrack_normalized": 0.7149420220364507,
+        "control_range": [
+          380,
+          593
+        ],
+        "direction": 1,
+        "elapsed_controls": 213,
+        "elapsed_s": 2.13,
+        "lateral_goal_error_normalized_square_integral_s": 10.043817935024322,
+        "lateral_goal_error_square_integral_m2_s": 0.00903943614152189,
+        "longitudinal_normalized_square_integral_s": 3.0090457930891876,
+        "longitudinal_square_integral_m2_s": 0.002708141213780269,
+        "potential_end": -1.3507005837041504,
+        "potential_start": -0.7407317970668881,
+        "progress_potential_difference": -0.6099687866372623,
+        "progress_sum_of_control_differences": -0.6099687866372623,
+        "reference_side_start_control": 200,
+        "reward_weights_defined": false,
+        "signed_net_displacement_m": -0.018299063599117867,
+        "signed_position_end_m": -0.04052101751112451,
+        "signed_position_start_m": -0.022221953912006643,
+        "torque_cost_is_energy": false,
+        "torque_normalized_square_integral_s": 0.05573897159996515,
+        "torque_normalized_square_mean": 0.026168531267589272,
+        "weighted_scalar_reward": null,
+        "yaw_error_normalized_square_integral_s": 0.0004156204169269706,
+        "yaw_error_square_integral_rad2_s": 5.984934003748376e-06
+      },
+      {
+        "actual_native_steps": 1155,
+        "backtrack_m": 0.002359468423724108,
+        "backtrack_normalized": 0.07864894745747027,
+        "control_range": [
+          593,
+          824
+        ],
+        "direction": 1,
+        "elapsed_controls": 231,
+        "elapsed_s": 2.31,
+        "lateral_goal_error_normalized_square_integral_s": 3.109326588196446,
+        "lateral_goal_error_square_integral_m2_s": 0.0027983939293768014,
+        "longitudinal_normalized_square_integral_s": 2.0036531525723134,
+        "longitudinal_square_integral_m2_s": 0.0018032878373150818,
+        "potential_end": 1.0,
+        "potential_start": -1.3507005837041504,
+        "progress_potential_difference": 2.3507005837041506,
+        "progress_sum_of_control_differences": 2.3507005837041506,
+        "reference_side_start_control": 200,
+        "reward_weights_defined": false,
+        "signed_net_displacement_m": 0.08004798628531964,
+        "signed_position_end_m": 0.039526968774195134,
+        "signed_position_start_m": -0.04052101751112451,
+        "torque_cost_is_energy": false,
+        "torque_normalized_square_integral_s": 0.05446737995313014,
+        "torque_normalized_square_mean": 0.0235789523606624,
+        "weighted_scalar_reward": null,
+        "yaw_error_normalized_square_integral_s": 0.0014198616300812308,
+        "yaw_error_square_integral_rad2_s": 2.0446007473169724e-05
+      },
+      {
+        "actual_native_steps": 3725,
+        "backtrack_m": 0.05100501860941907,
+        "backtrack_normalized": 1.7001672869806357,
+        "control_range": [
+          824,
+          1569
+        ],
+        "direction": 1,
+        "elapsed_controls": 745,
+        "elapsed_s": 7.45,
+        "lateral_goal_error_normalized_square_integral_s": 6.387396145976057,
+        "lateral_goal_error_square_integral_m2_s": 0.005748656531378451,
+        "longitudinal_normalized_square_integral_s": 7.242226409664772,
+        "longitudinal_square_integral_m2_s": 0.006518003768698295,
+        "potential_end": 1.0,
+        "potential_start": 1.0,
+        "progress_potential_difference": 0.0,
+        "progress_sum_of_control_differences": 0.0,
+        "reference_side_start_control": 200,
+        "reward_weights_defined": false,
+        "signed_net_displacement_m": -0.002825830768589617,
+        "signed_position_end_m": 0.03670113800560552,
+        "signed_position_start_m": 0.039526968774195134,
+        "torque_cost_is_energy": false,
+        "torque_normalized_square_integral_s": 0.15770574254056632,
+        "torque_normalized_square_mean": 0.0211685560457136,
+        "weighted_scalar_reward": null,
+        "yaw_error_normalized_square_integral_s": 0.0030229775378303207,
+        "yaw_error_square_integral_rad2_s": 4.353087654475662e-05
+      }
+    ],
+    "macro_control_ranges": [
+      [
+        200,
+        380
+      ],
+      [
+        380,
+        593
+      ],
+      [
+        593,
+        824
+      ],
+      [
+        824,
+        1569
+      ]
+    ],
+    "passed": true,
+    "preparation_controls_outside_macros": 200,
+    "weighted_training_reward_defined": false
+  },
+  "nonzero_body_permission_consumed": true,
+  "qualification_passed": true,
+  "reader_model_calls": 0,
+  "reader_physics_calls": 0,
+  "reader_source_identity": {
+    "bytes": 20568,
+    "sha256": "40580ee0803460c537b1d3cfdc0bc33de1e8150ce84a6929c8cb904b8da788ad"
+  },
+  "record_valid": true,
+  "reference": {
+    "actual_overlap_legs": 4,
+    "early_lower_enabled": false,
+    "horizontal_native_control_checks": [
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 301,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 302,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 303,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 304,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 305,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 306,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 307,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 308,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 309,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 310,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 311,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 312,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 313,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 314,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 315,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 316,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 317,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 318,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 319,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 320,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 321,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 322,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 323,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 324,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 325,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 326,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 327,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 328,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 329,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 330,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 331,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 332,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 333,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 334,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 335,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 336,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 337,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 515,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 516,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 517,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 518,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 519,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 520,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 521,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 522,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 523,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 524,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 525,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 526,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 527,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 528,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 529,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 530,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 531,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 532,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 533,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 534,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 535,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 536,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 537,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 538,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 539,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 540,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 541,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 542,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 543,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 544,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 545,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 546,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 547,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 548,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 549,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 550,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 551,
+        "leg_index": 0
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 743,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 744,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 745,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 746,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 747,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 748,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 749,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 750,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 751,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 752,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 753,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 754,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 755,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 756,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 757,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 758,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 759,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 760,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 761,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 762,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 763,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 764,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 765,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 766,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 767,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 768,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 769,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 770,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 771,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 772,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 773,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 774,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 775,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 776,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 777,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 778,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 779,
+        "leg_index": 3
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 974,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 975,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 976,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 977,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 978,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 979,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 980,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 981,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 982,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 983,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 984,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 985,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 986,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 987,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 988,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 989,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 990,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 991,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 992,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 993,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 994,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 995,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 996,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 997,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 998,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 999,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 1000,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 1001,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 1002,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 1003,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 1004,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 1005,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 1006,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 1007,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 1008,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 1009,
+        "leg_index": 1
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 1010,
+        "leg_index": 1
+      }
+    ],
+    "horizontal_native_geometry_passed": true,
+    "overlap_controls_per_macro": {
+      "0": 11,
+      "1": 11,
+      "2": 11,
+      "3": 11
+    },
+    "reference_arithmetic_verified": true,
+    "reference_target_shape_does_not_retroactively_authorize_horizontal_start": true
+  },
+  "run": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/fixed_nonzero_left_01",
+  "schema": "d1-c30-independent-saved-skill-readback-v1",
+  "scope": "one headless 30 mm skill case; cross-case speed benefit and zero trajectory pairing require their separately authorized records",
+  "session_identity": {
+    "bytes": 960033,
+    "sha256": "e504ceb1a52a28064d58980e4b2aca34ee7e35e1c7502c767db5e8b87b53a622"
+  },
+  "source": {
+    "full_source_pre_and_postcheck_evidence": "successful saved host with source_mismatches=[]",
+    "passed": true,
+    "reader_full_historical_closure_rehash_performed": false,
+    "runtime_and_reader_current_identities": {
+      "archive13.atomic_archive_13": {
+        "bytes": 15325,
+        "sha256": "047fd765fc9213aaa346c0fe47393c65377ab38b04eae4a8cfa36c489f2732d7"
+      },
+      "controller18": {
+        "bytes": 9242,
+        "sha256": "b8f3b1d59880ca0bff7d7d4791ba823a101d396dd9f614e25414b83bd2133aba"
+      },
+      "d1_fast_side_step": {
+        "bytes": 32186,
+        "sha256": "935a77e31b83de407c5a4d3258c835546d4ff51f690edd2ed272e32ff91e8cb4"
+      },
+      "d1_side_step": {
+        "bytes": 15757,
+        "sha256": "42b488660a300077eb7c89f37d6d8649f360ade5852f9ce4f9c2c317ef4d134e"
+      },
+      "engine_binding": {
+        "bytes": 10624,
+        "sha256": "e0ab759d170a330972fb9d195c89711991484198717874d661d1431b91de6ce1"
+      },
+      "full_drive_command_08": {
+        "bytes": 3791,
+        "sha256": "ca7920419544731cc46f35ed7d9b2d59a20c84cf15401934390ea21e90d3a9de"
+      },
+      "geometry_read30": {
+        "bytes": 3379,
+        "sha256": "f0df83234fb9e6fade62ac6ea7d79f1cc94d3ab0411e4e0c91679f964fe3fcda"
+      },
+      "hybrid_adapter27": {
+        "bytes": 19127,
+        "sha256": "5e88a0f893a9db03b2a95dcf30583b4c857f679d87e4cde4968b647de5d4aa77"
+      },
+      "kinematics24": {
+        "bytes": 10838,
+        "sha256": "8d9399457b56bc7c5f279df04430519b916fda30d5f05d40553f04f85478ff86"
+      },
+      "macro30": {
+        "bytes": 4419,
+        "sha256": "98c7063723ef9b37595e9c1405243838b67862de97811df8db4dc9bafc060a0c"
+      },
+      "reader26": {
+        "bytes": 67194,
+        "sha256": "bedcd547353ee876797bf7f96882c1761355894c664c531932202bbe3bb7f2f7"
+      },
+      "reader26_deferred": {
+        "bytes": 14329,
+        "sha256": "0997007b87ad36659f26cf013f56e998e8d62484bd8585de82c87d13d088ba59"
+      },
+      "reader27": {
+        "bytes": 26525,
+        "sha256": "6845b7db78645d03de34b6b4c835490fb1f63565c0359b0b9a2d5869494b10de"
+      },
+      "record30": {
+        "bytes": 11394,
+        "sha256": "d59b857a964d837aac7dc4e5923b59451902e9e4096f5f154ce9a06d92cc9a3c"
+      },
+      "records27": {
+        "bytes": 13353,
+        "sha256": "75f151ad78ca03e62e48cd5d00b2204a9f5723936e3e0555c9477ca5b9e5f73f"
+      },
+      "reference_read30": {
+        "bytes": 16303,
+        "sha256": "5e7e9e9829f94b03b38179ff4752ef30515106f38daa90a5ca151ad39b765ce6"
+      },
+      "reward_read30": {
+        "bytes": 10389,
+        "sha256": "4772e0c0dec73363713095ef74365309ae7ce5aca82d1181b35465ee979c53c6"
+      },
+      "rl16_learning_11": {
+        "bytes": 61814,
+        "sha256": "837b1b7c814fcb174cc8f1d8ce0ad1bfcbf623e2cc4aba63ad36c3304f5ff673"
+      },
+      "run_rl16_training_08": {
+        "bytes": 45197,
+        "sha256": "e838c5d293b9b378d7be2b27ac58cd375edd4b5f0dcd1dfc0f6c078103ba02c9"
+      },
+      "runtime30": {
+        "bytes": 4472,
+        "sha256": "db58634b57a568582ca5f987398a3f2bc2fd79f8b3f898542b88ad130358bf33"
+      },
+      "runtime_support22": {
+        "bytes": 5592,
+        "sha256": "ffed9b03e0baa329f87691fe3376cf93d9db916996df075c2da5193cde677411"
+      },
+      "score27": {
+        "bytes": 18835,
+        "sha256": "9e33898a68f2f6ea98d6775f662bd10bcceb3eed9485ea116f3228f1a9d506b7"
+      },
+      "score_read30": {
+        "bytes": 8397,
+        "sha256": "86729831129c404f5c2527b7b8767bd15f3d8849598afbd9a19d8eaa4540c659"
+      },
+      "scripts.run_d1_latest_rl": {
+        "bytes": 44355,
+        "sha256": "663cf7c9b47995a2d9015ef2bfba1ed658ab59175f8e06a9f9b34da05b580d8c"
+      },
+      "side_math27": {
+        "bytes": 9326,
+        "sha256": "158d4d04ab5b5a609d00614de7da9aa513ab86f3cb7c574735646274eec22ecb"
+      },
+      "side_runtime27": {
+        "bytes": 14830,
+        "sha256": "31cec4faafd9cb6002bef1592bf4457cfda5ad8aa6d3e399afb89a31441591e1"
+      },
+      "side_skill30": {
+        "bytes": 23311,
+        "sha256": "bc9caecd32af8803c0979eea39eb53dcdd21a59e5aa1f981af9305622e43d5ac"
+      },
+      "state21": {
+        "bytes": 985,
+        "sha256": "7db5a9d9fa0941bc47f3b893d4b80b5f82a383650f9ab16f27b4247ab75d28d3"
+      },
+      "verify_control18": {
+        "bytes": 12933,
+        "sha256": "afcbfecbd1b6d176fe26d0559adc67820e0867a0af68cc61bd5ce2378cf62fb3"
+      },
+      "verify_course_e_08_03": {
+        "bytes": 54919,
+        "sha256": "c7d7b1ea343f29c6e108650bd707ee14e6515a873d55c3abe02c424a009b1419"
+      },
+      "verify_rl16_training_08": {
+        "bytes": 60347,
+        "sha256": "ca1f020e806f744d3e3fa519222e8e159215ecde25df65922fa4b9a8cc324cdb"
+      },
+      "worker30": {
+        "bytes": 14737,
+        "sha256": "f12cbedd3a7d24c8707cbc7d3e8c9ca324fe3334456b0014b071e5436117fbbd"
+      },
+      "world_upright_course_11": {
+        "bytes": 9809,
+        "sha256": "504cf329cabf889be5e2a6803b442114a6153437c87c992318bb12f8049efdb0"
+      }
+    }
+  },
+  "task": {
+    "actual_net_per_cycle_mps": 0.0038443039753656306,
+    "base_task_gates_passed": true,
+    "cancel_to_handoff_controls": null,
+    "case_id": "fixed_nonzero_left",
+    "each_wheel_liftoff": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "each_wheel_loaded_touchdown": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "entry_gates": {
+      "angular_speed": true,
+      "exact_200_preparation": true,
+      "foot_plane": true,
+      "four_actual_contacts": true,
+      "origin_speed": true,
+      "roll_pitch": true
+    },
+    "final_xy_error_m": 0.00955314525524751,
+    "final_yaw_error_rad": 0.004507561652321343,
+    "finish_support_margin_m": 0.16604976319466824,
+    "full_skill_qualification_not_decided_by_this_base_score_alone": true,
+    "gates": {
+      "B22_predict_restored_in_retention": true,
+      "all_raw_servo_motion_zero": true,
+      "cancel_safe_or_complete_step": true,
+      "cycle_within_original_15s": true,
+      "entry": true,
+      "exact_400_retention_complete": true,
+      "no_environment_termination": true,
+      "original_tail_stopped_and_loaded": true,
+      "retention_if_success": true,
+      "rolling_physical_safety": true,
+      "safe_landed_handoff": true,
+      "side_controls_within_1500": true,
+      "side_physical_safety": true
+    },
+    "is_cancellation_case": false,
+    "max_abs_longitudinal_drift_m": 0.060217177251217884,
+    "max_rollback_m": 0.0008153087361630479,
+    "new_reference_geometry_and_macro_gates_checked_separately": true,
+    "nominal_30mm_per_cycle_mps": 0.0030959752321981426,
+    "retention_control_window": [
+      1169,
+      1569
+    ],
+    "retention_ratio": 0.9852309198835202,
+    "side_control_window": [
+      200,
+      1169
+    ],
+    "side_duration_s": 9.69,
+    "side_started": true,
+    "signed_lateral_m": 0.03725130552129296,
+    "tail_stop": {
+      "checks": {
+        "body_vx": true,
+        "body_vy": true,
+        "clearance_std": true,
+        "positive_loads": true,
+        "raw_and_servo_zero": true,
+        "yaw_rate": true
+      },
+      "clearance_std_m": 5.50162143102632e-05,
+      "complete_window": true,
+      "each_wheel_positive_load_fraction": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "mean_abs_body_vx_mps": 9.617402568195373e-05,
+      "mean_abs_body_vy_mps": 2.5936416538070034e-05,
+      "mean_abs_yaw_rate_rps": 0.0002456064035031294,
+      "passed": true,
+      "window": [
+        1469,
+        1569
+      ]
+    }
+  },
+  "worker_receipt_identity": {
+    "bytes": 542917,
+    "sha256": "5cd248882fbe7b870fb73f7e8179777695466f965caa460719a9352e50c91571"
+  }
+}

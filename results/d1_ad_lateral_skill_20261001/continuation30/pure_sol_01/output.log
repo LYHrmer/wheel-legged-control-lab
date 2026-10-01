@@ -1,0 +1,81 @@
+..F...                                                                   [100%]
+=================================== FAILURES ===================================
+________________ test_fixed_plan_one_extra_ik_and_new_span_time ________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7d797e9546d0>
+
+    def test_fixed_plan_one_extra_ik_and_new_span_time(monkeypatch):
+        side = _side(monkeypatch, 'fixed_nonzero_left')
+        monkeypatch.setitem(sys.modules, 'd1_fast_side_step',
+                            types.SimpleNamespace(_edges=lambda points: [
+                                (np.zeros(2), np.array([1., 0.]))]))
+        monkeypatch.setitem(sys.modules, 'wheel_legged_control.d1.model',
+                            types.SimpleNamespace(JOINT_POSITION_LOW=np.full(16, -1.),
+                                                  JOINT_POSITION_HIGH=np.full(16, 1.)))
+>       side._prepare_leg()
+
+wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/sol30/test_side_skill30_pure.py:108: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <side_skill30.make_side30.<locals>.SkilledFast30 object at 0x7d797e954af0>
+
+    def _prepare_leg(self):
+        if self._skill30_cancel_requested:
+            self.leg=None
+            self.loading_leg=None
+            self._enter('abort_hold')
+            return
+        super()._prepare_leg()  # exact old planning and audited C27 hook
+        if self.phase != 'shift' or self.failure is not None:
+            # The frozen planner can abort. It has not produced a usable
+            # shift, so do not run extra IK or label a macro as latched.
+            return
+        index=int(control_index_provider())
+        if index<0 or self._skill30_latches!=self.index:
+            raise RuntimeError('C30 latch must equal this real global control and leg order')
+        original_from=np.asarray(self.body_from,dtype=float).copy()
+        original_to=np.asarray(self.body_to,dtype=float).copy()
+        original_shift=float(self.shift_time)
+        plan_com_height=float(self.com_height)
+        proposed=(0.0,0.0,0.0)
+        projected=proposed
+        consumed=proposed
+        reason='teacher_exact_zero'
+        extra_ik=None
+        static_margin=None
+        extra_qpos=None
+        extra_points=None
+        extra_com=None
+        if not arm.startswith('zero_'):
+            toward=original_from[:2]-original_to[:2]
+            distance=float(np.linalg.norm(toward))
+            world_delta=(np.zeros(2) if distance==0.0 else
+                         min(.008,distance)*toward/distance)
+            cy,sy=math.cos(self.yaw),math.sin(self.yaw)
+            local=np.array([cy*world_delta[0]+sy*world_delta[1],
+                            -sy*world_delta[0]+cy*world_delta[1]])
+            proposed=(float(local[0]),float(local[1]),.5)
+            local=np.clip(local,-.012,.012)
+            projected=(float(local[0]),float(local[1]),.5)
+            world_delta=np.array([cy*local[0]-sy*local[1],
+                                  sy*local[0]+cy*local[1]])
+            candidate=original_to.copy()
+            candidate[:2]+=world_delta
+            if (np.linalg.norm(candidate[:2]-original_from[:2])>.120
+                    or not np.isfinite(candidate).all()):
+                reason='max_shift_rejected_xy'
+            else:
+                # One extra old plan IK only, in the already-authorized
+                # start/compute scratch scope. No second model or data;
+                # this one additional plan IK uses the original forwards.
+                from d1_fast_side_step import _edges
+                from wheel_legged_control.d1.model import (
+                    JOINT_POSITION_LOW, JOINT_POSITION_HIGH)
+                target,extra_ik,points,com=self._ik(
+>                   candidate,self.quat,self.feet,None,None,outer=2,inner=6)
+E               AttributeError: 'SkilledFast30' object has no attribute 'quat'
+
+wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/sol30/side_skill30.py:150: AttributeError
+=========================== short test summary info ============================
+FAILED wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/sol30/test_side_skill30_pure.py::test_fixed_plan_one_extra_ik_and_new_span_time
+1 failed, 5 passed in 0.24s

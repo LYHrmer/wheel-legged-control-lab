@@ -1,0 +1,64 @@
+{
+  "actual": {
+    "B22_control_predictions": 205,
+    "B22_probe_calls": 1,
+    "active_wall_s": 6.737122911,
+    "compiler_native": 2,
+    "controls": 235,
+    "host_exit_code": -15,
+    "normal_native": 1175,
+    "owned_no_orphans": true,
+    "prefix_RTF": 0.3488135857166938,
+    "side_computes": 30,
+    "source_mismatches": [],
+    "training_controls": 0,
+    "worker_failure": null
+  },
+  "decision": "CLOSE_FAILED_PROFILE_NO_RERUN_OR_GUI_OPTIMIZATION",
+  "evidence": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation29/failed_saved_diagnostic_01.json": {
+      "bytes": 24412,
+      "sha256": "69d089ef8aae45bf01e0f2260f4829b3d36d0010685436eb261783fd362224a5"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation29/profile_left_01/host_receipt.json": {
+      "bytes": 539,
+      "sha256": "2d29a3b23cab485e9817fdf266754f9ffd06bfea4db723130fab6e418116096b"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation29/profile_left_01/supervisor_receipt.json": {
+      "bytes": 303,
+      "sha256": "05e55087157b72c93b3d7ee9e6917c0112681cd0aaa4a92abb7dd0d7059eeca5"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation29/profile_left_01/timing29.json": {
+      "bytes": 695433,
+      "sha256": "c4fe2a19bdedbac6f089daace7420e0c98ee9bd2c5d2a6973386760351f13aa1"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation29/profile_left_01/worker_receipt.json": {
+      "bytes": 52418,
+      "sha256": "8b6f49af7947afec4502fd97fd6231d52552e61c816af664e6dd7fb26047d5ba"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation29/source_go_29.json": {
+      "bytes": 938055,
+      "sha256": "c2b1e27b97e630dc35f93de196548167459c0d25988e9441aed36635dda3c749"
+    }
+  },
+  "formal_qualification": false,
+  "interpretation": [
+    "The 500 control cap was not completed; 235 controls stopped under the saved owner soft deadline.",
+    "The worker serialized durable evidence, but nonzero host exit violates the original success gate; no retrospective qualification or source repair.",
+    "Saved spans separate wall time and actual thread CPU; nested native_5T covers plant.step including actuator/measurement work, not pure mj_step.",
+    "Only 30 side controls are available; no full-cycle throughput estimate or causal attribution to unrelated processes.",
+    "No single mathematically equivalent optimization is adequately established by this prefix. No additional GUI profiling, replay, physics, or speculative optimization is authorized by this review."
+  ],
+  "next": "C30 headless independent 3D lateral skill implementation and bounded first fixed nonzero qualification; no training before explicit feasibility gates/source GO.",
+  "numerical_prefix_independently_verified": true,
+  "profile_record_valid": false,
+  "reviewer": {
+    "model": "gpt-6-astra",
+    "reasoning_effort": "ultra",
+    "role": "main route and independent evidence review"
+  },
+  "reviewer_executed_model_calls": 0,
+  "reviewer_executed_physics_calls": 0,
+  "reviewer_executed_tests": 0,
+  "schema": "d1-c29-final-profile-review-v1"
+}

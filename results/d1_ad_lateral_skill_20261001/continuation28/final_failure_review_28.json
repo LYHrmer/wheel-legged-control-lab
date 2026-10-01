@@ -1,0 +1,122 @@
+{
+  "actual_execution": {
+    "B22_control_predictions": 828,
+    "actor_rows": 860,
+    "compiler_native": 2,
+    "controls": 1883,
+    "host_exit_code": 1,
+    "host_owned_no_orphans": true,
+    "load": 1,
+    "normal_native": 9415,
+    "optimizer_steps": 0,
+    "probe_predictions": 1,
+    "probe_rows": 32,
+    "side_compute_calls": 1055,
+    "source_mismatches": [],
+    "torch_load": 3,
+    "training_controls": 0
+  },
+  "all_remaining_C28_arms_stopped": true,
+  "inputs": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation28/failed_saved_diagnostic_01.json": {
+      "bytes": 35337,
+      "sha256": "57f39e47848d813d3aa556e706b3c6484fa9bc2474edc06e827806748fa5d519"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation28/sol28/performance_diagnosis_28.md": {
+      "bytes": 4764,
+      "sha256": "328713eca858f939e7bfe7e48ee8f3710b0da77d4d5307cb1f1c0a434c7f2e35"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation28/source_go_28.json": {
+      "bytes": 928258,
+      "sha256": "0e8ec3fea56ad37d4a96365506f6b67ce85ce9233d132a45cefaf55745460b0d"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation28/zero_left_01/deferred_archive_receipt.json": {
+      "bytes": 10275,
+      "sha256": "f9ad321e3412699d950d4966baedd971fcc5d880d6b87bd4506f3e2d33da12d6"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation28/zero_left_01/host_receipt.json": {
+      "bytes": 533,
+      "sha256": "bd28d6e5440fde25b473ea13c80dcd32ee91a9a9487a4e24843871993da389d9"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation28/zero_left_01/performance.json": {
+      "bytes": 568633,
+      "sha256": "c8b7efad6b5aeb1a0d42e7a430f32f46f2a7501904706570dd91737e63c43e22"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation28/zero_left_01/worker_receipt.json": {
+      "bytes": 349397,
+      "sha256": "4f27d016992bc8d7a41adbb10206ff7007170d6e1c4027266a99ea4d354ec349"
+    }
+  },
+  "qualification": false,
+  "reviewed_at_utc": "2026-10-01T05:00:52.352419+00:00",
+  "reviewer": "actual gpt-6-astra / ultra",
+  "reviewer_model_calls": 0,
+  "reviewer_physics_calls": 0,
+  "reviewer_tests_run": 0,
+  "saved_diagnostic": {
+    "RTF_from_saved_deferred_window": 0.5606408876813403,
+    "active_wall_s": 33.586562118,
+    "active_window_source": "deferred_archive_receipt.json:active_start_ns/active_end_ns",
+    "actual_lateral_speed_mps": 0.0035112266571671507,
+    "all_seven_sections_checked": true,
+    "cycle_duration_s": 10.55,
+    "is_new_qualification": false,
+    "max_handoff_rollback_m": 0.0008803879287926156,
+    "nominal_30mm_speed_mps": 0.002843601895734597,
+    "original_performance_active_fields_remain_null": true,
+    "performance_fields_from_independent_diagnostic": {
+      "active_rtf": 0.5606408876813403,
+      "captures_verified": [
+        "frame_drive.png",
+        "frame_final.png",
+        "frame_initial.png"
+      ],
+      "draw_fps": 8.5153103492758,
+      "drawn_active_frames": 286,
+      "moving_capture_present": true,
+      "passed": false,
+      "poll_interval_p95_ns": 169040742,
+      "snapshot_age_p95_ns": 232784715
+    },
+    "physical_task_recomputed_gates_all_true": true,
+    "readback_errors": [],
+    "readiness_wait_s": {
+      "contacts": 0.0,
+      "margin": 0.0,
+      "nominal_end_union": 0.27,
+      "speed": 0.22,
+      "speed_or_tracking_union": 0.22,
+      "tracking": 0.07
+    },
+    "required_RTF_unchanged": 0.8,
+    "retention_after_4s": 0.9820330291598776,
+    "signed_lateral_m": 0.03704344123311344
+  },
+  "schema": "d1-c28-final-failure-review-v1",
+  "scientific_decisions": {
+    "RL_lateral_hypothesis_tested": false,
+    "damping_main_speed_route_gate": false,
+    "damping_reason": "speed_or_tracking waiting .22s is below the frozen .5s minimum, before any fixed probe; do not spend the remaining fixed-probe arms",
+    "next_only_proposed_profile_controls": 500,
+    "next_only_proposed_profile_native": 2500,
+    "next_physics_not_authorized_here": true,
+    "no_full_six_case_retry": true,
+    "no_gate_relaxation_or_active_time_exclusion": true,
+    "teacher_lateral_task_has_saved_positive_evidence_but_GUI_not_qualified": true
+  },
+  "source_failure": {
+    "missing_final_artifacts": [
+      "runtime_module_origins.json",
+      "mapped_libraries_final.json"
+    ],
+    "next_repair": "same actual origin validator before model/data/load and at final closure; no independent hand-maintained preflight substitute",
+    "reason": "runtime_module_origins requires recipes18 although the C27 task no longer uses or imports it",
+    "review_gap": "The real cold preflight exercised import repair and worker import-prefix dependencies but did not call the final runtime_module_origins validator. Source review should have aligned the validators before approving the run.",
+    "worker_failure_unchanged": {
+      "message": "GUI23 used module has no imported origin: recipes18",
+      "traceback": "Traceback (most recent call last):\n  File \"/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation27/root27/run_gui27.py\", line 809, in owner\n    runtime_module_origins(session['source_hashes']))\n  File \"/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation27/root27/run_gui27.py\", line 177, in runtime_module_origins\n    raise RuntimeError('GUI23 used module has no imported origin: '+name)\nRuntimeError: GUI23 used module has no imported origin: recipes18\n",
+      "type": "RuntimeError"
+    }
+  },
+  "status": "C28_CLOSED_FINALIZATION_FAILURE_AND_PERFORMANCE_GATE_FAILURE"
+}

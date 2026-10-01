@@ -1,0 +1,34 @@
+{
+  "schema": "d1-c30-root-pair-execution-v1",
+  "command": [
+    "rtk",
+    "proxy",
+    "timeout",
+    "--signal=TERM",
+    "--kill-after=5s",
+    "595s",
+    "env",
+    "-u",
+    "LD_PRELOAD",
+    "-u",
+    "LD_LIBRARY_PATH",
+    "PYTHONPATH=/home/lyh/.local/lib/python3.10/site-packages",
+    "OPENBLAS_NUM_THREADS=1",
+    "OMP_NUM_THREADS=1",
+    "MKL_NUM_THREADS=1",
+    "/usr/bin/python3",
+    "-B",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/pair_read30/audit_pairs30.py",
+    "--output",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/paired_trigger_audit_30.json"
+  ],
+  "exit_code": 0,
+  "elapsed_wall_s": 5.433629417995689,
+  "output": {
+    "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/paired_trigger_audit_30.json",
+    "sha256": "148dc8d5545c6b21e70e17471b5b5a1d130d0c028f2a8d78486b0bb64d738437",
+    "bytes": 70141
+  },
+  "pilot_trigger": true,
+  "training_authorized": false
+}

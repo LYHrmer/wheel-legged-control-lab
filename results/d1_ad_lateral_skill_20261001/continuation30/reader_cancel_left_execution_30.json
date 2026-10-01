@@ -1,0 +1,40 @@
+{
+  "schema": "d1-c30-root-reader-execution-v1",
+  "case": "cancel_left",
+  "command": [
+    "rtk",
+    "proxy",
+    "timeout",
+    "--signal=TERM",
+    "--kill-after=5s",
+    "595s",
+    "env",
+    "-u",
+    "LD_PRELOAD",
+    "-u",
+    "LD_LIBRARY_PATH",
+    "PYTHONPATH=/home/lyh/.local/lib/python3.10/site-packages",
+    "OPENBLAS_NUM_THREADS=1",
+    "OMP_NUM_THREADS=1",
+    "MKL_NUM_THREADS=1",
+    "/usr/bin/python3",
+    "-B",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/read30/read30.py",
+    "--run",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/cancel_left_01",
+    "--output",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/independent_cancel_left_01.json"
+  ],
+  "exit_code": 0,
+  "timed_out": false,
+  "elapsed_wall_s": 17.938326705014333,
+  "observed_completed_utc": "2026-10-01T06:35:54.699862+00:00",
+  "output": {
+    "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/independent_cancel_left_01.json",
+    "bytes": 18631,
+    "sha256": "f0f2c20b0e432c64958a7df93ee1891632f4084dd528acc28fc1a53a920f6c36"
+  },
+  "qualification_passed": true,
+  "reader_physics_calls": 0,
+  "reader_model_calls": 0
+}

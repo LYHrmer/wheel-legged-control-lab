@@ -1,0 +1,4704 @@
+{
+  "C_final": {
+    "armed": 1,
+    "ccd_attempts": 93971,
+    "ccd_returns": 93971,
+    "construction_attempts": 2,
+    "construction_limit": 2,
+    "construction_returns": 2,
+    "control_attempts": 3980,
+    "control_limit": 11000,
+    "control_returns": 3980,
+    "first_ccd_caller": 132710571465950,
+    "first_ccd_caller_dladdr": {
+      "address": 132710571465950,
+      "base": 132710569869312,
+      "offset": 1596638,
+      "path": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/libmujoco.so.3.12.0",
+      "symbol": null
+    },
+    "first_construction_step_caller": 132710573684040,
+    "first_construction_step_caller_dladdr": {
+      "address": 132710573684040,
+      "base": 132710569869312,
+      "offset": 3814728,
+      "path": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/libmujoco.so.3.12.0",
+      "symbol": null
+    },
+    "first_control_step_caller": 132710530423595,
+    "first_control_step_caller_dladdr": {
+      "address": 132710530423595,
+      "base": 132710529646592,
+      "offset": 777003,
+      "path": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/_functions.cpython-310-x86_64-linux-gnu.so",
+      "symbol": null
+    },
+    "native_ccd_caller_verified": true,
+    "native_construction_caller_verified": true,
+    "original_step": 132710572074240,
+    "phase": 0,
+    "target_data": 0,
+    "target_model": 0,
+    "violations": 0
+  },
+  "archive_failed": false,
+  "arm": "cancel_right",
+  "cleanup_errors": [],
+  "copy_edges": {
+    "live_to_measurement": 797,
+    "measurement_to_side_scratch": 200,
+    "rejected": 0
+  },
+  "elapsed_wall_s": 28.112271416990552,
+  "execution_complete": true,
+  "execution_contract_id": "C30_lateral_skill_feasibility_v1",
+  "failure": null,
+  "model_calls": {
+    "actor_rows": 632,
+    "counts": {
+      "load": {
+        "attempted": 1,
+        "phases": {
+          "probe": {
+            "attempted": 1,
+            "returned": 1,
+            "rows": 0
+          }
+        },
+        "returned": 1,
+        "rows_attempted": 0,
+        "rows_returned": 0
+      },
+      "predict": {
+        "attempted": 601,
+        "phases": {
+          "control": {
+            "attempted": 600,
+            "returned": 600,
+            "rows": 600
+          },
+          "probe": {
+            "attempted": 1,
+            "returned": 1,
+            "rows": 32
+          }
+        },
+        "returned": 601,
+        "rows_attempted": 632,
+        "rows_returned": 632
+      },
+      "torch_load": {
+        "attempted": 3,
+        "phases": {
+          "probe": {
+            "attempted": 3,
+            "returned": 3,
+            "rows": 0
+          }
+        },
+        "returned": 3,
+        "rows_attempted": 0,
+        "rows_returned": 0
+      }
+    },
+    "critic_rows": 0,
+    "limits": {
+      "backward": 0,
+      "evaluate_actions": 0,
+      "forward": 0,
+      "learn": 0,
+      "load": 1,
+      "predict": 2201,
+      "predict_values": 0,
+      "save": 0,
+      "torch_load": 3,
+      "train": 0
+    },
+    "schema": "d1-model-api-ledger-20-v1"
+  },
+  "native_guard": {
+    "contacts_checked": 27723,
+    "failure": null,
+    "force_sampling_performed": true,
+    "full_contact_qualification_claimed": true,
+    "max_abs_pitch_deg": 0.7249440473440871,
+    "max_abs_roll_deg": 0.7816971623472092,
+    "mode": "heldout",
+    "native_attempted": 3980,
+    "native_checked": 3980,
+    "native_returned": 3980,
+    "nonwheel_ground_contacts": 0,
+    "positive_wheel_load_by_family": {
+      "floor": 27639
+    },
+    "record_mode": "full_qualification",
+    "schema": "d1-course-native-contact-guard-08-v1",
+    "segments": [
+      {
+        "archive_block_manifests": [
+          "native_block_0000.jsonl.gz.manifest.json"
+        ],
+        "archive_failure": null,
+        "control_limit": 2200,
+        "failure": null,
+        "folder": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/cancel_right_01/episode_0",
+        "force_sampling_performed": true,
+        "full_contact_qualification_recorded": true,
+        "mode": "heldout",
+        "name": "skill30_0",
+        "native_attempted": 3980,
+        "native_files": [
+          "native_block_0000.jsonl.gz"
+        ],
+        "native_limit": 11000,
+        "native_returned": 3980,
+        "partial_native_interval": false,
+        "record_valid": true,
+        "task_contact_failure_files": [],
+        "train_array_files": []
+      }
+    ]
+  },
+  "optimizer_steps": 0,
+  "python": {
+    "clock_advanced_substeps": 3980,
+    "construction_records": [
+      {
+        "after": {
+          "armed": 1,
+          "ccd_attempts": 0,
+          "ccd_returns": 0,
+          "construction_attempts": 2,
+          "construction_limit": 2,
+          "construction_returns": 2,
+          "control_attempts": 0,
+          "control_limit": 11000,
+          "control_returns": 0,
+          "first_ccd_caller": 0,
+          "first_ccd_caller_dladdr": null,
+          "first_construction_step_caller": 132710573684040,
+          "first_construction_step_caller_dladdr": {
+            "address": 132710573684040,
+            "base": 132710569869312,
+            "offset": 3814728,
+            "path": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/libmujoco.so.3.12.0",
+            "symbol": null
+          },
+          "first_control_step_caller": 0,
+          "first_control_step_caller_dladdr": null,
+          "native_ccd_caller_verified": false,
+          "native_construction_caller_verified": true,
+          "original_step": 132710572074240,
+          "phase": 0,
+          "target_data": 0,
+          "target_model": 0,
+          "violations": 0
+        },
+        "before": {
+          "armed": 1,
+          "ccd_attempts": 0,
+          "ccd_returns": 0,
+          "construction_attempts": 0,
+          "construction_limit": 2,
+          "construction_returns": 0,
+          "control_attempts": 0,
+          "control_limit": 11000,
+          "control_returns": 0,
+          "first_ccd_caller": 0,
+          "first_ccd_caller_dladdr": null,
+          "first_construction_step_caller": 0,
+          "first_construction_step_caller_dladdr": null,
+          "first_control_step_caller": 0,
+          "first_control_step_caller_dladdr": null,
+          "native_ccd_caller_verified": false,
+          "native_construction_caller_verified": false,
+          "original_step": 132710572074240,
+          "phase": 0,
+          "target_data": 0,
+          "target_model": 0,
+          "violations": 0
+        }
+      }
+    ],
+    "control_attempted": 796,
+    "control_completed": 796,
+    "control_limit": 2200,
+    "fatal_latched": false,
+    "forbidden_entries": 0,
+    "forward_counts_by_runtime_model_data_identity": {
+      "(132707208828208, 132707054640432)": 2571,
+      "(132707212140272, 132707049955184)": 7917,
+      "(132707212140272, 132707220896240)": 798,
+      "(132707212140272, 132707235781104)": 2
+    },
+    "mj_forward_calls": 11288,
+    "mj_setConst_calls": 0,
+    "native_attempted": 3980,
+    "native_failed": 0,
+    "native_limit": 11000,
+    "native_returned": 3980,
+    "segments": [
+      {
+        "attempted": 796,
+        "completed": 796,
+        "limit": 2200,
+        "name": "skill30_global",
+        "native_attempted": 3980,
+        "native_returned": 3980
+      }
+    ],
+    "static_forward_is_not_dynamic_load_evidence": true
+  },
+  "qualification": false,
+  "result": {
+    "active_end_ns": 145755833828848,
+    "active_start_ns": 145738735662694,
+    "actual_event_transitions": 1,
+    "cancel_control_index": 303,
+    "completed_controls": 796,
+    "control_step_caller_verified": true,
+    "end_reason": "safe_cancel",
+    "final_info_metrics": {
+      "absolute_pitch_rad": -0.0015009133059013578,
+      "absolute_roll_rad": -0.0008409938761559596,
+      "body_com_vx_mps": 0.00032571698265796334,
+      "body_com_vy_mps": -5.509047535058651e-05,
+      "body_yaw_rate_rps": -0.0005543173282425467,
+      "clearance_m": 0.46075000790045617,
+      "control_time_s": 7.959999999999345,
+      "ground_geom_id": 0,
+      "ground_height_m": 0.0,
+      "native_interval_nonwheel_contacts": 0,
+      "reference_pitch_rad": 0.0,
+      "reference_roll_rad": 0.0,
+      "relative_pitch_rad": -0.0015009133059013578,
+      "relative_roll_rad": -0.0008409938761559596,
+      "task_pitch_error_rad": -0.0015009133059013578,
+      "task_roll_error_rad": -0.0008409938761559596,
+      "undesired_ground_contacts": 0,
+      "x_m": -8.000141946891098,
+      "y_m": -4.702806640106409
+    },
+    "independent_readback_pending": true,
+    "policy_predictions": 600,
+    "pure_fk_native_calls": 3980,
+    "qualification": false,
+    "side_done_completed_controls": 396,
+    "side_status": {
+      "active": false,
+      "active_leg": null,
+      "controller": "d1_fast_side_step",
+      "current_yaw_rad": 0.005932078027748499,
+      "direction": -1,
+      "done": true,
+      "dynamic_margin_m": 0.14827167850627002,
+      "elapsed_s": 1.9600000000000015,
+      "failure": "cancelled",
+      "ik_error_m": 1.1407671289992438e-07,
+      "initial_yaw_rad": -4.7734931457903213e-05,
+      "lift_peaks_m": [
+        0.0,
+        0.0,
+        0.0,
+        0.02929158112806009
+      ],
+      "load_weight": 1.0,
+      "loading_leg": null,
+      "max_torque_fraction": 0.3939214327927118,
+      "phase": "failed",
+      "plan_error_m": 8.750070072812943e-07,
+      "profile": "fast",
+      "shift_time_s": 0.7452927290455812,
+      "state_source": "simulator_truth",
+      "step_index": 0,
+      "success": false,
+      "support_margin_m": 0.14827167850627002,
+      "swing_time_s": 0.35156249999999994,
+      "torque_source": "d1_fast_side_step"
+    },
+    "stop_reason": "retention_complete",
+    "task_failure": null,
+    "terminated": false,
+    "truncated": false
+  },
+  "retry_permitted": false,
+  "schema": "d1-c30-headless-worker-v1",
+  "session_identity": {
+    "bytes": 975819,
+    "sha256": "07cf06996d9b64060936c401c27bd6c58fc2defe4a85274e98881517ca4195a3"
+  },
+  "side_access": {
+    "actual_T_P_bounds": {
+      "copy": 200,
+      "forward": 22188,
+      "fullM": 196,
+      "jac": 784,
+      "jacBody": 19008,
+      "objectVelocity": 393
+    },
+    "computes": 196,
+    "counts": {
+      "copy": 200,
+      "forward": 7917,
+      "fullM": 78,
+      "jac": 704,
+      "jacBody": 2353,
+      "objectVelocity": 393
+    },
+    "extra_plan_ik_limit_per_prepare": 1,
+    "limits": {
+      "copy": 1516,
+      "forward": 168944,
+      "fullM": 1500,
+      "jac": 6000,
+      "jacBody": 144768,
+      "objectVelocity": 3001
+    },
+    "owner_ident": 132710580289664,
+    "prepares": 1,
+    "rejected": 0,
+    "schema": "d1-c30-side-static-access-v1",
+    "scopes": [
+      {
+        "calls": {
+          "copy": 4,
+          "forward": 136,
+          "fullM": 0,
+          "jac": 0,
+          "jacBody": 60,
+          "objectVelocity": 1
+        },
+        "compute_count": 0,
+        "failure": null,
+        "kind": "start",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 988,
+          "ccd_returns": 988
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 36,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 8,
+          "objectVelocity": 2
+        },
+        "compute_count": 1,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 36,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 8,
+          "objectVelocity": 2
+        },
+        "compute_count": 2,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 38,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 10,
+          "objectVelocity": 2
+        },
+        "compute_count": 3,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 38,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 10,
+          "objectVelocity": 2
+        },
+        "compute_count": 4,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 5,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 6,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 7,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 8,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 9,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 10,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 11,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 12,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 13,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 14,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 15,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 16,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 17,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 18,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 19,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 20,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 21,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 22,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 23,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 24,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 25,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 26,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 27,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 28,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 29,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 30,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 31,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 32,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 33,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 34,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 35,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 36,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 37,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 38,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 39,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 40,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 41,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 42,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 272,
+          "ccd_returns": 272
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 43,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 272,
+          "ccd_returns": 272
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 44,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 272,
+          "ccd_returns": 272
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 45,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 272,
+          "ccd_returns": 272
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 46,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 272,
+          "ccd_returns": 272
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 47,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 272,
+          "ccd_returns": 272
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 48,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 272,
+          "ccd_returns": 272
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 49,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 272,
+          "ccd_returns": 272
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 50,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 272,
+          "ccd_returns": 272
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 51,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 272,
+          "ccd_returns": 272
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 52,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 272,
+          "ccd_returns": 272
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 53,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 272,
+          "ccd_returns": 272
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 54,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 282,
+          "ccd_returns": 282
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 55,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 312,
+          "ccd_returns": 312
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 56,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 333,
+          "ccd_returns": 333
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 57,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 470,
+          "ccd_returns": 470
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 58,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 478,
+          "ccd_returns": 478
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 59,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 478,
+          "ccd_returns": 478
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 60,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 478,
+          "ccd_returns": 478
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 61,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 478,
+          "ccd_returns": 478
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 62,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 478,
+          "ccd_returns": 478
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 63,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 478,
+          "ccd_returns": 478
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 64,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 478,
+          "ccd_returns": 478
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 65,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 478,
+          "ccd_returns": 478
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 66,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 478,
+          "ccd_returns": 478
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 67,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 478,
+          "ccd_returns": 478
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 68,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 478,
+          "ccd_returns": 478
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 69,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 478,
+          "ccd_returns": 478
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 70,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 478,
+          "ccd_returns": 478
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 71,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 478,
+          "ccd_returns": 478
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 72,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 478,
+          "ccd_returns": 478
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 73,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 478,
+          "ccd_returns": 478
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 74,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 478,
+          "ccd_returns": 478
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 75,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 478,
+          "ccd_returns": 478
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 76,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 478,
+          "ccd_returns": 478
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 77,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 478,
+          "ccd_returns": 478
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 78,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 478,
+          "ccd_returns": 478
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 79,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 478,
+          "ccd_returns": 478
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 80,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 478,
+          "ccd_returns": 478
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 81,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 478,
+          "ccd_returns": 478
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 82,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 478,
+          "ccd_returns": 478
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 83,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 478,
+          "ccd_returns": 478
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 84,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 506,
+          "ccd_returns": 506
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 85,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 506,
+          "ccd_returns": 506
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 86,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 518,
+          "ccd_returns": 518
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 87,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 518,
+          "ccd_returns": 518
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 88,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 518,
+          "ccd_returns": 518
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 89,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 518,
+          "ccd_returns": 518
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 90,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 518,
+          "ccd_returns": 518
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 91,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 520,
+          "ccd_returns": 520
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 92,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 520,
+          "ccd_returns": 520
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 93,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 520,
+          "ccd_returns": 520
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 94,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 520,
+          "ccd_returns": 520
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 95,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 520,
+          "ccd_returns": 520
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 96,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 520,
+          "ccd_returns": 520
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 97,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 520,
+          "ccd_returns": 520
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 98,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 520,
+          "ccd_returns": 520
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 99,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 507,
+          "ccd_returns": 507
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 100,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 507,
+          "ccd_returns": 507
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 101,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 507,
+          "ccd_returns": 507
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 102,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 520,
+          "ccd_returns": 520
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 103,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 520,
+          "ccd_returns": 520
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 104,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 520,
+          "ccd_returns": 520
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 105,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 520,
+          "ccd_returns": 520
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 106,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 520,
+          "ccd_returns": 520
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 107,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 520,
+          "ccd_returns": 520
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 108,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 520,
+          "ccd_returns": 520
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 109,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 520,
+          "ccd_returns": 520
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 110,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 520,
+          "ccd_returns": 520
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 111,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 520,
+          "ccd_returns": 520
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 112,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 520,
+          "ccd_returns": 520
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 113,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 520,
+          "ccd_returns": 520
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 114,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 520,
+          "ccd_returns": 520
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 115,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 520,
+          "ccd_returns": 520
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 116,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 520,
+          "ccd_returns": 520
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 117,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 520,
+          "ccd_returns": 520
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 118,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 546,
+          "ccd_returns": 546
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 119,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 586,
+          "ccd_returns": 586
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 120,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 121,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 122,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 123,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 124,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 125,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 126,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 127,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 128,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 129,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 130,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 131,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 132,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 133,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 134,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 135,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 136,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 38,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 10,
+          "objectVelocity": 2
+        },
+        "compute_count": 137,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 570,
+          "ccd_returns": 570
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 138,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 139,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 140,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 141,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 142,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 143,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 144,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 145,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 146,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 147,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 148,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 149,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 150,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 151,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 152,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 153,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 154,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 155,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 156,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 157,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 158,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 159,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 160,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 161,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 162,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 163,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 164,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 165,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 3,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 166,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 167,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 168,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 169,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 170,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 171,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 172,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 173,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 174,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 175,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 176,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 177,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 178,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 179,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 180,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 181,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 182,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 183,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 184,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 185,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 186,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 187,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 188,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 189,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 190,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 191,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 192,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 11,
+          "objectVelocity": 2
+        },
+        "compute_count": 193,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 585,
+          "ccd_returns": 585
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 194,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 195,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 2
+        },
+        "compute_count": 196,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 1,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 600,
+          "ccd_returns": 600
+        },
+        "static_ccd_returned": true
+      }
+    ],
+    "scratch_address": 103056643443392,
+    "starts": 1,
+    "static_contact_is_not_native_load": true,
+    "within_actual_bounds": true
+  },
+  "training_controls": 0,
+  "warnings": []
+}

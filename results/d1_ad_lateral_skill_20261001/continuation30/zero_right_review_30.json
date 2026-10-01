@@ -1,0 +1,171 @@
+{
+  "GUI_qualified": false,
+  "RL_trained": false,
+  "actual": {
+    "B22_control_predictions": 600,
+    "compiler_native": 2,
+    "controls": 1655,
+    "macro_events": 4,
+    "normal_native": 8275,
+    "probe_calls": 1,
+    "side_controls": 1055,
+    "training_controls": 0
+  },
+  "actual_overlap_legs": 0,
+  "all_latched_actions_zero": true,
+  "cross_case_pairing_still_required": true,
+  "decision": "ZERO_RIGHT_QUALIFIED_AUTHORIZE_ONE_CANCEL_LEFT",
+  "evidence": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/independent_zero_right_01.json": {
+      "bytes": 17929,
+      "sha256": "fd6243ffe1169d319f65d6d4fee4dc25dd7d4e1c31e423b6a40bad5e7f4485a2"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/reader_zero_right_execution_30.json": {
+      "bytes": 1367,
+      "sha256": "d0724f73c3dadf872cce7c321019c8ee81d48b25b01694b9c631d6146b5ebc9c"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/source_go_zero_right_30.json": {
+      "bytes": 972442,
+      "sha256": "d55fa5236cdccb7abe2eaf1dc50f1dbba01c858d4e40412ec65cfdcb0307d33f"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/zero_right_01/construction_receipt.json": {
+      "bytes": 76380,
+      "sha256": "ff8137c67ee09ff6d5664fd1d55263f302524c4a86ad04a3bcee66f740b086d9"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/zero_right_01/episode_0/macro_transitions30.json": {
+      "bytes": 17127,
+      "sha256": "a34905ef7228ad5816bb85b51012ab01b01bda4a27e747cfb079a7fb6116aa94"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/zero_right_01/episode_0/segment_receipt.json": {
+      "bytes": 3954,
+      "sha256": "c9a24a25e3a53d332825c30ab1ac09969d05725b6dc425626d0626724ccb1efa"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/zero_right_01/host_receipt.json": {
+      "bytes": 493,
+      "sha256": "d53ce2340db536bc2eae9c45402b3a81baf4f5ceed6b1b9f21225ab0adeb6b12"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/zero_right_01/session.json": {
+      "bytes": 969546,
+      "sha256": "b7e4ac8b1fdbbe879194b657bba96eea47e0d500c40221b8377b4c42fcf50e46"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/zero_right_01/supervisor_receipt.json": {
+      "bytes": 303,
+      "sha256": "9023285326bfdd00715542069924af653fadd678bc485a7573eae43edf8f5159"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/zero_right_01/worker_receipt.json": {
+      "bytes": 590220,
+      "sha256": "631f543d61f8c9060e92375579aa98ff847601ed06f8c9df55da89151cdd8b8c"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/zero_right_01_reservation.json": {
+      "bytes": 515,
+      "sha256": "7e2dd35aaf504a4a022d1752ce1d60589997523edfa0bcf5efe387264d93e987"
+    }
+  },
+  "faster_than_zero_claim": false,
+  "headless_zero_right_qualified": true,
+  "next_case": "cancel_left only; trigger on the next control after the first completed interval with nonzero horizontal and vertical reference velocity; at most 300 controls to landed handoff and then exactly 400 retention; no extra steps or automatic continuation",
+  "prior_closed_total": {
+    "compiler_native": 8,
+    "controls": 6450,
+    "normal_native": 32250,
+    "reserved_controls": 8800,
+    "unused_controls_discarded": 2350
+  },
+  "reviewed_at_utc": "2026-10-01T06:34:07.765008+00:00",
+  "reviewer": {
+    "model": "gpt-6-astra",
+    "reasoning_effort": "ultra"
+  },
+  "reviewer_model_calls": 0,
+  "reviewer_physics_calls": 0,
+  "reviewer_test_runs": 0,
+  "schema": "d1-c30-zero-right-review-v1",
+  "task": {
+    "actual_net_per_cycle_mps": 0.003511885983010353,
+    "base_task_gates_passed": true,
+    "cancel_to_handoff_controls": null,
+    "case_id": "zero_right",
+    "each_wheel_liftoff": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "each_wheel_loaded_touchdown": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "entry_gates": {
+      "angular_speed": true,
+      "exact_200_preparation": true,
+      "foot_plane": true,
+      "four_actual_contacts": true,
+      "origin_speed": true,
+      "roll_pitch": true
+    },
+    "final_xy_error_m": 0.009368980170094236,
+    "final_yaw_error_rad": -0.005402492412297508,
+    "finish_support_margin_m": 0.16614944484056665,
+    "full_skill_qualification_not_decided_by_this_base_score_alone": true,
+    "gates": {
+      "B22_predict_restored_in_retention": true,
+      "all_raw_servo_motion_zero": true,
+      "cancel_safe_or_complete_step": true,
+      "cycle_within_original_15s": true,
+      "entry": true,
+      "exact_400_retention_complete": true,
+      "no_environment_termination": true,
+      "original_tail_stopped_and_loaded": true,
+      "retention_if_success": true,
+      "rolling_physical_safety": true,
+      "safe_landed_handoff": true,
+      "side_controls_within_1500": true,
+      "side_physical_safety": true
+    },
+    "is_cancellation_case": false,
+    "max_abs_longitudinal_drift_m": 0.06791056970736754,
+    "max_rollback_m": 0.0008782244033381376,
+    "new_reference_geometry_and_macro_gates_checked_separately": true,
+    "nominal_30mm_per_cycle_mps": 0.002843601895734597,
+    "retention_control_window": [
+      1255,
+      1655
+    ],
+    "retention_ratio": 0.9820884019646489,
+    "side_control_window": [
+      200,
+      1255
+    ],
+    "side_duration_s": 10.55,
+    "side_started": true,
+    "signed_lateral_m": 0.03705039712075923,
+    "tail_stop": {
+      "checks": {
+        "body_vx": true,
+        "body_vy": true,
+        "clearance_std": true,
+        "positive_loads": true,
+        "raw_and_servo_zero": true,
+        "yaw_rate": true
+      },
+      "clearance_std_m": 5.95571801541428e-05,
+      "complete_window": true,
+      "each_wheel_positive_load_fraction": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "mean_abs_body_vx_mps": 8.968644031378659e-05,
+      "mean_abs_body_vy_mps": 2.3066795582996898e-05,
+      "mean_abs_yaw_rate_rps": 0.00018585035176801298,
+      "passed": true,
+      "window": [
+        1555,
+        1655
+      ]
+    }
+  }
+}

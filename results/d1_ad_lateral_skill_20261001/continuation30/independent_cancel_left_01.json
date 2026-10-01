@@ -1,0 +1,602 @@
+{
+  "GUI_qualified": false,
+  "RL_trained": false,
+  "cancel_trigger_or_absence_correct": true,
+  "case_id": "cancel_left",
+  "effective_permission_coverage": true,
+  "end_reason": "safe_cancel",
+  "execution_contract_id": "C30_lateral_skill_feasibility_v1",
+  "faster_than_zero_claim": false,
+  "future_training_overlap_threshold_only": false,
+  "hardware_evidence": false,
+  "latches": [
+    {
+      "action": [
+        -0.006180053148971385,
+        0.005080053452070053,
+        0.5
+      ],
+      "control_index": 200,
+      "leg_index": 2,
+      "macro_index": 0,
+      "projection_reason": "body_xy_projected_and_consumed"
+    }
+  ],
+  "ledger": {
+    "actual_data_objects": 3,
+    "actual_native_FK_calls": 3980,
+    "actual_static_API": {
+      "copy": 200,
+      "forward": 7922,
+      "fullM": 78,
+      "jac": 704,
+      "jacBody": 2358,
+      "objectVelocity": 393
+    },
+    "compiler_native": 2,
+    "controls": 796,
+    "leg_prepares": 1,
+    "normal_native": 3980,
+    "passed": true,
+    "side_compute_controls": 196,
+    "static_queries_are_not_integration_or_native_contact_load": true
+  },
+  "macros": {
+    "100Hz_controls_not_relabelled_as_macro_samples": true,
+    "actual_macro_transitions": 1,
+    "full_scene_components": {
+      "actual_native_steps": 3980,
+      "backtrack_m": 0.04393863959648707,
+      "backtrack_normalized": 1.4646213198829023,
+      "control_range": [
+        0,
+        796
+      ],
+      "direction": 1,
+      "elapsed_controls": 796,
+      "elapsed_s": 7.96,
+      "lateral_goal_error_normalized_square_integral_s": 10.294013638079512,
+      "lateral_goal_error_square_integral_m2_s": 0.00926461227427156,
+      "longitudinal_normalized_square_integral_s": 1.1470230069324836,
+      "longitudinal_square_integral_m2_s": 0.0010323207062392353,
+      "potential_end": 0.09250282121151675,
+      "potential_start": -0.0003804239640117794,
+      "progress_potential_difference": 0.09288324517552853,
+      "progress_sum_of_control_differences": 0.0928832451755287,
+      "reference_side_start_control": 200,
+      "reward_weights_defined": false,
+      "signed_net_displacement_m": 0.002786497355265856,
+      "signed_position_end_m": 0.0027750846363455025,
+      "signed_position_start_m": -1.141271892035338e-05,
+      "torque_cost_is_energy": false,
+      "torque_normalized_square_integral_s": 0.1645371784414298,
+      "torque_normalized_square_mean": 0.020670499804199723,
+      "weighted_scalar_reward": null,
+      "yaw_error_normalized_square_integral_s": 0.017846353836135826,
+      "yaw_error_square_integral_rad2_s": 0.0002569874952403559
+    },
+    "macro_components": [
+      {
+        "actual_native_steps": 2980,
+        "backtrack_m": 0.04393362036341194,
+        "backtrack_normalized": 1.4644540121137313,
+        "control_range": [
+          200,
+          796
+        ],
+        "direction": 1,
+        "elapsed_controls": 596,
+        "elapsed_s": 5.96,
+        "lateral_goal_error_normalized_square_integral_s": 8.293983896667086,
+        "lateral_goal_error_square_integral_m2_s": 0.007464585507000378,
+        "longitudinal_normalized_square_integral_s": 1.1467971911681492,
+        "longitudinal_square_integral_m2_s": 0.0010321174720513341,
+        "potential_end": 0.09250282121151675,
+        "potential_start": 0.0,
+        "progress_potential_difference": 0.09250282121151675,
+        "progress_sum_of_control_differences": 0.09250282121151678,
+        "reference_side_start_control": 200,
+        "reward_weights_defined": false,
+        "signed_net_displacement_m": 0.0027750846363455025,
+        "signed_position_end_m": 0.0027750846363455025,
+        "signed_position_start_m": 0.0,
+        "torque_cost_is_energy": false,
+        "torque_normalized_square_integral_s": 0.12405022416243323,
+        "torque_normalized_square_mean": 0.02081379600040826,
+        "weighted_scalar_reward": null,
+        "yaw_error_normalized_square_integral_s": 0.017846334041473087,
+        "yaw_error_square_integral_rad2_s": 0.00025698721019721247
+      }
+    ],
+    "macro_control_ranges": [
+      [
+        200,
+        796
+      ]
+    ],
+    "passed": true,
+    "preparation_controls_outside_macros": 200,
+    "weighted_training_reward_defined": false
+  },
+  "nonzero_body_permission_consumed": true,
+  "qualification_passed": true,
+  "reader_model_calls": 0,
+  "reader_physics_calls": 0,
+  "reader_source_identity": {
+    "bytes": 20568,
+    "sha256": "40580ee0803460c537b1d3cfdc0bc33de1e8150ce84a6929c8cb904b8da788ad"
+  },
+  "record_valid": true,
+  "reference": {
+    "actual_overlap_legs": 1,
+    "early_lower_enabled": false,
+    "horizontal_native_control_checks": [
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 301,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 302,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 303,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 304,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 305,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 306,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 307,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 308,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 309,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 310,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 311,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 312,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 313,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 314,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 315,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 316,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 317,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 318,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 319,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 320,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 321,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 322,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 323,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 324,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 325,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 326,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 327,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 328,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 329,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 330,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 331,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 332,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 333,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 334,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 335,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 336,
+        "leg_index": 2
+      },
+      {
+        "all_5T_contact_free": true,
+        "all_5T_whole_wheel_above_12mm": true,
+        "control_index": 337,
+        "leg_index": 2
+      }
+    ],
+    "horizontal_native_geometry_passed": true,
+    "overlap_controls_per_macro": {
+      "0": 11
+    },
+    "reference_arithmetic_verified": true,
+    "reference_target_shape_does_not_retroactively_authorize_horizontal_start": true
+  },
+  "run": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/cancel_left_01",
+  "schema": "d1-c30-independent-saved-skill-readback-v1",
+  "scope": "one headless 30 mm skill case; cross-case speed benefit and zero trajectory pairing require their separately authorized records",
+  "session_identity": {
+    "bytes": 972676,
+    "sha256": "7b630a1189e9a68d466a3814c833507a7f6aeb0d8d319c22265d1f83aac0a662"
+  },
+  "source": {
+    "full_source_pre_and_postcheck_evidence": "successful saved host with source_mismatches=[]",
+    "passed": true,
+    "reader_full_historical_closure_rehash_performed": false,
+    "runtime_and_reader_current_identities": {
+      "archive13.atomic_archive_13": {
+        "bytes": 15325,
+        "sha256": "047fd765fc9213aaa346c0fe47393c65377ab38b04eae4a8cfa36c489f2732d7"
+      },
+      "controller18": {
+        "bytes": 9242,
+        "sha256": "b8f3b1d59880ca0bff7d7d4791ba823a101d396dd9f614e25414b83bd2133aba"
+      },
+      "d1_fast_side_step": {
+        "bytes": 32186,
+        "sha256": "935a77e31b83de407c5a4d3258c835546d4ff51f690edd2ed272e32ff91e8cb4"
+      },
+      "d1_side_step": {
+        "bytes": 15757,
+        "sha256": "42b488660a300077eb7c89f37d6d8649f360ade5852f9ce4f9c2c317ef4d134e"
+      },
+      "engine_binding": {
+        "bytes": 10624,
+        "sha256": "e0ab759d170a330972fb9d195c89711991484198717874d661d1431b91de6ce1"
+      },
+      "full_drive_command_08": {
+        "bytes": 3791,
+        "sha256": "ca7920419544731cc46f35ed7d9b2d59a20c84cf15401934390ea21e90d3a9de"
+      },
+      "geometry_read30": {
+        "bytes": 3379,
+        "sha256": "f0df83234fb9e6fade62ac6ea7d79f1cc94d3ab0411e4e0c91679f964fe3fcda"
+      },
+      "hybrid_adapter27": {
+        "bytes": 19127,
+        "sha256": "5e88a0f893a9db03b2a95dcf30583b4c857f679d87e4cde4968b647de5d4aa77"
+      },
+      "kinematics24": {
+        "bytes": 10838,
+        "sha256": "8d9399457b56bc7c5f279df04430519b916fda30d5f05d40553f04f85478ff86"
+      },
+      "macro30": {
+        "bytes": 4419,
+        "sha256": "98c7063723ef9b37595e9c1405243838b67862de97811df8db4dc9bafc060a0c"
+      },
+      "reader26": {
+        "bytes": 67194,
+        "sha256": "bedcd547353ee876797bf7f96882c1761355894c664c531932202bbe3bb7f2f7"
+      },
+      "reader26_deferred": {
+        "bytes": 14329,
+        "sha256": "0997007b87ad36659f26cf013f56e998e8d62484bd8585de82c87d13d088ba59"
+      },
+      "reader27": {
+        "bytes": 26525,
+        "sha256": "6845b7db78645d03de34b6b4c835490fb1f63565c0359b0b9a2d5869494b10de"
+      },
+      "record30": {
+        "bytes": 11394,
+        "sha256": "d59b857a964d837aac7dc4e5923b59451902e9e4096f5f154ce9a06d92cc9a3c"
+      },
+      "records27": {
+        "bytes": 13353,
+        "sha256": "75f151ad78ca03e62e48cd5d00b2204a9f5723936e3e0555c9477ca5b9e5f73f"
+      },
+      "reference_read30": {
+        "bytes": 16303,
+        "sha256": "5e7e9e9829f94b03b38179ff4752ef30515106f38daa90a5ca151ad39b765ce6"
+      },
+      "reward_read30": {
+        "bytes": 10389,
+        "sha256": "4772e0c0dec73363713095ef74365309ae7ce5aca82d1181b35465ee979c53c6"
+      },
+      "rl16_learning_11": {
+        "bytes": 61814,
+        "sha256": "837b1b7c814fcb174cc8f1d8ce0ad1bfcbf623e2cc4aba63ad36c3304f5ff673"
+      },
+      "run_rl16_training_08": {
+        "bytes": 45197,
+        "sha256": "e838c5d293b9b378d7be2b27ac58cd375edd4b5f0dcd1dfc0f6c078103ba02c9"
+      },
+      "runtime30": {
+        "bytes": 4472,
+        "sha256": "db58634b57a568582ca5f987398a3f2bc2fd79f8b3f898542b88ad130358bf33"
+      },
+      "runtime_support22": {
+        "bytes": 5592,
+        "sha256": "ffed9b03e0baa329f87691fe3376cf93d9db916996df075c2da5193cde677411"
+      },
+      "score27": {
+        "bytes": 18835,
+        "sha256": "9e33898a68f2f6ea98d6775f662bd10bcceb3eed9485ea116f3228f1a9d506b7"
+      },
+      "score_read30": {
+        "bytes": 8397,
+        "sha256": "86729831129c404f5c2527b7b8767bd15f3d8849598afbd9a19d8eaa4540c659"
+      },
+      "scripts.run_d1_latest_rl": {
+        "bytes": 44355,
+        "sha256": "663cf7c9b47995a2d9015ef2bfba1ed658ab59175f8e06a9f9b34da05b580d8c"
+      },
+      "side_math27": {
+        "bytes": 9326,
+        "sha256": "158d4d04ab5b5a609d00614de7da9aa513ab86f3cb7c574735646274eec22ecb"
+      },
+      "side_runtime27": {
+        "bytes": 14830,
+        "sha256": "31cec4faafd9cb6002bef1592bf4457cfda5ad8aa6d3e399afb89a31441591e1"
+      },
+      "side_skill30": {
+        "bytes": 23311,
+        "sha256": "bc9caecd32af8803c0979eea39eb53dcdd21a59e5aa1f981af9305622e43d5ac"
+      },
+      "state21": {
+        "bytes": 985,
+        "sha256": "7db5a9d9fa0941bc47f3b893d4b80b5f82a383650f9ab16f27b4247ab75d28d3"
+      },
+      "verify_control18": {
+        "bytes": 12933,
+        "sha256": "afcbfecbd1b6d176fe26d0559adc67820e0867a0af68cc61bd5ce2378cf62fb3"
+      },
+      "verify_course_e_08_03": {
+        "bytes": 54919,
+        "sha256": "c7d7b1ea343f29c6e108650bd707ee14e6515a873d55c3abe02c424a009b1419"
+      },
+      "verify_rl16_training_08": {
+        "bytes": 60347,
+        "sha256": "ca1f020e806f744d3e3fa519222e8e159215ecde25df65922fa4b9a8cc324cdb"
+      },
+      "worker30": {
+        "bytes": 14737,
+        "sha256": "f12cbedd3a7d24c8707cbc7d3e8c9ca324fe3334456b0014b071e5436117fbbd"
+      },
+      "world_upright_course_11": {
+        "bytes": 9809,
+        "sha256": "504cf329cabf889be5e2a6803b442114a6153437c87c992318bb12f8049efdb0"
+      }
+    }
+  },
+  "task": {
+    "actual_net_per_cycle_mps": null,
+    "base_task_gates_passed": true,
+    "cancel_to_handoff_controls": 93,
+    "case_id": "cancel_left",
+    "each_wheel_liftoff": [
+      false,
+      false,
+      true,
+      false
+    ],
+    "each_wheel_loaded_touchdown": [
+      false,
+      false,
+      true,
+      false
+    ],
+    "entry_gates": {
+      "angular_speed": true,
+      "exact_200_preparation": true,
+      "foot_plane": true,
+      "four_actual_contacts": true,
+      "origin_speed": true,
+      "roll_pitch": true
+    },
+    "final_xy_error_m": 0.0592490409684375,
+    "final_yaw_error_rad": 6.0566001865041056e-05,
+    "finish_support_margin_m": 0.1481730543313656,
+    "full_skill_qualification_not_decided_by_this_base_score_alone": true,
+    "gates": {
+      "B22_predict_restored_in_retention": true,
+      "all_raw_servo_motion_zero": true,
+      "cancel_safe_or_complete_step": true,
+      "cycle_within_original_15s": true,
+      "entry": true,
+      "exact_400_retention_complete": true,
+      "no_environment_termination": true,
+      "original_tail_stopped_and_loaded": true,
+      "retention_if_success": true,
+      "rolling_physical_safety": true,
+      "safe_landed_handoff": true,
+      "side_controls_within_1500": true,
+      "side_physical_safety": true
+    },
+    "is_cancellation_case": true,
+    "max_abs_longitudinal_drift_m": 0.0261577237017294,
+    "max_rollback_m": 0.0,
+    "new_reference_geometry_and_macro_gates_checked_separately": true,
+    "nominal_30mm_per_cycle_mps": null,
+    "retention_control_window": [
+      396,
+      796
+    ],
+    "retention_ratio": -0.11981078821693253,
+    "side_control_window": [
+      200,
+      396
+    ],
+    "side_duration_s": 1.96,
+    "side_started": true,
+    "signed_lateral_m": -0.02316222668797456,
+    "tail_stop": {
+      "checks": {
+        "body_vx": true,
+        "body_vy": true,
+        "clearance_std": true,
+        "positive_loads": true,
+        "raw_and_servo_zero": true,
+        "yaw_rate": true
+      },
+      "clearance_std_m": 5.8838730060160276e-05,
+      "complete_window": true,
+      "each_wheel_positive_load_fraction": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "mean_abs_body_vx_mps": 0.0003406402419111481,
+      "mean_abs_body_vy_mps": 6.388641233474766e-05,
+      "mean_abs_yaw_rate_rps": 0.0005905071267620096,
+      "passed": true,
+      "window": [
+        696,
+        796
+      ]
+    }
+  },
+  "worker_receipt_identity": {
+    "bytes": 118751,
+    "sha256": "5b55b475e84cf3343311967ad742558dce638be5a98258ab0f825e6f849ea678"
+  }
+}

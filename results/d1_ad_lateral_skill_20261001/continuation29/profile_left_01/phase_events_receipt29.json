@@ -1,0 +1,88 @@
+{
+  "all_sent": true,
+  "events": [
+    {
+      "event_index": 0,
+      "injection_begin_ns": 141584630184713,
+      "key": "a",
+      "observed_completed_controls": 200,
+      "operation": "key_down",
+      "resolved_trigger_completed_controls": 200,
+      "trigger": {
+        "field": "completed_controls",
+        "offset": 200
+      },
+      "trigger_progress": {
+        "completed_controls": 200,
+        "episode_index": 0,
+        "episode_tick": 200,
+        "first_swing_completed_controls": null,
+        "redrive_settled_command_start_control_index": null,
+        "redrive_start_control_index": null,
+        "redrive_zero_start_control_index": null,
+        "side_active": false,
+        "side_done_completed_controls": null,
+        "side_phase": "idle",
+        "side_start_control_index": null,
+        "wall_ns": 141584574667960
+      },
+      "wall_ns": 141584630704694
+    },
+    {
+      "event_index": 1,
+      "injection_begin_ns": 141585531215171,
+      "key": "a",
+      "observed_completed_controls": 220,
+      "operation": "key_up",
+      "resolved_trigger_completed_controls": 220,
+      "trigger": {
+        "field": "completed_controls",
+        "offset": 220
+      },
+      "trigger_progress": {
+        "completed_controls": 220,
+        "episode_index": 0,
+        "episode_tick": 220,
+        "first_swing_completed_controls": null,
+        "redrive_settled_command_start_control_index": null,
+        "redrive_start_control_index": null,
+        "redrive_zero_start_control_index": null,
+        "side_active": true,
+        "side_done_completed_controls": null,
+        "side_phase": "shift",
+        "side_start_control_index": 205,
+        "wall_ns": 141585527406405
+      },
+      "wall_ns": 141585531463863
+    }
+  ],
+  "expected_count": 2,
+  "no_event_is_a_physical_control_call": true,
+  "plan": {
+    "case_id": "profile_left",
+    "control_limit": 500,
+    "end_reason": "budget_capped_profiling_no_stop_or_complete_cycle_claim",
+    "events": [
+      {
+        "key": "a",
+        "operation": "key_down",
+        "trigger": {
+          "field": "completed_controls",
+          "offset": 200
+        }
+      },
+      {
+        "key": "a",
+        "operation": "key_up",
+        "trigger": {
+          "field": "completed_controls",
+          "offset": 220
+        }
+      }
+    ],
+    "qualification": false,
+    "schema": "d1-c29-two-event-profile-plan-v1"
+  },
+  "schema": "d1-c29-two-event-profile-plan-v1",
+  "sent_count": 2
+}

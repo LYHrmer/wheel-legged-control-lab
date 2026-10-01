@@ -1,0 +1,25 @@
+.F.                                                                      [100%]
+=================================== FAILURES ===================================
+___________ test_actual_saved_five_native_rows_close_without_engine ____________
+
+    def test_actual_saved_five_native_rows_close_without_engine():
+        run = W/'continuation29/profile_left_01'
+        construction = json.loads((run/'construction_receipt.json').read_text())
+        guard = NativeWindow30(construction['side_kinematic_binding'])
+        guard.begin(0)
+        with gzip.open(run/'episode_0/native_block_0000.jsonl.gz', 'rt') as stream:
+            rows = [json.loads(next(stream)) for _ in range(5)]
+        for row in rows:
+            guard.sink(copy.deepcopy(row))
+        receipt = guard.complete()
+        assert guard.pure_fk_calls == 5 and receipt['control_index'] == 0
+        assert [r['native_index'] for r in receipt['native_rows']] == list(range(5))
+        assert all(len(r['whole_wheel_min_z_m']) == 4 for r in receipt['native_rows'])
+>       assert all(all(r['active_wheel_terrain_contact']) for r in receipt['native_rows'])
+E       assert False
+E        +  where False = all(<generator object test_actual_saved_five_native_rows_close_without_engine.<locals>.<genexpr> at 0x73917ab1b370>)
+
+wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/root30/test_headless30_pure.py:56: AssertionError
+=========================== short test summary info ============================
+FAILED wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/root30/test_headless30_pure.py::test_actual_saved_five_native_rows_close_without_engine
+1 failed, 2 passed in 0.24s

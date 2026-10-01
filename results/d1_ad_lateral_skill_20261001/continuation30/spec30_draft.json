@@ -1,0 +1,159 @@
+{
+  "B22_side_predict_exact": 0,
+  "action": {
+    "body_xy_abs_cap_m": 0.012,
+    "final_foot_lateral_target_m": 0.03,
+    "latch": "after_teacher_plan_before_reference_change_each_leg",
+    "overlap_lambda": [
+      0.0,
+      1.0
+    ],
+    "size": 3,
+    "zero_exact_teacher_branch": true
+  },
+  "all_case_compiler_native": 12,
+  "all_case_controls": 13200,
+  "all_case_normal_native": 66000,
+  "automatic_retry": false,
+  "cancel_to_handoff_controls_cap": 300,
+  "case_compiler_native": 2,
+  "case_controls": 2200,
+  "case_normal_native": 11000,
+  "close_s": 270,
+  "conditional_cases": [
+    "fixed_nonzero_right",
+    "zero_left",
+    "zero_right",
+    "cancel_left",
+    "cancel_right"
+  ],
+  "execution_contract_id": "C30_lateral_skill_feasibility_v1",
+  "extra_plan_IK_per_leg": {
+    "calls": 1,
+    "copy": 1,
+    "forward": 59,
+    "inner": 6,
+    "jacBody": 48,
+    "outer": 2
+  },
+  "faster_RL_claim": false,
+  "first_go_cases": [
+    "fixed_nonzero_left"
+  ],
+  "fixed_candidate": {
+    "body_waypoint_toward_body_from_m": 0.008,
+    "lambda": 0.5,
+    "search_permitted": false
+  },
+  "formal_GUI_qualification_claim": false,
+  "geometry_gates": {
+    "actual_shift_dynamic_margin_gt_m": 0.02,
+    "early_lower_target_whole_wheel_min_m": 0.017,
+    "extra_IK_error_max_m": 0.008,
+    "horizontal_active_actual_native_whole_wheel_gt_m": 0.012,
+    "horizontal_start_actual_whole_wheel_gt_m": 0.012,
+    "predicted_static_margin_min_m": 0.028,
+    "prior_native_contact_free_steps": 5,
+    "unknown_collision_type": "reject"
+  },
+  "geometry_helper": "frozen kinematics24.collision_bounds24; independent saved reconstruct24; no endpoint24",
+  "hard_s": 300,
+  "host_path": "continuation27/director27/host27.py",
+  "macro_components": {
+    "backtrack": "sum(max(-delta_s,0))/0.03",
+    "elapsed_seconds": "actual_controls*0.01",
+    "end_reasons": [
+      "next_leg",
+      "success_after_retention",
+      "safe_cancel",
+      "physical_failure",
+      "budget_truncated",
+      "software_failure"
+    ],
+    "interval": "[latch_i,latch_next), fourth ends at side_end+400",
+    "position_square_integrals_scale_m": 0.03,
+    "progress_first_endpoint": "pre of macro first control",
+    "progress_potential": "min(s/0.03,1), no lower clipping",
+    "reward_weights": null,
+    "safe_cancel_macro_end": "actual_handoff_control_index + 400; budget/failure never synthesized",
+    "square_integral_endpoint": "post",
+    "torque_square_integral": "0.01*sum(mean_5x16((tau/limit)^2))",
+    "yaw_square_integral_scale_rad": 0.12
+  },
+  "model_limits_per_case": {
+    "actor_rows": 2232,
+    "backward": 0,
+    "learn": 0,
+    "load": 1,
+    "optimizer_steps": 0,
+    "predict": 2201,
+    "probe_rows": 32,
+    "save": 0,
+    "torch_load": 3,
+    "train": 0
+  },
+  "normal_native_per_control": 5,
+  "outer_host_s": 900,
+  "permitted_copy_edges": [
+    [
+      "live",
+      "measurement"
+    ],
+    [
+      "measurement",
+      "sideScratch"
+    ]
+  ],
+  "pilot_proposal_only": {
+    "automatic_continuation": false,
+    "batch_size": 8,
+    "controls_cap": 140800,
+    "cycles_cap": 64,
+    "epochs": 2,
+    "gae_lambda_per_second": 0.95,
+    "gamma": 1.0,
+    "normal_native_cap": 704000,
+    "optimizer_steps_cap": 64,
+    "real_macro_transitions_cap": 256,
+    "reward_weights_and_eval_seal_required_before_training_GO": true,
+    "rollout_events": 32
+  },
+  "prepare_controls": 200,
+  "render": false,
+  "retention_controls": 400,
+  "runtime_data_roles": [
+    "live",
+    "measurement",
+    "sideScratch"
+  ],
+  "schema": "d1-c30-lateral-skill-engineering-draft-v1",
+  "side_API_absolute_caps": {
+    "copy": 1516,
+    "forward": 168944,
+    "fullM": 1500,
+    "jac": 6000,
+    "jacBody": 144768,
+    "objectVelocity": 3001
+  },
+  "side_compute_cap": 1500,
+  "side_prepare_leg_cap": 4,
+  "side_start_cap": 1,
+  "soft_s": 240,
+  "source_postcheck_s": 180,
+  "source_preflight_s": 240,
+  "status": "DRAFT_NO_PHYSICAL_OR_TRAINING_GO",
+  "terminal_stop_window": 100,
+  "training_authorized": false,
+  "training_trigger": {
+    "all_six_records_valid": true,
+    "both_full_directions_and_both_cancels_qualified": true,
+    "each_direction_cycle_fixed_over_zero_max": 0.95,
+    "effective_overlap_controls_per_leg_min": 1,
+    "effective_overlap_legs_per_direction_min": 2,
+    "full_torque_square_mean_over_zero_max": 1.2,
+    "goal_error_delta_over_zero_max_m": 0.002,
+    "retention_absolute_min": 0.9,
+    "retention_delta_over_zero_min": -0.02
+  },
+  "wall_caps_increase_controls_or_models": false
+}

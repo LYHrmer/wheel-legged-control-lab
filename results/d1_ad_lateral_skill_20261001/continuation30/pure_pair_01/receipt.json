@@ -1,0 +1,72 @@
+{
+  "schema": "d1-c30-pair-pure-check-v1",
+  "source_sha256": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/pair_read30/audit_pairs30.py": "cdadc3ba49c01ceacc5d016e8741e18dbb848369a48c3aefcafe7452783585d1",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/pair_read30/test_pairs30_pure.py": "1e4a0fa113a9435beb24cdbde876d24ab79d6dc39eb60b40ece67df2a34a8806"
+  },
+  "source_unchanged": true,
+  "ast_files": 2,
+  "runs": [
+    {
+      "command": [
+        "rtk",
+        "proxy",
+        "timeout",
+        "--signal=TERM",
+        "--kill-after=5s",
+        "60s",
+        "env",
+        "-u",
+        "LD_PRELOAD",
+        "-u",
+        "LD_LIBRARY_PATH",
+        "PYTHONPATH=/home/lyh/.local/lib/python3.10/site-packages:/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/pair_read30",
+        "OPENBLAS_NUM_THREADS=1",
+        "OMP_NUM_THREADS=1",
+        "MKL_NUM_THREADS=1",
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/pair_read30/test_pairs30_pure.py"
+      ],
+      "exit_code": 0,
+      "elapsed_wall_s": 0.3581197300227359
+    },
+    {
+      "command": [
+        "rtk",
+        "proxy",
+        "timeout",
+        "--signal=TERM",
+        "--kill-after=5s",
+        "60s",
+        "env",
+        "-u",
+        "LD_PRELOAD",
+        "-u",
+        "LD_LIBRARY_PATH",
+        "PYTHONPATH=/home/lyh/.local/lib/python3.10/site-packages:/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/pair_read30",
+        "OPENBLAS_NUM_THREADS=1",
+        "OMP_NUM_THREADS=1",
+        "MKL_NUM_THREADS=1",
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "ruff",
+        "check",
+        "--no-cache",
+        "--select",
+        "E9,F63,F7,F82",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/pair_read30"
+      ],
+      "exit_code": 1,
+      "elapsed_wall_s": 0.041293402027804404
+    }
+  ],
+  "passed": false,
+  "scope": "pure fixture tests and static syntax/lint only; no policy or physics commands"
+}
