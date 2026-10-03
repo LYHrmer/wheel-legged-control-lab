@@ -1,0 +1,28 @@
+{
+  "schema": "d1-c35-pre-GO-measurement-clarifications-v2",
+  "status": "FROZEN_SOURCE_DESIGN_NOT_EXECUTION_GO",
+  "reason": "Resolve measurement conventions before execution; distinguish inherited native hard gates from bounded IK targets and define the new stopping-contact geometry explicitly.",
+  "joint_ranges": {
+    "planned_and_consumed_targets": "Every limited leg joint IK solution and final position target must lie inside its original compiled limited joint range, with only 1e-12 radians numerical comparison tolerance. The paired IK retains the original target clipping bounds; record and verify their consistency with compiled bounds.",
+    "actual_native_qpos": "Record actual limited-joint lower/upper excursions at every native substep. Do not add an actual-qpos range +/-1e-6 hard gate: the inherited C31 native chain has no such gate, and compiled joint limits are soft physical constraints. Preserve the original actual leg |qvel|<=18, torque, pose, collision and state-finiteness hard gates. Do not label actual-qpos range compliance an inherited qualification.",
+    "source_evidence": [
+      "R/scripts/d1_fast_side_step.py::_ik clips scratch position targets, not live native qpos",
+      "W/continuation30/read30/reference_read30.py uses compiled joint ranges +/-1e-12 for candidate IK acceptance",
+      "W/continuation26/root26/reader26.py, W/continuation27/read27/records27.py and W/continuation31/root31/record31.py do not impose a live-qpos range tolerance"
+    ]
+  },
+  "steady_window": {
+    "side_relative_control_interval": "[100,500)",
+    "interval_count": 400,
+    "duration_s": 4.0,
+    "mean": "Project actual base-origin p[500]-p[100] onto entry-heading lateral axis, multiply by direction and divide by 4.0 seconds.",
+    "samples": "For each control k=100..499, project (actual p[k+1]-actual p[k])/.01 onto the same lateral axis. RMS is against direction*.025 m/s; fraction threshold uses direction*sample>=.010 m/s. These are 400 interval-average measured velocities, not 401 boundary velocities or reference values."
+  },
+  "stopping_support_margin": {
+    "contacts": "At a control's final actual native post-state, select active wheel-terrain contacts with strictly positive independently reconstructed normal force. For each of all four wheels form one XY representative weighted by that wheel's positive normal forces. Each wheel must separately satisfy normal load>1e-8 N.",
+    "geometry": "Construct the convex hull of the four representative points and compute the minimum inward signed perpendicular edge distance of the actual whole-body COM XY at that same post-state. A degenerate hull fails. Require margin>=.005 m; no scratch contact point or dynamic_margin proxy substitution.",
+    "stable_window": "The actual final post-state of each of 50 consecutive controls must satisfy this margin, origin speed<=.010 m/s, world angular speed<=.05 rad/s and no pending swing. Separately, every one of all five native substeps must satisfy the applicable all-four contact/load gate. Only then may side ownership hand off to B22."
+  },
+  "probe_dwell_and_abort": "Probe and touchdown dwell remain lower/air regime: named stance pair each positive and pair normal sum>=.5mg. Enter load/all-four regime only after both returning wheels have actual positive contact and the prescribed dwell is complete. Abort-owned landing retains the same stance gate until the all-four condition actually holds; no label change can excuse loss of contact.",
+  "source_GO_requirement": "Bind this clarification alongside contract35/spec35/interfaces35/clarifications35_01 and implementation identities. No model, physics, fit or training execution is authorized by this document. Campaign and numerical budgets are unchanged."
+}

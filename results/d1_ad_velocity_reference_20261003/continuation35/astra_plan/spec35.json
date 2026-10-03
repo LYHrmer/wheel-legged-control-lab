@@ -1,0 +1,110 @@
+{
+  "arm": "development",
+  "authorization_source": "Execution only after a separately signed exact-source GO; this spec is not permission.",
+  "cases": [
+    {
+      "active_controls": 200,
+      "direction": 0,
+      "id": "pair_stand_zero",
+      "kind": "in_place",
+      "vy_mps": 0.0
+    },
+    {
+      "active_controls": 600,
+      "direction": 1,
+      "id": "continuous_left",
+      "kind": "continuous",
+      "vy_mps": 0.025
+    },
+    {
+      "active_controls": 600,
+      "direction": -1,
+      "id": "continuous_right",
+      "kind": "continuous",
+      "vy_mps": -0.025
+    },
+    {
+      "active_controls": 600,
+      "direction": 1,
+      "id": "cancel_left",
+      "kind": "cancel",
+      "vy_mps": 0.025
+    },
+    {
+      "active_controls": 600,
+      "direction": -1,
+      "id": "cancel_right",
+      "kind": "cancel",
+      "vy_mps": -0.025
+    }
+  ],
+  "close_s": 960,
+  "command_reference_clarification": "Use quintic velocity Hermite matching current velocity and first2 derivatives on new raw command, zero first2 derivatives at target, .25s duration. Analytic integral for body pose; |smoothed_reference_vy|<=.030 and reference h*a/g<=.015. Exact details in interfaces35.md.",
+  "compiler_native_cap": 2,
+  "contract35_path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation35/astra_plan/contract35.json",
+  "control_limit": 9000,
+  "cost_gate35": {
+    "continuous": "actual full-scene torque-square integral / absolute integrated commanded distance must not exceed accepted same-direction C33 integral/.03; denominator must be finite and >0 or fail.",
+    "full_scene_tau2_mean_max": 0.05,
+    "in_place_and_cancel": "commanded_distance_cost_denominator_m=null, tau2_integral_per_commanded_meter=null, distance_efficiency_gate=null (not evaluated, never marked passed or given reward). The absolute mean<=.050 gate remains mandatory.",
+    "metric_is_energy": false
+  },
+  "cycles_limit": 5,
+  "execution_contract_id": "C35_continuous_diagonal_pair_fixed_feasibility_v1",
+  "hard_s": 1020,
+  "interface35_path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation35/astra_plan/interfaces35.md",
+  "mode": "fixed",
+  "model_limits": {
+    "backward": 0,
+    "evaluate_actions": 0,
+    "forward": 0,
+    "learn": 0,
+    "load": 1,
+    "predict": 3001,
+    "predict_values": 0,
+    "save": 0,
+    "torch_load": 3,
+    "train": 0
+  },
+  "model_row_limits": {
+    "B22_actor_rows": 3032,
+    "control_predict": 3000,
+    "new_lateral_actor_rows": 0,
+    "new_lateral_value_rows": 0,
+    "probe_rows": 32
+  },
+  "new_MjData_cap": 3,
+  "new_MjModel_cap": 1,
+  "normal_native_cap": 45000,
+  "outer_s": 1200,
+  "output_directory": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation35/development_01",
+  "pair_events_limit": 80,
+  "per_case_control_limit": 1800,
+  "pre_GO_revision_note": "Added explicit zero/cancel cost null semantics and replaced misleading physical_GO=false spec flag by external source-GO authority before any execution.",
+  "prepare_controls": 200,
+  "pure_total_limit_s": 90,
+  "reader_total_limit_s": 1200,
+  "render": false,
+  "retention_controls": 400,
+  "retry_permitted": false,
+  "schema": "d1-c35-continuous-pair-fixed-execution-spec-v1",
+  "seed": 271001,
+  "side_arm": "continuous_pair35",
+  "side_control_limit_per_case": 1200,
+  "soft_s": 900,
+  "spawn_position_m": [
+    -8.0,
+    -4.7,
+    0.455
+  ],
+  "static_API_global_caps": {
+    "copy": 12020,
+    "forward": 1536320,
+    "fullM": 6000,
+    "jac": 24000,
+    "jacBody": 1152240,
+    "objectVelocity": 12005
+  },
+  "tail_controls": 100,
+  "training_authorized": false
+}

@@ -1,0 +1,33 @@
+{
+  "command_velocity_interpolation": "Quintic Hermite in velocity matching current v,a,jerk at a new command and target v with terminal a=jerk=0, duration.25s. Body position is exact integral. |smoothedvy|<=.030, raw target remains0/\u00b1.025, analytic acceleration*h/g<=.015.",
+  "contact_phase_semantics": {
+    "air_regime": {
+      "each_named_stance_wheel": "actual active terrain contact with normal load>1e-8N",
+      "named_stance_pair_normal_sum_min_fraction_mg": 0.5,
+      "phases": [
+        "lift",
+        "horizontal",
+        "lower"
+      ],
+      "scope": "Every actual native substep; no loss grace. Horizontal swing wheels separately require whole shape>12mm and no contact."
+    },
+    "all_four_regime": {
+      "all_wheel_normal_sum_min_fraction_mg": 0.5,
+      "each_wheel": "actual active terrain contact with summed normal load>1e-8N",
+      "phases": [
+        "transfer",
+        "load",
+        "settle"
+      ],
+      "reason": "At four-foot equal static support, an arbitrary two-wheel sum can be slightly below.5mg; do not misclassify this as loss of support."
+    },
+    "consumed_phase": "The phase and masks whose reference/torque are consumed in that control interval, not a next-preview phase.",
+    "no_flight": "Always active in every regime; all4 regime is stronger than minimum2. No source switch can use a label from a future reference to excuse an observed contact failure.",
+    "transfer_to_lift": "After at least.06s, require current measured AND each previous5 real native substep satisfy intended stance-pair load gate before consuming lift. Hold transfer for at most additional.40s; otherwise controlled failure/stop, no next case."
+  },
+  "cost_nulls": "Zero/in_place and cancel have null command-distance denominator, null ratio and null distance-efficiency gate; absolute mean<=.050 remains. Continuous denominator must be finite>0, else failure. No cancellation or overshoot reward.",
+  "reason": "Resolve phase-specific load semantics and mid-ramp command continuity before any model or physics execution; original hard native limits and finite campaign unchanged.",
+  "schema": "d1-c35-pre-GO-command-and-contact-clarifications-v1",
+  "source_GO_requirement": "Bind this clarification alongside contract35/spec35/interfaces35 and actual implementation hashes. No simulation, model, fitting or training authorized by this file.",
+  "status": "FROZEN_SOURCE_DESIGN_NOT_EXECUTION_GO"
+}

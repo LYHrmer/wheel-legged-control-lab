@@ -1,0 +1,286 @@
+{
+  "budgets": {
+    "cases_max": 5,
+    "compiler_native_max": 2,
+    "controls_max": 9000,
+    "models": {
+      "B22_control_predictions_max": 3000,
+      "B22_load": 1,
+      "B22_probe_calls": 1,
+      "B22_probe_rows": 32,
+      "backward": 0,
+      "learn": 0,
+      "new_lateral_actor": 0,
+      "new_lateral_value": 0,
+      "optimizer": 0,
+      "predict_calls_total_max": 3001,
+      "predict_rows_total_max": 3032,
+      "save": 0,
+      "torch_load": 3,
+      "train": 0
+    },
+    "new_MjData": 3,
+    "new_MjModel": 1,
+    "no_automatic_retry": true,
+    "no_unused_budget_transfer": true,
+    "normal_native_max": 45000,
+    "per_case": {
+      "controller_start_max": 1,
+      "pair_exchanges_max": 16,
+      "prepare_B22_controls": 200,
+      "reset_max": 1,
+      "retention_B22_controls": 400,
+      "side_controls_max": 1200,
+      "stop_included_in_side": true,
+      "total_controls_max": 1800
+    },
+    "physical_attempts": 1,
+    "seconds": {
+      "close": 960,
+      "hard": 1020,
+      "outer": 1200,
+      "pure_checks_total": 90,
+      "saved_reader_total": 1200,
+      "soft": 900
+    },
+    "static_API_max": {
+      "copy": 12020,
+      "forward": 1536320,
+      "fullM": 6000,
+      "jac": 24000,
+      "jacBody": 1152240,
+      "objectVelocity": 12005
+    },
+    "static_derivation": "T<=6000 actual side computes,S<=5 starts: copy<=2T+4S;forward<=256T+64S;jacBody<=192T+48S;jac<=4T;fullM<=T;objectVelocity<=2T+S. New source must demonstrate these before GO; no undeclared out-of-compute IK/plan calls."
+  },
+  "cases": [
+    {
+      "active_controls": 200,
+      "direction": 0,
+      "id": "pair_stand_zero",
+      "kind": "in_place",
+      "vy_mps": 0.0
+    },
+    {
+      "active_controls": 600,
+      "direction": 1,
+      "id": "continuous_left",
+      "kind": "continuous",
+      "vy_mps": 0.025
+    },
+    {
+      "active_controls": 600,
+      "direction": -1,
+      "id": "continuous_right",
+      "kind": "continuous",
+      "vy_mps": -0.025
+    },
+    {
+      "active_controls": 600,
+      "direction": 1,
+      "id": "cancel_left",
+      "kind": "cancel",
+      "vy_mps": 0.025
+    },
+    {
+      "active_controls": 600,
+      "direction": -1,
+      "id": "cancel_right",
+      "kind": "cancel",
+      "vy_mps": -0.025
+    }
+  ],
+  "command": {
+    "allowed_raw_vy_mps": [
+      -0.025,
+      0.0,
+      0.025
+    ],
+    "cancel": "At next control after first actually consumed nonzero horizontal foot reference velocity, request cancel; same smooth body stop and complete/reload airborne pair, no future pair.",
+    "frame": "initial heading: world XY=Rz(initial_yaw)*(0,vy)",
+    "held": "Worker publishes fresh command each actual control; no reset or B22 handoff at per-leg or distance boundaries.",
+    "input_conflict_or_expiry": "Same zero-target safe-stop path with explicit reason; no stale command queue.",
+    "ramp": "C2 quintic velocity interpolation from current commanded velocity/zero endpoint derivatives; acceleration is analytic derivative; body XY reference is exact time integral, initial base XY origin.",
+    "ramp_s": 0.25,
+    "raw_B22_motion": "forward/lateral/yaw raw operator and servo fields remain exactly zero in existing B22 encoder; continuous vy travels only new independent side intent channel.",
+    "release": "At raw active_controls boundary, set target velocity zero, stop admitting a new swing pair, complete/reload any already committed pair, settle all4; return B22 only after handoff gate.",
+    "reverse": "New opposite command must await the same all4 stop boundary. This pilot does not execute reversal and does not claim its qualification.",
+    "ttl_controls": 20
+  },
+  "director_agent": "/root/astra32_resume",
+  "evidence": [
+    {
+      "bytes": 10102,
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation34/final_review34.json",
+      "sha256": "60c7ea8fa171b862c364e2f7734a9c8d52cd8118c683c7fc1f21f468a71963d7"
+    },
+    {
+      "bytes": 6383,
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation35/design_only/continuous_velocity_main_task35.md",
+      "sha256": "d1def0fc98477293f5dfc2e9d6180eb6749a63e8a7f6f2c0156d615d1bb61ffc"
+    }
+  ],
+  "execution_contract_id": "C35_continuous_diagonal_pair_fixed_feasibility_v1",
+  "execution_owner": "/root only; agents read sources and write new files, no execution",
+  "implementation": {
+    "astra": "contract/source review/finite-budget GO/final adjudication",
+    "root": "continuation35/root35: sole persistent plant/worker/host/model/native guard/archive/session, new per-control/native schema glue, no reuse of single-leg success classifier as qualification",
+    "sol32": "continuation35/sol35: command/ref/phase pure core, pair-mask IK adapter and explicit dual-leg compute, pure fixtures",
+    "sol33": "continuation35/read35: independent actual contact/force/task/reference/controller proof; reuse reader26.check_native/check_contact and old B22 check_controller below single-leg layer",
+    "source_reuse": "Reuse immutable deep engine/plant/binding/native/model/copy/archive modules; do not copy all old experiment chains or modify C34. New semantics get explicit schema and independent checks."
+  },
+  "native_safety": {
+    "actuator_torque_limits": "Exact frozen original16 actuator limits; never increased.",
+    "control_dt_s": 0.01,
+    "force_evidence": "For every native substep keep all true contact local6D wrench, frame, position, wheel/terrain assignment, active address and normal load. Independently reconstruct per-contact world force/moment, full robot contact sum force and moment about same saved after-state COM, and separate two-stance normal sum. No scratch/command force substituted for actual reaction.",
+    "joint_limits": "Exact compiled original joint ranges and same bounded IK acceptance <=.008m.",
+    "native_per_control": 5,
+    "new_pair_contact_gate": {
+      "all4_entry_and_stop": "All four wheels actual active contacts with positive normal load.",
+      "clarification": "0.5mg is the SUM of the two named stance-wheel normal loads, not a per-wheel threshold and not all-wheel sum.",
+      "during_air": "Every one of five native substeps must satisfy current stance-pair contact and total normal gate; no loss grace and no flight.",
+      "horizontal_swing": "For each swing wheel and every actual horizontal-motion native substep: complete collision-shape min Z>.012m and no active terrain contact. Start admission uses only current/previous physical evidence; after-step failure remains failure.",
+      "per_current_stance_wheel": "At least one true active terrain contact and independently summed positive normal_load>1e-8N.",
+      "stance_pair_normal_sum_min_fraction_mg": 0.5
+    },
+    "nonwheel_terrain_contacts": 0,
+    "physics_dt_s": 0.002,
+    "qualification_boundary": "New two-support semantics replace old tripod margin/single-leg READY and are explicitly new. Old dynamic_margin proxy does not prove this gait stable. Full original native pose/actuator/collision/state/clock checks remain, but do not claim C34 tripod qualification.",
+    "rolling": "All original B22 rolling native/world bounds and controller reconstruction retained.",
+    "side_abs_leg_qvel_max_rps": 18.0,
+    "side_abs_roll_pitch_max_rad": 0.32,
+    "side_base_z_min_m": 0.32
+  },
+  "order_and_stop": "Fixed listed order. Begin next case only if full online physical/task/contact/archive/effort gates of every prior case pass. First controlled quality failure ends campaign; any native/source/archive/mandatory failure ends all physics. No replacement point, parameter sweep, retry or budget reallocation.",
+  "physical_GO": false,
+  "purpose": "One deterministic finite campaign asks whether explicit two-support continuous scheduling can sustain actual >=.020m/s and safely stop within unchanged native actuator/pose/collision limits. It is not RL, GUI delivery or inherited C34 three-support qualification.",
+  "reference": {
+    "IK": "New same-scratch pair-mask IK; reuse immutable Fast geometry/kinematics machinery but preserve two raised target Z values. Never concatenate two single-leg IK solutions or invoke old single-leg compute as dual-leg control.",
+    "body": {
+      "body_reference_position_error_max_m": 0.06,
+      "force": "m*(g + a_ref +26*(p_ref-base_position)+9*(v_ref-vCOM)); original orientation gains180/25 and angular law",
+      "kd": 9.0,
+      "kp": 26.0,
+      "position": "entry base position + analytic commanded XY displacement, fixed entry base Z and yaw",
+      "reference_budget_note": "Check actual reference acceleration*h/g <=.015; this is not a bound on total feedback force or real CoP.",
+      "reference_zmp_budget_m": 0.015
+    },
+    "force_allocation": "Original finite least-squares allocation and per-wheel .85mg normal cap/.60 tangential cap, with explicit pair support weights and unchanged final actuator clips.",
+    "geometry_precondition": "Verify original FL/FR/RL/RR wheel mapping and opposite-quadrant pairs from entry geometry; do not infer swapped indices.",
+    "horizontal": {
+      "clock": "Advance only after this measured start permission. Do not lower before horizontal reference reaches its zero-derivative endpoint.",
+      "curve": "quintic smoothstep",
+      "duration": "max(.08,1.875*norm(projected_target_xy-liftoff_anchor_xy)/.16)",
+      "min_duration_s": 0.08,
+      "peak_reference_speed_mps": 0.16,
+      "start_permission": "Both intended swing whole-wheel minima in current measured state >.012m; both had no active terrain contact in all five previous native substeps; current stance pair passed actual contact/load gate. No future state used."
+    },
+    "inertia": "Explicit6x6 submatrix for both swing-leg3DOFs from the one saved fullM cache; exact phase enable and reconstruction recorded.",
+    "joint_target_accel_clip_rps2": 60.0,
+    "joint_target_velocity_clip_rps": 4.0,
+    "landing": {
+      "max_displacement_from_liftoff_anchor_m": 0.06,
+      "projection": "Project raw XY displacement radially into60mm ball, record raw/projected/consumed and saturation. No discarded or hidden proposal.",
+      "raw": "entry nominal foot offset from entry base + current body reference + v_ref*(.60+.375)s +.08s*(vCOM-v_ref), XY only; terrain-relative nominal Z.",
+      "stance": "World anchors remain fixed until actual touchdown; record old/new anchors at pair completion."
+    },
+    "lift_height_m": 0.035,
+    "lift_s": 0.12,
+    "liftoff_extra_limit_s": 0.4,
+    "load_s": 0.06,
+    "lower_s": 0.12,
+    "lower_target_offset_m": -0.003,
+    "pair_index_initial": 0,
+    "pairs": [
+      [
+        0,
+        3
+      ],
+      [
+        1,
+        2
+      ]
+    ],
+    "phase_order": [
+      "transfer",
+      "lift",
+      "horizontal",
+      "lower",
+      "load"
+    ],
+    "phase_transition": "Next pair can start transfer only after both returning wheels have actual terrain contact and positive load, all4 loaded, dwell/load complete. At most named pair swings; no flight.",
+    "probe_depth_max_m": 0.015,
+    "probe_speed_mps": 0.03,
+    "stance_joint_PD": [
+      80.0,
+      3.0
+    ],
+    "swing_joint_PD": [
+      150.0,
+      5.0
+    ],
+    "touchdown_dwell_s": 0.08,
+    "touchdown_extra_limit_s": 0.6,
+    "transfer_s": 0.06,
+    "wheel_brake": "Original12 position and2 velocity wheel brake, original wheel PD replacement and unchanged actuator limits."
+  },
+  "required_before_physics": [
+    "Root meaningful pure tests only on new math/state transition/command expiry/stop/multi-leg IK mask/projection/contact-load aggregations, source before/after hashes.",
+    "No cold constructor/bootstrap model probes beyond single reserved attempt; source audit confirms installed site-packages first and actual cold saved reader module closure.",
+    "Freeze exact source worker/host/controller/reader hashes, dynamic signal interfaces, source-go and immutable request.",
+    "Source GO must explicitly review the new pair semantics and cost definition; current design document is not physical permission."
+  ],
+  "schema": "d1-c35-continuous-pair-fixed-feasibility-contract-v1",
+  "source_only_authorized_now": true,
+  "status": "FROZEN_SOURCE_DESIGN_REQUIRES_FINAL_SOURCE_GO_BEFORE_EXECUTION",
+  "task": {
+    "active_origin": "Actual first side pre-state after exactly200 B22 controls.",
+    "cancel": "No nominal target-completion speed or goal-error claim; all native/new-contact/all4-stop/retention/rollback gates required.",
+    "continuous": {
+      "definition": "Use entry-heading signed displacement difference over controls100..500 for mean; each velocity from actual pre/post state consistently, not reference metadata.",
+      "final_xy_error_lt_m": 0.012,
+      "final_yaw_error_lt_rad": 0.12,
+      "max_RMS_tracking_error_mps": 0.01,
+      "max_abs_longitudinal_excursion_m": 0.03,
+      "min_completed_pair_exchanges": 4,
+      "min_fraction_steady_signed_vy_ge_010": 0.8,
+      "min_mean_signed_origin_vy_mps": 0.02,
+      "reference_goal": "True integrated smoothed command including stopping ramp; nominal target .150m for six-second .025 pulse with complete symmetric start/stop ramps. Do not give overshoot speed credit.",
+      "steady_control_window": [
+        100,
+        500
+      ]
+    },
+    "cost": {
+      "continuous_tau2_integral_per_commanded_meter": "Must not exceed accepted C33 same-direction full-scene integral/.03; report exact old/new denominators. No per-distance metric for zero/cancel.",
+      "metric": "actual full-scene normalized torque-square integral and mean; NOT energy",
+      "pilot_full_scene_tau2_mean_max": 0.05,
+      "semantics": "This new continuous task explicitly uses an absolute pilot mean fence plus distance efficiency. It does not claim the C34 external torque-mean quality thresholds were passed; hardware torque limits are unchanged. Before RL, freeze strong same-task fixed and require no more than1.10 its mean cost."
+    },
+    "in_place": {
+      "claim": "Only two-support/load/stop feasibility, never speed proof.",
+      "final_xy_error_lt_m": 0.012,
+      "min_completed_pair_exchanges": 2
+    },
+    "qualification": "In-place, both continuous directions and both cancellation cases all must pass before claiming this fixed pilot feasible; any partial pass is reported as such. No RL or fluent GUI claim.",
+    "retention": {
+      "B22_controls": 400,
+      "max_rollback_m": 0.005,
+      "min_retained_fraction_continuous": 0.9,
+      "original_stopped_loaded_tail": true,
+      "tail_controls": 100
+    },
+    "stop": {
+      "all4_positive_load": true,
+      "all4_static_support_margin_min_m": 0.005,
+      "max_controls_from_stop_or_cancel": 250,
+      "max_lateral_distance_after_stop_request_m": 0.03,
+      "max_origin_speed_mps": 0.01,
+      "max_world_angular_speed_rps": 0.05,
+      "no_pending_swing": true,
+      "stable_controls_before_handoff": 50
+    }
+  },
+  "training_GO": false,
+  "user_goal_complete": false
+}

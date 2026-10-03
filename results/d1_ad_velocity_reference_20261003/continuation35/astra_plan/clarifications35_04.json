@@ -1,0 +1,20 @@
+{
+  "schema": "d1-c35-pre-GO-independent-reader-scope-v4",
+  "status": "FROZEN_SOURCE_DESIGN_NOT_EXECUTION_GO",
+  "independently_recomputed": [
+    "Actual compiled forward kinematics, collision-shape bounds, whole COM and velocities from saved physical state",
+    "Command validity, analytic body velocity ramp and displacement, two-foot references, landing projection, phase/anchor/stop/contact semantics",
+    "Saved limited-joint target bounds and target forward-kinematic residual against the declared IK world targets, using target16 plus declared reference base position/quaternion to reconstruct target qpos23; acceptance residual<=.008m",
+    "Body wrench, original force allocation/caps, joint PD, multiplication of the actual coupled6x6 inertia cache by target acceleration, wheel brake, torque clipping and linkage to actual native actuator traces",
+    "Per-contact frame/local6D force transformation, actual support loads, force/moment sums, contact centroid hull, task speed/stop/retention/cost and actual execution counts"
+  ],
+  "source_bound_actual_API_evidence": {
+    "fields": ["Jacobian matrices", "qfrc_bias", "fullM-derived coupled6x6 inertia"],
+    "assurance": "These are actual values obtained from the frozen production engine/registered data and tied to the sealed controller code, pre-state, owned API scope/counts and saved cache/adapter equality where applicable. Verify shapes, finite values, phase, inertia symmetry/positive definiteness and their exact use in the independently reconstructed torque arithmetic.",
+    "limitation": "The reader does not independently derive these dynamic matrices or bias forces from rigid-body equations. A cache is not a second independent dynamics implementation. No RNEA, new fullM implementation or second IK optimizer is required or authorized for this pilot."
+  },
+  "IK_wording": "Independent IK verification means verification of the saved solution's bounds and forward-kinematic residual, not reproducing the iterative solver or proving global optimality.",
+  "report_requirement": "Expose these two assurance levels in the independent report; do not call the full dynamics numerically independently reconstructed. This clarifies interfaces35 wording and retains the established C27 cache-based dynamics proof scope.",
+  "partial_records": "If a hard gate stops the attempt, independently inspect actual saved partial records and their real attempted/returned/checked counts, retain the first failure evidence, and mark the campaign unqualified/incomplete. Do not demand success-only5T/400-retention equalities of a partial failed control, invent missing samples, or start replacement physics.",
+  "source_GO_requirement": "Bind this clarification with all prior C35 design documents and exact implementation identities. No execution budget, hard physical limit or qualification threshold changes. No model, physics, fitting or training execution is authorized by this file."
+}

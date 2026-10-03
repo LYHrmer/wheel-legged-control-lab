@@ -1,0 +1,3 @@
+# C35 bounded two-support side-step pilot subset (rejected)
+
+The single authorized C35 campaign stopped inside its first case. After 200 clean B22 preparation controls and four side controls, the fifth side control hit the frozen all-four contact gate: the diagonal swing wheel's measured normal load reached exactly 0 N and the wheel separated by 0.87 mm at 0.05 s of a mandatory 0.06 s transfer phase. No pair exchange completed, no lateral speed was measured, and the four remaining cases were never attempted. This subset contains no new weights and is not portable; the full saved reader cannot run from it alone. See publication_manifest35.json for local hashes and every exclusion reason, and continuation35/root_adjudication35_01.json for the evidence-based localization.

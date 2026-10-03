@@ -1,0 +1,821 @@
+{
+  "RL_speed_benefit_proven": false,
+  "actual_counts": {
+    "b22_actor_rows": 232,
+    "b22_predict_calls": 201,
+    "b22_preparation_controls": 200,
+    "compiler_native_consumed": 2,
+    "compiler_native_limit": 2,
+    "controls_consumed": 204,
+    "controls_limit": 9000,
+    "host_elapsed_s": 20.618938146999426,
+    "native_checked": 1020,
+    "new_policy_or_optimizer_calls": 0,
+    "normal_native_consumed": 1021,
+    "normal_native_limit": 45000,
+    "pair_exchanges_completed": 0,
+    "pending_unsafe_control_attempts": 1,
+    "reader_elapsed_s": 18.703798410000672,
+    "side_computes": 5,
+    "side_controls_returned": 4,
+    "side_starts": 1,
+    "static_api": {
+      "copy": 5,
+      "forward": 185,
+      "fullM": 0,
+      "jac": 20,
+      "jacBody": 45,
+      "objectVelocity": 5
+    },
+    "supervisor_elapsed_s": 23.95558528499896,
+    "worker_elapsed_s": 16.633235633000368
+  },
+  "adjudicator": "root (main Codex agent)",
+  "astra_final_adjudication_obtained": false,
+  "astra_note": "Only the source GO was signed by the actual gpt-6-astra ultra reviewer. No new Astra final adjudication was requested or produced this round; this record is the root executor's own reading of the saved evidence.",
+  "campaign": {
+    "attempted_cases": 1,
+    "automatic_retry_used": false,
+    "cases_in_contract": 5,
+    "closed_cases": 0,
+    "first_case_id": "pair_stand_zero",
+    "never_attempted_case_ids": [
+      "continuous_left",
+      "continuous_right",
+      "cancel_left",
+      "cancel_right"
+    ],
+    "physical_attempts_authorized": 1,
+    "physical_attempts_used": 1,
+    "remaining_budget_reused": false,
+    "stop_reason": "fatal_incomplete_or_unsafe",
+    "terminal_kind": "fatal_incomplete_or_unsafe"
+  },
+  "closure": {
+    "failure_records_retained": true,
+    "host_owned_no_orphans": true,
+    "host_source_mismatches": [],
+    "retry_permitted": false,
+    "supervisor_remaining": {},
+    "worker_archive_failed": false,
+    "worker_cleanup_errors": [],
+    "worker_execution_complete": false
+  },
+  "continuous_lateral_qualified": false,
+  "decision": "REJECT_FIXED_PAIR_FEASIBILITY_PILOT_ON_FIRST_CASE",
+  "engineering_speed_milestone_achieved": false,
+  "evidence": [
+    {
+      "bytes": 84112,
+      "path": "development_01/worker_receipt.json",
+      "sha256": "092cd06c1f11347b3f0f9fd213e4e7821f9c627436fd900e7e8b0a3112b7009b"
+    },
+    {
+      "bytes": 530,
+      "path": "development_01/host_receipt.json",
+      "sha256": "34fac019fe53920dad6505cf3d0d44bf2672d829f5fbbbe4d6f474c9069403e7"
+    },
+    {
+      "bytes": 341,
+      "path": "development_01/supervisor_receipt.json",
+      "sha256": "02bda5f6b61bd6a744e5b76fc309d2fba3c7124b457e1a67a3983c8186740090"
+    },
+    {
+      "bytes": 30391,
+      "path": "development_01/campaign35.json",
+      "sha256": "7e736b305a972c91c451a609ab5a7ecf0784b89096f0eeb44011c2a6292749c5"
+    },
+    {
+      "bytes": 30106,
+      "path": "development_01/case35_00.json",
+      "sha256": "38d8d1999b603a67561aeb16a0a648a8f1879ef954108fff133abd659de7c74d"
+    },
+    {
+      "bytes": 515,
+      "path": "development_01/case_definition35.json",
+      "sha256": "842aab1b34fb3c0a04ee583a0a0c0b88d130bfcfa62dccb9ef60b2736c7bded9"
+    },
+    {
+      "bytes": 30193,
+      "path": "development_01/progress35_00.json",
+      "sha256": "54972f52601e4b05fe0bad350f949e829c8501d1f6a5450010bda395a470a7b3"
+    },
+    {
+      "bytes": 10540,
+      "path": "development_01/episode_0/native_contact_failure_0000.json",
+      "sha256": "034d707bc7f5cff79a562074c31f0715cb95099e909a375b565dd8130c2863ff"
+    },
+    {
+      "bytes": 31051,
+      "path": "development_01/episode_0/cycle_receipt35.json",
+      "sha256": "46a064a1bdf38e0ec38aa7467b0dfa65b55b783e41fad43fd2999306b8f32812"
+    },
+    {
+      "bytes": 3884,
+      "path": "development_01/episode_0/segment_receipt.json",
+      "sha256": "b931ed81392a6b496b01c9046744c99f64ec055db27becac1a0012b32ee94105"
+    },
+    {
+      "bytes": 5756,
+      "path": "independent_read35_01.json",
+      "sha256": "b0f8c147369d4f84ace88a83dbb1ff404724c297ac79a15653b931d48d7bf01e"
+    },
+    {
+      "bytes": 1118693,
+      "path": "readback_execution35_01/receipt.json",
+      "sha256": "dec9e843e7a2fa587c79c7be5b8ef06457ad325f766a40da73f464566c2fc8b4"
+    }
+  ],
+  "execution_contract_id": "C35_continuous_diagonal_pair_fixed_feasibility_v1",
+  "first_failure": {
+    "all_wheel_contacts_still_listed": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "allocation_force_weights": [
+      0.03549382716049343,
+      1.0,
+      1.0,
+      0.03549382716049343
+    ],
+    "commanded_normal_force_n": [
+      0.576443293729258,
+      241.00158651864905,
+      222.3791268083975,
+      0.007511952126289248
+    ],
+    "consumed_phase": "transfer",
+    "control_index_record": 204,
+    "declared_stance_legs": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "declared_swing_legs": [],
+    "gate": "C35 new all4 actual support/load bound",
+    "measured_support_normal_sum_n": 466.1809874579671,
+    "measured_wheel_normal_load_n": [
+      7.631776169036012,
+      239.21651254686748,
+      219.3326987420636,
+      0.0
+    ],
+    "native_index": 1020,
+    "phase_elapsed_s": 0.05,
+    "raised_in": "root35/runtime35.py sink (native guard)",
+    "satisfied_conditions": [
+      "all four wheel-terrain contact slots present",
+      "support normal sum >= 0.5*m*g",
+      "no nonwheel terrain contact",
+      "pose/height/leg-qvel native bounds",
+      "zero actual soft joint-range excursion"
+    ],
+    "separated_contact_slots": [
+      {
+        "gap_m": 0.00048504004618889207,
+        "geom2": 133,
+        "pos_world_m": [
+          -7.830779743774686,
+          -4.463196398561753,
+          0.0002425200230944521
+        ]
+      },
+      {
+        "gap_m": 0.0007750942111009601,
+        "geom2": 133,
+        "pos_world_m": [
+          -7.830791631874375,
+          -4.503195345138564,
+          0.000387547105550474
+        ]
+      },
+      {
+        "gap_m": 0.0002624417950926883,
+        "geom2": 141,
+        "pos_world_m": [
+          -7.830752426854562,
+          -4.9367834637916825,
+          0.0001312208975463475
+        ]
+      },
+      {
+        "gap_m": 0.0005594295463608179,
+        "geom2": 141,
+        "pos_world_m": [
+          -7.830739857247978,
+          -4.896784568303424,
+          0.0002797147731804056
+        ]
+      },
+      {
+        "gap_m": 0.0003133166270789939,
+        "geom2": 149,
+        "pos_world_m": [
+          -8.20556744122596,
+          -4.463397910908332,
+          0.00015665831353950247
+        ]
+      },
+      {
+        "gap_m": 0.0006307447333492172,
+        "geom2": 149,
+        "pos_world_m": [
+          -8.205579297481748,
+          -4.503396649623779,
+          0.0003153723666746031
+        ]
+      },
+      {
+        "gap_m": 0.0005619879411633277,
+        "geom2": 157,
+        "pos_world_m": [
+          -8.205603917946572,
+          -4.936580236718218,
+          0.0002809939705816706
+        ]
+      },
+      {
+        "gap_m": 0.0008663711541312125,
+        "geom2": 157,
+        "pos_world_m": [
+          -8.205591339771466,
+          -4.896581396826926,
+          0.0004331855770655995
+        ]
+      }
+    ],
+    "sim_time_s": 2.0419999999999967,
+    "support_mode": "all4",
+    "swing_pair": [
+      0,
+      3
+    ],
+    "transfer_duration_s": 0.06,
+    "violated_condition": "per-stance-wheel independently summed normal load > 1e-8 N",
+    "wheel_index_zero_load": 3
+  },
+  "gated_native_trace": [
+    {
+      "active_wheel_terrain_contact": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "consumed_phase": "transfer",
+      "native_index": 1000,
+      "support_normal_sum_n": 552.6931155124314,
+      "wheel_normal_load_n": [
+        147.5225304679178,
+        155.77279987880195,
+        128.8367696550294,
+        120.56101551068227
+      ],
+      "whole_wheel_min_z_m": [
+        0.0003662083687069745,
+        0.000366163718603596,
+        0.00042879400667610035,
+        0.00042922564524210116
+      ]
+    },
+    {
+      "active_wheel_terrain_contact": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "consumed_phase": "transfer",
+      "native_index": 1001,
+      "support_normal_sum_n": 553.1756229048552,
+      "wheel_normal_load_n": [
+        147.62052885024352,
+        155.92329024014643,
+        128.9811761868561,
+        120.6506276276092
+      ],
+      "whole_wheel_min_z_m": [
+        0.00036512724813186903,
+        0.00036448545228381923,
+        0.00042698046985108207,
+        0.00042805230823440843
+      ]
+    },
+    {
+      "active_wheel_terrain_contact": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "consumed_phase": "transfer",
+      "native_index": 1002,
+      "support_normal_sum_n": 553.5894244463767,
+      "wheel_normal_load_n": [
+        147.70437586373168,
+        156.05277577204154,
+        129.10521721639665,
+        120.72705559420679
+      ],
+      "whole_wheel_min_z_m": [
+        0.0003637086321503086,
+        0.00036227176203872113,
+        0.00042458848681639627,
+        0.00042651396141950293
+      ]
+    },
+    {
+      "active_wheel_terrain_contact": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "consumed_phase": "transfer",
+      "native_index": 1003,
+      "support_normal_sum_n": 553.9433403450562,
+      "wheel_normal_load_n": [
+        147.77596370681917,
+        156.16374568560582,
+        129.21146032873463,
+        120.79217062389654
+      ],
+      "whole_wheel_min_z_m": [
+        0.00036204624638160043,
+        0.00035967046077650666,
+        0.00042177847074495456,
+        0.0004247137927545913
+      ]
+    },
+    {
+      "active_wheel_terrain_contact": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "consumed_phase": "transfer",
+      "native_index": 1004,
+      "support_normal_sum_n": 554.2454803438486,
+      "wheel_normal_load_n": [
+        147.83700968669103,
+        156.25851031039224,
+        129.30228328333487,
+        120.84767706343052
+      ],
+      "whole_wheel_min_z_m": [
+        0.0003602191695576268,
+        0.0003568061743532275,
+        0.0004186859234412976,
+        0.00042273914307409954
+      ]
+    },
+    {
+      "active_wheel_terrain_contact": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "consumed_phase": "transfer",
+      "native_index": 1005,
+      "support_normal_sum_n": 460.0345616810618,
+      "wheel_normal_load_n": [
+        102.8318007914515,
+        155.09040156732223,
+        126.91372451225563,
+        75.19863481003246
+      ],
+      "whole_wheel_min_z_m": [
+        0.00036003675747815767,
+        0.0003537803854135879,
+        0.00041544366608094185,
+        0.00042255259029316816
+      ]
+    },
+    {
+      "active_wheel_terrain_contact": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "consumed_phase": "transfer",
+      "native_index": 1006,
+      "support_normal_sum_n": 459.67994456484917,
+      "wheel_normal_load_n": [
+        102.59218710015672,
+        155.1489790975853,
+        126.98609403268628,
+        74.95268433442085
+      ],
+      "whole_wheel_min_z_m": [
+        0.0003611663140968141,
+        0.00035067681851597143,
+        0.0004121318453137318,
+        0.0004237919455658684
+      ]
+    },
+    {
+      "active_wheel_terrain_contact": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "consumed_phase": "transfer",
+      "native_index": 1007,
+      "support_normal_sum_n": 459.3812924579229,
+      "wheel_normal_load_n": [
+        102.38817421417934,
+        155.19934905259822,
+        127.04908478773328,
+        74.74468440341207
+      ],
+      "whole_wheel_min_z_m": [
+        0.00036332349140731635,
+        0.00034756308964112304,
+        0.0004088152101894976,
+        0.00042614892509422464
+      ]
+    },
+    {
+      "active_wheel_terrain_contact": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "consumed_phase": "transfer",
+      "native_index": 1008,
+      "support_normal_sum_n": 459.1315875870907,
+      "wheel_normal_load_n": [
+        102.21573949285953,
+        155.24221980663384,
+        127.10413205941167,
+        74.56949622818564
+      ],
+      "whole_wheel_min_z_m": [
+        0.00036626679546321317,
+        0.00034449282280978044,
+        0.00040554511689266937,
+        0.00042936266388859945
+      ]
+    },
+    {
+      "active_wheel_terrain_contact": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "consumed_phase": "transfer",
+      "native_index": 1009,
+      "support_normal_sum_n": 458.92457569617017,
+      "wheel_normal_load_n": [
+        102.07097251158443,
+        155.27854284089403,
+        127.15183123972164,
+        74.42322910397006
+      ],
+      "whole_wheel_min_z_m": [
+        0.0003697923394812841,
+        0.00034150766578769365,
+        0.00040236151324028746,
+        0.0004332135948500737
+      ]
+    },
+    {
+      "active_wheel_terrain_contact": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "consumed_phase": "transfer",
+      "native_index": 1010,
+      "support_normal_sum_n": 459.76511443788434,
+      "wheel_normal_load_n": [
+        59.18576412343496,
+        196.12237732540166,
+        169.26584594099037,
+        35.191127048057325
+      ],
+      "whole_wheel_min_z_m": [
+        0.000375457310703195,
+        0.00033703699274346965,
+        0.0003975047055913977,
+        0.00043947052786171004
+      ]
+    },
+    {
+      "active_wheel_terrain_contact": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "consumed_phase": "transfer",
+      "native_index": 1011,
+      "support_normal_sum_n": 459.6167007978787,
+      "wheel_normal_load_n": [
+        58.826992051382426,
+        196.40735714512448,
+        169.58251382081897,
+        34.79983778055279
+      ],
+      "whole_wheel_min_z_m": [
+        0.00038275316101582524,
+        0.0003314630279991626,
+        0.00039139545975339085,
+        0.00044756695095955756
+      ]
+    },
+    {
+      "active_wheel_terrain_contact": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "consumed_phase": "transfer",
+      "native_index": 1012,
+      "support_normal_sum_n": 459.50403548344843,
+      "wheel_normal_load_n": [
+        58.52583934981697,
+        196.6533005893748,
+        169.85617251535186,
+        34.46872302890482
+      ],
+      "whole_wheel_min_z_m": [
+        0.0003912538797034987,
+        0.0003251098035675498,
+        0.000384390645232463,
+        0.000457024567687897
+      ]
+    },
+    {
+      "active_wheel_terrain_contact": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "consumed_phase": "transfer",
+      "native_index": 1013,
+      "support_normal_sum_n": 459.419096510296,
+      "wheel_normal_load_n": [
+        58.27456843995179,
+        196.86358563133496,
+        170.09062707750735,
+        34.19031536150191
+      ],
+      "whole_wheel_min_z_m": [
+        0.0004006045817402104,
+        0.00031824891580846393,
+        0.00037678973205555744,
+        0.00046744192585994326
+      ]
+    },
+    {
+      "active_wheel_terrain_contact": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "consumed_phase": "transfer",
+      "native_index": 1014,
+      "support_normal_sum_n": 459.3553933300798,
+      "wheel_normal_load_n": [
+        58.06623487893712,
+        197.04173256971652,
+        170.2895350269691,
+        33.95789085445708
+      ],
+      "whole_wheel_min_z_m": [
+        0.0004105115291552358,
+        0.00031110510118884105,
+        0.000368841037091297,
+        0.00047848428454073944
+      ]
+    },
+    {
+      "active_wheel_terrain_contact": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "consumed_phase": "transfer",
+      "native_index": 1015,
+      "support_normal_sum_n": 464.6435524278221,
+      "wheel_normal_load_n": [
+        22.02362440436593,
+        231.06254446565455,
+        207.1913501295797,
+        4.366033428221944
+      ],
+      "whole_wheel_min_z_m": [
+        0.00042283227197775775,
+        0.00030257927426287357,
+        0.0003592407854004914,
+        0.0004922094116060621
+      ]
+    },
+    {
+      "active_wheel_terrain_contact": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "consumed_phase": "transfer",
+      "native_index": 1016,
+      "support_normal_sum_n": 464.43805127675745,
+      "wheel_normal_load_n": [
+        21.587221088991498,
+        231.39460868300372,
+        207.5735027560663,
+        3.8827187486959103
+      ],
+      "whole_wheel_min_z_m": [
+        0.00043693048266531254,
+        0.0002931136915185206,
+        0.00034849904050823777,
+        0.0005079381073087863
+      ]
+    },
+    {
+      "active_wheel_terrain_contact": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "consumed_phase": "transfer",
+      "native_index": 1017,
+      "support_normal_sum_n": 464.2777877116258,
+      "wheel_normal_load_n": [
+        21.223497384617108,
+        231.676819579359,
+        207.8981383482522,
+        3.4793323993975545
+      ],
+      "whole_wheel_min_z_m": [
+        0.0004522773032163141,
+        0.00028307693833780345,
+        0.00033704176944039654,
+        0.0005251065760161072
+      ]
+    },
+    {
+      "active_wheel_terrain_contact": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "consumed_phase": "transfer",
+      "native_index": 1018,
+      "support_normal_sum_n": 464.1500953998001,
+      "wheel_normal_load_n": [
+        20.92079433957636,
+        231.91384443668326,
+        208.17062961344362,
+        3.144827010096841
+      ],
+      "whole_wheel_min_z_m": [
+        0.0004684342112871581,
+        0.00027277161721823984,
+        0.00032521968255218303,
+        0.0005432500323388489
+      ]
+    },
+    {
+      "active_wheel_terrain_contact": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "consumed_phase": "transfer",
+      "native_index": 1019,
+      "support_normal_sum_n": 464.0463922715413,
+      "wheel_normal_load_n": [
+        20.670695621065747,
+        232.11033314029507,
+        208.3962083822724,
+        2.869155127908132
+      ],
+      "whole_wheel_min_z_m": [
+        0.000485040046189128,
+        0.0002624417950930491,
+        0.0003133166270793547,
+        0.0005619879411637024
+      ]
+    },
+    {
+      "active_wheel_terrain_contact": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "consumed_phase": "transfer",
+      "native_index": 1020,
+      "support_normal_sum_n": 466.1809874579671,
+      "wheel_normal_load_n": [
+        7.631776169036012,
+        239.21651254686748,
+        219.3326987420636,
+        0.0
+      ],
+      "whole_wheel_min_z_m": [
+        0.000502814730711551,
+        0.0002520419522263895,
+        0.000301137365581447,
+        0.0005837018588114307
+      ]
+    }
+  ],
+  "independent_readback": {
+    "dynamics_scope": "independent FK/COM, joint target FK error, reference, wrench/allocation, PD/cache multiplication/brake/clip and native actuator chain; sealed Jacobian/bias/fullM caches not independently recomputed",
+    "entrypoint": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation35/read35/read35.py",
+    "exit_code": 0,
+    "failure": null,
+    "launcher": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation35/launch_saved_reader35.py",
+    "ledger_passed": true,
+    "partial_record": true,
+    "reader_model_calls": 0,
+    "reader_physics_calls": 0,
+    "record_auditable": true,
+    "report": "independent_read35_01.json",
+    "report_identity": {
+      "bytes": 5756,
+      "sha256": "b0f8c147369d4f84ace88a83dbb1ff404724c297ac79a15653b931d48d7bf01e"
+    },
+    "saved_native_proof_passed": false,
+    "source_mismatches": [],
+    "uncompleted_requirements": [
+      "all4_stop",
+      "400_B22_retention",
+      "complete_native_case"
+    ]
+  },
+  "localization": {
+    "conclusion": "The frozen C35 transfer design and the frozen C35 all-four contact regime are mutually unsatisfiable; this is a design contradiction, not a tuning or seed problem.",
+    "conflict": [
+      {
+        "document": "astra_plan/clarifications35_01.json",
+        "field": "contact_phase_semantics.all_four_regime",
+        "requires": "transfer is inside the all-four regime: every one of the four wheels must keep an actual active terrain contact with independently summed normal load > 1e-8 N at every native substep, with no loss grace"
+      },
+      {
+        "document": "astra_plan/clarifications35_03.json",
+        "field": "transfer_weights",
+        "requires": "during the same transfer phase each intended swing wheel allocator weight is 1-smoothstep(elapsed/0.06), i.e. it reaches 0 at 0.06 s, and transfer must last at least 0.06 s before lift may be consumed"
+      }
+    ],
+    "forbidden_next_actions": [
+      "parameter sweep of transfer duration or weights",
+      "retry under the existing GO",
+      "editing frozen C35 source and reusing source_go35.json",
+      "any new training run"
+    ],
+    "mechanism": "The allocator drove the commanded swing-pair normal force to 0.576 N and 0.0075 N while the body force law (kp=26, kd=9) held base height, so wheels 0 and 3 unloaded monotonically across the five consumed transfer controls (wheel 3: 120.8 -> 75.0 -> 34.2 -> 2.9 -> 0.0 N). Wheel 3 physically separated by 0.87 mm while its contact slot was still listed inside the margin, so the measured load hit exactly zero at phase_elapsed 0.05 s of a mandatory >= 0.06 s transfer, before any lift phase could legally begin.",
+    "not_evidence_for": [
+      "any claim about achievable lateral speed",
+      "any claim that two-support continuous side-stepping is physically infeasible for this robot",
+      "any claim that the paired IK, inertia coupling, landing projection, stop logic or cost accounting are wrong - they were never exercised beyond the transfer phase",
+      "any RL conclusion"
+    ],
+    "required_next_action": "A new Astra decision amending the frozen phase/contact semantics (for example an explicit pre-unload regime where only the incoming stance pair needs positive load), then a new source freeze, a new source GO and a new bounded campaign. Source may not be edited under this GO.",
+    "why_structural": "Full unloading of the swing pair is the declared purpose of transfer, and lift (where clearance is allowed) cannot be entered before 0.06 s. The zero crossing of the swing-pair normal load therefore always falls inside transfer, where strictly positive load on all four wheels is mandatory. The static load split is also asymmetric (wheel 0 147.8 N vs wheel 3 120.8 N at transfer start), so the lighter swing wheel reaches zero before 0.06 s."
+  },
+  "measured_lateral_speed_mps": null,
+  "new_ad_gui_delivered": false,
+  "pilot_fixed_feasible": false,
+  "request_identity": {
+    "bytes": 4205,
+    "sha256": "b30f510357a937cbfcb9f2827db29b7ca81ec99bc305083d51975e875bb4866c"
+  },
+  "schema": "d1-c35-root-adjudication-v1",
+  "source_go_identity": {
+    "bytes": 1141054,
+    "sha256": "36bed6660fafb382e1de8eaabc401efa52ed17659780e9a42060cdcce32aa0ee"
+  },
+  "unchanged_claims": {
+    "b22_checkpoint_modified": false,
+    "b22_gui_ad_enabled": false,
+    "b22_r_key_is_simulation_reset": true,
+    "b22_straight_line_sim_speed_mps": 1.60145,
+    "frozen_77_inputs_modified": false,
+    "old_experiments_or_batches_rerun": false,
+    "physical_self_recovery_implemented": false
+  },
+  "user_goal_complete": false
+}
