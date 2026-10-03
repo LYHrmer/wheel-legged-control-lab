@@ -1,0 +1,37 @@
+{
+  "allowed_run": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/development_02",
+  "condition": "Launch replacement attempt02 once after checking unchanged launcher and new reader review identities. Use new exclusive execution/output paths; all attempt01 files remain untouched.",
+  "decision": "GO",
+  "launcher": {
+    "bytes": 6491,
+    "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/launch_saved_reader33.py",
+    "sha256": "fcec243d870799cc4f4b981168ebbba84f99c639be94a8aabe69185edbaae139"
+  },
+  "no_automatic_reader_retry": true,
+  "no_physical_GO_mutation": true,
+  "overall_wall_limit_s": 1200,
+  "prior_failed_attempt_evidence": {
+    "bytes": 1006297,
+    "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/readback_execution33_01/receipt.json",
+    "sha256": "a5c8c7053b3aa3541fd8837a3cd68be700f531a018c68328bb47b13c23afe53f"
+  },
+  "reader_source_review": {
+    "bytes": 1008368,
+    "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/reader_source_go33_02.json",
+    "sha256": "39dcddeae2c247c4317c6f8ef7193ff3e76ed57f80bd28bee676debdaddb0e66"
+  },
+  "replacement_of": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/reader_launcher_go33.json",
+  "reserved_reader_attempts": 1,
+  "review_findings": [
+    "Dynamic run and reader review paths; exclusive execution/output paths.",
+    "Child runs without LD_PRELOAD/LD_LIBRARY_PATH/DISPLAY/XAUTHORITY and uses frozen installed Python package location for NumPy.",
+    "All reviewed source identities checked before and after; one-MiB hash-loop deadline checks; completion booleans and partial postcheck count prevent misreporting an incomplete check as clean.",
+    "Child waiting ends early enough to reserve nominal postcheck time; termination reaps child.",
+    "Missing output, any source mismatch, incomplete pre/post checks, exception or elapsed>1200 causes nonzero failure. Actual elapsed is reported."
+  ],
+  "reviewer_agent": "/root/astra32_resume",
+  "saved_readback_attempts_consumed_before_this_review": 1,
+  "schema": "d1-c33-saved-reader-launcher-review-v1",
+  "scope": "Saved files only; no physical/model/training/fitting calls, no re-execution of old experiments.",
+  "validation_note": "Current launcher source was read directly. No new tests or execution by reviewer. An earlier AST parse, if reported, is not claimed to validate this later revision."
+}

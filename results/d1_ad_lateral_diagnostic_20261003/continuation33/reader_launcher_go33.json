@@ -1,0 +1,31 @@
+{
+  "schema": "d1-c33-saved-reader-launcher-review-v1",
+  "decision": "GO",
+  "reviewer_agent": "/root/astra32_resume",
+  "launcher": {
+    "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/launch_saved_reader33.py",
+    "bytes": 6491,
+    "sha256": "fcec243d870799cc4f4b981168ebbba84f99c639be94a8aabe69185edbaae139"
+  },
+  "reader_source_review": {
+    "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/reader_source_go33.json",
+    "bytes": 1005175,
+    "sha256": "10ce3b22a1edea6504fdd7b0eb696651ec0062a25527a84a5675c50dfa9b5d3a"
+  },
+  "allowed_run": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/development_02",
+  "condition": "Launch once only after successful worker/host/supervisor closure. Root must compare launcher and reader-review identities above immediately before launch and record actual command/source identity.",
+  "reserved_reader_attempts": 1,
+  "saved_readback_attempts_consumed_before_this_review": 0,
+  "overall_wall_limit_s": 1200,
+  "scope": "Saved files only; no physical/model/training/fitting calls, no re-execution of old experiments.",
+  "review_findings": [
+    "Dynamic run and reader review paths; exclusive execution/output paths.",
+    "Child runs without LD_PRELOAD/LD_LIBRARY_PATH/DISPLAY/XAUTHORITY and uses frozen installed Python package location for NumPy.",
+    "All reviewed source identities checked before and after; one-MiB hash-loop deadline checks; completion booleans and partial postcheck count prevent misreporting an incomplete check as clean.",
+    "Child waiting ends early enough to reserve nominal postcheck time; termination reaps child.",
+    "Missing output, any source mismatch, incomplete pre/post checks, exception or elapsed>1200 causes nonzero failure. Actual elapsed is reported."
+  ],
+  "validation_note": "Current launcher source was read directly. No new tests or execution by reviewer. An earlier AST parse, if reported, is not claimed to validate this later revision.",
+  "no_physical_GO_mutation": true,
+  "no_automatic_reader_retry": true
+}

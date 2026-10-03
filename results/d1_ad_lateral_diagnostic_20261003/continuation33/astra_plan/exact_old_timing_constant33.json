@@ -1,0 +1,24 @@
+{
+  "schema": "d1-c33-exact-old-duration-constant-addendum-v1",
+  "contract_identity": {
+    "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/astra_plan/contract33.json",
+    "sha256": "6a6cf95b87d3c26ff7d00818dc6d8a9123d58f5d0bbeee1a6af4b6cd35fd2397"
+  },
+  "status": "PROSPECTIVE_PRE_PHYSICS_NUMERIC_CORRECTION",
+  "correction": "The original frozen implementation uses the literal SMOOTH_PEAK_ACCEL=5.7735, not exact analytic 10/sqrt(3). All C30 saved teacher-duration identity checks must use its exact literal 5.7735 and original max(.30,sqrt(max(1e-9,...))) formula. The analytic expression in contract33.entry_pairing and theoretical draft ratios describes the quintic maximum only and must not replace archived implementation arithmetic.",
+  "source_identity": {
+    "path": "/home/lyh/wheel-legged-control-lab/scripts/d1_fast_side_step.py",
+    "sha256": "935a77e31b83de407c5a4d3258c835546d4ff51f690edd2ed272e32ff91e8cb4"
+  },
+  "C33_new_curve_unchanged": {
+    "r": 0.05,
+    "K": "4/(1-2r)",
+    "alpha": [
+      0.85,
+      0.925,
+      1.0
+    ]
+  },
+  "authority_budget_safety_unchanged": true,
+  "original_contract_not_overwritten": true
+}

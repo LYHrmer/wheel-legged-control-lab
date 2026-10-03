@@ -1,0 +1,51 @@
+{
+  "source_before": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation32/sol32/critic32.py": "feaf6e7a4a44f3c27daacaa39e054365155450459a74ebd3593524f2654167f8",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation32/sol32/test_critic32.py": "e1333b6180765b0c955d8e30f9aafd684eba8f6c3a6866b6587c99243c93a441",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation32/launch32.py": "569d9102457af2d6507cef23bb1e6a9c1b7e468fd7f5d0a2f0adcf64bdabebe5"
+  },
+  "source_after": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation32/sol32/critic32.py": "feaf6e7a4a44f3c27daacaa39e054365155450459a74ebd3593524f2654167f8",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation32/sol32/test_critic32.py": "e1333b6180765b0c955d8e30f9aafd684eba8f6c3a6866b6587c99243c93a441",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation32/launch32.py": "569d9102457af2d6507cef23bb1e6a9c1b7e468fd7f5d0a2f0adcf64bdabebe5"
+  },
+  "checks": [
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "-v",
+        "test_critic32"
+      ],
+      "returncode": 0,
+      "elapsed_s": 0.38495771800012335
+    },
+    {
+      "argv": [
+        "rtk",
+        "proxy",
+        "/home/lyh/wheel-legged-control-lab/.local-deps/bin/ruff",
+        "check",
+        "--select",
+        "E9,F63,F7,F82",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation32/sol32/critic32.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation32/sol32/test_critic32.py",
+        "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation32/launch32.py"
+      ],
+      "returncode": 0,
+      "elapsed_s": 0.09162446599998475
+    }
+  ],
+  "synthetic_fixture_fits_if_all_pass": {
+    "dual_target_lstsq_calls": 7,
+    "target_lstsq_fits": 14,
+    "target_cell_mean_fits": 4,
+    "fitted_scalar_predictions": 4096
+  },
+  "physics": 0,
+  "actual_C31_data_fits": 0
+}

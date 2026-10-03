@@ -1,0 +1,71 @@
+{
+  "schema": "c32-continuation-v1",
+  "time_utc": "2026-10-03T13:04:20.380461+00:00",
+  "goal": "取得明显提速",
+  "goal_status": "active_not_achieved",
+  "last_goal_turn_classification": "progress: completed single numerical diagnostic and root S-curve pure tests; actual evidence selects same-acceleration physical timing experiment",
+  "completed": {
+    "C32": "COMPLETE_SAVED_DIAGNOSTIC_REAL_DATA_BUDGET_VALID_WITH_SYNTHETIC_SCOPE_DISCREPANCY",
+    "actual_real_data_counts": {
+      "cycles": 64,
+      "events": 256,
+      "train_events": 128,
+      "validation_events": 64,
+      "test_events": 64,
+      "lstsq_calls": 3,
+      "lstsq_target_fits": 6,
+      "cell_mean_target_fits": 2,
+      "model_scalar_predictions": 2048,
+      "frozen_value31_scalar_predictions": 256,
+      "total_scalar_predictions": 2304,
+      "actor_calls": 0,
+      "B22_calls": 0,
+      "torch_calls": 0,
+      "physics_calls": 0,
+      "native_integrations": 0,
+      "optimizer_steps": 0,
+      "new_data_collection": 0,
+      "hyperparameter_sweeps": 0
+    },
+    "synthetic_discrepancy": {
+      "synthetic_dual_target_lstsq_calls": 7,
+      "synthetic_target_fits": 14,
+      "synthetic_cell_mean_target_fits": 4,
+      "synthetic_scalar_predictions": 4096,
+      "saved_C31_data_fits": 0,
+      "physics": 0,
+      "actor_B22_torch_optimizer": 0
+    },
+    "review": {
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation32/final_review32.json",
+      "bytes": 12348,
+      "sha256": "d0a94be042fc48cebf4412d6ec97e66cf5fce0d1c8d0c11b0a48bcfd5db917f8"
+    }
+  },
+  "next": {
+    "contract_draft": {
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/astra_plan/contract33_draft.json",
+      "bytes": 7753,
+      "sha256": "d2647cfd6f49915df1a632b21a48643a99f0158f4f5e3627f5367d40f8908038"
+    },
+    "curve_pure_checks": {
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/pure_curve_checks_01/receipt.json",
+      "bytes": 2606,
+      "sha256": "651e942134e3c10b346d55e8627fbbef5064948737bb83217953b5ff36fcadd8"
+    },
+    "physics_started": false,
+    "physics_source_GO_exists": false,
+    "required_before_execution": [
+      "Finish root33 worker/session and read33 source integration",
+      "Root necessary pure checks",
+      "Actual Astra source review/finite physical GO"
+    ]
+  },
+  "do_not_repeat": [
+    "C31 training/evaluation/readback",
+    "C32 real-data fit",
+    "C33 curve pure tests unless source changes"
+  ],
+  "current_GitHub_main": "4c27eff84f84f977adc334f57cb5567598f77e7d",
+  "publication_new_C32_C33_pending": true
+}

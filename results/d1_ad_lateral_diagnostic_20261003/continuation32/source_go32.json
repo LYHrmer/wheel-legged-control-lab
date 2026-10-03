@@ -1,0 +1,23 @@
+{
+  "schema": "d1-c32-astra-source-go-v1",
+  "decision": "GO_SINGLE_SAVED_DIAGNOSTIC",
+  "source_hashes": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation32/sol32/critic32.py": "efb5cb6600d077e7fcdb75d8416f3edd4d30ae242cf4474921e0b6319815e4ef",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation32/astra_plan/contract32.json": "f927e73b3ff95e54f77fdc5c0c8314ca60e4c67722890b61f3499c5995bca774",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation32/launch32.py": "569d9102457af2d6507cef23bb1e6a9c1b7e468fd7f5d0a2f0adcf64bdabebe5"
+  },
+  "reviewer": "Astra current actual agent; source review without numerical or physical execution",
+  "checks": "Reviewed full critic32.py, launch32.py and necessary source patch; pure_checks_02 all passed, source unchanged; zero new real fits.",
+  "budgets": {
+    "single_saved_data_attempt": 1,
+    "wall_s": 300,
+    "dual_target_lstsq_calls": 3,
+    "target_mean_fits": 2,
+    "fitted_scalar_predictions": 2048,
+    "saved_final_value_predictions": 256,
+    "physics_actor_B22_torch_optimizer": 0
+  },
+  "known_discrepancy": "astra_plan/synthetic_scope_discrepancy32.json preserves already executed unbudgeted synthetic 7 dual-target solves, 14 target fits, 4 mean target fits, 4096 predictions. Original contract unchanged; this GO is prospective for one real-data attempt only.",
+  "root_sole_runner": true,
+  "physical_or_training_GO": false
+}

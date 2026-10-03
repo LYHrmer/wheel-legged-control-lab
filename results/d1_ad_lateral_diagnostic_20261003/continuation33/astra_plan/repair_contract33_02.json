@@ -1,0 +1,93 @@
+{
+  "schema": "d1-c33-bootstrap-repair-contract-02-v1",
+  "status": "FROZEN_PENDING_REPLACEMENT_SOURCE_GO",
+  "supersedes_attempt": "development_01 only; its reservation/receipts/request/GO remain immutable and failed",
+  "cause": "The first source GO incorrectly prepended new source directories before the frozen installed MuJoCo site-packages directory. Existing import repair rejected this at startup before importing mujoco or constructing ModelLedger, native guard, MjModel, MjData or B22. This path-order constraint was missed by Astra source review.",
+  "failure_evidence": [
+    {
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/development_01/worker_receipt.json",
+      "bytes": 1982,
+      "sha256": "8a59143236c8dc8986c7e8af7a6ea70e59e43c9ac2e6afb56e33d41ae64030f3"
+    },
+    {
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/development_01/host_receipt.json",
+      "bytes": 532,
+      "sha256": "892c08ec70adc6676f4d247682cd343c35650125bace2cbce0aac3787dbb9d61"
+    },
+    {
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/development_01/supervisor_receipt.json",
+      "bytes": 342,
+      "sha256": "ca00e21d6095a784f5fee94ee5ed865077c82479a51cff14de7b09e18ed3058b"
+    },
+    {
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/development_01/session.json",
+      "bytes": 1020373,
+      "sha256": "16aa25cb36b07be51263012fff280cf6ca73c468e638a8b87458634e3846f24e"
+    },
+    {
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/development_01/preflight_ready.json",
+      "bytes": 137,
+      "sha256": "70eaaca007b4874b114ac452ecb7f2896912bbb4ea64aefe434e74fd020155ab"
+    },
+    {
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/development_01/environment_bootstrap_failure.json",
+      "bytes": 3967,
+      "sha256": "2791b5c29b763d9e15586567990ffd29a0e3c9ddefe1a2868e4bdd89fe18681c"
+    }
+  ],
+  "zero_consumption_basis": "Saved bootstrap stage, exact traceback, null model/native/partial-budget receipts, and audited execution order together establish zero physical/model work; this is not inferred from null counters alone.",
+  "consumed_attempt_01": {
+    "MjModel": 0,
+    "MjData": 0,
+    "compiler_native": 0,
+    "normal_native": 0,
+    "controls": 0,
+    "cycles": 0,
+    "B22_load": 0,
+    "B22_predict": 0,
+    "new_actor_value_optimizer": 0
+  },
+  "allowed_change": {
+    "runtime_environment": "Move the already-present installed MuJoCo site-packages PYTHONPATH element to index 0; preserve relative order of every other entry and every other environment key/value.",
+    "new_output": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/development_02",
+    "new_request": "exclusive request33_02.json via new build_request33_repair.py",
+    "worker_host_controller_reader_sources": "all unchanged from source_go33.json; original contract/spec plus exact-old-constant addendum remain bound.",
+    "new_metadata": "separate replacement spec/shared_session/GO and this repair contract; all old files retained"
+  },
+  "runtime_environment": {
+    "DISPLAY": null,
+    "LD_BIND_NOW": "1",
+    "LD_LIBRARY_PATH": null,
+    "LD_PRELOAD": "/home/lyh/wheel-legged-control-lab/results/d1_rolling_residual_speed_20260924/engine_patch/artifact/libepa01_engine.so",
+    "MKL_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": "/home/lyh/.local/lib/python3.10/site-packages:/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/root33:/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/sol33:/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/read33:/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/root31:/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/sol31:/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/read31:/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/root30:/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/sol30:/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation29/root29:/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation27/root27:/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation27/sol27:/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation27/director27:/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation27/read27:/home/lyh/wheel-legged-control-lab/scripts:/home/lyh/wheel-legged-control-lab/.local-deps:/home/lyh/wheel-legged-control-lab/src:/home/lyh/wheel-legged-control-lab:/home/lyh/wheel-legged-control-lab/results/d1_body_speed_feedback_20260924/source:/home/lyh/wheel-legged-control-lab/results/d1_rolling_residual_speed_20260924/engine_patch/provenance:/home/lyh/wheel-legged-control-lab/results/d1_rolling_residual_speed_20260924/rl_source/continuation:/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/course_impl08:/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/upright11:/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/rl11:/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research:/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/continuation22:/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/continuation21:/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/continuation18:/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/continuation15:/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/continuation13:/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/gui12:/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/continuation13/gui13_revision02:/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/continuation23/gui23:/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/continuation23/root23:/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/continuation24:/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/continuation25/gui25:/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/continuation25/root25:/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/continuation26/gui26:/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/continuation26/root26",
+    "XAUTHORITY": null
+  },
+  "attempts_remaining_under_this_repair": 1,
+  "automatic_retry": false,
+  "root_only_execution": true,
+  "cumulative_budget_not_refreshed": {
+    "controls": 17600,
+    "normal_native": 88000,
+    "compiler_native": 2,
+    "cases": 8,
+    "macro_events": 32,
+    "B22_load": 1,
+    "B22_torch_load": 3,
+    "B22_control_predictions": 4800,
+    "B22_probe_rows": 32,
+    "new_actor_value_optimizer": 0
+  },
+  "physical_contract_unchanged": "Same r=.05/K/alpha .85,.925,1 order, goal geometry, fixed policy, gates, costs as mean, selection, cancellation, stop rules and wall clocks; no physical authority increase.",
+  "static_bootstrap_review": [
+    "Worker top-level imports only stdlib + worker30; bootstrap33 calls original bootstrap30 before side/model imports.",
+    "Original repair requires Python3.10, cv2 absent and LD_LIBRARY_PATH absent, same LD_PRELOAD and LD_BIND_NOW=1, installed sitepackages first, OPENBLAS/OMP/MKL threads1.",
+    "Original frozen bootstrap module has stdlib-only top-level. Loader hashes, MuJoCo/cv2 exact origins, cold geometry cache, expected OpenCV environment mutation/removal and torch thread counts are still runtime-enforced.",
+    "No assertion is removed; no guard is bypassed."
+  ],
+  "reader_reuse": "Existing reader_source_go33.json and unchanged read33.py accept dynamic --run and new session source_go_path. Preserve original astra_plan/contract33.json and spec33.json in new inputs alongside this superseding addendum. No readback has run yet.",
+  "task_boundary": "Routine startup correction under the active user task. C33 fixed engineering milestone and later RL authority assessment remain distinct; no training or GUI deployment authorized."
+}

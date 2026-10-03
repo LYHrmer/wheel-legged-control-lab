@@ -1,0 +1,284 @@
+{
+  "schema": "d1-c32-final-review-v1",
+  "status": "COMPLETE_SAVED_DIAGNOSTIC_REAL_DATA_BUDGET_VALID_WITH_SYNTHETIC_SCOPE_DISCREPANCY",
+  "reviewer_agent": "/root/astra32_resume",
+  "source_unchanged": true,
+  "single_real_execution_elapsed_s": 0.21477163200006544,
+  "actual_real_data_counts": {
+    "cycles": 64,
+    "events": 256,
+    "train_events": 128,
+    "validation_events": 64,
+    "test_events": 64,
+    "lstsq_calls": 3,
+    "lstsq_target_fits": 6,
+    "cell_mean_target_fits": 2,
+    "model_scalar_predictions": 2048,
+    "frozen_value31_scalar_predictions": 256,
+    "total_scalar_predictions": 2304,
+    "actor_calls": 0,
+    "B22_calls": 0,
+    "torch_calls": 0,
+    "physics_calls": 0,
+    "native_integrations": 0,
+    "optimizer_steps": 0,
+    "new_data_collection": 0,
+    "hyperparameter_sweeps": 0
+  },
+  "adequate_descriptive_fit": {
+    "P": {
+      "saved_gae": false,
+      "mc_gamma1": false
+    },
+    "L0": {
+      "saved_gae": false,
+      "mc_gamma1": true
+    },
+    "L1": {
+      "saved_gae": false,
+      "mc_gamma1": false
+    },
+    "H1": {
+      "saved_gae": false,
+      "mc_gamma1": false
+    }
+  },
+  "decisive_metrics": {
+    "P": {
+      "saved_gae": {
+        "validation": {
+          "n": 64,
+          "target_mean": 5.416495714671883,
+          "target_variance_ddof0": 76.30799063895914,
+          "mse": 0.14697119531867914,
+          "rmse": 0.3833682241901109,
+          "mae": 0.25513330073885815,
+          "mean_prediction_minus_target": -0.07268989633999526,
+          "explained_variance": 0.9981432170719953,
+          "mse_over_P": 1.0
+        },
+        "test": {
+          "n": 64,
+          "target_mean": 5.379191381024292,
+          "target_variance_ddof0": 74.88919232268317,
+          "mse": 0.13124539396004686,
+          "rmse": 0.36227806165988974,
+          "mae": 0.25380773013994407,
+          "mean_prediction_minus_target": -0.03538556269240366,
+          "explained_variance": 0.9982641920431873,
+          "mse_over_P": 1.0
+        }
+      },
+      "mc_gamma1": {
+        "validation": {
+          "n": 64,
+          "target_mean": 6.277594155037524,
+          "target_variance_ddof0": 68.82742930222112,
+          "mse": 0.1361627146226812,
+          "rmse": 0.3690023233296522,
+          "mae": 0.2411090790767978,
+          "mean_prediction_minus_target": -0.05423080445370128,
+          "explained_variance": 0.9980644092650038,
+          "mse_over_P": 1.0
+        },
+        "test": {
+          "n": 64,
+          "target_mean": 6.214965724727172,
+          "target_variance_ddof0": 67.58603138125187,
+          "mse": 0.12131515745099616,
+          "rmse": 0.34830325501062454,
+          "mae": 0.23487148937445634,
+          "mean_prediction_minus_target": 0.008397625856651075,
+          "explained_variance": 0.9982060695848964,
+          "mse_over_P": 1.0
+        }
+      }
+    },
+    "L0": {
+      "saved_gae": {
+        "validation": {
+          "n": 64,
+          "target_mean": 5.416495714671883,
+          "target_variance_ddof0": 76.30799063895914,
+          "mse": 0.10227519066992433,
+          "rmse": 0.31980492596256915,
+          "mae": 0.161238548905832,
+          "mean_prediction_minus_target": -0.03301400641257813,
+          "explained_variance": 0.998673988592764,
+          "mse_over_P": 0.6958859553952731
+        },
+        "test": {
+          "n": 64,
+          "target_mean": 5.379191381024292,
+          "target_variance_ddof0": 74.88919232268317,
+          "mse": 0.03112347729862074,
+          "rmse": 0.17641847210148018,
+          "mae": 0.12273426616643235,
+          "mean_prediction_minus_target": -0.030549938721947945,
+          "explained_variance": 0.9995968686855025,
+          "mse_over_P": 0.23713957769897212
+        }
+      },
+      "mc_gamma1": {
+        "validation": {
+          "n": 64,
+          "target_mean": 6.277594155037524,
+          "target_variance_ddof0": 68.82742930222112,
+          "mse": 0.04784560147475538,
+          "rmse": 0.21873637437508053,
+          "mae": 0.10142806945542165,
+          "mean_prediction_minus_target": -0.024535973329812676,
+          "explained_variance": 0.9993135936069897,
+          "mse_over_P": 0.35138548469263214
+        },
+        "test": {
+          "n": 64,
+          "target_mean": 6.214965724727172,
+          "target_variance_ddof0": 67.58603138125187,
+          "mse": 0.009986669223194185,
+          "rmse": 0.099933323887451,
+          "mae": 0.06896965159563308,
+          "mean_prediction_minus_target": -0.02144653602713014,
+          "explained_variance": 0.9998590431318286,
+          "mse_over_P": 0.08232004502181176
+        }
+      }
+    },
+    "frozen_value31": {
+      "saved_gae": {
+        "validation": {
+          "n": 64,
+          "target_mean": 5.416495714671883,
+          "target_variance_ddof0": 76.30799063895914,
+          "mse": 100.75864554600264,
+          "rmse": 10.037860606025701,
+          "mae": 7.869134832388324,
+          "mean_prediction_minus_target": -5.066444137608318,
+          "explained_variance": 0.015964269040000922,
+          "mse_over_P": 685.5672999564755
+        },
+        "test": {
+          "n": 64,
+          "target_mean": 5.379191381024292,
+          "target_variance_ddof0": 74.88919232268317,
+          "mse": 98.97565398166284,
+          "rmse": 9.94865086238646,
+          "mae": 7.787918847577011,
+          "mean_prediction_minus_target": -5.027340404907848,
+          "explained_variance": 0.015859296261625855,
+          "mse_over_P": 754.1266858613916
+        }
+      },
+      "mc_gamma1": {
+        "validation": {
+          "n": 64,
+          "target_mean": 6.277594155037524,
+          "target_variance_ddof0": 68.82742930222112,
+          "mse": 102.89607204672592,
+          "rmse": 10.14377011010827,
+          "mae": 7.606277002831323,
+          "mean_prediction_minus_target": -5.927542577973959,
+          "explained_variance": 0.015504258694650108,
+          "mse_over_P": 755.6846404822344
+        },
+        "test": {
+          "n": 64,
+          "target_mean": 6.214965724727172,
+          "target_variance_ddof0": 67.58603138125187,
+          "mse": 100.92492801852943,
+          "rmse": 10.046139956148801,
+          "mae": 7.52941790128321,
+          "mean_prediction_minus_target": -5.8631147486107285,
+          "explained_variance": 0.015346631499165264,
+          "mse_over_P": 831.923480454591
+        }
+      }
+    }
+  },
+  "interpretation": [
+    "The archived final C31 value is numerically weak on both its saved GAE target and unbiased-in-construction gamma=1 within-cycle realized return: test EV about .015 and MSE about 99-101. The latter is a realized-return target, not a claim of an unbiased policy value estimator under changing policy.",
+    "The original 54-feature linear class has sufficient empirical capacity for these frozen realized returns: train-only OLS reduces MC MSE versus phase-cell means to .3514 on validation and .08232 on test, meeting the fixed descriptive criterion in both splits. This contradicts a simple claim that the existing linear representation cannot fit the archived return structure.",
+    "Phase-cell means alone explain over .998 of aggregate variance; high EV by itself is not evidence of state-sensitive learning. The OLS improvement over that baseline is the relevant extra information.",
+    "Saved GAE OLS validation ratio .6959 fails the preregistered .5 ratio threshold despite test .2371. Thus neither target receives an unqualified general fitting success.",
+    "OLS retained condition number is approximately 4.32e6 (rank 54 of 55). Fixed ridge .01 strongly shrinks predictive low-scale directions and worsens fit; H1 performs about like phase means. These one-setting outcomes do not establish that ridge or phase models are generally unsuitable.",
+    "Evidence supports substantial numerical underfitting in the actually trained C31 value relative to representable saved structure. Learning-rate/gradient-clipping scale, finite update budget and moving bootstrapped targets are not causally separated by this diagnostic.",
+    "No actor was fitted or changed and no physical speed was measured. Better critic fitting does not by itself prove faster valid control."
+  ],
+  "OLS_numerics": {
+    "rank": 54,
+    "columns": 55,
+    "retained_condition": 4317407.236844184
+  },
+  "synthetic_scope_discrepancy": {
+    "schema": "d1-c32-prospective-scope-addendum-v1",
+    "original_contract_unchanged": true,
+    "status": "KNOWN_SYNTHETIC_SCOPE_DISCREPANCY_NOT_ERASED",
+    "reason": "Original contract authorized pure checks but did not separately budget synthetic least-squares fits and explicitly disallowed extra fits. Root pure_checks_01 already executed synthetic fits before the review correction arrived.",
+    "actual_already_consumed": {
+      "synthetic_dual_target_lstsq_calls": 7,
+      "synthetic_target_fits": 14,
+      "synthetic_cell_mean_target_fits": 4,
+      "synthetic_scalar_predictions": 4096,
+      "saved_C31_data_fits": 0,
+      "physics": 0,
+      "actor_B22_torch_optimizer": 0
+    },
+    "evidence": "continuation32/pure_checks_01/receipt.json",
+    "prospective_remaining": "Original one saved-C31-data execution of 3 dual-target lstsq + 2 mean fits and 2048+256 predictions remains authorized after source GO; no increase or repeat of real-data budget. Further pure checks must perform no fits.",
+    "disclosure": "Report this discrepancy in C32 final review; do not relabel the original execution or alter the original contract."
+  },
+  "decision": {
+    "no_additional_C32_fits": true,
+    "no_C31_training_retry": true,
+    "RL_speed_goal_achieved": false,
+    "next": "Proceed to C33 source integration and finite fixed S-curve feasibility under same .015m acceleration budget and original gates; separately improve critic fitting in any later RL contract. Strong same-authority fixed baseline required.",
+    "C33_physics_GO_here": false
+  },
+  "evidence": [
+    {
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation32/astra_plan/contract32.json",
+      "bytes": 11639,
+      "sha256": "f927e73b3ff95e54f77fdc5c0c8314ca60e4c67722890b61f3499c5995bca774"
+    },
+    {
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation32/astra_plan/synthetic_scope_discrepancy32.json",
+      "bytes": 1122,
+      "sha256": "97cabc7b7c5f900e9ef954d24938c0db991102d2141ef9ed714181f91b532a09"
+    },
+    {
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation32/source_go32.json",
+      "bytes": 1560,
+      "sha256": "6a214571b4d96a69e5113305e0d1ed505825e70c9339656db4a856d076046ee1"
+    },
+    {
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation32/execution_01/receipt.json",
+      "bytes": 2875,
+      "sha256": "a31f27df90b57a918050792b1f0cc92403cb94481377552a98bc65f344e70136"
+    },
+    {
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation32/diagnostic_01/report.json",
+      "bytes": 105776,
+      "sha256": "533ab4589e5697e4f7c6a8308df7a08be731dcc3db7845b804a19096a337ee23"
+    },
+    {
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation32/diagnostic_01/coefficients.json",
+      "bytes": 23393,
+      "sha256": "9b1b51a0359712944296ad7f1da99fd6b43c4eec04fa3cb076648d48a257791f"
+    },
+    {
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation32/diagnostic_01/predictions.json",
+      "bytes": 176687,
+      "sha256": "464b6cf73f9ed633b94b5c50f9e01274a228253e3874ba211b10a4afd1d2215e"
+    },
+    {
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation32/pure_checks_01/receipt.json",
+      "bytes": 2388,
+      "sha256": "b56fda3fad2b7119b82e53bc2d41edda54442e09befb068a6888ce0d9f4c627b"
+    },
+    {
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation32/pure_checks_02/receipt.json",
+      "bytes": 2307,
+      "sha256": "a0acbbc0576ebf9a79a11283ec3b7301c0257986f8290428e982d4de0e51c2b8"
+    }
+  ]
+}

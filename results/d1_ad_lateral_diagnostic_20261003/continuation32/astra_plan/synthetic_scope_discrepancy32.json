@@ -1,0 +1,18 @@
+{
+  "schema": "d1-c32-prospective-scope-addendum-v1",
+  "original_contract_unchanged": true,
+  "status": "KNOWN_SYNTHETIC_SCOPE_DISCREPANCY_NOT_ERASED",
+  "reason": "Original contract authorized pure checks but did not separately budget synthetic least-squares fits and explicitly disallowed extra fits. Root pure_checks_01 already executed synthetic fits before the review correction arrived.",
+  "actual_already_consumed": {
+    "synthetic_dual_target_lstsq_calls": 7,
+    "synthetic_target_fits": 14,
+    "synthetic_cell_mean_target_fits": 4,
+    "synthetic_scalar_predictions": 4096,
+    "saved_C31_data_fits": 0,
+    "physics": 0,
+    "actor_B22_torch_optimizer": 0
+  },
+  "evidence": "continuation32/pure_checks_01/receipt.json",
+  "prospective_remaining": "Original one saved-C31-data execution of 3 dual-target lstsq + 2 mean fits and 2048+256 predictions remains authorized after source GO; no increase or repeat of real-data budget. Further pure checks must perform no fits.",
+  "disclosure": "Report this discrepancy in C32 final review; do not relabel the original execution or alter the original contract."
+}

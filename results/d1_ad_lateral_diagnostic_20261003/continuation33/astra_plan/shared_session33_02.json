@@ -1,0 +1,305 @@
+{
+  "binding_module": "/home/lyh/wheel-legged-control-lab/results/d1_rolling_residual_speed_20260924/engine_patch/provenance/engine_binding.py",
+  "checkpoint_folder": "/home/lyh/wheel-legged-control-lab/runtime/d1_b22/checkpoint",
+  "checkpoint_manifest": {
+    "actual_optimizer_steps": 355,
+    "budget_spec": {
+      "batch_size": 256,
+      "epochs": 128,
+      "minibatches_per_epoch": 4,
+      "n_epochs": 4,
+      "n_steps": 1024,
+      "optimizer_steps": 512,
+      "rollouts": 32,
+      "schema": "d1-course-rl16-learning-budget-v1",
+      "total_controls": 32768,
+      "train_calls": 32
+    },
+    "budget_spec_sha256": "ccb194254b8146be2e24a0d1966e9a1bced8740e916a4e69dc2651add89c91ce",
+    "files": {
+      "final_model.zip": {
+        "bytes": 764484,
+        "sha256": "7bd58b5d6114745b12b4284be3f861f973a5d31d9d596365a5b54cb5e0d76691"
+      },
+      "final_probe_actions_f32.bin": {
+        "bytes": 2048,
+        "sha256": "e758c79730cb3b954c27e893532bc40bf48aa94f371c98008797c22b5cfadeef"
+      },
+      "final_probe_observations_f32.bin": {
+        "bytes": 12672,
+        "sha256": "7c8112f2db89e67047d0317cf61c8a140ef4ab9be1aaa584bdd80b47b03efd1a"
+      }
+    },
+    "folder": "/home/lyh/wheel-legged-control-lab/runtime/d1_b22/checkpoint",
+    "loader_schema": "d1-course-rl16-final-checkpoint-v2-budgeted",
+    "metadata_sha256": "af700d1f2612e441c8f0560cca38c77b6a854526d3e841e544ef9d5321672830",
+    "reload_verification": {
+      "action_space": {
+        "dtype": "float32",
+        "high": 1.0,
+        "low": -1.0,
+        "shape": [
+          16
+        ]
+      },
+      "actor_layers": [
+        {
+          "in_features": 99,
+          "out_features": 128,
+          "type": "Linear"
+        },
+        {
+          "type": "Tanh"
+        },
+        {
+          "in_features": 128,
+          "out_features": 128,
+          "type": "Linear"
+        },
+        {
+          "type": "Tanh"
+        }
+      ],
+      "budget_spec": {
+        "batch_size": 256,
+        "epochs": 128,
+        "minibatches_per_epoch": 4,
+        "n_epochs": 4,
+        "n_steps": 1024,
+        "optimizer_steps": 512,
+        "rollouts": 32,
+        "schema": "d1-course-rl16-learning-budget-v1",
+        "total_controls": 32768,
+        "train_calls": 32
+      },
+      "budget_spec_sha256": "ccb194254b8146be2e24a0d1966e9a1bced8740e916a4e69dc2651add89c91ce",
+      "critic_layers": [
+        {
+          "in_features": 99,
+          "out_features": 128,
+          "type": "Linear"
+        },
+        {
+          "type": "Tanh"
+        },
+        {
+          "in_features": 128,
+          "out_features": 128,
+          "type": "Linear"
+        },
+        {
+          "type": "Tanh"
+        }
+      ],
+      "loaded_policy_state_sha256": "59440de0c5beb102cec0d292838fb9b125eca7eb56bbffc06d1eaec46ec7aa48",
+      "loader_schema": "d1-course-rl16-final-checkpoint-v2-budgeted",
+      "log_std_shape": [
+        16
+      ],
+      "matches_training_final_policy_state": true,
+      "metadata_sha256": "af700d1f2612e441c8f0560cca38c77b6a854526d3e841e544ef9d5321672830",
+      "observation_space": {
+        "dtype": "float32",
+        "high": 5.0,
+        "low": -5.0,
+        "shape": [
+          99
+        ]
+      },
+      "probe_actions_byte_exact": true,
+      "probe_rows": 32,
+      "reference_policy_byte_exact": null,
+      "verified_without_engine_or_reset": true
+    },
+    "stage20_course_arm": "B",
+    "stage20_learning_schema": "d1-course20-grouped-clip-kl-audit-v1",
+    "stage20_stage": 1,
+    "trusted_fields": {
+      "action_schema": "d1-course-residual16-leg-angle-wheel-speed-v1",
+      "action_size": 16,
+      "budget_spec": {
+        "batch_size": 256,
+        "epochs": 128,
+        "minibatches_per_epoch": 4,
+        "n_epochs": 4,
+        "n_steps": 1024,
+        "optimizer_steps": 512,
+        "rollouts": 32,
+        "schema": "d1-course-rl16-learning-budget-v1",
+        "total_controls": 32768,
+        "train_calls": 32
+      },
+      "budget_spec_sha256": "ccb194254b8146be2e24a0d1966e9a1bced8740e916a4e69dc2651add89c91ce",
+      "control_loop_schema": "d1-full-drive-world-upright-loop-v1",
+      "controller_schema": "d1-course18-yawlimit-filteredcommonintegral-adapter-v1",
+      "learning_schema": "d1-course-rl16-ppo-learning-audit-v2-budgeted",
+      "loader_schema": "d1-course-rl16-final-checkpoint-v2-budgeted",
+      "observation_schema": "d1-full-drive-proprio-course99-action16-v1",
+      "observation_size": 99,
+      "ppo_seed": 201001,
+      "probe_action_shape": [
+        32,
+        16
+      ],
+      "probe_observation_shape": [
+        32,
+        99
+      ],
+      "reference_definition": {
+        "compiled_height_normal_geom_scan_unchanged": true,
+        "frame": "world",
+        "pitch_target_rad": 0.0,
+        "roll_target_rad": 0.0
+      },
+      "reference_schema": "d1-course-world-upright-roll-pitch-zero-v1",
+      "reward_schema": "d1-course-world-upright-bodycom-yaw-terrain-action-torque-v1",
+      "run_id": "coverage22_train_B_1",
+      "task_schema": "d1-course-world-upright-rl16-task-v1",
+      "wheel_action_scale_rad_s": 4.0
+    }
+  },
+  "checkpoint_relocation": {
+    "changed_fields": [
+      "folder"
+    ],
+    "current_folder": "/home/lyh/wheel-legged-control-lab/runtime/d1_b22/checkpoint",
+    "original_folder": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/train_B_1/final_checkpoint",
+    "original_manifest_identity": {
+      "bytes": 3570,
+      "sha256": "899d1f21094c1df366201bb1b3e0a6d2a910fd183eb5763fe894edab3a52c34d"
+    },
+    "original_manifest_path": "/home/lyh/wheel-legged-control-lab/runtime/d1_b22/checkpoint_manifest.json",
+    "payload_bytes_unchanged": true
+  },
+  "checkpoint_sha256": "7bd58b5d6114745b12b4284be3f861f973a5d31d9d596365a5b54cb5e0d76691",
+  "compiler_native_limit": 2,
+  "continuation_import_repair": "/home/lyh/wheel-legged-control-lab/results/d1_rolling_residual_speed_20260924/rl_source/continuation/run_evaluation_continuation_03.py",
+  "controller_variant": "combined",
+  "execution_contract_id": "C33_fixed_S_curve_feasibility_v1",
+  "library": "/home/lyh/wheel-legged-control-lab/results/d1_rolling_residual_speed_20260924/engine_patch/artifact/libepa01_engine.so",
+  "normal_native_per_control": 5,
+  "numerical_protocol_contract_id": "C33_fixed_S_curve_feasibility_v1",
+  "outer_execution_contract_id": "C33_fixed_S_curve_feasibility_v1",
+  "reference_construction_path": "/home/lyh/wheel-legged-control-lab/runtime/d1_b22/reference_C22_construction.json",
+  "side_arm": "teacher",
+  "spawn_position_m": [
+    -8.0,
+    -4.7,
+    0.455
+  ],
+  "schema": "d1-c33-fixed-scurve-execution-spec-v1",
+  "arm": "development",
+  "mode": "fixed",
+  "render": false,
+  "retry_permitted": false,
+  "control_limit": 17600,
+  "cycles_limit": 8,
+  "macros_limit": 32,
+  "soft_s": 900,
+  "close_s": 960,
+  "hard_s": 1020,
+  "outer_s": 1200,
+  "reader_hard_s": 1200,
+  "model_limits": {
+    "load": 1,
+    "torch_load": 3,
+    "predict": 4801,
+    "forward": 0,
+    "evaluate_actions": 0,
+    "predict_values": 0,
+    "backward": 0,
+    "learn": 0,
+    "train": 0,
+    "save": 0
+  },
+  "model_row_limits": {
+    "B22_actor_rows": 4832,
+    "probe_rows": 32,
+    "control_predict": 4800,
+    "new_lateral_actor_rows": 0,
+    "new_lateral_value_rows": 0
+  },
+  "output_directory": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/development_02",
+  "seed": 271001,
+  "baseline_paths33": {
+    "left": {
+      "fixed": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/independent_fixed_nonzero_left_01.json",
+      "zero": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/independent_zero_left_01.json"
+    },
+    "right": {
+      "fixed": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/independent_fixed_nonzero_right_01.json",
+      "zero": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/independent_zero_right_01.json"
+    }
+  },
+  "static_API_global_caps": {
+    "copy": 12128,
+    "forward": 1351552,
+    "fullM": 12000,
+    "jac": 48000,
+    "jacBody": 1158144,
+    "objectVelocity": 24008
+  },
+  "normal_native_cap": 88000,
+  "compiler_native_cap": 2,
+  "new_MjModel_cap": 1,
+  "new_MjData_cap": 3,
+  "per_case": {
+    "control_limit": 2200,
+    "prepare_controls": 200,
+    "retention_controls": 400,
+    "tail_controls": 100,
+    "side_compute_cap": 1500,
+    "side_starts_cap": 1,
+    "side_prepares_cap": 4
+  },
+  "contract33_path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/astra_plan/contract33.json",
+  "development_cases": [
+    {
+      "case_id": "alpha_085_left",
+      "alpha": 0.85,
+      "direction": 1,
+      "initial_yaw_rad": 0.0
+    },
+    {
+      "case_id": "alpha_085_right",
+      "alpha": 0.85,
+      "direction": -1,
+      "initial_yaw_rad": 0.0
+    },
+    {
+      "case_id": "alpha_0925_left",
+      "alpha": 0.925,
+      "direction": 1,
+      "initial_yaw_rad": 0.0
+    },
+    {
+      "case_id": "alpha_0925_right",
+      "alpha": 0.925,
+      "direction": -1,
+      "initial_yaw_rad": 0.0
+    },
+    {
+      "case_id": "alpha_100_left",
+      "alpha": 1.0,
+      "direction": 1,
+      "initial_yaw_rad": 0.0
+    },
+    {
+      "case_id": "alpha_100_right",
+      "alpha": 1.0,
+      "direction": -1,
+      "initial_yaw_rad": 0.0
+    }
+  ],
+  "selection": "Eligible alpha must pass both directions full old physical/task, entry, goal-error, retention and torque-square-MEAN gates, without requiring speed gain. Select minimum max(left cycle s,right cycle s); tie choose lower average of left/right full-scene torque-square MEAN; final tie choose lower alpha. Same alpha in both directions. Publish all attempted candidates. Online selection is provisional until independent saved reader reproduces it; mismatch invalidates result, with no post-hoc alternate candidate.",
+  "stop": "Any hard safety/native/source/entry failure stops campaign. A controlled safe task failure closes this and all higher-alpha development points; only earlier eligible fixed winner cancellation may continue. No automatic replacement or retry.",
+  "cancel_cases_cap": 2,
+  "cancel_tag": "cancel_085_left/right, cancel_0925_left/right or cancel_100_left/right, exactly selected alpha",
+  "no_additional_model_or_physics_runs": true,
+  "shared_session_parent_identity": {
+    "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/source_go_30.json",
+    "bytes": 965130,
+    "sha256": "cce8d7af7cc8df8bfeefac5fe54fe16df9414ad179362b069f07d7d2aef41f69"
+  },
+  "repair_contract33_path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/astra_plan/repair_contract33_02.json"
+}

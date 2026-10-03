@@ -1,0 +1,41 @@
+{
+  "allowed_attempts": 1,
+  "contract_path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/astra_plan/diagnostic_contract33.json",
+  "decision": "GO",
+  "executor": "/root",
+  "interpretation_limits": [
+    "post_nominal_wait_s=max(actual duration-T,0) includes control-time quantization up to a tick; gate-mask counts provide actual failed predicates and all-ready transitions.",
+    "PD clip torque deltas are algebraic pre-actuator contributions, not a counterfactual simulated speed result.",
+    "Missing v_ref in body damping is inherited design, not proven defect.",
+    "This description cannot replace the independently completed source/native/physical qualification."
+  ],
+  "overall_wall_limit_s": 60,
+  "reviewer_agent": "/root/astra32_resume",
+  "runtime_conditions": [
+    "Root launches with LD_PRELOAD and LD_LIBRARY_PATH removed, fixed numeric threads, fresh exclusive output and receipt.",
+    "Use one overall 60-second parent deadline including child startup, input/source hashing, calculations and output. Terminate/reap any timeout and preserve partial failure.",
+    "Immediately compare script and contract identities above; no automatic retry."
+  ],
+  "schema": "d1-c33-saved-descriptive-source-go-v1",
+  "scope": "Only the exact 12 saved episodes and 18 inputs in the descriptive contract; 0 native archives/model/physics/fits/runtime imports. No training or physical GO.",
+  "script_path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/diagnostic33/describe33.py",
+  "source_hashes": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/astra_plan/diagnostic_contract33.json": {
+      "bytes": 15374,
+      "sha256": "c07cbab9d0446f2e84d1bc5b7d000b975657e1416591cc68a06d73ec32ad4179"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/diagnostic33/describe33.py": {
+      "bytes": 22913,
+      "sha256": "45edf2f0358ea85118c10b5038481f8cc5b87cc7e4ed4a1bd6ace686fbca872d"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/diagnostic_static_checks33_01/receipt.json": {
+      "bytes": 806,
+      "sha256": "54ce09450e860885d0784470b681eeccd81cd2d9e7473bcc406dc7212b49c7ef"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/diagnostic_static_checks33_01/ruff_repair_receipt.json": {
+      "bytes": 883,
+      "sha256": "469146f2c9a536892891163ce65e7502caa5d3c59a21fb79cd6763f6f50a0c34"
+    }
+  },
+  "validation": "Direct source review plus root AST parse and critical Ruff on unchanged source. First Ruff PATH lookup failed before linting; preserved as such, not represented as a passing check. No actual saved-data diagnostic has run."
+}

@@ -1,0 +1,228 @@
+{
+  "conclusions": [
+    "The smaller actual time gain is directly localized: nominal body time falls by about 0.626 s, but shift/recenter time falls only 0.33 s left / 0.34 s right because post-nominal excess rises about 0.296 s / 0.286 s. Small quantization is included in excess; saved failed-gate masks separately confirm the waiting.",
+    "Both alpha1 directions spend 33 post-time shift controls failing speed (11 also fail margin), plus 19 recenter controls failing speed. Load exits at its first time-ready opportunity. Do not add overlapping speed and margin marginal counts.",
+    "Moving-reference pose and COM-velocity tracking errors are greater than old fixed. The exact saved XY body wrench equals the inherited acceleration+position-feedback\u2212absolute-COM-velocity-damping law. This supports testing reference-velocity tracking; the saved association does not establish that adding it will be safe, faster or sufficient.",
+    "All new/old nominal cases have zero joint target velocity clipping, and zero swing acceleration clipping. The 24 stance acceleration clipping events in the compared alpha1/old-fixed cases do not enter the old swing-only inertia feedforward branch. Thus those derivative clips have no direct torque-path contribution to this observed saturation; they are not the next variable to loosen.",
+    "The alpha1 body phases total 5.13 s and serial other phases 4.24 s. Removing all observed 0.52 s failed-gate waits alone would only approach 8.85 s per 30 mm (about 5.55% relative time reduction), assuming all other trajectories/phases unchanged; this is a conditional arithmetic bound, not a predicted new run.",
+    "Larger step target/continuous progress is required for much higher commanded-distance throughput. Fast.start already admits 10\u201340 mm, but the current hybrid/task are frozen at 30 mm; a 40 mm follow-up needs its own task-accurate fixed baseline and all original safety gates."
+  ],
+  "decision": "ACCEPT_DESCRIPTIVE_DIAGNOSIS_CONTINUE_WITH_BOUNDED_TRACKING_FEASIBILITY",
+  "evidence": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/diagnostic_source_go33.json": {
+      "bytes": 2943,
+      "sha256": "7d5328be0c3970c02bd2a758e1f86535eab4f8d700a06edb4aba836aa92d09ad"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/phase_diagnostic33_01.json": {
+      "bytes": 609454,
+      "sha256": "2116ec99854c2d3acd5765e98d0627240050436222f59db8c5d73e654a2dc660"
+    }
+  },
+  "fits": 0,
+  "new_model_calls": 0,
+  "new_native_archive_reads": 0,
+  "new_physics_steps": 0,
+  "next_route": "C34: first a finite fixed beta reference-velocity feedforward feasibility at 30 mm with alpha1. Then, only after eligible closure, a separately scored 40 mm fixed-throughput comparison within the existing Fast.start distance range. No new RL training until the action space has demonstrated useful state-dependent headroom beyond a strong same-permission fixed comparator. Exact contract is authored under continuation34.",
+  "not_claimed": [
+    "causal controller bug",
+    "RL gain",
+    "GUI/default release",
+    "hardware or generalized stability",
+    "goal completion"
+  ],
+  "paired_evidence": {
+    "left": {
+      "XY_wrench_reconstruction_residual_N": {
+        "max_abs": 1.5888218580782548e-14,
+        "mean": 3.878434560488079e-15,
+        "n": 513,
+        "p95_abs": 1.0048591735576161e-14,
+        "rms": 4.848304878275261e-15
+      },
+      "actual_body_phase_s": 5.13,
+      "actual_other_phase_s": 4.24,
+      "body_actual_change_s": -0.3300000000000003,
+      "body_planned_change_s": -0.6261995593817395,
+      "body_post_nominal_excess_change_s": 0.29619955938173925,
+      "gate_masks_new": {
+        "load": {
+          "ready": 4
+        },
+        "recenter": {
+          "ready": 1,
+          "speed": 19
+        },
+        "shift": {
+          "ready": 4,
+          "speed": 22,
+          "speed+margin": 11
+        }
+      },
+      "gate_masks_old_fixed": {
+        "load": {
+          "ready": 4
+        },
+        "recenter": {
+          "ready": 1,
+          "speed": 13
+        },
+        "shift": {
+          "margin": 6,
+          "ready": 4,
+          "speed": 3,
+          "speed+margin": 1
+        }
+      },
+      "joint_clips_new": {
+        "stance_leg": {
+          "accel_clipped": 24,
+          "accel_removed_rad_s2": 3262.486507000251,
+          "velocity_clipped": 0,
+          "velocity_removed_rad_s": 0.0
+        },
+        "swing_leg_3": {
+          "accel_clipped": 0,
+          "accel_removed_rad_s2": 0.0,
+          "velocity_clipped": 0,
+          "velocity_removed_rad_s": 0.0
+        },
+        "wheel": {
+          "accel_clipped": 0,
+          "accel_removed_rad_s2": 0.0,
+          "velocity_clipped": 0,
+          "velocity_removed_rad_s": 0.0
+        }
+      },
+      "joint_clips_old": {
+        "stance_leg": {
+          "accel_clipped": 24,
+          "accel_removed_rad_s2": 3340.5228204411287,
+          "velocity_clipped": 0,
+          "velocity_removed_rad_s": 0.0
+        },
+        "swing_leg_3": {
+          "accel_clipped": 0,
+          "accel_removed_rad_s2": 0.0,
+          "velocity_clipped": 0,
+          "velocity_removed_rad_s": 0.0
+        },
+        "wheel": {
+          "accel_clipped": 0,
+          "accel_removed_rad_s2": 0.0,
+          "velocity_clipped": 0,
+          "velocity_removed_rad_s": 0.0
+        }
+      },
+      "moving_COM_velocity_error_rmse_new_mps": 0.03861876824817802,
+      "moving_COM_velocity_error_rmse_old_mps": 0.03348736363733152,
+      "moving_pose_along_rmse_new_m": 0.015968747930420767,
+      "moving_pose_along_rmse_old_m": 0.014623061785845022,
+      "pre_actuator_joint_velocity_clip_delta_nm": {
+        "max_abs": 0.0,
+        "mean": 0.0,
+        "n": 937,
+        "p95_abs": 0.0,
+        "rms": 0.0
+      }
+    },
+    "right": {
+      "XY_wrench_reconstruction_residual_N": {
+        "max_abs": 1.5888218580782548e-14,
+        "mean": 4.06593617416973e-15,
+        "n": 513,
+        "p95_abs": 1.0048591735576161e-14,
+        "rms": 5.044841015700621e-15
+      },
+      "actual_body_phase_s": 5.13,
+      "actual_other_phase_s": 4.24,
+      "body_actual_change_s": -0.3400000000000003,
+      "body_planned_change_s": -0.6261837503240589,
+      "body_post_nominal_excess_change_s": 0.28618375032405863,
+      "gate_masks_new": {
+        "load": {
+          "ready": 4
+        },
+        "recenter": {
+          "ready": 1,
+          "speed": 19
+        },
+        "shift": {
+          "ready": 4,
+          "speed": 22,
+          "speed+margin": 11
+        }
+      },
+      "gate_masks_old_fixed": {
+        "load": {
+          "ready": 4
+        },
+        "recenter": {
+          "ready": 1,
+          "speed": 14
+        },
+        "shift": {
+          "margin": 6,
+          "ready": 4,
+          "speed": 3,
+          "speed+margin": 1
+        }
+      },
+      "joint_clips_new": {
+        "stance_leg": {
+          "accel_clipped": 24,
+          "accel_removed_rad_s2": 3262.4290060445046,
+          "velocity_clipped": 0,
+          "velocity_removed_rad_s": 0.0
+        },
+        "swing_leg_3": {
+          "accel_clipped": 0,
+          "accel_removed_rad_s2": 0.0,
+          "velocity_clipped": 0,
+          "velocity_removed_rad_s": 0.0
+        },
+        "wheel": {
+          "accel_clipped": 0,
+          "accel_removed_rad_s2": 0.0,
+          "velocity_clipped": 0,
+          "velocity_removed_rad_s": 0.0
+        }
+      },
+      "joint_clips_old": {
+        "stance_leg": {
+          "accel_clipped": 24,
+          "accel_removed_rad_s2": 3261.4771422104013,
+          "velocity_clipped": 0,
+          "velocity_removed_rad_s": 0.0
+        },
+        "swing_leg_3": {
+          "accel_clipped": 0,
+          "accel_removed_rad_s2": 0.0,
+          "velocity_clipped": 0,
+          "velocity_removed_rad_s": 0.0
+        },
+        "wheel": {
+          "accel_clipped": 0,
+          "accel_removed_rad_s2": 0.0,
+          "velocity_clipped": 0,
+          "velocity_removed_rad_s": 0.0
+        }
+      },
+      "moving_COM_velocity_error_rmse_new_mps": 0.03860972689668582,
+      "moving_COM_velocity_error_rmse_old_mps": 0.03348401783505405,
+      "moving_pose_along_rmse_new_m": 0.01596813203749679,
+      "moving_pose_along_rmse_old_m": 0.01462380397376684,
+      "pre_actuator_joint_velocity_clip_delta_nm": {
+        "max_abs": 0.0,
+        "mean": 0.0,
+        "n": 937,
+        "p95_abs": 0.0,
+        "rms": 0.0
+      }
+    }
+  },
+  "reviewer_agent": "/root/astra32_resume",
+  "saved_controls": 17287,
+  "saved_episodes": 12,
+  "schema": "d1-c33-astra-saved-diagnostic-review-v1",
+  "user_goal_complete": false
+}

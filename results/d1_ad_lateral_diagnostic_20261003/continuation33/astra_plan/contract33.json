@@ -1,0 +1,266 @@
+{
+  "schema": "d1-c33-fixed-scurve-contract-v1",
+  "status": "FROZEN_PENDING_SOURCE_GO",
+  "owner": "Astra scientific direction; root sole physical runner; Sol adapter",
+  "question": "Can body shift/recenter use a shorter smooth time parameterization at the original .015 m commanded ZMP acceleration budget and all original physical gates, producing a stronger fixed baseline for later RL?",
+  "old_evidence": "C31 fixed cycles 9.69/9.71 s; body shift+recenter ~5.47 s; XY/lambda RL did not qualify. Old baselines reuse only after full reset/200-control entry bridge equality.",
+  "authority": {
+    "controller": "C31 fixed XY 8 mm-or-span retraction and lambda=.5; no learned residuals",
+    "only_new_authority": "body shift and recenter time parameterization, common fixed alpha per development case",
+    "ramp_fraction_of_full_duration": 0.05,
+    "normalized_peak_acceleration": 4.444444444444445,
+    "normalized_peak_velocity": 2.0,
+    "normalized_peak_jerk": 88.88888888888889,
+    "physical_duration": "T=max(original .30 s lower floor, sqrt(K*norm(span_xy)*com_height/(g*.015*alpha)))",
+    "alpha_candidates": [
+      0.85,
+      0.925,
+      1.0
+    ],
+    "theoretical_duration_ratios_to_old_quintic": [
+      0.9516551271767341,
+      0.9122590664045485,
+      0.8773826753016616
+    ],
+    "zmp_acceleration_budget_max_m": 0.015,
+    "higher_jerk_disclosure": "Finite jerk may exceed old quintic peak jerk. No claim of unchanged jerk/velocity demand. Keep actuator clips and torque-cost gates and measure actual motion.",
+    "unchanged": [
+      "target geometry, 30 mm lateral goal, original XY feasibility projection and extra-IK cap",
+      "foot lift/swing/lower/load/contact/overlap/cancel paths",
+      "all transition and abort gates, 77 frozen control invariants, B22 weights/training prohibition",
+      "control dt=.01 and 5 native steps/control, native timestep, model and physical parameters",
+      "target_velocity_clip and target_accel_clip, torque clipping, friction/contact model"
+    ]
+  },
+  "curve": {
+    "u": "clip(phase_time/T,0,1)",
+    "h": "positive part h(t)=max(t,0)",
+    "signed_knots": [
+      [
+        0,
+        1
+      ],
+      [
+        0.05,
+        -1
+      ],
+      [
+        0.45,
+        -1
+      ],
+      [
+        0.55,
+        1
+      ],
+      [
+        0.95,
+        1
+      ],
+      [
+        1,
+        -1
+      ]
+    ],
+    "q": "(K/r)/6 * sum(sign*h(u-knot)^3)",
+    "qdot_u": "(K/r)/2 * sum(sign*h(u-knot)^2)",
+    "qddot_u": "(K/r) * sum(sign*h(u-knot))",
+    "endpoints": "u<=0: (0,0,0); u>=1: (1,0,0)",
+    "references": [
+      "pose=body_from+span*q",
+      "body_reference_velocity=span*qdot_u/T",
+      "body_accel=span*qddot_u/T^2"
+    ],
+    "jerk_intervals": "[0,.05):+K/r; [.05,.45):0; [.45,.55):-K/r; [.55,.95):0; [.95,1]:+K/r",
+    "implementation": "Same mathematical curve and same actual span/T supply all three references before torque computation. Preserve original previous-interval dynamic margin semantics. Recenter uses identical path."
+  },
+  "cases": {
+    "development_order": [
+      {
+        "case_id": "alpha_085_left",
+        "alpha": 0.85,
+        "direction": 1,
+        "initial_yaw_rad": 0.0
+      },
+      {
+        "case_id": "alpha_085_right",
+        "alpha": 0.85,
+        "direction": -1,
+        "initial_yaw_rad": 0.0
+      },
+      {
+        "case_id": "alpha_0925_left",
+        "alpha": 0.925,
+        "direction": 1,
+        "initial_yaw_rad": 0.0
+      },
+      {
+        "case_id": "alpha_0925_right",
+        "alpha": 0.925,
+        "direction": -1,
+        "initial_yaw_rad": 0.0
+      },
+      {
+        "case_id": "alpha_100_left",
+        "alpha": 1.0,
+        "direction": 1,
+        "initial_yaw_rad": 0.0
+      },
+      {
+        "case_id": "alpha_100_right",
+        "alpha": 1.0,
+        "direction": -1,
+        "initial_yaw_rad": 0.0
+      }
+    ],
+    "development_cases_cap": 6,
+    "cancel_cases": "Selected fixed alpha, each direction, cancel next control after first genuine two-velocity overlap; original <=300-control safe handoff +400 retention +100 tail.",
+    "cancel_cases_cap": 2,
+    "total_cases_cap": 8,
+    "selection": "Eligible alpha must pass both directions full old physical/task, entry, goal-error, retention and torque-square-MEAN gates, without requiring speed gain. Select minimum max(left cycle s,right cycle s); tie choose lower average of left/right full-scene torque-square MEAN; final tie choose lower alpha. Same alpha in both directions. Publish all attempted candidates. Online selection is provisional until independent saved reader reproduces it; mismatch invalidates result, with no post-hoc alternate candidate.",
+    "stop": "Any hard safety/native/source/entry failure stops campaign. A controlled safe task failure closes this and all higher-alpha development points; only earlier eligible fixed winner cancellation may continue. No automatic replacement or retry."
+  },
+  "gates": {
+    "inherit_exact_sources": [
+      "continuation31/pilot_contract_31_draft.md section 7",
+      "continuation31/spec31_draft.json evaluation non-learning gates",
+      "continuation30/final_review_30.json complete physical skill gates"
+    ],
+    "nominal_fixed_engineering_gain": "Both directions cycle<=.95*old C30 fixed AND <=.90*old zero; no averaging. This is fixed engineering gain, never RL gain.",
+    "goal_m": 0.03,
+    "goal_error_max_relative_to_zero_m": 0.002,
+    "retention": "each direction >=max(.90,zero-.02)",
+    "full_tau2_cost": "full_scene_components.torque_normalized_square_mean <=1.10*old fixed AND <=1.20*old zero. Use time mean, not its integral. Report integral separately; neither is energy.",
+    "safety": "All old audited non-speed gates unchanged including whole-wheel native clearance, load/contact/no unwanted airborne slip, stopped/load handoff, retention, torque/native source/count invariants and entry pairing. Do not loosen thresholds to pass S-curve."
+  },
+  "budgets": {
+    "workers": 1,
+    "model_constructions": 1,
+    "data_objects": 3,
+    "compiler_native_cap": 2,
+    "cycles_cap": 8,
+    "controls_per_cycle_cap": 2200,
+    "controls_total_cap": 17600,
+    "normal_native_per_control": 5,
+    "normal_native_total_cap": 88000,
+    "prepare_controls_per_cycle": 200,
+    "retention_controls_per_cycle": 400,
+    "tail_controls_per_cycle": 100,
+    "side_compute_per_cycle_cap": 1500,
+    "side_starts_per_cycle_cap": 1,
+    "side_prepares_per_cycle_cap": 4,
+    "new_side_actor_calls": 0,
+    "new_side_value_calls": 0,
+    "rng_action_samples": 0,
+    "optimizer_steps": 0,
+    "B22_train": 0,
+    "B22_optimizer": 0,
+    "B22_load": 1,
+    "B22_torch_load": 3,
+    "B22_probe_calls": 1,
+    "B22_probe_rows": 32,
+    "B22_control_predictions_cap": 4800,
+    "B22_prediction_calls_including_probe_cap": 4801,
+    "B22_actor_rows_including_probe_cap": 4832,
+    "wall_soft_s": 900,
+    "wall_close_s": 960,
+    "wall_hard_s": 1020,
+    "wall_outer_s": 1200,
+    "saved_reader_hard_s": 1200,
+    "automatic_retry": false,
+    "global_torch_load_cap": 3,
+    "torch_load_phase_caps": {
+      "probe": 3
+    },
+    "static_API_global_caps": {
+      "copy": 12128,
+      "forward": 1351552,
+      "fullM": 12000,
+      "jac": 48000,
+      "jacBody": 1158144,
+      "objectVelocity": 24008
+    },
+    "global_torch_save_cap": 0,
+    "new_side_checkpoints": 0,
+    "new_side_parameter_objects": 0,
+    "pure_checks": "No fits, model or robot construction. C33 pure_curve_checks_01 completed; only new integration or changed-source checks permitted before physical GO."
+  },
+  "source_requirements": [
+    "New continuation33 paths only; retain old sources/data.",
+    "Small adapter around C31 fixed state machine, not replacement of its transitions. Same curve in pose, acceleration, velocity telemetry.",
+    "Archive alpha,r,K,T,span,phase_time and references so saved reader independently reconstructs the actual commands.",
+    "Pure fixture checks: endpoint/continuity/normalization, analytic acceleration .015 budget, derivative consistency, first/interior/last shift and recenter, no model/physics construction.",
+    "Root worker and readback close existing native/C27/C30/C31 evidence plus narrow C33 reference change; no new giant validation framework.",
+    "Before source GO freeze source/input hashes, inherited exact safety thresholds, static API ceilings and worker/reader CLI. This draft alone authorizes no physics."
+  ],
+  "next_RL_boundary": "After fixed development and cancellation close, freeze selected strong same-authority fixed baseline. Any RL remains a separate finite contract, with genuinely unused conditions frozen before training and same physical authority for fixed and learned. Existing RL gates including <=.95 strong fixed and <=.90 zero are retained; a fixed engineering gain does not complete the user RL goal.",
+  "entry_pairing": {
+    "required": "Original seven full reset arrays, all 201 prefix states, all 200 B22 input/action/servo/control records, reset memory/metadata other than episode_index, compiled geometry/profile and checkpoint/source bindings remain exact; shared teacher body_from/body_to/com_height/yaw geometry exact.",
+    "only_planned_difference": "teacher_shift_time_s is allowed to differ because C33 changes body reference timing. Verify each old time from original quintic K=10/sqrt(3) and each new time from C33 K=4/(1-2*.05), with same planned span,height and frozen alpha, rather than ignoring time entirely. C33 fixed consumed timing also independently verified after XY projection.",
+    "no_new_baseline_runs": true,
+    "pair_failure": "Stop immediately; do not resample or silently compare unpaired old data."
+  },
+  "baselines": {
+    "left": {
+      "fixed": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/independent_fixed_nonzero_left_01.json",
+      "zero": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/independent_zero_left_01.json"
+    },
+    "right": {
+      "fixed": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/independent_fixed_nonzero_right_01.json",
+      "zero": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/independent_zero_right_01.json"
+    }
+  },
+  "frozen_inputs": [
+    {
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/independent_fixed_nonzero_left_01.json",
+      "sha256": "0c0246d975512037b977908b2d0873c7018dfcba405e893c37d0808dab1e5b9b",
+      "bytes": 40905
+    },
+    {
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/independent_zero_left_01.json",
+      "sha256": "db69709663c3c3b0bdff00c202a9bc34d72357782f25e1f8c635b203d0d0564d",
+      "bytes": 17904
+    },
+    {
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/independent_fixed_nonzero_right_01.json",
+      "sha256": "8d473defab1059072bad45b65251d9c9c28b9450d7e150fa559767ebef9a397b",
+      "bytes": 40927
+    },
+    {
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/independent_zero_right_01.json",
+      "sha256": "fd6243ffe1169d319f65d6d4fee4dc25dd7d4e1c31e423b6a40bad5e7f4485a2",
+      "bytes": 17929
+    },
+    {
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/final_review_30.json",
+      "sha256": "9d07859fc14ce43e7939a4b69aba9a1bc8c7391183742dd506c4abcaf51508c5",
+      "bytes": 9812
+    },
+    {
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/read31/pairing_read31.py",
+      "sha256": "dc55658e18aa5bb3d49444f407953f5d375ae2466030fea346a532c168cf86f4",
+      "bytes": 11025
+    },
+    {
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation31/spec31_draft.json",
+      "sha256": "f350538af29c80aaa8dc7307b896f8d31d17b42e64529e9fe783659e4ff430fb",
+      "bytes": 6125
+    },
+    {
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation32/final_review32.json",
+      "sha256": "d0a94be042fc48cebf4412d6ec97e66cf5fce0d1c8d0c11b0a48bcfd5db917f8",
+      "bytes": 12348
+    },
+    {
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/astra_plan/contract33_draft.json",
+      "sha256": "d2647cfd6f49915df1a632b21a48643a99f0158f4f5e3627f5367d40f8908038",
+      "bytes": 7753
+    }
+  ],
+  "execution_interface": {
+    "run_root": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/development_01",
+    "worker_CLI": "root33/worker33.py --session PATH --output DIR",
+    "host_CLI": "root33/host33.py --request PATH [--owned-worker-host | --isolated-x11 PATH]",
+    "source_go": "source_go33.json binds final new sources, old runtime/evidence closure, this contract, exact spec/shared_session and one root runner; no physics before GO",
+    "reader": "New read33 path, reuse unchanged old physical proof with explicitly limited timing-only adaptation; enumerate every attempted case and reproduce qualification, entry bridge and fixed-alpha selection."
+  }
+}
