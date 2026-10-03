@@ -1,0 +1,152 @@
+{
+  "allowed_beta34": [
+    0.0,
+    0.5,
+    1.0
+  ],
+  "allowed_distance34_m": [
+    0.03,
+    0.04
+  ],
+  "alpha": 1.0,
+  "archived_c33_cancel_cases": {
+    "left": "cancel_100_left",
+    "right": "cancel_100_right"
+  },
+  "archived_c33_cases": {
+    "left": "alpha_100_left",
+    "right": "alpha_100_right"
+  },
+  "archived_c33_report_path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/independent_read33_02.json",
+  "archived_c33_run_path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/development_02",
+  "arm": "development",
+  "baseline_paths33": {
+    "left": {
+      "fixed": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/independent_fixed_nonzero_left_01.json",
+      "zero": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/independent_zero_left_01.json"
+    },
+    "right": {
+      "fixed": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/independent_fixed_nonzero_right_01.json",
+      "zero": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation30/independent_zero_right_01.json"
+    }
+  },
+  "cancel_cases_cap": 2,
+  "cancel_rule34": "If physical development closes without hard failure, select best complete eligible pair at largest attempted target distance. For a new selected setting, run cancel_d<030or040>_beta<tag>_left/right, at first real lift/horizontal overlap next control as C33. If selected setting is archived D=.03,beta0, reuse its existing C33 cancellation evidence and run no duplicate. At most two new cancellations.",
+  "cancel_selection_clarification34": "Filter to complete eligible left/right pairs first, then choose largest D in that filtered set and its strongest fixed beta. Never choose an incomplete pair. If the result is the archived D30 beta0, reuse its accepted cancellation evidence instead of rerunning.",
+  "close_s": 960,
+  "compiler_native_cap": 2,
+  "contract34_path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation34/astra_plan/contract34.json",
+  "control_limit": 22000,
+  "cycles_limit": 10,
+  "execution_contract_id": "C34_fixed_velocity_reference_and_40mm_v1",
+  "hard_s": 1020,
+  "macros_limit": 40,
+  "mode": "fixed",
+  "model_limits": {
+    "backward": 0,
+    "evaluate_actions": 0,
+    "forward": 0,
+    "learn": 0,
+    "load": 1,
+    "predict": 6001,
+    "predict_values": 0,
+    "save": 0,
+    "torch_load": 3,
+    "train": 0
+  },
+  "model_row_limits": {
+    "B22_actor_rows": 6032,
+    "control_predict": 6000,
+    "new_lateral_actor_rows": 0,
+    "new_lateral_value_rows": 0,
+    "probe_rows": 32
+  },
+  "new_MjData_cap": 3,
+  "new_MjModel_cap": 1,
+  "no_additional_model_or_physics_runs": true,
+  "normal_native_cap": 110000,
+  "outer_s": 1200,
+  "output_directory": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation34/development_01",
+  "per_case": {
+    "control_limit": 2200,
+    "prepare_controls": 200,
+    "retention_controls": 400,
+    "side_compute_cap": 1500,
+    "side_prepares_cap": 4,
+    "side_starts_cap": 1,
+    "tail_controls": 100
+  },
+  "reader_hard_s": 1200,
+  "render": false,
+  "retry_permitted": false,
+  "schema": "d1-c34-fixed-tracking-distance-execution-spec-v1",
+  "seed": 271001,
+  "selection_rule34": "Among eligible complete left/right pairs, include archived beta0; minimize max cycle time, then mean full-scene normalized torque-square mean, then smaller beta. No speed threshold needed for eligibility.",
+  "side_arm": "teacher",
+  "soft_s": 900,
+  "spawn_position_m": [
+    -8.0,
+    -4.7,
+    0.455
+  ],
+  "stage_A_cases": [
+    {
+      "beta": 0.5,
+      "case_id": "d030_beta050_left",
+      "direction": 1,
+      "distance_m": 0.03,
+      "initial_yaw_rad": 0.0
+    },
+    {
+      "beta": 0.5,
+      "case_id": "d030_beta050_right",
+      "direction": -1,
+      "distance_m": 0.03,
+      "initial_yaw_rad": 0.0
+    },
+    {
+      "beta": 1.0,
+      "case_id": "d030_beta100_left",
+      "direction": 1,
+      "distance_m": 0.03,
+      "initial_yaw_rad": 0.0
+    },
+    {
+      "beta": 1.0,
+      "case_id": "d030_beta100_right",
+      "direction": -1,
+      "distance_m": 0.03,
+      "initial_yaw_rad": 0.0
+    }
+  ],
+  "stage_B_rule34": "If all four Stage A cases completed eligible, run d040_beta000_left/right, then d040_beta<selected_A>_left/right if selected_A is nonzero. If selected_A=0, do not duplicate beta0.",
+  "stage_B_selected_template": "d040_beta050_left/right or d040_beta100_left/right, only stage_A selected nonzero beta",
+  "stage_B_zero_cases": [
+    {
+      "beta": 0.0,
+      "case_id": "d040_beta000_left",
+      "direction": 1,
+      "distance_m": 0.04,
+      "initial_yaw_rad": 0.0
+    },
+    {
+      "beta": 0.0,
+      "case_id": "d040_beta000_right",
+      "direction": -1,
+      "distance_m": 0.04,
+      "initial_yaw_rad": 0.0
+    }
+  ],
+  "static_API_global_caps": {
+    "copy": 15160,
+    "forward": 1689440,
+    "fullM": 15000,
+    "jac": 60000,
+    "jacBody": 1447680,
+    "objectVelocity": 30010
+  },
+  "stop_rule34": {
+    "controlled": "After a safely closed controlled task/quality failure, stop remaining development points immediately; no higher beta or larger D. Only cancellation of an already eligible selected new setting may follow.",
+    "hard": "Any native/source/mandatory physical/entry/archive failure ends all further cases; close safely within reserved budget, no retry."
+  }
+}

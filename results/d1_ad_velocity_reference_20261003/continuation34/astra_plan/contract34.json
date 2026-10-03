@@ -1,0 +1,185 @@
+{
+  "budgets": {
+    "cases_max": 10,
+    "compiler_native_max": 2,
+    "controls_max": 22000,
+    "cycles_max": 10,
+    "macros_max": 40,
+    "models": {
+      "B22_control_predict": 6000,
+      "B22_load": 1,
+      "B22_probe_calls": 1,
+      "B22_probe_rows": 32,
+      "backward": 0,
+      "learn": 0,
+      "new_lateral_actor": 0,
+      "new_lateral_value": 0,
+      "optimizer_step": 0,
+      "predict_rows_total": 6032,
+      "predict_total": 6001,
+      "save": 0,
+      "torch_load": 3,
+      "train": 0
+    },
+    "new_MjData_max": 3,
+    "new_MjModel_max": 1,
+    "no_automatic_retry": true,
+    "no_unused_budget_reallocation": true,
+    "normal_native_max": 110000,
+    "per_case": {
+      "controls_max": 2200,
+      "prepare_controls": 200,
+      "prepare_leg_max": 4,
+      "retention_controls": 400,
+      "side_controls_max": 1500,
+      "start_max": 1,
+      "tail_controls": 100
+    },
+    "physical_attempts": 1,
+    "seconds": {
+      "close": 960,
+      "hard": 1020,
+      "outer": 1200,
+      "pure_checks_total": 60,
+      "saved_reader": 1200,
+      "soft": 900
+    },
+    "static_API_caps": {
+      "copy": 15160,
+      "forward": 1689440,
+      "fullM": 15000,
+      "jac": 60000,
+      "jacBody": 1447680,
+      "objectVelocity": 30010
+    }
+  },
+  "controller": {
+    "base": "C33 fixed reference with alpha=1, r=.05, K=4/(1-2r), original body reference XY and lambda=.5",
+    "body_kd": 9.0,
+    "body_kp": 26.0,
+    "force_law": "F_new_xy = F_old_xy + mass*body_kd*beta*v_reference_xy; Fz and all moments unchanged",
+    "new_parameter": "beta in {0,.5,1}, constant per episode, change only idle before begin_episode",
+    "qualification_note": "The unchanged .015 m budget bounds reference acceleration only. Adding beta changes commanded wrench authority and may increase actual force/acceleration; no claim that total acceleration is capped by .015 m. Original force allocation, torque limits, native safety and effort gates remain active.",
+    "reference_velocity": "Same C33 saved reference_tick and curve derivative, world frame. Apply only when current phase remains the tick source phase in shift/recenter, failure is None and cancellation has not been requested. It is exactly zero for all other phases and t>=T.",
+    "unchanged": [
+      "body reference acceleration and original .015 m commanded ZMP budget",
+      "all original native/source/physical/contact/margin/speed/pose/torque and task quality gates except explicit new target-distance identity",
+      "C31 fixed body XY action/lambda, all foot phases and fixed leg order",
+      "one original model/plant/controller instance, B22 checkpoint, control dt .01 and physics dt .002"
+    ],
+    "wrench_evidence": [
+      "base_wrench_before_beta",
+      "actual_reference_velocity_world_mps",
+      "beta",
+      "delta_wrench",
+      "new_wrench",
+      "same tick/body span/elapsed/duration identity"
+    ]
+  },
+  "director": "/root/astra32_resume",
+  "distance": {
+    "absolute_final_xy_error_lt_m": 0.012,
+    "allowed_m": [
+      0.03,
+      0.04
+    ],
+    "report": "Use commanded target D/T and actual retained progress/T separately. Overshoot never increases commanded-distance speed. 30 mm evidence is an external quality/throughput anchor, not a same-task 40 mm control.",
+    "signed_progress_gate_m": {
+      "0.03": [
+        0.025,
+        0.05
+      ],
+      "0.04": [
+        0.035,
+        0.05
+      ]
+    },
+    "start_boundary": "C34 adapter asserts the inherited Hybrid call supplied distance_m=.03 and passes explicitly configured D to original Fast.start. No Fast guard edit: .01<=D<=.04 remains. Save incoming/requested/applied D separately.",
+    "task_goal": "entry_position_xy + direction*D*[-sin(entry_yaw),cos(entry_yaw)]"
+  },
+  "evidence": {
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/diagnostic_review33.json": {
+      "bytes": 8731,
+      "sha256": "c1bfeaf4d05e3287ae0a69f3524f00505e1ecfb5c9e947e3f9bef1c1e373e390"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/final_review33.json": {
+      "bytes": 7171,
+      "sha256": "fced8dd122c87d48a196580d29e127ed3b10f2864fac0d7cc780c3ce87e40b08"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/independent_read33_02.json": {
+      "bytes": 382046,
+      "sha256": "6b4e60237768301e865f9470ab8e5d4ba725522d15c6225c1a6039929dd296f2"
+    },
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation33/phase_diagnostic33_01.json": {
+      "bytes": 609454,
+      "sha256": "2116ec99854c2d3acd5765e98d0627240050436222f59db8c5d73e654a2dc660"
+    }
+  },
+  "execution_contract_id": "C34_fixed_velocity_reference_and_40mm_v1",
+  "future_RL_requirement": "C34 is neither training nor proof of sufficient RL authority. Before any RL contract, freeze the best reasonable same-task fixed comparator under identical available beta/distance/phase permissions using development data, and reserve new conditions for evaluation. Do not train merely to rediscover a single best constant beta or compare to an intentionally weak fixed setting.",
+  "implementation_review": {
+    "required_before_physics": [
+      "Source GO binds controller/task/worker/host/readers/contract plus complete actual cold reader import closure before launch.",
+      "Root alone runs bounded meaningful pure checks: beta0 exact identity, XY-only delta/phase/cancel masking, D30 equivalence/D40 true target, deterministic stage selection and budget arithmetic, source/bootstrap environment checks. No additional fitted models.",
+      "Environment site-packages stays first as actual bootstrap requires; LD_PRELOAD and library identities unchanged, Python3.10 and thread limits retained.",
+      "Independent reader must reconstruct new beta wrench/torque contribution and actual D40 target; no monkeypatch that declares old 30 mm task or old wrench valid for different inputs.",
+      "Reuse all remaining original physical/native verification and exact source/native counters. Saved verification may parallelize per episode only if full gates/all rows/global ledger are preserved and explicitly reviewed; no sampling shortcuts."
+    ],
+    "root_only_execution": true,
+    "source_files": "Only new continuation34 files. Do not edit sealed C30/C31/C32/C33 sources or artifacts."
+  },
+  "pairing": {
+    "30mm": "D30 pre-actuation entry plans retain the exact C33 alpha1 base; beta affects wrench only after that entry.",
+    "entry_exceptions": "Only explicitly commanded D and independently derived delta/goal/swing-duration fields may differ for40 mm; every other source/reset/checkpoint/profile/entry control field stays equal. Independently verify each actual planner/reference formula; no blanket exemption for teacher geometry or planned time.",
+    "prefix": "Exact same seven initial arrays, first201 state arrays and first200 B22 control records as accepted nominal baseline; no tolerance relaxation."
+  },
+  "purpose": "Test whether bounded reference-velocity tracking recovers C33 settling losses, then quantify 40 mm target throughput within the original Fast.start distance range. This is fixed-control engineering; no RL benefit or fluent A/D completion is claimed.",
+  "quality": {
+    "40mm_throughput_milestone": "Both directions .04/T >=1.25*(.03/9.37), with all quality gates. Also separately report whether nonzero beta is >=5% shorter than the new D40 beta0 same-task control.",
+    "RL_claim": false,
+    "all_cases": "All C33/C31/C30 mandatory per-native safety and task/entry/cancel gates retained. 30 mm score exactly unchanged. 40 mm only goal D and stricter .035 lower progress gate change; .05 upper and .012 absolute position error retained.",
+    "experience_limit": "Even +25% throughput is only about .004 m/s. The unchanged ~4.24 s serial foot-phase cost prevents this task from proving fluent A/D; later work must provide effective foot timing/continuous scheduling authority and genuine state-dependent RL decisions.",
+    "external_quality_anchors": "For every successful development: final error <= corresponding C30 zero error+2 mm; retention>=max(.90,C30 zero retention-.02); full-scene torque-square mean <=1.10 C30 fixed and <=1.20 C30 zero. These are quality bounds, not claims of same-task comparison at D=.04.",
+    "same_task_30mm_speed_milestone": "Both directions T<=.95*C33 alpha1 D30 cycle (9.37 s). Report all attempts even if none meets it.",
+    "same_task_40mm": "Any nonzero beta40 additionally requires final error<=new beta0 D40 error+2 mm, retention>=max(.90,beta0 D40 retention-.02), full torque-square mean<=1.10 new beta0 D40 mean.",
+    "user_goal_complete": false
+  },
+  "schema": "d1-c34-bounded-tracking-and-distance-contract-v1",
+  "sequence": {
+    "cancellation": "If physical development closes without hard failure, select best complete eligible pair at largest attempted target distance. For a new selected setting, run cancel_d<030or040>_beta<tag>_left/right, at first real lift/horizontal overlap next control as C33. If selected setting is archived D=.03,beta0, reuse its existing C33 cancellation evidence and run no duplicate. At most two new cancellations.",
+    "case_order": "Each complete setting is left before right, beta .5 before1 in stage A; beta0 before selected_A in stage B. Cycle indices are contiguous 0..attempted-1. No discretionary extra point.",
+    "controlled_quality_failure": "After a safely closed controlled task/quality failure, stop remaining development points immediately; no higher beta or larger D. Only cancellation of an already eligible selected new setting may follow.",
+    "hard_failure": "Any native/source/mandatory physical/entry/archive failure ends all further cases; close safely within reserved budget, no retry.",
+    "selection_A": "Among eligible complete left/right pairs, include archived beta0; minimize max cycle time, then mean full-scene normalized torque-square mean, then smaller beta. No speed threshold needed for eligibility.",
+    "selection_B": "Among eligible complete 40 mm pairs actually attempted, same worst-cycle/cost/smaller-beta ranking. The tested fixed set is disclosed; it is not claimed globally optimal.",
+    "stage_A_30mm": [
+      {
+        "beta": 0.5,
+        "direction": 1,
+        "distance_m": 0.03,
+        "id": "d030_beta050_left"
+      },
+      {
+        "beta": 0.5,
+        "direction": -1,
+        "distance_m": 0.03,
+        "id": "d030_beta050_right"
+      },
+      {
+        "beta": 1.0,
+        "direction": 1,
+        "distance_m": 0.03,
+        "id": "d030_beta100_left"
+      },
+      {
+        "beta": 1.0,
+        "direction": -1,
+        "distance_m": 0.03,
+        "id": "d030_beta100_right"
+      }
+    ],
+    "stage_A_archived_control": "C33 alpha_100_left/right at D=.03,beta=0; reuse exact independently accepted saved evidence, no rerun.",
+    "stage_B_40mm": "If all four Stage A cases completed eligible, run d040_beta000_left/right, then d040_beta<selected_A>_left/right if selected_A is nonzero. If selected_A=0, do not duplicate beta0."
+  },
+  "status": "FROZEN_DESIGN_NOT_SOURCE_GO"
+}

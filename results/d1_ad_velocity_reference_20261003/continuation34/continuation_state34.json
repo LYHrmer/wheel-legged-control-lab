@@ -1,0 +1,84 @@
+{
+  "RL_speed_benefit_proven": false,
+  "actual_ledger": {
+    "B22_control_predictions": 600,
+    "B22_probe_rows": 32,
+    "actual_static_API": {
+      "copy": 899,
+      "forward": 35713,
+      "fullM": 311,
+      "jac": 3213,
+      "jacBody": 10685,
+      "objectVelocity": 1767
+    },
+    "cases": 1,
+    "compiler_native": 2,
+    "controls": 1483,
+    "data_objects": 3,
+    "macros": 4,
+    "new_lateral_actor_calls": 0,
+    "new_lateral_value_calls": 0,
+    "new_optimizer_steps": 0,
+    "normal_native": 7415,
+    "passed": true,
+    "side_controls": 883
+  },
+  "closed_utc": "2026-10-03T15:08:11.855303+00:00",
+  "frozen_source_edits": 0,
+  "goal_complete": false,
+  "goal_status": "active",
+  "independent_readback": "independent_read34_02.json",
+  "independent_readback_identity": {
+    "bytes": 113306,
+    "sha256": "261026b76e1c9b41a63994c0177c51dc7457ce529aaf208fd75b1054b20bb1ee"
+  },
+  "model_counts": {
+    "B22_load": 1,
+    "control_predict": 600,
+    "lateral_actor_value_optimizer": 0,
+    "predict_rows_total": 632,
+    "predict_total": 601,
+    "probe_calls": 1,
+    "probe_rows": 32,
+    "torch_load": 3
+  },
+  "next_direction": "C35 continuous lateral velocity task with explicit changed contact schedule; design only, new bounded feasibility and RL contracts required.",
+  "not_executed": [
+    "right beta0.5",
+    "beta1",
+    "D40 beta0",
+    "D40 nonzero beta",
+    "new cancellation cases",
+    "RL training",
+    "GUI deployment"
+  ],
+  "old_campaign_replays": 0,
+  "physical_attempts": 1,
+  "physical_run": "development_01",
+  "preserved_failures": [
+    "pure_reader_interfaces34_02",
+    "readback_execution34_01"
+  ],
+  "pure_elapsed_total_s": 2.027492211000208,
+  "pure_wall_budget_s": 60,
+  "reader_elapsed_total_s": 173.46154816000126,
+  "reader_wall_budget_s": 1200,
+  "result": "Only d030_beta050_left ran: original physical task passed; external XY error and retention gates failed. All further development cases stopped. Archived C33 beta0 pair and cancellation evidence reused.",
+  "reviews": {
+    "final_review34.json": {
+      "bytes": 10102,
+      "sha256": "60c7ea8fa171b862c364e2f7734a9c8d52cd8118c683c7fc1f21f468a71963d7"
+    }
+  },
+  "schema": "d1-c34-closed-continuation-state-v1",
+  "source_go_identity": {
+    "bytes": 1123698,
+    "sha256": "bb28ae42fd8ca376e0577baa8fc3593e4a0b5d1a3036afb91401dbfeb4632097"
+  },
+  "status": "CLOSED_PHYSICAL_TASK_VALID_QUALITY_GAIN_FAILED",
+  "unused_budget_not_reallocated": {
+    "controls": 20517,
+    "macros": 36,
+    "normal_native": 102585
+  }
+}

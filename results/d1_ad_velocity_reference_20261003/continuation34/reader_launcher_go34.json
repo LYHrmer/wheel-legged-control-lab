@@ -1,0 +1,29 @@
+{
+  "allowed_run": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation34/development_01",
+  "condition": "Root alone launches once after worker/host/supervisor close successfully and exact launcher/review identities are checked; use new exclusive execution and output paths.",
+  "decision": "GO",
+  "launcher": {
+    "bytes": 6491,
+    "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation34/launch_saved_reader34.py",
+    "sha256": "f71a4a3e3f2f4b65e771e0ea444bf1ce2448c7722d68bc1f6b8ff6ace6de1cac"
+  },
+  "no_automatic_reader_retry": true,
+  "overall_wall_limit_s": 1200,
+  "reader_source_review": {
+    "bytes": 1098432,
+    "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation34/reader_source_go34.json",
+    "sha256": "7c9174b86011bdd8133dd0bf80d81902357643cdd464469add4eec63c33eed7a"
+  },
+  "reserved_reader_attempts": 1,
+  "review_findings": [
+    "Dynamic run/review paths and exclusive execution/output; no LD_PRELOAD or LD_LIBRARY_PATH in saved-only child.",
+    "Every reviewed input checked before and after with deadline within one-MiB hashing loops; missing or incomplete checks/output invalidate result.",
+    "Single overall1200s deadline includes source checks, child wait/termination and postcheck. Child deadline reserves nominal60s for close; elapsed>1200 is failure.",
+    "No sampling, model construction or physics; full original saved physical/native proof remains."
+  ],
+  "reviewer_agent": "/root/astra32_resume",
+  "schema": "d1-c34-saved-reader-launcher-review-v1",
+  "scope": "Saved data only; zero new robot models, physics, learned fits or policy execution.",
+  "user_goal_complete": false,
+  "validation_note": "Source reviewed directly; unchanged C33 successful launcher apart from C34 labels. Root final lint/cold CLI checks are in cited evidence; no new launcher execution by reviewer."
+}
