@@ -32,9 +32,16 @@
 
 ## 下一步唯一任务
 
-先由实际 gpt-6-astra ultra 裁决修改冻结的相位/接触语义——例如为完全卸载阶段单列一个只要求**进入支撑组**法向载荷为正的区间，或显式允许摆动组在 transfer 末段失接触——然后重新冻结源码、签发新 GO 和新的有界合同，再执行新的物理验证。
+**先读 [横移步态方案重审](ad_lateral_gait_review_20261004.md)。** 那份零物理步的分析表明，仅修好上面这个互斥还不够：按冻结的参考限幅，对角双腿步态的理想上界只有 0.02624 m/s（渐近线 v_peak/3.75 = 0.042667 m/s，发展目标 0.030–0.040 m/s 结构上不可达）；更关键的是整机 COM 比四轮接触矩形中心前移 21.66 mm，使两条对角线都不过 COM，两支撑所需绕轴力矩 8.07 N·m 超出接触斑容量 5.87 N·m 达 1.38 倍，**该步态在本机质量分布下静力上不成立**，而冻结合同既没有按步机身平移也没有两支撑稳定性判据。补上平移后速度回落到 0.02154 m/s（激进重叠）或 0.01815 m/s（不重叠）。
 
-**禁止**：扫描 transfer 时长或权重；在现有 GO 下重试；临场修改冻结源码后沿用旧 GO；追加任何训练或参数扫描。固定可行性未通过，因此**不建立同权限强固定基线，也不制定 RL 合同**。
+因此下一步需要的是**两项决策**，不是直接改语义重跑：
+
+1. 修改冻结的相位/接触语义（例如为完全卸载阶段单列只要求进入支撑组载荷为正的区间），**同时**补上按步机身平移与两支撑动态稳定性判据，并把目标下调到与机构相符的 0.020–0.026 m/s。
+2. 对中远程侧向重定位（>31 mm，即用户实际抱怨的场景），决定是否改用已合格的 `W＋Q/W＋E` S 形换道——0.150 m 侧移仅需 2.598 s（0.3 m/s）或 1.293 s（1.2 m/s），比任何可达步进快 2.2–4.4 倍，代价是 0.76–1.54 m 纵向净空与瞬时航向变化，且属于任务重定义。
+
+两项都需要实际 gpt-6-astra ultra 裁决、重新冻结源码并签发新 GO。
+
+**禁止**：扫描 transfer 时长或权重（重审第 2 节已证明参数扫描在结构上拿不到发展目标）；在现有 GO 下重试；临场修改冻结源码后沿用旧 GO；追加任何训练或参数扫描。固定可行性未通过，因此**不建立同权限强固定基线，也不制定 RL 合同**。
 
 ## 能力边界（与本轮无关的既有状态）
 
@@ -59,6 +66,7 @@
 ## 证据入口
 
 - [C35 完整结果与定位](ad_lateral_pair_feasibility_20261004.md)
+- [横移步态方案重审](ad_lateral_gait_review_20261004.md)（零物理步；速度上界、静力可行性与替代机构）
 - [A/D 连续速度主方案](main_plan_20261003_ad.md)、[C34 速度补偿结果](ad_lateral_tracking_20261003.md)
 - 公开子集：[results/d1_ad_velocity_reference_20261003](../results/d1_ad_velocity_reference_20261003/README.md)
 - 本地权威记录：`W/continuation35/root_adjudication35_01.json`、`continuation_state35.json`、`independent_read35_01.json`、`development_01/episode_0/native_contact_failure_0000.json`
@@ -73,9 +81,9 @@ rtk gh api 'repos/LYHrmer/wheel-legged-control-lab/actions/runs?per_page=3' --jq
 rtk pgrep -af python
 ```
 
-1. 先读本文、`W/continuation35/continuation_state35.json` 和 `root_adjudication35_01.json`，再读 [C35 结果文档](ad_lateral_pair_feasibility_20261004.md)。需要原始设计时读 `W/continuation35/astra_plan/` 下的合同、规格、接口与四份 clarification。
+1. 先读本文、`W/continuation35/continuation_state35.json` 和 `root_adjudication35_01.json`，再读 [C35 结果文档](ad_lateral_pair_feasibility_20261004.md)和[步态方案重审](ad_lateral_gait_review_20261004.md)。需要原始设计时读 `W/continuation35/astra_plan/` 下的合同、规格、接口与四份 clarification。
 2. 核对工作树、GitHub main、CI、运行进程与 77 份冻结哈希。C35 源码仍冻结；`development_01` 已用尽，不得重试。
-3. 把定位结论交给实际 gpt-6-astra ultra，取得新的相位/接触语义裁决与新 GO，再执行新的有界物理验证。
+3. 把定位结论和重审结论一并交给实际 gpt-6-astra ultra，取得上节两项决策与新 GO，再执行新的有界物理验证。
 4. 固定可行性通过后才建立同权限强固定基线，并依据真实结果制定有界 RL 合同。
 
 每条 shell 命令加 `rtk`，原始输出用 `rtk proxy`。GitHub 上传沿用已验证的 SSH443：

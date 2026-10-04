@@ -1,0 +1,62 @@
+== 0. method validation against the published old serial bound ==
+  old serial bound recomputed: 0.011866 m/s  (published 0.01187 m/s)
+
+== 1. frozen C35 schedule, step at the 60 mm landing cap ==
+  overhead per pair 0.44 s, k = 1.875/0.16 = 11.71875 s/m
+  contract-allowed extra time per pair: probe <= 0.50 s, wait <= 1.00 s
+  extra 0.0000 s/pair -> 0.02624 m/s
+  extra 0.1000 s/pair -> 0.02413 m/s
+  extra 0.2000 s/pair -> 0.02234 m/s
+  extra 0.3569 s/pair -> 0.02000 m/s
+  extra 0.5000 s/pair -> 0.01826 m/s
+  extra 1.0000 s/pair -> 0.01400 m/s
+  extra 1.5000 s/pair -> 0.01135 m/s
+
+== 2. structural asymptote and the only first-order lever ==
+  v_inf = v_peak/3.75 = 0.042667 m/s (independent of step and overhead)
+  target 0.020 m/s -> step    33.13 mm  OK
+  target 0.025 m/s -> step    53.13 mm  OK
+  target 0.030 m/s -> step    88.93 mm  EXCEEDS 60 mm cap
+  target 0.040 m/s -> step   563.20 mm  EXCEEDS 60 mm cap
+  target 0.020 m/s at 60 mm -> peak foot 0.1061 m/s (0.66x frozen)
+  target 0.025 m/s at 60 mm -> peak foot 0.1480 m/s (0.93x frozen)
+  target 0.030 m/s at 60 mm -> peak foot 0.2009 m/s (1.26x frozen)
+  target 0.040 m/s at 60 mm -> peak foot 0.3629 m/s (2.27x frozen)
+  quintic lift reaches 12 mm clearance at 0.0497 s of the 0.12 s lift
+  merging lift/lower into one arc -> overhead 0.2995 s, 0.02992 m/s
+
+== 3. two-support statics at the measured pre-state ==
+  mass 48.146865 kg, weight 472.32 N, COM height 0.38758 m
+  contact rectangle centre (-8.018176, -4.699990)
+  COM forward of centre by 21.66 mm, lateral 0.08 mm
+  swing [0, 3] on support [1, 2] (diagonal 603.8 mm)
+    COM perpendicular offset   17.08 mm -> required   8.07 N*m
+    patch half extent          12.42 mm -> capacity   5.87 N*m  deficit  2.20 N*m (1.38x)
+  swing [1, 2] on support [0, 3] (diagonal 603.8 mm)
+    COM perpendicular offset   17.01 mm -> required   8.03 N*m
+    patch half extent          12.41 mm -> capacity   5.86 N*m  deficit  2.17 N*m (1.37x)
+
+== 4. time cost of the per-pair body shift that statics requires ==
+  reference accel limit h*a/g<=0.015 -> 0.3797 m/s^2
+  quintic shift of 17.08 mm needs 0.5096 s per pair
+  no overlap                         +0.5096 s/pair -> 0.01815 m/s
+  overlapped with lower+dwell+load   +0.2496 s/pair -> 0.02154 m/s
+
+== 5. nominal crouch reach from URDF link lengths ==
+  thigh 0.25 m, calf 0.25 m, calf joint -1.5 rad -> hip-to-wheel 0.3658 m
+  planar estimate at the 4 rad/s reference clip: 1.463 m/s foot speed
+  frozen 0.16 m/s uses 10.9% of that estimate
+
+== 6. S-curve lane change at the qualified 0.3 rad/s keyboard yaw ==
+  lateral 0.050 m at 0.3 m/s -> 1.494 s, forward 0.444 m, rate 0.03347 m/s
+  lateral 0.050 m at 1.2 m/s -> 0.746 s, forward 0.893 m, rate 0.06705 m/s
+  lateral 0.100 m at 0.3 m/s -> 2.117 s, forward 0.624 m, rate 0.04724 m/s
+  lateral 0.100 m at 1.2 m/s -> 1.055 s, forward 1.261 m, rate 0.09477 m/s
+  lateral 0.150 m at 0.3 m/s -> 2.598 s, forward 0.760 m, rate 0.05773 m/s
+  lateral 0.150 m at 1.2 m/s -> 1.293 s, forward 1.542 m, rate 0.11601 m/s
+  lateral 0.300 m at 0.3 m/s -> 3.699 s, forward 1.054 m, rate 0.08111 m/s
+  lateral 0.300 m at 1.2 m/s -> 1.831 s, forward 2.170 m, rate 0.16380 m/s
+  lateral 0.500 m at 0.3 m/s -> 4.818 s, forward 1.323 m, rate 0.10377 m/s
+  lateral 0.500 m at 1.2 m/s -> 2.369 s, forward 2.784 m, rate 0.21102 m/s
+  stepping (frozen best case, 0.02624 m/s) wins only below 30.7 mm of lateral travel
+  stepping (statically sound, overlapped, 0.02154 m/s) wins only below 20.7 mm of lateral travel
