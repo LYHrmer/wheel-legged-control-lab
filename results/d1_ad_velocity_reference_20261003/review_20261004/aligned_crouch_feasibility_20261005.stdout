@@ -1,0 +1,43 @@
+== 1. inverse-kinematics conditioning ==
+  frozen nominal  thigh 0.800: singular values 0.4222 / 0.3910 / 0.1380 m/rad, condition number 3.060
+    worst joint rate per 1 m/s lateral foot motion 2.7366 rad/s
+  aligned crouch  thigh 0.731: singular values 0.4258 / 0.3867 / 0.1384 m/rad, condition number 3.076
+    worst joint rate per 1 m/s lateral foot motion 2.7366 rad/s
+  the aligned crouch is 4 degrees from the frozen one, so conditioning barely moves: no new singularity risk
+
+== 2. is the 60 mm landing cap a workspace limit? ==
+  FL foot can move  163.6 mm outward +y at constant height inside the compiled joint limits
+  FL foot can move  306.2 mm inward -y at constant height inside the compiled joint limits
+  FL foot can move  263.9 mm forward +x at constant height inside the compiled joint limits
+  FL foot can move  278.4 mm back -x at constant height inside the compiled joint limits
+  smallest reach 163.6 mm against the 60 mm landing cap: the cap uses 36.7% of the workspace, so it is a design choice, not an IK limit
+
+== 3. stance-leg torque while carrying its share ==
+  four-wheel support, mg/4 per wheel: 118.1 N -> joint torques (+20.865, -0.040, -23.789) N*m, worst 23.789 N*m, 29.7% of 80.0 N*m
+  two-support diagonal, mg/2 per wheel: 236.2 N -> joint torques (+37.728, -0.895, -44.359) N*m, worst 44.359 N*m, 55.4% of 80.0 N*m
+  a pure stance PD of kp=80.0 could not hold this at all: 0.554 rad of droop. The original force allocation feed-forward is what holds the stance leg, and the saved run droops only 0.0211 rad, so the feed-forward is carrying essentially all of it. This is inherited behaviour, not a new risk.
+  rejecting the optimised gait's 103 N swing reaction adds 51.5 N lateral per stance wheel:
+    static hold alone 44.359 N*m -> with rejection 56.544 N*m, 70.7% of the limit
+    torque headroom left 23.46 N*m (29.3%), so the actuator is not the limit on rejecting it - whether the PD loops actually do is a separate, simulation-only question
+
+== 4. holding the aligned crouch against real tracking error ==
+  statics tolerates thigh error +/-0.0554 rad (3.17 deg)
+  the saved C35 pre-state sat 0.0211 rad below its 0.800 command, which is 38% of that tolerance
+  so the aligned crouch must be defined on the ACTUAL pose, not the command: commanding 0.7313 and settling 0.0211 low lands at 0.7102 rad, still inside the window but 62% of margin left
+  commanding 0.7524 instead recentres it; the new contract should specify the aligned crouch as a measured-pose target with a bias for the observed droop
+
+== 5. the entry cost nobody has priced: the feet are planted ==
+  relative to the base, the aligned crouch puts each wheel +25.53 mm in x compared with the frozen nominal
+  base height is preserved: 0.452366 -> 0.452366 m
+  but the wheels are ON THE GROUND, so changing the leg angles moves the BASE -25.53 mm in x instead, unless the wheels roll
+  that is 85% of the frozen 30 mm longitudinal excursion limit, leaving only 4.5 mm for the rest of the task
+  alternative: roll the wheels 0.2934 rad (16.81 deg) while morphing the legs, so the contact pattern moves and the base stays put, spending no excursion budget at all
+    the wheels are actuated (12 N*m) and the contract already replaces the wheel PD during side control, so this is a reference change, not a new authority; it does require releasing the 12-position wheel brake for the morph
+  the morph itself is small: thigh 0.0687 rad, calf 0.0023 rad, so at the 4.0 rad/s reference clip it needs only 0.0172 s, far inside the 200-control preparation window
+
+== 6. verdict ==
+  none of the four checks blocks the aligned crouch:
+    conditioning barely changes, the landing cap uses a third of the workspace, stance torque keeps headroom even while rejecting the swing reaction, and the morph takes 0.02 s
+  one real finding: if the base moves, the crouch change spends 25.53 mm, 85% of the 30 mm longitudinal excursion budget, so the new contract must roll the wheels through the morph or raise that limit
+  and one specification requirement: define the aligned crouch on the measured pose with a droop bias, not on the commanded angle
+  still not addressed here: whether the body and attitude PD loops actually reject the 22% of body weight swing reaction, which needs simulation, and anything off flat ground
