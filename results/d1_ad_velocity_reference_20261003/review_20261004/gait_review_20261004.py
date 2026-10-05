@@ -190,7 +190,8 @@ def main() -> None:
             row = s_curve(lateral, drive)
             print(f'  lateral {lateral:.3f} m at {drive:.1f} m/s -> {row["seconds"]:.3f} s, '
                   f'forward {row["forward_m"]:.3f} m, rate {row["lateral_rate_mps"]:.5f} m/s')
-    for label, speed in (('frozen timing ceiling', cycle_speed(LANDING_CAP_M)),
+    for label, speed in (('optimised gait, see motion_optimisation_20261005', .07317),
+                         ('frozen timing ceiling', cycle_speed(LANDING_CAP_M)),
                          ('frozen incl. the 0.975 s landing-lead statics cap', .02365),
                          ('statically sound, overlapped body shift',
                           cycle_speed(LANDING_CAP_M,

@@ -1,0 +1,71 @@
+== 1. exact foot Jacobian at the aligned crouch ==
+  pose: hip 0, thigh 0.731310, calf -1.502261 rad, base height 0.452366 m
+  FL: per 1 m/s of foot motion the worst joint rate is  2.7366 rad/s lateral,  5.8590 rad/s vertical,  2.7938 rad/s longitudinal
+       lateral joint rates (hip, thigh, calf) = (+2.7366, -1.1239, +2.2901)   vertical = (+0.0011, +2.8753, -5.8590)
+  FR: per 1 m/s of foot motion the worst joint rate is  2.7365 rad/s lateral,  5.8590 rad/s vertical,  2.7938 rad/s longitudinal
+       lateral joint rates (hip, thigh, calf) = (+2.7365, +1.1239, -2.2902)   vertical = (-0.0011, +2.8753, -5.8590)
+  RL: per 1 m/s of foot motion the worst joint rate is  2.7366 rad/s lateral,  5.8590 rad/s vertical,  2.7938 rad/s longitudinal
+       lateral joint rates (hip, thigh, calf) = (+2.7366, -1.1239, +2.2901)   vertical = (+0.0011, +2.8753, -5.8590)
+  RR: per 1 m/s of foot motion the worst joint rate is  2.7365 rad/s lateral,  5.8590 rad/s vertical,  2.7938 rad/s longitudinal
+       lateral joint rates (hip, thigh, calf) = (+2.7365, +1.1239, -2.2902)   vertical = (-0.0011, +2.8753, -5.8590)
+
+== 2. foot speed and acceleration envelopes ==
+  frozen reference clips: |qvel|<=4.0 rad/s -> lateral foot 1.4617 m/s, vertical 0.6827 m/s
+    |qacc|<=60.0 rad/s^2 -> lateral foot 21.9254 m/s^2, vertical 10.2406 m/s^2
+  native hard gate only: |qvel|<=18.0 rad/s -> lateral foot 6.5776 m/s, vertical 3.0722 m/s
+  the frozen peak reference foot speed 0.16 m/s uses 10.9% of the reference clip envelope and 2.4% of the native hard gate
+
+== 3. does actuator torque allow it? ==
+  isolated swing-chain mass matrix (hip, thigh, calf), kg*m^2:
+     +0.325882   +0.006984   -0.044763
+     +0.006984   +0.294423   +0.132567
+     -0.044763   +0.132567   +0.123755
+  gravity hold torque (4.0017, 0.8151, -3.2185) N*m, worst |tau_g| 4.0017 N*m of 80.0
+  frozen clip equivalent: foot lateral accel 21.9254 m/s^2 -> worst joint torque 21.135 N*m, 26.4% of the 80 N*m limit
+  10x that acceleration: foot lateral accel 219.2538 m/s^2 -> worst joint torque 175.334 N*m, 219.2% of the 80 N*m limit
+  caveat: this is the swing chain's own inertia with the base held fixed, not the coupled 6x6 inertia the controller uses; it bounds the swing term only
+
+== 4. the frozen quintic is 1.875x slower than a minimum-time traverse ==
+  step 30.0 mm at the same 0.16 m/s peak: quintic 0.3516 s vs minimum-time 0.1875 s (1.875x)
+  step 60.0 mm at the same 0.16 m/s peak: quintic 0.7031 s vs minimum-time 0.3750 s (1.875x)
+  the frozen quintic also never uses its acceleration budget: a profile that does is strictly faster at the same peak speed
+
+== 5. staged optimisation from the frozen baseline ==
+  frozen quintic vertical peak = 1.875*0.035/0.12 = 0.5469 m/s, inside the 0.6827 m/s envelope
+  frozen baseline: quintic, 0.16 m/s peak, 35 mm lift, no overlap, step capped by the 0.975 s landing lead
+    step 46.7 mm, T_pair 0.990 s -> 0.02359 m/s   statics margin +47%
+  + fix the landing lead so the 60 mm cap is reachable
+    step 60.0 mm, T_pair 1.150 s -> 0.02609 m/s  (+10.6%, cumulative  +10.6%)   statics margin +31% OK
+  + lift only to clearance + 3 mm (15 mm) at the same vertical peak
+    step 60.0 mm, T_pair 1.030 s -> 0.02913 m/s  (+11.7%, cumulative  +23.5%)   statics margin +32% OK
+  + overlap load with the next pair transfer
+    step 60.0 mm, T_pair 0.970 s -> 0.03093 m/s  ( +6.2%, cumulative  +31.1%)   statics margin +27% OK
+  + minimum-time profiles at the frozen 0.16 m/s peak
+    step 60.0 mm, T_pair 0.690 s -> 0.04348 m/s  (+40.6%, cumulative  +84.3%)   statics margin +29% OK
+  + raise the peak foot speed to the 4 rad/s reference-clip envelope
+    step 60.0 mm, T_pair 0.410 s -> 0.07317 m/s  (+68.3%, cumulative +210.2%)   statics margin +34% OK
+
+== 6. the optimised gait in detail, every hard limit kept ==
+  step 60.0 mm, T_pair 0.410 s, cycle 0.820 s, lateral speed 0.07317 m/s
+  control-quantised phases: transfer 6, lift 8, horizontal 11, lower 8, dwell 8, load 6 (overlap -6 controls of 0.01 s)
+  peak foot lateral speed 1.1470 m/s -> worst joint rate 3.1387 rad/s of the 4.0 clip and the 18.0 hard gate
+  peak swing torque 21.13 N*m, 26.4% of the 80.0 N*m actuator limit
+  mid-swing COM drift 8.21 mm of the 12.42 mm patch capacity, margin 34%
+  swing reaction on the body: 2 x 4.679 kg of moving links, roughly 103 N lateral at peak, 22% of body weight - a first-order disturbance this analysis cannot clear
+
+== 7. sensitivity ==
+  contact-admission wait   0 controls/pair -> 0.07317 m/s  meets the 0.04 goal
+  contact-admission wait   5 controls/pair -> 0.06522 m/s  meets the 0.04 goal
+  contact-admission wait  10 controls/pair -> 0.05882 m/s  meets the 0.04 goal
+  contact-admission wait  20 controls/pair -> 0.04918 m/s  meets the 0.04 goal
+  contact-admission wait  40 controls/pair -> 0.03704 m/s  below the 0.04 goal
+  landing cap 60 mm -> step  60.0 mm (cap binds), 0.07317 m/s
+  landing cap 80 mm -> step  80.0 mm (cap binds), 0.09302 m/s
+  landing cap 90 mm -> step  90.0 mm (cap binds), 0.10465 m/s
+
+== 8. verdict ==
+  with every frozen hard limit kept and only reference design parameters changed, the optimised gait reaches 0.07317 m/s
+    that is 3.10x the frozen baseline 0.02359 m/s, 3.7x the 0.02 m/s engineering floor and 1.83x the 0.04 m/s development goal
+  the binding constraint moves to the 60 mm landing cap; foot actuators, joint rates and torque all retain large margin
+  this overturns the earlier conclusion that the development goal is structurally unreachable: that conclusion assumed the frozen quintic shape and the frozen 0.16 m/s peak, both of which are reference choices, not limits
+  NOT verified here: closed-loop body and attitude rejection of the swing reaction above, IK conditioning at the aligned crouch, contact-gate admission at the 15 mm lift, behaviour on anything but flat ground, and the coupled 6x6 inertia. Every number is a reference-level bound, not a simulation.
