@@ -1,0 +1,94 @@
+== 1. validate the URDF tree against the saved C35 pre-state ==
+  total mass          computed 48.14686526 kg   saved 48.14686526 kg   delta 0.00e+00
+  whole COM x         computed -7.996513 m   saved -7.996515 m   delta +0.002 mm
+  whole COM y         computed -4.699912 m   saved -4.699913 m   delta +0.001 mm
+  whole COM z         computed +0.387603 m   saved +0.387584 m   delta +0.020 mm
+  wheel-body centres against the controller's own feet_world_m:
+    FL delta (+0.075, -0.011, +0.134) mm
+    FR delta (+0.097, +0.014, -0.113) mm
+    RL delta (+0.177, -0.011, -0.124) mm
+    RR delta (+0.126, +0.019, +0.150) mm
+  saved rim contact slots are 40 mm apart, the cylinder length; their midpoint is the wheel plane, which is why rim points are not wheel centres
+
+== 2. is the static offset robust to the contact definition? ==
+  rim contact representative (used in the review)
+    COM forward of contact centre +21.66 mm   diagonal offsets 17.08 / 17.01 mm
+    required moment  8.07 /  8.03 N*m   vs patch capacity  5.87 N*m   deficit 1.38x
+  wheel body centre (feet_world_m)
+    COM forward of contact centre +21.78 mm   diagonal offsets 16.59 / 16.49 mm
+    required moment  7.84 /  7.79 N*m   vs patch capacity  5.87 N*m   deficit 1.34x
+  positive-load-weighted (contract force geometry)
+    COM forward of contact centre +21.68 mm   diagonal offsets 16.60 / 17.02 mm
+    required moment  7.84 /  8.04 N*m   vs patch capacity  5.87 N*m   deficit 1.37x
+
+== 3. where the forward offset comes from ==
+  FL: hip x +0.2820 m, wheel x +0.1692 m, wheel is 112.8 mm behind its hip
+  FR: hip x +0.2820 m, wheel x +0.1692 m, wheel is 112.8 mm behind its hip
+  RL: hip x -0.0930 m, wheel x -0.2058 m, wheel is 112.8 mm behind its hip
+  RR: hip x -0.0930 m, wheel x -0.2058 m, wheel is 112.8 mm behind its hip
+  hip rectangle centre is +94.5 mm of base_link and the wheels sit 112.8 mm behind it, so the contact centre lands at -18.3 mm
+  nominal crouch: base height 0.452366 m, COM +20.99 mm forward of the contact centre, diagonal offsets 16.03 / 15.94 mm
+
+== 4. can a different crouch align the COM with both diagonals? ==
+  target base height 0.452366 m: residual at thigh 0.2 rad -0.00 mm, at 2.2 rad +0.00 mm
+    SOLUTION thigh +0.731310 rad, calf -1.502261 rad  (nominal +0.800 / -1.500)
+      base height 0.452366 m, COM offset -0.0000 mm, diagonal offsets 0.0464 / 0.0464 mm
+      compiled joint limits: all OK   stance y span 440.6 mm (nominal 440.6 mm)
+  target base height 0.455000 m: residual at thigh 0.2 rad -0.00 mm, at 2.2 rad +0.00 mm
+    SOLUTION thigh +0.723509 rad, calf -1.486754 rad  (nominal +0.800 / -1.500)
+      base height 0.455000 m, COM offset +0.0000 mm, diagonal offsets 0.0464 / 0.0464 mm
+      compiled joint limits: all OK   stance y span 440.6 mm (nominal 440.6 mm)
+  target base height 0.460764 m: residual at thigh 0.2 rad -0.00 mm, at 2.2 rad +0.00 mm
+    SOLUTION thigh +0.706195 rad, calf -1.452352 rad  (nominal +0.800 / -1.500)
+      base height 0.460764 m, COM offset +0.0000 mm, diagonal offsets 0.0465 / 0.0465 mm
+      compiled joint limits: all OK   stance y span 440.6 mm (nominal 440.6 mm)
+
+== 5. sensitivity: how precisely must the aligned crouch be held? ==
+     thigh       calf    height  COM-centre x   diag off   static
+    0.4000   -1.39978   0.45237        -86.13      65.55    FAILS
+    0.6000   -1.48122   0.45237        -36.38      27.66    FAILS
+    0.6800   -1.49760   0.45237        -14.70      11.15       OK
+    0.7000   -1.50000   0.45237         -9.06       6.85       OK
+    0.7313   -1.50226   0.45237         -0.00       0.04       OK
+    0.7600   -1.50260   0.45237         +8.56       6.57       OK
+    0.8000   -1.50000   0.45237        +20.99      16.03    FAILS
+    0.9000   -1.47362   0.45237        +55.59      42.38    FAILS
+    1.0000   -1.39952   0.45237        +99.62      75.91    FAILS
+  local sensitivity 293.4 mm of COM x offset per rad of thigh
+  static feasibility tolerates thigh error up to +/-0.0554 rad (3.18 deg) before the patch capacity is exceeded
+
+== 6. what this does to the speed budget ==
+  nominal crouch needs a 16.03 mm per-pair body shift, 0.4938 s
+    not overlapped -> 0.01833 m/s
+    overlapped with lower+dwell+load -> 0.02179 m/s
+  aligned crouch residual offset 0.0464 mm -> no per-pair shift needed
+    speed stays at the frozen ideal ceiling 0.02624 m/s
+    the 0.0262 m/s ceiling and its asymptote v_peak/3.75 are unchanged; posture removes the statics penalty, not the timing limit
+
+== 7. does the continuous lateral body motion undo the alignment? ==
+  pure +y body motion projects onto the diagonal normal with factor 0.6412
+  one pair swing lasts 1.1431 s and the body travels 30.00 mm laterally at the 60 mm step
+    start aligned, drift one full swing              peak offset  19.24 mm  vs 12.42 mm  EXCEEDS CAPACITY
+    bias so the COM crosses the diagonal at mid swing peak offset   9.62 mm  vs 12.42 mm  OK
+  with the mid-swing bias, statics allows steps up to 77.5 mm, looser than the 60 mm landing cap: statics stops being the binding constraint
+  margin at the 60 mm landing cap: 23%
+
+== 8. what the sealed landing law actually does to that phase ==
+  step  30.0 mm (v 0.01895 m/s, T_pair 0.7916 s): COM lateral offset from the support pair runs   -6.89 ->   +8.11 mm, peak perpendicular  5.20 mm  OK
+  step  28.2 mm (v 0.01830 m/s, T_pair 0.7705 s): COM lateral offset from the support pair runs   -7.04 ->   +7.06 mm, peak perpendicular  4.53 mm  OK
+  step  40.0 mm (v 0.02201 m/s, T_pair 0.9087 s): COM lateral offset from the support pair runs   -5.42 ->  +14.58 mm, peak perpendicular  9.35 mm  OK
+  step  60.0 mm (v 0.02624 m/s, T_pair 1.1431 s): COM lateral offset from the support pair runs   -0.31 ->  +29.69 mm, peak perpendicular 19.04 mm  EXCEEDS
+  the frozen constants centre the drift only at lead = 1.5*T_pair, i.e. T_pair 0.7700 s
+    that is a 28.2 mm step and only 0.01829 m/s
+  at the 60 mm cap the lead constant would have to be 1.5347 s instead of 0.975 s (total lead 1.7147 s = 1.5*T_pair)
+    then the offset runs -15.00 -> +15.00 mm, peak perpendicular 9.62 mm, margin 23%
+  note: T_pair depends on the projected step, which depends on the lead, so a corrected law needs a one-step fixed point or the previous pair period
+  KEEPING the frozen 0.975 s lead, statics caps the step at 46.7 mm and the speed at 0.02365 m/s
+    that is a third binding constraint, tighter than both the 60 mm landing cap and the 0.02624 m/s timing ceiling
+
+== 9. can longitudinal acceleration substitute for the posture fix? ==
+  moment arm of a body x-acceleration about the diagonal: 0.2974 m
+  to cover 8.07 N*m needs 0.5634 m/s^2 held for the whole 1.0231 s air phase
+    that would travel 294.9 mm, against the frozen 30 mm longitudinal excursion limit
+  the limit only affords 0.0573 m/s^2 -> 0.82 N*m, 10.2% of what is needed
+  so wheel-driven longitudinal acceleration cannot replace the posture fix; the required moment has one sign for the whole swing and cannot be oscillated

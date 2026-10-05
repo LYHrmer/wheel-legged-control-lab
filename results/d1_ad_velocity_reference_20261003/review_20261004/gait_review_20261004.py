@@ -190,8 +190,9 @@ def main() -> None:
             row = s_curve(lateral, drive)
             print(f'  lateral {lateral:.3f} m at {drive:.1f} m/s -> {row["seconds"]:.3f} s, '
                   f'forward {row["forward_m"]:.3f} m, rate {row["lateral_rate_mps"]:.5f} m/s')
-    for label, speed in (('frozen best case', cycle_speed(LANDING_CAP_M)),
-                         ('statically sound, overlapped',
+    for label, speed in (('frozen timing ceiling', cycle_speed(LANDING_CAP_M)),
+                         ('frozen incl. the 0.975 s landing-lead statics cap', .02365),
+                         ('statically sound, overlapped body shift',
                           cycle_speed(LANDING_CAP_M,
                                       extra_s=max(0., shift_s-(LOWER_S+DWELL_S+LOAD_S))))):
         print(f'  stepping ({label}, {speed:.5f} m/s) wins only below '
