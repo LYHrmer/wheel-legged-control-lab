@@ -1,0 +1,31 @@
+== 1. collision model ==
+  42 URDF collision primitives, 24 cylinders replaced by their tight bounding boxes (strictly larger, so separation is conservative)
+  408 checked pairs after exempting same-leg, base-group and leg-attachment proximity
+
+== 2. aligned crouch, all feet nominal ==
+     30.63 mm   FL_thigh (box)  vs  R_docking_link (cylinder)
+     30.96 mm   FR_thigh (box)  vs  R_docking_link (cylinder)
+     44.40 mm   FR_thigh (box)  vs  R_docking_link (box)
+     48.05 mm   FR_thigh (box)  vs  R_docking_link (box)
+     48.10 mm   FL_thigh (box)  vs  R_docking_link (box)
+     56.33 mm   F_docking_link (box)  vs  RL_thigh (cylinder)
+
+== 3. along a lateral swing of the diagonal pair ==
+  swing pair lifted 15 mm and displaced laterally; stance pair held
+  pair ('FL', 'RR') outward +y: minimum   22.56 mm at   +0.0 mm  (FL_thigh vs R_docking_link)
+  pair ('FL', 'RR') inward -y: minimum   19.50 mm at  -77.5 mm  (FL_thigh vs R_docking_link)
+  pair ('FR', 'RL') outward +y: minimum   19.75 mm at  +77.5 mm  (FR_thigh vs R_docking_link)
+  pair ('FR', 'RL') inward -y: minimum   22.88 mm at   -0.0 mm  (FR_thigh vs R_docking_link)
+
+== 4. where does it actually interfere? ==
+  pushing the inward step past the statics limit to find the geometric edge
+  pair ('FL', 'RR') inward: joint limit or IK stops it at 185 mm, still 5.79 mm clear at 180 mm (FL_thigh vs R_base_link)
+  pair ('FR', 'RL') inward: joint limit or IK stops it at 185 mm, still 30.63 mm clear at 180 mm (FL_thigh vs R_docking_link)
+  so the binding limit on step size stays two-support statics at 77.5 mm, not geometry
+
+== 5. verdict ==
+  worst separation anywhere on the scanned envelope: 19.50 mm
+    pair ('FL', 'RR') inward -y at -77.5 mm, FL_thigh vs R_docking_link
+  no self-collision: every checked pair stays separated across the full +/-77.5 mm statics-limited step at the 15 mm lift
+  conservative in three ways: cylinders are replaced by larger boxes, the SAT bound under-reports the true distance, and both swing feet are displaced to the same extreme simultaneously
+  not covered: mesh-level geometry (the URDF collision primitives are what the compiled model uses), terrain contact, and the base-mounted 175 mm guide rollers are included as modelled
