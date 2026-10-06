@@ -1,0 +1,70 @@
+== 1. the swing reaction cannot be shaped away ==
+  swing-link mass (thigh+calf+foot) 4.6789 kg
+  effective lateral mass at the foot 2.1522 kg (0.4600 of the link mass), cross terms (+0.1011, -, +0.3557) kg
+  optimised horizontal window 0.1046 s -> quantised 0.11 s for a 60 mm step
+  per-leg minimum peak foot acceleration 19.8347 m/s^2, summed-path minimum 39.6694 m/s^2
+  two in-phase bang-bang legs give exactly 39.6694 m/s^2 of summed acceleration, which equals the summed-path minimum: the bound is attained, so no staggering, phase offset or reshaping can lower the peak
+  peak lateral reaction on the body 85.4 N, 18.1% of the 472 N body weight
+  quintic for comparison needs 28.6289 m/s^2 per leg, so the minimum-time profile is also the gentlest available at this window
+  therefore the only ways to cut the reaction are a shorter step or a longer window, both of which are slower: this is a speed/disturbance trade, not something a policy can optimise away
+
+== 2. the reaction is a feedforward term, not a learning problem ==
+  the frozen body force law is m*(g + a_ref + 26*(p_ref-p) + 9*(v_ref-vCOM));
+  it carries no swing-reaction term, so the reaction enters as an unmodelled
+  disturbance that only the body PD rejects.
+  but the swing plan is known at latch time, so -sum(m_i * a_i,ref) is exactly
+  computable: 85.4 N of feedforward, leaving only tracking error
+    if the swing legs track their reference to 5%, the residual disturbance is 4.3 N, 0.9% of body weight
+    if the swing legs track their reference to 10%, the residual disturbance is 8.5 N, 1.8% of body weight
+    if the swing legs track their reference to 20%, the residual disturbance is 17.1 N, 3.6% of body weight
+  this is a seventh reference-level correction and it is free; it should be in
+  the fixed baseline, not delegated to a policy
+
+== 3. what is actually state-dependent: the contact-admission wait ==
+  the frozen gates that can stall a pair, from contract35 and clarifications:
+    lift admission: both swing wheels whole-shape min Z > 12 mm AND no active
+      terrain contact in all five previous native substeps
+    transfer->lift: at least 0.06 s AND current plus each previous five substeps
+      satisfy the intended stance-pair load gate, hold at most 0.40 s more
+    touchdown: actual positive contact on both returning wheels, then the dwell,
+      with at most 0.60 s of extra allowance
+     wait/pair      speed  vs zero wait   floor   goal
+          0 ct    0.07317         +0.0%      ok     ok
+          2 ct    0.06977         -4.7%      ok     ok
+          5 ct    0.06522        -10.9%      ok     ok
+         10 ct    0.05882        -19.6%      ok     ok
+         15 ct    0.05357        -26.8%      ok     ok
+         20 ct    0.04918        -32.8%      ok     ok
+         30 ct    0.04225        -42.3%      ok     ok
+         40 ct    0.03704        -49.4%      ok   FAIL
+  a policy cannot remove a gate, but it can shape the approach so the gate is
+  satisfied sooner: slower, flatter touchdown for cleaner load onset, and a
+  liftoff that clears 12 mm with less overshoot. The table is the price list.
+
+== 4. the RL contribution gate, computed ==
+  ideal fixed baseline, zero wait: fixed 0.07317 m/s -> RL must exceed 0.08780 m/s to clear the 20% gate
+    with zero wait there is no admission headroom left, so the gate cannot be cleared by closing waits at all
+  plausible fixed baseline, 10 controls: fixed 0.05882 m/s -> RL must exceed 0.07059 m/s to clear the 20% gate
+    closing the wait entirely would give 0.07317 m/s, +24.4%: gate reachable by admission alone
+  pessimistic fixed baseline, 20 controls: fixed 0.04918 m/s -> RL must exceed 0.05902 m/s to clear the 20% gate
+    closing the wait entirely would give 0.07317 m/s, +48.8%: gate reachable by admission alone
+
+== 5. scope for a bounded RL contract ==
+  the policy MAY propose, inside the frozen envelope:
+    - a residual on the landing target inside the unchanged 60 mm ball
+    - a residual on the touchdown approach speed and the lower-phase profile
+    - a residual on the lift profile subject to the unchanged 12 mm clearance
+    - the decision to extend a dwell instead of aborting a marginal pair
+  the policy MAY NOT:
+    - change any contact, load, clearance, pose, torque or no-flight gate
+    - change the integration, the actuator limits or the landing cap
+    - choose the step length or the commanded velocity (those are the operator's)
+    - replace the swing-reaction feedforward of section 2, which belongs to the
+      fixed baseline
+  the reward must be speed per qualified pair exchange with the full safety and
+  retention gates as hard terminations, and the comparison must be against the
+  SAME corrected fixed controller, not against the frozen 0.0236 m/s baseline
+  a bounded budget in the established shape, to be frozen by the next contract:
+    smoke: 64 episodes x 1800 controls = 115200 controls, 576000 normal native substeps
+    development: 512 episodes x 1800 controls = 921600 controls, 4608000 normal native substeps
+  this is a proposal only: source_go35.json carries training_authorized false and its single physical attempt is consumed, so no training may start without a new Astra-signed GO.

@@ -9,7 +9,8 @@ that could still block it:
   2. whether the 60 mm landing cap is a workspace limit or a design choice,
   3. stance-leg torque while carrying its share of the robot,
   4. what it costs to enter the aligned crouch from the frozen B22 nominal, given that the
-     feet are planted and the 30 mm longitudinal excursion limit is frozen.
+     feet are planted and the 30 mm longitudinal excursion limit is frozen,
+  5. and, asked directly: why step at all instead of just driving the leg roll axis?
 
 Pure arithmetic over the URDF tree: no MuJoCo, no model construction, no physics, no model
 load, no fitting. Kinematics helpers come from posture_statics_20261004, which validates
@@ -42,6 +43,7 @@ from posture_statics_20261004 import (
 )
 
 MAX_LONGITUDINAL_M = .030        # contract35.json task.continuous
+SWING_CLEARANCE_MM = 12.0        # contract35.json native_safety.new_pair_contact_gate
 STANCE_JOINT_PD = (80.0, 3.0)    # contract35.json reference.stance_joint_PD
 WHEEL_RADIUS_M = .087
 STATICS_TOLERANCE_RAD = .0554    # posture_statics_20261004 section 5
@@ -199,6 +201,9 @@ def main() -> None:
           'new contract should specify the aligned crouch as a measured-pose target with a '
           'bias for the observed droop')
 
+    identity = [[1., 0., 0.], [0., 1., 0.], [0., 0., 1.]]
+    frames_aligned, _, _, _ = forward(masses, joints, aligned_angles, (0., 0., 0.), identity)
+
     print('\n== 5. the entry cost nobody has priced: the feet are planted ==')
     frozen_geometry = pose_geometry(masses, joints, NOMINAL['thigh'], NOMINAL['calf'])
     aligned_geometry = pose_geometry(masses, joints, ALIGNED_THIGH_RAD, ALIGNED_CALF_RAD)
@@ -228,7 +233,43 @@ def main() -> None:
           f'rad, so at the {REF_QVEL_CLIP_RPS} rad/s reference clip it needs only '
           f'{morph_s:.4f} s, far inside the 200-control preparation window')
 
-    print('\n== 6. verdict ==')
+    print('\n== 6. can the hip roll axis alone do the lateral motion? ==')
+    # Asked directly: why step at all, instead of just driving the leg roll (abduction) axis?
+    _, lateral_rates = direction_cost(columns, (0., 1., 0.))
+    total_rate = sum(abs(value) for value in lateral_rates)
+    print('  first: the hip roll axis IS already the primary lateral actuator')
+    for name, rate in zip(('hip', 'thigh', 'calf'), lateral_rates):
+        print(f'    {name:5s} {rate:+.4f} rad/s per 1 m/s of lateral foot speed, '
+              f'{abs(rate)/total_rate*100:.1f}% of the total joint rate')
+    print('  but hip rotation alone sweeps the foot on an arc, so it cannot hold height:')
+    hip_world = frames_aligned['FL_hip'][1]
+    foot_world = frames_aligned['FL_foot'][1]
+    radius = math.dist(hip_world, foot_world)
+    print(f'    hip-to-wheel radius {radius:.4f} m')
+    print(f'    {"hip (rad)":>10} {"dy (mm)":>9} {"dz (mm)":>9}')
+    for value in (.1, .2, .4, .6, LIMITS['hip'][1]):
+        perturbed = dict(aligned_angles)
+        perturbed['FL_hip_joint'] = value
+        moved = foot_of(masses, joints, 'FL', perturbed)
+        print(f'    {value:10.4f} {(moved[1]-foot_world[1])*1000:9.1f} '
+              f'{(moved[2]-foot_world[2])*1000:9.1f}')
+    print('    even 0.1 rad already lifts the foot 16 mm while moving it 36 mm sideways, so '
+          'thigh and calf must coordinate - which is exactly what the paired IK does')
+    print('  second, and this is the blocking one: the wheel axle is along body y, so the')
+    print('    wheel rolls only along x. Any lateral motion of its CONTACT POINT is pure')
+    print('    sliding. Translating the base sideways with all four wheels planted therefore')
+    print('    requires all four contacts to slide, and with no gripping contact left there')
+    print('    is no anchor to push against: internal joint motion produces no net lateral')
+    print('    translation. Lateral travel fundamentally requires unloading wheels so they')
+    print(f'    can be repositioned, which is the stepping gait. The {SWING_CLEARANCE_MM:.0f} mm'
+          ' clearance gate exists to make that repositioning a clean non-sliding motion.')
+    print('  third, the useful part of the question: the step is capped at 60 mm, which is')
+    print(f'    only {LANDING_CAP_M/smallest*100:.1f}% of the {smallest*1000:.1f} mm workspace, '
+          'so a bigger lateral move per step is kinematically available. What actually caps '
+          'it is two-support statics at about 77.5 mm; raising the cap to that limit is the '
+          'legitimate version of "take a bigger lateral step".')
+
+    print('\n== 7. verdict ==')
     print('  none of the four checks blocks the aligned crouch:')
     print('    conditioning barely changes, the landing cap uses a third of the workspace, '
           'stance torque keeps headroom even while rejecting the swing reaction, and the '

@@ -35,7 +35,31 @@
     the wheels are actuated (12 N*m) and the contract already replaces the wheel PD during side control, so this is a reference change, not a new authority; it does require releasing the 12-position wheel brake for the morph
   the morph itself is small: thigh 0.0687 rad, calf 0.0023 rad, so at the 4.0 rad/s reference clip it needs only 0.0172 s, far inside the 200-control preparation window
 
-== 6. verdict ==
+== 6. can the hip roll axis alone do the lateral motion? ==
+  first: the hip roll axis IS already the primary lateral actuator
+    hip   +2.7366 rad/s per 1 m/s of lateral foot speed, 44.5% of the total joint rate
+    thigh -1.1239 rad/s per 1 m/s of lateral foot speed, 18.3% of the total joint rate
+    calf  +2.2901 rad/s per 1 m/s of lateral foot speed, 37.2% of the total joint rate
+  but hip rotation alone sweeps the foot on an arc, so it cannot hold height:
+    hip-to-wheel radius 0.4019 m
+     hip (rad)   dy (mm)   dz (mm)
+        0.1000      35.8      16.1
+        0.2000      69.7      35.7
+        0.4000     131.0      84.5
+        0.6000     181.4     144.5
+        0.7854     216.5     208.0
+    even 0.1 rad already lifts the foot 16 mm while moving it 36 mm sideways, so thigh and calf must coordinate - which is exactly what the paired IK does
+  second, and this is the blocking one: the wheel axle is along body y, so the
+    wheel rolls only along x. Any lateral motion of its CONTACT POINT is pure
+    sliding. Translating the base sideways with all four wheels planted therefore
+    requires all four contacts to slide, and with no gripping contact left there
+    is no anchor to push against: internal joint motion produces no net lateral
+    translation. Lateral travel fundamentally requires unloading wheels so they
+    can be repositioned, which is the stepping gait. The 12 mm clearance gate exists to make that repositioning a clean non-sliding motion.
+  third, the useful part of the question: the step is capped at 60 mm, which is
+    only 36.7% of the 163.6 mm workspace, so a bigger lateral move per step is kinematically available. What actually caps it is two-support statics at about 77.5 mm; raising the cap to that limit is the legitimate version of "take a bigger lateral step".
+
+== 7. verdict ==
   none of the four checks blocks the aligned crouch:
     conditioning barely changes, the landing cap uses a third of the workspace, stance torque keeps headroom even while rejecting the swing reaction, and the morph takes 0.02 s
   one real finding: if the base moves, the crouch change spends 25.53 mm, 85% of the 30 mm longitudinal excursion budget, so the new contract must roll the wheels through the morph or raise that limit
