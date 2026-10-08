@@ -1,0 +1,103 @@
+{
+  "RL_speed_benefit_proven": false,
+  "actual_normal_native": 1495,
+  "attempted_cases": 1,
+  "cases": [
+    {
+      "case_id": "pair_stand_zero",
+      "closed_prefix_controls": 299,
+      "first_failure": {
+        "message": "C35 physical stop required, torque handoff forbidden: touchdown_dwell_timeout",
+        "traceback": "Traceback (most recent call last):\n  File \"/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation35/root35/record35.py\", line 109, in record_case35\n    next_obs, reward, terminated, truncated, info = runtime.control_step(env, action)\n  File \"/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/gui12/run_world_upright_gui_12.py\", line 361, in control_step\n    return super().control_step(env, action)\n  File \"/home/lyh/wheel-legged-control-lab/scripts/d1_rolling_engine_runtime.py\", line 107, in control_step\n    result = env.step(action)\n  File \"/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/upright11/world_upright_course_11.py\", line 191, in step\n    observation, reward, terminated, truncated, info = super().step(policy_action)\n  File \"/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/course_impl08/full_drive_env_08.py\", line 306, in step\n    transition = self.loop.step(policy_action)\n  File \"/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/course_impl08/full_drive_loop_08.py\", line 168, in step\n    transition = super().step(physical, push_force_world_n=push_force_world_n)\n  File \"/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/control_loop.py\", line 291, in step\n    torque = self.controller.compute(\n  File \"/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation35/root35/owner35.py\", line 70, in compute\n    torque = np.asarray(self.side.compute(), dtype=float).copy()\n  File \"/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation35/sol35/adapter35.py\", line 175, in compute\n    raise RuntimeError('C35 physical stop required, torque handoff forbidden: '+str(reference.fault))\nRuntimeError: C35 physical stop required, torque handoff forbidden: touchdown_dwell_timeout\n",
+        "type": "RuntimeError"
+      },
+      "partial_native_proofs": [],
+      "partial_native_rows": 0,
+      "partial_record": true,
+      "physical_task_qualified": false,
+      "record_auditable": true,
+      "source_scope": "all returned native slots and completed-control prefix archived; unsafe pending control does not qualify",
+      "uncompleted_requirements": [
+        "all4_stop",
+        "400_B22_retention",
+        "complete_native_case"
+      ]
+    }
+  ],
+  "completed_controls": 299,
+  "dynamics_scope": "independent FK/COM, joint target FK error, reference, wrench/allocation, PD/cache multiplication/brake/clip and native actuator chain; sealed Jacobian/bias/fullM caches not independently recomputed",
+  "execution_contract_id": "C38_preunload_record_semantics_and_audit_v1",
+  "ledger": {
+    "B22_actor_rows": 232,
+    "B22_critic_rows": 0,
+    "B22_predict_calls": 201,
+    "actual_data_objects": 3,
+    "actual_normal_native": 1495,
+    "actual_side_computes": 100,
+    "actual_side_starts": 1,
+    "actual_static_API": {
+      "copy": 99,
+      "forward": 3982,
+      "fullM": 94,
+      "jac": 208,
+      "jacBody": 1210,
+      "objectVelocity": 99
+    },
+    "attempted_cases": 1,
+    "closed_prefix_controls": 299,
+    "compiler_native": 2,
+    "copy_edges": {
+      "live_to_measurement": 300,
+      "measurement_to_side_scratch": 99,
+      "rejected": 0
+    },
+    "failure_recorded": true,
+    "native_checked": 1495,
+    "original_counters_not_reset": true,
+    "passed": true,
+    "pending_control_attempts": 1,
+    "pending_native_attempts": 0,
+    "per_case": [
+      {
+        "case_index": 0,
+        "fatal_partial": true,
+        "returned_controls": 299,
+        "returned_native": 1495,
+        "returned_side_controls": 99,
+        "scope_range": [
+          0,
+          101
+        ],
+        "starts": 1,
+        "static_computes": 100,
+        "static_counts": {
+          "copy": 99,
+          "forward": 3982,
+          "fullM": 94,
+          "jac": 208,
+          "jacBody": 1210,
+          "objectVelocity": 99
+        }
+      }
+    ],
+    "static_queries_are_not_native_integrations": true
+  },
+  "new_contact_semantics": "per-native named pair or all4 actual positive loads; no flight; full contact wrench/stop margin independent",
+  "partial_record": true,
+  "pilot_fixed_feasible": false,
+  "qualification": false,
+  "reader_model_calls": 0,
+  "reader_physics_calls": 0,
+  "record_auditable": true,
+  "run": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation38/development_01",
+  "schema": "d1-c35-independent-saved-readback-v1",
+  "source_GO_identity": {
+    "bytes": 1127694,
+    "sha256": "d3cb20c864769894f711fed9b3062d52c7cc80b1646c0d371ca6fd67ae1632cf"
+  },
+  "user_goal_complete": false,
+  "worker_receipt_identity": {
+    "bytes": 133446,
+    "sha256": "79776a298cf786c786b868701898cfb62109321116d1114a31aa4ceee2036ce0"
+  }
+}

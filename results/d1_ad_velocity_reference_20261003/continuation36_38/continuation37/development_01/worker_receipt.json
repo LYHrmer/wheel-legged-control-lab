@@ -1,0 +1,4713 @@
+{
+  "C_final": {
+    "armed": 1,
+    "ccd_attempts": 1224,
+    "ccd_returns": 1224,
+    "construction_attempts": 2,
+    "construction_limit": 2,
+    "construction_returns": 2,
+    "control_attempts": 1495,
+    "control_limit": 45000,
+    "control_returns": 1495,
+    "first_ccd_caller": 130797394222302,
+    "first_ccd_caller_dladdr": {
+      "address": 130797394222302,
+      "base": 130797392625664,
+      "offset": 1596638,
+      "path": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/libmujoco.so.3.12.0",
+      "symbol": null
+    },
+    "first_construction_step_caller": 130797396440392,
+    "first_construction_step_caller_dladdr": {
+      "address": 130797396440392,
+      "base": 130797392625664,
+      "offset": 3814728,
+      "path": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/libmujoco.so.3.12.0",
+      "symbol": null
+    },
+    "first_control_step_caller": 130797357640491,
+    "first_control_step_caller_dladdr": {
+      "address": 130797357640491,
+      "base": 130797356863488,
+      "offset": 777003,
+      "path": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/_functions.cpython-310-x86_64-linux-gnu.so",
+      "symbol": null
+    },
+    "native_ccd_caller_verified": true,
+    "native_construction_caller_verified": true,
+    "original_step": 130797394830592,
+    "phase": 0,
+    "target_data": 0,
+    "target_model": 0,
+    "violations": 0
+  },
+  "archive_failed": false,
+  "arm": "development",
+  "cleanup_errors": [],
+  "copy_edges": {
+    "live_to_measurement": 300,
+    "measurement_to_side_scratch": 99,
+    "rejected": 0
+  },
+  "elapsed_wall_s": 36.25382896399242,
+  "execution_complete": false,
+  "execution_contract_id": "C37_preunload_transfer_with_repaired_fullm_check_v1",
+  "failure": {
+    "message": "C35 fatal case stopped campaign; partial work retained",
+    "traceback": "Traceback (most recent call last):\n  File \"/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation35/root35/worker35.py\", line 203, in execute35\n    result = run_cases35(s, session, output, runtime, guard, env,\n  File \"/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation35/root35/worker35.py\", line 109, in run_cases35\n    raise error\nRuntimeError: C35 fatal case stopped campaign; partial work retained\n",
+    "type": "RuntimeError"
+  },
+  "model_calls": {
+    "actor_rows": 232,
+    "counts": {
+      "load": {
+        "attempted": 1,
+        "phases": {
+          "probe": {
+            "attempted": 1,
+            "returned": 1,
+            "rows": 0
+          }
+        },
+        "returned": 1,
+        "rows_attempted": 0,
+        "rows_returned": 0
+      },
+      "predict": {
+        "attempted": 201,
+        "phases": {
+          "control": {
+            "attempted": 200,
+            "returned": 200,
+            "rows": 200
+          },
+          "probe": {
+            "attempted": 1,
+            "returned": 1,
+            "rows": 32
+          }
+        },
+        "returned": 201,
+        "rows_attempted": 232,
+        "rows_returned": 232
+      },
+      "torch_load": {
+        "attempted": 3,
+        "phases": {
+          "probe": {
+            "attempted": 3,
+            "returned": 3,
+            "rows": 0
+          }
+        },
+        "returned": 3,
+        "rows_attempted": 0,
+        "rows_returned": 0
+      }
+    },
+    "critic_rows": 0,
+    "limits": {
+      "backward": 0,
+      "evaluate_actions": 0,
+      "forward": 0,
+      "learn": 0,
+      "load": 1,
+      "predict": 1201,
+      "predict_values": 0,
+      "save": 0,
+      "torch_load": 3,
+      "train": 0
+    },
+    "schema": "d1-model-api-ledger-20-v1"
+  },
+  "native_guard": {
+    "contacts_checked": 10288,
+    "failure": null,
+    "force_sampling_performed": true,
+    "full_contact_qualification_claimed": true,
+    "max_abs_pitch_deg": 4.030923430727239,
+    "max_abs_roll_deg": 4.145579014465568,
+    "mode": "heldout",
+    "native_attempted": 1495,
+    "native_checked": 1495,
+    "native_returned": 1495,
+    "nonwheel_ground_contacts": 0,
+    "positive_wheel_load_by_family": {
+      "floor": 10158
+    },
+    "record_mode": "full_qualification",
+    "schema": "d1-course-native-contact-guard-08-v1",
+    "segments": [
+      {
+        "archive_block_manifests": [
+          "native_block_0000.jsonl.gz.manifest.json"
+        ],
+        "archive_failure": null,
+        "control_limit": 1800,
+        "failure": null,
+        "folder": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation37/development_01/episode_0",
+        "force_sampling_performed": true,
+        "full_contact_qualification_recorded": false,
+        "mode": "heldout",
+        "name": "c35_pair_stand_zero",
+        "native_attempted": 1495,
+        "native_files": [
+          "native_block_0000.jsonl.gz"
+        ],
+        "native_limit": 9000,
+        "native_returned": 1495,
+        "partial_native_interval": true,
+        "record_valid": false,
+        "task_contact_failure_files": [],
+        "train_array_files": []
+      }
+    ]
+  },
+  "python": {
+    "clock_advanced_substeps": 1495,
+    "construction_records": [
+      {
+        "after": {
+          "armed": 1,
+          "ccd_attempts": 0,
+          "ccd_returns": 0,
+          "construction_attempts": 2,
+          "construction_limit": 2,
+          "construction_returns": 2,
+          "control_attempts": 0,
+          "control_limit": 45000,
+          "control_returns": 0,
+          "first_ccd_caller": 0,
+          "first_ccd_caller_dladdr": null,
+          "first_construction_step_caller": 130797396440392,
+          "first_construction_step_caller_dladdr": {
+            "address": 130797396440392,
+            "base": 130797392625664,
+            "offset": 3814728,
+            "path": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/libmujoco.so.3.12.0",
+            "symbol": null
+          },
+          "first_control_step_caller": 0,
+          "first_control_step_caller_dladdr": null,
+          "native_ccd_caller_verified": false,
+          "native_construction_caller_verified": true,
+          "original_step": 130797394830592,
+          "phase": 0,
+          "target_data": 0,
+          "target_model": 0,
+          "violations": 0
+        },
+        "before": {
+          "armed": 1,
+          "ccd_attempts": 0,
+          "ccd_returns": 0,
+          "construction_attempts": 0,
+          "construction_limit": 2,
+          "construction_returns": 0,
+          "control_attempts": 0,
+          "control_limit": 45000,
+          "control_returns": 0,
+          "first_ccd_caller": 0,
+          "first_ccd_caller_dladdr": null,
+          "first_construction_step_caller": 0,
+          "first_construction_step_caller_dladdr": null,
+          "first_control_step_caller": 0,
+          "first_control_step_caller_dladdr": null,
+          "native_ccd_caller_verified": false,
+          "native_construction_caller_verified": false,
+          "original_step": 130797394830592,
+          "phase": 0,
+          "target_data": 0,
+          "target_model": 0,
+          "violations": 0
+        }
+      }
+    ],
+    "control_attempted": 300,
+    "control_completed": 299,
+    "control_limit": 9000,
+    "fatal_latched": true,
+    "forbidden_entries": 0,
+    "forward_counts_by_runtime_model_data_identity": {
+      "(130794029887344, 130794031782640)": 2571,
+      "(130794032594160, 130794030085104)": 2,
+      "(130794032594160, 130794033811760)": 3982,
+      "(130794032594160, 130794867166320)": 301
+    },
+    "mj_forward_calls": 6856,
+    "mj_setConst_calls": 0,
+    "native_attempted": 1495,
+    "native_failed": 0,
+    "native_limit": 45000,
+    "native_returned": 1495,
+    "segments": [
+      {
+        "attempted": 300,
+        "completed": 299,
+        "limit": 1800,
+        "name": "c35_pair_stand_zero",
+        "native_attempted": 1495,
+        "native_returned": 1495
+      }
+    ],
+    "static_forward_is_not_dynamic_load_evidence": true
+  },
+  "qualification": false,
+  "result": {
+    "RL_speed_benefit_proven": false,
+    "all_cases_online_passed": false,
+    "attempted_cases": 1,
+    "cases": [
+      {
+        "actual_normal_native": 1495,
+        "actual_runtime_control_returns": 299,
+        "case_id": "pair_stand_zero",
+        "case_index": 0,
+        "completed_controls": 299,
+        "elapsed_s": 12.773358167003607,
+        "failure": {
+          "message": "C35 physical stop required, torque handoff forbidden: touchdown_dwell_timeout",
+          "traceback": "Traceback (most recent call last):\n  File \"/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation35/root35/record35.py\", line 109, in record_case35\n    next_obs, reward, terminated, truncated, info = runtime.control_step(env, action)\n  File \"/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/gui12/run_world_upright_gui_12.py\", line 361, in control_step\n    return super().control_step(env, action)\n  File \"/home/lyh/wheel-legged-control-lab/scripts/d1_rolling_engine_runtime.py\", line 107, in control_step\n    result = env.step(action)\n  File \"/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/upright11/world_upright_course_11.py\", line 191, in step\n    observation, reward, terminated, truncated, info = super().step(policy_action)\n  File \"/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/course_impl08/full_drive_env_08.py\", line 306, in step\n    transition = self.loop.step(policy_action)\n  File \"/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/course_impl08/full_drive_loop_08.py\", line 168, in step\n    transition = super().step(physical, push_force_world_n=push_force_world_n)\n  File \"/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/control_loop.py\", line 291, in step\n    torque = self.controller.compute(\n  File \"/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation35/root35/owner35.py\", line 70, in compute\n    torque = np.asarray(self.side.compute(), dtype=float).copy()\n  File \"/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation35/sol35/adapter35.py\", line 175, in compute\n    raise RuntimeError('C35 physical stop required, torque handoff forbidden: '+str(reference.fault))\nRuntimeError: C35 physical stop required, torque handoff forbidden: touchdown_dwell_timeout\n",
+          "type": "RuntimeError"
+        },
+        "independent_readback_pending": true,
+        "pair_exchanges": 0,
+        "pending_control": {
+          "actual_controller_record": {
+            "accepted_start": false,
+            "access_scope_receipt": {
+              "calls": {
+                "copy": 1,
+                "forward": 40,
+                "fullM": 1,
+                "jac": 2,
+                "jacBody": 12,
+                "objectVelocity": 1
+              },
+              "compute_count": 99,
+              "failure": null,
+              "kind": "compute",
+              "native_boundary_unchanged": true,
+              "physical_arrays_unchanged": true,
+              "prepare_count": 0,
+              "start_count": 1,
+              "static_ccd_delta": {
+                "ccd_attempts": 24,
+                "ccd_returns": 24
+              },
+              "static_ccd_returned": true
+            },
+            "command35": {
+              "expires_control_index": 318,
+              "gait_enabled": true,
+              "issued_control_index": 298,
+              "stop_kind": "none",
+              "vy_mps": 0.0
+            },
+            "controller_record35": {
+              "calculation": {
+                "allocation_forces4": [
+                  [
+                    -0.0,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    1.5432163735893638,
+                    2.877601213815333,
+                    239.18707540035635
+                  ],
+                  [
+                    -9.144597667226602,
+                    -5.491410211940058,
+                    220.06479684529776
+                  ],
+                  [
+                    -0.0,
+                    -0.0,
+                    0.0
+                  ]
+                ],
+                "base_angular_velocity_world_rps": [
+                  -0.004063724611300362,
+                  -0.00989342620287242,
+                  -0.03715249782807251
+                ],
+                "base_linear_velocity_world_mps": [
+                  0.01822106270379862,
+                  0.00997880999935641,
+                  0.01090561285932131
+                ],
+                "bias16": [
+                  3.8557896883189002,
+                  1.5170232515520459,
+                  -2.8933443326821116,
+                  2.7887433324824684e-05,
+                  -3.9390319616838383,
+                  1.4176825071793084,
+                  -2.863013372893635,
+                  -4.29438931042192e-05,
+                  3.798536329933178,
+                  1.4701219389396218,
+                  -2.771358071188982,
+                  3.952536285334318e-05,
+                  -4.213709992400834,
+                  1.6529225688228806,
+                  -2.7482744364517426,
+                  -6.093911745486125e-05
+                ],
+                "contact_points4": [
+                  [
+                    -7.828773696127128,
+                    -4.468697401740263,
+                    0.0006176435923144557
+                  ],
+                  [
+                    -7.833275395317713,
+                    -4.937231399442031,
+                    0.00017458486016113606
+                  ],
+                  [
+                    -8.202904711142779,
+                    -4.464852752087191,
+                    2.7483905880719092e-05
+                  ],
+                  [
+                    -8.218776383119035,
+                    -4.906029268791161,
+                    0.01854950741506107
+                  ]
+                ],
+                "desired_wrench6": [
+                  -14.241378180764356,
+                  -7.628239740490245,
+                  462.0021325941094,
+                  6.134117076980543,
+                  -5.946452997247922,
+                  4.349322539074311
+                ],
+                "ik_error_m": 8.330478165749966e-07,
+                "ik_world_targets4": [
+                  [
+                    -7.829930568186687,
+                    -4.48088245874943,
+                    0.08714500808891433
+                  ],
+                  [
+                    -7.830839722873551,
+                    -4.9174429837761355,
+                    0.0861433643458854
+                  ],
+                  [
+                    -8.205742334335339,
+                    -4.482696239552716,
+                    0.08615181488207044
+                  ],
+                  [
+                    -8.204793242471085,
+                    -4.915587655717488,
+                    0.08578510558018655
+                  ]
+                ],
+                "jacobians4": [
+                  null,
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0033005450881769607,
+                      -0.4592650666902661,
+                      -0.28293159247431,
+                      -0.08698380800009614,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.4610615076180741,
+                      0.008701823924018626,
+                      0.00658752717765031,
+                      0.0016784355222619072,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      -0.15922309016708436,
+                      0.022027696121703466,
+                      -0.1551784990865869,
+                      -8.326672684688674e-17,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  [
+                    [
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.014127831120127141,
+                      -0.4643783741294831,
+                      -0.2867887221625437,
+                      -0.08698561451312731,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.46883281224057943,
+                      0.009082259256995401,
+                      0.0014707118029842706,
+                      0.001582045439803767,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0
+                    ],
+                    [
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.1509319459161232,
+                      0.025533154697498645,
+                      -0.1502621235656457,
+                      -9.992007221626409e-16,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0
+                    ]
+                  ],
+                  null
+                ],
+                "kd16": [
+                  5.0,
+                  5.0,
+                  5.0,
+                  3.0,
+                  3.0,
+                  3.0,
+                  3.0,
+                  3.0,
+                  3.0,
+                  3.0,
+                  3.0,
+                  3.0,
+                  5.0,
+                  5.0,
+                  5.0,
+                  3.0
+                ],
+                "kp16": [
+                  150.0,
+                  150.0,
+                  150.0,
+                  80.0,
+                  80.0,
+                  80.0,
+                  80.0,
+                  80.0,
+                  80.0,
+                  80.0,
+                  80.0,
+                  80.0,
+                  150.0,
+                  150.0,
+                  150.0,
+                  80.0
+                ],
+                "paired_inertia6": [
+                  [
+                    0.34415671470728665,
+                    0.013949524939152106,
+                    -0.040356265364011615,
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    0.013949524939152106,
+                    0.3149410131164874,
+                    0.1378256121374187,
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    -0.040356265364011615,
+                    0.1378256121374187,
+                    0.13375520409218894,
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.34426337212509106,
+                    -0.013961716230077482,
+                    0.04037193036998759
+                  ],
+                  [
+                    0.0,
+                    0.0,
+                    0.0,
+                    -0.013961716230077482,
+                    0.3150003410781845,
+                    0.1378572767848879
+                  ],
+                  [
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.04037193036998759,
+                    0.1378572767848879,
+                    0.1337595112446429
+                  ]
+                ],
+                "pre_qpos": [
+                  -7.9941447574734354,
+                  -4.697349101606505,
+                  0.46458318359242884,
+                  0.9996690173173305,
+                  -0.016589966993044505,
+                  0.017359713671855598,
+                  -0.009234129748002685,
+                  0.01470611711106095,
+                  0.787099713721547,
+                  -1.4996277536884133,
+                  0.015484859694655335,
+                  0.04119155689790842,
+                  0.7534442718091803,
+                  -1.4575312392105637,
+                  -0.020474492568796385,
+                  0.008188892365130453,
+                  0.7457459143935186,
+                  -1.4252147068027785,
+                  -0.013025479970397812,
+                  0.005962300439284625,
+                  0.7836324860349091,
+                  -1.456614677325982,
+                  0.0016123663358231142
+                ],
+                "pre_qvel": [
+                  0.01809945892459847,
+                  0.011132275237918288,
+                  0.010611754852910812,
+                  -0.00259412642517233,
+                  -0.008714756872035039,
+                  -0.037576925837069834,
+                  0.0014091412001186782,
+                  0.021684298637300054,
+                  0.07438129940714555,
+                  -0.004238017107213038,
+                  -0.007155931493067548,
+                  -0.020605177548234384,
+                  0.0907848786852731,
+                  -0.008504705934168912,
+                  -0.04019037721805297,
+                  0.05138036133424825,
+                  0.021289697668139092,
+                  -0.009495495517660012,
+                  0.057519939997708054,
+                  -0.0487820026532686,
+                  -0.0019200763024787937,
+                  -7.088592598808689e-05
+                ],
+                "preclip_torque16": [
+                  1.1603541935324826,
+                  -0.0005222033078852413,
+                  3.032006468589516,
+                  -0.18600603404427682,
+                  30.154359333486525,
+                  -1.0781462933817867,
+                  34.58980827550156,
+                  0.38765770806683353,
+                  -27.896408414626197,
+                  -5.8550191812039305,
+                  25.18856468910269,
+                  -0.6152103524532733,
+                  -3.5046283315645548,
+                  0.926200504712439,
+                  -2.8578873024957145,
+                  -0.015906691437581118
+                ],
+                "previous_target16": [
+                  -0.003216467861573305,
+                  0.777705549911671,
+                  -1.4576460431281788,
+                  0.015529452484095077,
+                  0.007687342050112015,
+                  0.7787866937775639,
+                  -1.455146107582111,
+                  -0.020388228322522375,
+                  -0.008116789089271924,
+                  0.7788038122648426,
+                  -1.455578821200841,
+                  -0.012926131651105116,
+                  0.012606851616459165,
+                  0.7771615599921833,
+                  -1.4574093709158653,
+                  0.0016126224316381976
+                ],
+                "previous_velocity_target16": [
+                  7.492314494511598e-10,
+                  3.7480620829200006e-07,
+                  -7.824030978653695e-07,
+                  -0.005151049869316082,
+                  3.1461957171463606e-09,
+                  -2.801509690897319e-07,
+                  5.716636497510308e-07,
+                  -0.009193132145553229,
+                  7.1152360045512175e-09,
+                  -1.1308345815308485e-06,
+                  2.207858962322007e-06,
+                  -0.011918928654302934,
+                  3.7778756512008016e-08,
+                  4.783400342489585e-07,
+                  -6.801098573205877e-07,
+                  0.00010357527301212144
+                ],
+                "ramp_peak_speed_mps": 0.0,
+                "safe_torque16": [
+                  1.1603541935324826,
+                  -0.0005222033078852413,
+                  3.032006468589516,
+                  -0.18600603404427682,
+                  30.154359333486525,
+                  -1.0781462933817867,
+                  34.58980827550156,
+                  0.38765770806683353,
+                  -27.896408414626197,
+                  -5.8550191812039305,
+                  25.18856468910269,
+                  -0.6152103524532733,
+                  -3.5046283315645548,
+                  0.926200504712439,
+                  -2.8578873024957145,
+                  -0.015906691437581118
+                ],
+                "target16": [
+                  -0.00321646785602953,
+                  0.7777055516034034,
+                  -1.4576460466085475,
+                  0.015484859694655335,
+                  0.00768734211440115,
+                  0.7787866862271262,
+                  -1.4551460917854595,
+                  -0.020474492568796385,
+                  -0.008116789006900351,
+                  0.7788038007412149,
+                  -1.4555787988140383,
+                  -0.013025479970397812,
+                  0.012606852108271102,
+                  0.7771615672682756,
+                  -1.4574093818781488,
+                  0.0016123663358231142
+                ],
+                "target_accel16": [
+                  -1.9485394200935424e-08,
+                  -2.056329662103451e-05,
+                  4.343662318717634e-05,
+                  0.0691770925341853,
+                  3.282717760816345e-07,
+                  -4.748928028597277e-05,
+                  0.00010080015044877655,
+                  0.05667075181521597,
+                  1.1219213058577537e-07,
+                  -2.152819034151321e-06,
+                  3.0821301066907836e-06,
+                  0.19840967250333783,
+                  1.1402437154195422e-06,
+                  2.4926919417467275e-05,
+                  -4.1611849521672184e-05,
+                  -0.0129184854520464
+                ],
+                "target_velocity16": [
+                  5.543775074418056e-10,
+                  1.6917324208165496e-07,
+                  -3.4803686599360617e-07,
+                  -0.004459278943974229,
+                  6.4289134779627055e-09,
+                  -7.550437719494596e-07,
+                  1.5796651542387963e-06,
+                  -0.00862642462740107,
+                  8.237157310408971e-09,
+                  -1.1523627718723617e-06,
+                  2.2386802633889147e-06,
+                  -0.009934831929269555,
+                  4.918119366620344e-08,
+                  7.276092284236313e-07,
+                  -1.0962283525373095e-06,
+                  -2.560958150834257e-05
+                ],
+                "torque_limits16": [
+                  80.0,
+                  80.0,
+                  80.0,
+                  12.0,
+                  80.0,
+                  80.0,
+                  80.0,
+                  12.0,
+                  80.0,
+                  80.0,
+                  80.0,
+                  12.0,
+                  80.0,
+                  80.0,
+                  80.0,
+                  12.0
+                ],
+                "wheel_angles4": [
+                  -0.0007243032796803067,
+                  -0.0003673032817255681,
+                  -0.00031548678510962057,
+                  0.0002800726548145784
+                ],
+                "whole_com_world_m": [
+                  -7.9930744681820025,
+                  -4.698589852279127,
+                  0.39129373826529423
+                ]
+              },
+              "command": {
+                "expires_control_index": 318,
+                "gait_enabled": true,
+                "issued_control_index": 298,
+                "stop_kind": "none",
+                "vy_mps": 0.0
+              },
+              "pair_events": [],
+              "reference": {
+                "body_axy_mps2": [
+                  0.0,
+                  0.0
+                ],
+                "body_jerk_xy_mps3": [
+                  0.0,
+                  0.0
+                ],
+                "body_pose_world_m": [
+                  -7.999214018503804,
+                  -4.69998862479984,
+                  0.46011530269377826
+                ],
+                "body_vxy_mps": [
+                  0.0,
+                  0.0
+                ],
+                "body_xy_m": [
+                  -7.999214018503804,
+                  -4.69998862479984
+                ],
+                "body_yaw_rad": -4.7734931457903213e-05,
+                "completed_pair_exchanges": 0,
+                "consumed_landing_xy_m": [
+                  [
+                    -7.829930568186687,
+                    -4.48088245874943
+                  ],
+                  null,
+                  null,
+                  [
+                    -8.204793242471085,
+                    -4.915587655717488
+                  ]
+                ],
+                "fault": null,
+                "feet_velocity_world_mps": [
+                  [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                ],
+                "feet_world_m": [
+                  [
+                    -7.829930568186687,
+                    -4.48088245874943,
+                    0.08859986476272608
+                  ],
+                  [
+                    -7.830839722873551,
+                    -4.9174429837761355,
+                    0.08751103278022476
+                  ],
+                  [
+                    -8.205742334335339,
+                    -4.482696239552716,
+                    0.08758220934590663
+                  ],
+                  [
+                    -8.204793242471085,
+                    -4.915587655717488,
+                    0.08712993557843507
+                  ]
+                ],
+                "foot_target_clipped": [
+                  false,
+                  false,
+                  false,
+                  false
+                ],
+                "force_weights": [
+                  0.0,
+                  1.0,
+                  1.0,
+                  0.0
+                ],
+                "horizontal_active": false,
+                "horizontal_common_duration_s": 0.08,
+                "horizontal_origin_world_m": [
+                  [
+                    -7.830859687849413,
+                    -4.482554610319743,
+                    0.08751091345622383
+                  ],
+                  [
+                    -7.830839722873551,
+                    -4.9174429837761355,
+                    0.08751103278022476
+                  ],
+                  [
+                    -8.205742334335339,
+                    -4.482696239552716,
+                    0.08758220934590663
+                  ],
+                  [
+                    -8.20572236213381,
+                    -4.917259807287801,
+                    0.0875824096849118
+                  ]
+                ],
+                "horizontal_previous_velocity_nonzero": false,
+                "horizontal_reference_velocity_nonzero": false,
+                "horizontal_span_xy_m": [
+                  [
+                    0.00092911966272613,
+                    0.001672151570312863
+                  ],
+                  [
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    0.0009291196627252418,
+                    0.001672151570312863
+                  ]
+                ],
+                "horizontal_target_world_m": [
+                  [
+                    -7.829930568186687,
+                    -4.48088245874943,
+                    0.08859986476272608
+                  ],
+                  [
+                    -7.830839722873551,
+                    -4.9174429837761355,
+                    0.08751103278022476
+                  ],
+                  [
+                    -8.205742334335339,
+                    -4.482696239552716,
+                    0.08758220934590663
+                  ],
+                  [
+                    -8.204793242471085,
+                    -4.915587655717488,
+                    0.08712993557843507
+                  ]
+                ],
+                "landing_projected_xy_m": [
+                  [
+                    -7.829930568186687,
+                    -4.48088245874943
+                  ],
+                  null,
+                  null,
+                  [
+                    -8.204793242471085,
+                    -4.915587655717488
+                  ]
+                ],
+                "landing_raw_xy_m": [
+                  [
+                    -7.829930568186687,
+                    -4.48088245874943
+                  ],
+                  null,
+                  null,
+                  [
+                    -8.204793242471085,
+                    -4.915587655717488
+                  ]
+                ],
+                "pair": [
+                  0,
+                  3
+                ],
+                "pair_index": 0,
+                "phase": "dwell",
+                "phase_after": "dwell",
+                "phase_before": "dwell",
+                "phase_elapsed_s": 0.4400000000000002,
+                "ramp_coefficients_mps": [
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "ramp_elapsed_s": 1.2400000000000009,
+                "ready_for_handoff": false,
+                "restore_start_weight": null,
+                "safe_abort_required": false,
+                "stable_stop_controls": 0,
+                "stance_legs": [
+                  1,
+                  2
+                ],
+                "stop_reason": null,
+                "support_gate_required": true,
+                "support_mode": "pair",
+                "swing_legs": [
+                  0,
+                  3
+                ]
+              },
+              "schema": "d1-c35-continuous-side-control-v1",
+              "sensed": {
+                "actual_whole_wheel_min_z_m": [
+                  0.0006176435923143098,
+                  0.00017458486016087849,
+                  2.7483905880407167e-05,
+                  0.01854950741506084
+                ],
+                "base_z_m": 0.46458318359242884,
+                "body_com_vxy_mps": [
+                  0.018221062703798627,
+                  0.009978809999356412
+                ],
+                "body_origin_vxyz_mps": [
+                  0.01809945892459847,
+                  0.011132275237918288,
+                  0.010611754852910812
+                ],
+                "body_xy_m": [
+                  -7.9941447574734354,
+                  -4.697349101606505
+                ],
+                "control_index": 298,
+                "foot_contact": [
+                  true,
+                  true,
+                  true,
+                  false
+                ],
+                "foot_world_m": [
+                  [
+                    -7.829112337982514,
+                    -4.487090008529973,
+                    0.08797093395491529
+                  ],
+                  [
+                    -7.8329017572966215,
+                    -4.917867856751762,
+                    0.08731764889345806
+                  ],
+                  [
+                    -8.203228873599684,
+                    -4.482676178523942,
+                    0.08749873854850737
+                  ],
+                  [
+                    -8.219093903109561,
+                    -4.923588108079365,
+                    0.10607428301549673
+                  ]
+                ],
+                "mass_kg": 48.146865260000006,
+                "native_safety_ok": true,
+                "normal_load_n": [
+                  39.81752066634596,
+                  229.08602848338762,
+                  194.75423507503882,
+                  0.0
+                ],
+                "previous_five_contact_free": [
+                  false,
+                  false,
+                  false,
+                  true
+                ],
+                "previous_five_pair_loaded": [
+                  true,
+                  false
+                ],
+                "static_support_margin_m": -1.0,
+                "wheel_contact_points_world_m": [
+                  [
+                    -7.828773696127128,
+                    -4.468697401740263,
+                    0.0006176435923143205
+                  ],
+                  [
+                    -7.833275395317713,
+                    -4.93723139944203,
+                    0.000174584860160813
+                  ],
+                  [
+                    -8.20290471114278,
+                    -4.464852752087191,
+                    2.7483905880453245e-05
+                  ],
+                  [
+                    -8.218776383119035,
+                    -4.906029268791161,
+                    0.018549507415060833
+                  ]
+                ],
+                "whole_com_z_m": 0.39129373826529423,
+                "world_angular_speed_rps": 0.03866137393592093,
+                "yaw_rad": -0.019050568783527323
+              }
+            },
+            "handoff_next_preview": false,
+            "mode": "eval",
+            "physical_policy_residual_nm": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "prepared_control_time_s": 2.9799999999998934,
+            "prepared_preview_consumed": true,
+            "prepared_sequence": 298,
+            "requested_policy_action": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "returned_side_torque_nm": [
+              1.1603541935324826,
+              -0.0005222033078852413,
+              3.032006468589516,
+              -0.18600603404427682,
+              30.154359333486525,
+              -1.0781462933817867,
+              34.58980827550156,
+              0.38765770806683353,
+              -27.896408414626197,
+              -5.8550191812039305,
+              25.18856468910269,
+              -0.6152103524532733,
+              -3.5046283315645548,
+              0.926200504712439,
+              -2.8578873024957145,
+              -0.015906691437581118
+            ],
+            "schema": "d1-c35-continuous-side-control-v1",
+            "sensed35": {
+              "actual_whole_wheel_min_z_m": [
+                0.0006176435923143098,
+                0.00017458486016087849,
+                2.7483905880407167e-05,
+                0.01854950741506084
+              ],
+              "base_z_m": 0.46458318359242884,
+              "body_com_vxy_mps": [
+                0.018221062703798627,
+                0.009978809999356412
+              ],
+              "body_origin_vxyz_mps": [
+                0.01809945892459847,
+                0.011132275237918288,
+                0.010611754852910812
+              ],
+              "body_xy_m": [
+                -7.9941447574734354,
+                -4.697349101606505
+              ],
+              "control_index": 298,
+              "foot_contact": [
+                true,
+                true,
+                true,
+                false
+              ],
+              "foot_world_m": [
+                [
+                  -7.829112337982514,
+                  -4.487090008529973,
+                  0.08797093395491529
+                ],
+                [
+                  -7.8329017572966215,
+                  -4.917867856751762,
+                  0.08731764889345806
+                ],
+                [
+                  -8.203228873599684,
+                  -4.482676178523942,
+                  0.08749873854850737
+                ],
+                [
+                  -8.219093903109561,
+                  -4.923588108079365,
+                  0.10607428301549673
+                ]
+              ],
+              "mass_kg": 48.146865260000006,
+              "native_safety_ok": true,
+              "normal_load_n": [
+                39.81752066634596,
+                229.08602848338762,
+                194.75423507503882,
+                0.0
+              ],
+              "previous_five_contact_free": [
+                false,
+                false,
+                false,
+                true
+              ],
+              "previous_five_pair_loaded": [
+                true,
+                false
+              ],
+              "static_support_margin_m": -1.0,
+              "wheel_contact_points_world_m": [
+                [
+                  -7.828773696127128,
+                  -4.468697401740263,
+                  0.0006176435923143205
+                ],
+                [
+                  -7.833275395317713,
+                  -4.93723139944203,
+                  0.000174584860160813
+                ],
+                [
+                  -8.20290471114278,
+                  -4.464852752087191,
+                  2.7483905880453245e-05
+                ],
+                [
+                  -8.218776383119035,
+                  -4.906029268791161,
+                  0.018549507415060833
+                ]
+              ],
+              "whole_com_z_m": 0.39129373826529423,
+              "world_angular_speed_rps": 0.03866137393592093,
+              "yaw_rad": -0.019050568783527323
+            },
+            "side_compute_index": 99,
+            "start_record": {
+              "accepted": true,
+              "command": {
+                "expires_control_index": 220,
+                "gait_enabled": true,
+                "issued_control_index": 200,
+                "stop_kind": "none",
+                "vy_mps": 0.0
+              },
+              "prepared_motion_zero": true,
+              "provider_sequence": 200
+            },
+            "torque_source": "continuous_pair35",
+            "wheel_memory_after": {
+              "previous_servo_forward_mps": 0.0,
+              "stop_latched": false,
+              "wheel_common_reference_z_rad_s": 0.0,
+              "wheel_integral_nm": [
+                -0.0006930271305361907,
+                0.001042465734275635,
+                -0.003284926039340094,
+                -0.001867609682622335
+              ]
+            },
+            "wheel_memory_before": {
+              "previous_servo_forward_mps": 0.0,
+              "stop_latched": false,
+              "wheel_common_reference_z_rad_s": 0.0,
+              "wheel_integral_nm": [
+                -0.0006930271305361907,
+                0.001042465734275635,
+                -0.003284926039340094,
+                -0.001867609682622335
+              ]
+            }
+          },
+          "actual_last_side_record": {
+            "calculation": {
+              "allocation_forces4": [
+                [
+                  -0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.5432163735893638,
+                  2.877601213815333,
+                  239.18707540035635
+                ],
+                [
+                  -9.144597667226602,
+                  -5.491410211940058,
+                  220.06479684529776
+                ],
+                [
+                  -0.0,
+                  -0.0,
+                  0.0
+                ]
+              ],
+              "base_angular_velocity_world_rps": [
+                -0.004063724611300362,
+                -0.00989342620287242,
+                -0.03715249782807251
+              ],
+              "base_linear_velocity_world_mps": [
+                0.01822106270379862,
+                0.00997880999935641,
+                0.01090561285932131
+              ],
+              "bias16": [
+                3.8557896883189002,
+                1.5170232515520459,
+                -2.8933443326821116,
+                2.7887433324824684e-05,
+                -3.9390319616838383,
+                1.4176825071793084,
+                -2.863013372893635,
+                -4.29438931042192e-05,
+                3.798536329933178,
+                1.4701219389396218,
+                -2.771358071188982,
+                3.952536285334318e-05,
+                -4.213709992400834,
+                1.6529225688228806,
+                -2.7482744364517426,
+                -6.093911745486125e-05
+              ],
+              "contact_points4": [
+                [
+                  -7.828773696127128,
+                  -4.468697401740263,
+                  0.0006176435923144557
+                ],
+                [
+                  -7.833275395317713,
+                  -4.937231399442031,
+                  0.00017458486016113606
+                ],
+                [
+                  -8.202904711142779,
+                  -4.464852752087191,
+                  2.7483905880719092e-05
+                ],
+                [
+                  -8.218776383119035,
+                  -4.906029268791161,
+                  0.01854950741506107
+                ]
+              ],
+              "desired_wrench6": [
+                -14.241378180764356,
+                -7.628239740490245,
+                462.0021325941094,
+                6.134117076980543,
+                -5.946452997247922,
+                4.349322539074311
+              ],
+              "ik_error_m": 8.330478165749966e-07,
+              "ik_world_targets4": [
+                [
+                  -7.829930568186687,
+                  -4.48088245874943,
+                  0.08714500808891433
+                ],
+                [
+                  -7.830839722873551,
+                  -4.9174429837761355,
+                  0.0861433643458854
+                ],
+                [
+                  -8.205742334335339,
+                  -4.482696239552716,
+                  0.08615181488207044
+                ],
+                [
+                  -8.204793242471085,
+                  -4.915587655717488,
+                  0.08578510558018655
+                ]
+              ],
+              "jacobians4": [
+                null,
+                [
+                  [
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0033005450881769607,
+                    -0.4592650666902661,
+                    -0.28293159247431,
+                    -0.08698380800009614,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.4610615076180741,
+                    0.008701823924018626,
+                    0.00658752717765031,
+                    0.0016784355222619072,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    -0.15922309016708436,
+                    0.022027696121703466,
+                    -0.1551784990865869,
+                    -8.326672684688674e-17,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                ],
+                [
+                  [
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.014127831120127141,
+                    -0.4643783741294831,
+                    -0.2867887221625437,
+                    -0.08698561451312731,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.46883281224057943,
+                    0.009082259256995401,
+                    0.0014707118029842706,
+                    0.001582045439803767,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
+                  ],
+                  [
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.1509319459161232,
+                    0.025533154697498645,
+                    -0.1502621235656457,
+                    -9.992007221626409e-16,
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                ],
+                null
+              ],
+              "kd16": [
+                5.0,
+                5.0,
+                5.0,
+                3.0,
+                3.0,
+                3.0,
+                3.0,
+                3.0,
+                3.0,
+                3.0,
+                3.0,
+                3.0,
+                5.0,
+                5.0,
+                5.0,
+                3.0
+              ],
+              "kp16": [
+                150.0,
+                150.0,
+                150.0,
+                80.0,
+                80.0,
+                80.0,
+                80.0,
+                80.0,
+                80.0,
+                80.0,
+                80.0,
+                80.0,
+                150.0,
+                150.0,
+                150.0,
+                80.0
+              ],
+              "paired_inertia6": [
+                [
+                  0.34415671470728665,
+                  0.013949524939152106,
+                  -0.040356265364011615,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.013949524939152106,
+                  0.3149410131164874,
+                  0.1378256121374187,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  -0.040356265364011615,
+                  0.1378256121374187,
+                  0.13375520409218894,
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.34426337212509106,
+                  -0.013961716230077482,
+                  0.04037193036998759
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  -0.013961716230077482,
+                  0.3150003410781845,
+                  0.1378572767848879
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0,
+                  0.04037193036998759,
+                  0.1378572767848879,
+                  0.1337595112446429
+                ]
+              ],
+              "pre_qpos": [
+                -7.9941447574734354,
+                -4.697349101606505,
+                0.46458318359242884,
+                0.9996690173173305,
+                -0.016589966993044505,
+                0.017359713671855598,
+                -0.009234129748002685,
+                0.01470611711106095,
+                0.787099713721547,
+                -1.4996277536884133,
+                0.015484859694655335,
+                0.04119155689790842,
+                0.7534442718091803,
+                -1.4575312392105637,
+                -0.020474492568796385,
+                0.008188892365130453,
+                0.7457459143935186,
+                -1.4252147068027785,
+                -0.013025479970397812,
+                0.005962300439284625,
+                0.7836324860349091,
+                -1.456614677325982,
+                0.0016123663358231142
+              ],
+              "pre_qvel": [
+                0.01809945892459847,
+                0.011132275237918288,
+                0.010611754852910812,
+                -0.00259412642517233,
+                -0.008714756872035039,
+                -0.037576925837069834,
+                0.0014091412001186782,
+                0.021684298637300054,
+                0.07438129940714555,
+                -0.004238017107213038,
+                -0.007155931493067548,
+                -0.020605177548234384,
+                0.0907848786852731,
+                -0.008504705934168912,
+                -0.04019037721805297,
+                0.05138036133424825,
+                0.021289697668139092,
+                -0.009495495517660012,
+                0.057519939997708054,
+                -0.0487820026532686,
+                -0.0019200763024787937,
+                -7.088592598808689e-05
+              ],
+              "preclip_torque16": [
+                1.1603541935324826,
+                -0.0005222033078852413,
+                3.032006468589516,
+                -0.18600603404427682,
+                30.154359333486525,
+                -1.0781462933817867,
+                34.58980827550156,
+                0.38765770806683353,
+                -27.896408414626197,
+                -5.8550191812039305,
+                25.18856468910269,
+                -0.6152103524532733,
+                -3.5046283315645548,
+                0.926200504712439,
+                -2.8578873024957145,
+                -0.015906691437581118
+              ],
+              "previous_target16": [
+                -0.003216467861573305,
+                0.777705549911671,
+                -1.4576460431281788,
+                0.015529452484095077,
+                0.007687342050112015,
+                0.7787866937775639,
+                -1.455146107582111,
+                -0.020388228322522375,
+                -0.008116789089271924,
+                0.7788038122648426,
+                -1.455578821200841,
+                -0.012926131651105116,
+                0.012606851616459165,
+                0.7771615599921833,
+                -1.4574093709158653,
+                0.0016126224316381976
+              ],
+              "previous_velocity_target16": [
+                7.492314494511598e-10,
+                3.7480620829200006e-07,
+                -7.824030978653695e-07,
+                -0.005151049869316082,
+                3.1461957171463606e-09,
+                -2.801509690897319e-07,
+                5.716636497510308e-07,
+                -0.009193132145553229,
+                7.1152360045512175e-09,
+                -1.1308345815308485e-06,
+                2.207858962322007e-06,
+                -0.011918928654302934,
+                3.7778756512008016e-08,
+                4.783400342489585e-07,
+                -6.801098573205877e-07,
+                0.00010357527301212144
+              ],
+              "ramp_peak_speed_mps": 0.0,
+              "safe_torque16": [
+                1.1603541935324826,
+                -0.0005222033078852413,
+                3.032006468589516,
+                -0.18600603404427682,
+                30.154359333486525,
+                -1.0781462933817867,
+                34.58980827550156,
+                0.38765770806683353,
+                -27.896408414626197,
+                -5.8550191812039305,
+                25.18856468910269,
+                -0.6152103524532733,
+                -3.5046283315645548,
+                0.926200504712439,
+                -2.8578873024957145,
+                -0.015906691437581118
+              ],
+              "target16": [
+                -0.00321646785602953,
+                0.7777055516034034,
+                -1.4576460466085475,
+                0.015484859694655335,
+                0.00768734211440115,
+                0.7787866862271262,
+                -1.4551460917854595,
+                -0.020474492568796385,
+                -0.008116789006900351,
+                0.7788038007412149,
+                -1.4555787988140383,
+                -0.013025479970397812,
+                0.012606852108271102,
+                0.7771615672682756,
+                -1.4574093818781488,
+                0.0016123663358231142
+              ],
+              "target_accel16": [
+                -1.9485394200935424e-08,
+                -2.056329662103451e-05,
+                4.343662318717634e-05,
+                0.0691770925341853,
+                3.282717760816345e-07,
+                -4.748928028597277e-05,
+                0.00010080015044877655,
+                0.05667075181521597,
+                1.1219213058577537e-07,
+                -2.152819034151321e-06,
+                3.0821301066907836e-06,
+                0.19840967250333783,
+                1.1402437154195422e-06,
+                2.4926919417467275e-05,
+                -4.1611849521672184e-05,
+                -0.0129184854520464
+              ],
+              "target_velocity16": [
+                5.543775074418056e-10,
+                1.6917324208165496e-07,
+                -3.4803686599360617e-07,
+                -0.004459278943974229,
+                6.4289134779627055e-09,
+                -7.550437719494596e-07,
+                1.5796651542387963e-06,
+                -0.00862642462740107,
+                8.237157310408971e-09,
+                -1.1523627718723617e-06,
+                2.2386802633889147e-06,
+                -0.009934831929269555,
+                4.918119366620344e-08,
+                7.276092284236313e-07,
+                -1.0962283525373095e-06,
+                -2.560958150834257e-05
+              ],
+              "torque_limits16": [
+                80.0,
+                80.0,
+                80.0,
+                12.0,
+                80.0,
+                80.0,
+                80.0,
+                12.0,
+                80.0,
+                80.0,
+                80.0,
+                12.0,
+                80.0,
+                80.0,
+                80.0,
+                12.0
+              ],
+              "wheel_angles4": [
+                -0.0007243032796803067,
+                -0.0003673032817255681,
+                -0.00031548678510962057,
+                0.0002800726548145784
+              ],
+              "whole_com_world_m": [
+                -7.9930744681820025,
+                -4.698589852279127,
+                0.39129373826529423
+              ]
+            },
+            "command": {
+              "expires_control_index": 318,
+              "gait_enabled": true,
+              "issued_control_index": 298,
+              "stop_kind": "none",
+              "vy_mps": 0.0
+            },
+            "pair_events": [],
+            "reference": {
+              "body_axy_mps2": [
+                0.0,
+                0.0
+              ],
+              "body_jerk_xy_mps3": [
+                0.0,
+                0.0
+              ],
+              "body_pose_world_m": [
+                -7.999214018503804,
+                -4.69998862479984,
+                0.46011530269377826
+              ],
+              "body_vxy_mps": [
+                0.0,
+                0.0
+              ],
+              "body_xy_m": [
+                -7.999214018503804,
+                -4.69998862479984
+              ],
+              "body_yaw_rad": -4.7734931457903213e-05,
+              "completed_pair_exchanges": 0,
+              "consumed_landing_xy_m": [
+                [
+                  -7.829930568186687,
+                  -4.48088245874943
+                ],
+                null,
+                null,
+                [
+                  -8.204793242471085,
+                  -4.915587655717488
+                ]
+              ],
+              "fault": null,
+              "feet_velocity_world_mps": [
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  0.0
+                ]
+              ],
+              "feet_world_m": [
+                [
+                  -7.829930568186687,
+                  -4.48088245874943,
+                  0.08859986476272608
+                ],
+                [
+                  -7.830839722873551,
+                  -4.9174429837761355,
+                  0.08751103278022476
+                ],
+                [
+                  -8.205742334335339,
+                  -4.482696239552716,
+                  0.08758220934590663
+                ],
+                [
+                  -8.204793242471085,
+                  -4.915587655717488,
+                  0.08712993557843507
+                ]
+              ],
+              "foot_target_clipped": [
+                false,
+                false,
+                false,
+                false
+              ],
+              "force_weights": [
+                0.0,
+                1.0,
+                1.0,
+                0.0
+              ],
+              "horizontal_active": false,
+              "horizontal_common_duration_s": 0.08,
+              "horizontal_origin_world_m": [
+                [
+                  -7.830859687849413,
+                  -4.482554610319743,
+                  0.08751091345622383
+                ],
+                [
+                  -7.830839722873551,
+                  -4.9174429837761355,
+                  0.08751103278022476
+                ],
+                [
+                  -8.205742334335339,
+                  -4.482696239552716,
+                  0.08758220934590663
+                ],
+                [
+                  -8.20572236213381,
+                  -4.917259807287801,
+                  0.0875824096849118
+                ]
+              ],
+              "horizontal_previous_velocity_nonzero": false,
+              "horizontal_reference_velocity_nonzero": false,
+              "horizontal_span_xy_m": [
+                [
+                  0.00092911966272613,
+                  0.001672151570312863
+                ],
+                [
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0009291196627252418,
+                  0.001672151570312863
+                ]
+              ],
+              "horizontal_target_world_m": [
+                [
+                  -7.829930568186687,
+                  -4.48088245874943,
+                  0.08859986476272608
+                ],
+                [
+                  -7.830839722873551,
+                  -4.9174429837761355,
+                  0.08751103278022476
+                ],
+                [
+                  -8.205742334335339,
+                  -4.482696239552716,
+                  0.08758220934590663
+                ],
+                [
+                  -8.204793242471085,
+                  -4.915587655717488,
+                  0.08712993557843507
+                ]
+              ],
+              "landing_projected_xy_m": [
+                [
+                  -7.829930568186687,
+                  -4.48088245874943
+                ],
+                null,
+                null,
+                [
+                  -8.204793242471085,
+                  -4.915587655717488
+                ]
+              ],
+              "landing_raw_xy_m": [
+                [
+                  -7.829930568186687,
+                  -4.48088245874943
+                ],
+                null,
+                null,
+                [
+                  -8.204793242471085,
+                  -4.915587655717488
+                ]
+              ],
+              "pair": [
+                0,
+                3
+              ],
+              "pair_index": 0,
+              "phase": "dwell",
+              "phase_after": "dwell",
+              "phase_before": "dwell",
+              "phase_elapsed_s": 0.4400000000000002,
+              "ramp_coefficients_mps": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+              ],
+              "ramp_elapsed_s": 1.2400000000000009,
+              "ready_for_handoff": false,
+              "restore_start_weight": null,
+              "safe_abort_required": false,
+              "stable_stop_controls": 0,
+              "stance_legs": [
+                1,
+                2
+              ],
+              "stop_reason": null,
+              "support_gate_required": true,
+              "support_mode": "pair",
+              "swing_legs": [
+                0,
+                3
+              ]
+            },
+            "schema": "d1-c35-continuous-side-control-v1",
+            "sensed": {
+              "actual_whole_wheel_min_z_m": [
+                0.0006176435923143098,
+                0.00017458486016087849,
+                2.7483905880407167e-05,
+                0.01854950741506084
+              ],
+              "base_z_m": 0.46458318359242884,
+              "body_com_vxy_mps": [
+                0.018221062703798627,
+                0.009978809999356412
+              ],
+              "body_origin_vxyz_mps": [
+                0.01809945892459847,
+                0.011132275237918288,
+                0.010611754852910812
+              ],
+              "body_xy_m": [
+                -7.9941447574734354,
+                -4.697349101606505
+              ],
+              "control_index": 298,
+              "foot_contact": [
+                true,
+                true,
+                true,
+                false
+              ],
+              "foot_world_m": [
+                [
+                  -7.829112337982514,
+                  -4.487090008529973,
+                  0.08797093395491529
+                ],
+                [
+                  -7.8329017572966215,
+                  -4.917867856751762,
+                  0.08731764889345806
+                ],
+                [
+                  -8.203228873599684,
+                  -4.482676178523942,
+                  0.08749873854850737
+                ],
+                [
+                  -8.219093903109561,
+                  -4.923588108079365,
+                  0.10607428301549673
+                ]
+              ],
+              "mass_kg": 48.146865260000006,
+              "native_safety_ok": true,
+              "normal_load_n": [
+                39.81752066634596,
+                229.08602848338762,
+                194.75423507503882,
+                0.0
+              ],
+              "previous_five_contact_free": [
+                false,
+                false,
+                false,
+                true
+              ],
+              "previous_five_pair_loaded": [
+                true,
+                false
+              ],
+              "static_support_margin_m": -1.0,
+              "wheel_contact_points_world_m": [
+                [
+                  -7.828773696127128,
+                  -4.468697401740263,
+                  0.0006176435923143205
+                ],
+                [
+                  -7.833275395317713,
+                  -4.93723139944203,
+                  0.000174584860160813
+                ],
+                [
+                  -8.20290471114278,
+                  -4.464852752087191,
+                  2.7483905880453245e-05
+                ],
+                [
+                  -8.218776383119035,
+                  -4.906029268791161,
+                  0.018549507415060833
+                ]
+              ],
+              "whole_com_z_m": 0.39129373826529423,
+              "world_angular_speed_rps": 0.03866137393592093,
+              "yaw_rad": -0.019050568783527323
+            }
+          },
+          "control_index": 299,
+          "global_control_index": 299,
+          "policy_action": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "pre_state": {
+            "act": [],
+            "ctrl": [
+              1.1603541935324826,
+              -0.0005222033078852413,
+              3.032006468589516,
+              -0.18600603404427682,
+              30.154359333486525,
+              -1.0781462933817867,
+              34.58980827550156,
+              0.38765770806683353,
+              -27.896408414626197,
+              -5.8550191812039305,
+              25.18856468910269,
+              -0.6152103524532733,
+              -3.5046283315645548,
+              0.926200504712439,
+              -2.8578873024957145,
+              -0.015906691437581118
+            ],
+            "observation": [
+              0.008615019731223583,
+              0.004301675129681826,
+              0.005107459612190723,
+              0.00042920789564959705,
+              -0.003575993701815605,
+              -0.008718347176909447,
+              0.034268077462911606,
+              0.03350149467587471,
+              -0.9988510012626648,
+              0.12098254263401031,
+              0.01838616468012333,
+              -0.006333229597657919,
+              0.0011154490057379007,
+              0.05138319730758667,
+              -0.02334732748568058,
+              0.04332374408841133,
+              0.009733878076076508,
+              -0.026841014623641968,
+              0.07493095844984055,
+              0.00825300719588995,
+              -0.008452393114566803,
+              0.04336125776171684,
+              -1.8798127712216228e-05,
+              0.0012159160105511546,
+              0.003721967339515686,
+              -0.00011849655857076868,
+              -0.0004644329019356519,
+              -0.00048099932610057294,
+              0.004102565813809633,
+              -0.0002680467732716352,
+              -0.0020030552987009287,
+              0.0030376219656318426,
+              0.000525580020621419,
+              -0.00029066813294775784,
+              0.003424327587708831,
+              -0.0028621822129935026,
+              -0.0001282162993447855,
+              -7.236983947223052e-06,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              -0.011403154581785202,
+              0.011621380224823952,
+              -0.011249956674873829,
+              0.012305988930165768,
+              -0.000173256776179187,
+              0.0002606164198368788,
+              -0.0008212315151467919,
+              -0.00046690242015756667,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              1.0,
+              1.0,
+              1.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "qacc_warmstart": [
+              -0.05837645779951982,
+              -0.15460449480521463,
+              -0.1601782675756594,
+              0.4123799586471453,
+              -0.5129551300086639,
+              0.2674828648614733,
+              -0.16006718552569746,
+              0.19979210884845064,
+              0.053713309531247866,
+              0.04197294825518748,
+              -0.18916604445211552,
+              1.0224936732520966,
+              -0.8433944574966358,
+              0.0690030061357674,
+              0.035889649267019014,
+              0.8298585743489089,
+              -0.9480824519797804,
+              0.02312515811254778,
+              1.1341925344614256,
+              -0.9183719836973919,
+              -0.015636072842752445,
+              -0.010183690976775465
+            ],
+            "qpos": [
+              -7.993967261997023,
+              -4.697246885366257,
+              0.4646786031751494,
+              0.9996683978993989,
+              -0.016593446605873814,
+              0.017295965402780375,
+              -0.00941282910562852,
+              0.014708931346658417,
+              0.7873335408942004,
+              -1.4988845510450408,
+              0.015447172443597902,
+              0.04110655783958069,
+              0.7533053436301943,
+              -1.456676255249135,
+              -0.020556729576363224,
+              0.007787102107036829,
+              0.7463179689336877,
+              -1.425069044547565,
+              -0.013114548316736115,
+              0.006602405939788582,
+              0.783095214621405,
+              -1.4566387429918206,
+              0.0016106866582846389
+            ],
+            "qvel": [
+              0.0175189969982577,
+              0.009604257453580445,
+              0.008870859116612947,
+              0.0017168315699846704,
+              -0.014303974448273733,
+              -0.034873389553701964,
+              -0.0003759625502312044,
+              0.024318320202281477,
+              0.074439348120169,
+              -0.0035548967416176146,
+              -0.009288657899650929,
+              -0.009619986499350388,
+              0.08205131458878379,
+              -0.008041403439890321,
+              -0.04006110628176448,
+              0.06075243896967085,
+              0.010511600531872575,
+              -0.008720043814273793,
+              0.06848655094549513,
+              -0.057243645693766734,
+              -0.0025643260799337875,
+              -0.00021710951287575578
+            ],
+            "time": 2.9899999999998923
+          },
+          "side_requested": true
+        },
+        "policy_predictions": 200,
+        "qualification": false,
+        "side_done_completed_controls": null,
+        "task": null,
+        "terminal_kind": "fatal_incomplete_or_unsafe",
+        "terminated": false,
+        "truncated": false
+      }
+    ],
+    "closed_cases": 0,
+    "controls": 299,
+    "normal_native": 1495,
+    "pair_exchanges": 0,
+    "policy_predictions": 200,
+    "qualification": false,
+    "stop_reason": "fatal_incomplete_or_unsafe",
+    "user_goal_complete": false
+  },
+  "retry_permitted": false,
+  "schema": "d1-c35-headless-worker-v1",
+  "session_identity": {
+    "bytes": 1136927,
+    "sha256": "139981503506a5287fa42fd674f650657244e70d418b2394af8ce9b32fd75302"
+  },
+  "side_access": {
+    "actual_T_P_bounds": {
+      "copy": 204,
+      "forward": 25664,
+      "fullM": 100,
+      "jac": 400,
+      "jacBody": 19248,
+      "objectVelocity": 201
+    },
+    "closed_cases": [
+      {
+        "actual": {
+          "computes": 100,
+          "starts": 1
+        },
+        "actual_static_bounds": {
+          "copy": 204,
+          "forward": 25664,
+          "fullM": 100,
+          "jac": 400,
+          "jacBody": 19248,
+          "objectVelocity": 201
+        },
+        "before": {
+          "computes": 0,
+          "counts": {
+            "copy": 0,
+            "forward": 0,
+            "fullM": 0,
+            "jac": 0,
+            "jacBody": 0,
+            "objectVelocity": 0
+          },
+          "index": 0,
+          "scope_begin": 0,
+          "starts": 0
+        },
+        "case_index": 0,
+        "passed": true,
+        "scope_end": 101,
+        "static_counts": {
+          "copy": 99,
+          "forward": 3982,
+          "fullM": 94,
+          "jac": 208,
+          "jacBody": 1210,
+          "objectVelocity": 99
+        }
+      }
+    ],
+    "computes": 100,
+    "counts": {
+      "copy": 99,
+      "forward": 3982,
+      "fullM": 94,
+      "jac": 208,
+      "jacBody": 1210,
+      "objectVelocity": 99
+    },
+    "limits": {
+      "copy": 12020,
+      "forward": 1536320,
+      "fullM": 6000,
+      "jac": 24000,
+      "jacBody": 1152240,
+      "objectVelocity": 12005
+    },
+    "open_case": null,
+    "owner_ident": 130797401596032,
+    "prepares": 0,
+    "rejected": 0,
+    "schema": "d1-c35-side-static-access-v1",
+    "scopes": [
+      {
+        "calls": {
+          "copy": 0,
+          "forward": 0,
+          "fullM": 0,
+          "jac": 0,
+          "jacBody": 0,
+          "objectVelocity": 0
+        },
+        "compute_count": 0,
+        "failure": null,
+        "kind": "start",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 36,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 8,
+          "objectVelocity": 1
+        },
+        "compute_count": 1,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 36,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 8,
+          "objectVelocity": 1
+        },
+        "compute_count": 2,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 36,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 8,
+          "objectVelocity": 1
+        },
+        "compute_count": 3,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 37,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 9,
+          "objectVelocity": 1
+        },
+        "compute_count": 4,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 0,
+          "jac": 4,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 5,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 6,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 7,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 8,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 9,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 10,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 11,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 12,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 13,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 14,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 15,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 16,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 17,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 18,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 11,
+          "objectVelocity": 1
+        },
+        "compute_count": 19,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 20,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 21,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 22,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 23,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 24,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 24,
+          "ccd_returns": 24
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 41,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 13,
+          "objectVelocity": 1
+        },
+        "compute_count": 25,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 24,
+          "ccd_returns": 24
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 41,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 13,
+          "objectVelocity": 1
+        },
+        "compute_count": 26,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 24,
+          "ccd_returns": 24
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 41,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 13,
+          "objectVelocity": 1
+        },
+        "compute_count": 27,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 24,
+          "ccd_returns": 24
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 41,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 13,
+          "objectVelocity": 1
+        },
+        "compute_count": 28,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 24,
+          "ccd_returns": 24
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 42,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 14,
+          "objectVelocity": 1
+        },
+        "compute_count": 29,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 24,
+          "ccd_returns": 24
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 42,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 14,
+          "objectVelocity": 1
+        },
+        "compute_count": 30,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 24,
+          "ccd_returns": 24
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 42,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 14,
+          "objectVelocity": 1
+        },
+        "compute_count": 31,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 24,
+          "ccd_returns": 24
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 42,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 14,
+          "objectVelocity": 1
+        },
+        "compute_count": 32,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 24,
+          "ccd_returns": 24
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 43,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 15,
+          "objectVelocity": 1
+        },
+        "compute_count": 33,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 24,
+          "ccd_returns": 24
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 43,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 15,
+          "objectVelocity": 1
+        },
+        "compute_count": 34,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 24,
+          "ccd_returns": 24
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 43,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 15,
+          "objectVelocity": 1
+        },
+        "compute_count": 35,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 24,
+          "ccd_returns": 24
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 44,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 16,
+          "objectVelocity": 1
+        },
+        "compute_count": 36,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 28,
+          "ccd_returns": 28
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 44,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 16,
+          "objectVelocity": 1
+        },
+        "compute_count": 37,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 28,
+          "ccd_returns": 28
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 43,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 15,
+          "objectVelocity": 1
+        },
+        "compute_count": 38,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 28,
+          "ccd_returns": 28
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 43,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 15,
+          "objectVelocity": 1
+        },
+        "compute_count": 39,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 28,
+          "ccd_returns": 28
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 43,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 15,
+          "objectVelocity": 1
+        },
+        "compute_count": 40,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 28,
+          "ccd_returns": 28
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 42,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 14,
+          "objectVelocity": 1
+        },
+        "compute_count": 41,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 24,
+          "ccd_returns": 24
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 42,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 24,
+          "ccd_returns": 24
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 43,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 44,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 45,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 46,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 47,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 48,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 49,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 50,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 51,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 52,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 53,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 54,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 41,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 13,
+          "objectVelocity": 1
+        },
+        "compute_count": 55,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 56,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 8,
+          "ccd_returns": 8
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 57,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 58,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 59,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 60,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 61,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 62,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 11,
+          "objectVelocity": 1
+        },
+        "compute_count": 63,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 64,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 65,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 66,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 67,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 68,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 69,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 70,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 71,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 72,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 73,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 74,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 75,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 76,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 77,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 78,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 79,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 80,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 81,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 82,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 83,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 84,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 85,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 11,
+          "objectVelocity": 1
+        },
+        "compute_count": 86,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 39,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 11,
+          "objectVelocity": 1
+        },
+        "compute_count": 87,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 88,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 89,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 90,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 91,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 92,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 93,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 94,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 95,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 24,
+          "ccd_returns": 24
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 96,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 24,
+          "ccd_returns": 24
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 97,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 24,
+          "ccd_returns": 24
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 98,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 24,
+          "ccd_returns": 24
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 1,
+          "forward": 40,
+          "fullM": 1,
+          "jac": 2,
+          "jacBody": 12,
+          "objectVelocity": 1
+        },
+        "compute_count": 99,
+        "failure": null,
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 24,
+          "ccd_returns": 24
+        },
+        "static_ccd_returned": true
+      },
+      {
+        "calls": {
+          "copy": 0,
+          "forward": 0,
+          "fullM": 0,
+          "jac": 0,
+          "jacBody": 0,
+          "objectVelocity": 0
+        },
+        "compute_count": 100,
+        "failure": "RuntimeError: C35 physical stop required, torque handoff forbidden: touchdown_dwell_timeout",
+        "kind": "compute",
+        "native_boundary_unchanged": true,
+        "physical_arrays_unchanged": true,
+        "prepare_count": 0,
+        "start_count": 1,
+        "static_ccd_delta": {
+          "ccd_attempts": 0,
+          "ccd_returns": 0
+        },
+        "static_ccd_returned": true
+      }
+    ],
+    "scratch_address": 95961655888832,
+    "starts": 1,
+    "static_contact_is_not_native_load": true,
+    "within_actual_bounds": true
+  },
+  "warnings": []
+}

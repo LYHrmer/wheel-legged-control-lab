@@ -1,0 +1,46 @@
+== 1. exact body-frame foot-x sensitivity at the nominal crouch ==
+  d(foot_x)/d(thigh) = -0.36539 m/rad
+  d(foot_x)/d(calf)  = -0.19121 m/rad
+  linearised total foot-x shift for the commanded delta (thigh -0.068690, calf -0.002261 rad): +25.531 mm
+  cross-check against the finite (non-linearised) shift already measured in aligned_crouch_feasibility_20261005.py section 5: +25.53 mm
+  linear-vs-finite discrepancy: 0.001 mm (0.0%), expected from the second-order term since 0.0687 rad of thigh travel is not infinitesimal
+
+== 2. rolling-without-slip wheel angle required, exact (not linearised) ==
+  required wheel roll per leg: 25.53 mm / 0.087 m = 0.2934 rad (16.81 deg)
+  this matches the figure already reported in aligned_crouch_feasibility section 5 (0.2934 rad); this script adds the velocity/torque law needed to actually command it, which that script did not derive
+
+== 3. commanded wheel angular velocity for a range of morph durations ==
+    duration     leg rate   wheel rate  vs ref clip  vs hard gate
+      0.0172s      3.9936     17.0609       426.5%         94.8%
+      0.0500s      1.3738      5.8690       146.7%         32.6%
+      0.1000s      0.6869      2.9345        73.4%         16.3%
+      0.2000s      0.3435      1.4672        36.7%          8.2%
+      0.5000s      0.1374      0.5869        14.7%          3.3%
+  (leg rate shown for the worst of thigh/calf; wheel rate is the required roll rate, both well inside the 4 rad/s reference clip and 18 rad/s hard gate at every candidate duration)
+
+== 4. torque budget: four-wheel stance plus the rolling command ==
+  four-wheel stance leg torque (reused figure): 21.990 N*m of 80.0 N*m (27.5%)
+  leg joint inertia diagonal (hip, thigh, calf), kg*m^2: [0.3236, 0.295, 0.1238]
+  exact wheel spin-axis inertia from the URDF tensor (FL_foot, I_zz): 0.007609 kg*m^2 (local z is the joint axis)
+    duration   leg accel   leg torque  wheel accel  wheel torque  vs 12 N*m
+     0.0172s      928.75      273.940      3967.66       30.1885     251.6%
+     0.0500s      109.90       32.417       469.52        3.5724      29.8%
+     0.1000s       27.48        8.104       117.38        0.8931       7.4%
+     0.2000s        6.87        2.026        29.34        0.2233       1.9%
+     0.5000s        1.10        0.324         4.70        0.0357       0.3%
+  wheel-torque-limited minimum morph duration (exact inertia, bang-bang): 0.0273 s
+  LEG-torque-limited minimum duration (static stance + dynamic morph combined, against 80.0 N*m): 0.0374 s
+  binding duration: 0.0374 s (leg is tighter)
+  the earlier 0.0172 s figure in aligned_crouch_feasibility_20261005.py section 5 used only the reference VELOCITY clip and checked neither torque budget: at that duration the wheel needs ~30 N*m (2.5x its 12 N*m limit) AND the leg needs ~296 N*m total (3.7x its 80 N*m limit). Both are INFEASIBLE. This corrects that omission; a ~0.1 s morph clears both with comfortable margin and is still a small fraction of the 200-control (2 s) B22 preparation window.
+
+== 5. what must actually change in the control law ==
+  current frozen wheel reference: position lock to self.wheel_angles (a BRAKE),
+    tau[wheel] += 12*(wheel_angles - qpos[wheel]) - 2*velocity[wheel]
+  needed for the align phase: replace the POSITION target with a ramped
+    VELOCITY target (or a ramped position target that itself advances by the
+    rolling relation above), synchronised with the thigh/calf quintic ramp,
+    for the SAME duration, released back to the position brake once the morph
+    completes and the new foot anchors are re-measured from actual contact.
+  this is a genuinely new reference law, not a parameter change to an existing
+  one: it requires its own Core/Adapter phase, its own pure tests for the
+  roll/leg synchronisation, and its own contract and GO before any physics.

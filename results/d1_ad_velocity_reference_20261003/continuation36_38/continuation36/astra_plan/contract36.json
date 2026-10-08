@@ -1,0 +1,99 @@
+{
+  "schema": "d1-c36-preunload-transfer-feasibility-contract-v1",
+  "execution_contract_id": "C36_preunload_transfer_two_support_feasibility_v1",
+  "status": "ROOT_SIGNED_SOURCE_DESIGN_REQUIRES_SOURCE_GO_BEFORE_EXECUTION",
+  "signing_authority": {
+    "signed_by": "root (main Codex agent)",
+    "astra_reviewed": false,
+    "basis": "User authorisation for routine development and simulation verification, and the 2026-09-21 handoff clause that the next main agent may draft and record a bounded contract within the existing authorisation without asking again. The normal gpt-6-astra ultra contract review is NOT available in this terminal and is explicitly not claimed.",
+    "user_requested": "The user asked directly why simulation verification was not being entered."
+  },
+  "purpose": "One deterministic finite campaign that tests the single most load-bearing prediction of the C35 analysis chain: that diagonal two-support is statically infeasible at the frozen nominal crouch because the whole-body COM sits 21.7 mm forward of the wheel contact rectangle centre. C35 never reached two-point support, so this is still analysis rather than observation. It is not a speed attempt, not an optimised gait, not RL and not a GUI delivery.",
+
+  "what_changes_from_c35": {
+    "behavioural_diff": [
+      "core36.Core36._all_loaded becomes phase aware: inside the pre-unload window the stance-pair gate applies instead of the all-four gate",
+      "adapter36.PairController36._reference_record35 declares support_mode='pair' and the stance pair in that same window, which is what makes the UNMODIFIED frozen native guard enforce the stance-pair gate"
+    ],
+    "boundary": "The all-four regime applies while the commanded swing-pair allocator weight is at least 0.5. The frozen ramp is 1 - smooth35(elapsed/0.06), so the boundary is exactly elapsed = 0.03 s, verified to 1e-15 by a pure test.",
+    "why_this_is_not_a_relaxation": "clarifications35_01 required strictly positive measured load on a leg that clarifications35_03 deliberately unloads in the same phase; the two are unsatisfiable together and C35 stopped on exactly that. The replacement gate is the stance-pair gate the frozen air regime already uses: each stance wheel a true active terrain contact with independently summed positive normal load, and a stance-pair normal sum of at least 0.5 m g, at every native substep, with no loss grace and no flight. Strictness is unchanged; only which legs are required changes, and only where the design has already committed to unloading them.",
+    "explicitly_not_changed": [
+      "the nominal crouch, so the predicted statics deficit is left in place on purpose",
+      "the 0.975 s landing lead",
+      "the quintic swing profile and the 0.16 m/s peak reference foot speed",
+      "the 35 mm lift height",
+      "the phase durations and the absence of load/transfer overlap",
+      "the absence of a swing-reaction feedforward term",
+      "every actuator limit, joint range, clearance gate, pose and velocity gate, contact and force evidence requirement, the 100 Hz control and 500 Hz integration, the landing cap, the longitudinal excursion limit and the no-flight rule"
+    ]
+  },
+
+  "hypothesis_under_test": {
+    "prediction": "The campaign enters two-support and then fails a stance-pair load or pose gate, because the COM is 16.5 to 17.1 mm off whichever diagonal supports it and the measured contact-patch moment capacity is only 12.42 mm of arm, a deficit of 1.34 to 1.38 times.",
+    "falsifier": "If two-support holds and pair exchanges complete, the statics analysis was too conservative, most likely because the real contact patch carries more moment than the two saved contact slots imply. That outcome is equally informative and must be reported as a correction.",
+    "secondary_measurement": "Whatever the outcome, record the actual per-pair contact-admission waits. That number decides whether reinforcement learning has any speed headroom at all; see docs/ad_lateral_rl_contract_20261005.md."
+  },
+
+  "budget": {
+    "cases": 2,
+    "planned_controls_max": 3600,
+    "planned_normal_native_max": 18000,
+    "runtime_control_fence": 9000,
+    "runtime_native_fence": 45000,
+    "compiler_native_max": 2,
+    "new_MjModel": 1,
+    "new_MjData": 3,
+    "physical_attempts": 1,
+    "no_automatic_retry": true,
+    "no_unused_budget_transfer": true,
+    "models": {
+      "B22_load": 1,
+      "torch_load": 3,
+      "predict_calls_total_max": 1201,
+      "predict_derivation": "2 cases x (200 preparation + 400 retention) B22 controls + 1 probe",
+      "train": 0, "learn": 0, "backward": 0, "save": 0, "optimizer": 0,
+      "new_lateral_actor": 0, "new_lateral_value": 0
+    },
+    "per_case": {
+      "prepare_B22_controls": 200,
+      "side_controls_max": 1200,
+      "retention_B22_controls": 400,
+      "total_controls_max": 1800
+    }
+  },
+
+  "cases": [
+    {"id": "pair_stand_zero", "index": 0, "kind": "in_place", "vy_mps": 0.0,
+     "direction": 0, "active_controls": 200,
+     "claim": "two-support entry, unload, lift, land and reload at zero commanded velocity; this isolates the statics question from any lateral drift"},
+    {"id": "continuous_left", "index": 1, "kind": "continuous", "vy_mps": 0.025,
+     "direction": 1, "active_controls": 600,
+     "claim": "adds the commanded lateral motion and the landing-lead phase error; only attempted if case 0 closes"}
+  ],
+  "order_and_stop": "Fixed listed order. Case 1 begins only if every online physical, task, contact, archive and effort gate of case 0 passes. The first controlled quality failure ends the campaign; any native, source or archive failure ends all physics. No replacement point, parameter sweep, retry or budget reallocation.",
+
+  "qualification": {
+    "speed_claim": "none; no lateral speed target is set and none may be claimed from this campaign",
+    "pair_exchanges_reported_not_gated": true,
+    "success_means": "the listed cases close with every inherited C35 gate satisfied",
+    "failure_is_a_result": "a stance-pair or pose failure in two-support confirms the statics prediction and is the expected outcome"
+  },
+
+  "native_safety": "Every C35 hard gate is inherited unchanged: exact frozen actuator limits, compiled joint ranges, bounded IK acceptance 0.008 m, leg |qvel| <= 18 rad/s, roll and pitch <= 0.32 rad, base z >= 0.32 m, zero nonwheel terrain contacts, five native substeps per control at 0.002 s, full per-substep contact wrench evidence, independent reconstruction of per-contact world force and moment, the stance-pair normal sum of at least 0.5 m g, the 12 mm whole-shape swing clearance during horizontal motion, and no flight in any regime.",
+
+  "required_before_physics": [
+    "Pure tests on the changed semantics only, with source hashes before and after. Done: 10 tests pass, covering the exact weight boundary, the all-four requirement before it, the stance-pair sufficiency after it, that losing a stance wheel or an insufficient sum still fails, that every other phase keeps the inherited all-four requirement, both diagonals, and that the core and the adapter switch at the same instant.",
+    "A source GO that lists every input hash, inherits the full C35 input set and adds the C36 files.",
+    "No new model construction beyond the single reserved attempt."
+  ],
+
+  "physical_GO": false,
+  "training_GO": false,
+  "training_authorized": false,
+  "user_goal_complete": false,
+  "evidence": [
+    {"path": "docs/ad_lateral_pair_feasibility_20261004.md", "role": "C35 rejection and localisation"},
+    {"path": "docs/ad_lateral_gait_review_20261004.md", "role": "the three constraints, the seven corrections and the statics derivation"},
+    {"path": "docs/ad_lateral_rl_contract_20261005.md", "role": "why the admission wait is the measurement that matters"}
+  ]
+}

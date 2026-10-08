@@ -1,0 +1,104 @@
+{
+  "schema": "d1-c37-preunload-with-repaired-fullm-contract-v1",
+  "execution_contract_id": "C37_preunload_transfer_with_repaired_fullm_check_v1",
+  "status": "ROOT_SIGNED_SOURCE_DESIGN_REQUIRES_SOURCE_GO_BEFORE_EXECUTION",
+  "signing_authority": {
+    "signed_by": "root (main Codex agent)",
+    "astra_reviewed": false,
+    "basis": "User authorisation for routine development and simulation verification, and the 2026-09-21 handoff clause permitting the main agent to draft and record a bounded contract within the existing authorisation. The gpt-6-astra ultra review channel is not available in this terminal and no Astra review is claimed."
+  },
+  "purpose": "Resume the C36 experiment after repairing a latent defect in the inherited C35 static-query checker. The hypothesis under test is unchanged and still unmeasured: whether diagonal two-support is statically infeasible at the frozen nominal crouch, because the whole-body COM sits 21.7 mm forward of the wheel contact rectangle centre.",
+
+  "why_a_second_attempt_is_not_a_retry": {
+    "c36_attempt_1_produced": "205 controls, 1025 normal native substeps, zero native safety violations, and the first physical confirmation that the pre-unload correction works: at native 1020 to 1024, the exact substep and state where C35 raised, the stance-pair gate passes with the swing wheel at 0.0 N and the stance pair carrying 458.6 N against a 236.2 N requirement.",
+    "c36_attempt_1_did_not_produce": "any physics result on the statics hypothesis. It never reached sustained two-support. It terminated on an AttributeError inside a static-query assertion, not on a controlled quality failure and not on a native safety gate.",
+    "distinction": "The no-retry rule exists so a controlled quality or physics failure is not re-run to fish for a better outcome. This is a different category: an unexercised assertion in inherited source crashed on the installed MuJoCo binding. C37 is a new bounded campaign with its own GO, its own directory and its own single attempt. Budget is recorded additively, never reallocated from C36.",
+    "cumulative_physical_cost_so_far": {"c36_controls": 205, "c36_normal_native": 1025,
+                                       "c36_compiler_native": 2}
+  },
+
+  "the_defect": {
+    "location": "continuation35/root35/runtime35.py, SideAccess35._checked_query, the fullM branch",
+    "frozen_expression": "packed = isinstance(args[2], np.ndarray) and np.shares_memory(args[2], self.scratch.qM)",
+    "fault": "MuJoCo 3.12.0 exposes the inertia as MjData.M and has no qM at all. The repository's d1_fast_side_step._dense_inertia already handles both bindings and correctly takes the modern mj_fullM(model, data, matrix) branch, so `modern` is already True, but the checker evaluates the legacy `packed` branch unconditionally and dereferences the missing attribute.",
+    "why_it_was_never_seen": "C35 stopped at control 204, before any coupled-inertia computation. Its own ledger records fullM: 0. The defect sat unexercised for a whole contract.",
+    "repair": "Short-circuit only. The acceptance predicate stays exactly `modern or packed`; `packed` is evaluated only when the modern binding was not used and only when the scratch actually exposes the legacy attribute. The registered-scratch requirement, the explicit-swing-pair requirement, the counting and the 6x6 cache extraction are unchanged.",
+    "verification": "7 pure tests, including one that asserts the frozen expression genuinely raises AttributeError on the real input, and one that asserts C37 agrees with the frozen predicate on every combination where the frozen predicate could run at all."
+  },
+
+  "behavioural_diff_from_frozen_c35": [
+    {"file": "sol36/core36.py", "method": "Core36._all_loaded",
+     "change": "phase-aware support requirement; inside the pre-unload window the frozen stance-pair gate applies instead of the frozen all-four gate"},
+    {"file": "sol36/adapter36.py", "method": "PairController36._reference_record35",
+     "change": "declares support_mode='pair' with the stance pair in that same window, which is what makes the UNMODIFIED frozen native guard enforce the stance-pair gate"},
+    {"file": "root37/runtime37.py", "method": "SideAccess37._checked_query",
+     "change": "short-circuits the legacy fullM destination branch; acceptance semantics unchanged"}
+  ],
+  "explicitly_not_changed": [
+    "the nominal crouch, so the predicted statics deficit is left in place on purpose",
+    "the 0.975 s landing lead",
+    "the quintic swing profile and the 0.16 m/s peak reference foot speed",
+    "the 35 mm lift height",
+    "the phase durations and the absence of load/transfer overlap",
+    "the absence of a swing-reaction feedforward term",
+    "every actuator limit, joint range, clearance gate, pose and velocity gate, contact and force evidence requirement, the 100 Hz control and 500 Hz integration, the landing cap, the longitudinal excursion limit and the no-flight rule"
+  ],
+
+  "hypothesis_under_test": {
+    "prediction": "The campaign enters sustained two-support and then fails a stance-pair load or pose gate, because the COM is 16.5 to 17.1 mm off whichever diagonal supports it while the measured contact-patch moment capacity is only 12.42 mm of arm, a deficit of 1.34 to 1.38 times.",
+    "falsifier": "If two-support holds and pair exchanges complete, the statics analysis was too conservative, most likely because the real contact patch carries more moment than the two saved contact slots imply. That outcome is equally informative and must be reported as a correction to docs/ad_lateral_gait_review_20261004.md.",
+    "secondary_measurement": "Record the actual per-pair contact-admission waits whatever the outcome. That number decides whether reinforcement learning has any speed headroom at all; see docs/ad_lateral_rl_contract_20261005.md."
+  },
+
+  "budget": {
+    "cases": 2,
+    "planned_controls_max": 3600,
+    "planned_normal_native_max": 18000,
+    "runtime_control_fence": 9000,
+    "runtime_native_fence": 45000,
+    "compiler_native_max": 2,
+    "new_MjModel": 1,
+    "new_MjData": 3,
+    "physical_attempts": 1,
+    "no_automatic_retry": true,
+    "no_unused_budget_transfer": true,
+    "models": {
+      "B22_load": 1, "torch_load": 3,
+      "predict_calls_total_max": 1201,
+      "predict_derivation": "2 cases x (200 preparation + 400 retention) B22 controls + 1 probe",
+      "train": 0, "learn": 0, "backward": 0, "save": 0, "optimizer": 0,
+      "new_lateral_actor": 0, "new_lateral_value": 0
+    },
+    "per_case": {"prepare_B22_controls": 200, "side_controls_max": 1200,
+                 "retention_B22_controls": 400, "total_controls_max": 1800}
+  },
+
+  "cases": [
+    {"id": "pair_stand_zero", "index": 0, "kind": "in_place", "vy_mps": 0.0,
+     "direction": 0, "active_controls": 200,
+     "claim": "two-support entry, unload, lift, land and reload at zero commanded velocity; isolates the statics question from any lateral drift"},
+    {"id": "continuous_left", "index": 1, "kind": "continuous", "vy_mps": 0.025,
+     "direction": 1, "active_controls": 600,
+     "claim": "adds the commanded lateral motion and the landing-lead phase error; attempted only if case 0 closes"}
+  ],
+  "order_and_stop": "Fixed listed order. Case 1 begins only if every online physical, task, contact, archive and effort gate of case 0 passes. The first controlled quality failure ends the campaign; any native, source or archive failure ends all physics. No replacement point, parameter sweep, retry or budget reallocation.",
+
+  "qualification": {
+    "speed_claim": "none; no lateral speed target is set and none may be claimed from this campaign",
+    "success_means": "the listed cases close with every inherited C35 gate satisfied",
+    "failure_is_a_result": "a stance-pair or pose failure in sustained two-support confirms the statics prediction and is the expected outcome"
+  },
+
+  "native_safety": "Every C35 hard gate is inherited unchanged: exact frozen actuator limits, compiled joint ranges, bounded IK acceptance 0.008 m, leg |qvel| <= 18 rad/s, roll and pitch <= 0.32 rad, base z >= 0.32 m, zero nonwheel terrain contacts, five native substeps per control at 0.002 s, full per-substep contact wrench evidence, independent reconstruction of per-contact world force and moment, the stance-pair normal sum of at least 0.5 m g, the 12 mm whole-shape swing clearance during horizontal motion, and no flight in any regime.",
+
+  "required_before_physics": [
+    "Pure tests on the changed semantics only. Done: 10 C36 tests on the pre-unload boundary and 7 C37 tests on the fullM predicate, all passing.",
+    "A source GO listing every input hash, inheriting the full C36 input set and adding the C37 files.",
+    "No new model construction beyond the single reserved attempt."
+  ],
+
+  "physical_GO": false,
+  "training_GO": false,
+  "training_authorized": false,
+  "user_goal_complete": false
+}

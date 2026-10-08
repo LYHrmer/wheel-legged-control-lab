@@ -1,0 +1,64 @@
+{
+  "schema": "d1-c38-record-semantics-and-audit-contract-v1",
+  "execution_contract_id": "C38_preunload_record_semantics_and_audit_v1",
+  "status": "ROOT_SIGNED_SOURCE_DESIGN_REQUIRES_SOURCE_GO_BEFORE_EXECUTION",
+  "signing_authority": {
+    "signed_by": "root (main Codex agent)",
+    "astra_reviewed": false,
+    "basis": "User authorisation for routine development and simulation verification, and the 2026-09-21 handoff clause permitting the main agent to draft and record a bounded contract within the existing authorisation. The gpt-6-astra ultra review channel is not available in this terminal and no Astra review is claimed."
+  },
+  "purpose": "Repair the record-semantics defect the C37 independent reader correctly caught, and let that reader complete the audit of the C37 physical trajectory. No new control behaviour and no new hypothesis.",
+
+  "why_a_third_attempt_is_not_a_retry": {
+    "c37_attempt_1_result": "299 controls, 1495 normal native substeps, zero native safety violations, confirmed the pre-unload gate against physics (stance-pair sum 343 to 507 N against a 236 N requirement across 485 substeps), and localised a touchdown_dwell_timeout to a measured rocking of the two returning wheels (peak-to-peak height differential 67.8 mm, consistent with a 5.12 deg rotation about the stance diagonal against a measured 4.15 deg attitude excursion).",
+    "c37_attempt_1_blocked_on": "the independent reader's own cross-check (fullM calls == bool(swing_legs)) failed, because adapter36/C36's record override put the swing pair into swing_legs during pre-unload transfer to make the native guard see the stance pair, while no coupled-inertia computation happens in transfer. That is a recording defect in C36/C37's OWN new code, not a C35 defect and not a physics failure.",
+    "distinction": "This is a correctness fix to the C36/C37 record logic, verified by 6 new pure tests before any physics. C38 is a new bounded campaign with its own GO, its own directory and its own single attempt. The no-retry rule is not being used to re-run a quality or physics failure.",
+    "cumulative_physical_cost_so_far": {"c36_controls": 205, "c36_normal_native": 1025,
+                                       "c37_controls": 299, "c37_normal_native": 1495,
+                                       "compiler_native_each": 2}
+  },
+
+  "the_defect": {
+    "location": "continuation36/sol36/adapter36.py, PairController36._reference_record35",
+    "fault": "declared support_mode='pair' AND filled swing_legs with the pre-unload pair, but the frozen guard never reads swing_legs for the support gate (only support_mode and stance_legs), and no fullM call happens during transfer, so the reader's cross-check fullM==bool(swing_legs) failed on real data (0 != 1)",
+    "repair": "declare support_mode='pair' and stance_legs normally, leave swing_legs at the frozen record's value (empty list outside AIR_PHASES35, exactly as PairController35 computes it from reference.phase)",
+    "verification": "6 pure tests: the declaration is correct, the cross-check now holds for every elapsed time in the pre-unload window including transfer_restore, air phases are byte-identical to the frozen record, phases outside the window are byte-identical to the frozen record, horizontal_active is untouched, and the second diagonal declares correctly"
+  },
+
+  "behavioural_diff_from_frozen_c35": [
+    {"file": "continuation36/sol36/core36.py", "method": "Core36._all_loaded", "inherited_from": "C36/C37, unchanged here"},
+    {"file": "continuation38/sol38/adapter38.py", "method": "PairController38._reference_record35",
+     "change": "declares the pre-unload regime without overloading swing_legs; starts from the FROZEN PairController35 record, not from C36's"},
+    {"file": "continuation37/root37/runtime37.py", "method": "SideAccess37._checked_query", "inherited_from": "C37, unchanged here"}
+  ],
+  "expected_trajectory": "Because the controller's own self.swing_legs (which gates the coupled-inertia computation and the swing PD) is set by the frozen compute from reference.phase, not from the declared record, this change cannot move the physical trajectory. C38 is expected to reproduce C37's 299 controls and the same touchdown_dwell_timeout bit for bit on every physical quantity; only the saved record and therefore the independent audit outcome should differ. This expectation is itself falsifiable and will be checked.",
+
+  "hypothesis_under_test": "None beyond C37's. This campaign exists to let the independent reader complete the audit, not to test a new prediction.",
+
+  "budget": {
+    "cases": 2, "planned_controls_max": 3600, "planned_normal_native_max": 18000,
+    "runtime_control_fence": 9000, "runtime_native_fence": 45000,
+    "compiler_native_max": 2, "new_MjModel": 1, "new_MjData": 3,
+    "physical_attempts": 1, "no_automatic_retry": true, "no_unused_budget_transfer": true,
+    "models": {"B22_load": 1, "torch_load": 3, "predict_calls_total_max": 1201,
+               "train": 0, "learn": 0, "backward": 0, "save": 0, "optimizer": 0,
+               "new_lateral_actor": 0, "new_lateral_value": 0},
+    "per_case": {"prepare_B22_controls": 200, "side_controls_max": 1200,
+                 "retention_B22_controls": 400, "total_controls_max": 1800}
+  },
+  "cases": [
+    {"id": "pair_stand_zero", "index": 0, "kind": "in_place", "vy_mps": 0.0,
+     "direction": 0, "active_controls": 200},
+    {"id": "continuous_left", "index": 1, "kind": "continuous", "vy_mps": 0.025,
+     "direction": 1, "active_controls": 600}
+  ],
+  "order_and_stop": "Fixed listed order. Case 1 begins only if case 0 closes. First controlled quality failure ends the campaign; no retry, no parameter sweep.",
+
+  "native_safety": "Every C35 hard gate inherited unchanged, identical to C36/C37.",
+  "required_before_physics": [
+    "6 pure tests on the record-semantics change, all passing",
+    "a source GO listing every input hash, inheriting the full C37 input set"
+  ],
+  "physical_GO": false, "training_GO": false, "training_authorized": false,
+  "user_goal_complete": false
+}
