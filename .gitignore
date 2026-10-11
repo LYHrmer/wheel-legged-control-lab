@@ -23,6 +23,14 @@ results/residual_ppo/*.pth
 /results/**/*.mjb
 /results/**/*.mjb.gz
 /results/**/*.tar.gz
+# These three patterns matched the intent of the lines above but not their
+# wording, so compressed step traces, SB3 checkpoint archives and split trace
+# parts kept entering Git. Already-tracked historical files stay; this only
+# stops new ones. Content-addressed blobs/ payloads are deliberately kept, see
+# the negations below.
+/results/**/*.jsonl.gz
+/results/**/*.zip
+/results/**/training_trace_parts/
 # Interrupted studies and duplicate source trees remain in the result release.
 /results/d1_budget_study_interrupted_*/
 /results/.d1_budget_study.recovery*.lock
