@@ -53,9 +53,11 @@ PYTHONPATH=src MPLBACKEND=Agg python3 -m wheel_legged_control.experiments \
 
 所以读这张表时：**百分之几的差异是版本容差，不要当成控制器变化**；要比较控制器，必须在同一 MuJoCo 版本下比较。
 
-## 从现在起会自动记录
+## 已知缺口：输出不带版本记录
 
-`experiments.py` 现在会在输出目录写 `provenance.json`，含 MuJoCo / NumPy / Python 版本、平台、seed、场景、控制器列表、git commit 与脏树指纹。本目录的历史产出没有这个文件，是上述缺口的来源。
+`experiments.py` 不写任何版本记录，所以本目录的历史产出没有 provenance 文件 —— 这正是上面那张差异表需要手工补的原因。仓库里其实有 `src/wheel_legged_control/provenance.py` 的 `capture_git_provenance` 可用，但 `experiments.py` 从未调用它。
+
+**此项未修复**：`src/wheel_legged_control/experiments.py` 属于 77 份只读冻结文件（见[独立项目的保护回执](https://github.com/LYHrmer/ddt-d1-rl-lab)的 `protected_guard_final03_01.json`），冻结 SHA-256 为 `5c8a7a273fd3219c549c005a7d6996de66600a4fcf54c409b88c4d3cd49a7ed4`，不在本轮改动范围内。重跑时请手工记录 MuJoCo 版本，或先解除该文件的冻结约束再改。
 
 ## 残差行需要可选依赖
 
@@ -65,4 +67,6 @@ PYTHONPATH=src MPLBACKEND=Agg python3 -m wheel_legged_control.experiments \
 pip install -e '.[rl]'
 ```
 
-未安装时命令会打印说明并只产出 LQR / MPC 两行，不再中断。（此前缺少该依赖会直接抛 `ModuleNotFoundError`；`args.policy.exists()` 的设计本意是让残差行可选，导入未做保护。）
+**这个依赖不是可选的。** `main()` 用 `args.policy.exists()` 把残差行设计成可选，但紧接着无条件 `from stable_baselines3 import PPO`，而权重文件就在库中 —— 所以只装基础依赖时命令会直接抛 `ModuleNotFoundError`，而不是降级到两行。
+
+**此项同样未修复**，原因与上一节相同（`experiments.py` 在 77 份冻结文件内）。规避办法：装 `[rl]`，或用 `--policy /nonexistent` 让存在性检查落空而跳过导入。

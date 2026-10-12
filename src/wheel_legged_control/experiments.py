@@ -5,21 +5,15 @@ from __future__ import annotations
 import argparse
 import csv
 from dataclasses import dataclass
-import datetime as dt
-import json
 from pathlib import Path
-import platform
-import sys
 from typing import Any
 
 import matplotlib.pyplot as plt
-import mujoco
 import numpy as np
 from matplotlib.animation import FuncAnimation, PillowWriter
 from matplotlib.patches import Circle
 
 from .env import WheelLeggedResidualEnv
-from .provenance import capture_git_provenance
 
 plt.switch_backend("Agg")
 
@@ -120,47 +114,6 @@ def compute_metrics(rollout: Rollout) -> dict[str, float | str | int]:
         "mean_reward": float(np.mean(rollout.rewards)),
         "solve_p95_ms": float(np.percentile(rollout.solve_times_ms, 95)),
     }
-
-
-def write_provenance(
-    args: argparse.Namespace,
-    records: list[dict[str, float | str | int]],
-    output: Path,
-) -> None:
-    """Record what produced this table, so a rerun can be compared honestly.
-
-    The committed results/benchmark tables predate this and carry no such file.
-    MuJoCo minor releases change contact and integration details enough to move
-    velocity and height RMSE by a few percent at a fixed seed, so the version
-    has to travel with the numbers.
-    """
-
-    controllers = sorted({str(record["controller"]) for record in records})
-    payload: dict[str, Any] = {
-        "format": "wheel-legged-benchmark-provenance-v1",
-        "created_utc": dt.datetime.now(dt.timezone.utc).isoformat(),
-        "model": "planar six-state teaching model (assets/wheel_legged_planar.xml)",
-        "seed": int(args.seed),
-        "controllers": controllers,
-        "residual_policy": str(args.policy) if "LQR + PPO" in controllers else None,
-        "scenarios": list(SCENARIOS),
-        "rows": len(records),
-        "versions": {
-            "mujoco": mujoco.__version__,
-            "numpy": np.__version__,
-            "python": sys.version.split()[0],
-            "platform": platform.platform(),
-        },
-        **capture_git_provenance(Path(__file__).resolve().parents[2]),
-        "note": (
-            "Exact values depend on the MuJoCo version; compare a rerun against "
-            "the version recorded here before reading a difference as a change in "
-            "the controllers."
-        ),
-    }
-    (output / "provenance.json").write_text(
-        json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
-    )
 
 
 def write_metrics(records: list[dict[str, float | str | int]], output: Path) -> None:
@@ -364,18 +317,9 @@ def main(argv: list[str] | None = None) -> None:
     args.output.mkdir(parents=True, exist_ok=True)
     policy = None
     if args.policy.exists():
-        try:
-            from stable_baselines3 import PPO
-        except ImportError:
-            # The residual row is optional by design, so a missing rl extra
-            # degrades to the two classical controllers instead of aborting.
-            print(
-                f"stable-baselines3 is not installed, so {args.policy} is skipped "
-                "and only the LQR and MPC rows are produced. "
-                "Install the residual extra with: pip install -e '.[rl]'"
-            )
-        else:
-            policy = PPO.load(args.policy, device="cpu")
+        from stable_baselines3 import PPO
+
+        policy = PPO.load(args.policy, device="cpu")
 
     all_rollouts: list[Rollout] = []
     for scenario in SCENARIOS:
@@ -391,7 +335,6 @@ def main(argv: list[str] | None = None) -> None:
     records = [compute_metrics(rollout) for rollout in all_rollouts]
     write_metrics(records, args.output)
     plot_summary(records, args.output)
-    write_provenance(args, records, args.output)
     if args.gif:
         push_rollouts = [rollout for rollout in all_rollouts if rollout.scenario == "push"]
         create_comparison_gif(push_rollouts, args.output)
