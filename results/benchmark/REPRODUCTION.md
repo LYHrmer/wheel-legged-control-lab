@@ -69,4 +69,8 @@ pip install -e '.[rl]'
 
 **这个依赖不是可选的。** `main()` 用 `args.policy.exists()` 把残差行设计成可选，但紧接着无条件 `from stable_baselines3 import PPO`，而权重文件就在库中 —— 所以只装基础依赖时命令会直接抛 `ModuleNotFoundError`，而不是降级到两行。
 
-**此项同样未修复**，原因与上一节相同（`experiments.py` 在 77 份冻结文件内）。规避办法：装 `[rl]`，或用 `--policy /nonexistent` 让存在性检查落空而跳过导入。
+**此项同样未修复**，原因与上一节相同（`experiments.py` 在 77 份冻结文件内）。规避办法：装 `[rl]`，或用 `--policy /nonexistent` 让存在性检查落空而跳过导入（已实测：退出码 0，正常产出 LQR / MPC 两行）。
+
+### 将来要改这个文件的话
+
+两处修复都已验证过可行，但都需要先解除该文件的冻结约束。另有一条实测教训：本仓库 CI 跑 `ruff check src tests examples scripts`，而 ruff 的**默认规则集包含 isort（`I`）**，`pyproject.toml` 里只写 `line-length = 100` 不代表 isort 关闭。一次尝试性改动在 `experiments.py:3` 触发了未排序 import 块的报错 —— 当次 **4,024 个 pytest 全部通过，CI 仅因这 1 条 lint 失败**。改之前先本机跑一遍 `ruff check`。
