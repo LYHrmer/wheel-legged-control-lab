@@ -1,7 +1,43 @@
 # 实验索引
 
-当前入口是 [82 维命令条件实验](../docs/locomotion_lab.md)。
-下表区分已完成的对照与仍未通过的能力，不把历史任务的成绩拼到当前控制器上。
+121 个结果目录，66 个自带 README。下面按**模型**分两层索引，因为两层的成绩不可互换：平面 6 状态教学模型用来把公式对到代码上，全机 D1 才是能力结论的来源。表格区分已完成的对照与仍未通过的能力，**不把历史任务的成绩拼到当前控制器上**。
+
+当前主线入口是 [82 维命令条件实验](../docs/locomotion_lab.md)；逐轮研究记录在[研究日志](../docs/research_log.md)。
+
+## 平面 6 状态教学模型
+
+3 关节（`base_x` / `body_pitch` / `leg_extension`）、2 执行器（`wheel_force` / `leg_force`）。
+
+| 记录 | 可以检查什么 |
+|---|---|
+| **[三方外环对照](benchmark/)** | **README 首屏那张表的出处**：LQR、约束 MPC、2 维有界残差 PPO 在 nominal / push / mismatch_delay 三场景的 6 指标（[metrics.md](benchmark/metrics.md)），以及 20 个配对种子的均值±标准差（[randomized_audit.md](benchmark/randomized_audit.md)）。读数前先看[复现说明](benchmark/REPRODUCTION.md)的 MuJoCo 版本容差 |
+
+## 全机 D1（23 nq / 22 nv / 16 执行器）
+
+### 主线课程对照（C14–C22）
+
+这几个是文件数最多的目录，逐轮结论见[研究日志](../docs/research_log.md)。**课程收益门与 RL 贡献门分开判**：C22 的课程门通过，而 `RL_contribution_passed=false`。
+
+| 记录 | 可以检查什么 |
+|---|---|
+| [C21–22 课程对照与保留评估](d1_main_route_execution_20260930_22/README.md) | B/zero pooled SSE 1.038768、成本比 1.040694、六项里 1 项达标；B 相对 A 误差 −13.50%、成本 −7.67% |
+| [C17–18 七场景验收](d1_main_route_execution_20260930_17_18/README.md) | 七个固定场景全过，同时 RL 收益未达预注册门 |
+| [C20 课程训练](d1_main_route_execution_20260930_20/README.md) | A 完整读回、B 几何前提失败及离线修复候选 |
+| [C15–16 裁剪比较](d1_main_route_execution_20260930_15_16/README.md) | grouped RL final 的裁剪对照 |
+| [B22 GUI 与真实 15 mm 台阶](d1_b22_gui_true15mm_20260930/) | 有界验收、计步与失败记录。"真实台阶"指真实碰撞几何，**不是实机** |
+
+### A/D 横移线
+
+**至今没有任何合格的实测横移速度**；C35 的静力推断已被 C36–C38 否证。
+
+| 记录 | 可以检查什么 |
+|---|---|
+| [侧移 RL 结果](d1_ad_lateral_rl_20261001/README.md) | 64 周期训练与十场评估；物理资格通过，额外收益仅 0.10%–0.41% |
+| [速度补偿与参考](d1_ad_velocity_reference_20261003/README.md) | C34 唯一案例 9.37 → 8.83 s，目标误差与保持率门失败 |
+| [固定时序与价值诊断](d1_ad_lateral_diagnostic_20261003/README.md) | C32/C33：离线价值拟合不等于 RL 提速；30 mm 仍需 9.37 s |
+| [固定参考前置验证](d1_ad_lateral_skill_20261001/README.md) | C30 六场配对、约 8% 固定参考提速与安全取消记录 |
+
+### 其余对照与诊断
 
 | 记录 | 可以检查什么 |
 |---|---|
@@ -22,6 +58,15 @@
 | [同条件主线演示](../docs/demo_showcase.md) | 零残差与预定 PPO 的 60 s 对照片，真实窗口自动按键验证，人工试驾待填 |
 | [同步采样检查](d1_v3_sampling_final_audit/README.md) | 采样相位、COM 与机身原点速度的区别 |
 | [历史连续任务](d1_continuous_policy/README.md) | 45 维路线的固定预算与配对分析；不等于新主线 |
+
+### 预算研究
+
+| 记录 | 可以检查什么 |
+|---|---|
+| [预算曲线正式结果](d1_budget_study/) | 200 例、198 完整、192 达标；**增加预算未带来一致改善** |
+| [动作消融分析](d1_action_ablation_analysis/README.md) | 共享两维与独立八维动作的留出对照 |
+
+## 哪些留在 Git、哪些在 Release
 
 协议、结果 JSON 和小体积图像留在 Git。整机逐步 CSV/NPZ/MJB 与源码归档由 Release 附件提供；
 上表的位置编码器单轮实验较小，完整记录直接留在 Git。

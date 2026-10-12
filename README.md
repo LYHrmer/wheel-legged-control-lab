@@ -44,6 +44,8 @@ D1 全机  23 nq / 22 nv / 16 执行器 · 物理 500 Hz · 决策 100 Hz（一�
 
 失配下两个经典控制器的高度误差同时劣化到 125 mm，残差策略守住 33.76 mm。
 
+> **版本容差**：这些表产出于 2026-08，当时未记录 MuJoCo 版本。2026-10-11 在 **MuJoCo 3.12.0** 上以同一 seed 重算，俯仰 RMSE 六项逐位相同、`success`/努力量 RMS/最大俯仰逐位不变，但**速度 RMSE 偏移约 0.7–1.3%、高度 RMSE 偏移约 2.9%**。定性结论不变（MPC 与 LQR 仍统计无差别），但**比较控制器必须在同一 MuJoCo 版本下进行**。逐项差异与分析见[复现说明](results/benchmark/REPRODUCTION.md)；`experiments.py` 现在会写出 `provenance.json` 记录版本、seed 与 git commit。
+
 ### 全机 D1：同样的残差思路没能通过预注册贡献门
 
 把残差从 2 维扩到 16 维、从平面模型搬到 23 nq 全机之后（[C22 报告](docs/main_route_execution_20260930_22.md)）：
@@ -85,6 +87,8 @@ B22 固定直行平地保持均速 **1.60145 m/s** 是**仿真**结果，来自 
 
 想看**控制方法对照**：本页上面两张表 → [评测协议](docs/evaluation_protocol.md)（场景、成功定义、统计口径）→ `src/wheel_legged_control/d1/hierarchical.py`（`D1LQRVMCController` 与 `D1MPCVMCController` 共享的基类）。
 
+想**按实验找证据**：[实验索引](results/README.md)把 121 个结果目录按模型分两层列出（平面教学模型 / 全机 D1），每条写明"可以检查什么"，并标出哪些门没过。
+
 想**从头学一遍控制**：`docs/index.md` 里有一条 14 步递进路线，每步都有可运行代码和验收问题：
 
 | 步 | 学到什么 |
@@ -111,11 +115,14 @@ rtk proxy /usr/bin/python3 -B /home/lyh/wheel-legged-control-lab/scripts/play_b2
 
 加 `--mode keyboard --seconds 60` 可用 W 前进、Q/E 转向、Space/X 停止、R 仿真复位、Esc 退出；键盘目标 1.2 m/s，**A/D 横移与跳跃未开放**。结果目录自动生成。固定坡道、粗糙地面和凸起等脚本见 [B22 启动与操作说明](docs/b22_gui.md)，资格、完整证据及失败记录见 [GUI 与 15 mm 台阶交付报告](docs/b22_gui_true15mm_20261001.md)。
 
-重算平面模型的三方对照：
+重算平面模型的三方对照（会同时写出 `provenance.json`）：
 
 ```bash
-python -m wheel_legged_control.experiments --output results/my_benchmark
+pip install -e '.[rl]'        # 残差行需要 stable-baselines3；只装基础依赖会跳过该行并说明原因
+python -m wheel_legged_control.experiments --output results/my_benchmark --seed 11
 ```
+
+残差权重 `results/residual_ppo/model.zip` 已在库中，所以装好 `[rl]` 后 fresh clone 可以复现全部三行。读数前先看[复现说明](results/benchmark/REPRODUCTION.md)里的版本容差。
 
 已安装的 `d1-rl` 属于旧 85 维版本；当前入口见上。下文保留可运行的 82 维教学路线、旧键盘课程及其独立实验结果 —— 它们和当前 99D/16D 研究组合的入口、checkpoint、按键与资格范围不同，版本地图见[文档导航](docs/index.md)。原始轨迹与源码快照的下载方式见[复现说明](docs/reproducibility.md)。
 
