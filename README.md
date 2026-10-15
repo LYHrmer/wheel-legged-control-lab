@@ -122,7 +122,7 @@ pip install -e '.[rl]'        # 必须装：残差权重在库中，缺 stable-b
 python -m wheel_legged_control.experiments --output results/my_benchmark --seed 11
 ```
 
-残差权重 `results/residual_ppo/model.zip` 已在库中，所以装好 `[rl]` 后 fresh clone 可以复现全部三行。**`[rl]` 不是可选的** —— 权重存在时 `experiments.py` 会无条件导入 `stable_baselines3`，只装基础依赖会抛 `ModuleNotFoundError`。读数前先看[复现说明](results/benchmark/REPRODUCTION.md)里的版本容差与这条已知限制。
+残差权重 `results/residual_ppo/model.zip` 已在库中，所以装好 `[rl]` 后 fresh clone 可以复现全部三行；只装基础依赖时降级为 LQR / MPC 两行，并在 stderr 写明原因。每次运行都在输出目录写 `provenance.json`，记录 git 提交、各包版本与 checkpoint 的 SHA。（2026-10-16 之前这里写的是"`[rl]` 不是可选的"：权重存在时会无条件导入 `stable_baselines3`。用户解冻 `experiments.py` 后已修复，见[复现说明](results/benchmark/REPRODUCTION.md)。）读数前先看复现说明里的版本容差。
 
 已安装的 `d1-rl` 属于旧 85 维版本；当前入口见上。下文保留可运行的 82 维教学路线、旧键盘课程及其独立实验结果 —— 它们和当前 99D/16D 研究组合的入口、checkpoint、按键与资格范围不同，版本地图见[文档导航](docs/index.md)。原始轨迹与源码快照的下载方式见[复现说明](docs/reproducibility.md)。
 

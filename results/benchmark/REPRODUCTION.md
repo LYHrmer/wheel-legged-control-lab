@@ -57,6 +57,8 @@ PYTHONPATH=src MPLBACKEND=Agg python3 -m wheel_legged_control.experiments \
 
 `experiments.py` 不写任何版本记录，所以本目录的历史产出没有 provenance 文件 —— 这正是上面那张差异表需要手工补的原因。仓库里其实有 `src/wheel_legged_control/provenance.py` 的 `capture_git_provenance` 可用，但 `experiments.py` 从未调用它。
 
+> **2026-10-16 已修复**：用户决定解冻 `experiments.py`。现在每次运行都在输出目录写 `provenance.json`（git 提交与工作树指纹、Python 与各包版本、checkpoint 的 SHA-256 与加载状态、运行参数），由 `tests/test_benchmark_optional_rl.py` 覆盖。修复后文件 SHA-256 为 `7b5f8d73fa61aff9cd59c3ec384d11f5dab8c2399b29aafb8c241aff774b1cc4`。下面是修复前的原记录，保留不改。
+
 **此项未修复**：`src/wheel_legged_control/experiments.py` 属于 77 份只读冻结文件（见[独立项目的保护回执](https://github.com/LYHrmer/ddt-d1-rl-lab)的 `protected_guard_final03_01.json`），冻结 SHA-256 为 `5c8a7a273fd3219c549c005a7d6996de66600a4fcf54c409b88c4d3cd49a7ed4`，不在本轮改动范围内。重跑时请手工记录 MuJoCo 版本，或先解除该文件的冻结约束再改。
 
 ## 残差行需要可选依赖
@@ -67,10 +69,12 @@ PYTHONPATH=src MPLBACKEND=Agg python3 -m wheel_legged_control.experiments \
 pip install -e '.[rl]'
 ```
 
+> **2026-10-16 已修复**：只装基础依赖时，命令现在降级为 LQR / MPC 两行并在 stderr 写明原因（`residual row skipped: stable-baselines3 is not installed …`），退出码 0；`--audit-episodes` 需要残差策略，此时报错并给出同样的原因，而不是 `ModuleNotFoundError`。已在本机（MuJoCo 3.12.0、未装 `[rl]`）验证：默认参数下产出 6 行，与修复前用 `--policy /nonexistent` 的结果除 `solve_p95_ms`（MPC 求解墙钟时间，每次运行本来就不同）外逐位一致。下面是修复前的原记录，保留不改。
+
 **这个依赖不是可选的。** `main()` 用 `args.policy.exists()` 把残差行设计成可选，但紧接着无条件 `from stable_baselines3 import PPO`，而权重文件就在库中 —— 所以只装基础依赖时命令会直接抛 `ModuleNotFoundError`，而不是降级到两行。
 
 **此项同样未修复**，原因与上一节相同（`experiments.py` 在 77 份冻结文件内）。规避办法：装 `[rl]`，或用 `--policy /nonexistent` 让存在性检查落空而跳过导入（已实测：退出码 0，正常产出 LQR / MPC 两行）。
 
 ### 将来要改这个文件的话
 
-两处修复都已验证过可行，但都需要先解除该文件的冻结约束。另有一条实测教训：本仓库 CI 跑 `ruff check src tests examples scripts`，而 ruff 的**默认规则集包含 isort（`I`）**，`pyproject.toml` 里只写 `line-length = 100` 不代表 isort 关闭。一次尝试性改动在 `experiments.py:3` 触发了未排序 import 块的报错 —— 当次 **4,024 个 pytest 全部通过，CI 仅因这 1 条 lint 失败**。改之前先本机跑一遍 `ruff check`。
+（2026-10-16：两处已修复，见上面两条。这条 lint 教训仍然有效，修复提交前已用 ruff 0.17.1 本机检查通过。）两处修复都已验证过可行，但都需要先解除该文件的冻结约束。另有一条实测教训：本仓库 CI 跑 `ruff check src tests examples scripts`，而 ruff 的**默认规则集包含 isort（`I`）**，`pyproject.toml` 里只写 `line-length = 100` 不代表 isort 关闭。一次尝试性改动在 `experiments.py:3` 触发了未排序 import 块的报错 —— 当次 **4,024 个 pytest 全部通过，CI 仅因这 1 条 lint 失败**。改之前先本机跑一遍 `ruff check`。

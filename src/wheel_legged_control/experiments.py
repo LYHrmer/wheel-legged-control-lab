@@ -4,7 +4,12 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
+import json
+import platform
+import sys
 from dataclasses import dataclass
+from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 from typing import Any
 
@@ -14,6 +19,7 @@ from matplotlib.animation import FuncAnimation, PillowWriter
 from matplotlib.patches import Circle
 
 from .env import WheelLeggedResidualEnv
+from .provenance import capture_git_provenance
 
 plt.switch_backend("Agg")
 
@@ -302,6 +308,62 @@ def create_comparison_gif(rollouts: list[Rollout], output: Path) -> None:
     plt.close(figure)
 
 
+PROVENANCE_PACKAGES = ("numpy", "scipy", "mujoco", "matplotlib", "gymnasium", "stable-baselines3", "torch")
+
+
+def runtime_versions(packages: tuple[str, ...] = PROVENANCE_PACKAGES) -> dict[str, Any]:
+    """Interpreter and package versions, read from installed metadata without importing."""
+    found: dict[str, str | None] = {}
+    for name in packages:
+        try:
+            found[name] = version(name)
+        except PackageNotFoundError:
+            found[name] = None
+    return {"python": platform.python_version(), "platform": platform.platform(), "packages": found}
+
+
+def file_sha256(path: Path) -> str | None:
+    return hashlib.sha256(path.read_bytes()).hexdigest() if path.is_file() else None
+
+
+def load_residual_policy(path: Path) -> tuple[Any, str]:
+    """Load the residual checkpoint if possible; otherwise say why the residual row is absent.
+
+    The residual row is optional by design, so a missing checkpoint or a missing
+    ``[rl]`` extra both degrade to the LQR and MPC rows instead of raising.
+    """
+    if not path.exists():
+        return None, f"no checkpoint at {path}"
+    try:
+        from stable_baselines3 import PPO
+    except ModuleNotFoundError:
+        return None, "stable-baselines3 is not installed; install the [rl] extra for the residual row"
+    return PPO.load(path, device="cpu"), "loaded"
+
+
+def write_provenance(output: Path, args: argparse.Namespace, policy_status: str) -> Path:
+    """Record what produced this directory, so a rerun can be compared with it."""
+    record = {
+        "source": capture_git_provenance(Path(__file__).resolve().parent),
+        "runtime": runtime_versions(),
+        "arguments": {
+            "policy": str(args.policy),
+            "seed": args.seed,
+            "gif": args.gif,
+            "audit_episodes": args.audit_episodes,
+        },
+        "checkpoint": {
+            "path": str(args.policy),
+            "sha256": file_sha256(args.policy),
+            "status": policy_status,
+        },
+        "scenarios": list(SCENARIOS),
+    }
+    path = output / "provenance.json"
+    path.write_text(json.dumps(record, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    return path
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--policy", type=Path, default=Path("results/residual_ppo/model.zip"))
@@ -315,11 +377,10 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> None:
     args = build_parser().parse_args(argv)
     args.output.mkdir(parents=True, exist_ok=True)
-    policy = None
-    if args.policy.exists():
-        from stable_baselines3 import PPO
-
-        policy = PPO.load(args.policy, device="cpu")
+    policy, policy_status = load_residual_policy(args.policy)
+    if policy is None:
+        print(f"residual row skipped: {policy_status}", file=sys.stderr)
+    write_provenance(args.output, args, policy_status)
 
     all_rollouts: list[Rollout] = []
     for scenario in SCENARIOS:
@@ -340,7 +401,7 @@ def main(argv: list[str] | None = None) -> None:
         create_comparison_gif(push_rollouts, args.output)
     if args.audit_episodes > 0:
         if policy is None:
-            raise SystemExit("--audit-episodes requires an existing --policy checkpoint")
+            raise SystemExit(f"--audit-episodes requires the residual policy: {policy_status}")
         audit_records: list[dict[str, float | str | int]] = []
         for offset in range(args.audit_episodes):
             seed = args.seed + 100 + offset
