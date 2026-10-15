@@ -25,6 +25,9 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - run: pip install "torch>=2.8,<3" --index-url https://download.pytorch.org/whl/cpu
-      - run: pip install -e ".[rl,dev]"
+      # pyproject.toml is frozen and allows any 3.x; README's tolerance note was recomputed on 3.12.0,
+      # so CI pins the same version to keep the benchmark numbers comparable across runs.
+      - run: pip install -e ".[rl,dev]" "mujoco==3.12.0"
+      - run: python -c "import mujoco; assert mujoco.__version__ == '3.12.0', mujoco.__version__; print('mujoco', mujoco.__version__)"
       - run: pytest
       - run: ruff check src tests examples scripts
