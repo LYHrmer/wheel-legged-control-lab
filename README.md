@@ -107,10 +107,18 @@ B22 固定直行平地保持均速 **1.60145 m/s** 是**仿真**结果，来自 
 
 ## 跑起来
 
-本机启动 B22（默认 1.6 m/s 固定直行脚本）：
+本机先检查 B22 v27 环境身份（不加载模型、不打开窗口、不执行物理）：
 
 ```bash
-rtk proxy /usr/bin/python3 -B /home/lyh/wheel-legged-control-lab/scripts/play_b22.py
+rtk proxy /usr/bin/python3 -B /home/lyh/wheel-legged-control-lab/scripts/play_b22_v27.py --check
+```
+
+本轮检查已为 `READY`；显示库更新后的 GUI 与控制行为尚未重新验收，历史资格仍保留原版本。迁移白名单、失败收尾和完整证据见 [v27 说明](docs/b22_runtime_v27_20261016.md)。旧 v26 入口和清单保留原字节。
+
+操作者需要运行时启动 B22（默认 1.6 m/s 固定直行脚本）：
+
+```bash
+rtk proxy /usr/bin/python3 -B /home/lyh/wheel-legged-control-lab/scripts/play_b22_v27.py
 ```
 
 加 `--mode keyboard --seconds 60` 可用 W 前进、Q/E 转向、Space/X 停止、R 仿真复位、Esc 退出；键盘目标 1.2 m/s，**A/D 横移与跳跃未开放**。结果目录自动生成。固定坡道、粗糙地面和凸起等脚本见 [B22 启动与操作说明](docs/b22_gui.md)，资格、完整证据及失败记录见 [GUI 与 15 mm 台阶交付报告](docs/b22_gui_true15mm_20261001.md)。

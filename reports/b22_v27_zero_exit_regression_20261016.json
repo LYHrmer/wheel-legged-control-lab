@@ -1,0 +1,48 @@
+{
+  "schema": "b22-v27-zero-exit-without-execution-regression-v1",
+  "legacy_returncode": 0,
+  "legacy_host_receipt": {
+    "arm": "user_script",
+    "elapsed_s": 0.05016821399476612,
+    "execution_started_monotonic": null,
+    "exit_code": 0,
+    "failure": null,
+    "owned_cleanup": {
+      "elapsed_s": 0.0009529570015729405,
+      "method": "linux_subreaper_ancestry_birth_tick",
+      "remaining": {},
+      "signalled_identities": {}
+    },
+    "owned_no_orphans": true,
+    "reservation_closed": true,
+    "reserved_controls": 1600,
+    "retry_permitted": false,
+    "schema": "d1-c23-c24-host-v1",
+    "source_mismatches": []
+  },
+  "dummy_worker_source": "raise SystemExit(0)\n",
+  "actual_dummy_controls": 0,
+  "new_completion": {
+    "status": "FAIL",
+    "errors": [
+      "receipt_read_failed: FileNotFoundError: [Errno 2] No such file or directory: '/tmp/b22-host-readiness-audit1600-yrbftjgc/session/preflight_ready.json'"
+    ],
+    "observed_counts": {
+      "completed_controls": null,
+      "native_returned": null
+    },
+    "host_returncode": 0,
+    "qualification_granted": false
+  },
+  "launcher_identity": {
+    "bytes": 9068,
+    "sha256": "122e47c5029992d25809a4ef9bcf6097352d7b1f1f6a8b24c18495daefa36ca5"
+  },
+  "old_host_identity": {
+    "bytes": 12719,
+    "sha256": "3427fa996608fd61a44b4e852bd54f4ce54a8b090bf714ef322ddcad3b97a08c"
+  },
+  "models_loaded": 0,
+  "gui_started": 0,
+  "physics_steps": 0
+}

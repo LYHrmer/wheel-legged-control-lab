@@ -1,0 +1,72 @@
+{
+  "schema": "d1-b22-v27-inspection-v1",
+  "status": "READY",
+  "scope": "input/environment readiness only; no GUI or control qualification",
+  "upstream_identity": {
+    "bytes": 854599,
+    "sha256": "6466fb0310295c7bfb564c3795f3652652d9cc6e282ec8da3876f1d9cddb6f21"
+  },
+  "source_files": 4072,
+  "expected_bytes": 4053653469,
+  "verified_bytes": 4053653469,
+  "accepted_differences": [
+    {
+      "path": "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/experiments.py",
+      "v26": {
+        "bytes": 13827,
+        "sha256": "5c8a7a273fd3219c549c005a7d6996de66600a4fcf54c409b88c4d3cd49a7ed4"
+      },
+      "v27": {
+        "bytes": 16240,
+        "sha256": "7b5f8d73fa61aff9cd59c3ec384d11f5dab8c2399b29aafb8c241aff774b1cc4"
+      },
+      "basis": "owner-authorized source revision 1d8177c"
+    },
+    {
+      "path": "/home/lyh/wheel-legged-control-lab/scripts/delay_metrics.py",
+      "v26": {
+        "bytes": 3962,
+        "sha256": "356134a2ada734a633a336bff7a53be8533f1e0ee3ddcf3a847c15d391644f45"
+      },
+      "v27": {
+        "bytes": 4157,
+        "sha256": "aff8a818697f681407433e333f9fbad13228260e6a87e3dddd48709c6d9321db"
+      },
+      "basis": "source revision 79ba9df; missing-control-tick validation"
+    },
+    {
+      "path": "/usr/lib/x86_64-linux-gnu/libX11.so.6.4.0",
+      "v26": {
+        "bytes": 1306280,
+        "sha256": "34b7869a1ba702462a1aa862fc0afe5b2608a7d5a09552c07796802fcf0c684b"
+      },
+      "v27": {
+        "bytes": 1306280,
+        "sha256": "e23ed094eaf0a74a822a6d9d14eee628ab9f7ec08aecbf20ffd803f019ff6e98"
+      },
+      "basis": "explicit v27 Ubuntu package environment migration; GUI not revalidated"
+    }
+  ],
+  "excluded_caches": [
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/assets/__pycache__/__init__.cpython-310.pyc"
+  ],
+  "unexpected_differences": [],
+  "package_evidence": {
+    "package": "libx11-6:amd64",
+    "version": "2:1.7.5-1ubuntu0.4",
+    "installed_md5": "2efebaf129cfee942937eceb3be618c6",
+    "package_manifest": "/var/lib/dpkg/info/libx11-6:amd64.md5sums",
+    "package_manifest_identity": {
+      "bytes": 427,
+      "sha256": "8457af5cf70182dfcc3b3c9cdd2b13eddf3b8227675814ffdf907ce8303597d3"
+    },
+    "upgrade_log": "/var/log/dpkg.log",
+    "upgrade_record": "2026-10-14 06:17:21 upgrade libx11-6:amd64 2:1.7.5-1ubuntu0.3 2:1.7.5-1ubuntu0.4"
+  },
+  "package_error": null,
+  "model_loads": 0,
+  "gui_starts": 0,
+  "physics_steps": 0,
+  "qualification_changed": false,
+  "gui_revalidated": false
+}
