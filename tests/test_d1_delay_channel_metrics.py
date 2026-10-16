@@ -69,3 +69,21 @@ def test_completed_metrics_use_executed_rows():
 def test_invalid_trajectory_is_rejected(rows, duration):
     with pytest.raises(ValueError):
         summarize(rows, duration, "time_limit")
+
+
+@pytest.mark.parametrize("times", [(0.02, 0.03), (0.01, 0.03), (60.0,)])
+def test_missing_control_ticks_cannot_claim_full_horizon(times):
+    with pytest.raises(ValueError, match="0.01"):
+        summarize([row(time_s) for time_s in times], times[-1], "time_limit")
+
+
+def test_accumulated_float_clock_preserves_valid_historical_metrics():
+    time_s, rows = 0.0, []
+    for _ in range(6000):
+        time_s += 0.01
+        rows.append(row(time_s))
+    result = summarize(rows, 60.0, "time_limit")
+    assert result["completed"] and result["executed_steps"] == 6000
+    assert result["full_horizon_tracking"] == {
+        "velocity_rmse_mps": 2.0, "yaw_rmse_rps": 3.0,
+        "height_rmse_m": 4.0, "attitude_rmse_rad": 5.0}

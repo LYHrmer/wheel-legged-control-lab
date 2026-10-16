@@ -155,6 +155,7 @@ QP 原型没有接 PPO，也没有取代默认控制器。模型来源与许可�
 - [执行器辨识移植与补偿](actuator_transfer.md)：合成台架到整机轮力矩通道
 - [延迟与历史观测练习](delay_learning_lab.md)：三组固定预算对照、单位与归因边界
 - [原始数据下载与复算](reproducibility.md)：Git 中的摘要与 Release 中的大体积数据
+- [源码身份与日志完整性](source_and_metrics_integrity_20261016.md)：新实验的未跟踪源码清单，以及延迟日志的连续控制时钟检查
 - [预算阶梯的运行与读图](budget_learning_lab.md#先跑短流程)：新目录运行、独立复算后再绘图
 - [正式预算实验结果](d1_budget_study.md)：全部种子和四档预算的收益、代价与失败
 - [ATEC 项目参考方案](atec_reference.md)：视觉导航、课程训练与动作接口的适配边界

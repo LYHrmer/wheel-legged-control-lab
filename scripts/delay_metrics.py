@@ -3,6 +3,7 @@
 import math
 
 _CHANNEL_STEP_MS = {"measurement": 10, "actuator": 2}
+_CONTROL_DT_S = 0.01
 _TOL = 1e-8
 _FIELDS = (
     "time_s",
@@ -70,6 +71,8 @@ def summarize(rows, requested_duration_s, terminal_reason):
             raise ValueError(f"rows[{index}].time_s 必须为正")
         if previous_time is not None and time_s <= previous_time:
             raise ValueError(f"time_s 必须严格递增，在 rows[{index}] 处违反")
+        if abs(time_s - (index + 1) * _CONTROL_DT_S) > _TOL:
+            raise ValueError(f"rows[{index}].time_s 必须匹配从 0.01 s 开始的连续 0.01 s 控制时钟")
         if time_s > requested + _TOL:
             raise ValueError(f"rows[{index}].time_s 超出 requested_duration_s")
         previous_time = time_s
