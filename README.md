@@ -136,6 +136,8 @@ python -m wheel_legged_control.experiments --output results/my_benchmark --seed 
 
 旧连续传感器 PPO 任务的[完整时域配对入口 v28](docs/continuous_comparison_v28_20261016.md)只读已审计的小 CSV 与身份清单。失败、缺失或不等完整时长的配对明确记为 `INCOMPARABLE`；已有 33 个配对和逐训练种子留出均值逐值保持，未新增控制评测。
 
+[控制器状态诊断 v29](docs/controller_state_v29_20261017.md)进一步流式读取 18 个完整留出配对：分别统计 PI 积分、Fx/Fz 和动作/力矩饱和，保留实际分母与缺失字段。该批三个训练 seed 的竖直动作全程触及裁剪端，但力矩未饱和；转向积分反号在零基线也存在。这是 continuous 历史日志的描述，不是 B22 新评测或因果结论。
+
 已安装的 `d1-rl` 属于旧 85 维版本；当前入口见上。下文保留可运行的 82 维教学路线、旧键盘课程及其独立实验结果 —— 它们和当前 99D/16D 研究组合的入口、checkpoint、按键与资格范围不同，版本地图见[文档导航](docs/index.md)。原始轨迹与源码快照的下载方式见[复现说明](docs/reproducibility.md)。
 
 项目与本末科技的官方代码无关。
