@@ -131,7 +131,7 @@ checkpoint 一致。这两个模式需要 `[rl]` 可选依赖，其中包含用�
 |---|---|---|---|
 | 42 维残差 PPO 与键盘课程 | 42 维观测、两维力残差 | [interactive_course.md](interactive_course.md)、[state_estimation.md](state_estimation.md)、[contact_allocation.md](contact_allocation.md)、[contact_allocation_development.md](contact_allocation_development.md)、[learning_guide.md](learning_guide.md) 第 8–13 节 | `wheel-legged-d1-play`、`wheel-legged-d1-benchmark`、`wheel-legged-d1-contact-audit` |
 | 44 维地形课程与跟踪 v2 | 44 维，含 clearance 误差与地面参考 | [terrain_curriculum.md](terrain_curriculum.md)、[terrain_tracking_v2.md](terrain_tracking_v2.md)、[reference_dynamics.md](reference_dynamics.md)、[action_parameterization.md](action_parameterization.md) | `scripts/run_d1_terrain_curriculum.py`、`scripts/run_d1_action_ablation.py` |
-| 45 维连续任务 | 44 维布局末尾加偏航命令 | [continuous_task.md](continuous_task.md)、[control_rl_experiments.md](control_rl_experiments.md) | `scripts/train_d1_continuous_policy.py`、`scripts/run_d1_continuous_task.py` |
+| 45 维连续任务 | 44 维布局末尾加偏航命令 | [continuous_task.md](continuous_task.md)、[control_rl_experiments.md](control_rl_experiments.md)、[v28 完整时域配对比较](continuous_comparison_v28_20261016.md) | `scripts/train_d1_continuous_policy.py`、`scripts/run_d1_continuous_task.py`、`scripts/compare_continuous_results_v28.py` |
 | 任务空间逆动力学 QP | 无 RL，直接解 16 路力矩 | [inverse_dynamics.md](inverse_dynamics.md) | `scripts/evaluate_d1_inverse_dynamics.py`、`scripts/benchmark_d1_inverse_dynamics.py` |
 
 受保护跳跃演示只属于第一行的旧键盘入口，新键盘接口没有跳跃，也不要把旧 GIF 当成主线能力。

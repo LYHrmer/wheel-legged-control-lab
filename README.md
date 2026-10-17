@@ -134,6 +134,8 @@ python -m wheel_legged_control.experiments --output results/my_benchmark --seed 
 
 新实验可额外用[源码清单入口](docs/source_and_metrics_integrity_20261016.md)绑定尚未提交的源码内容，并在结束后核验；旧冻结 helper 的指纹不包含这部分内容。同次工程检查还修复了延迟日志缺拍可能被误认作完整时域的问题，历史 24 案例的 216 项摘要值复算保持不变。
 
+旧连续传感器 PPO 任务的[完整时域配对入口 v28](docs/continuous_comparison_v28_20261016.md)只读已审计的小 CSV 与身份清单。失败、缺失或不等完整时长的配对明确记为 `INCOMPARABLE`；已有 33 个配对和逐训练种子留出均值逐值保持，未新增控制评测。
+
 已安装的 `d1-rl` 属于旧 85 维版本；当前入口见上。下文保留可运行的 82 维教学路线、旧键盘课程及其独立实验结果 —— 它们和当前 99D/16D 研究组合的入口、checkpoint、按键与资格范围不同，版本地图见[文档导航](docs/index.md)。原始轨迹与源码快照的下载方式见[复现说明](docs/reproducibility.md)。
 
 项目与本末科技的官方代码无关。

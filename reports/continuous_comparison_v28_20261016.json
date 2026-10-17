@@ -1,0 +1,84 @@
+{
+  "schema": "continuous-v28-real-data-parity-v1",
+  "status": "PASS",
+  "entry_sha256": "7eb977ebcc55ea1e739527ac78f53544f744474c0a10807f10cab1193031ed0c",
+  "comparison_identity": {
+    "path": "reports/continuous_v28_20261016/comparison.json",
+    "sha256": "86b3de858c7fdcf662132da9b1d626880a327e177c3f66eeaa708669b83b89ca"
+  },
+  "input_identities": {
+    "run_manifest": {
+      "path": "/home/lyh/wheel-legged-control-lab/results/d1_continuous_policy/sensor45_v1/manifest.json",
+      "bytes": 33269,
+      "sha256": "da1179fc38c9e5d85ac8dd2aaebc99dd6ed615a3ba3fe5b8a332c252b5a8425d"
+    },
+    "protocol": {
+      "path": "/home/lyh/wheel-legged-control-lab/results/d1_continuous_policy/sensor45_v1/protocol.json",
+      "bytes": 3762,
+      "sha256": "0e0d4dfe44af8cf112354fa49a5acf34c149ea2e9c217ab153c25a688d32869e"
+    },
+    "audit_manifest": {
+      "path": "/home/lyh/wheel-legged-control-lab/results/d1_continuous_policy/analysis_sensor45_v1/manifest.json",
+      "bytes": 710,
+      "sha256": "45e9ea829a3ae7ac78e2146f528c92e68ef2290cba59546dce00f0e5485da109"
+    },
+    "audit_report": {
+      "path": "/home/lyh/wheel-legged-control-lab/results/d1_continuous_policy/analysis_sensor45_v1/independent_audit.json",
+      "bytes": 3179,
+      "sha256": "47be4eb6353686c52252e7e2f8adf4cb4119d3521212366e5395f188a53759c7"
+    },
+    "metrics": {
+      "path": "/home/lyh/wheel-legged-control-lab/results/d1_continuous_policy/analysis_sensor45_v1/metrics_recomputed.csv",
+      "bytes": 13156,
+      "sha256": "de2d8f4b360f404cb7f2f5ba332d165675e8b36560a587846bb855b4e769b55d"
+    }
+  },
+  "input_bytes": 54076,
+  "observed_rollouts": 42,
+  "pair_count": 33,
+  "holdout_pair_count": 18,
+  "invalid_pair_count": 0,
+  "missing_rollouts": [],
+  "training_seed_groups": [
+    {
+      "training_seed": 19000,
+      "expected_cases": 6,
+      "comparable_cases": 6,
+      "status": "COMPARABLE",
+      "missing_cases": []
+    },
+    {
+      "training_seed": 20000,
+      "expected_cases": 6,
+      "comparable_cases": 6,
+      "status": "COMPARABLE",
+      "missing_cases": []
+    },
+    {
+      "training_seed": 21000,
+      "expected_cases": 6,
+      "comparable_cases": 6,
+      "status": "COMPARABLE",
+      "missing_cases": []
+    }
+  ],
+  "paired_delta_values_checked": 198,
+  "holdout_mean_values_checked": 18,
+  "max_abs_difference": 0.0,
+  "prior_comparison_identities": {
+    "paired_cases.csv": {
+      "bytes": 6456,
+      "sha256": "8479a4784a031c1aa8beb49f004fd1f696e5b697c3cfd13bf5d294b84a0630ac"
+    },
+    "holdout_by_training_seed.csv": {
+      "bytes": 761,
+      "sha256": "a948d00e4f8811b92b99bf488a65d3087402a6b84587208797b53122ab0686ee"
+    }
+  },
+  "resource_observation": "wall_s=0.04 max_rss_kib=16128",
+  "resource_scope": "one local invocation, not a throughput benchmark or reserved RAM guarantee",
+  "models_loaded": 0,
+  "gui_starts": 0,
+  "physics_steps": 0,
+  "qualification_granted": false
+}

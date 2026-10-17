@@ -1,0 +1,146 @@
+{
+  "schema": "continuous-v28-short-failure-regression-v1",
+  "fixture_kind": "synthetic comparison-only counterexample",
+  "legacy_analyzer_sha256": "bdaf9a0db7f3352b06ebd1b61c5ac0ffaa734f49221e35d26be38c404468e85d",
+  "input_metrics": [
+    {
+      "case": "seed617_45s",
+      "budget": 131072,
+      "split": "holdout",
+      "quality_pass": false,
+      "mode": "zero",
+      "training_seed": 0,
+      "completed": true,
+      "duration_s": 45.0,
+      "velocity_error_mps": 1.0,
+      "lateral_velocity_mps": 1.0,
+      "yaw_rate_error_rps": 1.0,
+      "clearance_error_m": 1.0,
+      "lateral_path_error_m": 1.0,
+      "longitudinal_path_error_m": 1.0
+    },
+    {
+      "case": "seed617_45s",
+      "budget": 131072,
+      "split": "holdout",
+      "quality_pass": false,
+      "mode": "policy",
+      "training_seed": 19000,
+      "completed": false,
+      "duration_s": 1.0,
+      "velocity_error_mps": 0.0,
+      "lateral_velocity_mps": 0.0,
+      "yaw_rate_error_rps": 0.0,
+      "clearance_error_m": 0.0,
+      "lateral_path_error_m": 0.0,
+      "longitudinal_path_error_m": 0.0
+    }
+  ],
+  "legacy_pairs": [
+    {
+      "training_seed": 19000,
+      "budget": 131072,
+      "split": "holdout",
+      "case": "seed617_45s",
+      "policy_completed": false,
+      "baseline_completed": true,
+      "policy_quality_pass": false,
+      "baseline_quality_pass": false,
+      "delta_velocity_error_mps": -1.0,
+      "delta_lateral_velocity_mps": -1.0,
+      "delta_yaw_rate_error_rps": -1.0,
+      "delta_clearance_error_m": -1.0,
+      "delta_lateral_path_error_m": -1.0,
+      "delta_longitudinal_path_error_m": -1.0
+    }
+  ],
+  "expected_full_horizon_deltas": null,
+  "models_loaded": 0,
+  "gui_started": 0,
+  "physics_steps": 0,
+  "new_target_pair": {
+    "rollout": "holdout_train19000_seed617_45s",
+    "training_seed": 19000,
+    "budget": 131072,
+    "split": "holdout",
+    "case": "seed617_45s",
+    "expected_duration_s": 45.0,
+    "status": "INCOMPARABLE",
+    "reasons": [
+      "policy_incomplete",
+      "policy_duration_mismatch"
+    ],
+    "policy_completed": false,
+    "policy_quality_pass": false,
+    "policy_duration_s": 1.0,
+    "baseline_completed": true,
+    "baseline_quality_pass": false,
+    "baseline_duration_s": 45.0,
+    "deltas": null
+  },
+  "new_holdout_group": {
+    "training_seed": 19000,
+    "expected_cases": 6,
+    "present_policy_cases": 1,
+    "comparable_cases": 0,
+    "policy_complete": 0,
+    "baseline_complete": 1,
+    "policy_quality": 0,
+    "baseline_quality": 0,
+    "missing_cases": [
+      "seed629_45s",
+      "seed643_45s",
+      "seed617_50s",
+      "seed629_50s",
+      "seed643_50s"
+    ],
+    "invalid_cases": [
+      {
+        "case": "seed617_45s",
+        "reasons": [
+          "policy_incomplete",
+          "policy_duration_mismatch"
+        ]
+      },
+      {
+        "case": "seed629_45s",
+        "reasons": [
+          "missing_policy",
+          "missing_baseline"
+        ]
+      },
+      {
+        "case": "seed643_45s",
+        "reasons": [
+          "missing_policy",
+          "missing_baseline"
+        ]
+      },
+      {
+        "case": "seed617_50s",
+        "reasons": [
+          "missing_policy",
+          "missing_baseline"
+        ]
+      },
+      {
+        "case": "seed629_50s",
+        "reasons": [
+          "missing_policy",
+          "missing_baseline"
+        ]
+      },
+      {
+        "case": "seed643_50s",
+        "reasons": [
+          "missing_policy",
+          "missing_baseline"
+        ]
+      }
+    ],
+    "status": "INCOMPARABLE",
+    "full_horizon_mean_deltas": null
+  },
+  "new_entry_sha256": "7eb977ebcc55ea1e739527ac78f53544f744474c0a10807f10cab1193031ed0c",
+  "new_fixture_scope": "the same two values with protocol-matching rollout identifiers; other predeclared rows are absent"
+}
