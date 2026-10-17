@@ -10,7 +10,7 @@
 
 原27次 OS 注入逐条不变：W 前进、Q/E 双向转向、Space 和 X 停止、鼠标 Stop、失焦/回焦/重新按键、R 复位、第二次 Reset 按钮被拒、Esc 退出。tick530 开始停止输入快照发布0.35秒，OS轮询和绘制继续，用于验证真实过期快照消费。tick510 的 W 松键保留为一次 OS 清理；26个有意义回调必须按原时钟界限一对一匹配。请求、注入或 callback 成功不等于控制拍已消费，原 reader 还核对 owner 准备记录、当拍99D观测、raw/servo命令及全部5T native链。
 
-原活动性能与停车门不变：RTF≥0.8、绘制≥8FPS、轮询与显示年龄p95≤250ms；末100实际点 raw/servo 前向和偏航全零，平均绝对前向≤0.04m/s、偏航≤0.05rad/s、净空标准差≤0.02m。原95s soft / 115s绝对owner close / 120s worker hard / 600s外层host均保留。新监督总 wall≤900s（含来源检查、读取器和清理），独立保存数据读取器≤180s。每次模型启动 effective RAM≥6GiB，整个运行采样保留≥3GiB；磁盘启动≥2GiB、运行≥1GiB。采样不等于预留或独占。
+原活动性能与停车门不变：RTF≥0.8、绘制≥8FPS、轮询与显示年龄p95≤250ms；末100实际点 raw/servo 前向和偏航全零，平均绝对前向≤0.04m/s、偏航≤0.05rad/s、净空标准差≤0.02m。原95s soft / 115s绝对owner close / 120s worker hard / 600s外层host均保留。新监督总 wall≤900s（含来源检查、读取器和清理），独立保存数据读取器≤180s。每次模型启动 effective RAM≥6GiB，整个运行采样保留≥4GiB；磁盘启动≥2GiB、运行≥1GiB。采样不等于预留或独占。
 
 ## 独立 X11 和来源
 
@@ -50,6 +50,6 @@ rtk proxy env PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 PYTHONDONTWRITEBYTECODE=1 \
 rtk proxy .local-deps/bin/ruff check scripts/run_b22_interaction33.py tests/test_b22_interaction33.py
 ```
 
-准备阶段52项纯测试通过，Ruff通过。另将9份必要源码/小JSON复制到独立临时checkout路径，52项再次通过；未复制模型、环境、轨迹或外部X11依赖。计划和纯测试支持不同checkout路径，实际`--execute`明确限于已登记的本机`/home/lyh/wheel-legged-control-lab`，不会将CI路径伪装为本机环境通过。
+准备阶段56项纯测试通过，Ruff通过，包含实际资源采样器在4GiB运行线和6GiB启动线两侧的边界检查。另将9份必要源码/小JSON复制到独立临时checkout路径，56项再次通过；未复制模型、环境、轨迹或外部X11依赖。计划和纯测试支持不同checkout路径，实际`--execute`明确限于已登记的本机`/home/lyh/wheel-legged-control-lab`，不会将CI路径伪装为本机环境通过。
 
 这是原自动 XTest/GLFW/owner 链在当前环境的一次有界复验，不是人工键盘试驾，不验证任意驾驶、多种子泛化、RL优越性或实机能力。31负责当前多任务/镜像/台阶配对，32负责独立推理性能对照；33不会混用它们的物理样本或预算。

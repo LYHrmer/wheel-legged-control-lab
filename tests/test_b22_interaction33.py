@@ -38,6 +38,8 @@ def test_plan_preserves_the_exact_c26_events_and_global_budget():
     assert value['model_loads'] == value['physics_steps'] == 0
     assert value['limits']['controls'] == 1200 and value['limits']['normal_native'] == 6000
     assert value['limits']['compiler_native'] == 2 and value['limits']['total_wall_s'] == 900
+    assert value['limits']['start_effective_bytes'] == 6 << 30
+    assert value['limits']['reserve_effective_bytes'] == 4 << 30
     assert value['reset_refunds_budget'] is value['retry_permitted'] is False
     events = value['x11_events']
     assert len(events) == 27
@@ -212,6 +214,28 @@ def test_admission_rejects_before_output_or_launch(monkeypatch, resource):
     with pytest.raises(ValueError, match='NOT_READY'):
         runner.execute(output)
     assert not output.exists()
+
+
+@pytest.mark.parametrize('available,admission,rejected', [
+    ((4 << 30)-1, False, True), (4 << 30, False, False),
+    ((6 << 30)-1, True, True), (6 << 30, True, False),
+])
+def test_actual_resource_sampler_keeps_four_gib_without_lowering_admission(tmp_path, available, admission, rejected):
+    tree = ast.parse((ROOT/'scripts/run_b22_interaction33.py').read_text())
+    owner = next(node for node in tree.body if isinstance(node, ast.FunctionDef) and node.name == 'execute')
+    sample = next(node for node in ast.walk(owner) if isinstance(node, ast.FunctionDef) and node.name == 'sample')
+    namespace = {'common': SimpleNamespace(memory=lambda: available),
+                 'shutil': SimpleNamespace(disk_usage=lambda path: SimpleNamespace(free=2 << 30)),
+                 'output': tmp_path, 'report': {'minimum_effective_bytes': None},
+                 'time': SimpleNamespace(monotonic=lambda: 0.), 'started': 0., 'deadline': 10.,
+                 'json': json, 'c': runner.c}
+    module_ast = ast.fix_missing_locations(ast.Module(body=[sample], type_ignores=[]))
+    exec(compile(module_ast, '<real-interaction33-resource-sampler>', 'exec'), namespace)  # noqa: S102 -- fixed local sampler AST
+    if rejected:
+        with pytest.raises(ValueError, match='RAM'):
+            namespace['sample'](admission)
+    else:
+        namespace['sample'](admission)
 
 
 def test_execute_is_restricted_to_the_registered_machine_checkout(tmp_path, monkeypatch):

@@ -115,6 +115,8 @@ def test_fixed_budget_includes_all_pairs_and_shared_step_compilation():
     assert sum(s['compiler_native'] for s in stages) == 30
     assert sum(s['controls']*5 for s in stages) == 126000
     assert contract.plan()['limits']['logical_arm_records'] == 16
+    assert contract.plan()['limits']['start_effective_bytes'] == 6 << 30
+    assert contract.plan()['limits']['reserve_effective_bytes'] == 4 << 30
     assert len({s['name'] for s in stages}) == len(stages)
     assert stages[0]['name'] == 'step_pair'
 
@@ -419,6 +421,26 @@ def test_memory_uses_smallest_visible_ancestor_remaining(tmp_path):
     (proc/'self/cgroup').write_text('0::/../outside\n')
     with pytest.raises(ValueError, match='scope'):
         runner.memory(proc, cg)
+
+
+@pytest.mark.parametrize('available,admission,rejected', [
+    ((4 << 30)-1, False, True), (4 << 30, False, False),
+    ((6 << 30)-1, True, True), (6 << 30, True, False),
+])
+def test_actual_runtime_sampler_preserves_four_gib_and_six_gib_admission(tmp_path, available, admission, rejected):
+    tree = ast.parse((ROOT/'scripts/run_b22_suite31.py').read_text())
+    owner = next(node for node in tree.body if isinstance(node, ast.FunctionDef) and node.name == 'execute')
+    sample = next(node for node in ast.walk(owner) if isinstance(node, ast.FunctionDef) and node.name == 'sample')
+    namespace = {'memory': lambda: available, 'shutil': SimpleNamespace(disk_usage=lambda path: SimpleNamespace(free=2 << 30)),
+                 'output': tmp_path, 'report': {}, 'time': SimpleNamespace(monotonic=lambda: 0.),
+                 'started': 0., 'deadline': 10., 'json': json, 'c': contract}
+    module_ast = ast.fix_missing_locations(ast.Module(body=[sample], type_ignores=[]))
+    exec(compile(module_ast, '<real-suite31-resource-sampler>', 'exec'), namespace)  # noqa: S102 -- fixed local sampler AST
+    if rejected:
+        with pytest.raises(ValueError, match='RAM'):
+            namespace['sample'](admission)
+    else:
+        namespace['sample'](admission)
 
 
 def test_worker31_is_exact_explicit_c26_derivative_except_reviewed_seams():

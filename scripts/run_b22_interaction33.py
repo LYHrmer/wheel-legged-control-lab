@@ -26,8 +26,8 @@ EXTRAS = {
         'bytes': 2073056, 'sha256': 'cf71d78eab8321f7c568271053af449f966a75422140117ea1f244bf72a7e81e'},
 }
 HELPERS = {
-    'scripts/run_b22_suite31.py': '698530945f85181223e6d46a3738f5ddb64cf60e9458bb3a31dab6f7c38e874f',
-    'scripts/b22_suite31_contract.py': 'a1a32d3d6e65913401c966347545c7608921db00a7986e81370cc00c0a6a9e19',
+    'scripts/run_b22_suite31.py': 'f783b4d7e8380c94bd7a4755e73434179cb5c3f6a95bbcca336e235a43320c2e',
+    'scripts/b22_suite31_contract.py': '21386cfb3b73f0d947f825f00dd367c7443f3ca29738dfec5768925f30070203',
 }
 WORKER = 'runtime/d1_b22/research/continuation26/gui26/run_gui26.py'
 READER = 'runtime/d1_b22/research/continuation26/root26/reader26_deferred.py'
@@ -71,7 +71,7 @@ def plan(output=None):
             'limits': {'controls': 1200, 'normal_native': 6000, 'compiler_native': 2,
                        'load': 1, 'torch_load': 3, 'predict': 1201, 'total_wall_s': TOTAL_S,
                        'host_wall_s': RUN_S, 'saved_reader_wall_s': READER_S,
-                       'start_effective_bytes': 6 << 30, 'reserve_effective_bytes': 3 << 30},
+                       'start_effective_bytes': 6 << 30, 'reserve_effective_bytes': 4 << 30},
             'reset_refunds_budget': False, 'retry_permitted': False,
             'physical_human_keyboard_tested': False, 'historical_GO_is_new_authorization': False,
             'execution_started': False, 'model_loads': 0, 'physics_steps': 0}
@@ -203,7 +203,9 @@ def execute(output):
             stream.write(json.dumps(row, allow_nan=False)+'\n')
         prior = report['minimum_effective_bytes']
         report['minimum_effective_bytes'] = available if prior is None else min(prior, available)
-        c.require(available >= (6 << 30 if admission else 3 << 30), 'effective RAM reserve exhausted')
+        minimum = 6 << 30 if admission else 4 << 30
+        c.require(available >= minimum, 'effective RAM below '+str(minimum >> 30)+' GiB '+
+                  ('admission' if admission else 'runtime reserve'))
         c.require(free >= 1 << 30 and time.monotonic() < deadline, 'disk/total wall reserve exhausted')
     for signum in (signal.SIGTERM, signal.SIGINT):
         previous[signum] = signal.signal(signum, stopped)

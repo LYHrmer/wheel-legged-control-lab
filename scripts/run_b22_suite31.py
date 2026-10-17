@@ -159,8 +159,9 @@ def execute(output, *, root=c.ROOT):
             stream.write(json.dumps(row, allow_nan=False)+'\n')
         minimum = report.get('minimum_effective_bytes')
         report['minimum_effective_bytes'] = available if minimum is None else min(minimum, available)
-        c.require(available >= c.LIMITS['start_effective_bytes' if admission else 'reserve_effective_bytes'],
-                  'effective RAM reserve exhausted')
+        minimum = c.LIMITS['start_effective_bytes' if admission else 'reserve_effective_bytes']
+        c.require(available >= minimum, 'effective RAM below '+str(minimum >> 30)+' GiB '+
+                  ('admission' if admission else 'runtime reserve'))
         c.require(free >= c.LIMITS['reserve_free_disk_bytes'], 'disk reserve exhausted')
         c.require(time.monotonic() < deadline, 'suite total wall exhausted')
     try:

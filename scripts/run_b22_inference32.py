@@ -28,7 +28,7 @@ AUTHORED = ('scripts/b22_inference32.py', 'scripts/run_b22_inference32.py',
 LIMITS = {'controls': 3200, 'normal_native': 16000, 'compiler_native': 4,
           'worker_sessions': 2, 'per_session_controls': 1600, 'per_session_predict': 1601,
           'stage_wall_s': 300, 'reader_wall_s': 180, 'total_wall_s': 900,
-          'start_effective_bytes': 6 << 30, 'reserve_effective_bytes': 3 << 30,
+          'start_effective_bytes': 6 << 30, 'reserve_effective_bytes': 4 << 30,
           'start_free_disk_bytes': 1 << 30, 'reserve_free_disk_bytes': 512 << 20}
 
 
@@ -309,7 +309,8 @@ def _execute(output):
             stream.write(json.dumps({'elapsed_s': time.monotonic()-started, 'effective_available_bytes': value,
                                      'free_disk_bytes': free})+'\n')
         report['minimum_effective_bytes'] = min(report.get('minimum_effective_bytes', value), value)
-        require(value >= LIMITS['start_effective_bytes' if admission else 'reserve_effective_bytes'], 'RAM reserve exhausted')
+        require(value >= LIMITS['start_effective_bytes' if admission else 'reserve_effective_bytes'],
+                'effective RAM below 6 GiB' if admission else 'effective RAM below 4 GiB')
         require(free >= LIMITS['reserve_free_disk_bytes'] and time.monotonic() < deadline, 'disk/total wall reserve exhausted')
     try:
         config, readiness = registered_config()

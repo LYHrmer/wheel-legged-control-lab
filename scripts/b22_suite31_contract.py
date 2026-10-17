@@ -30,7 +30,7 @@ CASES = (
 LIMITS = {'controls': 25200, 'normal_native': 126000, 'compiler_native': 30,
           'logical_arm_records': 16, 'worker_sessions': 15,
           'total_wall_s': 3600, 'stage_wall_s': 900, 'reader_wall_s': 180,
-          'start_effective_bytes': 6 << 30, 'reserve_effective_bytes': 3 << 30,
+          'start_effective_bytes': 6 << 30, 'reserve_effective_bytes': 4 << 30,
           'start_free_disk_bytes': 2 << 30, 'reserve_free_disk_bytes': 1 << 30}
 
 

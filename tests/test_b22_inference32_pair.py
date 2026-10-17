@@ -207,7 +207,7 @@ def test_popen_signal_is_deferred_until_owned_handle_is_cleaned(lifecycle,sig):
 
 def test_runtime_resource_exception_cleans_owned_child(lifecycle):
     lifecycle.process.poll=lambda:None
-    def bad(_):raise ValueError('RAM below 3 GiB')
+    def bad(_):raise ValueError('RAM below 4 GiB')
     lifecycle.sample=bad
     with pytest.raises(ValueError,match='RAM below'):invoke(lifecycle)
     assert lifecycle.cleaned==[lifecycle.process]
@@ -311,6 +311,19 @@ def test_runtime_ram_read_error_stops_before_next_session(execution):
     report=runner.execute(execution.output)
     assert report['status']=='INCOMPLETE' and execution.modes==[]
     assert report['actual_counts'] is None and report['unknown_count_stages']==['baseline']
+
+
+@pytest.mark.parametrize('value,passed', [(4*(1<<30)-1,False),(4<<30,True)])
+def test_runtime_four_gib_boundary_after_six_gib_admission(execution,value,passed):
+    execution.memory_values=[8<<30,8<<30,value]
+    report=runner.execute(execution.output)
+    assert runner.LIMITS['start_effective_bytes']==6<<30
+    assert runner.LIMITS['reserve_effective_bytes']==4<<30
+    assert (report['status']=='PASS') is passed
+    if not passed:
+        assert execution.modes==[] and report['behavior_equivalence']=='NOT_VALIDATED'
+        assert report['unknown_count_stages']==['baseline']
+        assert 'effective RAM below 4 GiB' in report['failure']
 
 
 @pytest.mark.parametrize('fault',['checkpoint','mode','plan','worker_session'])
