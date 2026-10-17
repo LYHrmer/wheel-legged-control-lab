@@ -3,7 +3,9 @@
 [![tests](https://github.com/LYHrmer/wheel-legged-control-lab/actions/workflows/tests.yml/badge.svg)](https://github.com/LYHrmer/wheel-legged-control-lab/actions/workflows/tests.yml)
 [![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-同一台轮足机器人，同一层 VMC 底层，三种外环策略的对照实验：**LQR、约束 MPC、有界残差 PPO**。全部在 MuJoCo 里完成，**没有实机验证，不主张 sim-to-real 或数字孪生**。
+同一台轮足机器人，同一层 VMC 底层，三种外环策略的对照实验：**LQR、约束 MPC、有界残差 PPO**。下述成绩来自本仓库的MuJoCo仿真，未包含当前版本的实机验证。
+
+**2026-10-18新增实测：** 完整任务、地形及键盘/失焦/停车验证通过；跳过无效推理的配对运行省去880/1600次控制预测，完整物理与控制状态精确相同。增益0.5在高速直行和转向两个场景同时降低误差与力矩代价，尚待完整矩阵验证；六任务RL贡献门仍未通过。见[31–34实际结果](docs/local_optimization31_34_20261018.md)。
 
 ```
 D1 全机  23 nq / 22 nv / 16 执行器 · 物理 500 Hz · 决策 100 Hz（一个控制拍 5 × 2 ms）
