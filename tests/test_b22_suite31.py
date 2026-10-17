@@ -453,17 +453,36 @@ def test_worker31_is_exact_explicit_c26_derivative_except_reviewed_seams():
     assert ast.dump(actual, include_attributes=False) == ast.dump(expected, include_attributes=False)
 
 
-def test_real_isolated_pythonpath_resolves_relocated_worker_top_level_dependency():
+@pytest.mark.parametrize('relocated_checkout', [False, True])
+def test_real_isolated_pythonpath_resolves_relocated_worker_top_level_dependency(tmp_path, relocated_checkout):
     config = contract.read_json(ROOT/contract.MANIFEST)
-    paths = [str(ROOT/'scripts'), *config['runtime_environment']['PYTHONPATH'].split(':')]
-    expected = ROOT/'runtime/d1_b22/research/continuation23/gui23/input23.py'
+    # The frozen manifest names the owner's registered checkout. CI checks the
+    # same committed files at another root; relocate only those repository paths.
+    host_relative = Path('runtime/d1_b22/research/continuation23/root23/host23.py')
+    registered = Path(config['host'])
+    assert registered.parts[-len(host_relative.parts):] == host_relative.parts
+    registered_root = registered.parents[len(host_relative.parts)-1]
+    registered_paths = config['runtime_environment']['PYTHONPATH'].split(':')
+    input_relative = Path('runtime/d1_b22/research/continuation23/gui23/input23.py')
+    checkout_root = tmp_path/'different-checkout' if relocated_checkout else ROOT
+    if relocated_checkout:
+        for relative in (host_relative, input_relative):
+            destination = checkout_root/relative
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            destination.write_bytes((ROOT/relative).read_bytes())
+    def checkout_path(path):
+        value = Path(path)
+        return checkout_root/value.relative_to(registered_root) if value.is_relative_to(registered_root) else value
+    paths = [str(checkout_root/'scripts'), *(str(checkout_path(path)) for path in registered_paths)]
+    expected = checkout_root/input_relative
+    registered_input = registered_root/input_relative
     # PathFinder locates the actual file without executing input23 or a worker.
     found = importlib.machinery.PathFinder.find_spec('input23', paths)
     assert found is not None and Path(found.origin) == expected
-    assert str(expected.parent) in config['runtime_environment']['PYTHONPATH'].split(':')
-    assert contract.identity(expected) == config['source_hashes'][str(expected)]
+    assert str(registered_input.parent) in registered_paths
+    assert contract.identity(expected) == config['source_hashes'][str(registered_input)]
     assert 'PYTHONPATH' not in config['shared_session']
-    host_tree = ast.parse(Path(config['host']).read_text())
+    host_tree = ast.parse(checkout_path(config['host']).read_text())
     host = next(node for node in host_tree.body if isinstance(node, ast.FunctionDef) and node.name == 'execute')
     environment_loop = next(node for node in ast.walk(host) if isinstance(node, ast.For)
                             and ast.unparse(node.iter) == 'runtime_env.items()')
