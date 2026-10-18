@@ -1,0 +1,88 @@
+{
+  "schema": "wheel43-yaw-diagnostic-v1",
+  "new_nn_calls": 0,
+  "new_physics_steps": 0,
+  "cases": {
+    "flat_1p2_yaw": {
+      "zero": {
+        "ticks": 640,
+        "sse_yaw": 18.4520081514687,
+        "yaw_command_rms": 0.18134264873437791,
+        "yaw_measured_rms": 0.11587496818339044,
+        "closed_loop_yaw_gain_regression": 0.6355592212827741,
+        "sse_gain_offset_part": 17.697714867269553,
+        "sse_residual_part": 0.7542932841992357,
+        "wheel_yaw_differential_offset_rms_rad_s": 0.0,
+        "wheel_common_offset_rms_rad_s": 0.0
+      },
+      "raw42": {
+        "ticks": 640,
+        "sse_yaw": 19.668264559544888,
+        "yaw_command_rms": 0.18134264873437791,
+        "yaw_measured_rms": 0.1141951544337432,
+        "closed_loop_yaw_gain_regression": 0.6243626547494663,
+        "sse_gain_offset_part": 18.668524568369147,
+        "sse_residual_part": 0.9997399911758155,
+        "wheel_yaw_differential_offset_rms_rad_s": 0.24913783812776655,
+        "wheel_common_offset_rms_rad_s": 0.07277391105852019
+      },
+      "mirror43": {
+        "ticks": 640,
+        "sse_yaw": 19.083639049067056,
+        "yaw_command_rms": 0.18134264873437791,
+        "yaw_measured_rms": 0.11537884898262038,
+        "closed_loop_yaw_gain_regression": 0.6316175734229933,
+        "sse_gain_offset_part": 18.12104392545058,
+        "sse_residual_part": 0.9625951236165866,
+        "wheel_yaw_differential_offset_rms_rad_s": 0.047516447780876984,
+        "wheel_common_offset_rms_rad_s": 0.0783066842993213
+      }
+    },
+    "rough_0p35": {
+      "zero": {
+        "ticks": 470,
+        "sse_yaw": 6.708511572327254,
+        "yaw_command_rms": 0.0,
+        "yaw_measured_rms": 0.047788582531465826,
+        "closed_loop_yaw_gain_regression": null,
+        "wheel_yaw_differential_offset_rms_rad_s": 0.0,
+        "wheel_common_offset_rms_rad_s": 0.0
+      },
+      "raw42": {
+        "ticks": 470,
+        "sse_yaw": 6.58010240905208,
+        "yaw_command_rms": 0.0,
+        "yaw_measured_rms": 0.047329006567389795,
+        "closed_loop_yaw_gain_regression": null,
+        "wheel_yaw_differential_offset_rms_rad_s": 0.134001206366289,
+        "wheel_common_offset_rms_rad_s": 0.10489304432229309
+      },
+      "mirror43": {
+        "ticks": 470,
+        "sse_yaw": 6.532509385025323,
+        "yaw_command_rms": 0.0,
+        "yaw_measured_rms": 0.04715753367317125,
+        "closed_loop_yaw_gain_regression": null,
+        "wheel_yaw_differential_offset_rms_rad_s": 0.013538501280600915,
+        "wheel_common_offset_rms_rad_s": 0.09838455854783111
+      }
+    }
+  },
+  "training_deficit8_yaw_commands": {
+    "controls": 32768,
+    "abs_yaw_command_bins_0p05": {
+      "0.0": 30698,
+      "0.05": 245,
+      "0.1": 245,
+      "0.15": 508,
+      "0.2": 405,
+      "0.25": 313,
+      "0.3": 354
+    },
+    "controls_abs_yaw_below_0p025": 30698,
+    "controls_abs_yaw_at_least_0p1": 1702,
+    "fraction_abs_yaw_below_0p025": 0.93682861328125,
+    "fraction_abs_yaw_at_least_0p1": 0.05194091796875
+  },
+  "limitations": "Descriptive saved-data arithmetic; does not establish causal benefit or a counterfactual closed loop."
+}
