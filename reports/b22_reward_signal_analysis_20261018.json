@@ -1,0 +1,937 @@
+{
+  "format": "b22-saved-reward-signal-analysis-v1",
+  "status": "DESCRIPTIVE_SAVED_DATA_ANALYSIS",
+  "date": "2026-10-18",
+  "new_inferences": 0,
+  "new_physics_steps": 0,
+  "new_training_transitions": 0,
+  "qualification_changed": false,
+  "causal_attribution_established": false,
+  "scope": "Five completed old35 zero/half-gain pairs (16000 saved control records), archived B22 32 scalar rollout summaries, first1024 retained numeric training rows; no new policy evaluation.",
+  "reward": {
+    "ceiling": 4,
+    "vx_yaw_ceiling": 3,
+    "tracking_vx": "2*exp(-((vx-command_vx)/0.25)^2)",
+    "tracking_vy": "exp(-((vy-command_vy)/0.12)^2)",
+    "tracking_yaw": "exp(-((wz-command_wz)/0.4)^2)",
+    "height": "-0.2*(height_error/0.08)^2",
+    "attitude": "-0.2*((world_roll/0.2)^2+(world_pitch/0.2)^2)",
+    "actual_torque": "-0.02*mean_native_joint((applied_nm/torque_limit_nm)^2)",
+    "action_change": "-0.01*mean((normalized_action-previous_normalized_action)^2)",
+    "leg_speed": "-0.005*mean((leg_qdot/20)^2)",
+    "termination": "-10 when terminated, otherwise0",
+    "score_difference": "Original drive SSE sums unweighted normalized vx/0.25 and yaw/0.4 squared error; reward weights vx2 and yaw1 exponentially, adds lateral tracking and other terms, and covers all episode steps."
+  },
+  "counterfactual": {
+    "type": "ALGEBRA_ONLY_NOT_OBSERVED_POLICY",
+    "factor_on_each_q": 0.85,
+    "q_definition": "qx=((actual_vx-consumed_servo_vx)/0.25)^2; qy=((actual_wz-consumed_servo_wz)/0.4)^2",
+    "reward_gain": "2*(exp(-0.85*qx)-exp(-qx)) + exp(-0.85*qy)-exp(-qy)",
+    "held_fixed": "Every other term, command, sample, and trajectory.",
+    "limits": "No dynamics/policy realizes this counterfactual. Not15% velocity-amplitude shrink. A pooled15% SSE gain does not imply every q shrinks uniformly. Descriptive reward population std is not policy-gradient noise or a significance test."
+  },
+  "profiles": {
+    "flat_0p6": {
+      "zero_drive": {
+        "reward": {
+          "n": 520,
+          "mean": 3.994156834585951,
+          "population_std": 0.009013889894896581,
+          "min": 3.950625177653515,
+          "max": 3.9986069441848726
+        },
+        "vx_yaw_tracking": {
+          "n": 520,
+          "mean": 2.99567653293855,
+          "population_std": 0.008970232354376311,
+          "min": 2.9518516796304612,
+          "max": 2.9999999890165046
+        },
+        "vx_yaw_gap_to3": {
+          "n": 520,
+          "mean": 0.004323467061450026,
+          "population_std": 0.008970232354376077,
+          "min": 1.0983495446481584e-08,
+          "max": 0.048148320369538755
+        },
+        "q_sse": {
+          "n": 520,
+          "mean": 0.002174259907559759,
+          "population_std": 0.004523024353127593,
+          "min": 5.553003267685965e-09,
+          "max": 0.024368682094926337
+        },
+        "counterfactual_15pct_sse_tracking_reward_gain": {
+          "n": 520,
+          "mean": 0.0006453402078042968,
+          "population_std": 0.001335932451205745,
+          "min": 1.647524339176698e-09,
+          "max": 0.007147662621195927
+        }
+      },
+      "zero_drive_both_tracking_terms_within_1pct_of_ceiling_fraction": 0.9192307692307692,
+      "zero_hold_counterfactual_gain": {
+        "n": 400,
+        "mean": 0.00010146700833487077,
+        "population_std": 0.0003027675337543591,
+        "min": 1.647524339176698e-09,
+        "max": 0.001875271008267898
+      },
+      "B_minus_zero_drive_means": {
+        "tracking_vx": -0.00036069291964091477,
+        "tracking_vy": -9.747950770133684e-06,
+        "tracking_yaw": -5.8572137277890235e-05,
+        "height": 0.00032546758388302837,
+        "attitude": -8.719886571539637e-05,
+        "actual_torque": -2.337321195637946e-06,
+        "action_change": -9.24749869471895e-09,
+        "leg_speed": -4.85863966157174e-10,
+        "termination": 0.0,
+        "reward": -0.00019309134408151962,
+        "vx_yaw_tracking": -0.00041926505691503024
+      },
+      "B_minus_zero_all_means": {
+        "tracking_vx": -0.00021488933239233177,
+        "tracking_vy": -1.119516466074888e-05,
+        "tracking_yaw": -2.4547671250929604e-05,
+        "height": 0.00010898405321945566,
+        "attitude": -3.395761138819212e-05,
+        "actual_torque": -1.0407959464236289e-06,
+        "action_change": -7.150106984942179e-09,
+        "leg_speed": -6.869856673474442e-10,
+        "termination": 0.0,
+        "reward": -0.0001766543595196346,
+        "vx_yaw_tracking": -0.000239437003636489
+      },
+      "zero_drive_sse": 1.1306151519310748,
+      "B_drive_sse": 1.256145479561752,
+      "drive_sse_ratio": 1.1110283436554633,
+      "zero_formula_max_error": 8.881784197001252e-16,
+      "B_formula_max_error": 1.3322676295501878e-15
+    },
+    "flat_1p6": {
+      "zero_drive": {
+        "reward": {
+          "n": 720,
+          "mean": 3.993871723301305,
+          "population_std": 0.007598447070404821,
+          "min": 3.950625177653515,
+          "max": 3.998314021004702
+        },
+        "vx_yaw_tracking": {
+          "n": 720,
+          "mean": 2.995682668627895,
+          "population_std": 0.007636259121139325,
+          "min": 2.9518516796304612,
+          "max": 2.99999999784157
+        },
+        "vx_yaw_gap_to3": {
+          "n": 720,
+          "mean": 0.004317331372106016,
+          "population_std": 0.00763625912113929,
+          "min": 2.1584298792731715e-09,
+          "max": 0.048148320369538755
+        },
+        "q_sse": {
+          "n": 720,
+          "mean": 0.002168381526120331,
+          "population_std": 0.0038503640309938947,
+          "min": 1.0817850297992416e-09,
+          "max": 0.024368682094926337
+        },
+        "counterfactual_15pct_sse_tracking_reward_gain": {
+          "n": 720,
+          "mean": 0.0006451328299703308,
+          "population_std": 0.0011372748144921855,
+          "min": 3.237645707088177e-10,
+          "max": 0.007147662621195927
+        }
+      },
+      "zero_drive_both_tracking_terms_within_1pct_of_ceiling_fraction": 0.9416666666666667,
+      "zero_hold_counterfactual_gain": {
+        "n": 400,
+        "mean": 0.00010955438986382502,
+        "population_std": 0.0003285226689272219,
+        "min": 3.237645707088177e-10,
+        "max": 0.002027295079422453
+      },
+      "B_minus_zero_drive_means": {
+        "tracking_vx": -0.00025231062817510086,
+        "tracking_vy": -8.280457297726862e-06,
+        "tracking_yaw": -3.293556974526268e-05,
+        "height": 0.00045936905792080064,
+        "attitude": -0.0002572360482621543,
+        "actual_torque": -1.0146786096279915e-05,
+        "action_change": -6.7418326681293875e-09,
+        "leg_speed": -3.809604953508058e-10,
+        "termination": 0.0,
+        "reward": -0.00010154755444613528,
+        "vx_yaw_tracking": -0.0002852461979232501
+      },
+      "B_minus_zero_all_means": {
+        "tracking_vx": 2.7347458799953372e-05,
+        "tracking_vy": -2.8923051139218003e-05,
+        "tracking_yaw": -4.32643810744926e-05,
+        "height": 0.0002553219288136164,
+        "attitude": -0.000267274126402118,
+        "actual_torque": -1.0227066077176847e-05,
+        "action_change": -1.8014192390078508e-08,
+        "leg_speed": -1.195637912056652e-09,
+        "termination": 0.0,
+        "reward": -6.703844690969518e-05,
+        "vx_yaw_tracking": -1.5916922278425005e-05
+      },
+      "zero_drive_sse": 1.5612346988066357,
+      "B_drive_sse": 1.677057434529711,
+      "drive_sse_ratio": 1.0741866266562017,
+      "zero_formula_max_error": 8.881784197001252e-16,
+      "B_formula_max_error": 8.881784197001252e-16
+    },
+    "yaw_1p2": {
+      "zero_drive": {
+        "reward": {
+          "n": 640,
+          "mean": 3.9579498708759444,
+          "population_std": 0.03583352981648116,
+          "min": 3.8810488918189936,
+          "max": 3.9980581619293822
+        },
+        "vx_yaw_tracking": {
+          "n": 640,
+          "mean": 2.9676265872675853,
+          "population_std": 0.03242088416822433,
+          "min": 2.894037185345022,
+          "max": 2.9994193553431003
+        },
+        "vx_yaw_gap_to3": {
+          "n": 640,
+          "mean": 0.032373412732415244,
+          "population_std": 0.03242088416822425,
+          "min": 0.0005806446568996648,
+          "max": 0.10596281465497803
+        },
+        "q_sse": {
+          "n": 640,
+          "mean": 0.03113579436286382,
+          "population_std": 0.03496368394470566,
+          "min": 0.0003268305218468289,
+          "max": 0.11158057001935702
+        },
+        "counterfactual_15pct_sse_tracking_reward_gain": {
+          "n": 640,
+          "mean": 0.0047231705993720135,
+          "population_std": 0.00466529188143196,
+          "min": 8.708060119200223e-05,
+          "max": 0.01515768817736951
+        }
+      },
+      "zero_drive_both_tracking_terms_within_1pct_of_ceiling_fraction": 0.4640625,
+      "zero_hold_counterfactual_gain": {
+        "n": 400,
+        "mean": 0.006628958566933162,
+        "population_std": 0.00486756466375211,
+        "min": 8.708060119200223e-05,
+        "max": 0.01515768817736951
+      },
+      "B_minus_zero_drive_means": {
+        "tracking_vx": -0.0002653157405854145,
+        "tracking_vy": -0.0006898436179310075,
+        "tracking_yaw": -0.00029429612164033614,
+        "height": 0.0003343886120466532,
+        "attitude": -0.00017979955862301332,
+        "actual_torque": -1.1479612800015379e-05,
+        "action_change": -7.707189314389113e-09,
+        "leg_speed": -1.0913618764249564e-09,
+        "termination": 0.0,
+        "reward": -0.0011063548380869648,
+        "vx_yaw_tracking": -0.0005596118622301915
+      },
+      "B_minus_zero_all_means": {
+        "tracking_vx": -2.4739680695162747e-06,
+        "tracking_vy": -0.0003426301815619981,
+        "tracking_yaw": -0.0004233824453799828,
+        "height": 0.00018754242040725714,
+        "attitude": -0.00021262866466766105,
+        "actual_torque": -1.037832986574926e-05,
+        "action_change": -1.2610104724610622e-08,
+        "leg_speed": -1.8569473056981423e-09,
+        "termination": 0.0,
+        "reward": -0.0008039656361913394,
+        "vx_yaw_tracking": -0.0004258564134524967
+      },
+      "zero_drive_sse": 19.926908392232875,
+      "B_drive_sse": 20.226082662008697,
+      "drive_sse_ratio": 1.015013581830508,
+      "zero_formula_max_error": 8.881784197001252e-16,
+      "B_formula_max_error": 1.3322676295501878e-15
+    },
+    "bumps_0p4": {
+      "zero_drive": {
+        "reward": {
+          "n": 480,
+          "mean": 3.9777883078602656,
+          "population_std": 0.03511864544761179,
+          "min": 3.7232633806470683,
+          "max": 3.9991239389636895
+        },
+        "vx_yaw_tracking": {
+          "n": 480,
+          "mean": 2.980944643942745,
+          "population_std": 0.03488615891833037,
+          "min": 2.7258472569411607,
+          "max": 2.9999994167435404
+        },
+        "vx_yaw_gap_to3": {
+          "n": 480,
+          "mean": 0.019055356057253378,
+          "population_std": 0.0348861589183304,
+          "min": 5.83256459574244e-07,
+          "max": 0.2741527430588393
+        },
+        "q_sse": {
+          "n": 480,
+          "mean": 0.009737513307838824,
+          "population_std": 0.018372846078529334,
+          "min": 2.992810184004149e-07,
+          "max": 0.14742911395071506
+        },
+        "counterfactual_15pct_sse_tracking_reward_gain": {
+          "n": 480,
+          "mean": 0.0028061923210768347,
+          "population_std": 0.0050064277932866975,
+          "min": 8.748845869988031e-08,
+          "max": 0.038591150696832055
+        }
+      },
+      "zero_drive_both_tracking_terms_within_1pct_of_ceiling_fraction": 0.71875,
+      "zero_hold_counterfactual_gain": {
+        "n": 400,
+        "mean": 0.0027216409234164375,
+        "population_std": 0.005426412666494069,
+        "min": 8.748845869988031e-08,
+        "max": 0.038591150696832055
+      },
+      "B_minus_zero_drive_means": {
+        "tracking_vx": -0.0004767325255303767,
+        "tracking_vy": -0.00012862832950588654,
+        "tracking_yaw": -0.00020940665043200912,
+        "height": 0.00031984281752436947,
+        "attitude": -0.00020111863951042565,
+        "actual_torque": -2.8361695804877116e-06,
+        "action_change": -1.2794420996358616e-08,
+        "leg_speed": 8.888490882680961e-10,
+        "termination": 0.0,
+        "reward": -0.000698891402606705,
+        "vx_yaw_tracking": -0.0006861391759573898
+      },
+      "B_minus_zero_all_means": {
+        "tracking_vx": -0.0002706756816430733,
+        "tracking_vy": -6.631318920946594e-05,
+        "tracking_yaw": -7.879293169898993e-05,
+        "height": 9.401993703603512e-05,
+        "attitude": -0.00010045885759141606,
+        "actual_torque": -9.898748386151382e-07,
+        "action_change": -6.9138722924616265e-09,
+        "leg_speed": -2.3452379707414193e-10,
+        "termination": 0.0,
+        "reward": -0.0004232177463481257,
+        "vx_yaw_tracking": -0.00034946861334850254
+      },
+      "zero_drive_sse": 4.674006387762632,
+      "B_drive_sse": 4.891287683861079,
+      "drive_sse_ratio": 1.0464871628475578,
+      "zero_formula_max_error": 8.881784197001252e-16,
+      "B_formula_max_error": 8.881784197001252e-16
+    },
+    "rough_0p35": {
+      "zero_drive": {
+        "reward": {
+          "n": 470,
+          "mean": 3.8946810955237283,
+          "population_std": 0.11723733043112486,
+          "min": 3.2569568821572132,
+          "max": 3.998267227378009
+        },
+        "vx_yaw_tracking": {
+          "n": 470,
+          "mean": 2.9347565103470927,
+          "population_std": 0.10536893691978655,
+          "min": 2.269430815136092,
+          "max": 2.9999992388392833
+        },
+        "vx_yaw_gap_to3": {
+          "n": 470,
+          "mean": 0.0652434896529067,
+          "population_std": 0.10536893691978631,
+          "min": 7.611607166779777e-07,
+          "max": 0.7305691848639082
+        },
+        "q_sse": {
+          "n": 470,
+          "mean": 0.04202433959449806,
+          "population_std": 0.06674476655500221,
+          "min": 3.805970329922144e-07,
+          "max": 0.45460414299328067
+        },
+        "counterfactual_15pct_sse_tracking_reward_gain": {
+          "n": 470,
+          "mean": 0.009254436501024279,
+          "population_std": 0.013780154904254483,
+          "min": 1.1417408907199444e-07,
+          "max": 0.08958493314473348
+        }
+      },
+      "zero_drive_both_tracking_terms_within_1pct_of_ceiling_fraction": 0.3191489361702128,
+      "zero_hold_counterfactual_gain": {
+        "n": 400,
+        "mean": 0.010262576262609513,
+        "population_std": 0.01469046698071194,
+        "min": 1.1417408907199444e-07,
+        "max": 0.08958493314473348
+      },
+      "B_minus_zero_drive_means": {
+        "tracking_vx": -0.00122698291179546,
+        "tracking_vy": -0.003450793052532708,
+        "tracking_yaw": 0.0003226046749644773,
+        "height": 0.00031112113156056076,
+        "attitude": -0.0007367340080255301,
+        "actual_torque": -1.494179798627697e-06,
+        "action_change": -5.6053529654900046e-08,
+        "leg_speed": 1.7405619237305265e-08,
+        "termination": 0.0,
+        "reward": -0.004782316993541702,
+        "vx_yaw_tracking": -0.0009043782368336473
+      },
+      "B_minus_zero_all_means": {
+        "tracking_vx": 0.0006845796687116046,
+        "tracking_vy": -0.0009374748081629747,
+        "tracking_yaw": 0.00011231137049727558,
+        "height": 0.0007335898049202309,
+        "attitude": 0.00016414491689452707,
+        "actual_torque": -6.9893258701629905e-06,
+        "action_change": -1.9461077310528875e-08,
+        "leg_speed": 5.297379033127772e-09,
+        "termination": 0.0,
+        "reward": 0.0007501474632953808,
+        "vx_yaw_tracking": 0.0007968910392155415
+      },
+      "zero_drive_sse": 19.751439609414085,
+      "B_drive_sse": 19.88344767676608,
+      "drive_sse_ratio": 1.0066834656087083,
+      "zero_formula_max_error": 8.881784197001252e-16,
+      "B_formula_max_error": 1.3322676295501878e-15
+    }
+  },
+  "observed_half_gain_reward": {
+    "total_reward_all_steps_declines_in_profiles": [
+      "flat_0p6",
+      "flat_1p6",
+      "yaw_1p2",
+      "bumps_0p4"
+    ],
+    "total_reward_all_steps_increases_in_profiles": [
+      "rough_0p35"
+    ],
+    "drive_reward_declines_in_profiles": [
+      "flat_0p6",
+      "flat_1p6",
+      "yaw_1p2",
+      "bumps_0p4",
+      "rough_0p35"
+    ],
+    "equal_1600_row_profile_pooled_all_reward_delta": -0.0001441457451346828,
+    "interpretation": "All five drive rewards and the pooled five1600-row total rewards decline; rough alone improves its full-episode reward despite drive loss. This isolated time-window tradeoff does not establish the causal reason for failed learning."
+  },
+  "historical_training": {
+    "actual": {
+      "epochs": 104,
+      "evaluated_minibatches": 377,
+      "kl_early_stop_train_calls": 22,
+      "num_timesteps": 32768,
+      "optimizer_steps": 355,
+      "rollouts": 32,
+      "train_calls": 32,
+      "transitions": 32768
+    },
+    "status": "complete",
+    "declares_learning_quality": false,
+    "rollout_mean_reward_stats": {
+      "n": 32,
+      "mean": 3.957183316058945,
+      "population_std": 0.024657306212441655,
+      "min": 3.88245282554999,
+      "max": 3.982661304762587
+    },
+    "first_8_warmup_rollout_mean_reward_stats": {
+      "n": 8,
+      "mean": 3.9776605541992467,
+      "population_std": 0.006898745137100521,
+      "min": 3.9642065572552383,
+      "max": 3.982657913584262
+    },
+    "later_24_mixed_course_rollout_mean_reward_stats": {
+      "n": 24,
+      "mean": 3.950357570012178,
+      "population_std": 0.024666094171353792,
+      "min": 3.88245282554999,
+      "max": 3.982661304762587
+    },
+    "per_rollout_mean_reward": [
+      3.98188771517016,
+      3.9825516727287322,
+      3.982657913584262,
+      3.9816803440917283,
+      3.980782762169838,
+      3.9799478626810014,
+      3.967569605913013,
+      3.9642065572552383,
+      3.982661304762587,
+      3.981074183480814,
+      3.945070391520858,
+      3.9656050205230713,
+      3.88245282554999,
+      3.9380365384276956,
+      3.962776551488787,
+      3.953260191483423,
+      3.981175067136064,
+      3.9768178679514676,
+      3.948312883032486,
+      3.928401121404022,
+      3.9099482791498303,
+      3.9616888910531998,
+      3.943607599940151,
+      3.9484636140987277,
+      3.9783663612324744,
+      3.9668941700365394,
+      3.947283139685169,
+      3.916509371716529,
+      3.9216968764085323,
+      3.9661914266180247,
+      3.941246739588678,
+      3.9610412640031427
+    ],
+    "rollout_variance_limit": "Different commands/terrains/policies across rollout summaries confound their population variance; not32 independent same-course samples or gradient SNR.",
+    "actual_closed_episodes": 32,
+    "closed_episode_terrain_counts": {
+      "flat": 20,
+      "bumps": 3,
+      "rough": 3,
+      "ramp": 6
+    },
+    "closed_episode_task_failures": 0,
+    "closed_episode_sse_semantics": "curriculum22 reports unnormalized vx-only squared error when consumed servo_vx>0; not the original two-component heldout score SSE.",
+    "training_blocks_availability": {
+      "numeric_blocks": {
+        "listed": 32,
+        "present": 1
+      },
+      "gaussian_blocks": {
+        "listed": 32,
+        "present": 1
+      },
+      "full_control_blocks20": {
+        "listed": 164,
+        "present": 1
+      }
+    },
+    "prefix_1024": {
+      "all_1024": {
+        "tracking_vx": {
+          "n": 1024,
+          "mean": 1.9952498958627594,
+          "population_std": 0.008875463571668917,
+          "min": 1.9276680570763942,
+          "max": 1.9999999998901548
+        },
+        "tracking_vy": {
+          "n": 1024,
+          "mean": 0.9926848417197573,
+          "population_std": 0.010962831669284316,
+          "min": 0.9236147328886486,
+          "max": 0.9999999999999962
+        },
+        "tracking_yaw": {
+          "n": 1024,
+          "mean": 0.9960122515614753,
+          "population_std": 0.006656541531385492,
+          "min": 0.9470326520903009,
+          "max": 0.9999999999996247
+        },
+        "height": {
+          "n": 1024,
+          "mean": -0.0006149309056091753,
+          "population_std": 0.0002685188015792925,
+          "min": -0.001508335794774331,
+          "max": -1.943771079105303e-10
+        },
+        "attitude": {
+          "n": 1024,
+          "mean": -0.0005931948599050719,
+          "population_std": 0.0005779494048076742,
+          "min": -0.0025241654700319653,
+          "max": -1.552411055610297e-09
+        },
+        "actual_torque": {
+          "n": 1024,
+          "mean": -0.0005262597543649862,
+          "population_std": 0.0001061716525041319,
+          "min": -0.001030541936079927,
+          "max": -0.0003414661657553668
+        },
+        "action_change": {
+          "n": 1024,
+          "mean": -0.0003246553093510592,
+          "population_std": 0.00020723458381798255,
+          "min": -0.0010797396918696845,
+          "max": -0.0
+        },
+        "leg_speed": {
+          "n": 1024,
+          "mean": -2.3036114279412305e-07,
+          "population_std": 8.472506419700887e-07,
+          "min": -1.8989341038666556e-05,
+          "max": -2.601812030543569e-11
+        },
+        "termination": {
+          "n": 1024,
+          "mean": 0.0,
+          "population_std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "reward": {
+          "n": 1024,
+          "mean": 3.9818877179536187,
+          "population_std": 0.016531189570042334,
+          "min": 3.8901544132639203,
+          "max": 3.999614526019448
+        },
+        "counterfactual_reward_gain": {
+          "n": 1024,
+          "mean": 0.00130354983369742,
+          "population_std": 0.0017206269368224112,
+          "min": 6.346845271565371e-11,
+          "max": 0.013556448585980818
+        }
+      },
+      "episode_0_drive_825": {
+        "tracking_vx": {
+          "n": 825,
+          "mean": 1.994134791153335,
+          "population_std": 0.009558488875698901,
+          "min": 1.9276680570763942,
+          "max": 1.9999999742216354
+        },
+        "tracking_vy": {
+          "n": 825,
+          "mean": 0.9909203557026393,
+          "population_std": 0.011539179801318621,
+          "min": 0.9236147328886486,
+          "max": 0.9999996945738499
+        },
+        "tracking_yaw": {
+          "n": 825,
+          "mean": 0.9950503954822674,
+          "population_std": 0.007087798357911662,
+          "min": 0.9470326520903009,
+          "max": 0.9999999912674084
+        },
+        "height": {
+          "n": 825,
+          "mean": -0.0006074674584379541,
+          "population_std": 0.0002775141379745415,
+          "min": -0.001508335794774331,
+          "max": -1.943771079105303e-10
+        },
+        "attitude": {
+          "n": 825,
+          "mean": -0.0007356450813548563,
+          "population_std": 0.0005569318134914135,
+          "min": -0.0025241654700319653,
+          "max": -4.368992321788273e-06
+        },
+        "actual_torque": {
+          "n": 825,
+          "mean": -0.0005548133591172129,
+          "population_std": 9.854706023689176e-05,
+          "min": -0.001030541936079927,
+          "max": -0.0003414661657553668
+        },
+        "action_change": {
+          "n": 825,
+          "mean": -0.0004029661051824056,
+          "population_std": 0.0001474744512195822,
+          "min": -0.0010797396918696845,
+          "max": -6.04588240375504e-05
+        },
+        "leg_speed": {
+          "n": 825,
+          "mean": -2.319513664222323e-07,
+          "population_std": 1.636553400831566e-07,
+          "min": -1.6792641712968235e-06,
+          "max": -2.0723795735645972e-08
+        },
+        "termination": {
+          "n": 825,
+          "mean": 0.0,
+          "population_std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "reward": {
+          "n": 825,
+          "mean": 3.9778044183827825,
+          "population_std": 0.015917902133845835,
+          "min": 3.8901544132639203,
+          "max": 3.997701107784716
+        },
+        "counterfactual_reward_gain": {
+          "n": 825,
+          "mean": 0.0016133750815054365,
+          "population_std": 0.0017833859276198437,
+          "min": 1.3171636302766743e-06,
+          "max": 0.013556448585980818
+        }
+      },
+      "episode_0_stationary_175": {
+        "tracking_vx": {
+          "n": 175,
+          "mean": 1.9998989970952736,
+          "population_std": 0.00020407328329353708,
+          "min": 1.9993111841864404,
+          "max": 1.9999999998901548
+        },
+        "tracking_vy": {
+          "n": 175,
+          "mean": 0.9999999534082021,
+          "population_std": 1.411198658903883e-07,
+          "min": 0.9999992673583517,
+          "max": 0.9999999999999962
+        },
+        "tracking_yaw": {
+          "n": 175,
+          "mean": 0.9999999119594564,
+          "population_std": 3.168017678126643e-07,
+          "min": 0.999998348725154,
+          "max": 0.9999999999996247
+        },
+        "height": {
+          "n": 175,
+          "mean": -0.0006809466822815105,
+          "population_std": 0.00017570748609411395,
+          "min": -0.0008432225595379995,
+          "max": -5.73783469957069e-10
+        },
+        "attitude": {
+          "n": 175,
+          "mean": -1.784126480391161e-06,
+          "population_std": 4.00318983585172e-06,
+          "min": -1.9814184402869565e-05,
+          "max": -1.552411055610297e-09
+        },
+        "actual_torque": {
+          "n": 175,
+          "mean": -0.0004059839808713171,
+          "population_std": 1.4411584326981347e-05,
+          "min": -0.000514721701657145,
+          "max": -0.0003451854608063476
+        },
+        "action_change": {
+          "n": 175,
+          "mean": 0.0,
+          "population_std": 0.0,
+          "min": -0.0,
+          "max": -0.0
+        },
+        "leg_speed": {
+          "n": 175,
+          "mean": -1.2739405498574393e-07,
+          "population_std": 1.4315219303998795e-06,
+          "min": -1.8989341038666556e-05,
+          "max": -2.601812030543569e-11
+        },
+        "termination": {
+          "n": 175,
+          "mean": 0.0,
+          "population_std": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "reward": {
+          "n": 175,
+          "mean": 3.9988100202792443,
+          "population_std": 0.0002611326603321463,
+          "min": 3.9980665835192117,
+          "max": 3.999614526019448
+        },
+        "counterfactual_reward_gain": {
+          "n": 175,
+          "mean": 1.5161988958141138e-05,
+          "population_std": 3.0615344440353454e-05,
+          "min": 6.346845271565371e-11,
+          "max": 0.00010332864037254641
+        }
+      }
+    },
+    "prefix_reward_sum": 4077.4530231845056,
+    "first_rollout_reported_reward_sum": 4077.453020334244,
+    "prefix_vs_reported_sum_abs_error": 2.8502618079073727e-06,
+    "prefix_reward_equals_sum_terms_max_abs_error": 8.881784197001252e-16,
+    "prefix_tracking_formula_max_abs_error": 0.0,
+    "raw_scope_limit": "Only first1024 numeric rows and first200 full-control rows are retained here. Cannot estimate whole32768 per-term covariance, realized command-force coverage, or end-to-end learning causality from this prefix."
+  },
+  "provenance": {
+    "archived_root_spec22": {
+      "path": "results/d1_main_route_execution_20260930_22/spec22.json",
+      "bytes": 33019,
+      "sha256": "f061b64320e8fae35dd8ca0d186242579b4640bd5fecdd3e6da63d2f6983f8f4"
+    },
+    "original_spec_source_key": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/spec22.json",
+    "spec_matches_final_metadata_sources_and_contract_documents_and_training_session": true,
+    "spec_status_is_not_execution_receipt": "SCIENTIFIC_SPEC_AWAITING_GEOMETRY_AND_SOURCE_GO_NOT_EXECUTION_RECEIPT",
+    "relocated_runtime_spec_copy_exists": false,
+    "current_checkpoint": {
+      "path": "runtime/d1_b22/checkpoint/final_model.zip",
+      "bytes": 764484,
+      "sha256": "7bd58b5d6114745b12b4284be3f861f973a5d31d9d596365a5b54cb5e0d76691"
+    },
+    "current_metadata": {
+      "path": "runtime/d1_b22/checkpoint/final_metadata.json",
+      "bytes": 2238596,
+      "sha256": "af700d1f2612e441c8f0560cca38c77b6a854526d3e841e544ef9d5321672830"
+    },
+    "archive_and_relocated_checkpoint_metadata_sha_match": true,
+    "parent_model": {
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/final_checkpoint/final_model.zip",
+      "bytes": 763823,
+      "sha256": "1fcfe833d8a7cfdbbc224c9007a35e44c035674ce948b51557434b77838476fb"
+    },
+    "parent_metadata": {
+      "path": "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/final_checkpoint/final_metadata.json",
+      "bytes": 1630105,
+      "sha256": "cce486dc3f0ae9f0db61babc196cb48b692644659523cab5a7aecbc9fcadeb6a"
+    },
+    "parentage": {
+      "actor_reinitialized": false,
+      "arm": "B",
+      "optimizer_reinitialized": false,
+      "parent_hashes": {
+        "actor_mean_state": "c6add0af3ace2ad2c9051be9c6bc759737d8cc5b8b728ff142128069b4148136",
+        "log_std_state": "c449b57d8aff047d0723c8053c5a9f33921616682ec7b73e06ee760570531616",
+        "optimizer_state": "8b3d0a02fffd103a1af179b404b5b4509004560b66e9b2b65740681162bc311f",
+        "policy_state": "af21a12f75fb26fc3fed350cd2f0c93cd4ff180a99bf5acc432088c300fec732"
+      },
+      "parent_metadata_identity": {
+        "bytes": 1630105,
+        "sha256": "cce486dc3f0ae9f0db61babc196cb48b692644659523cab5a7aecbc9fcadeb6a"
+      },
+      "parent_model_identity": {
+        "bytes": 763823,
+        "sha256": "1fcfe833d8a7cfdbbc224c9007a35e44c035674ce948b51557434b77838476fb"
+      },
+      "parent_n_updates": 64,
+      "parent_num_timesteps": 16384,
+      "parent_optimizer_steps": 1280,
+      "stage": 1,
+      "stage_seed": 201001
+    },
+    "parent_stage15_parentage": {
+      "actor_reinitialized": false,
+      "arm": "grouped",
+      "optimizer_reinitialized": false,
+      "parent_hashes": {
+        "actor_mean_state": "40c7913468b7f6d7c8bd7a2a51b9670fa4ca2d6a029c98fabaa19b4985d0507d",
+        "log_std_state": "c942aeb9d7c1c2970b02d24ea3efaf0eec6d6fb94595643a65ade971d6060e48",
+        "optimizer_state": "bd4c898d33f4a121489f393dfe0f083737305f76fb139ddef74db2bb94878bf9",
+        "policy_state": "c20a8841dcf2174c2db584edca951adaafa12688b026172669ef0e07ad955212"
+      },
+      "parent_metadata_identity": {
+        "bytes": 1709437,
+        "sha256": "a0150338806d48c464059117d3f2764a8e1cbf81b3b06748434824bb76007e4f"
+      },
+      "parent_model_identity": {
+        "bytes": 765847,
+        "sha256": "6cf2db80be7b990efc8be40eff307e58351eae839970b0c78ce5c9b5193f8e70"
+      },
+      "parent_n_updates": 256,
+      "parent_num_timesteps": 65536,
+      "parent_optimizer_steps": 1024,
+      "stage_seed": 151001
+    },
+    "declared_ancestral_training_controls_in_spec22": 81920,
+    "declared_ancestral_plus_current_stage_controls": 114688,
+    "ancestor_raw_ledger_reaudited_this_analysis": false,
+    "independently_reclosed_all_history_actual_counts": null,
+    "history_limit": "Immediate parent files and hashes are checked. Spec declares81920 ancestral controls; parent metadata reports65536 predecessor and16384 C15 stage. Full ancestor raw accounting was not re-audited. Current32768 is a reset-timestep warm-start stage, never the entire training history.",
+    "no_controller_mismatch_claim": true,
+    "controller_schema": "d1-course18-yawlimit-filteredcommonintegral-adapter-v1",
+    "configured_high_speed_and_terrain_coverage": {
+      "speed_mps_max": 1.6,
+      "terrain_slots": [
+        "flat",
+        "flat",
+        "flat",
+        "bumps",
+        "rough",
+        "ramp",
+        "flat",
+        "ramp"
+      ],
+      "qualification": "Configured recipes and actual closed-episode terrain labels exist; missing raw blocks prevent newly certifying full effective exposure and forces."
+    }
+  },
+  "hypotheses_and_next_evidence": [
+    {
+      "hypothesis": "Near-ceiling exponential tracking yields a small absolute reward difference for relative heldout tracking improvement.",
+      "support": "Saved zero drive rewards and algebraic sensitivity, especially both flat cases.",
+      "not_proven": "It caused failed learning or dominated gradient variance.",
+      "minimal_falsification": "For any separately budgeted new comparison, preserve same initial model/Adam, matched seed/course/control and final-only horizon; log all actual per-term and update statistics for both unchanged and proposed reward, and retain full original6 tasks/cost/contribution gates."
+    },
+    {
+      "hypothesis": "Training objective weighting or episode command history may not best discriminate the original heldout score.",
+      "support": "Score/reward formulas differ; historical recipes contain driven-to-episode-reset exposure and heldout has drive/braking/final phases.",
+      "not_proven": "Current half-gain optimized the wrong objective, highspeed was unseen, or controller differs.",
+      "minimal_falsification": "Audit full actual consumed-command/force windows before changing curriculum; separate a reward change from a course change and allocate equal budgets to compare."
+    }
+  ],
+  "not_authorisation_for_new_training": true,
+  "input_sha256": {
+    "results/b22_gain_suite35_20261018_01/flat_0p6_zero/episode_0/controls.jsonl.gz": "7042380789b60b7c76e9c2630fd2ec629ed475c7be5bc94b7fab80ca643f1dbd",
+    "results/b22_gain_suite35_20261018_01/flat_0p6_zero_readback.json": "20e7509c0f46ec5bafc53bc99cef17706779bec17acf1b23f7e9da751cd4daa7",
+    "results/b22_gain_suite35_20261018_01/flat_0p6_B/episode_0/controls.jsonl.gz": "82c76834a979c26c46880c08de2992d4504cce645ecd530e28dcaf8df63d8e78",
+    "results/b22_gain_suite35_20261018_01/flat_0p6_B_readback.json": "a62175ed5aef1cd8a2ca5dc247fab2fda623c8bcf223d146592ac14dfca03a59",
+    "results/b22_gain_suite35_20261018_01/flat_1p6_zero/episode_0/controls.jsonl.gz": "3ef55eba9b5c1576d581d4f97548449be72852bb4f82918c1a078456205cea23",
+    "results/b22_gain_suite35_20261018_01/flat_1p6_zero_readback.json": "e9d7714b217773e3c2a53ab1a73de2e69562e4aaacf38f5bdc9329d6b9dd4412",
+    "results/b22_gain_suite35_20261018_01/flat_1p6_B/episode_0/controls.jsonl.gz": "608695a5272eaf89650d23a56a8041fb637a25825c5316ba758778653fcb9c7d",
+    "results/b22_gain_suite35_20261018_01/flat_1p6_B_readback.json": "69a54f428d5bc9948259ed719a1f428836f40219585a4ca01f29819f932592f8",
+    "results/b22_gain_suite35_20261018_01/yaw_1p2_zero/episode_0/controls.jsonl.gz": "ef42228f2976ed28541dd5fa2eed47de63aa12253f2ff5475e4dbb6a126bfd99",
+    "results/b22_gain_suite35_20261018_01/yaw_1p2_zero_readback.json": "d3549f323c73eaded59e90b64c3a384183c33476e58370d9a1c79af9b3bae24a",
+    "results/b22_gain_suite35_20261018_01/yaw_1p2_B/episode_0/controls.jsonl.gz": "8560aa5104f067d63bd02639d3304732b971a38dddd932a686991d9304c35b80",
+    "results/b22_gain_suite35_20261018_01/yaw_1p2_B_readback.json": "3a3858701ee9026170337a7bc4e8a04f08851935af37827ac306d198483eafa6",
+    "results/b22_gain_suite35_20261018_01/bumps_0p4_zero/episode_0/controls.jsonl.gz": "fe403cea93ada9724de03643ca84a684e870ef32161900edaebf1c75a347bb55",
+    "results/b22_gain_suite35_20261018_01/bumps_0p4_zero_readback.json": "49c512d3ecc22fbfadbdf0f843fcbbae21502206f1ac549a8e8a607a036fc803",
+    "results/b22_gain_suite35_20261018_01/bumps_0p4_B/episode_0/controls.jsonl.gz": "7ba19543687b36adf647959e412bf3e0ba65fd6ec3416b6864211cdb0deaecdf",
+    "results/b22_gain_suite35_20261018_01/bumps_0p4_B_readback.json": "d186b9284dab281573a9d0f8e41e33b556737f8d0651c4863fd60ec83ccd3d16",
+    "results/b22_gain_suite35_20261018_01/rough_0p35_zero/episode_0/controls.jsonl.gz": "73f3c494e5fb021954151cc37eb488f908def70e2dfa5dd8a8aedd8b04903394",
+    "results/b22_gain_suite35_20261018_01/rough_0p35_zero_readback.json": "5633c0d1526e4062b585023013668b883ad86560376fe5940848b8d93e8a77fe",
+    "results/b22_gain_suite35_20261018_01/rough_0p35_B/episode_0/controls.jsonl.gz": "f58c857de7abeef3f7c4b6e373c1d0ef49b6781aba59389551047558fec734e0",
+    "results/b22_gain_suite35_20261018_01/rough_0p35_B_readback.json": "9f6e720b5892687a4979329c8f750b7b356c112c2cc7026a5b04e3c728e08cd7",
+    "runtime/d1_b22/research/course_impl08/full_drive_env_08.py": "d3895e09e7f3492e58dce3ffe8d572b0223f1639f0ee6c1581c673a7ed1ff787",
+    "runtime/d1_b22/research/course_impl08/rl16_heldout_score_08.py": "9ca55bff625125aac63e598c06f2177cb88518a7268febd0abb48bbccfe5bc1f",
+    "runtime/d1_b22/research/upright11/world_upright_course_11.py": "504cf329cabf889be5e2a6803b442114a6153437c87c992318bb12f8049efdb0",
+    "runtime/d1_b22/research/continuation22/train22.py": "5bf26ed060ebcf5638bb0a1877b3ec0e339be18164f5c2f3a222899f44bcf008",
+    "runtime/d1_b22/research/continuation22/curriculum22.py": "53932c20efc59ec0488328a9ea82d7a1904ec9f9f3e497bf9583d6a686db57e5",
+    "runtime/d1_b22/research/continuation22/recipes22.py": "335cfbcb1e36a35112cb23896894bbf1c0e7c80cea9725bc4bf2dac2253090d4",
+    "results/d1_main_route_execution_20260930_22/spec22.json": "f061b64320e8fae35dd8ca0d186242579b4640bd5fecdd3e6da63d2f6983f8f4",
+    "runtime/d1_b22/checkpoint/final_metadata.json": "af700d1f2612e441c8f0560cca38c77b6a854526d3e841e544ef9d5321672830",
+    "runtime/d1_b22/checkpoint/final_model.zip": "7bd58b5d6114745b12b4284be3f861f973a5d31d9d596365a5b54cb5e0d76691",
+    "results/d1_main_route_execution_20260930_22/train_B_1/session.json": "a10844e311a1b841d2a898187e17a59d2ca50a41091c34d07d6fc56b72f03749",
+    "results/d1_main_route_execution_20260930_22/train_B_1/parentage.json": "2528158d348bdfc9f3eef7f71540419fafcd9d59c498a7d1dbeb26d3cbe414b7",
+    "results/d1_main_route_execution_20260930_22/train_B_1/training/training_blocks_manifest.json": "a2d8c7c7605fe87cdbdbf02a65c8beec48f73e76da064f2a621e591a66877b0b",
+    "results/d1_main_route_execution_20260930_22/train_B_1/training/curriculum_events.ndjson": "d7dd511c238f1df28307227ab4d02230fc837edb18efb34136fff58f230a599d",
+    "results/d1_main_route_execution_20260930_22/train_B_1/training/training_numeric_blocks/controls_0000.npz": "aa96aeadec4cc7d4e20edb06ef49867ff12555f7cf0273b9158b42a9f6f52622",
+    "results/d1_main_route_execution_20260930_22/train_B_1/training/full_control_records_0000.jsonl.gz": "06bf5b819f0f9c2f3f4fc018370e5da8ffd1552cd21fdef4c45d04d7d5a7c920",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/final_checkpoint/final_model.zip": "1fcfe833d8a7cfdbbc224c9007a35e44c035674ce948b51557434b77838476fb",
+    "/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation15/grouped_01/final_checkpoint/final_metadata.json": "cce486dc3f0ae9f0db61babc196cb48b692644659523cab5a7aecbc9fcadeb6a"
+  }
+}
