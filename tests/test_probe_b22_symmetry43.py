@@ -52,3 +52,21 @@ def test_cli_plan_ignores_unrelated_regular_scripts_package(tmp_path):
                             cwd=tmp_path, env={**os.environ, 'PYTHONPATH': str(tmp_path)},
                             text=True, capture_output=True, check=True, timeout=10)
     assert json.loads(result.stdout)['status'] == 'PLAN_ONLY'
+
+
+def test_actual_cold_symmetry_loader_does_not_import_simulator():
+    code = '''import importlib.util,sys
+s=importlib.util.spec_from_file_location('probe43','scripts/probe_b22_symmetry43.py')
+m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
+class NoSimulator:
+ def find_spec(self,fullname,path=None,target=None):
+  if fullname.partition('.')[0] in ('mujoco','engine_binding','torch','stable_baselines3'):
+   raise ImportError('forbidden '+fullname)
+sys.meta_path.insert(0,NoSimulator())
+p=m.load_symmetry()
+import numpy as np
+assert p.mirror_observation(np.zeros(99,np.float32)).shape==(99,)
+assert not any(x in sys.modules for x in ('mujoco','engine_binding','torch','stable_baselines3'))
+'''
+    subprocess.run([sys.executable, '-B', '-c', code], cwd=ROOT,
+                   capture_output=True, text=True, check=True, timeout=10)

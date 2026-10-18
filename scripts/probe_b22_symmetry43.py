@@ -22,10 +22,10 @@ _guard = importlib.util.module_from_spec(_guard_spec)
 _guard_spec.loader.exec_module(_guard)
 check_memory, snapshot_memory = _guard.check_memory, _guard.snapshot_memory
 
-UNIT = 'wheel-symmetry43-numeric01-20261018-01.service'
+UNIT = 'wheel-symmetry43-numeric02-20261018-01.service'
 SCOPE = f'/user.slice/user-{os.getuid()}.slice/user@{os.getuid()}.service/app.slice/{UNIT}'
-OUTPUT = ROOT/'results/b22_symmetry43_numeric_20261018_01'
-PLAN = ROOT/'results/b22_symmetry43_numeric_plan_20261018_01.json'
+OUTPUT = ROOT/'results/b22_symmetry43_numeric_20261018_02'
+PLAN = ROOT/'results/b22_symmetry43_numeric_plan_20261018_02.json'
 FOLDER = ROOT/'results/b22_tracking_reward42_20261018_05/train_deficit8/final_checkpoint'
 FIXTURE = ROOT/'results/b22_numpy36_20261018_01/inputs.f32.bin'
 MODEL_SHA = '44cbf9a4363ff42af78d8e54049e0dbade2bea74701e9a27073bcb9e656f3239'
@@ -91,6 +91,15 @@ def scope():
             'start_effective_bytes': 4 << 30, 'reserve_effective_bytes': 2 << 30,
             'memory_high_bytes': 2 << 30, 'memory_max_bytes': 3 << 30, 'swap_max_bytes': 0,
             'absolute_tolerance': 1e-6, 'retry_permitted': False, 'closed_loop_qualification': False}
+
+
+def load_symmetry():
+    # Package __init__ eagerly imports the simulator; this pure numerical path
+    # deliberately loads the same SHA-bound module without that package chain.
+    spec = importlib.util.spec_from_file_location('symmetry43_pure', ROOT/AUTHORED[1])
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
 def extract(model, np, torch):
@@ -173,11 +182,9 @@ def execute():
         import stable_baselines3 as sb3
         import torch
 
-        from wheel_legged_control.d1.policy_symmetry43 import (
-            SymmetricActor,
-            mirror_action,
-            mirror_observation,
-        )
+        symmetry = load_symmetry()
+        SymmetricActor = symmetry.SymmetricActor
+        mirror_action, mirror_observation = symmetry.mirror_action, symmetry.mirror_observation
         metadata = json.loads((FOLDER/'final_metadata.json').read_text())
         require((np.__version__, torch.__version__, sb3.__version__) ==
                 (metadata['numpy_version'], metadata['torch_version'], metadata['sb3_version']), 'runtime versions differ')
