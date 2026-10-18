@@ -1,0 +1,744 @@
+{
+  "format": "wheel-b22-half-gain-analytic-necessary-condition-failure-v1",
+  "status": "ANALYTIC_NECESSARY_CONDITION_FAILURE",
+  "created_utc": "2026-10-18T05:02:37.072906+00:00",
+  "scope": "The frozen original six contribution pairs, preserving the five closed C35 half-gain/zero pairs and six validated zero reference results (including C37 ramp zero). This is a necessary-condition bound, not a completed-matrix verdict.",
+  "full_matrix_verdict": null,
+  "RL_contribution_passed": null,
+  "finite_suite_task_qualification_passed": null,
+  "qualification_granted": false,
+  "original_attempts": {
+    "C35_status": "INCOMPLETE",
+    "C35_actual_counts": null,
+    "C37_status": "INCOMPLETE",
+    "C37_actual_counts": null,
+    "receipts_modified": false
+  },
+  "original_gate_constants": {
+    "BRANCH_B_MIN_PAIRS": 4,
+    "BRANCH_B_POOLED_SSE_FRACTION": 0.85,
+    "BRANCH_B_PER_PAIR_SSE_TOLERANCE": 1.02,
+    "BRANCH_B_MIN_NO_WORSE_PAIRS": 4
+  },
+  "branch_a": {
+    "requires": "at least one genuine zero task_fail -> policy task_pass conversion, no regression, shared prerequisites and cost gate",
+    "validated_zero_tasks": [
+      {
+        "case_id": "flat_0p6",
+        "source": "C35 closed zero",
+        "seed": 181201,
+        "task_passed": true
+      },
+      {
+        "case_id": "flat_1p6",
+        "source": "C35 closed zero",
+        "seed": 181202,
+        "task_passed": true
+      },
+      {
+        "case_id": "flat_1p2_yaw",
+        "source": "C35 closed zero",
+        "seed": 181203,
+        "task_passed": true
+      },
+      {
+        "case_id": "bumps_0p4",
+        "source": "C35 closed zero",
+        "seed": 181204,
+        "task_passed": true
+      },
+      {
+        "case_id": "rough_0p35",
+        "source": "C35 closed zero",
+        "seed": 181205,
+        "task_passed": true
+      },
+      {
+        "case_id": "ramp_0p45_complete",
+        "source": "C37 closed ramp zero",
+        "seed": 181206,
+        "task_passed": true
+      }
+    ],
+    "zero_failures": 0,
+    "maximum_possible_conversions_with_fixed_zero_references": 0,
+    "necessary_condition_can_pass": false
+  },
+  "branch_b": {
+    "requires": "at least four common task-passing pairs, pooled policy SSE <=0.85*zero SSE, at least four pairs with policy SSE<=1.02*zero SSE",
+    "observed_pairs": [
+      {
+        "case_id": "flat_0p6",
+        "profile": "flat_0p6",
+        "seed": 181201,
+        "zero_sse": 1.1306151519310728,
+        "half_gain_sse": 1.2561454795617615,
+        "ratio": 1.1110283436554738,
+        "no_worse_gate": 1.02,
+        "satisfies_no_worse": false,
+        "zero_task_passed": true,
+        "half_gain_task_passed": true,
+        "drive_window": [
+          175,
+          695
+        ],
+        "paired_initial_arrays_and_complete_reset_and_robot_recomputed": true,
+        "pairing_identity": {
+          "initial_arrays": {
+            "qpos": {
+              "dtype": "<f8",
+              "shape": [
+                23
+              ],
+              "sha256": "99a31e3dde467aca8d45f499874f517980a1f319b906618524874e40ae5bc65d"
+            },
+            "qvel": {
+              "dtype": "<f8",
+              "shape": [
+                22
+              ],
+              "sha256": "86d2cf5b090f43ee54d8f7c1dcf746a853951191457ff6dac96269a9d24860b9"
+            },
+            "ctrl": {
+              "dtype": "<f8",
+              "shape": [
+                16
+              ],
+              "sha256": "38723a2e5e8a17aa7950dc008209944e898f69a7bd10a23c839d341e935fd5ca"
+            },
+            "qacc_warmstart": {
+              "dtype": "<f8",
+              "shape": [
+                22
+              ],
+              "sha256": "86d2cf5b090f43ee54d8f7c1dcf746a853951191457ff6dac96269a9d24860b9"
+            },
+            "observation": {
+              "dtype": "<f4",
+              "shape": [
+                99
+              ],
+              "sha256": "dad718f1e7efc663a8e291a46ce86da9923550e2c2013b377edeab75572330d9"
+            },
+            "time": {
+              "dtype": "<f8",
+              "shape": [],
+              "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+            }
+          },
+          "complete_control_reset_sha256": "a52659b68d1436158b3fca56bac2b6109222e9af27bf9d6ab9115e7b7387ab09",
+          "compiled_robot_course": "ec119531099d3e927896bc3026984ed3f86e2fbb69e3bcb542b4df228a9850d9"
+        }
+      },
+      {
+        "case_id": "flat_1p6",
+        "profile": "flat_1p6",
+        "seed": 181202,
+        "zero_sse": 1.5612346988066017,
+        "half_gain_sse": 1.6770574345297096,
+        "ratio": 1.074186626656224,
+        "no_worse_gate": 1.02,
+        "satisfies_no_worse": false,
+        "zero_task_passed": true,
+        "half_gain_task_passed": true,
+        "drive_window": [
+          175,
+          895
+        ],
+        "paired_initial_arrays_and_complete_reset_and_robot_recomputed": true,
+        "pairing_identity": {
+          "initial_arrays": {
+            "qpos": {
+              "dtype": "<f8",
+              "shape": [
+                23
+              ],
+              "sha256": "99a31e3dde467aca8d45f499874f517980a1f319b906618524874e40ae5bc65d"
+            },
+            "qvel": {
+              "dtype": "<f8",
+              "shape": [
+                22
+              ],
+              "sha256": "86d2cf5b090f43ee54d8f7c1dcf746a853951191457ff6dac96269a9d24860b9"
+            },
+            "ctrl": {
+              "dtype": "<f8",
+              "shape": [
+                16
+              ],
+              "sha256": "38723a2e5e8a17aa7950dc008209944e898f69a7bd10a23c839d341e935fd5ca"
+            },
+            "qacc_warmstart": {
+              "dtype": "<f8",
+              "shape": [
+                22
+              ],
+              "sha256": "86d2cf5b090f43ee54d8f7c1dcf746a853951191457ff6dac96269a9d24860b9"
+            },
+            "observation": {
+              "dtype": "<f4",
+              "shape": [
+                99
+              ],
+              "sha256": "dad718f1e7efc663a8e291a46ce86da9923550e2c2013b377edeab75572330d9"
+            },
+            "time": {
+              "dtype": "<f8",
+              "shape": [],
+              "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+            }
+          },
+          "complete_control_reset_sha256": "a52659b68d1436158b3fca56bac2b6109222e9af27bf9d6ab9115e7b7387ab09",
+          "compiled_robot_course": "ec119531099d3e927896bc3026984ed3f86e2fbb69e3bcb542b4df228a9850d9"
+        }
+      },
+      {
+        "case_id": "flat_1p2_yaw",
+        "profile": "yaw_1p2",
+        "seed": 181203,
+        "zero_sse": 19.92690839223292,
+        "half_gain_sse": 20.226082662008718,
+        "ratio": 1.0150135818305066,
+        "no_worse_gate": 1.02,
+        "satisfies_no_worse": true,
+        "zero_task_passed": true,
+        "half_gain_task_passed": true,
+        "drive_window": [
+          175,
+          815
+        ],
+        "paired_initial_arrays_and_complete_reset_and_robot_recomputed": true,
+        "pairing_identity": {
+          "initial_arrays": {
+            "qpos": {
+              "dtype": "<f8",
+              "shape": [
+                23
+              ],
+              "sha256": "99a31e3dde467aca8d45f499874f517980a1f319b906618524874e40ae5bc65d"
+            },
+            "qvel": {
+              "dtype": "<f8",
+              "shape": [
+                22
+              ],
+              "sha256": "86d2cf5b090f43ee54d8f7c1dcf746a853951191457ff6dac96269a9d24860b9"
+            },
+            "ctrl": {
+              "dtype": "<f8",
+              "shape": [
+                16
+              ],
+              "sha256": "38723a2e5e8a17aa7950dc008209944e898f69a7bd10a23c839d341e935fd5ca"
+            },
+            "qacc_warmstart": {
+              "dtype": "<f8",
+              "shape": [
+                22
+              ],
+              "sha256": "86d2cf5b090f43ee54d8f7c1dcf746a853951191457ff6dac96269a9d24860b9"
+            },
+            "observation": {
+              "dtype": "<f4",
+              "shape": [
+                99
+              ],
+              "sha256": "dad718f1e7efc663a8e291a46ce86da9923550e2c2013b377edeab75572330d9"
+            },
+            "time": {
+              "dtype": "<f8",
+              "shape": [],
+              "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+            }
+          },
+          "complete_control_reset_sha256": "a52659b68d1436158b3fca56bac2b6109222e9af27bf9d6ab9115e7b7387ab09",
+          "compiled_robot_course": "ec119531099d3e927896bc3026984ed3f86e2fbb69e3bcb542b4df228a9850d9"
+        }
+      },
+      {
+        "case_id": "bumps_0p4",
+        "profile": "bumps_0p4",
+        "seed": 181204,
+        "zero_sse": 4.674006387762613,
+        "half_gain_sse": 4.891287683861078,
+        "ratio": 1.046487162847562,
+        "no_worse_gate": 1.02,
+        "satisfies_no_worse": false,
+        "zero_task_passed": true,
+        "half_gain_task_passed": true,
+        "drive_window": [
+          175,
+          655
+        ],
+        "paired_initial_arrays_and_complete_reset_and_robot_recomputed": true,
+        "pairing_identity": {
+          "initial_arrays": {
+            "qpos": {
+              "dtype": "<f8",
+              "shape": [
+                23
+              ],
+              "sha256": "fb70a294893fcea2cefc9a77e7f643ab223a8cf1b3222e10b4468c99e6861989"
+            },
+            "qvel": {
+              "dtype": "<f8",
+              "shape": [
+                22
+              ],
+              "sha256": "86d2cf5b090f43ee54d8f7c1dcf746a853951191457ff6dac96269a9d24860b9"
+            },
+            "ctrl": {
+              "dtype": "<f8",
+              "shape": [
+                16
+              ],
+              "sha256": "38723a2e5e8a17aa7950dc008209944e898f69a7bd10a23c839d341e935fd5ca"
+            },
+            "qacc_warmstart": {
+              "dtype": "<f8",
+              "shape": [
+                22
+              ],
+              "sha256": "86d2cf5b090f43ee54d8f7c1dcf746a853951191457ff6dac96269a9d24860b9"
+            },
+            "observation": {
+              "dtype": "<f4",
+              "shape": [
+                99
+              ],
+              "sha256": "ed39727df5eac6d3071dd06873e81099d5e49e6fc5188498b1929005d4eca690"
+            },
+            "time": {
+              "dtype": "<f8",
+              "shape": [],
+              "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+            }
+          },
+          "complete_control_reset_sha256": "3e06f1a1d80d2614282933aec405295cce1a804a1a06205922ec83ed154a3749",
+          "compiled_robot_course": "ec119531099d3e927896bc3026984ed3f86e2fbb69e3bcb542b4df228a9850d9"
+        }
+      },
+      {
+        "case_id": "rough_0p35",
+        "profile": "rough_0p35",
+        "seed": 181205,
+        "zero_sse": 19.75143960941407,
+        "half_gain_sse": 19.88344767676609,
+        "ratio": 1.0066834656087094,
+        "no_worse_gate": 1.02,
+        "satisfies_no_worse": true,
+        "zero_task_passed": true,
+        "half_gain_task_passed": true,
+        "drive_window": [
+          175,
+          645
+        ],
+        "paired_initial_arrays_and_complete_reset_and_robot_recomputed": true,
+        "pairing_identity": {
+          "initial_arrays": {
+            "qpos": {
+              "dtype": "<f8",
+              "shape": [
+                23
+              ],
+              "sha256": "7cead4afec7f83223c6f8ea353e7f3485e634f64f8c9bbeeafd9950674f1be35"
+            },
+            "qvel": {
+              "dtype": "<f8",
+              "shape": [
+                22
+              ],
+              "sha256": "86d2cf5b090f43ee54d8f7c1dcf746a853951191457ff6dac96269a9d24860b9"
+            },
+            "ctrl": {
+              "dtype": "<f8",
+              "shape": [
+                16
+              ],
+              "sha256": "38723a2e5e8a17aa7950dc008209944e898f69a7bd10a23c839d341e935fd5ca"
+            },
+            "qacc_warmstart": {
+              "dtype": "<f8",
+              "shape": [
+                22
+              ],
+              "sha256": "86d2cf5b090f43ee54d8f7c1dcf746a853951191457ff6dac96269a9d24860b9"
+            },
+            "observation": {
+              "dtype": "<f4",
+              "shape": [
+                99
+              ],
+              "sha256": "0a0e12a50a4f5ccdb79dde342094cb846093bfb7ca084d5de50925c58639a04e"
+            },
+            "time": {
+              "dtype": "<f8",
+              "shape": [],
+              "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+            }
+          },
+          "complete_control_reset_sha256": "2826be51a54efc346491641cdd8d091b0c357319a2398d3ac249679b525878b3",
+          "compiled_robot_course": "ec119531099d3e927896bc3026984ed3f86e2fbb69e3bcb542b4df228a9850d9"
+        }
+      }
+    ],
+    "fixed_no_worse_count": 2,
+    "fixed_worse_count": 3,
+    "unobserved_original_pair": "ramp_0p45_complete half-gain B",
+    "remaining_pairs": 1,
+    "best_case_final_no_worse_count": 3,
+    "required_no_worse_count": 4,
+    "necessary_condition_can_pass": false,
+    "argument": "Even assigning the missing ramp B the most favorable valid passing outcome can add at most one no-worse pair: 2+1=3<4. If it fails its task, it adds none. The pooled SSE and cost gates cannot rescue this independent failed conjunct."
+  },
+  "analytic_contribution_possible_with_fixed_evidence": false,
+  "excluded_from_original_six_count": [
+    "true15mm_step",
+    "mirrored_yaw"
+  ],
+  "provenance": {
+    "same_final_checkpoint_sha256": "7bd58b5d6114745b12b4284be3f861f973a5d31d9d596365a5b54cb5e0d76691",
+    "same_loaded_full_policy_state_sha256": "59440de0c5beb102cec0d292838fb9b125eca7eb56bbffc06d1eaec46ec7aa48",
+    "five_pairs_initial_array_reset_geometry_hashes_independently_recomputed": true,
+    "five_pairs_same_seed_command_horizons": true,
+    "C35_release_source_subset_verified_in_all_ten_sessions": true,
+    "C37_worker35_derivation": "only the C37 admission literal; original zero control/reset/counters/archive unchanged",
+    "old_raw_native_590_files_rescanned": false,
+    "input_identities": {
+      "results/b22_gain_suite35_20261018_01/flat_0p6_zero_readback.json": {
+        "bytes": 27164,
+        "sha256": "20e7509c0f46ec5bafc53bc99cef17706779bec17acf1b23f7e9da751cd4daa7"
+      },
+      "results/b22_gain_suite35_20261018_01/flat_0p6_zero/episode_0/initial_state.npz": {
+        "bytes": 2564,
+        "sha256": "71e70783662bf51265688ffc662a17d89883479ad239b510d9fbee9e8aec65ae"
+      },
+      "results/b22_gain_suite35_20261018_01/flat_0p6_zero/episode_0/reset.json": {
+        "bytes": 10456,
+        "sha256": "77fa747952efb7fcb085172b78642892a1cfc17a28ee5ed82c167baebdc26dc8"
+      },
+      "results/b22_gain_suite35_20261018_01/flat_0p6_zero/construction_receipt.json": {
+        "bytes": 38652,
+        "sha256": "33a81f2b55c4ab06dd3435b0514b92e03a550839d3ffde776724c2a8d65e6acd"
+      },
+      "results/b22_gain_suite35_20261018_01/flat_0p6_zero/session.json": {
+        "bytes": 862409,
+        "sha256": "78f42f1f88bc17b7461e252ba3073d0ad531dccdb3305fccbf48749910873d70"
+      },
+      "results/b22_gain_suite35_20261018_01/flat_0p6_zero/worker_receipt.json": {
+        "bytes": 23004,
+        "sha256": "eb50b45d53dfb0c20dc3e02378f1d65bac29bf17eca7528d7df05ed350a37c04"
+      },
+      "results/b22_gain_suite35_20261018_01/flat_0p6_B_readback.json": {
+        "bytes": 27296,
+        "sha256": "a62175ed5aef1cd8a2ca5dc247fab2fda623c8bcf223d146592ac14dfca03a59"
+      },
+      "results/b22_gain_suite35_20261018_01/flat_0p6_B/episode_0/initial_state.npz": {
+        "bytes": 2564,
+        "sha256": "71e70783662bf51265688ffc662a17d89883479ad239b510d9fbee9e8aec65ae"
+      },
+      "results/b22_gain_suite35_20261018_01/flat_0p6_B/episode_0/reset.json": {
+        "bytes": 10456,
+        "sha256": "0dcdf5285033cd5d73ce58e6be6ac257125c7d9b8c4c18ab43ce02aeea2f9d19"
+      },
+      "results/b22_gain_suite35_20261018_01/flat_0p6_B/construction_receipt.json": {
+        "bytes": 38652,
+        "sha256": "849d2d44252e13ed8e88c5bdef378550f94b8ccb6d455905c7449318f3e4d436"
+      },
+      "results/b22_gain_suite35_20261018_01/flat_0p6_B/session.json": {
+        "bytes": 862388,
+        "sha256": "0f3a1d2e38b1bff6e0989a002fc0f206f36789bdc7ed38c78ef9eda09f9b54ea"
+      },
+      "results/b22_gain_suite35_20261018_01/flat_0p6_B/worker_receipt.json": {
+        "bytes": 24780,
+        "sha256": "ddba6c1db646068324b2819706376b59dbc7dfb1627eddf7fcd22e5f369a0f9d"
+      },
+      "results/b22_gain_suite35_20261018_01/flat_1p6_zero_readback.json": {
+        "bytes": 33456,
+        "sha256": "e9d7714b217773e3c2a53ab1a73de2e69562e4aaacf38f5bdc9329d6b9dd4412"
+      },
+      "results/b22_gain_suite35_20261018_01/flat_1p6_zero/episode_0/initial_state.npz": {
+        "bytes": 2564,
+        "sha256": "71e70783662bf51265688ffc662a17d89883479ad239b510d9fbee9e8aec65ae"
+      },
+      "results/b22_gain_suite35_20261018_01/flat_1p6_zero/episode_0/reset.json": {
+        "bytes": 10456,
+        "sha256": "b61c1e615219f2744697a7c1cc6558bba40c200169b94142203888d5bffe85b5"
+      },
+      "results/b22_gain_suite35_20261018_01/flat_1p6_zero/construction_receipt.json": {
+        "bytes": 38652,
+        "sha256": "cae87ffd44756f1cde8b03696cb5c5280bd06622bfbc249ecf1c7e5385ded2dd"
+      },
+      "results/b22_gain_suite35_20261018_01/flat_1p6_zero/session.json": {
+        "bytes": 862409,
+        "sha256": "c59606da672e47d2ac0d629f9f14936d95900367317cb974c977ec49130cc312"
+      },
+      "results/b22_gain_suite35_20261018_01/flat_1p6_zero/worker_receipt.json": {
+        "bytes": 23002,
+        "sha256": "e44228fbc9f5e3b9d6b49f6880c2b0917a7da4d4f03621e4b1ae2d6f964b11e3"
+      },
+      "results/b22_gain_suite35_20261018_01/flat_1p6_B_readback.json": {
+        "bytes": 33553,
+        "sha256": "69a54f428d5bc9948259ed719a1f428836f40219585a4ca01f29819f932592f8"
+      },
+      "results/b22_gain_suite35_20261018_01/flat_1p6_B/episode_0/initial_state.npz": {
+        "bytes": 2564,
+        "sha256": "71e70783662bf51265688ffc662a17d89883479ad239b510d9fbee9e8aec65ae"
+      },
+      "results/b22_gain_suite35_20261018_01/flat_1p6_B/episode_0/reset.json": {
+        "bytes": 10456,
+        "sha256": "87d431b56801088a30ba2d4b379329cde5eddd44b7b9a4279d2d6bfab8146ab5"
+      },
+      "results/b22_gain_suite35_20261018_01/flat_1p6_B/construction_receipt.json": {
+        "bytes": 38652,
+        "sha256": "97053fcc568f52e83f31a11cdc1539b548a1d298274405a1c553a03c108c0b7c"
+      },
+      "results/b22_gain_suite35_20261018_01/flat_1p6_B/session.json": {
+        "bytes": 862388,
+        "sha256": "8c067291db8c06263ffa6764a82b6a5d9117fedd5c2fdb79450c1ee971bbdf1b"
+      },
+      "results/b22_gain_suite35_20261018_01/flat_1p6_B/worker_receipt.json": {
+        "bytes": 24771,
+        "sha256": "b648fa5e4e5a611060ccdc769810f717ebd2fe06469bbb3e4ca15aefb0fe9675"
+      },
+      "results/b22_gain_suite35_20261018_01/yaw_1p2_zero_readback.json": {
+        "bytes": 31270,
+        "sha256": "d3549f323c73eaded59e90b64c3a384183c33476e58370d9a1c79af9b3bae24a"
+      },
+      "results/b22_gain_suite35_20261018_01/yaw_1p2_zero/episode_0/initial_state.npz": {
+        "bytes": 2564,
+        "sha256": "71e70783662bf51265688ffc662a17d89883479ad239b510d9fbee9e8aec65ae"
+      },
+      "results/b22_gain_suite35_20261018_01/yaw_1p2_zero/episode_0/reset.json": {
+        "bytes": 10455,
+        "sha256": "017084fc214ac68f0598069878a345c477d71be00ec968b6e72809a517df1965"
+      },
+      "results/b22_gain_suite35_20261018_01/yaw_1p2_zero/construction_receipt.json": {
+        "bytes": 38652,
+        "sha256": "e0494c47d205a0eb17769d474bfbc7d2bce1ab973a1abdd59b3e56c585ac33c0"
+      },
+      "results/b22_gain_suite35_20261018_01/yaw_1p2_zero/session.json": {
+        "bytes": 862401,
+        "sha256": "7404800e26201ba787bcdf1dd765bb24b3e13e25d1a5e36d27795821e7c396d1"
+      },
+      "results/b22_gain_suite35_20261018_01/yaw_1p2_zero/worker_receipt.json": {
+        "bytes": 23505,
+        "sha256": "b13bdd24471a7282cf71c01f7811056945e7a2d8b43fd114804306a0f76611b2"
+      },
+      "results/b22_gain_suite35_20261018_01/yaw_1p2_B_readback.json": {
+        "bytes": 31403,
+        "sha256": "3a3858701ee9026170337a7bc4e8a04f08851935af37827ac306d198483eafa6"
+      },
+      "results/b22_gain_suite35_20261018_01/yaw_1p2_B/episode_0/initial_state.npz": {
+        "bytes": 2564,
+        "sha256": "71e70783662bf51265688ffc662a17d89883479ad239b510d9fbee9e8aec65ae"
+      },
+      "results/b22_gain_suite35_20261018_01/yaw_1p2_B/episode_0/reset.json": {
+        "bytes": 10455,
+        "sha256": "3a1b371dc35c3503853b9d9c734e5e60f2982ab93b015decac026d244719937e"
+      },
+      "results/b22_gain_suite35_20261018_01/yaw_1p2_B/construction_receipt.json": {
+        "bytes": 38652,
+        "sha256": "c06823d0b4bf7154726ef078af0245e4fa508cade07087e1848e2371a002f0f8"
+      },
+      "results/b22_gain_suite35_20261018_01/yaw_1p2_B/session.json": {
+        "bytes": 862380,
+        "sha256": "7a66f0018e755a4cf77a394a348e87aa8239c5ceefe2460094c94d1d2bbb236f"
+      },
+      "results/b22_gain_suite35_20261018_01/yaw_1p2_B/worker_receipt.json": {
+        "bytes": 25276,
+        "sha256": "949f36919db828824a4cc186ae679877fe8f669e69bb838276f6d411761cac7e"
+      },
+      "results/b22_gain_suite35_20261018_01/bumps_0p4_zero_readback.json": {
+        "bytes": 26395,
+        "sha256": "49c512d3ecc22fbfadbdf0f843fcbbae21502206f1ac549a8e8a607a036fc803"
+      },
+      "results/b22_gain_suite35_20261018_01/bumps_0p4_zero/episode_0/initial_state.npz": {
+        "bytes": 2564,
+        "sha256": "505d959369f2bd6e26096c85ad413b365cbb386d7e5571cfd37134f0578a7924"
+      },
+      "results/b22_gain_suite35_20261018_01/bumps_0p4_zero/episode_0/reset.json": {
+        "bytes": 10458,
+        "sha256": "7c0681ff1bdd8428355067e95ee97437c59b9ef50289b05f4613cc786dcbefa0"
+      },
+      "results/b22_gain_suite35_20261018_01/bumps_0p4_zero/construction_receipt.json": {
+        "bytes": 38652,
+        "sha256": "e0f54eb1c42d02fc152cfb4f06578256e11b45e3695ff0316ae430bf8db92b81"
+      },
+      "results/b22_gain_suite35_20261018_01/bumps_0p4_zero/session.json": {
+        "bytes": 862417,
+        "sha256": "eac7dd2088c23aa3acd0c7af7f633cee2e275fb86300f00da6eda9801f8c0948"
+      },
+      "results/b22_gain_suite35_20261018_01/bumps_0p4_zero/worker_receipt.json": {
+        "bytes": 23606,
+        "sha256": "d4fbfe8fb2bc656c25f406432ad6073d3edc62132fed04790c0488c06321d5ec"
+      },
+      "results/b22_gain_suite35_20261018_01/bumps_0p4_B_readback.json": {
+        "bytes": 26535,
+        "sha256": "d186b9284dab281573a9d0f8e41e33b556737f8d0651c4863fd60ec83ccd3d16"
+      },
+      "results/b22_gain_suite35_20261018_01/bumps_0p4_B/episode_0/initial_state.npz": {
+        "bytes": 2564,
+        "sha256": "505d959369f2bd6e26096c85ad413b365cbb386d7e5571cfd37134f0578a7924"
+      },
+      "results/b22_gain_suite35_20261018_01/bumps_0p4_B/episode_0/reset.json": {
+        "bytes": 10458,
+        "sha256": "ec085d2123dadce72718eb5cd63b729c22e1c0c2064ede636b01aafae4533a0f"
+      },
+      "results/b22_gain_suite35_20261018_01/bumps_0p4_B/construction_receipt.json": {
+        "bytes": 38652,
+        "sha256": "adea35298d7f286eae4d9795d56bc97e13ee3ba5f0fcfd1f18a2f43904997aa8"
+      },
+      "results/b22_gain_suite35_20261018_01/bumps_0p4_B/session.json": {
+        "bytes": 862396,
+        "sha256": "2003be7649973105f6c205ec822bb567d5e7c61223b06a87b472ac954ab0e1ad"
+      },
+      "results/b22_gain_suite35_20261018_01/bumps_0p4_B/worker_receipt.json": {
+        "bytes": 25376,
+        "sha256": "23064514681975ffe86357db01ff98ddee6ff4d20787e2b6992b684754a347af"
+      },
+      "results/b22_gain_suite35_20261018_01/rough_0p35_zero_readback.json": {
+        "bytes": 26046,
+        "sha256": "5633c0d1526e4062b585023013668b883ad86560376fe5940848b8d93e8a77fe"
+      },
+      "results/b22_gain_suite35_20261018_01/rough_0p35_zero/episode_0/initial_state.npz": {
+        "bytes": 2564,
+        "sha256": "e69a933ebc4af23b413e65f82f5980dbce67ccf4f3139dd9688d3f72f6df4934"
+      },
+      "results/b22_gain_suite35_20261018_01/rough_0p35_zero/episode_0/reset.json": {
+        "bytes": 10453,
+        "sha256": "2756b67986a0d0efa0b26e1fbf26fddf45fb4284192101f56d33fa88379ca053"
+      },
+      "results/b22_gain_suite35_20261018_01/rough_0p35_zero/construction_receipt.json": {
+        "bytes": 38652,
+        "sha256": "6be784f3a2a728626540698712dd51dc40c5be48e1fe200fb5a8348efa6b7d1f"
+      },
+      "results/b22_gain_suite35_20261018_01/rough_0p35_zero/session.json": {
+        "bytes": 862425,
+        "sha256": "204358c8761d1b5a4225f040ba3c77ac50ea2c5ead5affcd8aae84e40da263b3"
+      },
+      "results/b22_gain_suite35_20261018_01/rough_0p35_zero/worker_receipt.json": {
+        "bytes": 23658,
+        "sha256": "bb46404dd17f5a17984c9349e91e53207fc789f697f8d919224608e7a01c9d7d"
+      },
+      "results/b22_gain_suite35_20261018_01/rough_0p35_B_readback.json": {
+        "bytes": 26200,
+        "sha256": "9f6e720b5892687a4979329c8f750b7b356c112c2cc7026a5b04e3c728e08cd7"
+      },
+      "results/b22_gain_suite35_20261018_01/rough_0p35_B/episode_0/initial_state.npz": {
+        "bytes": 2564,
+        "sha256": "e69a933ebc4af23b413e65f82f5980dbce67ccf4f3139dd9688d3f72f6df4934"
+      },
+      "results/b22_gain_suite35_20261018_01/rough_0p35_B/episode_0/reset.json": {
+        "bytes": 10453,
+        "sha256": "de10ef91a3cfe90f81d784ec70432d49a8324cf500f0630a7d23863524264f16"
+      },
+      "results/b22_gain_suite35_20261018_01/rough_0p35_B/construction_receipt.json": {
+        "bytes": 38652,
+        "sha256": "66bdc48d400024ba4acd32d5d434c1ffe46654614162f8d11353eb40cce22c11"
+      },
+      "results/b22_gain_suite35_20261018_01/rough_0p35_B/session.json": {
+        "bytes": 862404,
+        "sha256": "0026a5bce2f342055478e14ba6440aa380334f65747daed2655f7543bc43e21a"
+      },
+      "results/b22_gain_suite35_20261018_01/rough_0p35_B/worker_receipt.json": {
+        "bytes": 25439,
+        "sha256": "0ddc38de37faa3661b9b9e7cda96ac50b2842ce67a0c593b5da0e48bf520900d"
+      },
+      "results/b22_gain_completion37_20261018_01/ramp_0p45_complete_zero_readback.json": {
+        "bytes": 49634,
+        "sha256": "320d6c2a9768c23d8cad61515543dcc95934695c15c3891741aaa6f358755a15"
+      },
+      "results/b22_gain_completion37_20261018_01/ramp_0p45_complete_zero/episode_0/initial_state.npz": {
+        "bytes": 2564,
+        "sha256": "9be70206fbe7057f1ed2e15541ffea41c6b3299a617f36a465273816702bfd35"
+      },
+      "results/b22_gain_completion37_20261018_01/ramp_0p45_complete_zero/episode_0/reset.json": {
+        "bytes": 11236,
+        "sha256": "ca84e8a569fe805c44c17579b144e09c48f5593a06f6512c29c481f327193478"
+      },
+      "results/b22_gain_completion37_20261018_01/ramp_0p45_complete_zero/construction_receipt.json": {
+        "bytes": 38652,
+        "sha256": "e5765ce5ea72b8a2e803a241960d9fb7fec7a3006e3a2fbb8e74e1974840aef9"
+      },
+      "results/b22_gain_completion37_20261018_01/ramp_0p45_complete_zero/session.json": {
+        "bytes": 1003604,
+        "sha256": "36bfc3931ef5e80fd315811e6845289a2eba28a8819c16da3353aee1796b6bcb"
+      },
+      "results/b22_gain_completion37_20261018_01/ramp_0p45_complete_zero/worker_receipt.json": {
+        "bytes": 24508,
+        "sha256": "b89e93eed0a7a353dda34cb8642193e008849c5505e6cdbf989370013ce9caa9"
+      },
+      "results/b22_gain_completion37_20261018_01/ramp_0p45_complete_zero/derived_sources37.json": {
+        "bytes": 525,
+        "sha256": "718460978c1fdba210db1fba86c20ffdbc6d5441c26803ff7376bfd1114e2dfa"
+      },
+      "results/b22_gain_suite35_20261018_01/report.json": {
+        "bytes": 3476,
+        "sha256": "1f2464480c13c57ee7a237f822bd35169adede9daeea77abd91017749cca71a3"
+      },
+      "results/b22_gain_suite35_20261018_01/release.json": {
+        "bytes": 869062,
+        "sha256": "c0d09c7e9a969a28987b128d9f393d5a3be09f656d3c28fbcb470db6e3f2e568"
+      },
+      "results/b22_gain_completion37_20261018_01/report.json": {
+        "bytes": 2270,
+        "sha256": "12fbe111342166ac79a3eabcb044d71641073b1e2e726499ad52ea5b4928db2c"
+      },
+      "results/b22_gain_completion37_20261018_01/release.json": {
+        "bytes": 1144787,
+        "sha256": "b3a4cdddf18dcb28f7a1b1764ea66a0c3051ee06214ff5fbf1d604ad4245bb8a"
+      },
+      "runtime/d1_b22/research/course_impl08/rl16_heldout_score_08.py": {
+        "bytes": 57295,
+        "sha256": "9ca55bff625125aac63e598c06f2177cb88518a7268febd0abb48bbccfe5bc1f"
+      },
+      "runtime/d1_b22/research/continuation18/score18.py": {
+        "bytes": 23838,
+        "sha256": "7d8ae73496223d2e4807ae4205c410032784ba512663fa64d71c19c59c072a3a"
+      },
+      "scripts/read_b22_suite31.py": {
+        "bytes": 32753,
+        "sha256": "08a79bb53c449b90f3306d727326d250c2af83093d7ed1eab8ebe00e78d4ea17"
+      },
+      "scripts/run_b22_worker35.py": {
+        "bytes": 6251,
+        "sha256": "07be70b151c383a4a88a4b2b2f7c0242cb02919c9bc9561ce577c2321d6900cb"
+      },
+      "scripts/run_b22_worker37.py": {
+        "bytes": 3680,
+        "sha256": "e9a03a9c97ee48c5e2de3515063bd0d42f9a3ab886d603635208e864a581efb6"
+      },
+      "runtime/d1_b22/research/continuation18/controller18.py": {
+        "bytes": 9242,
+        "sha256": "b8f3b1d59880ca0bff7d7d4791ba823a101d396dd9f614e25414b83bd2133aba"
+      },
+      "runtime/d1_b22/research/continuation22/train22.py": {
+        "bytes": 8556,
+        "sha256": "5bf26ed060ebcf5638bb0a1877b3ec0e339be18164f5c2f3a222899f44bcf008"
+      }
+    }
+  },
+  "interpretation": [
+    "The fixed gain .5 candidate cannot satisfy the original RL contribution conjunction on any valid completion that preserves these observed pairs/zero references.",
+    "This does not prove every residual gain or every future trained policy must fail.",
+    "Two-profile38 can test NumPy backend compatibility, not repair this original full-suite contribution failure.",
+    "A future training proposal must trace parent checkpoint/optimizer history and cumulative budget; 32768 describes the B22 current training stage, not its entire ancestry."
+  ],
+  "audit_method": {
+    "saved_JSON_and_small_initial_NPZ_only": true,
+    "source_AST_constants_read_without_importing_model_or_simulator": true,
+    "models_loaded": 0,
+    "new_inferences": 0,
+    "new_physics_steps": 0,
+    "tests_run": false,
+    "frozen_sources_or_receipts_modified": false
+  },
+  "training_history_boundary": {
+    "observed_source": "runtime/d1_b22/research/continuation22/train22.py:32-33 loads load_warm_start20(...parentpaths...,stage=...), :65 learns with reset_num_timesteps=True",
+    "current_stage_transitions": 32768,
+    "cumulative_ancestry_training_transitions": null,
+    "conclusion": "The saved 32768 stage budget and num_timesteps do not establish total historical training. Parent checkpoint and optimizer provenance must be traced before another continuation proposal."
+  }
+}
