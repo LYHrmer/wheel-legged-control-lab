@@ -18,9 +18,14 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = 'C42_B22_tracking_deficit_comparison_v1'
-OUTPUT = ROOT/'results/b22_tracking_reward42_20261018_01'
-RELEASE = ROOT/'results/b22_tracking_reward42_plan_20261018_01.json'
-ADMISSIONS = ROOT/'results/b22_tracking_reward42_admissions_20261018_01'
+OUTPUT = ROOT/'results/b22_tracking_reward42_20261018_02'
+RELEASE = ROOT/'results/b22_tracking_reward42_plan_20261018_02.json'
+ADMISSIONS = ROOT/'results/b22_tracking_reward42_admissions_20261018_02'
+UNUSED_RELEASE = ROOT/'results/b22_tracking_reward42_plan_20261018_01.json'
+UNUSED_OUTPUT = ROOT/'results/b22_tracking_reward42_20261018_01'
+UNUSED_RELEASE_SHA = '7128e72d0fcfde9c0322d185e188f0648ef350c90911705fdb52e5fc8de597f0'
+UNUSED_COMMIT = '4c55bbb2baeca84dc3db897ffeaeb07329faa38e'
+RESOURCE_REVISION = 'owned_cgroup_v2'
 DRIVER = ROOT/'scripts/run_b22_tracking_reward42.py'
 WORKER = ROOT/'scripts/worker_b22_tracking_reward42.py'
 READER = ROOT/'scripts/read_b22_tracking_reward42.py'
@@ -32,6 +37,7 @@ AUTHORED = (
     'tests/test_b22_tracking_reward42_parent.py', 'scripts/worker_b22_tracking_reward42.py',
     'tests/test_b22_tracking_reward42_worker.py', 'scripts/read_b22_tracking_reward42.py',
     'tests/test_b22_tracking_reward42_reader.py',
+    'scripts/resource_guard42.py', 'tests/test_resource_guard42.py',
 )
 PINS = {
     'scripts/run_b22_suite31.py': 'f783b4d7e8380c94bd7a4755e73434179cb5c3f6a95bbcca336e235a43320c2e',
@@ -41,12 +47,20 @@ LIMITS = {'controls': 96136, 'normal_native': 480680, 'compiler_native': 6,
               'worker_pure_servo_advances': 350600, 'reader_pure_servo_advances': 190600,
               'combined_pure_servo_advances': 541200,
               'total_wall_s': 5400, 'start_effective_bytes': 6 << 30,
-              'stable_effective_bytes': 8 << 30, 'reserve_effective_bytes': 4 << 30,
-              'stable_seconds': 60, 'admission_poll_s': 5, 'admission_max_sample_gap_s': 7.5,
-              'admission_minimum_samples': 13, 'admission_max_s': 300,
+              'stable_effective_bytes': 6 << 30, 'reserve_effective_bytes': 4 << 30,
+              'stable_seconds': 10, 'admission_poll_s': 5, 'admission_max_sample_gap_s': 7.5,
+              'admission_minimum_samples': 3, 'admission_max_s': 300,
               'start_free_disk_bytes': 10 << 30, 'reserve_free_disk_bytes': 2 << 30,
               'output_quota_bytes': 8 << 30, 'required_minimum_nice': 10}
 COUNT_KEYS = ('controls', 'normal_native', 'compiler_native')
+RESOURCE_POLICY = {'memory_high_bytes': 2048 << 20, 'memory_max_bytes': 3072 << 20,
+                   'memory_swap_max_bytes': 0, 'oom_policy': 'kill',
+                   'memory_oom_group': 1,
+                   'unit': 'wheel-b22-tracking42-owned02-20261018-01.service',
+                   'owned_scope': '/user.slice/user-1000.slice/user@1000.service/app.slice/wheel-b22-tracking42-owned02-20261018-01.service',
+                   'reserve_scope': 'host and ancestors outside the owned job cgroup',
+                   'covers': 'parent, source hashing, bootstrap, workers, saved readers, comparison'}
+_resource_guard42 = None
 
 
 def require(value, message):
@@ -110,6 +124,42 @@ def reader_api():
     return load_module('_b22_tracking42_reader_api', READER)
 
 
+def resource_guard_api42():
+    global _resource_guard42
+    if _resource_guard42 is None:
+        _resource_guard42 = load_module('_b22_tracking42_resource_guard', ROOT/'scripts/resource_guard42.py')
+    return _resource_guard42
+
+
+def resource_snapshot42():
+    guard = resource_guard_api42()
+    return guard.snapshot_memory(RESOURCE_POLICY['owned_scope'])
+
+
+def check_resource_snapshot42(snapshot):
+    resource_guard_api42().check_memory(snapshot)
+    available = snapshot.get('effective_available_bytes')
+    require(type(available) is int and available >= LIMITS['reserve_effective_bytes'],
+            'C42 host/outside-ancestor RAM below 4 GiB runtime reserve or unknown')
+    return available
+
+
+def unused_budget_origin42():
+    require(not UNUSED_OUTPUT.exists() and not UNUSED_OUTPUT.is_symlink(),
+            'C42 resource revision cannot reuse a previously claimed original budget')
+    entry = identity(UNUSED_RELEASE)
+    require(entry['sha256'] == UNUSED_RELEASE_SHA, 'C42 unexecuted original release changed')
+    value = read_json(UNUSED_RELEASE)
+    require(value.get('execution_contract_id') == CONTRACT
+            and value.get('source', {}).get('git_commit') == UNUSED_COMMIT
+            and value.get('plan', {}).get('output') == str(UNUSED_OUTPUT)
+            and all(value['plan']['limits'][key] == LIMITS[key] for key in COUNT_KEYS),
+            'C42 original scientific budget identity differs')
+    return {'release': str(UNUSED_RELEASE), 'identity': entry, 'source_commit': UNUSED_COMMIT,
+            'original_output': str(UNUSED_OUTPUT), 'original_execution_started': False,
+            'same_unused_scientific_budget': True}
+
+
 def stages42():
     return [{'name': 'bootstrap', 'mode': 'bootstrap', 'reward_arm': None, 'alpha': None,
              'controls': 0, 'normal_native': 0, 'compiler_native': 0,
@@ -134,6 +184,7 @@ def stages42():
 def describe42():
     return {'schema': 'b22-tracking42-plan-v1', 'status': 'PLAN_ONLY',
             'execution_contract_id': CONTRACT, 'output': str(OUTPUT),
+            'resource_revision': RESOURCE_REVISION, 'resource_policy': dict(RESOURCE_POLICY),
             'stages': stages42(), 'limits': dict(LIMITS),
             'actors': ['zero', 'control', 'deficit8'], 'evaluation_gain': 1,
             'partial_eligible': False, 'retry_permitted': False,
@@ -162,7 +213,7 @@ def inputs42(source):
     inputs = dict(config['source_hashes'])
     for mapping in (source['authored'], extra, reader_inputs,
                     {str(ROOT/name): identity(ROOT/name) for name in PINS},
-                    {str(MANIFEST): identity(MANIFEST)}):
+                    {str(MANIFEST): identity(MANIFEST), str(UNUSED_RELEASE): identity(UNUSED_RELEASE)}):
         for name, entry in mapping.items():
             require(name not in inputs or inputs[name] == entry, 'C42 conflicting frozen identity: '+name)
             inputs[name] = entry
@@ -175,6 +226,8 @@ def validate_release42(path):
     value = read_json(path)
     require(value.get('schema') == 'b22-tracking42-release-v1'
             and value.get('execution_contract_id') == CONTRACT
+            and value.get('resource_revision') == RESOURCE_REVISION
+            and value.get('unused_budget_origin') == unused_budget_origin42()
             and value.get('plan') == describe42(), 'C42 release scope differs')
     require(value['source'] == source_identity42(), 'C42 HEAD/authored bytes changed')
     require(value['inputs'] == inputs42(value['source']), 'C42 input closure differs')
@@ -187,6 +240,7 @@ def prepare42():
     require(not RELEASE.exists() and not OUTPUT.exists(), 'C42 release/output already exists')
     source = source_identity42()
     value = {'schema': 'b22-tracking42-release-v1', 'execution_contract_id': CONTRACT,
+             'resource_revision': RESOURCE_REVISION, 'unused_budget_origin': unused_budget_origin42(),
              'plan': describe42(), 'source': source, 'inputs': inputs42(source)}
     for name, expected in value['inputs'].items():
         require(identity(name) == expected, 'C42 prepare input changed: '+name)
@@ -196,7 +250,7 @@ def prepare42():
 
 
 def stable_admission42(sample, record, *, clock=time.monotonic, sleeper=time.sleep,
-                       max_wait=300, stable_seconds=60, poll=5):
+                       max_wait=300, stable_seconds=10, poll=5):
     """No reservation or physics occurs here. Runtime-low/unknown is a failure."""
     started, stable, previous, consecutive = clock(), None, None, 0
     while True:
@@ -321,6 +375,7 @@ def make_session42(stage, release, *, parent_pid, nonce, started, wall_clock_utc
         extra['eval_manifests'] = manifests
     return {**config['shared_session'], **defaults, **stage, **extra,
             'schema': 'b22-tracking42-session-v1', 'execution_contract_id': CONTRACT,
+            'resource_revision': RESOURCE_REVISION, 'resource_policy': dict(RESOURCE_POLICY),
             'output_directory': str(run), 'session_path': str(run/'session.json'),
             'source_hashes': source_hashes, 'runtime_environment': config['runtime_environment'],
             'parent_pid': parent_pid, 'nonce': nonce, 'argv': argv,
@@ -355,7 +410,7 @@ def validate_worker_launch42(session_path, output):
         require(os.environ.get(key) == expected, 'C42 isolated runtime environment differs: '+key)
     require(os.getpriority(os.PRIO_PROCESS, 0) >= LIMITS['required_minimum_nice'],
             'C42 worker must run at Nice>=10')
-    require(supervision().memory() >= LIMITS['start_effective_bytes'],
+    require(check_resource_snapshot42(resource_snapshot42()) >= LIMITS['start_effective_bytes'],
             'C42 worker admission below 6 GiB')
     require(time.monotonic() < value['host_started_monotonic']+value['soft_s'],
             'C42 worker source checks exhausted soft time')
@@ -414,6 +469,7 @@ def execute42():
     started = time.monotonic()
     deadline = started+LIMITS['total_wall_s']
     require(not OUTPUT.exists(), 'C42 execution already claimed; no retry')
+    unused_budget_origin42()
     require(os.getpriority(os.PRIO_PROCESS, 0) >= LIMITS['required_minimum_nice'],
             'C42 parent must run at Nice>=10')
     ADMISSIONS.mkdir(exist_ok=True)
@@ -421,6 +477,7 @@ def execute42():
     admission.mkdir(exist_ok=False)
     report = {'schema': 'b22-tracking42-supervision-v1', 'status': 'WAITING',
               'execution_contract_id': CONTRACT, 'failure': None, 'actual_counts': None,
+              'resource_revision': RESOURCE_REVISION, 'resource_policy': dict(RESOURCE_POLICY),
               'known_actual_counts': dict.fromkeys(COUNT_KEYS, 0), 'stages': [],
               'execution_started': False, 'retry_permitted': False, 'minimum_effective_bytes': None}
     common = host = None
@@ -437,13 +494,15 @@ def execute42():
         report['elapsed_s'] = time.monotonic()-started
         write_json((OUTPUT if report['execution_started'] else admission)/'report.json', report, replace=True)
     def sample(_admission=False):
-        available = common.memory()
+        snapshot = resource_snapshot42()
+        report['last_memory_snapshot'] = snapshot
         free = shutil.disk_usage(ROOT).free
-        report['minimum_effective_bytes'] = min(available, report['minimum_effective_bytes'] or available)
         with (admission/'resources.jsonl').open('a') as stream:
             stream.write(json.dumps({'elapsed_s': time.monotonic()-started,
-                                     'effective_available_bytes': available, 'free_disk_bytes': free})+'\n')
-        require(available >= LIMITS['reserve_effective_bytes'], 'C42 RAM below 4 GiB runtime reserve')
+                                     'resource_revision': RESOURCE_REVISION,
+                                     'memory': snapshot, 'free_disk_bytes': free})+'\n')
+        available = check_resource_snapshot42(snapshot)
+        report['minimum_effective_bytes'] = min(available, report['minimum_effective_bytes'] or available)
         require(free >= LIMITS['reserve_free_disk_bytes'], 'C42 disk runtime reserve exhausted')
         require(time.monotonic() < deadline, 'C42 total wall exhausted')
         require(directory_bytes42(OUTPUT) <= LIMITS['output_quota_bytes'], 'C42 total output quota exceeded')
@@ -457,7 +516,7 @@ def execute42():
             save()
         ready = stable_admission42(sample, record)
         if not ready:
-            raise TimeoutError('C42 '+name+' did not reach stable 8 GiB within 300 seconds')
+            raise TimeoutError('C42 '+name+' did not reach 6 GiB for 10 seconds within 300 seconds')
         require(shutil.disk_usage(ROOT).free >= LIMITS['start_free_disk_bytes'],
                 'C42 disk admission below 10 GiB')
     def verify_completed_reports():
@@ -493,6 +552,7 @@ def execute42():
                 require(cleanup['remaining'] == {}, 'C42 worker closure contains owned processes')
     try:
         common = supervision()
+        sample()  # Check actual job enforcement before hashing the multi-GiB source closure.
         release = validate_release42(RELEASE)
         config = read_json(MANIFEST)
         host_path = Path(config['host'])

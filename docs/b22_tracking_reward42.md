@@ -1,6 +1,8 @@
 # B22 tracking reward 42：有界对照与执行准备
 
-状态：**SOURCE_VALIDATED_NOT_EXECUTED**。新父、worker、saved-reader已通过171项pure/fake组合测试及独立接口审查；本页定稿时尚无42正式输出或release，未执行真实依赖bootstrap、加载策略、构造环境、积分、训练或评测。用户持续授权目标为“将两仓全部收尾”；实际执行前固定新版本、预算和输出。旧77、用户9结果、v27及31～41源和原回执不改。
+状态：**RESOURCE_REVISION02_SOURCE_VALIDATED_NOT_EXECUTED**。资源修订02的五组pure/fake组合测试**208项PASS（3.23秒）**，10份Python源Ruff及diff-check通过；原77保护输入共21730336字节逐SHA核验PASS，所有者已解冻experiments.py仍核当前固定SHA。原release01已准备但未执行，正式output01不存在。用户进一步明确允许本机慢、无需如此保守，因此仅修订资源准入与进程组限额，不增加训练或评测次数。尚未执行真实依赖bootstrap、加载策略、构造环境、积分、训练或评测。旧77、用户9结果、v27及31～41源和原回执不改，42数值worker/reader/helper保持原字节。
+
+旧release01保留SHA `7128e72d0fcfde9c0322d185e188f0648ef350c90911705fdb52e5fc8de597f0`，来源commit `4c55bbb2baeca84dc3db897ffeaeb07329faa38e`。修订02以`resource_revision=owned_cgroup_v2`登记新的`*_plan_20261018_02.json`、`*_20261018_02`输出和`*_admissions_20261018_02`，prepare/execute均拒绝已存在的原output01。旧release原字节不变且不执行；02使用同一份尚未消耗的96136controls预算，不是续跑或再加一轮。
 
 ## 单一干预与可证伪目标
 
@@ -60,7 +62,11 @@ learning21.load_warm_start20的stage2合法路径先核policy/actor/log_std/Adam
 
 bootstrap是独立额外进程，硬wall300秒、64MiB写额度，所有模型API、Env构造、servo、normal/compiler native预算均0。它只做真实依赖导入、显式MuJoCo `_functions`/`_rollout`加载、原ELF/GOT绑定和适配函数/类定义，不创建环境或策略。依赖导入边界由固定源码审核与原生零计数约束，不能称导入期间已全程instrumented；随后适配定义区由ModelCounter及四类构造拦截器共同约束。拦截器记录Env、PPO、BaseAlgorithm、nn.Module构造尝试，即使内部吞掉异常仍失败。EngineGuard不arm，先绑定并解析`original_step`指针再取等值baseline；允许解析地址，不允许任何积分。几何缓存必须保持cold、native计数/phase/target/limits全0，四个GOT槽保持原证明。bootstrap不声称运行过独立saved-reader，也不授予控制资格。
 
-保留启动6GiB/运行停止4GiB，且每个heavy worker前有效可用内存须**连续60秒≥8GiB**（5秒采样、末次仍达标）。单CPU线程、Nice≥10、串行，与D1/其它heavy任务不并发，无自有残留child。无活child且下一请求/nonce未建时可等候；低值重置稳定计时，每次准入最多300秒；<4/未知/信号立即停止。6GiB本身不满足42的8GiB稳定门。
+修订02保留启动6GiB/运行停止4GiB，将原8GiB连续60秒工程门改为**6GiB连续10秒、5秒间隔至少3点**，间隔异常重置稳定计时；下一请求/nonce未建时最多等300秒，末次来源检查后仍须6GiB。4GiB运行门与准入均指host及本任务上方外部祖先的可用量，**不把本任务自身3GiB硬上限剩余量同4/6GiB比较**。原31的min-own-cap读法在此限额下会误拒绝，因此只在新父资源接缝采用stdlib guard；冻结31及数值worker无需修改。
+
+整个任务必须位于唯一systemd用户unit `wheel-b22-tracking42-owned02-20261018-01.service`的同一cgroup，guard实际核对应`MemoryHigh=2048MiB`、`MemoryMax=3072MiB`、`MemorySwapMax=0`的内核文件及`memory.oom.group=1`；启动unit另登记`OOMPolicy=kill`，组外systemd记录实际配置与终态。父、执行期数GiB输入逐块hash、bootstrap、所有数值worker、saved-reader、最终比较均受同一组限额约束；不能只限制训练子进程。父监督每阶段、保存reader与worker启动门都读同一登记scope，记录host/外部祖先与owned current/high/max/events/peak，未知或OOM事件失败。单CPU线程、Nice≥10、串行，无自有残留child。
+
+3GiB是否足够这次wheel训练尚无实测峰值证明。历史可用RAM跌幅不是本任务RSS/PSS；输入hash每次只持1MiB读块，但多GiB文件页缓存可能记入组memory.current并被内核回收，不能把它称为私有内存泄漏。MemoryHigh可使回收变慢，90分钟总wall不增加；MemoryMax可能导致本轮INCOMPLETE，不能自动重训。若整组被内核OOM杀死，进程内finally和最终回执不保证执行，须由组外systemd终态/事件与已落盘阶段记录闭账，缺失实际计数保持null，不能把RUNNING旧回执当成功。
 
 来源核验、等待、bootstrap、训练、保存读回和清理全部计入**5400秒/90分钟**。bootstrap soft/close/hard为240/275/300秒；数值worker为1140/1180/1200秒，每次saved-reader另留600秒、最终比较300秒。不足以保留读回/清理窗口时不spawn。旧B22 host训练571.56s+读回328.22s；按旧eval吞吐投影全轮约45～50分钟，只是历史估计，不承诺完成或过关。
 
@@ -87,7 +93,7 @@ bootstrap是独立额外进程，硬wall300秒、64MiB写额度，所有模型AP
 
 ## 最小源集合和真实接缝
 
-本轮源集合为9文件：纯helper及其测试、本页、三个生产入口及其对应parent/worker/reader测试。不复制旧physics/controller或整个runtime：
+原科学源集合为9文件：纯helper及其测试、本页、三个生产入口及其对应parent/worker/reader测试。资源修订02新增stdlib `scripts/resource_guard42.py`及其纯测试，合计11文件；只修改父、parent测试和本页，不复制旧physics/controller或整个runtime：
 
 | 新文件 | 最小职责 |
 |---|---|
@@ -114,4 +120,4 @@ rtk proxy env PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -B -m pytest --noconftest
 rtk proxy .local-deps/bin/ruff check scripts/worker_b22_tracking_reward42.py tests/test_b22_tracking_reward42_worker.py
 ~~~
 
-父入口默认仅打印计划：`rtk proxy python3 -B scripts/run_b22_tracking_reward42.py`。9份源全部提交并通过检查后，`--prepare`一次性写独立release，仍不启动训练；`--execute`由Nice≥10的受控父进程调用，先完成内存准入。正式输出一旦创建即禁止重跑或续训，保存读回失败也不重做物理。release与输出均为固定独立路径，不覆盖31～41历史。
+父入口默认仅打印计划：`rtk proxy python3 -B scripts/run_b22_tracking_reward42.py`。11份源全部提交并通过检查后，`--prepare`一次性写02独立release，仍不启动训练；`--execute`由上述唯一unit内Nice≥10的受控父进程调用，先核实际cgroup限额并完成短内存准入。正式输出一旦创建即禁止重跑或续训，保存读回失败也不重做物理。release与输出均为固定独立路径，不覆盖31～41或旧42release01。

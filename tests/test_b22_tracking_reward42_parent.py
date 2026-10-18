@@ -4,6 +4,7 @@ import json
 import subprocess
 import sys
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
@@ -33,19 +34,19 @@ def admit(values, *, max_wait=300):
     return result, rows
 
 
-def test_stable_admission_needs_thirteen_samples():
-    ready, rows = admit([8 << 30]*13)
-    assert ready and len(rows) == 13 and rows[-1]['elapsed_s'] == 60
+def test_stable_admission_needs_three_samples_over_ten_seconds():
+    ready, rows = admit([6 << 30]*3)
+    assert ready and len(rows) == 3 and rows[-1]['elapsed_s'] == 10
 
 
 def test_low_samples_reset_continuous_window():
-    ready, rows = admit([8 << 30]*12+[7 << 30]+[8 << 30]*13)
-    assert ready and rows[-1]['elapsed_s'] == 125
-    assert rows[12]['stable_elapsed_s'] is None
+    ready, rows = admit([6 << 30]*2+[5 << 30]+[6 << 30]*3)
+    assert ready and rows[-1]['elapsed_s'] == 25
+    assert rows[2]['stable_elapsed_s'] is None
 
 
 def test_isolated_peaks_do_not_admit():
-    ready, rows = admit(([9 << 30]+[7 << 30]*11)*5+[9 << 30])
+    ready, rows = admit(([7 << 30]+[5 << 30])*30+[7 << 30])
     assert not ready and len(rows) == 61 and rows[-1]['elapsed_s'] == 300
 
 
@@ -86,14 +87,14 @@ def test_two_high_samples_sixty_one_seconds_apart_do_not_admit():
     assert len(rows) == 6 and rows[-1]['consecutive_qualified_samples'] == 1
 
 
-def test_large_scheduler_gap_resets_but_later_thirteen_samples_can_pass():
+def test_large_scheduler_gap_resets_but_later_three_samples_can_pass():
     clock = Clock()
     rows = []
-    delays = iter([61]+[5]*12)
+    delays = iter([61]+[5]*2)
     assert p.stable_admission42(lambda: 8 << 30, rows.append, clock=clock,
                                 sleeper=lambda _: clock.sleep(next(delays)))
-    assert rows[-1]['elapsed_s'] == 121
-    assert rows[-1]['consecutive_qualified_samples'] == 13
+    assert rows[-1]['elapsed_s'] == 71
+    assert rows[-1]['consecutive_qualified_samples'] == 3
 
 
 def test_slow_final_receipt_cannot_admit_after_wait_deadline():
@@ -101,8 +102,8 @@ def test_slow_final_receipt_cannot_admit_after_wait_deadline():
     rows = []
     def record(row):
         rows.append(row)
-        if len(rows) == 13:
-            clock.sleep(250)
+        if len(rows) == 3:
+            clock.sleep(300)
     assert not p.stable_admission42(lambda: 8 << 30, record, clock=clock, sleeper=clock.sleep)
     assert clock.now == 310
 
@@ -324,3 +325,68 @@ def test_comparison_requires_current_reader_identity(comparison_case):
     value['reader_identity'] = {'sha256': 'different', 'bytes': 8}
     with pytest.raises(ValueError, match='provenance'):
         p.validate_comparison42(value, stages)
+
+
+def test_resource_revision_keeps_science_and_declares_one_owned_job():
+    plan=p.describe42()
+    assert plan['resource_revision']=='owned_cgroup_v2'
+    assert plan['output'].endswith('_02') and p.RELEASE.name.endswith('_02.json')
+    assert p.LIMITS['stable_effective_bytes']==p.LIMITS['start_effective_bytes']==6<<30
+    assert p.LIMITS['stable_seconds']==10 and p.LIMITS['admission_minimum_samples']==3
+    assert p.LIMITS['reserve_effective_bytes']==4<<30
+    assert plan['resource_policy']['memory_high_bytes']==2<<30
+    assert plan['resource_policy']['memory_max_bytes']==3<<30
+    assert plan['resource_policy']['memory_swap_max_bytes']==0
+    assert plan['resource_policy']['memory_oom_group']==1
+    assert plan['resource_policy']['oom_policy']=='kill'
+    assert plan['resource_policy']['owned_scope'].endswith('/'+plan['resource_policy']['unit'])
+    assert 'saved readers' in plan['resource_policy']['covers']
+
+
+def test_original_prepared_budget_must_be_exact_and_unclaimed(tmp_path,monkeypatch):
+    old_release=tmp_path/'old_release.json';old_output=tmp_path/'old_output'
+    monkeypatch.setattr(p,'UNUSED_RELEASE',old_release)
+    monkeypatch.setattr(p,'UNUSED_OUTPUT',old_output)
+    value={'execution_contract_id':p.CONTRACT,'source':{'git_commit':p.UNUSED_COMMIT},
+        'plan':{'output':str(old_output),'limits':{k:p.LIMITS[k] for k in p.COUNT_KEYS}}}
+    p.write_json(old_release,value)
+    monkeypatch.setattr(p,'UNUSED_RELEASE_SHA',p.identity(old_release)['sha256'])
+    assert p.unused_budget_origin42()['same_unused_scientific_budget']
+    old_output.mkdir()
+    with pytest.raises(ValueError,match='previously claimed'):p.unused_budget_origin42()
+    old_output.rmdir()
+    old_release.write_text('{}')
+    with pytest.raises(ValueError,match='release changed'):p.unused_budget_origin42()
+
+
+def test_worker_gate_uses_external_headroom_under_own_three_gib_cap(tmp_path,monkeypatch):
+    output=tmp_path/'execution';run=output/'bootstrap';run.mkdir(parents=True)
+    release=tmp_path/'release.json';release.write_text('{}')
+    argv=[str(p.WORKER),'--session',str(run/'session.json'),'--output',str(run),'--bootstrap']
+    session={'release_path':str(release),'name':'bootstrap','parent_pid':777,'argv':argv,
+        'nonce':'a'*48,'host_started_monotonic':p.time.monotonic(),
+        'wall_clock_utc':'2026-10-18T00:00:00+00:00','runtime_environment':{},'soft_s':240}
+    p.write_json(run/'session.json',session)
+    p.write_json(output/'bootstrap_reservation.json',{
+        'nonce':session['nonce'],'session_identity':p.identity(run/'session.json')})
+    monkeypatch.setattr(p,'OUTPUT',output)
+    monkeypatch.setattr(p,'validate_release42',lambda _: {})
+    monkeypatch.setattr(p,'make_session42',lambda *args,**kwargs:dict(session))
+    monkeypatch.setattr(p.os,'getppid',lambda:777)
+    monkeypatch.setattr(p.os,'getpriority',lambda *args:10)
+    monkeypatch.setattr(p.sys,'argv',argv)
+    monkeypatch.setattr(p,'supervision',lambda:pytest.fail('old min-own-cap RAM helper must not be used'))
+    calls=[]
+    snapshot={'effective_available_bytes':6<<30,'owned':{'max_bytes':3<<30,'current_bytes':2<<30}}
+    guard=SimpleNamespace(snapshot_memory=lambda scope:(calls.append(scope) or snapshot),
+                          check_memory=lambda value:calls.append(value))
+    monkeypatch.setattr(p,'resource_guard_api42',lambda:guard)
+    assert p.validate_worker_launch42(run/'session.json',run)==session
+    assert calls==[p.RESOURCE_POLICY['owned_scope'],snapshot]
+
+
+@pytest.mark.parametrize('available',[None,True,(4<<30)-1])
+def test_external_runtime_reserve_still_rejects_unknown_and_low(tmp_path,monkeypatch,available):
+    monkeypatch.setattr(p,'resource_guard_api42',lambda:SimpleNamespace(check_memory=lambda value:None))
+    with pytest.raises(ValueError,match='runtime reserve or unknown'):
+        p.check_resource_snapshot42({'effective_available_bytes':available})
