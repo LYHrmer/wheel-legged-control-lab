@@ -1,0 +1,914 @@
+{
+  "schema": "b22-numpy41-results-v1",
+  "audit_status": "PASS",
+  "date": "2026-10-18",
+  "execution_status": "COMPLETE",
+  "source41": {
+    "git_commit": "6a3d84983b3f57514a6c810de368272567f4ba01",
+    "authored": {
+      "/home/lyh/wheel-legged-control-lab/scripts/run_b22_numpy41.py": {
+        "bytes": 18975,
+        "sha256": "5a8266c7a24b039c31ed4268a11c8941a516bf1ccc4b10de6f6a5dcb5c662c38"
+      },
+      "/home/lyh/wheel-legged-control-lab/tests/test_b22_numpy41.py": {
+        "bytes": 21536,
+        "sha256": "72853a7404a6d1d0cbd160d684295e4829e3f65ba2f53a47178c47218820eacb"
+      },
+      "/home/lyh/wheel-legged-control-lab/docs/b22_numpy41.md": {
+        "bytes": 5220,
+        "sha256": "5b83f02c36807f936e7cfe216336c33eaa8fdd09792b1b64a273528e1effe6ca"
+      }
+    }
+  },
+  "ci": {
+    "id": 39104167314,
+    "url": "https://github.com/LYHrmer/wheel-legged-control-lab/actions/runs/39104167314",
+    "head_sha": "6a3d84983b3f57514a6c810de368272567f4ba01",
+    "status": "in_progress",
+    "conclusion": null
+  },
+  "scope": "One new yaw-only C41 execution plus fixed C39 flat saved evidence adjudicated by C40; two-profile NumPy backend compatibility only.",
+  "report_refs": {
+    "report.json": {
+      "path": "results/b22_numpy41_yaw_20261018_01/report.json",
+      "bytes": 3070,
+      "sha256": "e3fdf5588f29486ce5a7ffc65b39c7b843e708e52206e184492bfa3abfd85b8e"
+    },
+    "release.json": {
+      "path": "results/b22_numpy41_yaw_20261018_01/release.json",
+      "bytes": 2125621,
+      "sha256": "f48339ce0f33bb19454aade71d9afaacfbbbeabc810426e57cbb4031318a65a7"
+    },
+    "comparison.json": {
+      "path": "results/b22_numpy41_yaw_20261018_01/comparison.json",
+      "bytes": 117970,
+      "sha256": "a43c2916b15f618862e0c73dd2aa7affb5f092275955564c650a56b461a4f96f"
+    },
+    "yaw_1p2_B_readback.json": {
+      "path": "results/b22_numpy41_yaw_20261018_01/yaw_1p2_B_readback.json",
+      "bytes": 31738,
+      "sha256": "eb4d21c16e36ddfe0e1657a58f5d3bdb2557a5f606fbc565d83c9c20d2c131bf"
+    },
+    "resources.jsonl": {
+      "path": "results/b22_numpy41_yaw_20261018_01/resources.jsonl",
+      "bytes": 16969,
+      "sha256": "af42a34253e12a1a49c69dfd960cc160e7aa893317910ee8bff83f5a3ded2049"
+    }
+  },
+  "reused_report_refs": {
+    "report.json": {
+      "path": "results/b22_numpy40_readback_20261018_01/report.json",
+      "bytes": 35845,
+      "sha256": "c08b9f05c72755289a6d97041ddaf4a2bd517799ffcd9f45e823eb9a8e0d6426"
+    },
+    "inputs.json": {
+      "path": "results/b22_numpy40_readback_20261018_01/inputs.json",
+      "bytes": 946471,
+      "sha256": "e9b566b8747b413c7222931c161c8081363a730e2f111470f6a5eb01f1458913"
+    }
+  },
+  "new41": {
+    "actual_counts": {
+      "controls": 1600,
+      "normal_native": 8000,
+      "compiler_native": 2
+    },
+    "actual_nn_counts": {
+      "predict_calls": 1601,
+      "predict_rows": 1632,
+      "ppo_load": 0,
+      "torch_load": 0
+    },
+    "elapsed_s": 239.2287675929838,
+    "elapsed_including_scope_s": 239.82502248100354,
+    "minimum_effective_bytes": 6215163904,
+    "minimum_effective_GiB": 5.788322448730469,
+    "nice": 10,
+    "cleanup": {
+      "method": "linux_subreaper_ancestry_birth_tick",
+      "signalled_identities": {},
+      "remaining": {},
+      "elapsed_s": 0.019153765024384484
+    },
+    "host_cleanup": {
+      "elapsed_s": 0.022412884020013735,
+      "method": "linux_subreaper_ancestry_birth_tick",
+      "remaining": {},
+      "signalled_identities": {}
+    },
+    "admission_waits": [],
+    "resource_samples": 129,
+    "strict_load": {
+      "absolute_tolerance": 1e-06,
+      "backend": "NumPy",
+      "clipped16_max_absolute_error": 3.725290298461914e-08,
+      "control_qualification_granted": false,
+      "execution_contract_id": "C41_B22_numpy_yaw_completion_v1",
+      "export36_artifacts": {
+        "/home/lyh/wheel-legged-control-lab/results/b22_numpy36_20261018_01/actor.npz": {
+          "bytes": 126942,
+          "sha256": "beaa054bd5761b65e46fa094951b2e521014b071bf85cde2ca442efa24a8ecb0"
+        },
+        "/home/lyh/wheel-legged-control-lab/results/b22_numpy36_20261018_01/actor_manifest.json": {
+          "bytes": 4341,
+          "sha256": "8bcaf616026b22585e4f698da7cedae35ab48c75d1d3621e8d98f1f618c5f583"
+        },
+        "/home/lyh/wheel-legged-control-lab/results/b22_numpy36_20261018_01/numpy_outputs.npz": {
+          "bytes": 25090,
+          "sha256": "aa7ff07cf59790570de1fa1ab2ec9349d71af6cd1d348d7fcb89ebf2c7d047f6"
+        },
+        "/home/lyh/wheel-legged-control-lab/results/b22_numpy36_20261018_01/numpy_report.json": {
+          "bytes": 10315,
+          "sha256": "2dfdc051ce8904deeffe8cf10130224201a11dd802b234bc6f14181c707ae7b0"
+        },
+        "/home/lyh/wheel-legged-control-lab/results/b22_numpy36_20261018_01/release.json": {
+          "bytes": 850399,
+          "sha256": "d1b55ae68be02b10bf47e75d1535141da8e0812dab4f5f89fda1b6c65742ff3f"
+        },
+        "/home/lyh/wheel-legged-control-lab/results/b22_numpy36_20261018_01/report.json": {
+          "bytes": 2728,
+          "sha256": "38ab697abaf231513490baa6794b44de6dff1a0a5a065edd182b78efdce019dd"
+        },
+        "/home/lyh/wheel-legged-control-lab/results/b22_numpy36_20261018_01/torch_outputs.npz": {
+          "bytes": 25090,
+          "sha256": "73dbeab889465c48f21f8de46e41549f5c8151a915cab925428532b1993e4c0b"
+        },
+        "/home/lyh/wheel-legged-control-lab/results/b22_numpy36_20261018_01/torch_report.json": {
+          "bytes": 153357,
+          "sha256": "0b88225e9d59e35989f5cf93b2529c6a72c376d9622bfb6c522bb30497995b04"
+        },
+        "/home/lyh/wheel-legged-control-lab/scripts/export_b22_numpy36.py": {
+          "bytes": 42816,
+          "sha256": "8a89d8d1b82e59996bb09283050a40351a563fa19dbae37a4e17302893f466ce"
+        }
+      },
+      "half_gain_max_absolute_error": 1.862645149230957e-08,
+      "metadata_sha256": "af700d1f2612e441c8f0560cca38c77b6a854526d3e841e544ef9d5321672830",
+      "model_sha256": "7bd58b5d6114745b12b4284be3f861f973a5d31d9d596365a5b54cb5e0d76691",
+      "output_contract": "clipped16; worker applies float32 half gain once",
+      "ppo_load_calls": 0,
+      "probe_actions_byte_exact": false,
+      "probe_actions_within_tolerance": true,
+      "probe_prediction_calls": 1,
+      "probe_rows": 32,
+      "schema": "b22-numpy41-load-proof-v1",
+      "source_policy_state_sha256": "59440de0c5beb102cec0d292838fb9b125eca7eb56bbffc06d1eaec46ec7aa48",
+      "torch_load_calls": 0,
+      "verified_without_engine_or_reset": true
+    },
+    "numpy_model_calls": {
+      "actor_rows": 1632,
+      "backend": "NumPy",
+      "counts": {
+        "predict": {
+          "attempted": 1601,
+          "phases": {
+            "control": {
+              "attempted": 1600,
+              "returned": 1600,
+              "rows": 1600
+            },
+            "probe": {
+              "attempted": 1,
+              "returned": 1,
+              "rows": 32
+            }
+          },
+          "returned": 1601,
+          "rows_attempted": 1632,
+          "rows_returned": 1632
+        }
+      },
+      "critic_rows": 0,
+      "forbidden_modules_absent": true,
+      "instrumentation_scope": "owned NumPy predictor only; forbidden framework import gate",
+      "limits": {
+        "backward": 0,
+        "evaluate_actions": 0,
+        "forward": 0,
+        "learn": 0,
+        "load": 0,
+        "predict": 1601,
+        "predict_values": 0,
+        "save": 0,
+        "torch_load": 0,
+        "train": 0
+      },
+      "numpy_actor_bundle_loads": 1,
+      "ppo_load_calls": 0,
+      "schema": "b22-numpy41-model-api-ledger-v1",
+      "torch_load_calls": 0
+    },
+    "native_counts": {
+      "control_attempts": 8000,
+      "control_returns": 8000,
+      "construction_attempts": 2,
+      "construction_returns": 2,
+      "ccd_attempts": 16518,
+      "ccd_returns": 16518,
+      "violations": 0
+    },
+    "native_ccd_caller_verified": true,
+    "native_construction_caller_verified": true,
+    "control_step_caller_verified": true,
+    "stop_reason": "time_limit",
+    "artifacts": {
+      "command_identity.json": {
+        "bytes": 189334,
+        "sha256": "f3c1f39fb6f9bd8bdeea7d2d5bbe4e27b2f68bcdca1b0ff8183de312a2c69c15"
+      },
+      "construction_receipt.json": {
+        "bytes": 38652,
+        "sha256": "bb96ba329b96c4c32e68570dd5f81c240c05dfd07c56cff2f049a6c36bb8efba"
+      },
+      "deferred_archive_receipt.json": {
+        "bytes": 9916,
+        "sha256": "54da9c2cfae012a902afbb27b822a5acdc27cb7ec3feeffbb70024e6d45cdc9b"
+      },
+      "episode_0/controls.jsonl.gz": {
+        "bytes": 12846710,
+        "sha256": "a441f65bf0ea32f85a257de81433992147a5d4c98215eef0461e59775f7e38f3"
+      },
+      "episode_0/initial_state.npz": {
+        "bytes": 2564,
+        "sha256": "71e70783662bf51265688ffc662a17d89883479ad239b510d9fbee9e8aec65ae"
+      },
+      "episode_0/native_block_0000.jsonl.gz": {
+        "bytes": 9618212,
+        "sha256": "ac86690068fb7bb39e722898c8dadadce83c6d1f2d5a7408647b85cd17cd8fdc"
+      },
+      "episode_0/native_block_0001.jsonl.gz": {
+        "bytes": 5098132,
+        "sha256": "56aaf754563aab7a580fefe08a1b4f750806f31f7c3dc3593b60ee61f7d8c83d"
+      },
+      "episode_0/reset.json": {
+        "bytes": 10455,
+        "sha256": "34a43cfe6087719cba2f7f7e685b53330a1275b3c9f2e30093ab29ceec4adc5f"
+      },
+      "episode_0/segment_receipt.json": {
+        "bytes": 4499,
+        "sha256": "05053d19ff15e08fd863340a839c44e99113c2051b85ac739ccb9160bc2b753e"
+      },
+      "episode_0/states.npz": {
+        "bytes": 1711364,
+        "sha256": "3aad2f1fe75012dd75c62c832a72ec17e3fdc315523bdbce54bf9909719eb3bc"
+      },
+      "input_snapshots.jsonl.gz": {
+        "bytes": 87,
+        "sha256": "8040f6357876b81a036665b4382d032f44dab14499a6fc1cc32d3aac0355a2f8"
+      },
+      "loaded_origins_final.json": {
+        "bytes": 22424,
+        "sha256": "07a3e34d7e193e094946050598664481e90765b21a4e0a524b3544408526e083"
+      },
+      "mapped_libraries_before_load.json": {
+        "bytes": 13,
+        "sha256": "0b5a7614359e103a66fb04c06381ca0a3898eb699ea32f6f11f1a6dda339ef81"
+      },
+      "mapped_libraries_final.json": {
+        "bytes": 13,
+        "sha256": "0b5a7614359e103a66fb04c06381ca0a3898eb699ea32f6f11f1a6dda339ef81"
+      },
+      "owner_decisions.jsonl.gz": {
+        "bytes": 29516,
+        "sha256": "2d05df5081d63b8c1cb00185edfcdb331348e655251a26e3cc1059f7a63d1b2f"
+      },
+      "performance.json": {
+        "bytes": 18416,
+        "sha256": "62c71c7aa9e3b26f76c97de558edb4a7ffc70f7401fff004a6380d7fdaac028c"
+      },
+      "render_frames.json": {
+        "bytes": 3,
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      "runtime_module_origins.json": {
+        "bytes": 1627,
+        "sha256": "06446a04d21ce04881ad50d79ab7fb0296472fe067590add8f6d8f57647037ab"
+      },
+      "strict_load.json": {
+        "bytes": 2410,
+        "sha256": "1ab17b80273d8f147251c0bb4bf54c0e0269eaf6ec237ba8216d91b6395c197f"
+      },
+      "worker_receipt.json": {
+        "bytes": 26385,
+        "sha256": "5a6d92f36ef4f1954e1a05ce234b998e1216c05f6ab4963c00946f8fbc36d16b"
+      },
+      "session.json": {
+        "bytes": 956421,
+        "sha256": "db4ad5cadf2239d8179a92e13defc5275f7392a1c8572cbfa4b7939f68a37697"
+      },
+      "host_receipt.json": {
+        "bytes": 493,
+        "sha256": "9b62d30704627599e098d4b7a46b0793a8eb028b64d3d7b9ab59b71b13756b2b"
+      },
+      "supervisor_receipt.json": {
+        "bytes": 305,
+        "sha256": "44966a54efc30a3c1dbfd4fa0ae64c3e403ee1773db4e861362bdb00db8f1ffd"
+      },
+      "preflight_ready.json": {
+        "bytes": 288,
+        "sha256": "71d756175a6b2ede9b27d7994be76b6fb435babc7198c5990fa66bc3b15ce2ee"
+      },
+      "bootstrap38_report.json": {
+        "bytes": 24403,
+        "sha256": "46bf51c7397c9fa5a89982c6e941a0187a92b6ca923bcdcc21dda15c9bb3d714"
+      },
+      "derived_sources38.json": {
+        "bytes": 729,
+        "sha256": "6fa751b9c3d31017c0d2349f15c769695190a2188f75d6b734fdcf5cc5b7717a"
+      }
+    },
+    "host_receipt": {
+      "arm": "yaw_1p2_B",
+      "elapsed_s": 43.14733957700082,
+      "execution_started_monotonic": 230677.509524629,
+      "exit_code": 0,
+      "failure": null,
+      "owned_cleanup": {
+        "elapsed_s": 0.022412884020013735,
+        "method": "linux_subreaper_ancestry_birth_tick",
+        "remaining": {},
+        "signalled_identities": {}
+      },
+      "owned_no_orphans": true,
+      "reservation_closed": true,
+      "reserved_controls": 1600,
+      "retry_permitted": false,
+      "schema": "d1-c23-c24-host-v1",
+      "source_mismatches": []
+    },
+    "supervisor_receipt": {
+      "cleanup": {
+        "elapsed_s": 0.029200413002399728,
+        "method": "linux_subreaper_ancestry_birth_tick",
+        "remaining": {},
+        "signalled_identities": {}
+      },
+      "elapsed_s": 46.591369690024294,
+      "exit_code": 0,
+      "failure": null,
+      "includes_isolated_x11_startup": false,
+      "outer_limit_s": 900
+    }
+  },
+  "reused40": {
+    "saved_execution_contract_id": "C39_B22_numpy_half_gain_v1",
+    "adjudication_contract_id": "C40_B22_saved_numpy39_flat_readback_v1",
+    "source40": {
+      "git_commit": "635c2a8b525055301a2f9471f9bf375d5151d26d",
+      "authored": {
+        "/home/lyh/wheel-legged-control-lab/scripts/read_b22_numpy40.py": {
+          "bytes": 14483,
+          "sha256": "ba70475118e499abb7e383d1b1dc3e42c5a2461c4a90602a9582c5e517757bd4"
+        },
+        "/home/lyh/wheel-legged-control-lab/tests/test_b22_numpy40.py": {
+          "bytes": 11458,
+          "sha256": "c35eee7ec71b8b7ce4d06a962d7b12ed1b9a78cdb3526187c68a9a3ca03d9de9"
+        },
+        "/home/lyh/wheel-legged-control-lab/docs/b22_numpy40.md": {
+          "bytes": 3504,
+          "sha256": "4f626c45ad4ab4c5cb4af642609d52ac08efd01a04f8e5d5b03caac0cfa4530b"
+        }
+      }
+    },
+    "reused_validated_case_counts": {
+      "controls": 1600,
+      "normal_native": 8000,
+      "compiler_native": 2
+    },
+    "reused_validated_nn_counts": {
+      "predict_calls": 1601,
+      "predict_rows": 1632,
+      "ppo_load": 0,
+      "torch_load": 0
+    },
+    "new40_counts": {
+      "controls": 0,
+      "normal_native": 0,
+      "compiler_native": 0,
+      "predict_calls": 0,
+      "predict_rows": 0,
+      "ppo_load": 0,
+      "torch_load": 0
+    },
+    "original39_payloads_independently_rehashed": 60,
+    "original39_status": "INCOMPLETE",
+    "original39_actual_counts": null,
+    "original39_actual_nn_counts": null
+  },
+  "combined_analysis_only": {
+    "validated_case_counts": {
+      "controls": 3200,
+      "normal_native": 16000,
+      "compiler_native": 4
+    },
+    "validated_nn_counts": {
+      "predict_calls": 3202,
+      "predict_rows": 3264,
+      "ppo_load": 0,
+      "torch_load": 0
+    },
+    "historical_total_resources_known": false,
+    "interpretation": "Sum of validated case evidence across independent scopes, not historical total expenditure."
+  },
+  "comparison": {
+    "maximum_metric_ratio": 1.001,
+    "all_two_full_horizons": true,
+    "all_two_tasks_passed": true,
+    "backend_compatibility_passed": true,
+    "pairs": [
+      {
+        "stage": "flat_1p6_B",
+        "full_horizon_pair": true,
+        "old35_task_passed": true,
+        "numpy38_task_passed": true,
+        "metrics": {
+          "sse_total": {
+            "old35": 1.6770574345297096,
+            "numpy38": 1.677057437410773,
+            "compatibility_limit": 1.678734491964239,
+            "within_0p1_percent": true,
+            "ratio": 1.0000000017179276
+          },
+          "torque_cost_sum": {
+            "old35": 19.820629077554635,
+            "numpy38": 19.820629102184675,
+            "compatibility_limit": 19.84044970663219,
+            "within_0p1_percent": true,
+            "ratio": 1.0000000012426467
+          }
+        },
+        "backend_compatibility_passed": true,
+        "executed_by": "C39",
+        "saved_adjudication": "C40",
+        "pairing_identity": {
+          "initial_arrays": {
+            "qpos": {
+              "dtype": "<f8",
+              "shape": [
+                23
+              ],
+              "sha256": "99a31e3dde467aca8d45f499874f517980a1f319b906618524874e40ae5bc65d"
+            },
+            "qvel": {
+              "dtype": "<f8",
+              "shape": [
+                22
+              ],
+              "sha256": "86d2cf5b090f43ee54d8f7c1dcf746a853951191457ff6dac96269a9d24860b9"
+            },
+            "ctrl": {
+              "dtype": "<f8",
+              "shape": [
+                16
+              ],
+              "sha256": "38723a2e5e8a17aa7950dc008209944e898f69a7bd10a23c839d341e935fd5ca"
+            },
+            "qacc_warmstart": {
+              "dtype": "<f8",
+              "shape": [
+                22
+              ],
+              "sha256": "86d2cf5b090f43ee54d8f7c1dcf746a853951191457ff6dac96269a9d24860b9"
+            },
+            "observation": {
+              "dtype": "<f4",
+              "shape": [
+                99
+              ],
+              "sha256": "dad718f1e7efc663a8e291a46ce86da9923550e2c2013b377edeab75572330d9"
+            },
+            "time": {
+              "dtype": "<f8",
+              "shape": [],
+              "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+            }
+          },
+          "complete_control_reset_sha256": "a52659b68d1436158b3fca56bac2b6109222e9af27bf9d6ab9115e7b7387ab09",
+          "compiled_robot_course": "ec119531099d3e927896bc3026984ed3f86e2fbb69e3bcb542b4df228a9850d9"
+        },
+        "case": {
+          "schema": "d1-course-world-upright-rl16-heldout-pure-score-18-v1",
+          "case_id": "flat_1p6",
+          "actor": "final_policy",
+          "seed": 181202,
+          "mirror": false,
+          "terrain": "flat",
+          "target_speed_mps": 1.6,
+          "yaw_amplitude_rps": 0.0,
+          "completed_controls": 1600,
+          "native_returns_expected_from_completed": 8000,
+          "terminated": false,
+          "truncated": true,
+          "stop_reason": "time_limit",
+          "windows": {
+            "control_cap": 1600,
+            "hold": [
+              495,
+              895
+            ],
+            "release_tick_t0": 895,
+            "drive": [
+              175,
+              895
+            ],
+            "final": [
+              1500,
+              1600
+            ],
+            "hold_observed_ticks": 400,
+            "final_observed_ticks": 100,
+            "drive_observed_ticks": 720
+          },
+          "record": {
+            "record_valid": true,
+            "reasons": [],
+            "full_horizon": true,
+            "early_task_termination": false
+          },
+          "safety": {
+            "passed": true,
+            "reasons": [],
+            "max_abs_world_roll_deg": 0.22840352537646685,
+            "max_abs_world_pitch_deg": 1.062583290263691,
+            "max_geometry_relative_tilt_deg_diagnostic_only": 1.0626016163656373,
+            "min_initial_or_native_clearance_m": 0.4548614515702445,
+            "max_initial_or_native_abs_world_x_m": 8.0001973117698,
+            "max_initial_or_native_abs_world_y_m": 4.7,
+            "nonwheel_ground_candidate_total": 0,
+            "native_samples_checked": 8000,
+            "initial_state_included": true
+          },
+          "speed": {
+            "passed": true,
+            "reasons": [],
+            "hold_window": [
+              495,
+              895
+            ],
+            "hold_observed_ticks": 400,
+            "hold_complete": true,
+            "mean_com_vx_mps": 1.6015756678790725,
+            "rms_com_vx_error_vs_target_mps": 0.0048224064324659715,
+            "rms_com_vx_error_vs_applied_servo_mps": 0.0048224064324659715,
+            "ticks_above_1p5_mps": 400,
+            "fraction_above_1p5_mps_over_400": 1.0,
+            "gate": "flat_1p6",
+            "source": "actual post body COM vx versus the servo already consumed at that tick"
+          },
+          "yaw": {
+            "applicable": false,
+            "passed": null,
+            "reasons": [],
+            "note": "no yaw hold is preregistered for this case"
+          },
+          "final_window": {
+            "passed": true,
+            "reasons": [],
+            "window": [
+              1500,
+              1600
+            ],
+            "observed_ticks": 100,
+            "mean_abs_com_vx_mps": 4.522863957326804e-05,
+            "mean_abs_yaw_rate_rps": 0.00010316746403294065,
+            "clearance_population_std_m": 9.810394548173403e-06
+          },
+          "stopping": {
+            "passed": true,
+            "reasons": [],
+            "gate_applies": true,
+            "release_tick_t0": 895,
+            "release_pre_projection_m": 8.91906430748239,
+            "found_settled_window": true,
+            "settled_tick": 1231,
+            "time_to_settle_s": 3.37,
+            "max_native_forward_excursion_m": 2.60298137342647,
+            "endpoint_projection_m": 2.5992055416860644,
+            "final_net_projection_m": 2.582104579954727,
+            "applied_servo_zero_tick": 1215,
+            "notes": [
+              "the 4.2 s / 3.2 m gate is preregistered for flat_1p6 only; the other five cases report the same quantities without that gate and still have to pass the final-window stop gate",
+              "the rate-limited brake after raw release is executed by the baseline controller with zero residual and is not credited to RL"
+            ]
+          },
+          "terrain_channel": {
+            "applicable": false,
+            "passed": null,
+            "reasons": [],
+            "note": "the lateral/heading/projection/load channel applies to the three terrain cases"
+          },
+          "ramp_geometry": {
+            "applicable": false,
+            "passed": null,
+            "reasons": []
+          },
+          "task_passed": true,
+          "task_reasons": [],
+          "reader_asserted_unverified": {},
+          "evidence_boundary": "Pure arithmetic only. A separate independent saved-record reader must bind all source/checkpoint/ELF hashes, actual 5T native integrator/contactForce and controller-applied-torque chains, full C/Python budgets, paired initial states, ramp compiled geometry and final wheel shape projection. Supplied reader_asserted booleans are echoed, never used as qualification evidence.",
+          "rl_terms": {
+            "drive_window": [
+              175,
+              895
+            ],
+            "drive_completed_stop": 895,
+            "drive_completed_ticks": 720,
+            "drive_complete": true,
+            "sse_total": 1.677057437410773,
+            "sse_vx": 1.6533414952153227,
+            "sse_yaw": 0.02371594219545024,
+            "torque_cost_sum": 19.820629102184675,
+            "torque_cost_mean": 0.02752865153081205,
+            "scales": {
+              "vx_mps": 0.25,
+              "yaw_rps": 0.4
+            },
+            "torque_limits_nm": [
+              80.0,
+              80.0,
+              80.0,
+              12.0,
+              80.0,
+              80.0,
+              80.0,
+              12.0,
+              80.0,
+              80.0,
+              80.0,
+              12.0,
+              80.0,
+              80.0,
+              80.0,
+              12.0
+            ],
+            "note": "c is a normalized torque-squared proxy; it is not mechanical energy or electrical consumption. D excludes the settle phase and the post-release baseline brake."
+          }
+        }
+      },
+      {
+        "stage": "yaw_1p2_B",
+        "full_horizon_pair": true,
+        "old35_task_passed": true,
+        "numpy38_task_passed": true,
+        "metrics": {
+          "sse_total": {
+            "old35": 20.226082662008718,
+            "numpy38": 20.226082670383008,
+            "compatibility_limit": 20.246308744670724,
+            "within_0p1_percent": true,
+            "ratio": 1.0000000004140341
+          },
+          "torque_cost_sum": {
+            "old35": 19.646010956030967,
+            "numpy38": 19.64601097488997,
+            "compatibility_limit": 19.665656966986994,
+            "within_0p1_percent": true,
+            "ratio": 1.0000000009599406
+          }
+        },
+        "backend_compatibility_passed": true,
+        "executed_by": "C41",
+        "saved_adjudication": "C41",
+        "pairing_identity": {
+          "initial_arrays": {
+            "qpos": {
+              "dtype": "<f8",
+              "shape": [
+                23
+              ],
+              "sha256": "99a31e3dde467aca8d45f499874f517980a1f319b906618524874e40ae5bc65d"
+            },
+            "qvel": {
+              "dtype": "<f8",
+              "shape": [
+                22
+              ],
+              "sha256": "86d2cf5b090f43ee54d8f7c1dcf746a853951191457ff6dac96269a9d24860b9"
+            },
+            "ctrl": {
+              "dtype": "<f8",
+              "shape": [
+                16
+              ],
+              "sha256": "38723a2e5e8a17aa7950dc008209944e898f69a7bd10a23c839d341e935fd5ca"
+            },
+            "qacc_warmstart": {
+              "dtype": "<f8",
+              "shape": [
+                22
+              ],
+              "sha256": "86d2cf5b090f43ee54d8f7c1dcf746a853951191457ff6dac96269a9d24860b9"
+            },
+            "observation": {
+              "dtype": "<f4",
+              "shape": [
+                99
+              ],
+              "sha256": "dad718f1e7efc663a8e291a46ce86da9923550e2c2013b377edeab75572330d9"
+            },
+            "time": {
+              "dtype": "<f8",
+              "shape": [],
+              "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+            }
+          },
+          "complete_control_reset_sha256": "a52659b68d1436158b3fca56bac2b6109222e9af27bf9d6ab9115e7b7387ab09",
+          "compiled_robot_course": "ec119531099d3e927896bc3026984ed3f86e2fbb69e3bcb542b4df228a9850d9"
+        },
+        "case": {
+          "schema": "d1-course-world-upright-rl16-heldout-pure-score-18-v1",
+          "case_id": "flat_1p2_yaw",
+          "actor": "final_policy",
+          "seed": 181203,
+          "mirror": false,
+          "terrain": "flat",
+          "target_speed_mps": 1.2,
+          "yaw_amplitude_rps": 0.3,
+          "completed_controls": 1600,
+          "native_returns_expected_from_completed": 8000,
+          "terminated": false,
+          "truncated": true,
+          "stop_reason": "time_limit",
+          "windows": {
+            "control_cap": 1600,
+            "hold": [
+              415,
+              815
+            ],
+            "release_tick_t0": 815,
+            "drive": [
+              175,
+              815
+            ],
+            "final": [
+              1500,
+              1600
+            ],
+            "hold_observed_ticks": 400,
+            "final_observed_ticks": 100,
+            "drive_observed_ticks": 640
+          },
+          "record": {
+            "record_valid": true,
+            "reasons": [],
+            "full_horizon": true,
+            "early_task_termination": false
+          },
+          "safety": {
+            "passed": true,
+            "reasons": [],
+            "max_abs_world_roll_deg": 1.4319735311876018,
+            "max_abs_world_pitch_deg": 1.3839884435709597,
+            "max_geometry_relative_tilt_deg_diagnostic_only": 1.441703520768948,
+            "min_initial_or_native_clearance_m": 0.4548614515702445,
+            "max_initial_or_native_abs_world_x_m": 8.0001973117698,
+            "max_initial_or_native_abs_world_y_m": 4.7,
+            "nonwheel_ground_candidate_total": 0,
+            "native_samples_checked": 8000,
+            "initial_state_included": true
+          },
+          "speed": {
+            "passed": true,
+            "reasons": [],
+            "hold_window": [
+              415,
+              815
+            ],
+            "hold_observed_ticks": 400,
+            "hold_complete": true,
+            "mean_com_vx_mps": 1.201520862771009,
+            "rms_com_vx_error_vs_target_mps": 0.005896706613247314,
+            "rms_com_vx_error_vs_applied_servo_mps": 0.005896706613247314,
+            "ticks_above_1p5_mps": 0,
+            "fraction_above_1p5_mps_over_400": 0.0,
+            "gate": "straight_hold",
+            "source": "actual post body COM vx versus the servo already consumed at that tick"
+          },
+          "yaw": {
+            "applicable": true,
+            "passed": true,
+            "reasons": [],
+            "hold_observed_ticks": 400,
+            "rms_yaw_rate_error_vs_applied_servo_rps": 0.08636296258850538,
+            "positive_servo_integrated_yaw_rad": 0.2580736018080539,
+            "negative_servo_integrated_yaw_rad": -0.26941157554414974,
+            "positive_servo_ticks": 200,
+            "negative_servo_ticks": 200,
+            "final_mean_abs_yaw_rate_rps": 0.00038935728684735203,
+            "note": "net angle near zero is not accepted in place of both signed integrals"
+          },
+          "final_window": {
+            "passed": true,
+            "reasons": [],
+            "window": [
+              1500,
+              1600
+            ],
+            "observed_ticks": 100,
+            "mean_abs_com_vx_mps": 9.76802860751672e-05,
+            "mean_abs_yaw_rate_rps": 0.00038935728684735203,
+            "clearance_population_std_m": 5.987320196161659e-06
+          },
+          "stopping": {
+            "passed": true,
+            "reasons": [],
+            "gate_applies": false,
+            "release_tick_t0": 815,
+            "release_pre_projection_m": 6.175418466112119,
+            "found_settled_window": true,
+            "settled_tick": 1071,
+            "time_to_settle_s": 2.57,
+            "max_native_forward_excursion_m": 1.4741638870317582,
+            "endpoint_projection_m": 1.4703580327388135,
+            "final_net_projection_m": 1.452594287603091,
+            "applied_servo_zero_tick": 1055,
+            "notes": [
+              "the 4.2 s / 3.2 m gate is preregistered for flat_1p6 only; the other five cases report the same quantities without that gate and still have to pass the final-window stop gate",
+              "the rate-limited brake after raw release is executed by the baseline controller with zero residual and is not credited to RL"
+            ]
+          },
+          "terrain_channel": {
+            "applicable": false,
+            "passed": null,
+            "reasons": [],
+            "note": "the lateral/heading/projection/load channel applies to the three terrain cases"
+          },
+          "ramp_geometry": {
+            "applicable": false,
+            "passed": null,
+            "reasons": []
+          },
+          "task_passed": true,
+          "task_reasons": [],
+          "reader_asserted_unverified": {},
+          "evidence_boundary": "Pure arithmetic only. A separate independent saved-record reader must bind all source/checkpoint/ELF hashes, actual 5T native integrator/contactForce and controller-applied-torque chains, full C/Python budgets, paired initial states, ramp compiled geometry and final wheel shape projection. Supplied reader_asserted booleans are echoed, never used as qualification evidence.",
+          "rl_terms": {
+            "drive_window": [
+              175,
+              815
+            ],
+            "drive_completed_stop": 815,
+            "drive_completed_ticks": 640,
+            "drive_complete": true,
+            "sse_total": 20.226082670383008,
+            "sse_vx": 1.5610748210486414,
+            "sse_yaw": 18.665007849334366,
+            "torque_cost_sum": 19.64601097488997,
+            "torque_cost_mean": 0.030696892148265577,
+            "scales": {
+              "vx_mps": 0.25,
+              "yaw_rps": 0.4
+            },
+            "torque_limits_nm": [
+              80.0,
+              80.0,
+              80.0,
+              12.0,
+              80.0,
+              80.0,
+              80.0,
+              12.0,
+              80.0,
+              80.0,
+              80.0,
+              12.0,
+              80.0,
+              80.0,
+              80.0,
+              12.0
+            ],
+            "note": "c is a normalized torque-squared proxy; it is not mechanical energy or electrical consumption. D excludes the settle phase and the post-release baseline brake."
+          }
+        }
+      }
+    ]
+  },
+  "audit": {
+    "streamed_hash_files": 426,
+    "streamed_hash_bytes": 135528045,
+    "new_stage_artifacts_rehashed": 26,
+    "release_input_manifest_entries": 4552,
+    "source_current_and_git_blob_match": true,
+    "all_old35_reference_payloads_rehashed": 102,
+    "all_export36_artifacts_rehashed": 9,
+    "all_referenced_raw_data_reparsed": false,
+    "independent_multigigabyte_external_dependency_rescan": false,
+    "read_stage_reexecuted": false,
+    "new_nn_forward_calls": 0,
+    "new_environment_constructions": 0,
+    "new_physics_steps": 0,
+    "methods": "stdlib receipt checks, exact source/raw byte hashes, exact identity/pair/window/count bridges, and saved-metric arithmetic; no model or simulation imports."
+  },
+  "boundaries": {
+    "qualification_granted": false,
+    "rl_contribution_proved": false,
+    "full_gain_half_suite_qualification_granted": false,
+    "default_changed": false,
+    "bitwise_trajectory_equivalence_proved": false,
+    "closed_loop_speedup_measured": false,
+    "cpp_closed_loop_proved": false,
+    "real_robot_proved": false,
+    "old39_or40_edited": false
+  }
+}
