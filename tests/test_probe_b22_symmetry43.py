@@ -1,4 +1,8 @@
 import importlib.util
+import json
+import os
+import subprocess
+import sys
 from pathlib import Path
 
 import numpy as np
@@ -38,3 +42,13 @@ def test_parity_uses_max_error_over_every_row_and_channel():
     actual = reference.copy()
     actual[-1, -1] = 9e-7
     assert probe.compare(reference, actual, np) == float(actual[-1, -1])
+
+
+def test_cli_plan_ignores_unrelated_regular_scripts_package(tmp_path):
+    package = tmp_path/'scripts'
+    package.mkdir()
+    (package/'__init__.py').write_text('raise RuntimeError("foreign ROS scripts package")\n')
+    result = subprocess.run([sys.executable, '-B', str(ROOT/'scripts/probe_b22_symmetry43.py')],
+                            cwd=tmp_path, env={**os.environ, 'PYTHONPATH': str(tmp_path)},
+                            text=True, capture_output=True, check=True, timeout=10)
+    assert json.loads(result.stdout)['status'] == 'PLAN_ONLY'

@@ -17,7 +17,10 @@ ROOT = Path(__file__).resolve().parents[1]
 for path in (ROOT, ROOT/'src', ROOT/'.local-deps'):
     if str(path) not in sys.path:
         sys.path.insert(0, str(path))
-from scripts.resource_guard42 import check_memory, snapshot_memory
+_guard_spec = importlib.util.spec_from_file_location('symmetry43_guard', ROOT/'scripts/resource_guard42.py')
+_guard = importlib.util.module_from_spec(_guard_spec)
+_guard_spec.loader.exec_module(_guard)
+check_memory, snapshot_memory = _guard.check_memory, _guard.snapshot_memory
 
 UNIT = 'wheel-symmetry43-numeric01-20261018-01.service'
 SCOPE = f'/user.slice/user-{os.getuid()}.slice/user@{os.getuid()}.service/app.slice/{UNIT}'
