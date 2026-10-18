@@ -7,6 +7,7 @@ import importlib.util
 import json
 import os
 import signal
+import site
 import subprocess
 import sys
 import time
@@ -14,18 +15,19 @@ import traceback
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-for path in (ROOT, ROOT/'src', ROOT/'.local-deps'):
-    if str(path) not in sys.path:
-        sys.path.insert(0, str(path))
+for path in reversed((Path(site.getusersitepackages()), ROOT/'.local-deps', ROOT/'src', ROOT)):
+    while str(path) in sys.path:
+        sys.path.remove(str(path))
+    sys.path.insert(0, str(path))
 _guard_spec = importlib.util.spec_from_file_location('symmetry43_guard', ROOT/'scripts/resource_guard42.py')
 _guard = importlib.util.module_from_spec(_guard_spec)
 _guard_spec.loader.exec_module(_guard)
 check_memory, snapshot_memory = _guard.check_memory, _guard.snapshot_memory
 
-UNIT = 'wheel-symmetry43-numeric02-20261018-01.service'
+UNIT = 'wheel-symmetry43-numeric03-20261018-01.service'
 SCOPE = f'/user.slice/user-{os.getuid()}.slice/user@{os.getuid()}.service/app.slice/{UNIT}'
-OUTPUT = ROOT/'results/b22_symmetry43_numeric_20261018_02'
-PLAN = ROOT/'results/b22_symmetry43_numeric_plan_20261018_02.json'
+OUTPUT = ROOT/'results/b22_symmetry43_numeric_20261018_03'
+PLAN = ROOT/'results/b22_symmetry43_numeric_plan_20261018_03.json'
 FOLDER = ROOT/'results/b22_tracking_reward42_20261018_05/train_deficit8/final_checkpoint'
 FIXTURE = ROOT/'results/b22_numpy36_20261018_01/inputs.f32.bin'
 MODEL_SHA = '44cbf9a4363ff42af78d8e54049e0dbade2bea74701e9a27073bcb9e656f3239'
@@ -186,8 +188,13 @@ def execute():
         SymmetricActor = symmetry.SymmetricActor
         mirror_action, mirror_observation = symmetry.mirror_action, symmetry.mirror_observation
         metadata = json.loads((FOLDER/'final_metadata.json').read_text())
+        report['versions'] = {'numpy': np.__version__, 'torch': torch.__version__, 'sb3': sb3.__version__}
+        report['module_origins'] = {name: str(Path(module.__file__).resolve())
+                                    for name, module in (('numpy', np), ('torch', torch), ('sb3', sb3))}
         require((np.__version__, torch.__version__, sb3.__version__) ==
                 (metadata['numpy_version'], metadata['torch_version'], metadata['sb3_version']), 'runtime versions differ')
+        for path in report['module_origins'].values():
+            require(metadata['dependency_hashes'][path]['sha256'] == sha(path), 'training dependency root changed')
         torch.set_num_threads(1)
         torch.set_num_interop_threads(1)
         old_load = torch.load

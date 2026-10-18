@@ -12,4 +12,6 @@ URDF的65组姿态纯前向运动学检查中，镜像轮心位置最大误差�
 
 数值01在导入纯策略模块时，包的 `__init__` 间接导入MuJoCo，被零物理数值边界阻止。实际PPO加载、torch.load、SB3/NumPy推理、物理均为0，原01输出完整保留。修订02直接按文件加载同一纯模块，并增加真实冷进程测试验证无仿真器/Torch/SB3导入；原已授权数值调用额度仍未消耗，不续跑或覆盖01。
 
-新数值unit `wheel-symmetry43-numeric02-20261018-01.service`，Nice10、单线程、内存high2/max3GiB、swap0、OOMPolicykill；有效4GiB持续10秒准入、运行保留2GiB、总上限180秒，外层unit210秒。脚本默认只显示计划；提交后prepare，唯一execute；旧42权重和执行产物保持独立。后续原六任务、镜像、15mm与停车的闭环预算另行记录，不能由本数值探针推断改善。
+数值02在版本核对前止于 `.local-deps` 优先加载Torch2.13，而42实际使用用户site的Torch2.12.1。实际模型加载与全部推理仍为0。修订03恢复训练使用的用户site优先顺序，并核三项实际模块路径、版本与训练metadata中的根文件SHA。01/02的独立停止记录保持，不将导入失败算作性能试验。
+
+新数值unit `wheel-symmetry43-numeric03-20261018-01.service`，Nice10、单线程、内存high2/max3GiB、swap0、OOMPolicykill；有效4GiB持续10秒准入、运行保留2GiB、总上限180秒，外层unit210秒。脚本默认只显示计划；提交后prepare，唯一execute；旧42权重和执行产物保持独立。后续原六任务、镜像、15mm与停车的闭环预算另行记录，不能由本数值探针推断改善。

@@ -1,6 +1,7 @@
 import importlib.util
 import json
 import os
+import site
 import subprocess
 import sys
 from pathlib import Path
@@ -70,3 +71,7 @@ assert not any(x in sys.modules for x in ('mujoco','engine_binding','torch','sta
 '''
     subprocess.run([sys.executable, '-B', '-c', code], cwd=ROOT,
                    capture_output=True, text=True, check=True, timeout=10)
+
+
+def test_dependency_priority_matches_training_user_site_before_local_deps():
+    assert sys.path.index(site.getusersitepackages()) < sys.path.index(str(ROOT/'.local-deps'))
