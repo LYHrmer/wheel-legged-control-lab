@@ -13,7 +13,7 @@
 
 [38控制链启动核查](docs/b22_numpy38_interruption_20261018.md)因MuJoCo包来源清单缺失而中止。[39独立运行](docs/b22_numpy39_interruption_20261018.md)通过修复后的冷准入和1600拍直行，随后保存结果读取器因要求Torch库列表非空而中止，转向未启动。[40复核](docs/b22_numpy40.md)只修正这一前提并完成原直行归档核验，新增物理和NN执行均为零；39原中止状态与未知总数保留。[奖励敏感性分析](docs/b22_reward_signal_analysis_20261018.md)量化了平地跟踪奖励接近上限的现象及训练来源，作为后续等预算对照的依据。
 
-[42有界训练对照](docs/b22_tracking_reward42.md)比较同一完整B22与Adam起点、相同种子的两组各32768拍训练，仅调整训练中的跟踪误差奖励权重。[02](docs/b22_tracking_reward42_revision02_results_20261018.md)/[03](docs/b22_tracking_reward42_revision03_results_20261018.md)暴露的环境类型与延迟导入问题已修复；[04](docs/b22_tracking_reward42_revision04_results_20261018.md)真实学习到失败回执所报27000拍，被旧主机4GiB停止线打断，整轮总数仍未知。自身已读峰值约1.89GiB、OOM事件0。05采用可用内存连续10秒达到4GiB启动、运行保留2GiB，保留整组3GiB硬上限，并改善中断收尾；从完整B22开始新的有界对照。停车、安全和RL贡献指标保持原值。
+[42有界训练对照](docs/b22_tracking_reward42.md)的[05完整结果](docs/b22_tracking_reward42_revision05_results_20261018.md)已完成：两组各32768拍训练，两个final与共享zero共18场任务、停车均通过。提高跟踪惩罚的deficit8组相对zero总SSE降低3.11%，相对本次control降低6.85%、力矩成本更低；已有4对满足原逐对门，但合池SSE比0.968869仍未达到0.85的RL贡献门。坡道获益明显，粗糙地面的速度误差与转向偏航误差仍需改善。整轮实际96136controls、52.8分钟，无OOM，默认模型尚未替换。[02](docs/b22_tracking_reward42_revision02_results_20261018.md)/[03](docs/b22_tracking_reward42_revision03_results_20261018.md)接口失败与[04](docs/b22_tracking_reward42_revision04_results_20261018.md)内存中止的历史记录分别保留。
 
 ```
 D1 全机  23 nq / 22 nv / 16 执行器 · 物理 500 Hz · 决策 100 Hz（一个控制拍 5 × 2 ms）

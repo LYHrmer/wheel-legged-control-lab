@@ -1,6 +1,8 @@
 # B22 tracking reward 42：有界对照与执行准备
 
-状态：**REVISION04_INCOMPLETE_RAM / REVISION05_RESOURCE_AND_CLEANUP_REPAIR**。04已经进入真实PPO学习，运行约532秒后因主机可用内存3.43GiB低于旧4GiB停止线退出；自身已读峰值1.89GiB、OOM事件0。[04结果](b22_tracking_reward42_revision04_results_20261018.md)分别记录完整保存的26624拍下界、后续失败回执报告的27000拍前缀，以及仍未知的整轮实际总数。05采用4GiB启动、2GiB运行停止线，保留整组3GiB硬上限，并改善中断归档的收尾时间。05是从完整B22与Adam开始的新独立有界执行，不恢复04的partial权重。
+状态：**REVISION05_COMPLETE / RL_CONTRIBUTION_NOT_PASSED**。[05完整实际结果](b22_tracking_reward42_revision05_results_20261018.md)：两组各32768拍与独立保存读回通过，两个final及共享zero共18场全部跑满并通过原任务/停车门；deficit8相对zero合池SSE降低3.11%，仍未达到15%的原贡献门。实际96136controls/480680normal-native/+6compiler，3166.75秒，无OOM。以下保留执行定义及历史修复，不将局部改善写成完整收益资格。
+
+04运行约532秒后因主机可用内存3.43GiB低于旧4GiB停止线退出；自身已读峰值1.89GiB、OOM事件0。[04结果](b22_tracking_reward42_revision04_results_20261018.md)分别记录完整保存的26624拍下界、后续失败回执报告的27000拍前缀，以及仍未知的整轮实际总数。05采用4GiB启动、2GiB运行停止线，保留整组3GiB硬上限，并改善中断归档的收尾时间。05从完整B22与Adam开始，没有恢复04的partial权重。
 
 05提交前五组组合检查为**248项pure/fake PASS（4.64秒）**，10份相关Python源Ruff及diff-check通过。父测试按04真实已学习中断证据替换旧03未学习前提，新增有界清理与异常回执回归；独立只读审查核对04小工件SHA、计数和资源记录。上述检查不替代实际两组训练及原六任务评测。
 
@@ -119,7 +121,7 @@ bootstrap是独立额外进程，硬wall300秒、64MiB写额度，所有模型AP
 
 每个适配以旧完整sourceSHA和inverse AST列明，module globals/实际worker身份为C42，不全局替换旧SHA。闭包还钉实际原spec、B22 ZIP/metadata/probe、policy/Adam证明、recipes/curriculum/learning/checkpoint/heldout/readers、controller/99D builder、engine/GOT/ELF、archive、原评分及实际依赖栈。
 
-freeze前完成集成审查与pure回归：错父代/错臂、α漏接/重复、spec迁移、reward总和→Monitor/rollout buffer真实接线、floor不筛臂、两final采齐、partial/早终止实际计数、final-only、零模型reader、wall/RAM/字节清理。02/03已有学习前失败回执，04已有真实训练前缀，尚无完成的42训练或独立训练读回结果；不能把source准备完成写成数值验收通过。
+freeze前完成集成审查与pure回归：错父代/错臂、α漏接/重复、spec迁移、reward总和→Monitor/rollout buffer真实接线、floor不筛臂、两final采齐、partial/早终止实际计数、final-only、零模型reader、wall/RAM/字节清理。02/03只有学习前失败回执，04只有真实训练前缀；05此后完成了实际训练、两份独立训练读回和完整评测，结果以独立05报告为准。
 
 新worker明确钉原适配源码、B22四文件、原spec和实际MuJoCo完整双根包库存；父再绑定v27现有全部控制/依赖输入。`required_inputs42()`当前纯stdlib冷核返回**287项，共87886584字节**，saved-reader另钉3份原源码；四种阶段的实际默认会话均通过冷接口核验，没有导入NumPy或模型/物理框架。有限几何部分仍依赖本机历史work目录内原C21报告及12份模板，原件身份由固定spec/报告核验；这是本机可复现训练输入，**不等于fresh clone独立训练**，也不继承v27推理的`external_research_work_directory_required=false`。此轮不迁移或重写历史输入。
 
