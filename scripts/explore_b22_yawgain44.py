@@ -29,7 +29,7 @@ OUTPUT = ROOT / "results/b22_yawgain44_explore_20261018_05"  # replaced by --out
 CASES: tuple[str, ...] = ()  # empty means the six original tasks; replaced by --cases
 MANIFEST = ROOT / "runtime/d1_b22/runtime_manifest_v27.json"
 FEEDFORWARDS = (3.9,)  # feedback gain stays at the frozen 4.0
-WALL_S = 900
+WALL_S = 1500
 CONTROLS_MAX = 1800 * 12  # reservation ceiling only; real use is the sum of the case horizons
 
 
@@ -50,42 +50,6 @@ def configure_paths():
     package = ModuleType("scripts")
     package.__path__ = [str(ROOT / "scripts")]
     sys.modules["scripts"] = package
-
-
-def install_feedforward(nominal, feedforward: float, np) -> None:
-    """effective_yaw = ff * command + K * (command - measured), same clip and wheel kinematics.
-
-    With feedforward == 1 this is the frozen law bit for bit; with zero yaw command the
-    extra term vanishes, so non-turning tasks are untouched.
-    """
-    import math
-
-    original = nominal.nominal_targets
-    result_type = None
-
-    def patched(command, state, *, ground_height_m=0.0):
-        nonlocal result_type
-        base = original(command, state, ground_height_m=ground_height_m)
-        result_type = type(base)
-        yaw = float(state.base_rpy[2])
-        lateral_world = np.asarray((-math.sin(yaw), math.cos(yaw), 0.0))
-        lateral = state.foot_offset_world @ lateral_world
-        cmd = command.yaw_rate_rps
-        effective = float(
-            np.clip(
-                feedforward * cmd
-                + nominal.yaw_feedback_gain * (cmd - state.base_angular_velocity_body[2]),
-                -nominal.yaw_request_limit_rps,
-                nominal.yaw_request_limit_rps,
-            )
-        )
-        wheels = np.clip((command.forward_velocity_mps - effective * lateral) / 0.087, -30.0, 30.0)
-        return result_type(
-            base.nominal_joint_target_rad, wheels, base.leg_extension_target_m, effective
-        )
-
-    nominal.nominal_targets = patched
-    return patched
 
 
 def keep_record_consistent(controller, feedforward: float) -> None:
@@ -119,7 +83,6 @@ def worker(feedforward: float) -> int:
     import mujoco._rollout
     import engine_binding  # noqa: F401
     from archive13.atomic_archive_13 import ArchiveWriter, AtomicCourseNativeGuard
-    import numpy as np
     from controller18 import install_controller18
     from full_drive_command_08 import FullDriveCommand, QualifiedCommandCaps
     from run_rl16_training_08 import _boundary
@@ -129,6 +92,7 @@ def worker(feedforward: float) -> int:
     from scripts import run_d1_latest_rl as common
     from scripts.d1_rolling_engine_runtime import RollingEngineRuntime
     from wheel_legged_control.d1.wheel_leg_controller import _nominal_geometry
+    from wheel_legged_control.d1.yaw_feedforward44 import adopt_yaw_feedforward
     # isort: on
 
     package = h.api42().package42()
@@ -175,7 +139,7 @@ def worker(feedforward: float) -> int:
             env.set_native_interval_reader(
                 guard.interval_summary, begin_interval=guard.begin_interval
             )
-            install_feedforward(controller._nominal, feedforward, np)
+            adopt_yaw_feedforward(controller._nominal, feedforward)
             keep_record_consistent(controller, feedforward)
             writer.commit_json(
                 folder / "construction_receipt.json",
