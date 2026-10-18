@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -18,13 +19,20 @@ spec.loader.exec_module(b)
 h = b.helper36()
 
 
+@pytest.fixture
+def synthetic_framework_scope(monkeypatch):
+    # Counter/arithmetic fixtures share pytest's collector, which may import
+    # Torch elsewhere. Real cold admission is checked in fresh processes below.
+    monkeypatch.setattr(b,'frameworks_absent38',lambda:True)
+
+
 def weights():
     value = {key:np.zeros(shape,np.float32) for key,shape in h.WEIGHTS.items()}
     value['b3'][:] = np.linspace(-2.,2.,16,dtype=np.float32)
     return value
 
 
-def test_new_no_framework_counter_covers_single32_probe_plus1600_batch1_exactly():
+def test_new_no_framework_counter_covers_single32_probe_plus1600_batch1_exactly(synthetic_framework_scope):
     counter = b.NumpyCounter38(False,dict(b.API_LIMITS))
     with counter:
         counter.phase = 'probe'
@@ -39,7 +47,7 @@ def test_new_no_framework_counter_covers_single32_probe_plus1600_batch1_exactly(
     assert value['schema'] == 'b22-numpy38-model-api-ledger-v1' and value['backend'] == 'NumPy'
 
 
-def test_failed_numpy_operation_retains_attempt_without_fabricated_return():
+def test_failed_numpy_operation_retains_attempt_without_fabricated_return(synthetic_framework_scope):
     counter = b.NumpyCounter38(False,dict(b.API_LIMITS))
     with counter:
         counter.phase = 'probe'
@@ -50,7 +58,7 @@ def test_failed_numpy_operation_retains_attempt_without_fabricated_return():
 
 
 @pytest.mark.parametrize('phase,rows',[('setup',1),('probe',1),('control',32),('control',2)])
-def test_wrong_phase_or_batch_never_computes(phase,rows):
+def test_wrong_phase_or_batch_never_computes(synthetic_framework_scope,phase,rows):
     counter = b.NumpyCounter38(False,dict(b.API_LIMITS))
     called = []
     with counter:
@@ -60,7 +68,7 @@ def test_wrong_phase_or_batch_never_computes(phase,rows):
 
 
 @pytest.mark.parametrize('fault',[None,'shape','dtype','nan','outside','stateful','unowned'])
-def test_actual_numpy_actor_returns_clip16_without_half_gain_or_input_mutation(fault):
+def test_actual_numpy_actor_returns_clip16_without_half_gain_or_input_mutation(synthetic_framework_scope,fault):
     counter = b.NumpyCounter38(False,dict(b.API_LIMITS))
     actor = b.NumpyActor38(weights(),np,counter)
     obs = np.zeros(99,np.float32)
@@ -95,7 +103,7 @@ def test_actor_requires_all_six_exact_finite_float32_tensors(fault):
 
 
 @pytest.fixture
-def bundle(tmp_path,monkeypatch):
+def bundle(tmp_path,monkeypatch,synthetic_framework_scope):
     folder = tmp_path/'runtime/d1_b22/checkpoint'
     folder.mkdir(parents=True)
     export = tmp_path/'export36';export.mkdir()
@@ -165,3 +173,31 @@ def test_fresh_process_import_guard_blocks_framework_before_execution(module):
         'assert b.frameworks_absent38() and "numpy" not in sys.modules and "mujoco" not in sys.modules')
     result = subprocess.run([sys.executable,'-B','-c',code],cwd=ROOT,capture_output=True,text=True,check=False)
     assert result.returncode == 0,result.stderr
+
+
+@pytest.mark.parametrize('module',['torch','torch.nn','stable_baselines3','cv2','jax','tensorflow'])
+def test_fresh_process_real_cold_gates_reject_preloaded_framework_sentinel(module):
+    code = ('import importlib.util,sys,types;'
+        's=importlib.util.spec_from_file_location("b","scripts/b22_numpy_backend38.py");'
+        'b=importlib.util.module_from_spec(s);s.loader.exec_module(b);'
+        f'sentinel=types.ModuleType({module!r});sys.modules[{module!r}]=sentinel;'
+        'assert not b.frameworks_absent38();'
+        '\nfor gate in (b.deny_frameworks38,b.NumpyCounter38(False,dict(b.API_LIMITS)).__enter__):'
+        '\n try:gate()\n except ValueError:pass\n else:raise AssertionError("accepted preloaded framework")\n'
+        f'assert sys.modules[{module!r}] is sentinel;'
+        'assert "numpy" not in sys.modules and "mujoco" not in sys.modules')
+    result = subprocess.run([sys.executable,'-B','-c',code],cwd=ROOT,capture_output=True,text=True,check=False)
+    assert result.returncode == 0,result.stderr
+
+
+def test_pure_fixtures_tolerate_collection_frameworks_without_unloading_them():
+    code = ('import sys,types,pytest;'
+        'sentinels={name:types.ModuleType(name) for name in ("torch","stable_baselines3","cv2")};'
+        'sys.modules.update(sentinels);'
+        'code=pytest.main(["--noconftest","-p","no:cacheprovider","-q",'
+        '"tests/test_b22_numpy_backend38.py::test_new_no_framework_counter_covers_single32_probe_plus1600_batch1_exactly",'
+        '"tests/test_b22_numpy_worker38.py::test_actual_cold_bootstrap_gate_requires_zero_counts_and_real_binding_proof[None]"]);'
+        'assert code==0;assert all(sys.modules[name] is value for name,value in sentinels.items())')
+    result = subprocess.run([sys.executable,'-B','-c',code],cwd=ROOT,capture_output=True,text=True,check=False,
+        env={**os.environ,'PYTEST_DISABLE_PLUGIN_AUTOLOAD':'1','PYTHONDONTWRITEBYTECODE':'1'})
+    assert result.returncode == 0,result.stdout+result.stderr

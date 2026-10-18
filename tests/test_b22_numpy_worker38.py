@@ -44,6 +44,9 @@ def cold(tmp_path,monkeypatch):
         if value is None:monkeypatch.delenv(key,raising=False)
         else:monkeypatch.setenv(key,value)
     monkeypatch.setattr(w.sys,'version_info',(3,10,12))
+    # This is a synthetic bootstrap boundary inside the shared pytest process;
+    # actual framework absence/rejection is exercised in fresh backend tests.
+    monkeypatch.setattr(w.backend,'frameworks_absent38',lambda:True)
     monkeypatch.setattr(w.backend,'deny_frameworks38',lambda:w.require(w.backend.frameworks_absent38(),'forbidden imported'))
     monkeypatch.setattr(w.backend,'helper36',lambda:SimpleNamespace(dependency_origins=lambda *a:{'numpy':'synthetic','mujoco':'synthetic'}))
     state = {key:0 for key in w.ZERO_FIELDS}
@@ -69,7 +72,7 @@ def cold(tmp_path,monkeypatch):
 
 
 @pytest.mark.parametrize('fault',[None,'native','armed','target','limit','first_caller','bool_counter',
-    'got','elf','missing_slot','proof','geometry','preload','ldpath','session','session_symlink'])
+    'got','elf','missing_slot','proof','geometry','preload','ldpath','session','session_symlink','framework'])
 def test_actual_cold_bootstrap_gate_requires_zero_counts_and_real_binding_proof(cold,monkeypatch,fault):
     if fault == 'native':cold.state['control_returns'] = 1
     elif fault == 'armed':cold.state['armed'] = 1
@@ -84,6 +87,7 @@ def test_actual_cold_bootstrap_gate_requires_zero_counts_and_real_binding_proof(
     elif fault == 'geometry':cold.cache['misses'] = 1
     elif fault == 'preload':monkeypatch.setenv('LD_PRELOAD','other.so')
     elif fault == 'ldpath':monkeypatch.setenv('LD_LIBRARY_PATH','')
+    elif fault == 'framework':monkeypatch.setattr(w.backend,'frameworks_absent38',lambda:False)
     elif fault == 'session':(cold.output/'session.json').write_text('{}')
     elif fault == 'session_symlink':
         (cold.output/'session.json').rename(cold.output/'foreign_session.json')
