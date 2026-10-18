@@ -56,6 +56,7 @@ def test_worker_real_owner_inverse_lock_and_import_before_use():
     assert 'construction_limit=2' in text
     assert 'construction_returns' in text and '5 * actual' in text
     assert 'train = train42' in text and 'evaluate = evaluate42' in text
+    assert 'install_controller18 = install_controller42' in text
     assert 'signal.signal(signal.SIGINT, signal_stop)' in text
     assert 'signal.signal(signal.SIGXCPU, signal_stop)' in text
 
@@ -72,6 +73,117 @@ def test_strict_clone_has_one_actual_shared_global_namespace():
     assert module.load()==(w.REWARD_SCHEMA,w.FINAL_SCHEMA)
     assert original.load()==('old','old-final')
     assert module.load.__code__ is original.load.__code__
+
+
+@pytest.fixture
+def production_installer42():
+    """Execute only the actual pinned installer function, with synthetic chain types."""
+    path=ROOT/w.SOURCES['controller'][0]
+    assert w.identity(path)['sha256']==w.SOURCES['controller'][1]
+    function=next(n for n in ast.parse(path.read_text()).body
+                  if isinstance(n,ast.FunctionDef) and n.name=='install_controller18')
+    cache={'currsize':1,'misses':1,'hits':4}
+    class Adapter:
+        def __init__(self,plant):
+            self.plant=plant;self._preview=None;self.enable_stationary_action_probe=False
+    class Loop:
+        def __init__(self,plant,provider,controller,*,caps):
+            self.plant=plant;self.provider=provider;self.controller=controller;self.caps=caps
+            self._initialized=False;self._decision=None;self._receipt=None
+    class Controller:
+        def __init__(self,plant,*,mode,variant,enable_stationary_action_probe):
+            self.plant=plant;self.mode=mode;self.variant=variant
+            self.enable_stationary_action_probe=enable_stationary_action_probe
+            cache['hits']+=1
+    class Production:
+        def __init__(self):
+            self.plant=object();self.caps=object();self.mode='train';self.pure_test_components=False
+            self._steps=None;self._episode_index=-1;self._active=False
+            self.decision=None;self.last_transition=None
+            self.controller=Adapter(self.plant)
+            self.loop=Loop(self.plant,object(),self.controller,caps=self.caps)
+    module=ModuleType('pinned_production_installer42')
+    module.__dict__.update(WorldUprightCourseEnv=Production,WorldUprightLoop=Loop,
+        FullDriveControllerAdapter=Adapter,FullDriveController18=Controller,
+        VARIANTS=('baseline','yaw','ramp','combined'),
+        _nominal_geometry=SimpleNamespace(cache_info=lambda:SimpleNamespace(**cache)))
+    exec(compile(ast.Module(body=[function],type_ignores=[]),str(path),'exec'),module.__dict__)  # noqa: S102 -- exact function from SHA-pinned controller, no imports or physical objects
+    return module,cache
+
+
+def training_type42(module):
+    return w.reward_env42(module.WorldUprightCourseEnv,{'alpha':8,'reward_arm':'deficit8'})
+
+
+def test_real_old_installer_reproduces_reward_subclass_failure_then_private_mapping_passes(production_installer42):
+    module,cache=production_installer42
+    cls=training_type42(module);env=cls();old_loop=env.loop;old_controller=env.controller
+    with pytest.raises(TypeError,match='C18 installer needs the exact production world-upright env'):
+        module.install_controller18(env,'combined')
+    install,proof=w.controller_installer42(module,cls)
+    result=install(env,'combined')
+    assert result is env.controller and result is not old_controller
+    assert env.loop is not old_loop and env.loop.plant is env.plant
+    assert env.loop.provider is old_loop.provider and env.loop.caps is env.caps
+    assert cache=={'currsize':1,'misses':1,'hits':5}
+    assert install.__code__ is module.install_controller18.__code__
+    assert proof['globals_changed']==['WorldUprightCourseEnv']
+    assert proof['function_code_unchanged'] and proof['old_module_globals_unchanged']
+    assert module.install_controller18.__globals__ is module.__dict__
+    assert module.WorldUprightCourseEnv is cls.__bases__[0]
+
+
+@pytest.mark.parametrize('fault',['subclass_of_registered','unregistered_subclass','foreign_base'])
+def test_controller_mapping_does_not_accept_arbitrary_subclasses(production_installer42,fault):
+    module,_=production_installer42
+    registered=training_type42(module)
+    if fault=='subclass_of_registered':cls=type('Other',(registered,),{})
+    elif fault=='unregistered_subclass':cls=type('Other',(module.WorldUprightCourseEnv,),{})
+    else:cls=w.reward_env42(type('Foreign',(),{}),{'alpha':1,'reward_arm':'control'})
+    with pytest.raises(ValueError,match='exact registered training env'):
+        w.controller_installer42(module,cls)
+
+
+@pytest.mark.parametrize('fault',['pure_test','loop_type','controller_type','already_reset','active',
+                                 'prepared_decision','controller_preview','cold_cache','foreign_plant'])
+def test_real_installer_keeps_every_existing_source_chain_guard(production_installer42,fault):
+    module,cache=production_installer42;cls=training_type42(module);env=cls()
+    if fault=='pure_test':env.pure_test_components=True
+    elif fault=='loop_type':
+        env.loop=type('LoopChild',(module.WorldUprightLoop,),{})(env.plant,env.loop.provider,env.controller,caps=env.caps)
+    elif fault=='controller_type':
+        env.controller=type('ControllerChild',(module.FullDriveControllerAdapter,),{})(env.plant)
+        env.loop.controller=env.controller
+    elif fault=='already_reset':env._steps=0
+    elif fault=='active':env._active=True
+    elif fault=='prepared_decision':env.decision=object()
+    elif fault=='controller_preview':env.controller._preview=object()
+    elif fault=='cold_cache':cache['currsize']=0
+    else:env.loop.plant=object()
+    install,_=w.controller_installer42(module,cls)
+    with pytest.raises((TypeError,RuntimeError)):install(env,'combined')
+    assert cache['hits']==4
+
+
+def test_evaluation_uses_original_installer_function_without_mapping(production_installer42):
+    module,_=production_installer42
+    install,proof=w.controller_installer42(module,module.WorldUprightCourseEnv)
+    assert install is module.install_controller18 and proof['globals_changed']==[]
+    assert not proof['registered_training_env']
+    env=module.WorldUprightCourseEnv();install(env,'combined')
+    assert type(env.controller) is module.FullDriveController18
+
+
+def test_actual_worker_installer_proxy_calls_fixed_body_and_archives_mapping(production_installer42,tmp_path,monkeypatch):
+    module,_=production_installer42;env=training_type42(module)()
+    monkeypatch.setattr(w,'controller_module42',lambda:module)
+    monkeypatch.setattr(w,'_quota42',quota(tmp_path))
+    controller=w.install_controller42(env,'combined')
+    assert controller is env.controller
+    saved=w.read_json(tmp_path/'controller_installer42_proof.json')
+    assert saved['function_code_unchanged'] and saved['installation_completed']
+    assert saved['source_sha256']==w.SOURCES['controller'][1]
+    assert saved['globals_changed']==['WorldUprightCourseEnv']
 
 
 @pytest.mark.parametrize('alpha',[1,8])
@@ -394,6 +506,9 @@ def test_bootstrap_runs_only_definition_graph_inside_zero_model_counter(tmp_path
     targets={'environment':Base,**{name:type(name,(),{}) for name in ('ppo','base_algorithm','nn_module')}}
     originals={name:kind.__dict__.get('__init__') for name,kind in targets.items()}
     monkeypatch.setattr(w,'constructor_targets42',lambda base:targets)
+    controller=ModuleType('fake_bootstrap_controller42');controller.WorldUprightCourseEnv=Base
+    exec('def install_controller18(env,variant): raise AssertionError("bootstrap called installer")',controller.__dict__)  # noqa: S102 -- synthetic function must never be called
+    monkeypatch.setattr(w,'controller_module42',lambda:controller)
     class Counter:
         def __init__(self,training,limits):
             assert training is False and all(v==0 for v in limits.values())

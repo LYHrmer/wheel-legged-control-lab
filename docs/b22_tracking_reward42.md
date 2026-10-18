@@ -1,8 +1,12 @@
 # B22 tracking reward 42：有界对照与执行准备
 
-状态：**RESOURCE_REVISION02_SOURCE_VALIDATED_NOT_EXECUTED**。资源修订02的五组pure/fake组合测试**208项PASS（3.23秒）**，10份Python源Ruff及diff-check通过；原77保护输入共21730336字节逐SHA核验PASS，所有者已解冻experiments.py仍核当前固定SHA。原release01已准备但未执行，正式output01不存在。用户进一步明确允许本机慢、无需如此保守，因此仅修订资源准入与进程组限额，不增加训练或评测次数。尚未执行真实依赖bootstrap、加载策略、构造环境、积分、训练或评测。旧77、用户9结果、v27及31～41源和原回执不改，42数值worker/reader/helper保持原字节。
+状态：**REVISION02_INCOMPLETE_BEFORE_LEARNING / REVISION03_INTERFACE_REPAIR**。02已经真实执行：依赖bootstrap通过，训练首个环境构造后，旧controller18的精确类型检查拒绝了42奖励环境子类，尚未加载策略或开始学习。已知消耗为0controls、0normal native、2compiler native，历史整轮actual仍为null；原目录和回执完整保留，见[02结果](b22_tracking_reward42_revision02_results_20261018.md)。原01未执行，正式output01仍不存在。此前208项pure/fake测试不能替代这次真实集成反馈。
 
-旧release01保留SHA `7128e72d0fcfde9c0322d185e188f0648ef350c90911705fdb52e5fc8de597f0`，来源commit `4c55bbb2baeca84dc3db897ffeaeb07329faa38e`。修订02以`resource_revision=owned_cgroup_v2`登记新的`*_plan_20261018_02.json`、`*_20261018_02`输出和`*_admissions_20261018_02`，prepare/execute均拒绝已存在的原output01。旧release原字节不变且不执行；02使用同一份尚未消耗的96136controls预算，不是续跑或再加一轮。
+03在新的release、output、admissions及owned03 unit执行，修复仅涉及训练时的controller installer环境身份接缝：从固定SHA的原函数建立私有globals，将精确Env身份映射到本次注册的42奖励Env，其余原函数代码、loop/controller身份、never-reset与几何cache检查保留；评测仍使用原Env和原installer。旧runtime/77输入、原回执及42 reward数学不改。原02在学习前失败，03仍从同一完整B22与Adam启动，计划的96136controls / 480680normal native / 6compiler native独立登记；**02已知额外2compiler另列，不能声称所有尝试总计仍只有6次构造**。
+
+03提交前五组pure/fake组合检查为**242项PASS（4.06秒）**，10份相关Python源Ruff及diff-check通过。新增测试直接复现原installer错误并核私有身份适配，同时核02历史证据的已知消耗、未知总数及清理事实。它们不替代后续真实训练、保存读回和评测。
+
+旧release01保留SHA `7128e72d0fcfde9c0322d185e188f0648ef350c90911705fdb52e5fc8de597f0`，来源commit `4c55bbb2baeca84dc3db897ffeaeb07329faa38e`。02 release SHA为`33f2323fc20647481810995af81886be9acdb28cde236547785b4992d4acd83f`，来源commit `cd32a85f7815fae69f89b0b8d2c769e8f0d2262d`。03以`*_plan_20261018_03.json`、`*_20261018_03`及`*_admissions_20261018_03`登记新执行，固定绑定02的原失败证据，同时保留01未执行的来源证明；不会重新执行或覆盖02，也不使用任何partial权重。
 
 ## 单一干预与可证伪目标
 
@@ -64,7 +68,7 @@ bootstrap是独立额外进程，硬wall300秒、64MiB写额度，所有模型AP
 
 修订02保留启动6GiB/运行停止4GiB，将原8GiB连续60秒工程门改为**6GiB连续10秒、5秒间隔至少3点**，间隔异常重置稳定计时；下一请求/nonce未建时最多等300秒，末次来源检查后仍须6GiB。4GiB运行门与准入均指host及本任务上方外部祖先的可用量，**不把本任务自身3GiB硬上限剩余量同4/6GiB比较**。原31的min-own-cap读法在此限额下会误拒绝，因此只在新父资源接缝采用stdlib guard；冻结31及数值worker无需修改。
 
-整个任务必须位于唯一systemd用户unit `wheel-b22-tracking42-owned02-20261018-01.service`的同一cgroup，guard实际核对应`MemoryHigh=2048MiB`、`MemoryMax=3072MiB`、`MemorySwapMax=0`的内核文件及`memory.oom.group=1`；启动unit另登记`OOMPolicy=kill`，组外systemd记录实际配置与终态。父、执行期数GiB输入逐块hash、bootstrap、所有数值worker、saved-reader、最终比较均受同一组限额约束；不能只限制训练子进程。父监督每阶段、保存reader与worker启动门都读同一登记scope，记录host/外部祖先与owned current/high/max/events/peak，未知或OOM事件失败。单CPU线程、Nice≥10、串行，无自有残留child。
+当前03整个任务必须位于唯一systemd用户unit `wheel-b22-tracking42-owned03-20261018-01.service`的同一cgroup，guard实际核对应`MemoryHigh=2048MiB`、`MemoryMax=3072MiB`、`MemorySwapMax=0`的内核文件及`memory.oom.group=1`；启动unit另登记`OOMPolicy=kill`，组外systemd记录实际配置与终态。父、执行期数GiB输入逐块hash、bootstrap、所有数值worker、saved-reader、最终比较均受同一组限额约束；不能只限制训练子进程。父监督每阶段、保存reader与worker启动门都读同一登记scope，记录host/外部祖先与owned current/high/max/events/peak，未知或OOM事件失败。单CPU线程、Nice≥10、串行，无自有残留child。
 
 3GiB是否足够这次wheel训练尚无实测峰值证明。历史可用RAM跌幅不是本任务RSS/PSS；输入hash每次只持1MiB读块，但多GiB文件页缓存可能记入组memory.current并被内核回收，不能把它称为私有内存泄漏。MemoryHigh可使回收变慢，90分钟总wall不增加；MemoryMax可能导致本轮INCOMPLETE，不能自动重训。若整组被内核OOM杀死，进程内finally和最终回执不保证执行，须由组外systemd终态/事件与已落盘阶段记录闭账，缺失实际计数保持null，不能把RUNNING旧回执当成功。
 
@@ -105,7 +109,7 @@ bootstrap是独立额外进程，硬wall300秒、64MiB写额度，所有模型AP
 
 每个适配以旧完整sourceSHA和inverse AST列明，module globals/实际worker身份为C42，不全局替换旧SHA。闭包还钉实际原spec、B22 ZIP/metadata/probe、policy/Adam证明、recipes/curriculum/learning/checkpoint/heldout/readers、controller/99D builder、engine/GOT/ELF、archive、原评分及实际依赖栈。
 
-freeze前完成集成审查与pure回归：错父代/错臂、α漏接/重复、spec迁移、reward总和→Monitor/rollout buffer真实接线、floor不筛臂、两final采齐、partial/早终止实际计数、final-only、零模型reader、wall/RAM/字节清理。三个入口已实现，尚无真实bootstrap/训练/独立读回结果；不能把source准备完成写成数值验收通过。
+freeze前完成集成审查与pure回归：错父代/错臂、α漏接/重复、spec迁移、reward总和→Monitor/rollout buffer真实接线、floor不筛臂、两final采齐、partial/早终止实际计数、final-only、零模型reader、wall/RAM/字节清理。02已有真实bootstrap通过及学习前失败回执，尚无完成的42训练或独立训练读回结果；不能把source准备完成写成数值验收通过。
 
 新worker明确钉原适配源码、B22四文件、原spec和实际MuJoCo完整双根包库存；父再绑定v27现有全部控制/依赖输入。`required_inputs42()`当前纯stdlib冷核返回**287项，共87886584字节**，saved-reader另钉3份原源码；四种阶段的实际默认会话均通过冷接口核验，没有导入NumPy或模型/物理框架。有限几何部分仍依赖本机历史work目录内原C21报告及12份模板，原件身份由固定spec/报告核验；这是本机可复现训练输入，**不等于fresh clone独立训练**，也不继承v27推理的`external_research_work_directory_required=false`。此轮不迁移或重写历史输入。
 
@@ -120,4 +124,4 @@ rtk proxy env PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -B -m pytest --noconftest
 rtk proxy .local-deps/bin/ruff check scripts/worker_b22_tracking_reward42.py tests/test_b22_tracking_reward42_worker.py
 ~~~
 
-父入口默认仅打印计划：`rtk proxy python3 -B scripts/run_b22_tracking_reward42.py`。11份源全部提交并通过检查后，`--prepare`一次性写02独立release，仍不启动训练；`--execute`由上述唯一unit内Nice≥10的受控父进程调用，先核实际cgroup限额并完成短内存准入。正式输出一旦创建即禁止重跑或续训，保存读回失败也不重做物理。release与输出均为固定独立路径，不覆盖31～41或旧42release01。
+父入口默认仅打印计划：`rtk proxy python3 -B scripts/run_b22_tracking_reward42.py`。11份源全部提交并通过检查后，`--prepare`一次性写03独立release，仍不启动训练；`--execute`由上述唯一unit内Nice≥10的受控父进程调用，先核实际cgroup限额并完成短内存准入。正式输出一旦创建即禁止在原目录重跑或续训，保存读回失败也不重做物理。release与输出均为固定独立路径，不覆盖31～41或旧42的01/02记录。

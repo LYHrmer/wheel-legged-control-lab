@@ -18,14 +18,36 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = 'C42_B22_tracking_deficit_comparison_v1'
-OUTPUT = ROOT/'results/b22_tracking_reward42_20261018_02'
-RELEASE = ROOT/'results/b22_tracking_reward42_plan_20261018_02.json'
-ADMISSIONS = ROOT/'results/b22_tracking_reward42_admissions_20261018_02'
+OUTPUT = ROOT/'results/b22_tracking_reward42_20261018_03'
+RELEASE = ROOT/'results/b22_tracking_reward42_plan_20261018_03.json'
+ADMISSIONS = ROOT/'results/b22_tracking_reward42_admissions_20261018_03'
 UNUSED_RELEASE = ROOT/'results/b22_tracking_reward42_plan_20261018_01.json'
 UNUSED_OUTPUT = ROOT/'results/b22_tracking_reward42_20261018_01'
 UNUSED_RELEASE_SHA = '7128e72d0fcfde9c0322d185e188f0648ef350c90911705fdb52e5fc8de597f0'
 UNUSED_COMMIT = '4c55bbb2baeca84dc3db897ffeaeb07329faa38e'
-RESOURCE_REVISION = 'owned_cgroup_v2'
+RESOURCE_REVISION = 'owned_cgroup_v3'
+PREDECESSOR_OUTPUT = ROOT/'results/b22_tracking_reward42_20261018_02'
+PREDECESSOR_RELEASE = ROOT/'results/b22_tracking_reward42_plan_20261018_02.json'
+PREDECESSOR_COMMIT = 'cd32a85f7815fae69f89b0b8d2c769e8f0d2262d'
+PREDECESSOR_ERROR = 'C18 installer needs the exact production world-upright env'
+PREDECESSOR_INPUTS = {
+    'results/b22_tracking_reward42_plan_20261018_02.json':
+        {'bytes': 909150, 'sha256': '33f2323fc20647481810995af81886be9acdb28cde236547785b4992d4acd83f'},
+    'results/b22_tracking_reward42_20261018_02/report.json':
+        {'bytes': 6404, 'sha256': '62d4c3ec599ed343d9b9b83836990959135e1f2f4585e58eb3401af7f6e31963'},
+    'results/b22_tracking_reward42_20261018_02/bootstrap/session.json':
+        {'bytes': 1759803, 'sha256': '151d3a141fda3a7137529ede1b5ec4b5ee075046421a51421f10456f415d2167'},
+    'results/b22_tracking_reward42_20261018_02/bootstrap/worker_receipt.json':
+        {'bytes': 1512, 'sha256': 'eade18bd0fa220f50ab5f547ec803775fd7e500c3bf70b543a43c9857f39057e'},
+    'results/b22_tracking_reward42_20261018_02/bootstrap/supervisor_receipt.json':
+        {'bytes': 738, 'sha256': '42cc87fdece973619cef4c14c792cad45368e1f4de19a6f5df5c2981ff2bf54c'},
+    'results/b22_tracking_reward42_20261018_02/train_control/session.json':
+        {'bytes': 1760183, 'sha256': '71455b83114919cf6d73d34f8ba89114f5dd50b0845eeaa20ab41470dfce6b81'},
+    'results/b22_tracking_reward42_20261018_02/train_control/worker_receipt.json':
+        {'bytes': 5416, 'sha256': '541f7071a2ef0ee23870133130ec4e0685d7e28b7968ff78c8e1c840109a3f24'},
+    'results/b22_tracking_reward42_20261018_02/train_control/supervisor_receipt.json':
+        {'bytes': 742, 'sha256': '3dd5170406f2f38e921fc30c110dd09cadf28e430de01f590e2f4eddd535b425'},
+}
 DRIVER = ROOT/'scripts/run_b22_tracking_reward42.py'
 WORKER = ROOT/'scripts/worker_b22_tracking_reward42.py'
 READER = ROOT/'scripts/read_b22_tracking_reward42.py'
@@ -56,8 +78,8 @@ COUNT_KEYS = ('controls', 'normal_native', 'compiler_native')
 RESOURCE_POLICY = {'memory_high_bytes': 2048 << 20, 'memory_max_bytes': 3072 << 20,
                    'memory_swap_max_bytes': 0, 'oom_policy': 'kill',
                    'memory_oom_group': 1,
-                   'unit': 'wheel-b22-tracking42-owned02-20261018-01.service',
-                   'owned_scope': '/user.slice/user-1000.slice/user@1000.service/app.slice/wheel-b22-tracking42-owned02-20261018-01.service',
+                   'unit': 'wheel-b22-tracking42-owned03-20261018-01.service',
+                   'owned_scope': '/user.slice/user-1000.slice/user@1000.service/app.slice/wheel-b22-tracking42-owned03-20261018-01.service',
                    'reserve_scope': 'host and ancestors outside the owned job cgroup',
                    'covers': 'parent, source hashing, bootstrap, workers, saved readers, comparison'}
 _resource_guard42 = None
@@ -157,7 +179,114 @@ def unused_budget_origin42():
             'C42 original scientific budget identity differs')
     return {'release': str(UNUSED_RELEASE), 'identity': entry, 'source_commit': UNUSED_COMMIT,
             'original_output': str(UNUSED_OUTPUT), 'original_execution_started': False,
-            'same_unused_scientific_budget': True}
+            'original_scientific_budget_origin_only': True}
+
+
+def predecessor_failure42():
+    """Verify the specific closed 02 failure; never rewrite its unknown total."""
+    files = {str(ROOT/name): identity(ROOT/name) for name in PREDECESSOR_INPUTS}
+    require(all(files[str(ROOT/name)] == entry for name, entry in PREDECESSOR_INPUTS.items()),
+            'C42 predecessor receipt identity changed')
+    release = read_json(PREDECESSOR_RELEASE)
+    parent = read_json(PREDECESSOR_OUTPUT/'report.json')
+    release_id = files[str(PREDECESSOR_RELEASE)]
+    old_worker = release.get('source', {}).get('authored', {}).get(str(WORKER))
+    require(release.get('schema') == 'b22-tracking42-release-v1'
+            and release.get('execution_contract_id') == CONTRACT
+            and release.get('source', {}).get('git_commit') == PREDECESSOR_COMMIT
+            and release.get('plan', {}).get('output') == str(PREDECESSOR_OUTPUT)
+            and all(type(release['plan']['limits'].get(k)) is int
+                    and release['plan']['limits'][k] == LIMITS[k] for k in COUNT_KEYS)
+            and isinstance(old_worker, dict), 'C42 predecessor release scope differs')
+    known = {'controls': 0, 'normal_native': 0, 'compiler_native': 2}
+    def exact_counts(value, expected):
+        return (isinstance(value, dict) and set(value) == set(expected)
+                and all(type(value[k]) is int and value[k] == v for k, v in expected.items()))
+    require(parent.get('schema') == 'b22-tracking42-supervision-v1'
+            and parent.get('execution_contract_id') == CONTRACT
+            and parent.get('status') == 'INCOMPLETE' and parent.get('execution_started') is True
+            and parent.get('actual_counts') is None
+            and exact_counts(parent.get('known_actual_counts'), known)
+            and parent.get('active_stage') == 'train_control' and parent.get('retry_permitted') is False
+            and parent.get('release_identity') == release_id and parent.get('source') == release['source']
+            and parent.get('failure') == {'type': 'ValueError', 'message': 'C42 worker did not complete with clean ownership'}
+            and parent.get('cleanup', {}).get('remaining') == {}
+            and parent.get('cleanup', {}).get('signalled_identities') == {},
+            'C42 predecessor parent is not the closed known failure')
+    for stage, exit_code in (('bootstrap', 0), ('train_control', 1)):
+        run = PREDECESSOR_OUTPUT/stage
+        session = read_json(run/'session.json')
+        worker = read_json(run/'worker_receipt.json')
+        supervisor = read_json(run/'supervisor_receipt.json')
+        session_id = files[str(run/'session.json')]
+        require(session.get('execution_contract_id') == CONTRACT and session.get('name') == stage
+                and session.get('mode') == ('bootstrap' if stage == 'bootstrap' else 'train')
+                and session.get('release_path') == str(PREDECESSOR_RELEASE)
+                and session.get('release_identity') == release_id
+                and session.get('execution_output') == str(PREDECESSOR_OUTPUT)
+                and session.get('worker_identity') == old_worker
+                and worker.get('session_identity') == session_id
+                and worker.get('execution_contract_id') == CONTRACT
+                and worker.get('schema') == 'b22-tracking42-worker-receipt-v1'
+                and worker.get('cleanup_errors') == [], 'C42 predecessor worker/session differs')
+        require(supervisor.get('schema') == 'b22-tracking42-worker-supervision-v1'
+                and supervisor.get('stage') == stage
+                and supervisor.get('release_identity') == release_id
+                and supervisor.get('session_identity') == session_id
+                and supervisor.get('worker_identity') == old_worker
+                and type(supervisor.get('exit_code')) is int and supervisor['exit_code'] == exit_code
+                and supervisor.get('failure') is None and supervisor.get('supervision_returned') is True
+                and supervisor.get('cleanup', {}).get('remaining') == {}
+                and supervisor.get('cleanup', {}).get('signalled_identities') == {},
+                'C42 predecessor supervisor did not close cleanly')
+        calls = worker.get('model_calls', {})
+        require(calls.get('schema') == 'd1-model-api-ledger-20-v1'
+                and calls.get('counts') == {}
+                and type(calls.get('actor_rows')) is int and calls['actor_rows'] == 0
+                and type(calls.get('critic_rows')) is int and calls['critic_rows'] == 0
+                and type(worker.get('actual_pure_servo_advances')) is int
+                and worker['actual_pure_servo_advances'] == 0,
+                'C42 predecessor performed model calls or unknown work')
+        if stage == 'bootstrap':
+            require(worker.get('status') == 'COMPLETE' and worker.get('failure') is None
+                    and worker.get('bootstrap_verified42') is True
+                    and exact_counts(worker.get('actual_counts'), dict.fromkeys(COUNT_KEYS, 0)),
+                    'C42 predecessor bootstrap is not zero-work complete')
+            require(parent.get('stages') == [{'name': 'bootstrap', 'path': 'bootstrap/worker_receipt.json',
+                    'report': files[str(run/'worker_receipt.json')],
+                    'independent_saved_reader_executed': False}], 'C42 predecessor completed stages differ')
+        else:
+            failure = worker.get('failure', {})
+            require(worker.get('status') == 'INCOMPLETE' and worker.get('execution_complete') is False
+                    and worker.get('actual_counts') is None
+                    and exact_counts(worker.get('known_partial_counts'), known)
+                    and worker.get('retry_permitted') is False
+                    and failure.get('type') == 'TypeError' and failure.get('message') == PREDECESSOR_ERROR
+                    and failure.get('training_cleanup_errors') == []
+                    and failure.get('traceback', '').endswith('TypeError: '+PREDECESSOR_ERROR+'\n')
+                    and 'controller18.py\", line 155' in failure.get('traceback', ''),
+                    'C42 predecessor TypeError or partial counts differs')
+            c_final = worker.get('C_final', {})
+            counters = {'construction_attempts': 2, 'construction_returns': 2, 'control_attempts': 0,
+                        'control_returns': 0, 'ccd_attempts': 0, 'ccd_returns': 0, 'violations': 0}
+            python_counts = {'control_attempted': 0, 'control_completed': 0, 'native_attempted': 0,
+                             'native_returned': 0, 'native_failed': 0, 'clock_advanced_substeps': 0}
+            require(all(type(c_final.get(k)) is int and c_final[k] == v for k, v in counters.items())
+                    and all(type(worker.get('python', {}).get(k)) is int
+                            and worker['python'][k] == v for k, v in python_counts.items()),
+                    'C42 predecessor native/control counters differ')
+    require(not (PREDECESSOR_OUTPUT/'train_deficit8').exists()
+            and not (PREDECESSOR_OUTPUT/'eval').exists(), 'C42 predecessor contains later work')
+    return {'schema': 'b22-tracking42-specific-predecessor-failure-v1',
+            'output': str(PREDECESSOR_OUTPUT), 'release': str(PREDECESSOR_RELEASE),
+            'source_commit': PREDECESSOR_COMMIT, 'inputs': files,
+            'historical_attempt_occurred': True, 'historical_actual_counts': None,
+            'historical_known_counts': known, 'model_load_or_learning_occurred': False,
+            'failure': {'type': 'TypeError', 'message': PREDECESSOR_ERROR},
+            'clean_process_closure': True,
+            'historical_compiler_native_separate_from_new_budget': 2,
+            'new_attempt_authority': 'continuing user authorisation to repair the actual failed attempt',
+            'old_unknown_total_is_not_rewritten': True}
 
 
 def stages42():
@@ -185,6 +314,9 @@ def describe42():
     return {'schema': 'b22-tracking42-plan-v1', 'status': 'PLAN_ONLY',
             'execution_contract_id': CONTRACT, 'output': str(OUTPUT),
             'resource_revision': RESOURCE_REVISION, 'resource_policy': dict(RESOURCE_POLICY),
+            'predecessor_output': str(PREDECESSOR_OUTPUT),
+            'historical_compiler_native_separate_from_new_budget': 2,
+            'historical_actual_counts': None,
             'stages': stages42(), 'limits': dict(LIMITS),
             'actors': ['zero', 'control', 'deficit8'], 'evaluation_gain': 1,
             'partial_eligible': False, 'retry_permitted': False,
@@ -213,7 +345,8 @@ def inputs42(source):
     inputs = dict(config['source_hashes'])
     for mapping in (source['authored'], extra, reader_inputs,
                     {str(ROOT/name): identity(ROOT/name) for name in PINS},
-                    {str(MANIFEST): identity(MANIFEST), str(UNUSED_RELEASE): identity(UNUSED_RELEASE)}):
+                    {str(MANIFEST): identity(MANIFEST), str(UNUSED_RELEASE): identity(UNUSED_RELEASE)},
+                    predecessor_failure42()['inputs']):
         for name, entry in mapping.items():
             require(name not in inputs or inputs[name] == entry, 'C42 conflicting frozen identity: '+name)
             inputs[name] = entry
@@ -227,7 +360,8 @@ def validate_release42(path):
     require(value.get('schema') == 'b22-tracking42-release-v1'
             and value.get('execution_contract_id') == CONTRACT
             and value.get('resource_revision') == RESOURCE_REVISION
-            and value.get('unused_budget_origin') == unused_budget_origin42()
+            and value.get('original_scientific_budget_origin') == unused_budget_origin42()
+            and value.get('predecessor_failure') == predecessor_failure42()
             and value.get('plan') == describe42(), 'C42 release scope differs')
     require(value['source'] == source_identity42(), 'C42 HEAD/authored bytes changed')
     require(value['inputs'] == inputs42(value['source']), 'C42 input closure differs')
@@ -240,7 +374,9 @@ def prepare42():
     require(not RELEASE.exists() and not OUTPUT.exists(), 'C42 release/output already exists')
     source = source_identity42()
     value = {'schema': 'b22-tracking42-release-v1', 'execution_contract_id': CONTRACT,
-             'resource_revision': RESOURCE_REVISION, 'unused_budget_origin': unused_budget_origin42(),
+             'resource_revision': RESOURCE_REVISION,
+             'original_scientific_budget_origin': unused_budget_origin42(),
+             'predecessor_failure': predecessor_failure42(),
              'plan': describe42(), 'source': source, 'inputs': inputs42(source)}
     for name, expected in value['inputs'].items():
         require(identity(name) == expected, 'C42 prepare input changed: '+name)
@@ -470,6 +606,7 @@ def execute42():
     deadline = started+LIMITS['total_wall_s']
     require(not OUTPUT.exists(), 'C42 execution already claimed; no retry')
     unused_budget_origin42()
+    predecessor = predecessor_failure42()
     require(os.getpriority(os.PRIO_PROCESS, 0) >= LIMITS['required_minimum_nice'],
             'C42 parent must run at Nice>=10')
     ADMISSIONS.mkdir(exist_ok=True)
@@ -478,6 +615,7 @@ def execute42():
     report = {'schema': 'b22-tracking42-supervision-v1', 'status': 'WAITING',
               'execution_contract_id': CONTRACT, 'failure': None, 'actual_counts': None,
               'resource_revision': RESOURCE_REVISION, 'resource_policy': dict(RESOURCE_POLICY),
+              'predecessor_failure': predecessor,
               'known_actual_counts': dict.fromkeys(COUNT_KEYS, 0), 'stages': [],
               'execution_started': False, 'retry_permitted': False, 'minimum_effective_bytes': None}
     common = host = None

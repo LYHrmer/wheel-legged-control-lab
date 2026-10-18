@@ -32,6 +32,7 @@ MANIFEST = ROOT/'runtime/d1_b22/runtime_manifest_v27.json'
 RECEIPT_RESERVE = 1 << 20
 EXTERNAL_FILE_LIMIT = 16 << 20
 _quota42 = None
+_reward_base_by_type42 = {}
 SOURCES = {
  'worker': ('runtime/d1_b22/research/continuation22/worker22.py','9c02f789c3b15f0e57a6d0bc535595ee6a9d5c515ec07bd2b2283c735fa57fd1'),
  'recipes': ('runtime/d1_b22/research/continuation22/recipes22.py','335cfbcb1e36a35112cb23896894bbf1c0e7c80cea9725bc4bf2dac2253090d4'),
@@ -44,6 +45,7 @@ SOURCES = {
  'metadata': ('runtime/d1_b22/research/rl11/run_short_rl16_training_11.py','c9c8127365ecf0fe071979bf42a2634f4169c8b7e8136f3837f971d004fff16e'),
  'geometry': ('runtime/d1_b22/research/continuation21/geometry21.py','166734144ff69582fe1e7eef97be8fd49a008f133d10b50aaddc9aab5a9575ef'),
  'servo': ('runtime/d1_b22/research/course_impl08/full_drive_servo_08.py','6f96f5a94e5824c269fead504c2f8a0fa9789c75cea42bebd08fccb88ea50ebb'),
+ 'controller': ('runtime/d1_b22/research/continuation18/controller18.py','b8f3b1d59880ca0bff7d7d4791ba823a101d396dd9f614e25414b83bd2133aba'),
 }
 PARENT_FILES = {
  'final_model.zip': '7bd58b5d6114745b12b4284be3f861f973a5d31d9d596365a5b54cb5e0d76691',
@@ -359,7 +361,52 @@ def reward_env42(base, session):
             info['original_reward_terms42'] = dict(self._original_terms42)
             info['training_reward42'] = {'schema':REWARD_SCHEMA,'alpha':alpha,'reward_arm':arm}
             return obs,reward,terminated,truncated,info
+    _reward_base_by_type42[TrainingRewardEnv42] = base
     return TrainingRewardEnv42
+
+
+def controller_module42():
+    name,digest = SOURCES['controller']
+    module = importlib.import_module('controller18')
+    require(Path(module.__file__).resolve()==ROOT/name and identity(ROOT/name)['sha256']==digest,
+            'C42 original controller installer source/origin changed')
+    return module
+
+
+def controller_installer42(original, env_type):
+    """Keep the fixed installer body and every exact check; map one owned type."""
+    function = original.install_controller18
+    require(isinstance(function,FunctionType) and function.__globals__ is original.__dict__,
+            'C42 controller installer function has foreign globals')
+    production = original.WorldUprightCourseEnv
+    if env_type is production:
+        installer, changed = function, []  # Evaluation retains the original path.
+    else:
+        require(_reward_base_by_type42.get(env_type) is production
+                and env_type.__bases__==(production,) and env_type.reward_schema==REWARD_SCHEMA,
+                'C42 controller installer only accepts its exact registered training env')
+        namespace = dict(original.__dict__,WorldUprightCourseEnv=env_type)
+        changed = sorted(key for key,value in original.__dict__.items() if namespace[key] is not value)
+        require(changed==['WorldUprightCourseEnv'],'C42 controller installer globals widened')
+        installer = FunctionType(function.__code__,namespace,function.__name__,
+                                 function.__defaults__,function.__closure__)
+        installer.__kwdefaults__ = copy.copy(function.__kwdefaults__)
+    require(installer.__code__ is function.__code__,'C42 controller installer body changed')
+    return installer, {'schema':'b22-tracking42-controller-installer-v1',
+        'source':str(ROOT/SOURCES['controller'][0]),'source_sha256':SOURCES['controller'][1],
+        'function_code_unchanged':installer.__code__ is function.__code__,
+        'globals_changed':changed,'registered_training_env':env_type is not production,
+        'old_module_globals_unchanged':original.WorldUprightCourseEnv is production,
+        'other_exact_type_and_never_reset_checks_preserved':True}
+
+
+def install_controller42(env, variant):
+    installer,proof = controller_installer42(controller_module42(),type(env))
+    controller = installer(env,variant)
+    encoded = (json.dumps(dict(proof,variant=variant,installation_completed=True),
+                          sort_keys=True,allow_nan=False)+'\n').encode()
+    _quota42.stage(_quota42.output/'controller_installer42_proof.json',lambda stream:stream.write(encoded))
+    return controller
 
 
 class ServoCounter42:
@@ -658,6 +705,11 @@ def worker_ast42():
                     put(parent,field,index,ast.parse('train=train42').body[0],'new training adapter')
                 elif isinstance(child,ast.ImportFrom) and child.module=='eval22':
                     put(parent,field,index,ast.parse('evaluate=evaluate42').body[0],'both final/zero evaluation adapter')
+                elif isinstance(child,ast.ImportFrom) and child.module=='controller18':
+                    require([n.name for n in child.names]==['install_controller18'],
+                            'C42 controller installer import seam changed')
+                    put(parent,field,index,ast.parse('install_controller18=install_controller42').body[0],
+                        'private exact registered reward-env installer globals; original body retained')
                 elif isinstance(child,ast.Expr) and ast.unparse(child)=="common._load_import_repair(session, output)":
                     put(parent,field,index,ast.parse('import_repair42(common,session,output)').body[0],'bounded import-repair output')
                 elif isinstance(child,ast.Import) and any(n.name=='mujoco' for n in child.names):
@@ -800,6 +852,7 @@ def bootstrap42(session, output, quota):
         with counter, constructors:
             example = {**session,'mode':'train','reward_arm':'control','alpha':1}
             env_type = reward_env42(base,example)  # class definition; no ()
+            _,controller_proof = controller_installer42(controller_module42(),env_type)
             recipes,strict,train,heldout = runtime_modules42(env_type,example,quota)
             require(strict.load_and_verify_final.__globals__ is strict.__dict__ and
                     strict.FINAL_CHECKPOINT_SCHEMA==FINAL_SCHEMA and
@@ -835,6 +888,7 @@ def bootstrap42(session, output, quota):
             'initial_binding_proof':initial_binding,
             'nominal_cache':cold,'pure_servo42':servo.report(),'model_calls':counter.summary(),
             'construction_guard42':constructors.report(),
+            'controller_installer42':controller_proof,
             'derived_modules':{kind:adapt_module42(kind)[1] for kind in
                                ('recipes','curriculum','metadata','checkpoint','train','heldout')},
             'actual_module_files':{name:module.__file__ for name,module in sys.modules.items()

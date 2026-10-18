@@ -329,8 +329,12 @@ def test_comparison_requires_current_reader_identity(comparison_case):
 
 def test_resource_revision_keeps_science_and_declares_one_owned_job():
     plan=p.describe42()
-    assert plan['resource_revision']=='owned_cgroup_v2'
-    assert plan['output'].endswith('_02') and p.RELEASE.name.endswith('_02.json')
+    assert plan['resource_revision']=='owned_cgroup_v3'
+    assert plan['output'].endswith('_03') and p.RELEASE.name.endswith('_03.json')
+    assert p.ADMISSIONS.name.endswith('_03')
+    assert plan['resource_policy']['unit']=='wheel-b22-tracking42-owned03-20261018-01.service'
+    assert plan['historical_actual_counts'] is None
+    assert plan['historical_compiler_native_separate_from_new_budget']==2
     assert p.LIMITS['stable_effective_bytes']==p.LIMITS['start_effective_bytes']==6<<30
     assert p.LIMITS['stable_seconds']==10 and p.LIMITS['admission_minimum_samples']==3
     assert p.LIMITS['reserve_effective_bytes']==4<<30
@@ -351,7 +355,7 @@ def test_original_prepared_budget_must_be_exact_and_unclaimed(tmp_path,monkeypat
         'plan':{'output':str(old_output),'limits':{k:p.LIMITS[k] for k in p.COUNT_KEYS}}}
     p.write_json(old_release,value)
     monkeypatch.setattr(p,'UNUSED_RELEASE_SHA',p.identity(old_release)['sha256'])
-    assert p.unused_budget_origin42()['same_unused_scientific_budget']
+    assert p.unused_budget_origin42()['original_scientific_budget_origin_only']
     old_output.mkdir()
     with pytest.raises(ValueError,match='previously claimed'):p.unused_budget_origin42()
     old_output.rmdir()
@@ -390,3 +394,115 @@ def test_external_runtime_reserve_still_rejects_unknown_and_low(tmp_path,monkeyp
     monkeypatch.setattr(p,'resource_guard_api42',lambda:SimpleNamespace(check_memory=lambda value:None))
     with pytest.raises(ValueError,match='runtime reserve or unknown'):
         p.check_resource_snapshot42({'effective_available_bytes':available})
+
+
+@pytest.fixture
+def predecessor_case(tmp_path, monkeypatch):
+    """Small synthetic receipts follow the real failed02 schema, without models."""
+    monkeypatch.setattr(p, 'ROOT', tmp_path)
+    output=tmp_path/'results/b22_tracking_reward42_20261018_02'
+    release=tmp_path/'results/b22_tracking_reward42_plan_20261018_02.json'
+    monkeypatch.setattr(p, 'PREDECESSOR_OUTPUT', output)
+    monkeypatch.setattr(p, 'PREDECESSOR_RELEASE', release)
+    (output/'bootstrap').mkdir(parents=True)
+    (output/'train_control').mkdir()
+    old_worker={'bytes': 17, 'sha256': 'a'*64}
+    source={'git_commit': p.PREDECESSOR_COMMIT, 'authored': {str(p.WORKER): old_worker}}
+    p.write_json(release, {'schema': 'b22-tracking42-release-v1',
+        'execution_contract_id': p.CONTRACT, 'source': source,
+        'plan': {'output': str(output), 'limits': {k: p.LIMITS[k] for k in p.COUNT_KEYS}}})
+    release_id=p.identity(release)
+    known={'controls': 0, 'normal_native': 0, 'compiler_native': 2}
+    for stage, code in (('bootstrap', 0), ('train_control', 1)):
+        run=output/stage
+        p.write_json(run/'session.json', {'execution_contract_id': p.CONTRACT, 'name': stage,
+            'mode': 'bootstrap' if stage=='bootstrap' else 'train', 'release_path': str(release),
+            'release_identity': release_id, 'execution_output': str(output), 'worker_identity': old_worker})
+        worker={'schema': 'b22-tracking42-worker-receipt-v1', 'execution_contract_id': p.CONTRACT,
+            'session_identity': p.identity(run/'session.json'), 'cleanup_errors': [],
+            'model_calls': {'schema': 'd1-model-api-ledger-20-v1', 'counts': {}, 'actor_rows': 0, 'critic_rows': 0},
+            'actual_pure_servo_advances': 0}
+        if stage=='bootstrap':
+            worker.update(status='COMPLETE', failure=None, bootstrap_verified42=True,
+                          actual_counts=dict.fromkeys(p.COUNT_KEYS, 0))
+        else:
+            worker.update(status='INCOMPLETE', execution_complete=False, actual_counts=None,
+                known_partial_counts=known, retry_permitted=False,
+                failure={'type': 'TypeError', 'message': p.PREDECESSOR_ERROR,
+                    'training_cleanup_errors': [],
+                    'traceback': 'File "controller18.py", line 155\nTypeError: '+p.PREDECESSOR_ERROR+'\n'},
+                C_final={'construction_attempts': 2, 'construction_returns': 2,
+                    'control_attempts': 0, 'control_returns': 0, 'ccd_attempts': 0, 'ccd_returns': 0, 'violations': 0},
+                python=dict.fromkeys(('control_attempted', 'control_completed', 'native_attempted',
+                    'native_returned', 'native_failed', 'clock_advanced_substeps'), 0))
+        p.write_json(run/'worker_receipt.json', worker)
+        p.write_json(run/'supervisor_receipt.json', {
+            'schema': 'b22-tracking42-worker-supervision-v1', 'stage': stage,
+            'release_identity': release_id, 'session_identity': p.identity(run/'session.json'),
+            'worker_identity': old_worker, 'exit_code': code, 'failure': None,
+            'supervision_returned': True, 'cleanup': {'remaining': {}, 'signalled_identities': {}}})
+    p.write_json(output/'report.json', {'schema': 'b22-tracking42-supervision-v1',
+        'execution_contract_id': p.CONTRACT, 'status': 'INCOMPLETE', 'execution_started': True,
+        'actual_counts': None, 'known_actual_counts': known, 'active_stage': 'train_control',
+        'retry_permitted': False, 'release_identity': release_id, 'source': source,
+        'failure': {'type': 'ValueError', 'message': 'C42 worker did not complete with clean ownership'},
+        'cleanup': {'remaining': {}, 'signalled_identities': {}},
+        'stages': [{'name': 'bootstrap', 'path': 'bootstrap/worker_receipt.json',
+            'report': p.identity(output/'bootstrap/worker_receipt.json'),
+            'independent_saved_reader_executed': False}]})
+    def repin():
+        monkeypatch.setattr(p, 'PREDECESSOR_INPUTS', {
+            str(path.relative_to(tmp_path)): p.identity(path)
+            for path in [release, output/'report.json',
+                *[output/stage/name for stage in ('bootstrap', 'train_control')
+                  for name in ('session.json', 'worker_receipt.json', 'supervisor_receipt.json')]]})
+    def mutate(name, keys, value, *, update_pin=True):
+        path=output/name;data=p.read_json(path);cursor=data
+        for key in keys[:-1]:cursor=cursor[key]
+        cursor[keys[-1]]=value
+        p.write_json(path, data, replace=True)
+        if update_pin:repin()
+    repin()
+    return mutate
+
+
+def test_specific_predecessor_preserves_unknown_total_and_separate_compiler_spend(predecessor_case):
+    proof=p.predecessor_failure42()
+    assert proof['historical_attempt_occurred'] is True
+    assert proof['historical_actual_counts'] is None
+    assert proof['historical_known_counts']=={'controls': 0, 'normal_native': 0, 'compiler_native': 2}
+    assert proof['historical_compiler_native_separate_from_new_budget']==2
+    assert proof['model_load_or_learning_occurred'] is False
+    assert proof['clean_process_closure'] is True
+    assert len(proof['inputs'])==8
+
+
+@pytest.mark.parametrize(('file','keys','value'), [
+    ('train_control/worker_receipt.json', ['known_partial_counts'], None),
+    ('train_control/worker_receipt.json', ['known_partial_counts','controls'], 1),
+    ('train_control/worker_receipt.json', ['known_partial_counts','controls'], False),
+    ('train_control/worker_receipt.json', ['known_partial_counts','normal_native'], 1),
+    ('train_control/worker_receipt.json', ['known_partial_counts','compiler_native'], 0),
+    ('train_control/worker_receipt.json', ['model_calls','counts'], {'learn': 1}),
+    ('train_control/worker_receipt.json', ['model_calls','counts'], {'load': 1}),
+    ('train_control/worker_receipt.json', ['cleanup_errors'], ['close failed']),
+    ('train_control/worker_receipt.json', ['failure','message'], 'other TypeError'),
+    ('train_control/worker_receipt.json', ['failure','training_cleanup_errors'], ['dirty']),
+    ('train_control/worker_receipt.json', ['C_final','construction_returns'], 1),
+    ('train_control/supervisor_receipt.json', ['cleanup','remaining'], {'123': 4}),
+    ('train_control/supervisor_receipt.json', ['exit_code'], None),
+    ('train_control/supervisor_receipt.json', ['session_identity'], {'bytes': 0, 'sha256': 'b'*64}),
+    ('report.json', ['actual_counts'], {'controls': 0, 'normal_native': 0, 'compiler_native': 2}),
+    ('report.json', ['known_actual_counts','controls'], 1),
+    ('report.json', ['cleanup','remaining'], {'123': 4}),
+])
+def test_predecessor_cannot_hide_unknown_learning_spend_or_dirty_exit(predecessor_case, file, keys, value):
+    predecessor_case(file, keys, value)
+    with pytest.raises(ValueError, match='predecessor'):
+        p.predecessor_failure42()
+
+
+def test_fixed_predecessor_bytes_cannot_be_rebaselined(predecessor_case):
+    predecessor_case('train_control/worker_receipt.json', ['status'], 'different', update_pin=False)
+    with pytest.raises(ValueError, match='receipt identity changed'):
+        p.predecessor_failure42()

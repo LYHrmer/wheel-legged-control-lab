@@ -1,0 +1,140 @@
+{
+  "schema": "b22-tracking42-revision02-result-summary-v1",
+  "status": "INCOMPLETE",
+  "source_commit": "cd32a85f7815fae69f89b0b8d2c769e8f0d2262d",
+  "actual_counts": null,
+  "known_actual_counts": {
+    "controls": 0,
+    "normal_native": 0,
+    "compiler_native": 2
+  },
+  "completed_stages": [
+    "bootstrap"
+  ],
+  "failure": {
+    "message": "C18 installer needs the exact production world-upright env",
+    "traceback": "Traceback (most recent call last):\n  File \"/home/lyh/wheel-legged-control-lab/scripts/worker_b22_tracking_reward42.py\", line 149, in main\n    'measurement_seed': 201003,\n  File \"/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/continuation18/controller18.py\", line 155, in install_controller18\n    raise TypeError(\"C18 installer needs the exact production world-upright env\")\nTypeError: C18 installer needs the exact production world-upright env\n",
+    "training_cleanup_errors": [],
+    "type": "TypeError"
+  },
+  "model_calls": {
+    "actor_rows": 0,
+    "counts": {},
+    "critic_rows": 0,
+    "limits": {
+      "backward": 512,
+      "evaluate_actions": 512,
+      "forward": 32768,
+      "learn": 1,
+      "load": 2,
+      "predict": 3,
+      "predict_values": 64,
+      "save": 2,
+      "torch_load": 6,
+      "train": 32
+    },
+    "schema": "d1-model-api-ledger-20-v1"
+  },
+  "parent_failure": {
+    "type": "ValueError",
+    "message": "C42 worker did not complete with clean ownership"
+  },
+  "elapsed_s": 164.31404428198584,
+  "cleanup": {
+    "method": "linux_subreaper_ancestry_birth_tick",
+    "signalled_identities": {},
+    "remaining": {},
+    "elapsed_s": 0.02384715198422782
+  },
+  "worker_supervision": {
+    "schema": "b22-tracking42-worker-supervision-v1",
+    "stage": "train_control",
+    "release_identity": {
+      "bytes": 909150,
+      "sha256": "33f2323fc20647481810995af81886be9acdb28cde236547785b4992d4acd83f"
+    },
+    "session_identity": {
+      "bytes": 1760183,
+      "sha256": "71455b83114919cf6d73d34f8ba89114f5dd50b0845eeaa20ab41470dfce6b81"
+    },
+    "worker_identity": {
+      "bytes": 49735,
+      "sha256": "fb34ea445dd396907dda9cd4b21a2abc7e274be15325aa1cffd649fec563cd5c"
+    },
+    "exit_code": 1,
+    "failure": null,
+    "supervision_returned": true,
+    "cleanup": {
+      "method": "linux_subreaper_ancestry_birth_tick",
+      "signalled_identities": {},
+      "remaining": {},
+      "elapsed_s": 0.026915936003206298
+    },
+    "elapsed_s": 38.31002736999653
+  },
+  "minimum_effective_bytes": 5755703296,
+  "last_owned_memory": {
+    "path": "/user.slice/user-1000.slice/user@1000.service/app.slice/wheel-b22-tracking42-owned02-20261018-01.service",
+    "filesystem_path": "/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/app.slice/wheel-b22-tracking42-owned02-20261018-01.service",
+    "inode": 51736,
+    "device": 29,
+    "current_bytes": 1194274816,
+    "high_bytes": 2147483648,
+    "max_bytes": 3221225472,
+    "remaining_bytes": 2026950656,
+    "swap_current_bytes": 0,
+    "swap_max_bytes": 0,
+    "oom_group": 1,
+    "events": {
+      "low": 0,
+      "high": 32783,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0
+    },
+    "peak_bytes": 2148880384,
+    "sampled_max_bytes": 2147647488
+  },
+  "qualified": false,
+  "default_model_replaced": false,
+  "revision03_planned_cap": {
+    "controls": 96136,
+    "normal_native": 480680,
+    "compiler_native": 6
+  },
+  "prior_known_compiler_native_separate": 2,
+  "all_attempts_exact_total": null,
+  "artifacts": [
+    {
+      "path": "results/b22_tracking_reward42_20261018_02/report.json",
+      "bytes": 6404,
+      "sha256": "62d4c3ec599ed343d9b9b83836990959135e1f2f4585e58eb3401af7f6e31963"
+    },
+    {
+      "path": "results/b22_tracking_reward42_20261018_02/train_control/session.json",
+      "bytes": 1760183,
+      "sha256": "71455b83114919cf6d73d34f8ba89114f5dd50b0845eeaa20ab41470dfce6b81"
+    },
+    {
+      "path": "results/b22_tracking_reward42_20261018_02/train_control/worker_receipt.json",
+      "bytes": 5416,
+      "sha256": "541f7071a2ef0ee23870133130ec4e0685d7e28b7968ff78c8e1c840109a3f24"
+    },
+    {
+      "path": "results/b22_tracking_reward42_20261018_02/train_control/supervisor_receipt.json",
+      "bytes": 742,
+      "sha256": "3dd5170406f2f38e921fc30c110dd09cadf28e430de01f590e2f4eddd535b425"
+    },
+    {
+      "path": "results/b22_tracking_reward42_20261018_02/bootstrap/worker_receipt.json",
+      "bytes": 1512,
+      "sha256": "eade18bd0fa220f50ab5f547ec803775fd7e500c3bf70b543a43c9857f39057e"
+    },
+    {
+      "path": "results/b22_tracking_reward42_plan_20261018_02.json",
+      "bytes": 909150,
+      "sha256": "33f2323fc20647481810995af81886be9acdb28cde236547785b4992d4acd83f"
+    }
+  ]
+}
