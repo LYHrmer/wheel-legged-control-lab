@@ -15,6 +15,8 @@
 
 [42有界训练对照](docs/b22_tracking_reward42.md)的[05完整结果](docs/b22_tracking_reward42_revision05_results_20261018.md)已完成：两组各32768拍训练，两个final与共享zero共18场任务、停车均通过。提高跟踪惩罚的deficit8组相对zero总SSE降低3.11%，相对本次control降低6.85%、力矩成本更低；已有4对满足原逐对门，但合池SSE比0.968869仍未达到0.85的RL贡献门。坡道获益明显，粗糙地面的速度误差与转向偏航误差仍需改善。整轮实际96136controls、52.8分钟，无OOM，默认模型尚未替换。[02](docs/b22_tracking_reward42_revision02_results_20261018.md)/[03](docs/b22_tracking_reward42_revision03_results_20261018.md)接口失败与[04](docs/b22_tracking_reward42_revision04_results_20261018.md)内存中止的历史记录分别保留。
 
+[43 左右镜像候选的数值准备已完成](docs/b22_symmetry43_numeric_results_20261018.md)：绑定42 deficit8真实完整权重，384次SB3与384次NumPy推理最大误差2.98e-8，192次镜像组合也通过。观测映射通过原编码器对照，65组URDF运动学检查支持关节符号；尚未运行此候选的物理任务，不能声称跟踪改善。
+
 ```
 D1 全机  23 nq / 22 nv / 16 执行器 · 物理 500 Hz · 决策 100 Hz（一个控制拍 5 × 2 ms）
   └── VMC 底层  D1VMCController

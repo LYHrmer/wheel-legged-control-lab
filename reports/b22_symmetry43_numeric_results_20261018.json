@@ -1,0 +1,90 @@
+{
+  "status": "COMPLETE",
+  "error": null,
+  "plan_sha256": "678eb13c028adb52f77021d0c4b79ec1418a1f0fed66737f9a013e8cd62f5060",
+  "source": {
+    "commit": "c2f1f65b3def761d6e60aede828a8f455941e8c1",
+    "files": {
+      "scripts/probe_b22_symmetry43.py": "2413686d1c59f8baf999bfc40cc194e6cbd5607b27ca6a63b301326d95e62d05",
+      "src/wheel_legged_control/d1/policy_symmetry43.py": "608cf390e5e6f8f11bdd4d2d9c98bdadf322059b132973678952821ed6168836",
+      "scripts/audit_b22_symmetry43_geometry.py": "34587435e73e56b1bab58bf14e7ef700bb20177f5998424a141793777d2e735c",
+      "tests/test_policy_symmetry43.py": "6fe795558906ce44ace3bf99340c8ed70be609674adbff375b3b710cf199f070",
+      "tests/test_probe_b22_symmetry43.py": "4e95975df6a7e9d6bab78e2a6e9ebf829ee9d6cf2bc56c73c23ece6ea56e70fb",
+      "docs/b22_symmetry43.md": "ff37f72da25e184db5a753b6a5c6fc50265abf82c73cd1f2448a797e09d0b0c5",
+      "scripts/export_b22_numpy36.py": "8a89d8d1b82e59996bb09283050a40351a563fa19dbae37a4e17302893f466ce",
+      "scripts/resource_guard42.py": "2fd0cbed467f36185a8fc442fe88f628a0566354404ea865260a6a76fb1f8fa2"
+    }
+  },
+  "ppo_load_attempts": 1,
+  "ppo_load_returns": 1,
+  "torch_load_attempts": 3,
+  "sb3_predict_attempts": 384,
+  "sb3_predict_returns": 384,
+  "numpy_predict_attempts": 384,
+  "numpy_predict_returns": 384,
+  "physics_steps": 0,
+  "environment_constructions": 0,
+  "training_calls": 0,
+  "closed_loop_qualification": false,
+  "versions": {
+    "numpy": "2.2.6",
+    "torch": "2.12.1+cu130",
+    "sb3": "2.9.0"
+  },
+  "module_origins": {
+    "numpy": "/home/lyh/.local/lib/python3.10/site-packages/numpy/__init__.py",
+    "torch": "/home/lyh/.local/lib/python3.10/site-packages/torch/__init__.py",
+    "sb3": "/home/lyh/wheel-legged-control-lab/.local-deps/stable_baselines3/__init__.py"
+  },
+  "max_absolute_error": 2.9802322387695312e-08,
+  "original_probe32_max_error": 6.705522537231445e-08,
+  "symmetric_max_absolute_error": 2.9802322387695312e-08,
+  "symmetric_predict_returns": 192,
+  "artifacts": {
+    "actor.npz": "7320ec626cee2f6bf98ed4322840d4e4cacbc90ebd42726085b1385e5fc03c91",
+    "numerical.npz": "90c9f6df7f135b3414704a9a08d664c586ee91651815a067525fd409dcc82ee4"
+  },
+  "base_checkpoint_sha256": "44cbf9a4363ff42af78d8e54049e0dbade2bea74701e9a27073bcb9e656f3239",
+  "elapsed_s": 12.291047518000141,
+  "execution_report_sha256": "58e194acb8273c8b082eb96c15ece180fbfdb642fc63e464dad2733cdaab1d02",
+  "readback": "saved raw parity and symmetric combination independently verified; no extra inference",
+  "resource_summary": {
+    "minimum_effective_bytes": 9372934144,
+    "maximum_observed_kernel_peak_bytes": 475058176,
+    "last_events": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0
+    },
+    "last_swap_bytes": 0
+  },
+  "predecessors": {
+    "01": {
+      "sha256": "3caf41082c4d59d34d9c9aacaa4778c547e4d2fe2c755d55903df825e2db3b63",
+      "status": "INCOMPLETE",
+      "error": "ImportError: C36 blocked dependency: mujoco",
+      "ppo_load_attempts": 0,
+      "torch_load_attempts": 0,
+      "sb3_predict_attempts": 0,
+      "numpy_predict_attempts": 0,
+      "physics_steps": 0,
+      "environment_constructions": 0,
+      "training_calls": 0
+    },
+    "02": {
+      "sha256": "69ca055e6b1b3213985808aae249e8d00e8099e71d90cdde3c89f37f82bdb705",
+      "status": "INCOMPLETE",
+      "error": "ValueError: runtime versions differ",
+      "ppo_load_attempts": 0,
+      "torch_load_attempts": 0,
+      "sb3_predict_attempts": 0,
+      "numpy_predict_attempts": 0,
+      "physics_steps": 0,
+      "environment_constructions": 0,
+      "training_calls": 0
+    }
+  }
+}
