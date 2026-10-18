@@ -1,0 +1,683 @@
+{
+  "format": "wheel-b22-gain-completion37-interruption-results-v1",
+  "created_utc": "2026-10-18T04:47:27.391371+00:00",
+  "status": "INCOMPLETE",
+  "execution_root": "results/b22_gain_completion37_20261018_01",
+  "failure": "ValueError: C37 RAM admission/runtime reserve exhausted",
+  "stop_classification": "NEXT_STAGE_6_GIB_ADMISSION_REFUSAL",
+  "classification_basis": {
+    "supervisor_sample": {
+      "elapsed_s": 127.05743673298275,
+      "effective_available_bytes": 6268530688,
+      "free_disk_bytes": 113428512768
+    },
+    "start_floor_bytes": 6442450944,
+    "runtime_reserve_bytes": 4294967296,
+    "below_start_floor": true,
+    "above_runtime_reserve": true,
+    "supervisor_call_path": "execute(): for active in stages(): sample(True) before request/reservation/spawn",
+    "one_closed_stage_and_no_next_stage_files": true,
+    "inference_note": "The resource JSONL does not label admission; the 6 GiB classification follows the frozen supervisor branch, closed stage receipt and absence of next-stage request artifacts. The common exception text alone does not distinguish these gates."
+  },
+  "actual_counts": null,
+  "active_stage_actual_counts": null,
+  "actual_scope": "new37_only",
+  "known_actual_counts": {
+    "controls": 1800,
+    "normal_native": 9000,
+    "compiler_native": 2
+  },
+  "new_completed_stages": 1,
+  "new_planned_stages": 4,
+  "closed_stage": {
+    "stage": "ramp_0p45_complete_zero",
+    "worker_session_contract": "C37_B22_half_gain_missing_cases_v1",
+    "actor": "zero",
+    "gain35": 0.5,
+    "actual_counts": {
+      "controls": 1800,
+      "normal_native": 9000,
+      "compiler_native": 2
+    },
+    "readback_status": "COMPLETE",
+    "full_horizon": true,
+    "task_passed_in_saved_independent_readback": true,
+    "task_pass_is_a_paired_rl_contribution_proof": false,
+    "worker_failure": null,
+    "archive_failed": false,
+    "writer_partial": [],
+    "owner_alive_after_join": false,
+    "python_ledger": {
+      "clock_advanced_substeps": 9000,
+      "construction_records": [
+        {
+          "after": {
+            "armed": 1,
+            "ccd_attempts": 0,
+            "ccd_returns": 0,
+            "construction_attempts": 2,
+            "construction_limit": 2,
+            "construction_returns": 2,
+            "control_attempts": 0,
+            "control_limit": 9000,
+            "control_returns": 0,
+            "first_ccd_caller": 0,
+            "first_ccd_caller_dladdr": null,
+            "first_construction_step_caller": 125477173474632,
+            "first_construction_step_caller_dladdr": {
+              "address": 125477173474632,
+              "base": 125477169659904,
+              "offset": 3814728,
+              "path": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/libmujoco.so.3.12.0",
+              "symbol": null
+            },
+            "first_control_step_caller": 0,
+            "first_control_step_caller_dladdr": null,
+            "native_ccd_caller_verified": false,
+            "native_construction_caller_verified": true,
+            "original_step": 125477171864832,
+            "phase": 0,
+            "target_data": 0,
+            "target_model": 0,
+            "violations": 0
+          },
+          "before": {
+            "armed": 1,
+            "ccd_attempts": 0,
+            "ccd_returns": 0,
+            "construction_attempts": 0,
+            "construction_limit": 2,
+            "construction_returns": 0,
+            "control_attempts": 0,
+            "control_limit": 9000,
+            "control_returns": 0,
+            "first_ccd_caller": 0,
+            "first_ccd_caller_dladdr": null,
+            "first_construction_step_caller": 0,
+            "first_construction_step_caller_dladdr": null,
+            "first_control_step_caller": 0,
+            "first_control_step_caller_dladdr": null,
+            "native_ccd_caller_verified": false,
+            "native_construction_caller_verified": false,
+            "original_step": 125477171864832,
+            "phase": 0,
+            "target_data": 0,
+            "target_model": 0,
+            "violations": 0
+          }
+        }
+      ],
+      "control_attempted": 1800,
+      "control_completed": 1800,
+      "control_limit": 1800,
+      "fatal_latched": false,
+      "forbidden_entries": 0,
+      "forward_counts_by_runtime_model_data_identity": {
+        "(125473649799920, 125473809494448)": 2571,
+        "(125473810598704, 125473805947568)": 2,
+        "(125473810598704, 125473810411888)": 1802
+      },
+      "mj_forward_calls": 4375,
+      "mj_setConst_calls": 0,
+      "native_attempted": 9000,
+      "native_failed": 0,
+      "native_limit": 9000,
+      "native_returned": 9000,
+      "segments": [
+        {
+          "attempted": 1800,
+          "completed": 1800,
+          "limit": 1800,
+          "name": "gui23_global",
+          "native_attempted": 9000,
+          "native_returned": 9000
+        }
+      ],
+      "static_forward_is_not_dynamic_load_evidence": true
+    },
+    "model_calls": {
+      "actor_rows": 0,
+      "counts": {},
+      "critic_rows": 0,
+      "limits": {
+        "backward": 0,
+        "evaluate_actions": 0,
+        "forward": 0,
+        "learn": 0,
+        "load": 0,
+        "predict": 0,
+        "predict_values": 0,
+        "save": 0,
+        "torch_load": 0,
+        "train": 0
+      },
+      "schema": "d1-model-api-ledger-20-v1"
+    },
+    "native_binding_caller_verified": true,
+    "artifacts_rehashed": 24,
+    "artifact_identities": {
+      "results/b22_gain_completion37_20261018_01/ramp_0p45_complete_zero/command_identity.json": {
+        "bytes": 213927,
+        "sha256": "2c1f25d2342b2371e2808f8635f43e8ff763fa4e4a607c575347c6b13a0211ce"
+      },
+      "results/b22_gain_completion37_20261018_01/ramp_0p45_complete_zero/construction_receipt.json": {
+        "bytes": 38652,
+        "sha256": "e5765ce5ea72b8a2e803a241960d9fb7fec7a3006e3a2fbb8e74e1974840aef9"
+      },
+      "results/b22_gain_completion37_20261018_01/ramp_0p45_complete_zero/deferred_archive_receipt.json": {
+        "bytes": 10060,
+        "sha256": "5994b9761056d62601a453ba428b7b862b29aca535bf9279930c496bb0d89552"
+      },
+      "results/b22_gain_completion37_20261018_01/ramp_0p45_complete_zero/episode_0/controls.jsonl.gz": {
+        "bytes": 13336872,
+        "sha256": "515cbc7575d6670b352e1a926441222d746787f1974d36ff8dfe5ee6fc798c8f"
+      },
+      "results/b22_gain_completion37_20261018_01/ramp_0p45_complete_zero/episode_0/initial_state.npz": {
+        "bytes": 2564,
+        "sha256": "9be70206fbe7057f1ed2e15541ffea41c6b3299a617f36a465273816702bfd35"
+      },
+      "results/b22_gain_completion37_20261018_01/ramp_0p45_complete_zero/episode_0/native_block_0000.jsonl.gz": {
+        "bytes": 15632896,
+        "sha256": "69f456f8c040e6cb957a25ca9d54ba180d7b07a15b52a61485b66c2d53860500"
+      },
+      "results/b22_gain_completion37_20261018_01/ramp_0p45_complete_zero/episode_0/native_block_0001.jsonl.gz": {
+        "bytes": 8219329,
+        "sha256": "2b7dec8b0decdc477c03298a72c21a38c9d334b437e58589205663b853de2b2d"
+      },
+      "results/b22_gain_completion37_20261018_01/ramp_0p45_complete_zero/episode_0/reset.json": {
+        "bytes": 11236,
+        "sha256": "ca84e8a569fe805c44c17579b144e09c48f5593a06f6512c29c481f327193478"
+      },
+      "results/b22_gain_completion37_20261018_01/ramp_0p45_complete_zero/episode_0/segment_receipt.json": {
+        "bytes": 4528,
+        "sha256": "7b05587897865712102be65e29dd66e2f558b519caa7189986f7ae253f0d6a77"
+      },
+      "results/b22_gain_completion37_20261018_01/ramp_0p45_complete_zero/episode_0/states.npz": {
+        "bytes": 1924964,
+        "sha256": "f9978f147ce6f9f605cc87644d5282f5bd359be2d4acf2a780f6567a2526effd"
+      },
+      "results/b22_gain_completion37_20261018_01/ramp_0p45_complete_zero/input_snapshots.jsonl.gz": {
+        "bytes": 87,
+        "sha256": "a2173c895be636ed9d26605afb4b7f5c11c617b701645ed7b5de369a64dfdf93"
+      },
+      "results/b22_gain_completion37_20261018_01/ramp_0p45_complete_zero/loaded_origins_final.json": {
+        "bytes": 105444,
+        "sha256": "f3665d0db1fba21a15923691d950a759638ab3279e34fb0312c3a7b108bd9c47"
+      },
+      "results/b22_gain_completion37_20261018_01/ramp_0p45_complete_zero/mapped_libraries_before_load.json": {
+        "bytes": 2145,
+        "sha256": "aa570d5dd77f25297eb6b8d7b4de0e6d6687d098474456aa755990dcfeb4d2ef"
+      },
+      "results/b22_gain_completion37_20261018_01/ramp_0p45_complete_zero/mapped_libraries_final.json": {
+        "bytes": 2145,
+        "sha256": "aa570d5dd77f25297eb6b8d7b4de0e6d6687d098474456aa755990dcfeb4d2ef"
+      },
+      "results/b22_gain_completion37_20261018_01/ramp_0p45_complete_zero/owner_decisions.jsonl.gz": {
+        "bytes": 33198,
+        "sha256": "0a399131fd4cf49177086bb9f9adbdfb393985aa8e6eadbeac0a639aca9b8ca1"
+      },
+      "results/b22_gain_completion37_20261018_01/ramp_0p45_complete_zero/performance.json": {
+        "bytes": 26360,
+        "sha256": "0107b4085a7f77a8adc0186a8150858667e56bca0ff2aa545f25ccd16bdac693"
+      },
+      "results/b22_gain_completion37_20261018_01/ramp_0p45_complete_zero/render_frames.json": {
+        "bytes": 3,
+        "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+      },
+      "results/b22_gain_completion37_20261018_01/ramp_0p45_complete_zero/runtime_module_origins.json": {
+        "bytes": 1647,
+        "sha256": "b4d39f74066f50b6827293b661f540abbaa609a2eef5b98c40754c51b3fdf96c"
+      },
+      "results/b22_gain_completion37_20261018_01/ramp_0p45_complete_zero/worker_receipt.json": {
+        "bytes": 24508,
+        "sha256": "b89e93eed0a7a353dda34cb8642193e008849c5505e6cdbf989370013ce9caa9"
+      },
+      "results/b22_gain_completion37_20261018_01/ramp_0p45_complete_zero/session.json": {
+        "bytes": 1003604,
+        "sha256": "36bfc3931ef5e80fd315811e6845289a2eba28a8819c16da3353aee1796b6bcb"
+      },
+      "results/b22_gain_completion37_20261018_01/ramp_0p45_complete_zero/host_receipt.json": {
+        "bytes": 507,
+        "sha256": "afa5687ea197130ebdced6dd618521c779ac30b18f22845cec195c96f41b5802"
+      },
+      "results/b22_gain_completion37_20261018_01/ramp_0p45_complete_zero/supervisor_receipt.json": {
+        "bytes": 304,
+        "sha256": "25c2699030a4c4de630d21fc3f235b3137b344d6cc3efa92aef9c8d19d471176"
+      },
+      "results/b22_gain_completion37_20261018_01/ramp_0p45_complete_zero/preflight_ready.json": {
+        "bytes": 288,
+        "sha256": "bcbff131700a3b3cd744615337662f590858f2eff6f25dd66aa8bc4cd3684c1c"
+      },
+      "results/b22_gain_completion37_20261018_01/ramp_0p45_complete_zero/derived_sources37.json": {
+        "bytes": 525,
+        "sha256": "718460978c1fdba210db1fba86c20ffdbc6d5441c26803ff7376bfd1114e2dfa"
+      }
+    },
+    "case_metrics": {
+      "schema": "d1-course-world-upright-rl16-heldout-pure-score-18-v1",
+      "case_id": "ramp_0p45_complete",
+      "actor": "zero",
+      "seed": 181206,
+      "mirror": false,
+      "terrain": "ramp",
+      "target_speed_mps": 0.45,
+      "yaw_amplitude_rps": 0.0,
+      "completed_controls": 1800,
+      "native_returns_expected_from_completed": 9000,
+      "terminated": false,
+      "truncated": true,
+      "stop_reason": "time_limit",
+      "windows": {
+        "control_cap": 1800,
+        "hold": [
+          600,
+          1000
+        ],
+        "release_tick_t0": 1355,
+        "drive": [
+          175,
+          1355
+        ],
+        "final": [
+          1700,
+          1800
+        ],
+        "hold_observed_ticks": 400,
+        "final_observed_ticks": 100,
+        "drive_observed_ticks": 1180
+      },
+      "record": {
+        "record_valid": true,
+        "reasons": [],
+        "full_horizon": true,
+        "early_task_termination": false
+      },
+      "safety": {
+        "passed": true,
+        "reasons": [],
+        "max_abs_world_roll_deg": 0.04791083618467519,
+        "max_abs_world_pitch_deg": 6.772781142456456,
+        "max_geometry_relative_tilt_deg_diagnostic_only": 84.79778904475354,
+        "min_initial_or_native_clearance_m": 0.4470713103759796,
+        "max_initial_or_native_abs_world_x_m": 8.063235655736854,
+        "max_initial_or_native_abs_world_y_m": 0.0007203351072639451,
+        "nonwheel_ground_candidate_total": 0,
+        "native_samples_checked": 9000,
+        "initial_state_included": true
+      },
+      "speed": {
+        "passed": true,
+        "reasons": [],
+        "hold_window": [
+          600,
+          1000
+        ],
+        "hold_observed_ticks": 400,
+        "hold_complete": true,
+        "mean_com_vx_mps": 0.47002846824309574,
+        "rms_com_vx_error_vs_target_mps": 0.023335381419194372,
+        "rms_com_vx_error_vs_applied_servo_mps": 0.023335381419194372,
+        "ticks_above_1p5_mps": 0,
+        "fraction_above_1p5_mps_over_400": 0.0,
+        "gate": "straight_hold",
+        "source": "actual post body COM vx versus the servo already consumed at that tick"
+      },
+      "yaw": {
+        "applicable": false,
+        "passed": null,
+        "reasons": [],
+        "note": "no yaw hold is preregistered for this case"
+      },
+      "final_window": {
+        "passed": true,
+        "reasons": [],
+        "window": [
+          1700,
+          1800
+        ],
+        "observed_ticks": 100,
+        "mean_abs_com_vx_mps": 5.230945651750071e-05,
+        "mean_abs_yaw_rate_rps": 3.5314036506521735e-06,
+        "clearance_population_std_m": 1.6389897941926355e-05
+      },
+      "stopping": {
+        "passed": true,
+        "reasons": [],
+        "gate_applies": false,
+        "release_tick_t0": 1355,
+        "release_pre_projection_m": 5.093986545512979,
+        "found_settled_window": true,
+        "settled_tick": 1461,
+        "time_to_settle_s": 1.07,
+        "max_native_forward_excursion_m": 0.21924911022387494,
+        "endpoint_projection_m": 0.21562016263327966,
+        "final_net_projection_m": 0.19869246839903365,
+        "applied_servo_zero_tick": 1444,
+        "notes": [
+          "the 4.2 s / 3.2 m gate is preregistered for flat_1p6 only; the other five cases report the same quantities without that gate and still have to pass the final-window stop gate",
+          "the rate-limited brake after raw release is executed by the baseline controller with zero residual and is not credited to RL"
+        ]
+      },
+      "terrain_channel": {
+        "applicable": true,
+        "passed": true,
+        "reasons": [],
+        "window": [
+          0,
+          1800
+        ],
+        "observed_ticks": 1800,
+        "max_abs_lateral_offset_m": 0.0007203351072639451,
+        "max_abs_wrapped_heading_rad": 0.0011352489774787422,
+        "net_forward_projection_m": 5.292679013912013,
+        "required_forward_projection_m": 3.9825000000000013,
+        "family": "ramp",
+        "positive_wheel_load_native_returns": 4682,
+        "positive_wheel_load_counts_by_family": {
+          "rough": 929,
+          "floor": 5121,
+          "ramp": 4682
+        },
+        "note": "limited progress on this lane is not a complete ramp/step/rough course traversal claim"
+      },
+      "ramp_geometry": {
+        "applicable": true,
+        "passed": true,
+        "reasons": [],
+        "positive_wheel_load_native_counts_by_geom": {
+          "terrain_ramp_up": 2148,
+          "terrain_ramp_deck": 1353,
+          "terrain_ramp_down": 2072
+        },
+        "ramp_geom_world_x_max_m_by_name": {
+          "terrain_ramp_up": 4.598267975594581,
+          "terrain_ramp_deck": 5.4,
+          "terrain_ramp_down": 6.898267975594581
+        },
+        "wheel_collision_world_x_min_m_by_index": {
+          "0": 8.12347700736797,
+          "1": 8.123519071510195,
+          "2": 7.749156168120531,
+          "3": 7.749167067863202
+        },
+        "all_ramp_world_x_max_m": 6.898267975594581,
+        "source": "canonical numbers require independent compiled-binding and contactForce proof"
+      },
+      "task_passed": true,
+      "task_reasons": [],
+      "reader_asserted_unverified": {},
+      "evidence_boundary": "Pure arithmetic only. A separate independent saved-record reader must bind all source/checkpoint/ELF hashes, actual 5T native integrator/contactForce and controller-applied-torque chains, full C/Python budgets, paired initial states, ramp compiled geometry and final wheel shape projection. Supplied reader_asserted booleans are echoed, never used as qualification evidence."
+    },
+    "c_native_guard_state": {
+      "armed": 1,
+      "ccd_attempts": 116053,
+      "ccd_returns": 116053,
+      "construction_attempts": 2,
+      "construction_limit": 2,
+      "construction_returns": 2,
+      "control_attempts": 9000,
+      "control_limit": 9000,
+      "control_returns": 9000,
+      "first_ccd_caller": 125477171256542,
+      "first_ccd_caller_dladdr": {
+        "address": 125477171256542,
+        "base": 125477169659904,
+        "offset": 1596638,
+        "path": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/libmujoco.so.3.12.0",
+        "symbol": null
+      },
+      "first_construction_step_caller": 125477173474632,
+      "first_construction_step_caller_dladdr": {
+        "address": 125477173474632,
+        "base": 125477169659904,
+        "offset": 3814728,
+        "path": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/libmujoco.so.3.12.0",
+        "symbol": null
+      },
+      "first_control_step_caller": 125477139999531,
+      "first_control_step_caller_dladdr": {
+        "address": 125477139999531,
+        "base": 125477139222528,
+        "offset": 777003,
+        "path": "/home/lyh/.local/lib/python3.10/site-packages/mujoco/_functions.cpython-310-x86_64-linux-gnu.so",
+        "symbol": null
+      },
+      "native_ccd_caller_verified": true,
+      "native_construction_caller_verified": true,
+      "original_step": 125477171864832,
+      "phase": 0,
+      "target_data": 0,
+      "target_model": 0,
+      "violations": 0
+    }
+  },
+  "unstarted_stage_files": {
+    "ramp_0p45_complete_B": {
+      "directory_absent": true,
+      "reservation_absent": true,
+      "readback_absent": true
+    },
+    "yaw_1p2_mirror_zero": {
+      "directory_absent": true,
+      "reservation_absent": true,
+      "readback_absent": true
+    },
+    "yaw_1p2_mirror_B": {
+      "directory_absent": true,
+      "reservation_absent": true,
+      "readback_absent": true
+    }
+  },
+  "unknown_is_not_zero": true,
+  "elapsed_s": 127.0795377259783,
+  "cleanup": {
+    "method": "linux_subreaper_ancestry_birth_tick",
+    "signalled_identities": {},
+    "remaining": {},
+    "elapsed_s": 0.021840058005182073
+  },
+  "resources": {
+    "samples": 115,
+    "minimum_effective_bytes": 6268530688,
+    "last_samples": [
+      {
+        "elapsed_s": 124.01110789898667,
+        "effective_available_bytes": 8613855232,
+        "free_disk_bytes": 113428647936
+      },
+      {
+        "elapsed_s": 125.01613534198259,
+        "effective_available_bytes": 8317161472,
+        "free_disk_bytes": 113428639744
+      },
+      {
+        "elapsed_s": 126.02167590998579,
+        "effective_available_bytes": 7243620352,
+        "free_disk_bytes": 113428639744
+      },
+      {
+        "elapsed_s": 127.02729876097874,
+        "effective_available_bytes": 6286876672,
+        "free_disk_bytes": 113428512768
+      },
+      {
+        "elapsed_s": 127.05743673298275,
+        "effective_available_bytes": 6268530688,
+        "free_disk_bytes": 113428512768
+      }
+    ],
+    "minimum_above_4_gib_bytes": 1973563392,
+    "shortfall_to_6_gib_bytes": 173920256,
+    "scope": "Sampled host-effective memory; no attribution to another process or guarantee about unsampled minima."
+  },
+  "source": {
+    "git_commit": "343d30487b2f3a38b2805ac519261f872a1b9db8",
+    "authored": {
+      "/home/lyh/wheel-legged-control-lab/scripts/run_b22_gain_completion37.py": {
+        "bytes": 24022,
+        "sha256": "099b93c04898f6a4112945b8fff7d48e21899268e988f9e89a4397d252128060"
+      },
+      "/home/lyh/wheel-legged-control-lab/scripts/run_b22_worker37.py": {
+        "bytes": 3680,
+        "sha256": "e9a03a9c97ee48c5e2de3515063bd0d42f9a3ab886d603635208e864a581efb6"
+      },
+      "/home/lyh/wheel-legged-control-lab/scripts/read_b22_gain_completion37.py": {
+        "bytes": 8647,
+        "sha256": "555e5810292926a52d0bcb74ba424b8db7a4d05926e2a6c5d10560f0b79010fa"
+      },
+      "/home/lyh/wheel-legged-control-lab/tests/test_b22_gain_completion37.py": {
+        "bytes": 17238,
+        "sha256": "0e79c1445f1946b3da4df1f7bbe7c6ff00e39b0356024e685f8d6db836e98b0f"
+      },
+      "/home/lyh/wheel-legged-control-lab/docs/b22_gain_completion37.md": {
+        "bytes": 4542,
+        "sha256": "6d3a53cf2199d0a1deb1d7ff79579a418a17929ad69ce2a2d9aadf2e65bde480"
+      }
+    }
+  },
+  "authored_source_sha_checks": {
+    "/home/lyh/wheel-legged-control-lab/scripts/run_b22_gain_completion37.py": {
+      "expected": {
+        "bytes": 24022,
+        "sha256": "099b93c04898f6a4112945b8fff7d48e21899268e988f9e89a4397d252128060"
+      },
+      "actual": {
+        "bytes": 24022,
+        "sha256": "099b93c04898f6a4112945b8fff7d48e21899268e988f9e89a4397d252128060"
+      }
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/run_b22_worker37.py": {
+      "expected": {
+        "bytes": 3680,
+        "sha256": "e9a03a9c97ee48c5e2de3515063bd0d42f9a3ab886d603635208e864a581efb6"
+      },
+      "actual": {
+        "bytes": 3680,
+        "sha256": "e9a03a9c97ee48c5e2de3515063bd0d42f9a3ab886d603635208e864a581efb6"
+      }
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/read_b22_gain_completion37.py": {
+      "expected": {
+        "bytes": 8647,
+        "sha256": "555e5810292926a52d0bcb74ba424b8db7a4d05926e2a6c5d10560f0b79010fa"
+      },
+      "actual": {
+        "bytes": 8647,
+        "sha256": "555e5810292926a52d0bcb74ba424b8db7a4d05926e2a6c5d10560f0b79010fa"
+      }
+    },
+    "/home/lyh/wheel-legged-control-lab/tests/test_b22_gain_completion37.py": {
+      "expected": {
+        "bytes": 17238,
+        "sha256": "0e79c1445f1946b3da4df1f7bbe7c6ff00e39b0356024e685f8d6db836e98b0f"
+      },
+      "actual": {
+        "bytes": 17238,
+        "sha256": "0e79c1445f1946b3da4df1f7bbe7c6ff00e39b0356024e685f8d6db836e98b0f"
+      }
+    },
+    "/home/lyh/wheel-legged-control-lab/docs/b22_gain_completion37.md": {
+      "expected": {
+        "bytes": 4542,
+        "sha256": "6d3a53cf2199d0a1deb1d7ff79579a418a17929ad69ce2a2d9aadf2e65bde480"
+      },
+      "actual": {
+        "bytes": 4542,
+        "sha256": "6d3a53cf2199d0a1deb1d7ff79579a418a17929ad69ce2a2d9aadf2e65bde480"
+      }
+    }
+  },
+  "key_artifact_identities": {
+    "report.json": {
+      "bytes": 2270,
+      "sha256": "12fbe111342166ac79a3eabcb044d71641073b1e2e726499ad52ea5b4928db2c"
+    },
+    "release.json": {
+      "bytes": 1144787,
+      "sha256": "b3a4cdddf18dcb28f7a1b1764ea66a0c3051ee06214ff5fbf1d604ad4245bb8a"
+    },
+    "resources.jsonl": {
+      "bytes": 12353,
+      "sha256": "6a8dba23f1efb7f984a4c5a435f87a31b0f9969e2ea4e31626886195d75bfedc"
+    },
+    "ramp_0p45_complete_zero_readback.json": {
+      "bytes": 49634,
+      "sha256": "320d6c2a9768c23d8cad61515543dcc95934695c15c3891741aaa6f358755a15"
+    },
+    "ramp_0p45_complete_zero_reservation.json": {
+      "bytes": 525,
+      "sha256": "1dde1c520a79be6a2ae0459d3c95bb8c105745cb09d5164dfa1daf04eaacd737"
+    },
+    "ramp_0p45_complete_zero/session.json": {
+      "bytes": 1003604,
+      "sha256": "36bfc3931ef5e80fd315811e6845289a2eba28a8819c16da3353aee1796b6bcb"
+    },
+    "ramp_0p45_complete_zero/worker_receipt.json": {
+      "bytes": 24508,
+      "sha256": "b89e93eed0a7a353dda34cb8642193e008849c5505e6cdbf989370013ce9caa9"
+    },
+    "ramp_0p45_complete_zero/construction_receipt.json": {
+      "bytes": 38652,
+      "sha256": "e5765ce5ea72b8a2e803a241960d9fb7fec7a3006e3a2fbb8e74e1974840aef9"
+    },
+    "ramp_0p45_complete_zero/derived_sources37.json": {
+      "bytes": 525,
+      "sha256": "718460978c1fdba210db1fba86c20ffdbc6d5441c26803ff7376bfd1114e2dfa"
+    }
+  },
+  "old35": {
+    "status": "INCOMPLETE",
+    "actual_counts": null,
+    "historical_total_resources_known": false,
+    "reused_validated_case_counts": {
+      "controls": 18400,
+      "normal_native": 92000,
+      "compiler_native": 22
+    },
+    "report_identity": {
+      "bytes": 3476,
+      "sha256": "1f2464480c13c57ee7a237f822bd35169adede9daeea77abd91017749cca71a3"
+    },
+    "release_identity": {
+      "bytes": 869062,
+      "sha256": "c0d09c7e9a969a28987b128d9f393d5a3be09f656d3c28fbcb470db6e3f2e568"
+    },
+    "all_590_old_archive_files_rehashed_again": false
+  },
+  "combined_closed_case_coverage": {
+    "controls": 20200,
+    "normal_native": 101000,
+    "compiler_native": 24,
+    "scope": "Validated closed-case coverage only; not an exact historical spend total and not a completed matrix."
+  },
+  "finite_suite_task_qualification_passed": null,
+  "RL_contribution_passed": null,
+  "no_task_regression": null,
+  "retry_permitted": false,
+  "automatic_model_replacement": false,
+  "comparison_present": false,
+  "audit_method": {
+    "metadata_and_sha_only": true,
+    "whole_old_dependency_closure_rescanned": false,
+    "new_models_loaded": 0,
+    "new_inferences": 0,
+    "new_physics_steps": 0,
+    "tests_run": false,
+    "frozen_sources_or_old_attempt_modified": false
+  },
+  "limits": {
+    "controls": 6800,
+    "normal_native": 34000,
+    "compiler_native": 8,
+    "worker_sessions": 4,
+    "total_wall_s": 900,
+    "stage_wall_s": 300,
+    "reader_wall_s": 150,
+    "start_effective_bytes": 6442450944,
+    "reserve_effective_bytes": 4294967296,
+    "start_free_disk_bytes": 2147483648,
+    "reserve_free_disk_bytes": 1073741824,
+    "required_minimum_nice": 10,
+    "training_calls": 0
+  }
+}

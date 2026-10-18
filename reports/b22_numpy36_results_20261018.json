@@ -1,0 +1,303 @@
+{
+  "schema": "b22-numpy36-results-summary-v1",
+  "date": "2026-10-18",
+  "scope": "one cold Torch/NumPy pair on predetermined prepared99 inputs; zero physics",
+  "execution_root": "results/b22_numpy36_20261018_01",
+  "source": {
+    "git_commit": "343d30487b2f3a38b2805ac519261f872a1b9db8",
+    "authored": {
+      "/home/lyh/wheel-legged-control-lab/scripts/export_b22_numpy36.py": {
+        "bytes": 42816,
+        "sha256": "8a89d8d1b82e59996bb09283050a40351a563fa19dbae37a4e17302893f466ce"
+      },
+      "/home/lyh/wheel-legged-control-lab/tests/test_export_b22_numpy36.py": {
+        "bytes": 24508,
+        "sha256": "abeacb34e51959364687946623e41edf8bc2f3fa5af4236c711c55347f8ca5f1"
+      },
+      "/home/lyh/wheel-legged-control-lab/docs/b22_numpy36.md": {
+        "bytes": 5344,
+        "sha256": "fcbe0053be7b5cc9bd43280996a26da7392947b671445afc7e3f485f9f36f0ea"
+      }
+    }
+  },
+  "status": "COMPLETE",
+  "qualification_granted": false,
+  "default_backend_replaced": false,
+  "execution": {
+    "schema": "b22-numpy36-report-v1",
+    "status": "COMPLETE",
+    "error": null,
+    "stages": {
+      "torch": {
+        "status": "COMPLETE",
+        "nonce": "d4892a2b7a6ce68dbf585a6f4eede1f8ff35c872b6c5aea1",
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/home/lyh/wheel-legged-control-lab/scripts/export_b22_numpy36.py",
+          "--worker",
+          "torch",
+          "--release",
+          "/home/lyh/wheel-legged-control-lab/results/b22_numpy36_20261018_01/release.json"
+        ],
+        "report_identity": {
+          "bytes": 153357,
+          "sha256": "0b88225e9d59e35989f5cf93b2529c6a72c376d9622bfb6c522bb30497995b04"
+        },
+        "process_wall_s": 18.121916762989713,
+        "actual_nn_counts": {
+          "ppo_load": 1,
+          "torch_load": 3,
+          "predict_calls": 193,
+          "predict_rows": 224
+        }
+      },
+      "numpy": {
+        "status": "COMPLETE",
+        "nonce": "bdf01375c95731f081817458f614a4a104a902a02559137b",
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "/home/lyh/wheel-legged-control-lab/scripts/export_b22_numpy36.py",
+          "--worker",
+          "numpy",
+          "--release",
+          "/home/lyh/wheel-legged-control-lab/results/b22_numpy36_20261018_01/release.json"
+        ],
+        "report_identity": {
+          "bytes": 10315,
+          "sha256": "2dfdc051ce8904deeffe8cf10130224201a11dd802b234bc6f14181c707ae7b0"
+        },
+        "process_wall_s": 4.044370271003572,
+        "actual_nn_counts": {
+          "predict_calls": 192,
+          "predict_rows": 192,
+          "ppo_load": 0,
+          "torch_load": 0
+        }
+      }
+    },
+    "active_stage": null,
+    "supervisor_pid": 728211,
+    "release_identity": {
+      "bytes": 850399,
+      "sha256": "d1b55ae68be02b10bf47e75d1535141da8e0812dab4f5f89fda1b6c65742ff3f"
+    },
+    "actual_nn_counts": {
+      "ppo_load": 1,
+      "torch_load": 3,
+      "torch_predict_calls": 193,
+      "torch_predict_rows": 224,
+      "numpy_predict_calls": 192,
+      "numpy_predict_rows": 192
+    },
+    "qualification_granted": false,
+    "physics_steps": 0,
+    "environment_constructions": 0,
+    "retry_permitted": false,
+    "minimum_effective_bytes": 6205743104,
+    "parity_max_absolute_error": {
+      "clipped": 5.960464477539063e-08,
+      "gain0p5": 2.9802322387695312e-08
+    },
+    "measured_cold_to_workload_wall_ratio": 0.2382121050684594,
+    "measured_peak_rss_ratio": 0.05533921721794079,
+    "single_cold_pair_only": true,
+    "measurement_scope": "cold import/load plus common192; Torch includes mandatory original32 strict probe; not pure NN speed or control qualification",
+    "cleanup": {
+      "method": "linux_subreaper_ancestry_birth_tick",
+      "signalled_identities": {},
+      "remaining": {},
+      "elapsed_s": 0.020984515984309837
+    },
+    "elapsed_s": 66.57558328099549
+  },
+  "measurements": {
+    "torch": {
+      "common192_predict_wall_s": 0.03129385501961224,
+      "cold_to_workload_end_s": 16.644357548007974,
+      "worker_elapsed_s": 17.19976088500698,
+      "peak_rss_kib": 686168,
+      "cpu_user_s": 5.6401319999999995,
+      "cpu_system_s": 2.2582969999999998,
+      "actual_nn_counts": {
+        "ppo_load": 1,
+        "torch_load": 3,
+        "predict_calls": 193,
+        "predict_rows": 224
+      }
+    },
+    "numpy": {
+      "common192_predict_wall_s": 0.0033764690160751343,
+      "cold_to_workload_end_s": 3.964887449023081,
+      "worker_elapsed_s": 3.9789438520092517,
+      "peak_rss_kib": 37972,
+      "cpu_user_s": 2.842826,
+      "cpu_system_s": 0.690686,
+      "actual_nn_counts": {
+        "predict_calls": 192,
+        "predict_rows": 192,
+        "ppo_load": 0,
+        "torch_load": 0
+      }
+    }
+  },
+  "model": {
+    "weights": {
+      "bytes": 126942,
+      "sha256": "beaa054bd5761b65e46fa094951b2e521014b071bf85cde2ca442efa24a8ecb0"
+    },
+    "tensor_shapes": {
+      "w1": [
+        128,
+        99
+      ],
+      "b1": [
+        128
+      ],
+      "w2": [
+        128,
+        128
+      ],
+      "b2": [
+        128
+      ],
+      "w3": [
+        16,
+        128
+      ],
+      "b3": [
+        16
+      ]
+    },
+    "dtype": "float32",
+    "network": [
+      99,
+      128,
+      128,
+      16
+    ],
+    "activation": "Tanh",
+    "output": "clip_minus1_plus1_then_optional_half_gain",
+    "input_contract": "already_prepared_saved_observation99; no additional normalization in current predict path; not a raw sensor builder",
+    "model_sha256": "7bd58b5d6114745b12b4284be3f861f973a5d31d9d596365a5b54cb5e0d76691",
+    "metadata_sha256": "af700d1f2612e441c8f0560cca38c77b6a854526d3e841e544ef9d5321672830",
+    "policy_state_sha256": "59440de0c5beb102cec0d292838fb9b125eca7eb56bbffc06d1eaec46ec7aa48",
+    "versions": {
+      "python": "3.10.12",
+      "numpy": "2.2.6",
+      "torch": "2.12.1+cu130",
+      "sb3": "2.9.0",
+      "gymnasium": "1.3.0"
+    },
+    "original_probe_files": {
+      "final_model.zip": {
+        "bytes": 764484,
+        "sha256": "7bd58b5d6114745b12b4284be3f861f973a5d31d9d596365a5b54cb5e0d76691"
+      },
+      "final_probe_actions_f32.bin": {
+        "bytes": 2048,
+        "sha256": "e758c79730cb3b954c27e893532bc40bf48aa94f371c98008797c22b5cfadeef"
+      },
+      "final_probe_observations_f32.bin": {
+        "bytes": 12672,
+        "sha256": "7c8112f2db89e67047d0317cf61c8a140ef4ab9be1aaa584bdd80b47b03efd1a"
+      }
+    }
+  },
+  "fixture_identity": {
+    "bytes": 76032,
+    "sha256": "b1468a1d91007cecb3d8c8a706fb1f44fb2857819eb96f57fd9c72c5cfeda834"
+  },
+  "independent_saved_validation": {
+    "clipped_and_gain_maxima": {
+      "clipped": 5.960464477539063e-08,
+      "gain0p5": 2.9802322387695312e-08
+    },
+    "both_worker_receipts_checked": true,
+    "imported_frameworks": [],
+    "new_predictions": 0,
+    "new_physics_steps": 0
+  },
+  "artifacts": {
+    "results/b22_numpy36_20261018_01/actor.npz": {
+      "bytes": 126942,
+      "sha256": "beaa054bd5761b65e46fa094951b2e521014b071bf85cde2ca442efa24a8ecb0"
+    },
+    "results/b22_numpy36_20261018_01/release.json": {
+      "bytes": 850399,
+      "sha256": "d1b55ae68be02b10bf47e75d1535141da8e0812dab4f5f89fda1b6c65742ff3f"
+    },
+    "results/b22_numpy36_20261018_01/numpy_stdout.log": {
+      "bytes": 10315,
+      "sha256": "2dfdc051ce8904deeffe8cf10130224201a11dd802b234bc6f14181c707ae7b0"
+    },
+    "results/b22_numpy36_20261018_01/actor_manifest.json": {
+      "bytes": 4341,
+      "sha256": "8bcaf616026b22585e4f698da7cedae35ab48c75d1d3621e8d98f1f618c5f583"
+    },
+    "results/b22_numpy36_20261018_01/resources.jsonl": {
+      "bytes": 2004,
+      "sha256": "f99484986d89288d73879491a300d7fc171e202548e71690278e6de928547925"
+    },
+    "results/b22_numpy36_20261018_01/torch_outputs.npz": {
+      "bytes": 25090,
+      "sha256": "73dbeab889465c48f21f8de46e41549f5c8151a915cab925428532b1993e4c0b"
+    },
+    "results/b22_numpy36_20261018_01/numpy_report.json": {
+      "bytes": 10315,
+      "sha256": "2dfdc051ce8904deeffe8cf10130224201a11dd802b234bc6f14181c707ae7b0"
+    },
+    "results/b22_numpy36_20261018_01/inputs.f32.bin": {
+      "bytes": 76032,
+      "sha256": "b1468a1d91007cecb3d8c8a706fb1f44fb2857819eb96f57fd9c72c5cfeda834"
+    },
+    "results/b22_numpy36_20261018_01/input_origins.json": {
+      "bytes": 22529,
+      "sha256": "b387b6bf99ff7e2d103d7ea8cc4a87a76d5aafcdabd73fceafa47d147f709e2f"
+    },
+    "results/b22_numpy36_20261018_01/torch_report.json": {
+      "bytes": 153357,
+      "sha256": "0b88225e9d59e35989f5cf93b2529c6a72c376d9622bfb6c522bb30497995b04"
+    },
+    "results/b22_numpy36_20261018_01/numpy_outputs.npz": {
+      "bytes": 25090,
+      "sha256": "aa7ff07cf59790570de1fa1ab2ec9349d71af6cd1d348d7fcb89ebf2c7d047f6"
+    },
+    "results/b22_numpy36_20261018_01/torch_stdout.log": {
+      "bytes": 153357,
+      "sha256": "0b88225e9d59e35989f5cf93b2529c6a72c376d9622bfb6c522bb30497995b04"
+    },
+    "results/b22_numpy36_20261018_01/report.json": {
+      "bytes": 2728,
+      "sha256": "38ab697abaf231513490baa6794b44de6dff1a0a5a065edd182b78efdce019dd"
+    }
+  },
+  "limits": {
+    "start_effective_bytes": 6442450944,
+    "reserve_effective_bytes": 4294967296,
+    "total_wall_s": 180,
+    "worker_wall_s": 60,
+    "worker_cpu_soft_s": 30,
+    "worker_cpu_hard_s": 35,
+    "parent_cpu_soft_s": 60,
+    "parent_cpu_hard_s": 65,
+    "required_minimum_nice": 10,
+    "torch_predict_calls": 193,
+    "torch_predict_rows": 224,
+    "numpy_predict_calls": 192,
+    "numpy_predict_rows": 192,
+    "ppo_load_calls": 1,
+    "torch_load_calls": 3,
+    "physics_steps": 0,
+    "environment_constructions": 0,
+    "training_calls": 0,
+    "extra_benchmark_repeats": 0
+  },
+  "caveats": [
+    "Single cold pair only; Torch additionally performs original32 strict probe.",
+    "Prepared99 observations only, not sensor construction or closed-loop control.",
+    "No inference or whole-simulator throughput guarantee.",
+    "Current predict-path normalization checks do not establish training history."
+  ]
+}
