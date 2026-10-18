@@ -1,0 +1,381 @@
+{
+  "schema": "wheel43-small-saved-summary-v1",
+  "run": "results/b22_symmetry43_physics_20261018_01",
+  "status": "COMPLETE",
+  "contract": "C43_B22_completed42_mirror_physics_v1",
+  "source_commit": "7fc926bec81a3ee3df1f0c39bf3a2436442b4a13",
+  "identities": {
+    "report.json": {
+      "sha256": "483fccf99725c0684d3e194c0415ff2662ac4a0538be73fef9001de4105b4fd4",
+      "bytes": 2541
+    },
+    "worker_report.json": {
+      "sha256": "f8707d4b85337a08dafd6dc9a5850467455d24be3131b2c93e3bcbfe6b5ae516",
+      "bytes": 10791
+    },
+    "readback.json": {
+      "sha256": "fad764986094454f31665bd054cad1ed19d522de5ff4eda83b25327e53310540",
+      "bytes": 789542
+    }
+  },
+  "counts": {
+    "controls": 30600,
+    "normal_native": 153000,
+    "compiler_native": 2
+  },
+  "worker_elapsed_s": 503.5818476429995,
+  "read_elapsed_s": 365.55096009999943,
+  "elapsed_s": 879.4693953100004,
+  "cleanup_complete": true,
+  "pooled": {
+    "zero": {
+      "sse_vx": 32.5220593326255,
+      "sse_yaw": 25.163560306849995,
+      "sse_total": 57.6856196394755,
+      "ratio_to_zero": 1.0
+    },
+    "raw42": {
+      "sse_vx": 28.520136501503913,
+      "sse_yaw": 27.36969967264498,
+      "sse_total": 55.88983617414889,
+      "ratio_to_zero": 0.9688694777563295
+    },
+    "mirror43": {
+      "sse_vx": 27.7079087937917,
+      "sse_yaw": 25.618335586482516,
+      "sse_total": 53.32624438027421,
+      "ratio_to_zero": 0.9244287348138656
+    }
+  },
+  "gates": {
+    "raw42": {
+      "RL_contribution_passed": false,
+      "all_six_policy_task_qualified": true,
+      "cost_ratio": 1.1289424363835914,
+      "cost_gate_passed": true,
+      "pooled_sse_ratio": 0.9688694777563295,
+      "pairs_no_worse_within_1p02": 4,
+      "branch_b_reasons": [
+        "pooled policy/zero SSE ratio 0.9688694777563295 is above the required 0.85"
+      ]
+    },
+    "mirror43": {
+      "RL_contribution_passed": false,
+      "all_six_policy_task_qualified": true,
+      "cost_ratio": 1.0575419713021919,
+      "cost_gate_passed": true,
+      "pooled_sse_ratio": 0.9244287348138656,
+      "pairs_no_worse_within_1p02": 6,
+      "branch_b_reasons": [
+        "pooled policy/zero SSE ratio 0.9244287348138656 is above the required 0.85"
+      ]
+    }
+  },
+  "tasks": {
+    "flat_0p6": {
+      "terrain": "flat",
+      "seed": 181201,
+      "zero": {
+        "sse_total": 1.1306151519310728,
+        "sse_vx": 1.1306149684514117,
+        "sse_yaw": 1.8347966108605205e-07,
+        "torque_cost_sum": 11.222981489660755,
+        "drive_completed_ticks": 520,
+        "task_passed": true,
+        "completed_controls": 1600,
+        "stopping_passed": true,
+        "time_to_settle_s": 1.37,
+        "max_native_forward_excursion_m": 0.38064220426984097,
+        "safety_passed": true
+      },
+      "raw42": {
+        "sse_total": 0.8618137840781378,
+        "sse_vx": 0.8174161362759617,
+        "sse_yaw": 0.044397647802176136,
+        "torque_cost_sum": 11.83044860479914,
+        "drive_completed_ticks": 520,
+        "task_passed": true,
+        "completed_controls": 1600,
+        "stopping_passed": true,
+        "time_to_settle_s": 1.36,
+        "max_native_forward_excursion_m": 0.37619705388542446,
+        "safety_passed": true,
+        "sse_ratio_to_zero": 0.7622521090453931
+      },
+      "mirror43": {
+        "sse_total": 0.8791326989773918,
+        "sse_vx": 0.8791324956685421,
+        "sse_yaw": 2.033088496502253e-07,
+        "torque_cost_sum": 11.553737445924654,
+        "drive_completed_ticks": 520,
+        "task_passed": true,
+        "completed_controls": 1600,
+        "stopping_passed": true,
+        "time_to_settle_s": 1.36,
+        "max_native_forward_excursion_m": 0.37638273507356956,
+        "safety_passed": true,
+        "sse_ratio_to_zero": 0.7775702434872265
+      }
+    },
+    "flat_1p6": {
+      "terrain": "flat",
+      "seed": 181202,
+      "zero": {
+        "sse_total": 1.5612346988066017,
+        "sse_vx": 1.5612336137442437,
+        "sse_yaw": 1.0850623579570828e-06,
+        "torque_cost_sum": 19.455344778088566,
+        "drive_completed_ticks": 720,
+        "task_passed": true,
+        "completed_controls": 1600,
+        "stopping_passed": true,
+        "time_to_settle_s": 3.37,
+        "max_native_forward_excursion_m": 2.6016884255313997,
+        "safety_passed": true
+      },
+      "raw42": {
+        "sse_total": 1.4829228567296369,
+        "sse_vx": 1.332086038473323,
+        "sse_yaw": 0.1508368182563139,
+        "torque_cost_sum": 23.911338658455087,
+        "drive_completed_ticks": 720,
+        "task_passed": true,
+        "completed_controls": 1600,
+        "stopping_passed": true,
+        "time_to_settle_s": 3.37,
+        "max_native_forward_excursion_m": 2.5880813290585216,
+        "safety_passed": true,
+        "sse_ratio_to_zero": 0.9498398017051338
+      },
+      "mirror43": {
+        "sse_total": 1.1945330945548873,
+        "sse_vx": 1.1945328043904488,
+        "sse_yaw": 2.9016443843997713e-07,
+        "torque_cost_sum": 21.184432585673047,
+        "drive_completed_ticks": 720,
+        "task_passed": true,
+        "completed_controls": 1600,
+        "stopping_passed": true,
+        "time_to_settle_s": 3.37,
+        "max_native_forward_excursion_m": 2.596353074671791,
+        "safety_passed": true,
+        "sse_ratio_to_zero": 0.7651207697779079
+      }
+    },
+    "flat_1p2_yaw": {
+      "terrain": "flat",
+      "seed": 181203,
+      "zero": {
+        "sse_total": 19.92690839223292,
+        "sse_vx": 1.4749002407642042,
+        "sse_yaw": 18.452008151468718,
+        "torque_cost_sum": 19.278663346430456,
+        "drive_completed_ticks": 640,
+        "task_passed": true,
+        "completed_controls": 1600,
+        "stopping_passed": true,
+        "time_to_settle_s": 2.57,
+        "max_native_forward_excursion_m": 1.473755059340605,
+        "safety_passed": true
+      },
+      "raw42": {
+        "sse_total": 20.77515075443938,
+        "sse_vx": 1.1068861948944697,
+        "sse_yaw": 19.66826455954491,
+        "torque_cost_sum": 22.29126039893387,
+        "drive_completed_ticks": 640,
+        "task_passed": true,
+        "completed_controls": 1600,
+        "stopping_passed": true,
+        "time_to_settle_s": 2.57,
+        "max_native_forward_excursion_m": 1.4630606973660978,
+        "safety_passed": true,
+        "sse_ratio_to_zero": 1.0425676851376044
+      },
+      "mirror43": {
+        "sse_total": 20.229141557974,
+        "sse_vx": 1.145502508906954,
+        "sse_yaw": 19.083639049067045,
+        "torque_cost_sum": 20.73165484604407,
+        "drive_completed_ticks": 640,
+        "task_passed": true,
+        "completed_controls": 1600,
+        "stopping_passed": true,
+        "time_to_settle_s": 2.57,
+        "max_native_forward_excursion_m": 1.4688657391576303,
+        "safety_passed": true,
+        "sse_ratio_to_zero": 1.0151670876280479
+      }
+    },
+    "bumps_0p4": {
+      "terrain": "bumps",
+      "seed": 181204,
+      "zero": {
+        "sse_total": 4.674006387762613,
+        "sse_vx": 4.673895067480307,
+        "sse_yaw": 0.00011132028230562484,
+        "torque_cost_sum": 10.862614526359485,
+        "drive_completed_ticks": 480,
+        "task_passed": true,
+        "completed_controls": 1600,
+        "stopping_passed": true,
+        "time_to_settle_s": 0.99,
+        "max_native_forward_excursion_m": 0.18088191201802717,
+        "safety_passed": true
+      },
+      "raw42": {
+        "sse_total": 4.617548617558026,
+        "sse_vx": 4.426178404411251,
+        "sse_yaw": 0.19137021314677452,
+        "torque_cost_sum": 11.229607975906575,
+        "drive_completed_ticks": 480,
+        "task_passed": true,
+        "completed_controls": 1600,
+        "stopping_passed": true,
+        "time_to_settle_s": 0.98,
+        "max_native_forward_excursion_m": 0.17514265032531107,
+        "safety_passed": true,
+        "sse_ratio_to_zero": 0.9879209043546875
+      },
+      "mirror43": {
+        "sse_total": 4.4864786902013165,
+        "sse_vx": 4.4858111462659895,
+        "sse_yaw": 0.0006675439353268363,
+        "torque_cost_sum": 11.077935081950226,
+        "drive_completed_ticks": 480,
+        "task_passed": true,
+        "completed_controls": 1600,
+        "stopping_passed": true,
+        "time_to_settle_s": 0.98,
+        "max_native_forward_excursion_m": 0.1758931574768421,
+        "safety_passed": true,
+        "sse_ratio_to_zero": 0.9598785962183798
+      }
+    },
+    "rough_0p35": {
+      "terrain": "rough",
+      "seed": 181205,
+      "zero": {
+        "sse_total": 19.75143960941407,
+        "sse_vx": 13.04292803708682,
+        "sse_yaw": 6.708511572327252,
+        "torque_cost_sum": 12.577079972159495,
+        "drive_completed_ticks": 470,
+        "task_passed": true,
+        "completed_controls": 1600,
+        "stopping_passed": true,
+        "time_to_settle_s": 1.29,
+        "max_native_forward_excursion_m": 0.13896547295917827,
+        "safety_passed": true
+      },
+      "raw42": {
+        "sse_total": 21.32092083400478,
+        "sse_vx": 14.7408184249527,
+        "sse_yaw": 6.580102409052081,
+        "torque_cost_sum": 12.872839902157219,
+        "drive_completed_ticks": 470,
+        "task_passed": true,
+        "completed_controls": 1600,
+        "stopping_passed": true,
+        "time_to_settle_s": 1.36,
+        "max_native_forward_excursion_m": 0.15717948336970666,
+        "safety_passed": true,
+        "sse_ratio_to_zero": 1.0794616116914664
+      },
+      "mirror43": {
+        "sse_total": 19.915786540423664,
+        "sse_vx": 13.38327715539834,
+        "sse_yaw": 6.532509385025325,
+        "torque_cost_sum": 12.722518510171863,
+        "drive_completed_ticks": 470,
+        "task_passed": true,
+        "completed_controls": 1600,
+        "stopping_passed": true,
+        "time_to_settle_s": 0.97,
+        "max_native_forward_excursion_m": 0.145809121320144,
+        "safety_passed": true,
+        "sse_ratio_to_zero": 1.0083207570819932
+      }
+    },
+    "ramp_0p45_complete": {
+      "terrain": "ramp",
+      "seed": 181206,
+      "zero": {
+        "sse_total": 10.641415399328219,
+        "sse_vx": 10.638487405098518,
+        "sse_yaw": 0.002927994229701507,
+        "torque_cost_sum": 29.30674925297257,
+        "drive_completed_ticks": 1180,
+        "task_passed": true,
+        "completed_controls": 1800,
+        "stopping_passed": true,
+        "time_to_settle_s": 1.07,
+        "max_native_forward_excursion_m": 0.21924911022387494,
+        "safety_passed": true
+      },
+      "raw42": {
+        "sse_total": 6.831479327338933,
+        "sse_vx": 6.096751302496211,
+        "sse_yaw": 0.7347280248427226,
+        "torque_cost_sum": 33.8107687485489,
+        "drive_completed_ticks": 1180,
+        "task_passed": true,
+        "completed_controls": 1800,
+        "stopping_passed": true,
+        "time_to_settle_s": 1.07,
+        "max_native_forward_excursion_m": 0.2170099909532457,
+        "safety_passed": true,
+        "sse_ratio_to_zero": 0.6419709287704526
+      },
+      "mirror43": {
+        "sse_total": 6.621171798142956,
+        "sse_vx": 6.619652683161422,
+        "sse_yaw": 0.0015191149815333546,
+        "torque_cost_sum": 31.3429129112715,
+        "drive_completed_ticks": 1180,
+        "task_passed": true,
+        "completed_controls": 1800,
+        "stopping_passed": true,
+        "time_to_settle_s": 1.07,
+        "max_native_forward_excursion_m": 0.21661313356507073,
+        "safety_passed": true,
+        "sse_ratio_to_zero": 0.6222078125585572
+      }
+    }
+  },
+  "floors": {
+    "raw42": {
+      "case_id": "floor_0p4_600",
+      "numeric_gate_passed": true,
+      "completed_controls": 600,
+      "last_drive_vx_rms_error_mps": 0.0015088850116240342,
+      "last_drive_yaw_rms_rps": 0.00393747984120779,
+      "max_abs_world_roll_deg": 0.15603214501621304,
+      "max_abs_world_pitch_deg": 1.0987155300080942
+    },
+    "mirror43": {
+      "case_id": "floor_0p4_600",
+      "numeric_gate_passed": true,
+      "completed_controls": 600,
+      "last_drive_vx_rms_error_mps": 0.0015510874521031677,
+      "last_drive_yaw_rms_rps": 1.6219014409515928e-06,
+      "max_abs_world_roll_deg": 0.0009161441203376974,
+      "max_abs_world_pitch_deg": 1.0232836642789411
+    }
+  },
+  "resources": {
+    "samples": 872,
+    "min_effective_available_bytes": 6737944576,
+    "max_owned_current_bytes": 1518206976,
+    "owned_peak_bytes": 1520844800,
+    "final_cgroup_events": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0
+    }
+  },
+  "automatic_model_replacement": false
+}
