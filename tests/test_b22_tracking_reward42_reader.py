@@ -210,17 +210,41 @@ def write(path,value):
     path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(value,sort_keys=True))
 
 
-def checkpoint(tmp_path):
-    run=tmp_path/'train';folder=run/'final_checkpoint';folder.mkdir(parents=True)
+def checkpoint_manifest_from_frozen_save42(folder):
+    """Use the real save expression's separate metadata SHA and three payloads."""
+    path=ROOT/'runtime/d1_b22/research/continuation21/checkpoint21.py'
+    assert r.identity(path)['sha256']=='ef23653bd0419a8fd10d12d05325b8d2ad932ff0426175e60eab96b86aa0019f'
+    function=next(n for n in ast.parse(path.read_text()).body if isinstance(n,ast.FunctionDef)
+        and n.name=='save_final_and_verify')
+    loop=next(n for n in function.body if isinstance(n,ast.For) and isinstance(n.iter,ast.Tuple))
+    assert [n.id for n in loop.iter.elts]==['MODEL_FILE','PROBE_OBS_FILE','PROBE_ACTION_FILE']
+    files={name:r.identity(folder/name) for name in r.CHECKPOINT_PAYLOADS42}
+    original=next(n.value for n in function.body if isinstance(n,ast.Assign)
+        and any(isinstance(t,ast.Name) and t.id=='manifest' for t in n.targets))
+    selected=[(key,value) for key,value in zip(original.keys,original.values,strict=True)
+        if ast.literal_eval(key) in ('folder','files','metadata_sha256')]
+    expression=ast.Expression(ast.Dict(keys=[x[0] for x in selected],values=[x[1] for x in selected]))
+    namespace={'os':os,'folder':str(folder),'files':files,'payload':(folder/'final_metadata.json').read_bytes(),
+        '_hash_bytes':lambda payload:r.hashlib.sha256(payload).hexdigest()}
+    # Only the three actual expressions extracted from SHA-pinned save source.
+    return eval(compile(ast.fix_missing_locations(expression),'<frozen-checkpoint-manifest-shape>','eval'),{'__builtins__':{}},namespace)
+
+
+def write_checkpoint42(run):
+    folder=run/'final_checkpoint';folder.mkdir(parents=True)
     for name in ('final_model.zip','final_metadata.json','final_probe_observations_f32.bin','final_probe_actions_f32.bin'):
         (folder/name).write_bytes(b'synthetic, not model weights')
-    manifest={'folder':str(folder),'files':{p.name:r.identity(p) for p in folder.iterdir()}}
+    manifest=checkpoint_manifest_from_frozen_save42(folder)
     write(run/'final_checkpoint_manifest.json',manifest)
     return run,folder,manifest
 
 
+def checkpoint(tmp_path):return write_checkpoint42(tmp_path/'train')
+
+
 def test_final_input_map_is_exact_and_rejects_foreign_or_changed_members(tmp_path):
     run,folder,manifest=checkpoint(tmp_path);mapping=r.final_checkpoint_inputs42(run)
+    assert len(manifest['files'])==3 and 'final_metadata.json' not in manifest['files']
     assert set(mapping)=={str(run/'final_checkpoint_manifest.json'),*(str(p) for p in folder.iterdir())}
     (folder/'final_model.zip').write_bytes(b'changed')
     with pytest.raises(ValueError,match='bytes differ'):r.final_checkpoint_inputs42(run)
@@ -228,6 +252,45 @@ def test_final_input_map_is_exact_and_rejects_foreign_or_changed_members(tmp_pat
     write(run/'final_checkpoint_manifest.json',manifest);assert r.final_checkpoint_inputs42(run)!=mapping
     (folder/'unexpected.bin').write_bytes(b'new')
     with pytest.raises(ValueError,match='member set'):r.final_checkpoint_inputs42(run)
+
+
+@pytest.mark.parametrize('fault',['missing','changed','incorrect_four_payload_manifest'])
+def test_final_metadata_is_separately_bound_by_real_save_manifest(tmp_path,fault):
+    run,folder,manifest=checkpoint(tmp_path)
+    if fault=='missing':(folder/'final_metadata.json').unlink()
+    elif fault=='changed':(folder/'final_metadata.json').write_bytes(b'altered metadata')
+    else:
+        manifest['files']['final_metadata.json']=r.identity(folder/'final_metadata.json')
+        write(run/'final_checkpoint_manifest.json',manifest)
+    with pytest.raises(ValueError,match='member set|bytes differ'):r.final_checkpoint_inputs42(run)
+
+
+@pytest.mark.parametrize('alter_metadata',[False,True])
+def test_actual_eval_load_bridge_uses_separate_metadata_sha_without_fourth_payload(tmp_path,alter_metadata):
+    run=tmp_path/'eval';run.mkdir();manifests={}
+    for arm in r.ARMS:
+        _,folder,_=write_checkpoint42(tmp_path/('train_'+arm))
+        write(folder/'final_metadata.json',{'training_receipt':{'final_hashes':{'policy_state':'a'*64}}})
+        manifest=checkpoint_manifest_from_frozen_save42(folder);manifests[arm]=manifest
+        write(run/(arm+'_load.json'),{'loader_schema':'d1-b22-tracking42-final-checkpoint-v1',
+            'metadata_sha256':manifest['metadata_sha256'],'probe_rows':32,'probe_actions_byte_exact':True,
+            'matches_training_final_policy_state':True,'verified_without_engine_or_reset':True,
+            'loaded_policy_state_sha256':'a'*64})
+    if alter_metadata:
+        write(tmp_path/'train_control/final_checkpoint/final_metadata.json',
+            {'training_receipt':{'final_hashes':{'policy_state':'b'*64}}})
+    function=next(n for n in ast.parse(Path(r.__file__).read_text()).body
+        if isinstance(n,ast.FunctionDef) and n.name=='read_evaluation42')
+    loop=next(n for n in function.body if isinstance(n,ast.For))
+    namespace={'context':SimpleNamespace(session={'eval_manifests':manifests}),'run':run,'ARMS':r.ARMS,
+        'reader':SimpleNamespace(document=r.read_json),'hashes':{},'loads':{},'Path':Path,
+        'identity':r.identity,'read_json':r.read_json,'require':r.require}
+    compiled=compile(ast.Module(body=[loop],type_ignores=[]),'<actual-eval-final-load-bridge>','exec')
+    if alter_metadata:
+        with pytest.raises(ValueError,match='checkpoint bytes differ'):exec(compiled,namespace)  # noqa: S102 -- the production metadata-only bridge, no model/predict/physics calls
+    else:
+        exec(compiled,namespace)  # noqa: S102 -- the production metadata-only bridge, no model/predict/physics calls
+        assert set(namespace['hashes'])==set(r.ARMS) and len(namespace['loads'])==2
 
 
 @pytest.fixture
@@ -416,10 +479,7 @@ def saved_comparison(tmp_path,actual_pair_score):
             'actual_counts':{'controls':n,'normal_native':n*5,'compiler_native':2},'actual_pure_servo_advances':1,
             'reader_model_calls':0,'reader_physics_calls':0,**copy.deepcopy(detail)}
         if mode=='train':
-            folder=run/'final_checkpoint';folder.mkdir()
-            for member in ('final_model.zip','final_metadata.json'):(folder/member).write_bytes(b'no model, only fake receipt bytes')
-            manifest={'folder':str(folder),'files':{p.name:r.identity(p) for p in folder.iterdir()}}
-            write(run/'final_checkpoint_manifest.json',manifest)
+            write_checkpoint42(run)
             value['final_checkpoint_inputs42']=r.final_checkpoint_inputs42(run)
         value['artifacts']=r.artifact_inputs42(run)
         path=output/(name+'_readback.json');write(path,value);records.append({'name':name,'report':r.identity(path)})

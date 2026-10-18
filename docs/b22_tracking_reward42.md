@@ -1,6 +1,6 @@
 # B22 tracking reward 42：有界对照与执行准备
 
-状态：**SOURCE_PREPARATION_ONLY**。新父、worker、saved-reader与纯测试已落盘，仍在集成审查；没有42正式输出、GO或release，未执行真实依赖bootstrap、加载策略、构造环境、积分、训练或评测。用户持续授权目标为“将两仓全部收尾”；实际执行前固定新版本、预算和输出。旧77、用户9结果、v27及31～41源和原回执不改。
+状态：**SOURCE_VALIDATED_NOT_EXECUTED**。新父、worker、saved-reader已通过171项pure/fake组合测试及独立接口审查；本页定稿时尚无42正式输出或release，未执行真实依赖bootstrap、加载策略、构造环境、积分、训练或评测。用户持续授权目标为“将两仓全部收尾”；实际执行前固定新版本、预算和输出。旧77、用户9结果、v27及31～41源和原回执不改。
 
 ## 单一干预与可证伪目标
 
@@ -105,7 +105,7 @@ freeze前完成集成审查与pure回归：错父代/错臂、α漏接/重复、
 
 worker以原完整sourceSHA＋inverse AST锁保留真实物理owner主体，声明的接缝包括实际C42入口/回执、固定spec路径、训练Env/九项reward schema、warm-start stage2、独立final metadata/loader、真实两个actor/floor及额度计数。函数共享同一适配module globals，严格loader不借旧schema伪装。最初1024拍仅排除reward/reward_terms9后逐字段比对numeric，gaussian全字段比对，并核初始policy/Adam/actor/log_std与随机源；它发生首次更新前，不额外请求NN或积分。
 
-当前四组组合 **166项pure/fake测试PASS（4.21秒）**：helper26、parent43、worker39、reader58；八份新Python文件Ruff PASS。没有模型推理或物理积分，不能据此称全链实训通过。helper测试只编译两份完整SHA钉住源码中的_reward，以synthetic五条actuator trace计算，不import原模块/创建环境。反例是“准确tracking但高度误差6mm”与“高度准确但vx误差0.005m/s”：原奖励偏好后者，α8偏好前者，证明它能区分这一取舍，不证明训练会找到改进行为。worker纯测试覆盖完整inverse AST、共享globals、实际额度写前拒绝/部分文件/失败回执、两floor失败仍采齐六任务、bootstrap构造异常吞没与懒绑定指针；父/reader另覆盖bootstrap回执与三份数值读回的实际接口、原奖励重算接缝、初态/首批配对、原六任务门和已接受文件身份。这些不替代真实bootstrap或训练反馈。
+当前四组组合 **171项pure/fake测试PASS（3.47秒）**：helper26、parent43、worker39、reader63；八份新Python文件Ruff PASS。没有模型推理或物理积分，不能据此称全链实训通过。helper测试只编译两份完整SHA钉住源码中的_reward，以synthetic五条actuator trace计算，不import原模块/创建环境。反例是“准确tracking但高度误差6mm”与“高度准确但vx误差0.005m/s”：原奖励偏好后者，α8偏好前者，证明它能区分这一取舍，不证明训练会找到改进行为。worker纯测试覆盖完整inverse AST、共享globals、实际额度写前拒绝/部分文件/失败回执、两floor失败仍采齐六任务、bootstrap构造异常吞没与懒绑定指针；父/reader另覆盖bootstrap回执与三份数值读回的实际接口、原奖励重算接缝、初态/首批配对、原六任务门和已接受文件身份。checkpoint测试从冻结保存函数提取实际manifest表达式：三份payload逐字节身份校验，metadata单独由SHA绑定，最终读回身份仍覆盖四文件和manifest；修复了首次训练后必然拒绝有效checkpoint的问题。这些不替代真实bootstrap或训练反馈。
 
 ~~~bash
 rtk proxy env PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -B -m pytest --noconftest -o addopts= -q tests/test_b22_tracking_reward42.py

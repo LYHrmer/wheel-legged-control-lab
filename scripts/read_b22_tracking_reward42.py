@@ -40,6 +40,7 @@ NUMERIC_FIELDS=(
 GAUSSIAN_FIELDS=('control_index','episode_index','episode_tick','raw_gaussian_action16',
                  'clipped_action16','effective_action16')
 INITIAL_FIELDS=('qpos','qvel','ctrl','qacc_warmstart','observation','time')
+CHECKPOINT_PAYLOADS42=('final_model.zip','final_probe_observations_f32.bin','final_probe_actions_f32.bin')
 SOURCES={
     'training':('runtime/d1_b22/research/continuation22/read_training22.py','39291ddeeb9951b4d078d8d60de81eaa0f51a3bf796bf9464bb5dfe997ffa1bd'),
     'eval':('runtime/d1_b22/research/continuation22/read_eval22.py','edda8aa55b183d65c78b6c9ee016987232e137e2075326cc7f5c19d0593d055b'),
@@ -316,12 +317,15 @@ def final_checkpoint_inputs42(run):
     require(Path(manifest['folder'])==folder and folder.is_dir() and not folder.is_symlink(),
             'C42 exact final-only checkpoint folder required')
     members=list(folder.iterdir())
-    require(members and all(p.is_file() and not p.is_symlink() for p in members)
-        and {p.name for p in members}==set(manifest['files']),'C42 final checkpoint member set differs')
+    require(set(manifest['files'])==set(CHECKPOINT_PAYLOADS42)
+        and all(p.is_file() and not p.is_symlink() for p in members)
+        and {p.name for p in members}=={*CHECKPOINT_PAYLOADS42,'final_metadata.json'},
+        'C42 final checkpoint member set differs')
     values={str(manifest_path):identity(manifest_path)}
     for path in members:
         entry=identity(path)
-        require(entry==manifest['files'][path.name],'C42 actual final checkpoint bytes differ')
+        require((entry['sha256']==manifest['metadata_sha256'] if path.name=='final_metadata.json'
+            else entry==manifest['files'][path.name]),'C42 actual final checkpoint bytes differ')
         values[str(path)]=entry
     return values
 
@@ -440,7 +444,8 @@ def read_evaluation42(context,maths):
         folder=Path(manifest['folder'])
         require(folder==run.parent/('train_'+arm)/'final_checkpoint','C42 eval must use this arm final only')
         model_id=identity(folder/'final_model.zip');metadata=read_json(folder/'final_metadata.json')
-        require(model_id==manifest['files']['final_model.zip'] and identity(folder/'final_metadata.json')==manifest['files']['final_metadata.json'],
+        require(model_id==manifest['files']['final_model.zip']
+            and identity(folder/'final_metadata.json')['sha256']==manifest['metadata_sha256'],
                 'C42 eval final checkpoint bytes differ')
         hashes[arm]=model_id['sha256'];proof=reader.document(run/(arm+'_load.json'));loads[arm]=proof
         require(proof.get('loader_schema')=='d1-b22-tracking42-final-checkpoint-v1'
