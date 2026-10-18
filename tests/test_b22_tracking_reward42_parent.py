@@ -329,12 +329,12 @@ def test_comparison_requires_current_reader_identity(comparison_case):
 
 def test_resource_revision_keeps_science_and_declares_one_owned_job():
     plan=p.describe42()
-    assert plan['resource_revision']=='owned_cgroup_v3'
-    assert plan['output'].endswith('_03') and p.RELEASE.name.endswith('_03.json')
-    assert p.ADMISSIONS.name.endswith('_03')
-    assert plan['resource_policy']['unit']=='wheel-b22-tracking42-owned03-20261018-01.service'
+    assert plan['resource_revision']=='owned_cgroup_v4'
+    assert plan['output'].endswith('_04') and p.RELEASE.name.endswith('_04.json')
+    assert p.ADMISSIONS.name.endswith('_04')
+    assert plan['resource_policy']['unit']=='wheel-b22-tracking42-owned04-20261018-01.service'
     assert plan['historical_actual_counts'] is None
-    assert plan['historical_compiler_native_separate_from_new_budget']==2
+    assert plan['historical_compiler_native_separate_from_new_budget']==4
     assert p.LIMITS['stable_effective_bytes']==p.LIMITS['start_effective_bytes']==6<<30
     assert p.LIMITS['stable_seconds']==10 and p.LIMITS['admission_minimum_samples']==3
     assert p.LIMITS['reserve_effective_bytes']==4<<30
@@ -398,10 +398,10 @@ def test_external_runtime_reserve_still_rejects_unknown_and_low(tmp_path,monkeyp
 
 @pytest.fixture
 def predecessor_case(tmp_path, monkeypatch):
-    """Small synthetic receipts follow the real failed02 schema, without models."""
+    """Synthetic closed03 receipts retain their known02 failure, without models."""
     monkeypatch.setattr(p, 'ROOT', tmp_path)
-    output=tmp_path/'results/b22_tracking_reward42_20261018_02'
-    release=tmp_path/'results/b22_tracking_reward42_plan_20261018_02.json'
+    output=tmp_path/'results/b22_tracking_reward42_20261018_03'
+    release=tmp_path/'results/b22_tracking_reward42_plan_20261018_03.json'
     monkeypatch.setattr(p, 'PREDECESSOR_OUTPUT', output)
     monkeypatch.setattr(p, 'PREDECESSOR_RELEASE', release)
     (output/'bootstrap').mkdir(parents=True)
@@ -413,6 +413,13 @@ def predecessor_case(tmp_path, monkeypatch):
         'plan': {'output': str(output), 'limits': {k: p.LIMITS[k] for k in p.COUNT_KEYS}}})
     release_id=p.identity(release)
     known={'controls': 0, 'normal_native': 0, 'compiler_native': 2}
+    earlier=tmp_path/'results/b22_tracking_reward42_20261018_02/report.json'
+    earlier.parent.mkdir()
+    p.write_json(earlier, {'execution_contract_id': p.CONTRACT, 'execution_started': True,
+        'status': 'INCOMPLETE', 'actual_counts': None, 'known_actual_counts': known,
+        'source': {'git_commit': p.EARLIER_FAILURE_COMMIT}, 'cleanup': {'remaining': {}}})
+    monkeypatch.setattr(p, 'EARLIER_FAILURE_REPORT', earlier)
+    monkeypatch.setattr(p, 'EARLIER_FAILURE_IDENTITY', p.identity(earlier))
     for stage, code in (('bootstrap', 0), ('train_control', 1)):
         run=output/stage
         p.write_json(run/'session.json', {'execution_contract_id': p.CONTRACT, 'name': stage,
@@ -428,9 +435,10 @@ def predecessor_case(tmp_path, monkeypatch):
         else:
             worker.update(status='INCOMPLETE', execution_complete=False, actual_counts=None,
                 known_partial_counts=known, retry_permitted=False,
-                failure={'type': 'TypeError', 'message': p.PREDECESSOR_ERROR,
+                failure={'type': 'FileNotFoundError', 'message': p.PREDECESSOR_ERROR,
                     'training_cleanup_errors': [],
-                    'traceback': 'File "controller18.py", line 155\nTypeError: '+p.PREDECESSOR_ERROR+'\n'},
+                    'traceback': 'File "runtime_support22.py", line 89, in atomic_training_io\n'
+                        'import curriculum22 as module\nFile "recipes22.py"\nFileNotFoundError: '+p.PREDECESSOR_ERROR+'\n'},
                 C_final={'construction_attempts': 2, 'construction_returns': 2,
                     'control_attempts': 0, 'control_returns': 0, 'ccd_attempts': 0, 'ccd_returns': 0, 'violations': 0},
                 python=dict.fromkeys(('control_attempted', 'control_completed', 'native_attempted',
@@ -446,6 +454,13 @@ def predecessor_case(tmp_path, monkeypatch):
         'actual_counts': None, 'known_actual_counts': known, 'active_stage': 'train_control',
         'retry_permitted': False, 'release_identity': release_id, 'source': source,
         'failure': {'type': 'ValueError', 'message': 'C42 worker did not complete with clean ownership'},
+        'predecessor_failure': {'schema': 'b22-tracking42-specific-predecessor-failure-v1',
+            'source_commit': p.EARLIER_FAILURE_COMMIT, 'historical_attempt_occurred': True,
+            'historical_actual_counts': None, 'historical_known_counts': known,
+            'historical_compiler_native_separate_from_new_budget': 2,
+            'model_load_or_learning_occurred': False, 'clean_process_closure': True,
+            'failure': {'type': 'TypeError', 'message': 'C18 installer needs the exact production world-upright env'},
+            'inputs': {str(earlier): p.EARLIER_FAILURE_IDENTITY}},
         'cleanup': {'remaining': {}, 'signalled_identities': {}},
         'stages': [{'name': 'bootstrap', 'path': 'bootstrap/worker_receipt.json',
             'report': p.identity(output/'bootstrap/worker_receipt.json'),
@@ -453,7 +468,7 @@ def predecessor_case(tmp_path, monkeypatch):
     def repin():
         monkeypatch.setattr(p, 'PREDECESSOR_INPUTS', {
             str(path.relative_to(tmp_path)): p.identity(path)
-            for path in [release, output/'report.json',
+            for path in [release, output/'report.json', earlier,
                 *[output/stage/name for stage in ('bootstrap', 'train_control')
                   for name in ('session.json', 'worker_receipt.json', 'supervisor_receipt.json')]]})
     def mutate(name, keys, value, *, update_pin=True):
@@ -471,10 +486,12 @@ def test_specific_predecessor_preserves_unknown_total_and_separate_compiler_spen
     assert proof['historical_attempt_occurred'] is True
     assert proof['historical_actual_counts'] is None
     assert proof['historical_known_counts']=={'controls': 0, 'normal_native': 0, 'compiler_native': 2}
-    assert proof['historical_compiler_native_separate_from_new_budget']==2
+    assert proof['historical_compiler_native_separate_from_new_budget']==4
+    assert proof['earlier02_failure']['historical_actual_counts'] is None
+    assert proof['earlier02_failure']['historical_known_counts']['compiler_native']==2
     assert proof['model_load_or_learning_occurred'] is False
     assert proof['clean_process_closure'] is True
-    assert len(proof['inputs'])==8
+    assert len(proof['inputs'])==9
 
 
 @pytest.mark.parametrize(('file','keys','value'), [
@@ -487,6 +504,8 @@ def test_specific_predecessor_preserves_unknown_total_and_separate_compiler_spen
     ('train_control/worker_receipt.json', ['model_calls','counts'], {'load': 1}),
     ('train_control/worker_receipt.json', ['cleanup_errors'], ['close failed']),
     ('train_control/worker_receipt.json', ['failure','message'], 'other TypeError'),
+    ('train_control/worker_receipt.json', ['failure','type'], 'TypeError'),
+    ('train_control/worker_receipt.json', ['failure','traceback'], 'FileNotFoundError: '+p.PREDECESSOR_ERROR+'\n'),
     ('train_control/worker_receipt.json', ['failure','training_cleanup_errors'], ['dirty']),
     ('train_control/worker_receipt.json', ['C_final','construction_returns'], 1),
     ('train_control/supervisor_receipt.json', ['cleanup','remaining'], {'123': 4}),
@@ -495,6 +514,10 @@ def test_specific_predecessor_preserves_unknown_total_and_separate_compiler_spen
     ('report.json', ['actual_counts'], {'controls': 0, 'normal_native': 0, 'compiler_native': 2}),
     ('report.json', ['known_actual_counts','controls'], 1),
     ('report.json', ['cleanup','remaining'], {'123': 4}),
+    ('report.json', ['predecessor_failure'], None),
+    ('report.json', ['predecessor_failure','historical_known_counts','compiler_native'], 0),
+    ('report.json', ['predecessor_failure','model_load_or_learning_occurred'], True),
+    ('report.json', ['predecessor_failure','clean_process_closure'], False),
 ])
 def test_predecessor_cannot_hide_unknown_learning_spend_or_dirty_exit(predecessor_case, file, keys, value):
     predecessor_case(file, keys, value)

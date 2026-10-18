@@ -2,12 +2,15 @@
 from __future__ import annotations
 
 import ast
+import builtins
 import copy
+import hashlib
 import importlib.util
 import resource
 import signal
 import subprocess
 import sys
+from contextlib import contextmanager
 from pathlib import Path
 from types import ModuleType, SimpleNamespace
 
@@ -22,7 +25,7 @@ def quota(tmp_path,limit=8192,reserve=1024):
     return w.StageQuota42(tmp_path,limit,reserve=reserve)
 
 
-@pytest.mark.parametrize('kind',['recipes','curriculum','checkpoint','heldout','train','metadata'])
+@pytest.mark.parametrize('kind',['recipes','curriculum','checkpoint','heldout','train','metadata','support'])
 def test_actual_modules_are_full_sha_pinned_inverse_ast_adaptations(kind):
     tree,proof=w.adapt_module42(kind)
     assert proof['inverse_ast_exact']
@@ -36,6 +39,9 @@ def test_actual_modules_are_full_sha_pinned_inverse_ast_adaptations(kind):
         imports=[n.module for n in ast.walk(tree) if isinstance(n,ast.ImportFrom)]
         assert 'b22_curriculum42' in imports and 'b22_checkpoint42' in imports
         assert 'b22_metadata42' in imports and 'b22_recipes42' in imports
+        assert 'b22_support42' in imports
+    if kind=='support':
+        assert 'import b22_curriculum42 as module' in ast.unparse(tree)
 
 
 def test_worker_real_owner_inverse_lock_and_import_before_use():
@@ -184,6 +190,78 @@ def test_actual_worker_installer_proxy_calls_fixed_body_and_archives_mapping(pro
     assert saved['function_code_unchanged'] and saved['installation_completed']
     assert saved['source_sha256']==w.SOURCES['controller'][1]
     assert saved['globals_changed']==['WorldUprightCourseEnv']
+
+
+@pytest.fixture
+def actual_atomic_io42():
+    """Actual old/new decorated contexts; fake only modules/arrays/writer, no frameworks."""
+    path=ROOT/w.SOURCES['support'][0]
+    assert w.identity(path)['sha256']==w.SOURCES['support'][1]
+    original=ast.parse(path.read_text());adapted,_=w.adapt_module42('support')
+    class Blocks:
+        def __init__(self,directory):
+            self.directory=directory;self.stem='controls';self.files=[];self.count=2
+            self.pending={'control_index':[0,1],'value':[1.,2.]}
+    curriculum=ModuleType('b22_curriculum42')
+    curriculum._NumericBlocks=Blocks
+    curriculum._write_exclusive_json=lambda *_:None
+    curriculum._write_exclusive_npz=lambda *_args,**_kwargs:None
+    imports=[]
+    def importing(name,globals=None,locals=None,fromlist=(),level=0):
+        imports.append(name)
+        if name=='curriculum22':
+            # This is the real failed legacy recipe data path; never import the
+            # legacy curriculum/its simulator just to reach this missing read.
+            (ROOT/w.SOURCES['recipes'][0]).with_name('spec22.json').read_text()
+            raise AssertionError('legacy spec unexpectedly appeared')
+        if name=='b22_curriculum42':return curriculum
+        if name=='rl16_curriculum_08':return SimpleNamespace(_NumericBlocks=Blocks)
+        raise AssertionError('unexpected atomic-context import '+name)
+    def compile_context(tree):
+        function=next(n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name=='atomic_training_io')
+        namespace={'__name__':'atomic_io_actual42','__builtins__':{**vars(builtins),'__import__':importing},
+            'contextmanager':contextmanager,'np':SimpleNamespace(stack=lambda values:tuple(values)),'hashlib':hashlib}
+        exec(compile(ast.Module(body=[function],type_ignores=[]),str(path),'exec'),namespace)  # noqa: S102 -- exact pinned context with declared one-import adaptation
+        return namespace['atomic_training_io']
+    return SimpleNamespace(old=compile_context(original),new=compile_context(adapted),
+        curriculum=curriculum,imports=imports)
+
+
+def test_real_lazy_context_reproduces_legacy_spec_failure_then_patches_same_private_curriculum(actual_atomic_io42,tmp_path):
+    io=actual_atomic_io42;writes=[]
+    def commit_npz(path,arrays):
+        writes.append((path,arrays));path.write_bytes(b'synthetic archive, not model or physics')
+    writer=SimpleNamespace(commit_json=lambda *args:writes.append(args),commit_npz=commit_npz)
+    originals={name:getattr(io.curriculum,name) for name in ('_NumericBlocks','_write_exclusive_json','_write_exclusive_npz')}
+    with pytest.raises(FileNotFoundError,match='spec22.json'),io.old(writer):
+        pytest.fail('old context must fail before yield')
+    with io.new(writer):
+        assert io.curriculum._write_exclusive_json is writer.commit_json
+        blocks=io.curriculum._NumericBlocks(tmp_path);blocks.flush()
+        assert blocks.count==0 and blocks.pending=={} and blocks.files[0]['rows']==2
+        assert blocks.files[0]['sha256']==w.identity(tmp_path/'controls_0000.npz')['sha256']
+        io.curriculum._write_exclusive_npz(tmp_path/'other.npz',value=(3,))
+        io.curriculum._write_exclusive_json(tmp_path/'row.json',{'saved':True})
+    assert io.imports==['curriculum22','b22_curriculum42','rl16_curriculum_08']
+    assert len(writes)==3 and all(getattr(io.curriculum,key) is value for key,value in originals.items())
+
+
+def test_real_atomic_context_restores_private_bindings_on_writer_failure(actual_atomic_io42,tmp_path):
+    io=actual_atomic_io42
+    originals={name:getattr(io.curriculum,name) for name in ('_NumericBlocks','_write_exclusive_json','_write_exclusive_npz')}
+    def failed(*_args,**_kwargs):raise OSError('synthetic archive failure')
+    with pytest.raises(OSError,match='synthetic archive'),io.new(SimpleNamespace(commit_json=failed,commit_npz=failed)):
+        io.curriculum._NumericBlocks(tmp_path).flush()
+    assert all(getattr(io.curriculum,key) is value for key,value in originals.items())
+
+
+def test_bootstrap_smoke_really_enters_and_restores_the_actual_lazy_context(actual_atomic_io42,monkeypatch):
+    io=actual_atomic_io42
+    monkeypatch.setitem(sys.modules,'b22_curriculum42',io.curriculum)
+    monkeypatch.setitem(sys.modules,'b22_support42',SimpleNamespace(atomic_training_io=io.new))
+    proof=w.verify_training_io42()
+    assert proof['entered_and_exited'] and proof['original_references_restored']
+    assert proof['archive_writer_calls']==0 and io.imports==['b22_curriculum42','rl16_curriculum_08']
 
 
 @pytest.mark.parametrize('alpha',[1,8])
@@ -509,6 +587,7 @@ def test_bootstrap_runs_only_definition_graph_inside_zero_model_counter(tmp_path
     controller=ModuleType('fake_bootstrap_controller42');controller.WorldUprightCourseEnv=Base
     exec('def install_controller18(env,variant): raise AssertionError("bootstrap called installer")',controller.__dict__)  # noqa: S102 -- synthetic function must never be called
     monkeypatch.setattr(w,'controller_module42',lambda:controller)
+    monkeypatch.setattr(w,'verify_training_io42',lambda:{'entered_and_exited':True,'archive_writer_calls':0})
     class Counter:
         def __init__(self,training,limits):
             assert training is False and all(v==0 for v in limits.values())

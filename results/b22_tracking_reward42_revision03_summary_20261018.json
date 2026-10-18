@@ -1,0 +1,146 @@
+{
+  "schema": "b22-tracking42-revision03-result-summary-v1",
+  "source_commit": "7623e655ee615f6dc6e21f06858a1d0d44870643",
+  "status": "INCOMPLETE",
+  "actual_counts": null,
+  "known_actual_counts": {
+    "controls": 0,
+    "normal_native": 0,
+    "compiler_native": 2
+  },
+  "prior02_known_counts": {
+    "controls": 0,
+    "normal_native": 0,
+    "compiler_native": 2
+  },
+  "old02_and03_known_compiler_native": 4,
+  "all_attempts_exact_total": null,
+  "failure": {
+    "message": "[Errno 2] No such file or directory: '/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/continuation22/spec22.json'",
+    "traceback": "Traceback (most recent call last):\n  File \"/home/lyh/wheel-legged-control-lab/scripts/worker_b22_tracking_reward42.py\", line 161, in main\n    'normal_native_limit': controls * 5,\n  File \"/home/lyh/wheel-legged-control-lab/scripts/worker_b22_tracking_reward42.py\", line 628, in train42\n    return train.train(session,runtime,guard,env,output,writer,counter)\n  File \"/home/lyh/wheel-legged-control-lab/scripts/worker_b22_tracking_reward42.py\", line 27, in train\n    REWARD_SCHEMA = 'd1-b22-training-tracking-deficit-alpha42-v1'\n  File \"/usr/lib/python3.10/contextlib.py\", line 135, in __enter__\n    return next(self.gen)\n  File \"/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/continuation22/runtime_support22.py\", line 89, in atomic_training_io\n    import curriculum22 as module\n  File \"/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/continuation22/curriculum22.py\", line 37, in <module>\n    from recipes22 import SPEC as SPEC22\n  File \"/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/continuation22/recipes22.py\", line 14, in <module>\n    SPEC = json.loads((Path(__file__).parent / 'spec22.json').read_text())\n  File \"/usr/lib/python3.10/pathlib.py\", line 1134, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n  File \"/usr/lib/python3.10/pathlib.py\", line 1119, in open\n    return self._accessor.open(self, mode, buffering, encoding, errors,\nFileNotFoundError: [Errno 2] No such file or directory: '/home/lyh/wheel-legged-control-lab/runtime/d1_b22/research/continuation22/spec22.json'\n",
+    "training_cleanup_errors": [],
+    "type": "FileNotFoundError"
+  },
+  "model_calls": {
+    "actor_rows": 0,
+    "counts": {},
+    "critic_rows": 0,
+    "limits": {
+      "backward": 512,
+      "evaluate_actions": 512,
+      "forward": 32768,
+      "learn": 1,
+      "load": 2,
+      "predict": 3,
+      "predict_values": 64,
+      "save": 2,
+      "torch_load": 6,
+      "train": 32
+    },
+    "schema": "d1-model-api-ledger-20-v1"
+  },
+  "cleanup": {
+    "method": "linux_subreaper_ancestry_birth_tick",
+    "signalled_identities": {},
+    "remaining": {},
+    "elapsed_s": 0.017909724992932752
+  },
+  "elapsed_s": 51.41981300100451,
+  "supervisor": {
+    "schema": "b22-tracking42-worker-supervision-v1",
+    "stage": "train_control",
+    "release_identity": {
+      "bytes": 914014,
+      "sha256": "48da3afd4eae303783173c142430699259714d7fb50de35548ccd6f09bb273c0"
+    },
+    "session_identity": {
+      "bytes": 1761972,
+      "sha256": "306ca825aadb98192fe267a51699c965fdceb549c11b1881160808e0868b678b"
+    },
+    "worker_identity": {
+      "bytes": 53162,
+      "sha256": "7e7b7c8536eb868ea3300d195ee4a6e4b3558d6ca99fd8d135bf9ca0d722662e"
+    },
+    "exit_code": 1,
+    "failure": null,
+    "supervision_returned": true,
+    "cleanup": {
+      "method": "linux_subreaper_ancestry_birth_tick",
+      "signalled_identities": {},
+      "remaining": {},
+      "elapsed_s": 0.015227039984893054
+    },
+    "elapsed_s": 10.10264386900235
+  },
+  "minimum_effective_bytes": 6315790336,
+  "last_owned_memory": {
+    "path": "/user.slice/user-1000.slice/user@1000.service/app.slice/wheel-b22-tracking42-owned03-20261018-01.service",
+    "filesystem_path": "/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/app.slice/wheel-b22-tracking42-owned03-20261018-01.service",
+    "inode": 51778,
+    "device": 29,
+    "current_bytes": 842289152,
+    "high_bytes": 2147483648,
+    "max_bytes": 3221225472,
+    "remaining_bytes": 2378936320,
+    "swap_current_bytes": 0,
+    "swap_max_bytes": 0,
+    "oom_group": 1,
+    "events": {
+      "low": 0,
+      "high": 1,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0
+    },
+    "peak_bytes": 2147495936,
+    "sampled_max_bytes": 2039095296
+  },
+  "completed_stages": [
+    "bootstrap"
+  ],
+  "qualified": false,
+  "default_replaced": false,
+  "revision04_planned_cap": {
+    "controls": 96136,
+    "normal_native": 480680,
+    "compiler_native": 6
+  },
+  "evidence": [
+    {
+      "path": "results/b22_tracking_reward42_20261018_03/report.json",
+      "bytes": 9244,
+      "sha256": "394e98d7483c68c74038f14dd3e5323e59abc320630b2070e066a0c652b93bac"
+    },
+    {
+      "path": "results/b22_tracking_reward42_20261018_03/train_control/session.json",
+      "bytes": 1761972,
+      "sha256": "306ca825aadb98192fe267a51699c965fdceb549c11b1881160808e0868b678b"
+    },
+    {
+      "path": "results/b22_tracking_reward42_20261018_03/train_control/worker_receipt.json",
+      "bytes": 6733,
+      "sha256": "37c042e71ea1b2cbc9815f3accf72e9f92565ba6648dfb3fe29df303ac8931aa"
+    },
+    {
+      "path": "results/b22_tracking_reward42_20261018_03/train_control/supervisor_receipt.json",
+      "bytes": 742,
+      "sha256": "fa528d802a88aeb17eaab72dad94c5b830e45118dc6608bd9fb2f314147821a3"
+    },
+    {
+      "path": "results/b22_tracking_reward42_20261018_03/bootstrap/worker_receipt.json",
+      "bytes": 1512,
+      "sha256": "d4207344745eaf0e72e8069658acb0ef82b4cbb093d0d7f1c7de123e1fd5aa25"
+    },
+    {
+      "path": "results/b22_tracking_reward42_20261018_03/train_control/controller_installer42_proof.json",
+      "bytes": 505,
+      "sha256": "a712c9512202d45616428a454181840ca0a43b958db72c93c5ad217941412ca9"
+    },
+    {
+      "path": "results/b22_tracking_reward42_plan_20261018_03.json",
+      "bytes": 914014,
+      "sha256": "48da3afd4eae303783173c142430699259714d7fb50de35548ccd6f09bb273c0"
+    }
+  ]
+}

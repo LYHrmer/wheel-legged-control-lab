@@ -18,35 +18,40 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = 'C42_B22_tracking_deficit_comparison_v1'
-OUTPUT = ROOT/'results/b22_tracking_reward42_20261018_03'
-RELEASE = ROOT/'results/b22_tracking_reward42_plan_20261018_03.json'
-ADMISSIONS = ROOT/'results/b22_tracking_reward42_admissions_20261018_03'
+OUTPUT = ROOT/'results/b22_tracking_reward42_20261018_04'
+RELEASE = ROOT/'results/b22_tracking_reward42_plan_20261018_04.json'
+ADMISSIONS = ROOT/'results/b22_tracking_reward42_admissions_20261018_04'
 UNUSED_RELEASE = ROOT/'results/b22_tracking_reward42_plan_20261018_01.json'
 UNUSED_OUTPUT = ROOT/'results/b22_tracking_reward42_20261018_01'
 UNUSED_RELEASE_SHA = '7128e72d0fcfde9c0322d185e188f0648ef350c90911705fdb52e5fc8de597f0'
 UNUSED_COMMIT = '4c55bbb2baeca84dc3db897ffeaeb07329faa38e'
-RESOURCE_REVISION = 'owned_cgroup_v3'
-PREDECESSOR_OUTPUT = ROOT/'results/b22_tracking_reward42_20261018_02'
-PREDECESSOR_RELEASE = ROOT/'results/b22_tracking_reward42_plan_20261018_02.json'
-PREDECESSOR_COMMIT = 'cd32a85f7815fae69f89b0b8d2c769e8f0d2262d'
-PREDECESSOR_ERROR = 'C18 installer needs the exact production world-upright env'
+RESOURCE_REVISION = 'owned_cgroup_v4'
+PREDECESSOR_OUTPUT = ROOT/'results/b22_tracking_reward42_20261018_03'
+PREDECESSOR_RELEASE = ROOT/'results/b22_tracking_reward42_plan_20261018_03.json'
+PREDECESSOR_COMMIT = '7623e655ee615f6dc6e21f06858a1d0d44870643'
+PREDECESSOR_ERROR = "[Errno 2] No such file or directory: '"+str(ROOT/'runtime/d1_b22/research/continuation22/spec22.json')+"'"
+EARLIER_FAILURE_REPORT = ROOT/'results/b22_tracking_reward42_20261018_02/report.json'
+EARLIER_FAILURE_IDENTITY = {'bytes': 6404, 'sha256': '62d4c3ec599ed343d9b9b83836990959135e1f2f4585e58eb3401af7f6e31963'}
+EARLIER_FAILURE_COMMIT = 'cd32a85f7815fae69f89b0b8d2c769e8f0d2262d'
 PREDECESSOR_INPUTS = {
-    'results/b22_tracking_reward42_plan_20261018_02.json':
-        {'bytes': 909150, 'sha256': '33f2323fc20647481810995af81886be9acdb28cde236547785b4992d4acd83f'},
+    'results/b22_tracking_reward42_plan_20261018_03.json':
+        {'bytes': 914014, 'sha256': '48da3afd4eae303783173c142430699259714d7fb50de35548ccd6f09bb273c0'},
+    'results/b22_tracking_reward42_20261018_03/report.json':
+        {'bytes': 9244, 'sha256': '394e98d7483c68c74038f14dd3e5323e59abc320630b2070e066a0c652b93bac'},
     'results/b22_tracking_reward42_20261018_02/report.json':
         {'bytes': 6404, 'sha256': '62d4c3ec599ed343d9b9b83836990959135e1f2f4585e58eb3401af7f6e31963'},
-    'results/b22_tracking_reward42_20261018_02/bootstrap/session.json':
-        {'bytes': 1759803, 'sha256': '151d3a141fda3a7137529ede1b5ec4b5ee075046421a51421f10456f415d2167'},
-    'results/b22_tracking_reward42_20261018_02/bootstrap/worker_receipt.json':
-        {'bytes': 1512, 'sha256': 'eade18bd0fa220f50ab5f547ec803775fd7e500c3bf70b543a43c9857f39057e'},
-    'results/b22_tracking_reward42_20261018_02/bootstrap/supervisor_receipt.json':
-        {'bytes': 738, 'sha256': '42cc87fdece973619cef4c14c792cad45368e1f4de19a6f5df5c2981ff2bf54c'},
-    'results/b22_tracking_reward42_20261018_02/train_control/session.json':
-        {'bytes': 1760183, 'sha256': '71455b83114919cf6d73d34f8ba89114f5dd50b0845eeaa20ab41470dfce6b81'},
-    'results/b22_tracking_reward42_20261018_02/train_control/worker_receipt.json':
-        {'bytes': 5416, 'sha256': '541f7071a2ef0ee23870133130ec4e0685d7e28b7968ff78c8e1c840109a3f24'},
-    'results/b22_tracking_reward42_20261018_02/train_control/supervisor_receipt.json':
-        {'bytes': 742, 'sha256': '3dd5170406f2f38e921fc30c110dd09cadf28e430de01f590e2f4eddd535b425'},
+    'results/b22_tracking_reward42_20261018_03/bootstrap/session.json':
+        {'bytes': 1761593, 'sha256': '6e26e0a398c3503be07061701628f091afb916573a44dabe3e96580f3e8607ec'},
+    'results/b22_tracking_reward42_20261018_03/bootstrap/worker_receipt.json':
+        {'bytes': 1512, 'sha256': 'd4207344745eaf0e72e8069658acb0ef82b4cbb093d0d7f1c7de123e1fd5aa25'},
+    'results/b22_tracking_reward42_20261018_03/bootstrap/supervisor_receipt.json':
+        {'bytes': 738, 'sha256': '4da0ec20adc0d80814c0e79f6c0cee8ca6ab68dd6ee90bda4f7d7e1d66e1a51f'},
+    'results/b22_tracking_reward42_20261018_03/train_control/session.json':
+        {'bytes': 1761972, 'sha256': '306ca825aadb98192fe267a51699c965fdceb549c11b1881160808e0868b678b'},
+    'results/b22_tracking_reward42_20261018_03/train_control/worker_receipt.json':
+        {'bytes': 6733, 'sha256': '37c042e71ea1b2cbc9815f3accf72e9f92565ba6648dfb3fe29df303ac8931aa'},
+    'results/b22_tracking_reward42_20261018_03/train_control/supervisor_receipt.json':
+        {'bytes': 742, 'sha256': 'fa528d802a88aeb17eaab72dad94c5b830e45118dc6608bd9fb2f314147821a3'},
 }
 DRIVER = ROOT/'scripts/run_b22_tracking_reward42.py'
 WORKER = ROOT/'scripts/worker_b22_tracking_reward42.py'
@@ -78,8 +83,8 @@ COUNT_KEYS = ('controls', 'normal_native', 'compiler_native')
 RESOURCE_POLICY = {'memory_high_bytes': 2048 << 20, 'memory_max_bytes': 3072 << 20,
                    'memory_swap_max_bytes': 0, 'oom_policy': 'kill',
                    'memory_oom_group': 1,
-                   'unit': 'wheel-b22-tracking42-owned03-20261018-01.service',
-                   'owned_scope': '/user.slice/user-1000.slice/user@1000.service/app.slice/wheel-b22-tracking42-owned03-20261018-01.service',
+                   'unit': 'wheel-b22-tracking42-owned04-20261018-01.service',
+                   'owned_scope': '/user.slice/user-1000.slice/user@1000.service/app.slice/wheel-b22-tracking42-owned04-20261018-01.service',
                    'reserve_scope': 'host and ancestors outside the owned job cgroup',
                    'covers': 'parent, source hashing, bootstrap, workers, saved readers, comparison'}
 _resource_guard42 = None
@@ -183,7 +188,7 @@ def unused_budget_origin42():
 
 
 def predecessor_failure42():
-    """Verify the specific closed 02 failure; never rewrite its unknown total."""
+    """Verify closed03 and its fixed02 report; both historical totals stay unknown."""
     files = {str(ROOT/name): identity(ROOT/name) for name in PREDECESSOR_INPUTS}
     require(all(files[str(ROOT/name)] == entry for name, entry in PREDECESSOR_INPUTS.items()),
             'C42 predecessor receipt identity changed')
@@ -202,6 +207,28 @@ def predecessor_failure42():
     def exact_counts(value, expected):
         return (isinstance(value, dict) and set(value) == set(expected)
                 and all(type(value[k]) is int and value[k] == v for k, v in expected.items()))
+    earlier = read_json(EARLIER_FAILURE_REPORT)
+    chain = parent.get('predecessor_failure') or {}
+    require(identity(EARLIER_FAILURE_REPORT) == EARLIER_FAILURE_IDENTITY
+            and files.get(str(EARLIER_FAILURE_REPORT)) == EARLIER_FAILURE_IDENTITY
+            and earlier.get('status') == 'INCOMPLETE' and earlier.get('actual_counts') is None
+            and earlier.get('execution_contract_id') == CONTRACT and earlier.get('execution_started') is True
+            and exact_counts(earlier.get('known_actual_counts'), known)
+            and earlier.get('source', {}).get('git_commit') == EARLIER_FAILURE_COMMIT
+            and earlier.get('cleanup', {}).get('remaining') == {}
+            and chain.get('schema') == 'b22-tracking42-specific-predecessor-failure-v1'
+            and chain.get('source_commit') == EARLIER_FAILURE_COMMIT
+            and chain.get('historical_attempt_occurred') is True
+            and chain.get('historical_actual_counts') is None
+            and exact_counts(chain.get('historical_known_counts'), known)
+            and type(chain.get('historical_compiler_native_separate_from_new_budget')) is int
+            and chain['historical_compiler_native_separate_from_new_budget'] == 2
+            and chain.get('model_load_or_learning_occurred') is False
+            and chain.get('clean_process_closure') is True
+            and chain.get('failure') == {'type': 'TypeError',
+                'message': 'C18 installer needs the exact production world-upright env'}
+            and chain.get('inputs', {}).get(str(EARLIER_FAILURE_REPORT)) == EARLIER_FAILURE_IDENTITY,
+            'C42 predecessor02 failure chain was lost or changed')
     require(parent.get('schema') == 'b22-tracking42-supervision-v1'
             and parent.get('execution_contract_id') == CONTRACT
             and parent.get('status') == 'INCOMPLETE' and parent.get('execution_started') is True
@@ -261,11 +288,13 @@ def predecessor_failure42():
                     and worker.get('actual_counts') is None
                     and exact_counts(worker.get('known_partial_counts'), known)
                     and worker.get('retry_permitted') is False
-                    and failure.get('type') == 'TypeError' and failure.get('message') == PREDECESSOR_ERROR
+                    and failure.get('type') == 'FileNotFoundError' and failure.get('message') == PREDECESSOR_ERROR
                     and failure.get('training_cleanup_errors') == []
-                    and failure.get('traceback', '').endswith('TypeError: '+PREDECESSOR_ERROR+'\n')
-                    and 'controller18.py\", line 155' in failure.get('traceback', ''),
-                    'C42 predecessor TypeError or partial counts differs')
+                    and failure.get('traceback', '').endswith('FileNotFoundError: '+PREDECESSOR_ERROR+'\n')
+                    and 'runtime_support22.py\", line 89, in atomic_training_io' in failure.get('traceback', '')
+                    and 'import curriculum22 as module' in failure.get('traceback', '')
+                    and 'recipes22.py' in failure.get('traceback', ''),
+                    'C42 predecessor lazy-import FileNotFoundError or partial counts differs')
             c_final = worker.get('C_final', {})
             counters = {'construction_attempts': 2, 'construction_returns': 2, 'control_attempts': 0,
                         'control_returns': 0, 'ccd_attempts': 0, 'ccd_returns': 0, 'violations': 0}
@@ -282,9 +311,11 @@ def predecessor_failure42():
             'source_commit': PREDECESSOR_COMMIT, 'inputs': files,
             'historical_attempt_occurred': True, 'historical_actual_counts': None,
             'historical_known_counts': known, 'model_load_or_learning_occurred': False,
-            'failure': {'type': 'TypeError', 'message': PREDECESSOR_ERROR},
+            'failure': {'type': 'FileNotFoundError', 'message': PREDECESSOR_ERROR},
             'clean_process_closure': True,
-            'historical_compiler_native_separate_from_new_budget': 2,
+            'earlier02_failure': {'report': str(EARLIER_FAILURE_REPORT), 'identity': EARLIER_FAILURE_IDENTITY,
+                'historical_actual_counts': None, 'historical_known_counts': known},
+            'historical_compiler_native_separate_from_new_budget': 4,
             'new_attempt_authority': 'continuing user authorisation to repair the actual failed attempt',
             'old_unknown_total_is_not_rewritten': True}
 
@@ -315,7 +346,7 @@ def describe42():
             'execution_contract_id': CONTRACT, 'output': str(OUTPUT),
             'resource_revision': RESOURCE_REVISION, 'resource_policy': dict(RESOURCE_POLICY),
             'predecessor_output': str(PREDECESSOR_OUTPUT),
-            'historical_compiler_native_separate_from_new_budget': 2,
+            'historical_compiler_native_separate_from_new_budget': 4,
             'historical_actual_counts': None,
             'stages': stages42(), 'limits': dict(LIMITS),
             'actors': ['zero', 'control', 'deficit8'], 'evaluation_gain': 1,

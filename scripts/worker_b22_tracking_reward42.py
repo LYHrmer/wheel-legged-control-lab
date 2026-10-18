@@ -19,7 +19,7 @@ import stat
 import sys
 from contextlib import contextmanager
 from pathlib import Path
-from types import FunctionType, ModuleType
+from types import FunctionType, ModuleType, SimpleNamespace
 
 ROOT = Path(__file__).resolve().parents[1]
 WORKER = ROOT/'scripts/worker_b22_tracking_reward42.py'
@@ -46,6 +46,7 @@ SOURCES = {
  'geometry': ('runtime/d1_b22/research/continuation21/geometry21.py','166734144ff69582fe1e7eef97be8fd49a008f133d10b50aaddc9aab5a9575ef'),
  'servo': ('runtime/d1_b22/research/course_impl08/full_drive_servo_08.py','6f96f5a94e5824c269fead504c2f8a0fa9789c75cea42bebd08fccb88ea50ebb'),
  'controller': ('runtime/d1_b22/research/continuation18/controller18.py','b8f3b1d59880ca0bff7d7d4791ba823a101d396dd9f614e25414b83bd2133aba'),
+ 'support': ('runtime/d1_b22/research/continuation22/runtime_support22.py','ffed9b03e0baa329f87691fe3376cf93d9db916996df075c2da5193cde677411'),
 }
 PARENT_FILES = {
  'final_model.zip': '7bd58b5d6114745b12b4284be3f861f973a5d31d9d596365a5b54cb5e0d76691',
@@ -472,12 +473,17 @@ def adapt_module42(kind):
     imports = {'recipes22':'b22_recipes42'}
     if kind=='train':
         imports.update(curriculum22='b22_curriculum42',checkpoint21='b22_checkpoint42',
-                       run_short_rl16_training_11='b22_metadata42')
+                       run_short_rl16_training_11='b22_metadata42',runtime_support22='b22_support42')
     if kind=='checkpoint':
         imports['rl16_learning_11']='b22_rl42'
     if kind=='metadata':
         imports.update(world_upright_course_11='b22_world42',short_curriculum_11='b22_curriculum42')
     for node in ast.walk(tree):
+        if kind=='support' and isinstance(node,ast.Import) and any(n.name=='curriculum22' for n in node.names):
+            require(len(node.names)==1 and node.names[0].asname=='module',
+                    'C42 atomic training I/O private curriculum seam changed')
+            put(node,'names',None,[ast.alias(name='b22_curriculum42',asname='module')],
+                'actual atomic context patches the same private curriculum')
         if isinstance(node,ast.ImportFrom) and node.module in imports:
             put(node,'module',None,imports[node.module],'versioned import '+node.module)
         if kind=='train' and isinstance(node,ast.ImportFrom) and node.module=='rl16_learning_11':
@@ -549,6 +555,7 @@ def runtime_modules42(env_type, session, quota):
     curriculum,_=_exec_module42('curriculum',{'_quota42':quota})
     curriculum.WorldUprightCourseEnv=env_type
     curriculum.WORLD_UPRIGHT_REWARD_SCHEMA=REWARD_SCHEMA
+    _exec_module42('support')
     _exec_module42('metadata')
     checkpoint,_=_exec_module42('checkpoint')
     final_save=checkpoint.save_final_and_verify
@@ -575,6 +582,30 @@ def runtime_modules42(env_type, session, quota):
     require(original_metadata is train.__dict__,'C42 training globals are foreign')
     heldout,_=_exec_module42('heldout')
     return recipes,strict,train,heldout
+
+
+def verify_training_io42():
+    """Enter the real lazy bridge without training, arrays, or archive writes."""
+    curriculum = sys.modules['b22_curriculum42']
+    support = sys.modules['b22_support42']
+    names = ('_NumericBlocks','_write_exclusive_json','_write_exclusive_npz')
+    original = {name:getattr(curriculum,name) for name in names}
+    writes = []
+    def forbidden(*_args,**_kwargs):
+        writes.append('attempted')
+        raise RuntimeError('C42 bootstrap training-I/O writer call forbidden')
+    writer = SimpleNamespace(commit_json=forbidden,commit_npz=forbidden)
+    with support.atomic_training_io(writer):
+        require(curriculum._NumericBlocks is not original['_NumericBlocks']
+                and curriculum._NumericBlocks.__bases__==(original['_NumericBlocks'],)
+                and curriculum._write_exclusive_json is forbidden
+                and curriculum._write_exclusive_npz is not original['_write_exclusive_npz'],
+                'C42 atomic training context did not bind its actual private curriculum')
+    require(all(getattr(curriculum,name) is value for name,value in original.items()) and not writes,
+            'C42 atomic training context did not restore or performed a write')
+    return {'schema':'b22-tracking42-atomic-training-io-proof-v1',
+        'source_sha256':SOURCES['support'][1],'private_curriculum':curriculum.__name__,
+        'entered_and_exited':True,'original_references_restored':True,'archive_writer_calls':len(writes)}
 
 
 def evaluate42(session,runtime,guard,env,output,writer,counter):
@@ -854,6 +885,7 @@ def bootstrap42(session, output, quota):
             env_type = reward_env42(base,example)  # class definition; no ()
             _,controller_proof = controller_installer42(controller_module42(),env_type)
             recipes,strict,train,heldout = runtime_modules42(env_type,example,quota)
+            training_io_proof = verify_training_io42()
             require(strict.load_and_verify_final.__globals__ is strict.__dict__ and
                     strict.FINAL_CHECKPOINT_SCHEMA==FINAL_SCHEMA and
                     strict.WORLD_UPRIGHT_REWARD_SCHEMA==REWARD_SCHEMA,
@@ -889,11 +921,12 @@ def bootstrap42(session, output, quota):
             'nominal_cache':cold,'pure_servo42':servo.report(),'model_calls':counter.summary(),
             'construction_guard42':constructors.report(),
             'controller_installer42':controller_proof,
+            'atomic_training_io42':training_io_proof,
             'derived_modules':{kind:adapt_module42(kind)[1] for kind in
-                               ('recipes','curriculum','metadata','checkpoint','train','heldout')},
+                               ('recipes','curriculum','metadata','checkpoint','train','heldout','support')},
             'actual_module_files':{name:module.__file__ for name,module in sys.modules.items()
                                    if name in ('b22_recipes42','b22_curriculum42','b22_metadata42',
-                                               'b22_checkpoint42','b22_train42','b22_heldout42','b22_rl42')},
+                                               'b22_checkpoint42','b22_train42','b22_heldout42','b22_rl42','b22_support42')},
             'environment_constructions':constructors.attempted['environment'],
             'policy_construction_attempts':sum(constructors.attempted[k] for k in ('ppo','base_algorithm','nn_module')),
             'qualification_granted':False,
@@ -946,7 +979,7 @@ def main(argv=None):
     namespace['write']=quota.receipt_json
     namespace['_quota42']=quota
     proof['modules'] = {kind:adapt_module42(kind)[1] for kind in
-                        ('recipes','curriculum','checkpoint','heldout','train','metadata')}
+                        ('recipes','curriculum','checkpoint','heldout','train','metadata','support')}
     proof['strict_namespace42'] = {'source_sha256':SOURCES['strict'][1],
         'WORLD_UPRIGHT_REWARD_SCHEMA':REWARD_SCHEMA, 'FINAL_CHECKPOINT_SCHEMA':FINAL_SCHEMA,
         'shared_function_globals':True}
