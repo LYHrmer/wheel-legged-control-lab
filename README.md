@@ -13,7 +13,7 @@
 
 [38控制链启动核查](docs/b22_numpy38_interruption_20261018.md)因MuJoCo包来源清单缺失而中止。[39独立运行](docs/b22_numpy39_interruption_20261018.md)通过修复后的冷准入和1600拍直行，随后保存结果读取器因要求Torch库列表非空而中止，转向未启动。[40复核](docs/b22_numpy40.md)只修正这一前提并完成原直行归档核验，新增物理和NN执行均为零；39原中止状态与未知总数保留。[奖励敏感性分析](docs/b22_reward_signal_analysis_20261018.md)量化了平地跟踪奖励接近上限的现象及训练来源，作为后续等预算对照的依据。
 
-[42有界训练对照](docs/b22_tracking_reward42.md)比较同一完整B22与Adam起点、相同种子的两组各32768拍训练，仅调整训练中的跟踪误差奖励权重。[02](docs/b22_tracking_reward42_revision02_results_20261018.md)在学习前遇到环境精确类型错误；[03](docs/b22_tracking_reward42_revision03_results_20261018.md)实际通过该修复，随后暴露训练上下文的延迟导入配置路径问题，仍未加载策略或开始学习。两次旧记录的完整计数均保留null，已知控制与正常积分均0、构造积分合计4。04针对这一导入接缝修复并独立执行，停车、安全和RL贡献门保持原值。资源准入现为可用内存连续10秒达到6GiB，运行保留4GiB，整个任务有3GiB内存硬上限。
+[42有界训练对照](docs/b22_tracking_reward42.md)比较同一完整B22与Adam起点、相同种子的两组各32768拍训练，仅调整训练中的跟踪误差奖励权重。[02](docs/b22_tracking_reward42_revision02_results_20261018.md)/[03](docs/b22_tracking_reward42_revision03_results_20261018.md)暴露的环境类型与延迟导入问题已修复；[04](docs/b22_tracking_reward42_revision04_results_20261018.md)真实学习到失败回执所报27000拍，被旧主机4GiB停止线打断，整轮总数仍未知。自身已读峰值约1.89GiB、OOM事件0。05采用可用内存连续10秒达到4GiB启动、运行保留2GiB，保留整组3GiB硬上限，并改善中断收尾；从完整B22开始新的有界对照。停车、安全和RL贡献指标保持原值。
 
 ```
 D1 全机  23 nq / 22 nv / 16 执行器 · 物理 500 Hz · 决策 100 Hz（一个控制拍 5 × 2 ms）

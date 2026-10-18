@@ -1,6 +1,10 @@
 # B22 tracking reward 42：有界对照与执行准备
 
-状态：**REVISION03_INCOMPLETE_BEFORE_LEARNING / REVISION04_LAZY_IMPORT_REPAIR**。02已经真实执行：依赖bootstrap通过，训练首个环境构造后，旧controller18的精确类型检查拒绝了42奖励环境子类，尚未加载策略或开始学习。已知消耗为0controls、0normal native、2compiler native，历史整轮actual仍为null；原目录和回执完整保留，见[02结果](b22_tracking_reward42_revision02_results_20261018.md)。原01未执行，正式output01仍不存在。此前208项pure/fake测试不能替代这次真实集成反馈。
+状态：**REVISION04_INCOMPLETE_RAM / REVISION05_RESOURCE_AND_CLEANUP_REPAIR**。04已经进入真实PPO学习，运行约532秒后因主机可用内存3.43GiB低于旧4GiB停止线退出；自身已读峰值1.89GiB、OOM事件0。[04结果](b22_tracking_reward42_revision04_results_20261018.md)分别记录完整保存的26624拍下界、后续失败回执报告的27000拍前缀，以及仍未知的整轮实际总数。05采用4GiB启动、2GiB运行停止线，保留整组3GiB硬上限，并改善中断归档的收尾时间。05是从完整B22与Adam开始的新独立有界执行，不恢复04的partial权重。
+
+05提交前五组组合检查为**248项pure/fake PASS（4.64秒）**，10份相关Python源Ruff及diff-check通过。父测试按04真实已学习中断证据替换旧03未学习前提，新增有界清理与异常回执回归；独立只读审查核对04小工件SHA、计数和资源记录。上述检查不替代实际两组训练及原六任务评测。
+
+历史02已经真实执行：依赖bootstrap通过，训练首个环境构造后，旧controller18的精确类型检查拒绝了42奖励环境子类，尚未加载策略或开始学习。已知消耗为0controls、0normal native、2compiler native，历史整轮actual仍为null；原目录和回执完整保留，见[02结果](b22_tracking_reward42_revision02_results_20261018.md)。原01未执行，正式output01仍不存在。此前208项pure/fake测试不能替代这次真实集成反馈。
 
 03在新的release、output、admissions及owned03 unit执行，修复仅涉及训练时的controller installer环境身份接缝：从固定SHA的原函数建立私有globals，将精确Env身份映射到本次注册的42奖励Env，其余原函数代码、loop/controller身份、never-reset与几何cache检查保留；评测仍使用原Env和原installer。旧runtime/77输入、原回执及42 reward数学不改。原02在学习前失败，03仍从同一完整B22与Adam启动，计划的96136controls / 480680normal native / 6compiler native独立登记；**02已知额外2compiler另列，不能声称所有尝试总计仍只有6次构造**。
 
@@ -70,11 +74,13 @@ learning21.load_warm_start20的stage2合法路径先核policy/actor/log_std/Adam
 
 bootstrap是独立额外进程，硬wall300秒、64MiB写额度，所有模型API、Env构造、servo、normal/compiler native预算均0。它只做真实依赖导入、显式MuJoCo `_functions`/`_rollout`加载、原ELF/GOT绑定和适配函数/类定义，不创建环境或策略。依赖导入边界由固定源码审核与原生零计数约束，不能称导入期间已全程instrumented；随后适配定义区由ModelCounter及四类构造拦截器共同约束。拦截器记录Env、PPO、BaseAlgorithm、nn.Module构造尝试，即使内部吞掉异常仍失败。EngineGuard不arm，先绑定并解析`original_step`指针再取等值baseline；允许解析地址，不允许任何积分。几何缓存必须保持cold、native计数/phase/target/limits全0，四个GOT槽保持原证明。bootstrap不声称运行过独立saved-reader，也不授予控制资格。
 
-修订02保留启动6GiB/运行停止4GiB，将原8GiB连续60秒工程门改为**6GiB连续10秒、5秒间隔至少3点**，间隔异常重置稳定计时；下一请求/nonce未建时最多等300秒，末次来源检查后仍须6GiB。4GiB运行门与准入均指host及本任务上方外部祖先的可用量，**不把本任务自身3GiB硬上限剩余量同4/6GiB比较**。原31的min-own-cap读法在此限额下会误拒绝，因此只在新父资源接缝采用stdlib guard；冻结31及数值worker无需修改。
+修订02至04使用6GiB启动/4GiB运行停止线。04实测训练组占用约1.36GiB、已读峰值1.89GiB，未触及自身限额，却被外部可用量门打断。根据用户继续推进的授权，05调整为**4GiB连续10秒、5秒间隔至少3点启动，运行保留2GiB**；间隔异常重置稳定计时，下一请求/nonce未建时最多等300秒，末次来源检查后仍须4GiB。启动与运行门均指host及本任务上方外部祖先的可用量，不把本任务自身3GiB硬上限剩余量同主机余量比较。原31的min-own-cap读法在此限额下会误拒绝，因此只在新父资源接缝采用stdlib guard；冻结31及数值worker无需修改。
 
-当前04整个任务必须位于唯一systemd用户unit `wheel-b22-tracking42-owned04-20261018-01.service`的同一cgroup，guard实际核对应`MemoryHigh=2048MiB`、`MemoryMax=3072MiB`、`MemorySwapMax=0`的内核文件及`memory.oom.group=1`；启动unit另登记`OOMPolicy=kill`，组外systemd记录实际配置与终态。父、执行期数GiB输入逐块hash、bootstrap、所有数值worker、saved-reader、最终比较均受同一组限额约束；不能只限制训练子进程。父监督每阶段、保存reader与worker启动门都读同一登记scope，记录host/外部祖先与owned current/high/max/events/peak，未知或OOM事件失败。单CPU线程、Nice≥10、串行，无自有残留child。
+当前05整个任务必须位于唯一systemd用户unit `wheel-b22-tracking42-owned05-20261018-01.service`的同一cgroup，guard实际核对应`MemoryHigh=2048MiB`、`MemoryMax=3072MiB`、`MemorySwapMax=0`的内核文件及`memory.oom.group=1`；启动unit另登记`OOMPolicy=kill`，组外systemd记录实际配置与终态。父、执行期数GiB输入逐块hash、bootstrap、所有数值worker、saved-reader、最终比较均受同一组限额约束；不能只限制训练子进程。父监督每阶段、保存reader与worker启动门都读同一登记scope，记录host/外部祖先与owned current/high/max/events/peak，未知或OOM事件失败。单CPU线程、Nice≥10、串行，无自有残留child。
 
-3GiB是否足够这次wheel训练尚无实测峰值证明。历史可用RAM跌幅不是本任务RSS/PSS；输入hash每次只持1MiB读块，但多GiB文件页缓存可能记入组memory.current并被内核回收，不能把它称为私有内存泄漏。MemoryHigh可使回收变慢，90分钟总wall不增加；MemoryMax可能导致本轮INCOMPLETE，不能自动重训。若整组被内核OOM杀死，进程内finally和最终回执不保证执行，须由组外systemd终态/事件与已落盘阶段记录闭账，缺失实际计数保持null，不能把RUNNING旧回执当成功。
+04已提供训练前27000拍的真实占用依据，但尚未覆盖完整训练和评测峰值。输入hash每次只持1MiB读块，多GiB文件页缓存可能记入组memory.current并被内核回收，不能把它称为私有内存泄漏。MemoryHigh可使回收变慢，90分钟总wall不增加；MemoryMax可能导致本轮INCOMPLETE，不能自动重训。若整组被内核OOM杀死，进程内finally和最终回执不保证执行，须由组外systemd终态/事件与已落盘阶段记录闭账，缺失实际计数保持null，不能把RUNNING旧回执当成功。
+
+05的父进程对自身后代每个PID/出生标识先发一次TERM，最多留15秒保存失败状态，再进入原有硬清理，且为硬清理保留5秒；该窗口包含在原阶段及全轮时限内。首次清理与后续清理均留记录，清理异常单独记录并尽力写监督回执。可用量最低值在判断阈值前更新，包含真正触发停止的样本。旧监督器和worker源码不因这一修复改动。
 
 来源核验、等待、bootstrap、训练、保存读回和清理全部计入**5400秒/90分钟**。bootstrap soft/close/hard为240/275/300秒；数值worker为1140/1180/1200秒，每次saved-reader另留600秒、最终比较300秒。不足以保留读回/清理窗口时不spawn。旧B22 host训练571.56s+读回328.22s；按旧eval吞吐投影全轮约45～50分钟，只是历史估计，不承诺完成或过关。
 
@@ -95,7 +101,7 @@ bootstrap是独立额外进程，硬wall300秒、64MiB写额度，所有模型AP
 
 本地原件根为/home/lyh/wheel-legged-control-lab-work/recovery-20260912/stability_20260924_full_drive01/continuation22/。公开training_blocks_manifest为49407B、SHA a2d8c7c7605fe87cdbdbf02a65c8beec48f73e76da064f2a621e591a66877b0b；它包含全32/32/164块声明，公开首块不是完整payload。
 
-用历史最大块native15605446B×32、full-control1525330B×164及其余实际字节投影，每train约973275875B；原final每拍输出投影30600eval约540668448B，合计约2487220198B（2.32GiB）。这是容量估计，**不是新轨迹压缩率的数学上界**。完整成功产物预估3GiB。每worker在写前执行硬额度：训练各3GiB、eval2GiB，含partial和1MiB回执保留；bootstrap64MiB。原ArchiveWriter事务、NDJSON事件和checkpoint/metadata直接保存均接入额度。直接模型保存预留每文件16MiB并由RLIMIT_FSIZE限制实际文件长度，保存失败仍保留部分文件，不返还已占额度。ArchiveWriter失败回执仍走原事务，但只能用保留额度。此实现的源与fake已验证，真实训练尚未执行。
+用历史最大块native15605446B×32、full-control1525330B×164及其余实际字节投影，每train约973275875B；原final每拍输出投影30600eval约540668448B，合计约2487220198B（2.32GiB）。这是容量估计，**不是新轨迹压缩率的数学上界**。完整成功产物预估3GiB。每worker在写前执行硬额度：训练各3GiB、eval2GiB，含partial和1MiB回执保留；bootstrap64MiB。原ArchiveWriter事务、NDJSON事件和checkpoint/metadata直接保存均接入额度。直接模型保存预留每文件16MiB并由RLIMIT_FSIZE限制实际文件长度，保存失败仍保留部分文件，不返还已占额度。ArchiveWriter失败回执仍走原事务，但只能用保留额度。此实现已通过源与fake检查；04已经写出真实训练归档，但未完成整轮保存读回。
 
 **全轮8GiB是父每秒采样及worker每事务检查的监测停止阈值，不是原子全局硬quota**；日志、reader和临时硬链接可能在采样间隔内暂时越线，按路径stat的逻辑字节也可能保守双计。磁盘启动至少10GiB、运行保留2GiB。超额INCOMPLETE且不删旧证据。历史df可用113053859840B，正式执行重采；依赖输入只绑定、不复制数GiB文件。
 
@@ -113,13 +119,13 @@ bootstrap是独立额外进程，硬wall300秒、64MiB写额度，所有模型AP
 
 每个适配以旧完整sourceSHA和inverse AST列明，module globals/实际worker身份为C42，不全局替换旧SHA。闭包还钉实际原spec、B22 ZIP/metadata/probe、policy/Adam证明、recipes/curriculum/learning/checkpoint/heldout/readers、controller/99D builder、engine/GOT/ELF、archive、原评分及实际依赖栈。
 
-freeze前完成集成审查与pure回归：错父代/错臂、α漏接/重复、spec迁移、reward总和→Monitor/rollout buffer真实接线、floor不筛臂、两final采齐、partial/早终止实际计数、final-only、零模型reader、wall/RAM/字节清理。02已有真实bootstrap通过及学习前失败回执，尚无完成的42训练或独立训练读回结果；不能把source准备完成写成数值验收通过。
+freeze前完成集成审查与pure回归：错父代/错臂、α漏接/重复、spec迁移、reward总和→Monitor/rollout buffer真实接线、floor不筛臂、两final采齐、partial/早终止实际计数、final-only、零模型reader、wall/RAM/字节清理。02/03已有学习前失败回执，04已有真实训练前缀，尚无完成的42训练或独立训练读回结果；不能把source准备完成写成数值验收通过。
 
 新worker明确钉原适配源码、B22四文件、原spec和实际MuJoCo完整双根包库存；父再绑定v27现有全部控制/依赖输入。`required_inputs42()`当前纯stdlib冷核返回**287项，共87886584字节**，saved-reader另钉3份原源码；四种阶段的实际默认会话均通过冷接口核验，没有导入NumPy或模型/物理框架。有限几何部分仍依赖本机历史work目录内原C21报告及12份模板，原件身份由固定spec/报告核验；这是本机可复现训练输入，**不等于fresh clone独立训练**，也不继承v27推理的`external_research_work_directory_required=false`。此轮不迁移或重写历史输入。
 
 worker以原完整sourceSHA＋inverse AST锁保留真实物理owner主体，声明的接缝包括实际C42入口/回执、固定spec路径、训练Env/九项reward schema、warm-start stage2、独立final metadata/loader、真实两个actor/floor及额度计数。函数共享同一适配module globals，严格loader不借旧schema伪装。最初1024拍仅排除reward/reward_terms9后逐字段比对numeric，gaussian全字段比对，并核初始policy/Adam/actor/log_std与随机源；它发生首次更新前，不额外请求NN或积分。
 
-当前四组组合 **171项pure/fake测试PASS（3.47秒）**：helper26、parent43、worker39、reader63；八份新Python文件Ruff PASS。没有模型推理或物理积分，不能据此称全链实训通过。helper测试只编译两份完整SHA钉住源码中的_reward，以synthetic五条actuator trace计算，不import原模块/创建环境。反例是“准确tracking但高度误差6mm”与“高度准确但vx误差0.005m/s”：原奖励偏好后者，α8偏好前者，证明它能区分这一取舍，不证明训练会找到改进行为。worker纯测试覆盖完整inverse AST、共享globals、实际额度写前拒绝/部分文件/失败回执、两floor失败仍采齐六任务、bootstrap构造异常吞没与懒绑定指针；父/reader另覆盖bootstrap回执与三份数值读回的实际接口、原奖励重算接缝、初态/首批配对、原六任务门和已接受文件身份。checkpoint测试从冻结保存函数提取实际manifest表达式：三份payload逐字节身份校验，metadata单独由SHA绑定，最终读回身份仍覆盖四文件和manifest；修复了首次训练后必然拒绝有效checkpoint的问题。这些不替代真实bootstrap或训练反馈。
+初版历史四组组合 **171项pure/fake测试PASS（3.47秒）**：helper26、parent43、worker39、reader63；八份新Python文件Ruff PASS。没有模型推理或物理积分，不能据此称全链实训通过。helper测试只编译两份完整SHA钉住源码中的_reward，以synthetic五条actuator trace计算，不import原模块/创建环境。反例是“准确tracking但高度误差6mm”与“高度准确但vx误差0.005m/s”：原奖励偏好后者，α8偏好前者，证明它能区分这一取舍，不证明训练会找到改进行为。worker纯测试覆盖完整inverse AST、共享globals、实际额度写前拒绝/部分文件/失败回执、两floor失败仍采齐六任务、bootstrap构造异常吞没与懒绑定指针；父/reader另覆盖bootstrap回执与三份数值读回的实际接口、原奖励重算接缝、初态/首批配对、原六任务门和已接受文件身份。checkpoint测试从冻结保存函数提取实际manifest表达式：三份payload逐字节身份校验，metadata单独由SHA绑定，最终读回身份仍覆盖四文件和manifest；修复了首次训练后必然拒绝有效checkpoint的问题。这些不替代真实bootstrap或训练反馈。
 
 ~~~bash
 rtk proxy env PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -B -m pytest --noconftest -o addopts= -q tests/test_b22_tracking_reward42.py
@@ -128,4 +134,4 @@ rtk proxy env PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 python3 -B -m pytest --noconftest
 rtk proxy .local-deps/bin/ruff check scripts/worker_b22_tracking_reward42.py tests/test_b22_tracking_reward42_worker.py
 ~~~
 
-父入口默认仅打印计划：`rtk proxy python3 -B scripts/run_b22_tracking_reward42.py`。11份源全部提交并通过检查后，`--prepare`一次性写04独立release，仍不启动训练；`--execute`由上述唯一unit内Nice≥10的受控父进程调用，先核实际cgroup限额并完成短内存准入。正式输出一旦创建即禁止在原目录重跑或续训，保存读回失败也不重做物理。release与输出均为固定独立路径，不覆盖31～41或旧42的01/02/03记录。
+父入口默认仅打印计划：`rtk proxy python3 -B scripts/run_b22_tracking_reward42.py`。11份源全部提交并通过检查后，`--prepare`一次性写05独立release，仍不启动训练；`--execute`由上述唯一unit内Nice≥10的受控父进程调用，先核实际cgroup限额并完成短内存准入。正式输出一旦创建即禁止在原目录重跑或续训，保存读回失败也不重做物理。release与输出均为固定独立路径，不覆盖31～41或旧42的01/02/03/04记录。旧02/03共4次已知compiler、04至少2次另列，05的96136controls/480680normal native/+6compiler是新执行上限，不能用来替代跨尝试实际账。

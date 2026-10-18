@@ -15,25 +15,26 @@ import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
+from types import SimpleNamespace
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = 'C42_B22_tracking_deficit_comparison_v1'
-OUTPUT = ROOT/'results/b22_tracking_reward42_20261018_04'
-RELEASE = ROOT/'results/b22_tracking_reward42_plan_20261018_04.json'
-ADMISSIONS = ROOT/'results/b22_tracking_reward42_admissions_20261018_04'
+OUTPUT = ROOT/'results/b22_tracking_reward42_20261018_05'
+RELEASE = ROOT/'results/b22_tracking_reward42_plan_20261018_05.json'
+ADMISSIONS = ROOT/'results/b22_tracking_reward42_admissions_20261018_05'
 UNUSED_RELEASE = ROOT/'results/b22_tracking_reward42_plan_20261018_01.json'
 UNUSED_OUTPUT = ROOT/'results/b22_tracking_reward42_20261018_01'
 UNUSED_RELEASE_SHA = '7128e72d0fcfde9c0322d185e188f0648ef350c90911705fdb52e5fc8de597f0'
 UNUSED_COMMIT = '4c55bbb2baeca84dc3db897ffeaeb07329faa38e'
-RESOURCE_REVISION = 'owned_cgroup_v4'
-PREDECESSOR_OUTPUT = ROOT/'results/b22_tracking_reward42_20261018_03'
-PREDECESSOR_RELEASE = ROOT/'results/b22_tracking_reward42_plan_20261018_03.json'
-PREDECESSOR_COMMIT = '7623e655ee615f6dc6e21f06858a1d0d44870643'
-PREDECESSOR_ERROR = "[Errno 2] No such file or directory: '"+str(ROOT/'runtime/d1_b22/research/continuation22/spec22.json')+"'"
+RESOURCE_REVISION = 'owned_cgroup_v5'
+PREDECESSOR_OUTPUT = ROOT/'results/b22_tracking_reward42_20261018_04'
+PREDECESSOR_RELEASE = ROOT/'results/b22_tracking_reward42_plan_20261018_04.json'
+PREDECESSOR_COMMIT = 'c2353be6e0c8a63055e58a13b7438a7188b1f73d'
+PREDECESSOR_ERROR = 'C42 host/outside-ancestor RAM below 4 GiB runtime reserve or unknown'
 EARLIER_FAILURE_REPORT = ROOT/'results/b22_tracking_reward42_20261018_02/report.json'
 EARLIER_FAILURE_IDENTITY = {'bytes': 6404, 'sha256': '62d4c3ec599ed343d9b9b83836990959135e1f2f4585e58eb3401af7f6e31963'}
 EARLIER_FAILURE_COMMIT = 'cd32a85f7815fae69f89b0b8d2c769e8f0d2262d'
-PREDECESSOR_INPUTS = {
+OLDER_FAILURE_INPUTS = {
     'results/b22_tracking_reward42_plan_20261018_03.json':
         {'bytes': 914014, 'sha256': '48da3afd4eae303783173c142430699259714d7fb50de35548ccd6f09bb273c0'},
     'results/b22_tracking_reward42_20261018_03/report.json':
@@ -52,6 +53,35 @@ PREDECESSOR_INPUTS = {
         {'bytes': 6733, 'sha256': '37c042e71ea1b2cbc9815f3accf72e9f92565ba6648dfb3fe29df303ac8931aa'},
     'results/b22_tracking_reward42_20261018_03/train_control/supervisor_receipt.json':
         {'bytes': 742, 'sha256': 'fa528d802a88aeb17eaab72dad94c5b830e45118dc6608bd9fb2f314147821a3'},
+}
+PREDECESSOR_INPUTS = {
+    **OLDER_FAILURE_INPUTS,
+    'results/b22_tracking_reward42_plan_20261018_04.json':
+        {'bytes': 914956, 'sha256': '9dab65043a10b0b64b0db34ef2b929369cdb2e784974c02ac82667c16285e137'},
+    'results/b22_tracking_reward42_20261018_04/report.json':
+        {'bytes': 10003, 'sha256': '639f875ab1ff8e3b4d12ef33a1113b8c17b3f004ecbb64c1f258ac0625820282'},
+    'results/b22_tracking_reward42_20261018_04/bootstrap/session.json':
+        {'bytes': 1761802, 'sha256': '91eb8d30217c776a1e69d6b9f03536507132dae91d6c91425cb92a8be676283c'},
+    'results/b22_tracking_reward42_20261018_04/bootstrap/worker_receipt.json':
+        {'bytes': 1512, 'sha256': 'ad51ff228f830512d8a4de5c161e205896571eebe0817ae301b54a54b01ee767'},
+    'results/b22_tracking_reward42_20261018_04/bootstrap/supervisor_receipt.json':
+        {'bytes': 738, 'sha256': 'c05b101c1b1285de46b60e9ff82f57bc6d4930351d0642ca70fb2c6d79ae546b'},
+    'results/b22_tracking_reward42_20261018_04/train_control/session.json':
+        {'bytes': 1762181, 'sha256': '9ce542bf2a74e34cfb0e2c55711b4b5f3275ba8085649b9f45f3242fe921fa46'},
+    'results/b22_tracking_reward42_20261018_04/train_control/supervisor_receipt.json':
+        {'bytes': 859, 'sha256': '1dfe649ad63ca162461f457ce008a7159b80189b22188c1d97661c81c0a5ad80'},
+    'results/b22_tracking_reward42_20261018_04/train_control/training/progress_rollout_0025.json':
+        {'bytes': 4449, 'sha256': 'c60baf7c64e0d88bf978dda7091c92db58550a9780270762c674fe3c45ec5218'},
+    'results/b22_tracking_reward42_20261018_04/train_control/training/progress_rollout_0025.json.manifest.json':
+        {'bytes': 182, 'sha256': '8414536480c297a059e563b43f7f0d471b4073f781bdc469ac8255302668a08f'},
+    'results/b22_tracking_reward42_20261018_04/train_control/failure_learning_receipt.json':
+        {'bytes': 34076, 'sha256': '4d43e881a441eac2effac5363070422490f1fe1ca5bc1749b902b2c0c389deff'},
+    'results/b22_tracking_reward42_20261018_04/train_control/failure_learning_receipt.json.manifest.json':
+        {'bytes': 186, 'sha256': '5238c6ed7febf90ec3bbf67a8adf55ffbcd1e8379aec2f9d48364ca730570ff2'},
+    'results/b22_tracking_reward42_20261018_04/train_control/training/training_segment_receipt.json':
+        {'bytes': 2454, 'sha256': '3d05d1d466db2f0c4c68c7924b90f31492f24c5b5c819d028664ed51eac66da8'},
+    'results/b22_tracking_reward42_20261018_04/train_control/training/training_segment_receipt.json.manifest.json':
+        {'bytes': 185, 'sha256': 'aca72d99da53ad2c42bc9771bf7a9debb8624663d31eda610a83640f91fe8ee7'},
 }
 DRIVER = ROOT/'scripts/run_b22_tracking_reward42.py'
 WORKER = ROOT/'scripts/worker_b22_tracking_reward42.py'
@@ -73,8 +103,8 @@ PINS = {
 LIMITS = {'controls': 96136, 'normal_native': 480680, 'compiler_native': 6,
               'worker_pure_servo_advances': 350600, 'reader_pure_servo_advances': 190600,
               'combined_pure_servo_advances': 541200,
-              'total_wall_s': 5400, 'start_effective_bytes': 6 << 30,
-              'stable_effective_bytes': 6 << 30, 'reserve_effective_bytes': 4 << 30,
+              'total_wall_s': 5400, 'start_effective_bytes': 4 << 30,
+              'stable_effective_bytes': 4 << 30, 'reserve_effective_bytes': 2 << 30,
               'stable_seconds': 10, 'admission_poll_s': 5, 'admission_max_sample_gap_s': 7.5,
               'admission_minimum_samples': 3, 'admission_max_s': 300,
               'start_free_disk_bytes': 10 << 30, 'reserve_free_disk_bytes': 2 << 30,
@@ -83,8 +113,8 @@ COUNT_KEYS = ('controls', 'normal_native', 'compiler_native')
 RESOURCE_POLICY = {'memory_high_bytes': 2048 << 20, 'memory_max_bytes': 3072 << 20,
                    'memory_swap_max_bytes': 0, 'oom_policy': 'kill',
                    'memory_oom_group': 1,
-                   'unit': 'wheel-b22-tracking42-owned04-20261018-01.service',
-                   'owned_scope': '/user.slice/user-1000.slice/user@1000.service/app.slice/wheel-b22-tracking42-owned04-20261018-01.service',
+                   'unit': 'wheel-b22-tracking42-owned05-20261018-01.service',
+                   'owned_scope': '/user.slice/user-1000.slice/user@1000.service/app.slice/wheel-b22-tracking42-owned05-20261018-01.service',
                    'reserve_scope': 'host and ancestors outside the owned job cgroup',
                    'covers': 'parent, source hashing, bootstrap, workers, saved readers, comparison'}
 _resource_guard42 = None
@@ -167,7 +197,7 @@ def check_resource_snapshot42(snapshot):
     resource_guard_api42().check_memory(snapshot)
     available = snapshot.get('effective_available_bytes')
     require(type(available) is int and available >= LIMITS['reserve_effective_bytes'],
-            'C42 host/outside-ancestor RAM below 4 GiB runtime reserve or unknown')
+            'C42 host/outside-ancestor RAM below 2 GiB runtime reserve or unknown')
     return available
 
 
@@ -188,136 +218,121 @@ def unused_budget_origin42():
 
 
 def predecessor_failure42():
-    """Verify closed03 and its fixed02 report; both historical totals stay unknown."""
+    """Bind the trained04 interruption and its concrete02/03 history, never resume."""
     files = {str(ROOT/name): identity(ROOT/name) for name in PREDECESSOR_INPUTS}
     require(all(files[str(ROOT/name)] == entry for name, entry in PREDECESSOR_INPUTS.items()),
             'C42 predecessor receipt identity changed')
+    def exact(value, expected):
+        return (isinstance(value, dict) and set(value) == set(expected)
+                and all(type(value[k]) is int and value[k] == v for k, v in expected.items()))
     release = read_json(PREDECESSOR_RELEASE)
     parent = read_json(PREDECESSOR_OUTPUT/'report.json')
-    release_id = files[str(PREDECESSOR_RELEASE)]
-    old_worker = release.get('source', {}).get('authored', {}).get(str(WORKER))
+    run = PREDECESSOR_OUTPUT/'train_control'
+    session = read_json(run/'session.json')
+    supervisor = read_json(run/'supervisor_receipt.json')
+    zero = dict.fromkeys(COUNT_KEYS, 0)
+    prior_two = {'controls': 0, 'normal_native': 0, 'compiler_native': 2}
     require(release.get('schema') == 'b22-tracking42-release-v1'
             and release.get('execution_contract_id') == CONTRACT
             and release.get('source', {}).get('git_commit') == PREDECESSOR_COMMIT
             and release.get('plan', {}).get('output') == str(PREDECESSOR_OUTPUT)
             and all(type(release['plan']['limits'].get(k)) is int
-                    and release['plan']['limits'][k] == LIMITS[k] for k in COUNT_KEYS)
-            and isinstance(old_worker, dict), 'C42 predecessor release scope differs')
-    known = {'controls': 0, 'normal_native': 0, 'compiler_native': 2}
-    def exact_counts(value, expected):
-        return (isinstance(value, dict) and set(value) == set(expected)
-                and all(type(value[k]) is int and value[k] == v for k, v in expected.items()))
-    earlier = read_json(EARLIER_FAILURE_REPORT)
-    chain = parent.get('predecessor_failure') or {}
-    require(identity(EARLIER_FAILURE_REPORT) == EARLIER_FAILURE_IDENTITY
-            and files.get(str(EARLIER_FAILURE_REPORT)) == EARLIER_FAILURE_IDENTITY
-            and earlier.get('status') == 'INCOMPLETE' and earlier.get('actual_counts') is None
-            and earlier.get('execution_contract_id') == CONTRACT and earlier.get('execution_started') is True
-            and exact_counts(earlier.get('known_actual_counts'), known)
-            and earlier.get('source', {}).get('git_commit') == EARLIER_FAILURE_COMMIT
-            and earlier.get('cleanup', {}).get('remaining') == {}
-            and chain.get('schema') == 'b22-tracking42-specific-predecessor-failure-v1'
-            and chain.get('source_commit') == EARLIER_FAILURE_COMMIT
-            and chain.get('historical_attempt_occurred') is True
-            and chain.get('historical_actual_counts') is None
-            and exact_counts(chain.get('historical_known_counts'), known)
-            and type(chain.get('historical_compiler_native_separate_from_new_budget')) is int
-            and chain['historical_compiler_native_separate_from_new_budget'] == 2
-            and chain.get('model_load_or_learning_occurred') is False
-            and chain.get('clean_process_closure') is True
-            and chain.get('failure') == {'type': 'TypeError',
-                'message': 'C18 installer needs the exact production world-upright env'}
-            and chain.get('inputs', {}).get(str(EARLIER_FAILURE_REPORT)) == EARLIER_FAILURE_IDENTITY,
-            'C42 predecessor02 failure chain was lost or changed')
-    require(parent.get('schema') == 'b22-tracking42-supervision-v1'
-            and parent.get('execution_contract_id') == CONTRACT
-            and parent.get('status') == 'INCOMPLETE' and parent.get('execution_started') is True
-            and parent.get('actual_counts') is None
-            and exact_counts(parent.get('known_actual_counts'), known)
-            and parent.get('active_stage') == 'train_control' and parent.get('retry_permitted') is False
-            and parent.get('release_identity') == release_id and parent.get('source') == release['source']
-            and parent.get('failure') == {'type': 'ValueError', 'message': 'C42 worker did not complete with clean ownership'}
-            and parent.get('cleanup', {}).get('remaining') == {}
-            and parent.get('cleanup', {}).get('signalled_identities') == {},
-            'C42 predecessor parent is not the closed known failure')
-    for stage, exit_code in (('bootstrap', 0), ('train_control', 1)):
-        run = PREDECESSOR_OUTPUT/stage
-        session = read_json(run/'session.json')
-        worker = read_json(run/'worker_receipt.json')
-        supervisor = read_json(run/'supervisor_receipt.json')
-        session_id = files[str(run/'session.json')]
-        require(session.get('execution_contract_id') == CONTRACT and session.get('name') == stage
-                and session.get('mode') == ('bootstrap' if stage == 'bootstrap' else 'train')
-                and session.get('release_path') == str(PREDECESSOR_RELEASE)
-                and session.get('release_identity') == release_id
-                and session.get('execution_output') == str(PREDECESSOR_OUTPUT)
-                and session.get('worker_identity') == old_worker
-                and worker.get('session_identity') == session_id
-                and worker.get('execution_contract_id') == CONTRACT
-                and worker.get('schema') == 'b22-tracking42-worker-receipt-v1'
-                and worker.get('cleanup_errors') == [], 'C42 predecessor worker/session differs')
-        require(supervisor.get('schema') == 'b22-tracking42-worker-supervision-v1'
-                and supervisor.get('stage') == stage
-                and supervisor.get('release_identity') == release_id
-                and supervisor.get('session_identity') == session_id
-                and supervisor.get('worker_identity') == old_worker
-                and type(supervisor.get('exit_code')) is int and supervisor['exit_code'] == exit_code
-                and supervisor.get('failure') is None and supervisor.get('supervision_returned') is True
-                and supervisor.get('cleanup', {}).get('remaining') == {}
-                and supervisor.get('cleanup', {}).get('signalled_identities') == {},
-                'C42 predecessor supervisor did not close cleanly')
-        calls = worker.get('model_calls', {})
-        require(calls.get('schema') == 'd1-model-api-ledger-20-v1'
-                and calls.get('counts') == {}
-                and type(calls.get('actor_rows')) is int and calls['actor_rows'] == 0
-                and type(calls.get('critic_rows')) is int and calls['critic_rows'] == 0
-                and type(worker.get('actual_pure_servo_advances')) is int
-                and worker['actual_pure_servo_advances'] == 0,
-                'C42 predecessor performed model calls or unknown work')
-        if stage == 'bootstrap':
-            require(worker.get('status') == 'COMPLETE' and worker.get('failure') is None
-                    and worker.get('bootstrap_verified42') is True
-                    and exact_counts(worker.get('actual_counts'), dict.fromkeys(COUNT_KEYS, 0)),
-                    'C42 predecessor bootstrap is not zero-work complete')
-            require(parent.get('stages') == [{'name': 'bootstrap', 'path': 'bootstrap/worker_receipt.json',
-                    'report': files[str(run/'worker_receipt.json')],
-                    'independent_saved_reader_executed': False}], 'C42 predecessor completed stages differ')
-        else:
-            failure = worker.get('failure', {})
-            require(worker.get('status') == 'INCOMPLETE' and worker.get('execution_complete') is False
-                    and worker.get('actual_counts') is None
-                    and exact_counts(worker.get('known_partial_counts'), known)
-                    and worker.get('retry_permitted') is False
-                    and failure.get('type') == 'FileNotFoundError' and failure.get('message') == PREDECESSOR_ERROR
-                    and failure.get('training_cleanup_errors') == []
-                    and failure.get('traceback', '').endswith('FileNotFoundError: '+PREDECESSOR_ERROR+'\n')
-                    and 'runtime_support22.py\", line 89, in atomic_training_io' in failure.get('traceback', '')
-                    and 'import curriculum22 as module' in failure.get('traceback', '')
-                    and 'recipes22.py' in failure.get('traceback', ''),
-                    'C42 predecessor lazy-import FileNotFoundError or partial counts differs')
-            c_final = worker.get('C_final', {})
-            counters = {'construction_attempts': 2, 'construction_returns': 2, 'control_attempts': 0,
-                        'control_returns': 0, 'ccd_attempts': 0, 'ccd_returns': 0, 'violations': 0}
-            python_counts = {'control_attempted': 0, 'control_completed': 0, 'native_attempted': 0,
-                             'native_returned': 0, 'native_failed': 0, 'clock_advanced_substeps': 0}
-            require(all(type(c_final.get(k)) is int and c_final[k] == v for k, v in counters.items())
-                    and all(type(worker.get('python', {}).get(k)) is int
-                            and worker['python'][k] == v for k, v in python_counts.items()),
-                    'C42 predecessor native/control counters differ')
-    require(not (PREDECESSOR_OUTPUT/'train_deficit8').exists()
-            and not (PREDECESSOR_OUTPUT/'eval').exists(), 'C42 predecessor contains later work')
-    return {'schema': 'b22-tracking42-specific-predecessor-failure-v1',
+                    and release['plan']['limits'][k] == LIMITS[k] for k in COUNT_KEYS),
+            'C42 predecessor release scope differs')
+    old_worker = release['source']['authored'][str(WORKER)]
+    failure = {'type': 'ValueError', 'message': PREDECESSOR_ERROR}
+    require(parent.get('status') == 'INCOMPLETE' and parent.get('actual_counts') is None
+            and parent.get('execution_started') is True and parent.get('active_stage') == 'train_control'
+            and parent.get('execution_contract_id') == CONTRACT and parent.get('failure') == failure
+            and parent.get('source') == release['source']
+            and parent.get('release_identity') == files[str(PREDECESSOR_RELEASE)]
+            and exact(parent.get('known_actual_counts'), zero)
+            and parent.get('cleanup', {}).get('remaining') == {},
+            'C42 predecessor RAM interruption or unknown total differs')
+    require(session.get('execution_contract_id') == CONTRACT and session.get('name') == 'train_control'
+            and session.get('mode') == 'train' and session.get('reward_arm') == 'control'
+            and type(session.get('alpha')) is int and session['alpha'] == 1
+            and session.get('execution_output') == str(PREDECESSOR_OUTPUT)
+            and session.get('release_identity') == files[str(PREDECESSOR_RELEASE)]
+            and session.get('worker_identity') == old_worker
+            and supervisor.get('stage') == 'train_control'
+            and supervisor.get('release_identity') == files[str(PREDECESSOR_RELEASE)]
+            and supervisor.get('session_identity') == files[str(run/'session.json')]
+            and supervisor.get('worker_identity') == old_worker
+            and supervisor.get('failure') == failure and supervisor.get('exit_code') is None
+            and supervisor.get('supervision_returned') is False
+            and supervisor.get('cleanup', {}).get('remaining') == {}
+            and not (run/'worker_receipt.json').exists(),
+            'C42 predecessor session/cleanup or missing final receipt differs')
+    prior = parent.get('predecessor_failure') or {}
+    older_inputs = {str(ROOT/name): entry for name, entry in OLDER_FAILURE_INPUTS.items()}
+    report03 = read_json(ROOT/'results/b22_tracking_reward42_20261018_03/report.json')
+    report02 = read_json(EARLIER_FAILURE_REPORT)
+    require(prior.get('inputs') == older_inputs
+            and prior.get('historical_actual_counts') is None
+            and exact(prior.get('historical_known_counts'), prior_two)
+            and type(prior.get('historical_compiler_native_separate_from_new_budget')) is int
+            and prior['historical_compiler_native_separate_from_new_budget'] == 4
+            and prior.get('model_load_or_learning_occurred') is False
+            and prior.get('earlier02_failure', {}).get('historical_actual_counts') is None
+            and exact(prior.get('earlier02_failure', {}).get('historical_known_counts'), prior_two)
+            and prior.get('earlier02_failure', {}).get('identity') == files[str(EARLIER_FAILURE_REPORT)]
+            and all(row.get('status') == 'INCOMPLETE' and row.get('actual_counts') is None
+                    and exact(row.get('known_actual_counts'), prior_two)
+                    for row in (report02, report03)), 'C42 predecessor02/03 history was lost or changed')
+    bootstrap = PREDECESSOR_OUTPUT/'bootstrap'
+    boot = read_json(bootstrap/'worker_receipt.json')
+    require(boot.get('status') == 'COMPLETE' and boot.get('bootstrap_verified42') is True
+            and boot.get('session_identity') == files[str(bootstrap/'session.json')]
+            and exact(boot.get('actual_counts'), zero)
+            and parent.get('stages') == [{'name': 'bootstrap', 'path': 'bootstrap/worker_receipt.json',
+                'report': files[str(bootstrap/'worker_receipt.json')],
+                'independent_saved_reader_executed': False}], 'C42 predecessor bootstrap changed')
+    names = ('training/progress_rollout_0025.json', 'failure_learning_receipt.json',
+             'training/training_segment_receipt.json')
+    for name in names:
+        path = run/name
+        transaction = read_json(path.with_name(path.name+'.manifest.json'))
+        require(transaction.get('schema') == 'd1-archive-transaction-13-v1'
+                and transaction.get('payloads') == [{'file': path.name, **files[str(path)]}],
+                'C42 predecessor committed payload manifest differs: '+name)
+    progress = read_json(run/names[0])
+    require(max((run/'training').glob('progress_rollout_[0-9][0-9][0-9][0-9].json'), default=None) == run/names[0]
+            and type(progress.get('completed_controls')) is int and progress['completed_controls'] == 26624
+            and exact({k: progress.get('rollout', {}).get(k) for k in ('rollout_index', 'transitions', 'num_timesteps_at_end')},
+                      {'rollout_index': 25, 'transitions': 1024, 'num_timesteps_at_end': 26624})
+            and exact({k: progress.get('boundary', {}).get('C_state', {}).get(k) for k in
+                       ('construction_attempts', 'construction_returns', 'control_attempts', 'control_returns')},
+                      {'construction_attempts': 2, 'construction_returns': 2, 'control_attempts': 133120, 'control_returns': 133120})
+            and exact({k: progress.get('boundary', {}).get('python', {}).get(k) for k in
+                       ('control_attempted', 'control_completed', 'native_attempted', 'native_returned', 'clock_advanced_substeps')},
+                      {'control_attempted': 26624, 'control_completed': 26624, 'native_attempted': 133120,
+                       'native_returned': 133120, 'clock_advanced_substeps': 133120}),
+            'C42 predecessor persisted rollout prefix differs')
+    learning = read_json(run/names[1]);segment = read_json(run/names[2])
+    require(learning.get('policy_state_changed') is True and learning.get('optimizer_state_changed') is True
+            and learning.get('actor_mean_state_changed') is True
+            and type(learning.get('actual', {}).get('optimizer_steps')) is int
+            and learning['actual']['optimizer_steps'] > 0
+            and type(learning['actual'].get('transitions')) is int and learning['actual']['transitions'] == 27000
+            and type(segment.get('native_returned')) is int and segment['native_returned'] == 135000
+            and learning.get('construction', {}).get('parent_final_zip_sha256') ==
+                '7bd58b5d6114745b12b4284be3f861f973a5d31d9d596365a5b54cb5e0d76691',
+            'C42 predecessor actual learning or additional reported lower bound differs')
+    return {'schema': 'b22-tracking42-trained-interruption-predecessor-v1',
             'output': str(PREDECESSOR_OUTPUT), 'release': str(PREDECESSOR_RELEASE),
             'source_commit': PREDECESSOR_COMMIT, 'inputs': files,
             'historical_attempt_occurred': True, 'historical_actual_counts': None,
-            'historical_known_counts': known, 'model_load_or_learning_occurred': False,
-            'failure': {'type': 'FileNotFoundError', 'message': PREDECESSOR_ERROR},
-            'clean_process_closure': True,
-            'earlier02_failure': {'report': str(EARLIER_FAILURE_REPORT), 'identity': EARLIER_FAILURE_IDENTITY,
-                'historical_actual_counts': None, 'historical_known_counts': known},
-            'historical_compiler_native_separate_from_new_budget': 4,
-            'new_attempt_authority': 'continuing user authorisation to repair the actual failed attempt',
-            'old_unknown_total_is_not_rewritten': True}
+            'parent_reported_known_counts': zero,
+            'persisted_rollout_lower_bound': {'controls': 26624, 'normal_native': 133120, 'compiler_native': 2},
+            'additional_reported_lower_bound': {'controls': 27000, 'normal_native': 135000, 'compiler_native': 2},
+            'model_load_or_learning_occurred': True, 'worker_final_receipt_missing': True,
+            'parent_zero_known_does_not_mean_zero_work': True,
+            'earlier02_03_known_compiler_native': 4,
+            'historical_compiler_native_separate_from_new_budget': 6,
+            'partial_checkpoint_reused': False, 'old_unknown_total_is_not_rewritten': True,
+            'new_attempt_is_independent_budget': True,
+            'new_attempt_authority': 'continuing user authorisation for less conservative independent optimisation'}
 
 
 def stages42():
@@ -346,8 +361,9 @@ def describe42():
             'execution_contract_id': CONTRACT, 'output': str(OUTPUT),
             'resource_revision': RESOURCE_REVISION, 'resource_policy': dict(RESOURCE_POLICY),
             'predecessor_output': str(PREDECESSOR_OUTPUT),
-            'historical_compiler_native_separate_from_new_budget': 4,
+            'historical_compiler_native_separate_from_new_budget': 6,
             'historical_actual_counts': None,
+            'independent_new_budget': True, 'resume_predecessor_partial': False,
             'stages': stages42(), 'limits': dict(LIMITS),
             'actors': ['zero', 'control', 'deficit8'], 'evaluation_gain': 1,
             'partial_eligible': False, 'retry_permitted': False,
@@ -424,7 +440,7 @@ def stable_admission42(sample, record, *, clock=time.monotonic, sleeper=time.sle
         available = sample()
         now = clock()
         require(type(available) is int and available >= LIMITS['reserve_effective_bytes'],
-                'C42 unknown/below 4 GiB admission memory')
+                'C42 unknown/below 2 GiB admission memory')
         gap = None if previous is None else now-previous
         if gap is not None and (gap < 0 or gap > LIMITS['admission_max_sample_gap_s']):
             stable, consecutive = None, 0
@@ -578,7 +594,7 @@ def validate_worker_launch42(session_path, output):
     require(os.getpriority(os.PRIO_PROCESS, 0) >= LIMITS['required_minimum_nice'],
             'C42 worker must run at Nice>=10')
     require(check_resource_snapshot42(resource_snapshot42()) >= LIMITS['start_effective_bytes'],
-            'C42 worker admission below 6 GiB')
+            'C42 worker admission below 4 GiB')
     require(time.monotonic() < value['host_started_monotonic']+value['soft_s'],
             'C42 worker source checks exhausted soft time')
     return value
@@ -632,6 +648,51 @@ def validate_comparison42(value, accepted_stages):
                 'C42 comparison must perform only saved-summary mathematics: '+key)
 
 
+def phase_cleanup42(host, parent_pid, process, *, deadline, clock=time.monotonic, sleeper=time.sleep,
+                    term_seen=None):
+    """One TERM per owned birth identity, then the frozen bounded hard cleanup."""
+    started = clock()
+    until = min(started+15, deadline-5)
+    seen = set() if term_seen is None else term_seen
+    record = {'method': 'owned_birth_identity_term_grace_then_frozen_cleanup',
+              'term_attempted_identities': [], 'errors': [], 'fallback': None}
+    deferred = []
+    prior_handlers = {}
+    for number in (signal.SIGTERM, signal.SIGINT, signal.SIGALRM):
+        prior_handlers[number] = signal.signal(number, lambda received, _frame: deferred.append(received))
+    try:
+        while True:
+            alive = host.descendants(parent_pid)
+            if not alive:
+                break
+            for pid, birth in alive.items():
+                if (pid, birth) not in seen:
+                    seen.add((pid, birth))
+                    record['term_attempted_identities'].append({'pid': pid, 'birth_tick': birth})
+                    host.signal_identity(pid, birth, signal.SIGTERM)
+            if process is not None:
+                process.poll()
+            remaining = until-clock()
+            if remaining <= 0:
+                break
+            sleeper(min(.25, remaining))
+    except BaseException as error:  # noqa: BLE001 -- record interruption, still attempt owned hard cleanup
+        record['errors'].append({'type': type(error).__name__, 'message': str(error)})
+    finally:
+        record['grace_elapsed_s'] = clock()-started
+        try:
+            record['fallback'] = host.clean_descendants(parent_pid, process)
+        except BaseException as error:  # noqa: BLE001 -- supervisor receipt must retain cleanup failure
+            record['errors'].append({'type': type(error).__name__, 'message': str(error)})
+        record['elapsed_s'] = clock()-started
+        for number, handler in prior_handlers.items():
+            signal.signal(number, handler)
+        if deferred:
+            record['errors'].append({'type': 'InterruptedError',
+                'message': 'cleanup deferred signals: '+','.join(signal.Signals(n).name for n in deferred)})
+    return record
+
+
 def execute42():
     started = time.monotonic()
     deadline = started+LIMITS['total_wall_s']
@@ -670,8 +731,11 @@ def execute42():
             stream.write(json.dumps({'elapsed_s': time.monotonic()-started,
                                      'resource_revision': RESOURCE_REVISION,
                                      'memory': snapshot, 'free_disk_bytes': free})+'\n')
+        measured = snapshot.get('effective_available_bytes')
+        if type(measured) is int and measured >= 0:
+            prior = report['minimum_effective_bytes']
+            report['minimum_effective_bytes'] = measured if prior is None else min(measured, prior)
         available = check_resource_snapshot42(snapshot)
-        report['minimum_effective_bytes'] = min(available, report['minimum_effective_bytes'] or available)
         require(free >= LIMITS['reserve_free_disk_bytes'], 'C42 disk runtime reserve exhausted')
         require(time.monotonic() < deadline, 'C42 total wall exhausted')
         require(directory_bytes42(OUTPUT) <= LIMITS['output_quota_bytes'], 'C42 total output quota exceeded')
@@ -685,7 +749,7 @@ def execute42():
             save()
         ready = stable_admission42(sample, record)
         if not ready:
-            raise TimeoutError('C42 '+name+' did not reach 6 GiB for 10 seconds within 300 seconds')
+            raise TimeoutError('C42 '+name+' did not reach 4 GiB for 10 seconds within 300 seconds')
         require(shutil.disk_usage(ROOT).free >= LIMITS['start_free_disk_bytes'],
                 'C42 disk admission below 10 GiB')
     def verify_completed_reports():
@@ -694,31 +758,60 @@ def execute42():
             require(identity(OUTPUT/file) == entry['report'],
                     'C42 completed readback changed: '+entry['name'])
     def run_process(argv, log, limit, env=None, stage=None):
-        process, failure, code = None, None, None
+        process, failure, code, primary = None, None, None, None
         phase_started = time.monotonic()
+        cleanup_records = []
+        term_seen = set()
         def factory(*args, **kwargs):
             nonlocal process
             process = subprocess.Popen(*args, **kwargs, env=env, cwd=ROOT)
             return process
+        def phase_clean(parent_pid, owned_process):
+            nonlocal primary, failure
+            pending = sys.exc_info()[1]
+            if primary is None and pending is not None:
+                primary = pending
+                failure = {'type': type(pending).__name__, 'message': str(pending)}
+            record = phase_cleanup42(host, parent_pid, owned_process,
+                                     deadline=min(deadline, phase_started+limit), term_seen=term_seen)
+            cleanup_records.append(record)
+            require(not record['errors'] and record['fallback'] is not None
+                    and record['fallback'].get('remaining') == {}, 'C42 phase owned cleanup failed')
+            return record['fallback']
         try:
-            code = common.supervise(argv, log, host=host, sample=sample,
-                                    limit=limit, deadline=deadline, factory=factory)
+            code = common.supervise(argv, log, host=SimpleNamespace(clean_descendants=phase_clean),
+                                    sample=sample, limit=limit, deadline=deadline, factory=factory)
             return code
         except BaseException as error:
-            failure = {'type': type(error).__name__, 'message': str(error)}
+            primary = error if primary is None else primary
+            failure = {'type': type(primary).__name__, 'message': str(primary)}
+            if primary is not error:
+                raise primary from error
             raise
         finally:
-            if stage is not None:
-                cleanup = host.clean_descendants(os.getpid(), process)
-                run = OUTPUT/stage['name']
-                write_json(run/'supervisor_receipt.json', {
-                    'schema': 'b22-tracking42-worker-supervision-v1', 'stage': stage['name'],
-                    'release_identity': identity(RELEASE), 'session_identity': identity(run/'session.json'),
-                    'worker_identity': identity(WORKER),
-                    'exit_code': None if process is None else process.returncode,
-                    'failure': failure, 'supervision_returned': code is not None,
-                    'cleanup': cleanup, 'elapsed_s': time.monotonic()-phase_started})
-                require(cleanup['remaining'] == {}, 'C42 worker closure contains owned processes')
+            cleanup, cleanup_error = None, None
+            try:
+                cleanup = phase_clean(os.getpid(), process)
+            except BaseException as error:  # noqa: BLE001 -- always attempt receipt below
+                cleanup_error = {'type': type(error).__name__, 'message': str(error)}
+            finally:
+                report.setdefault('phase_cleanup_records', []).append({
+                    'log': Path(log).name, 'records': cleanup_records})
+                if stage is not None:
+                    run = OUTPUT/stage['name']
+                    write_json(run/'supervisor_receipt.json', {
+                        'schema': 'b22-tracking42-worker-supervision-v1', 'stage': stage['name'],
+                        'release_identity': identity(RELEASE), 'session_identity': identity(run/'session.json'),
+                        'worker_identity': identity(WORKER),
+                        'exit_code': None if process is None else process.returncode,
+                        'failure': failure, 'supervision_returned': code is not None,
+                        'cleanup': cleanup, 'cleanup_error': cleanup_error,
+                        'phase_cleanup_records': cleanup_records,
+                        'elapsed_s': time.monotonic()-phase_started})
+            if cleanup_error is not None:
+                if primary is not None:
+                    raise primary
+                raise RuntimeError('C42 phase cleanup failed; see supervisor receipt')
     try:
         common = supervision()
         sample()  # Check actual job enforcement before hashing the multi-GiB source closure.

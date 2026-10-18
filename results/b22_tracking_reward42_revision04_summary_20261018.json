@@ -1,0 +1,225 @@
+{
+  "schema": "b22-tracking42-revision04-partial-summary-v1",
+  "status": "INCOMPLETE",
+  "source_commit": "c2353be6e0c8a63055e58a13b7438a7188b1f73d",
+  "actual_counts": null,
+  "original_parent_known_counts": {
+    "controls": 0,
+    "normal_native": 0,
+    "compiler_native": 0
+  },
+  "original_parent_zero_is_not_zero_spending": true,
+  "worker_final_receipt_present": false,
+  "last_saved_rollout_lower_bound": {
+    "controls": 26624,
+    "normal_native": 133120,
+    "compiler_native": 2
+  },
+  "reported_failure_prefix": {
+    "controls": 27000,
+    "normal_native": 135000,
+    "compiler_native_lower_bound": 2,
+    "optimizer_steps": 387,
+    "training_complete": false,
+    "independent_full_readback_performed": false
+  },
+  "learning_actual": {
+    "epochs": 100,
+    "evaluated_minibatches": 391,
+    "kl_early_stop_train_calls": 4,
+    "num_timesteps": 27000,
+    "optimizer_steps": 387,
+    "rollouts": 26,
+    "train_calls": 26,
+    "transitions": 27000
+  },
+  "failure": {
+    "type": "ValueError",
+    "message": "C42 host/outside-ancestor RAM below 4 GiB runtime reserve or unknown"
+  },
+  "supervisor": {
+    "schema": "b22-tracking42-worker-supervision-v1",
+    "stage": "train_control",
+    "release_identity": {
+      "bytes": 914956,
+      "sha256": "9dab65043a10b0b64b0db34ef2b929369cdb2e784974c02ac82667c16285e137"
+    },
+    "session_identity": {
+      "bytes": 1762181,
+      "sha256": "9ce542bf2a74e34cfb0e2c55711b4b5f3275ba8085649b9f45f3242fe921fa46"
+    },
+    "worker_identity": {
+      "bytes": 55450,
+      "sha256": "66ed8ef9eabb304eb5bafac1e02ef5a004ee5ce743dfee7ab11df981b9b8d5a6"
+    },
+    "exit_code": null,
+    "failure": {
+      "type": "ValueError",
+      "message": "C42 host/outside-ancestor RAM below 4 GiB runtime reserve or unknown"
+    },
+    "supervision_returned": false,
+    "cleanup": {
+      "method": "linux_subreaper_ancestry_birth_tick",
+      "signalled_identities": {},
+      "remaining": {},
+      "elapsed_s": 0.023408841982018203
+    },
+    "elapsed_s": 495.0021067170019
+  },
+  "parent_cleanup": {
+    "method": "linux_subreaper_ancestry_birth_tick",
+    "signalled_identities": {},
+    "remaining": {},
+    "elapsed_s": 0.021851763012818992
+  },
+  "elapsed_s": 531.8980448649963,
+  "failing_memory_snapshot": {
+    "available_ram_bytes": 3687108608,
+    "cgroup_remaining_bytes": null,
+    "effective_available_bytes": 3687108608,
+    "owned": {
+      "path": "/user.slice/user-1000.slice/user@1000.service/app.slice/wheel-b22-tracking42-owned04-20261018-01.service",
+      "filesystem_path": "/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/app.slice/wheel-b22-tracking42-owned04-20261018-01.service",
+      "inode": 51946,
+      "device": 29,
+      "current_bytes": 1456291840,
+      "high_bytes": 2147483648,
+      "max_bytes": 3221225472,
+      "remaining_bytes": 1764933632,
+      "swap_current_bytes": 0,
+      "swap_max_bytes": 0,
+      "oom_group": 1,
+      "events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "peak_bytes": 2032533504,
+      "sampled_max_bytes": 2031484928
+    },
+    "raw_ancestors": [
+      {
+        "path": "/user.slice/user-1000.slice/user@1000.service/app.slice/wheel-b22-tracking42-owned04-20261018-01.service",
+        "owned": true,
+        "current_bytes": 1456291840,
+        "max_bytes": 3221225472,
+        "remaining_bytes": 1764933632
+      },
+      {
+        "path": "/user.slice/user-1000.slice/user@1000.service/app.slice",
+        "owned": false,
+        "max_bytes": null,
+        "current_bytes": 11338846208,
+        "remaining_bytes": null
+      },
+      {
+        "path": "/user.slice/user-1000.slice/user@1000.service",
+        "owned": false,
+        "max_bytes": null,
+        "current_bytes": 11952390144,
+        "remaining_bytes": null
+      },
+      {
+        "path": "/user.slice/user-1000.slice",
+        "owned": false,
+        "max_bytes": null,
+        "current_bytes": 12285259776,
+        "remaining_bytes": null
+      },
+      {
+        "path": "/user.slice",
+        "owned": false,
+        "max_bytes": null,
+        "current_bytes": 12290367488,
+        "remaining_bytes": null
+      },
+      {
+        "path": "/",
+        "owned": false,
+        "root_limit_not_exposed": true
+      }
+    ],
+    "errors": [],
+    "accounting_scope": "host_and_external_ancestors_excluding_exact_owned_unit",
+    "self_scope": "/user.slice/user-1000.slice/user@1000.service/app.slice/wheel-b22-tracking42-owned04-20261018-01.service"
+  },
+  "original_minimum_field_excludes_failing_sample": 4676329472,
+  "unit_terminal": {
+    "MainPID": 0,
+    "ActiveState": "failed",
+    "SubState": "failed",
+    "Result": "exit-code",
+    "ExecMainStatus": 2,
+    "ControlGroup": ""
+  },
+  "terminal_signal_known": false,
+  "old02_03_known_compiler_native": 4,
+  "all_attempts_exact_total": null,
+  "next05_separate_execution_cap": {
+    "controls": 96136,
+    "normal_native": 480680,
+    "compiler_native": 6
+  },
+  "next05_resource_policy": {
+    "start_available_bytes": 4294967296,
+    "runtime_reserve_bytes": 2147483648,
+    "owned_high_bytes": 2147483648,
+    "owned_max_bytes": 3221225472,
+    "owned_swap_max_bytes": 0
+  },
+  "evidence": [
+    {
+      "path": "results/b22_tracking_reward42_20261018_04/report.json",
+      "bytes": 10003,
+      "sha256": "639f875ab1ff8e3b4d12ef33a1113b8c17b3f004ecbb64c1f258ac0625820282"
+    },
+    {
+      "path": "results/b22_tracking_reward42_20261018_04/train_control/session.json",
+      "bytes": 1762181,
+      "sha256": "9ce542bf2a74e34cfb0e2c55711b4b5f3275ba8085649b9f45f3242fe921fa46"
+    },
+    {
+      "path": "results/b22_tracking_reward42_20261018_04/train_control/supervisor_receipt.json",
+      "bytes": 859,
+      "sha256": "1dfe649ad63ca162461f457ce008a7159b80189b22188c1d97661c81c0a5ad80"
+    },
+    {
+      "path": "results/b22_tracking_reward42_20261018_04/train_control/training/progress_rollout_0025.json",
+      "bytes": 4449,
+      "sha256": "c60baf7c64e0d88bf978dda7091c92db58550a9780270762c674fe3c45ec5218"
+    },
+    {
+      "path": "results/b22_tracking_reward42_20261018_04/train_control/training/progress_rollout_0025.json.manifest.json",
+      "bytes": 182,
+      "sha256": "8414536480c297a059e563b43f7f0d471b4073f781bdc469ac8255302668a08f"
+    },
+    {
+      "path": "results/b22_tracking_reward42_20261018_04/train_control/failure_learning_receipt.json",
+      "bytes": 34076,
+      "sha256": "4d43e881a441eac2effac5363070422490f1fe1ca5bc1749b902b2c0c389deff"
+    },
+    {
+      "path": "results/b22_tracking_reward42_20261018_04/train_control/failure_learning_receipt.json.manifest.json",
+      "bytes": 186,
+      "sha256": "5238c6ed7febf90ec3bbf67a8adf55ffbcd1e8379aec2f9d48364ca730570ff2"
+    },
+    {
+      "path": "results/b22_tracking_reward42_20261018_04/train_control/training/training_segment_receipt.json",
+      "bytes": 2454,
+      "sha256": "3d05d1d466db2f0c4c68c7924b90f31492f24c5b5c819d028664ed51eac66da8"
+    },
+    {
+      "path": "results/b22_tracking_reward42_20261018_04/train_control/training/training_segment_receipt.json.manifest.json",
+      "bytes": 185,
+      "sha256": "aca72d99da53ad2c42bc9771bf7a9debb8624663d31eda610a83640f91fe8ee7"
+    },
+    {
+      "path": "results/b22_tracking_reward42_plan_20261018_04.json",
+      "bytes": 914956,
+      "sha256": "9dab65043a10b0b64b0db34ef2b929369cdb2e784974c02ac82667c16285e137"
+    }
+  ]
+}

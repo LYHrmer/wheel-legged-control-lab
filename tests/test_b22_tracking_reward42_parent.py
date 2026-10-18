@@ -35,22 +35,22 @@ def admit(values, *, max_wait=300):
 
 
 def test_stable_admission_needs_three_samples_over_ten_seconds():
-    ready, rows = admit([6 << 30]*3)
+    ready, rows = admit([4 << 30]*3)
     assert ready and len(rows) == 3 and rows[-1]['elapsed_s'] == 10
 
 
 def test_low_samples_reset_continuous_window():
-    ready, rows = admit([6 << 30]*2+[5 << 30]+[6 << 30]*3)
+    ready, rows = admit([4 << 30]*2+[3 << 30]+[4 << 30]*3)
     assert ready and rows[-1]['elapsed_s'] == 25
     assert rows[2]['stable_elapsed_s'] is None
 
 
 def test_isolated_peaks_do_not_admit():
-    ready, rows = admit(([7 << 30]+[5 << 30])*30+[7 << 30])
+    ready, rows = admit(([5 << 30]+[3 << 30])*30+[5 << 30])
     assert not ready and len(rows) == 61 and rows[-1]['elapsed_s'] == 300
 
 
-@pytest.mark.parametrize('value', [None, True, 4*(1 << 30)-1, -1])
+@pytest.mark.parametrize('value', [None, True, 2*(1 << 30)-1, -1])
 def test_unknown_or_runtime_low_rejected(value):
     with pytest.raises(ValueError, match='admission memory'):
         admit([value])
@@ -329,15 +329,15 @@ def test_comparison_requires_current_reader_identity(comparison_case):
 
 def test_resource_revision_keeps_science_and_declares_one_owned_job():
     plan=p.describe42()
-    assert plan['resource_revision']=='owned_cgroup_v4'
-    assert plan['output'].endswith('_04') and p.RELEASE.name.endswith('_04.json')
-    assert p.ADMISSIONS.name.endswith('_04')
-    assert plan['resource_policy']['unit']=='wheel-b22-tracking42-owned04-20261018-01.service'
+    assert plan['resource_revision']=='owned_cgroup_v5'
+    assert plan['output'].endswith('_05') and p.RELEASE.name.endswith('_05.json')
+    assert p.ADMISSIONS.name.endswith('_05')
+    assert plan['resource_policy']['unit']=='wheel-b22-tracking42-owned05-20261018-01.service'
     assert plan['historical_actual_counts'] is None
-    assert plan['historical_compiler_native_separate_from_new_budget']==4
-    assert p.LIMITS['stable_effective_bytes']==p.LIMITS['start_effective_bytes']==6<<30
+    assert plan['historical_compiler_native_separate_from_new_budget']==6
+    assert p.LIMITS['stable_effective_bytes']==p.LIMITS['start_effective_bytes']==4<<30
     assert p.LIMITS['stable_seconds']==10 and p.LIMITS['admission_minimum_samples']==3
-    assert p.LIMITS['reserve_effective_bytes']==4<<30
+    assert p.LIMITS['reserve_effective_bytes']==2<<30
     assert plan['resource_policy']['memory_high_bytes']==2<<30
     assert plan['resource_policy']['memory_max_bytes']==3<<30
     assert plan['resource_policy']['memory_swap_max_bytes']==0
@@ -381,7 +381,7 @@ def test_worker_gate_uses_external_headroom_under_own_three_gib_cap(tmp_path,mon
     monkeypatch.setattr(p.sys,'argv',argv)
     monkeypatch.setattr(p,'supervision',lambda:pytest.fail('old min-own-cap RAM helper must not be used'))
     calls=[]
-    snapshot={'effective_available_bytes':6<<30,'owned':{'max_bytes':3<<30,'current_bytes':2<<30}}
+    snapshot={'effective_available_bytes':4<<30,'owned':{'max_bytes':3<<30,'current_bytes':2<<30}}
     guard=SimpleNamespace(snapshot_memory=lambda scope:(calls.append(scope) or snapshot),
                           check_memory=lambda value:calls.append(value))
     monkeypatch.setattr(p,'resource_guard_api42',lambda:guard)
@@ -389,7 +389,7 @@ def test_worker_gate_uses_external_headroom_under_own_three_gib_cap(tmp_path,mon
     assert calls==[p.RESOURCE_POLICY['owned_scope'],snapshot]
 
 
-@pytest.mark.parametrize('available',[None,True,(4<<30)-1])
+@pytest.mark.parametrize('available',[None,True,(2<<30)-1])
 def test_external_runtime_reserve_still_rejects_unknown_and_low(tmp_path,monkeypatch,available):
     monkeypatch.setattr(p,'resource_guard_api42',lambda:SimpleNamespace(check_memory=lambda value:None))
     with pytest.raises(ValueError,match='runtime reserve or unknown'):
@@ -398,79 +398,78 @@ def test_external_runtime_reserve_still_rejects_unknown_and_low(tmp_path,monkeyp
 
 @pytest.fixture
 def predecessor_case(tmp_path, monkeypatch):
-    """Synthetic closed03 receipts retain their known02 failure, without models."""
     monkeypatch.setattr(p, 'ROOT', tmp_path)
-    output=tmp_path/'results/b22_tracking_reward42_20261018_03'
-    release=tmp_path/'results/b22_tracking_reward42_plan_20261018_03.json'
+    output=tmp_path/'results/b22_tracking_reward42_20261018_04'
+    release=tmp_path/'results/b22_tracking_reward42_plan_20261018_04.json'
     monkeypatch.setattr(p, 'PREDECESSOR_OUTPUT', output)
     monkeypatch.setattr(p, 'PREDECESSOR_RELEASE', release)
-    (output/'bootstrap').mkdir(parents=True)
-    (output/'train_control').mkdir()
-    old_worker={'bytes': 17, 'sha256': 'a'*64}
-    source={'git_commit': p.PREDECESSOR_COMMIT, 'authored': {str(p.WORKER): old_worker}}
-    p.write_json(release, {'schema': 'b22-tracking42-release-v1',
-        'execution_contract_id': p.CONTRACT, 'source': source,
-        'plan': {'output': str(output), 'limits': {k: p.LIMITS[k] for k in p.COUNT_KEYS}}})
-    release_id=p.identity(release)
+    run=output/'train_control';run.mkdir(parents=True)
+    boot=output/'bootstrap';boot.mkdir()
     known={'controls': 0, 'normal_native': 0, 'compiler_native': 2}
+    older={}
+    for revision in ('02', '03'):
+        path=tmp_path/f'results/b22_tracking_reward42_20261018_{revision}/report.json'
+        path.parent.mkdir()
+        p.write_json(path, {'status': 'INCOMPLETE', 'actual_counts': None, 'known_actual_counts': known})
+        older[str(path.relative_to(tmp_path))]=p.identity(path)
     earlier=tmp_path/'results/b22_tracking_reward42_20261018_02/report.json'
-    earlier.parent.mkdir()
-    p.write_json(earlier, {'execution_contract_id': p.CONTRACT, 'execution_started': True,
-        'status': 'INCOMPLETE', 'actual_counts': None, 'known_actual_counts': known,
-        'source': {'git_commit': p.EARLIER_FAILURE_COMMIT}, 'cleanup': {'remaining': {}}})
     monkeypatch.setattr(p, 'EARLIER_FAILURE_REPORT', earlier)
-    monkeypatch.setattr(p, 'EARLIER_FAILURE_IDENTITY', p.identity(earlier))
-    for stage, code in (('bootstrap', 0), ('train_control', 1)):
-        run=output/stage
-        p.write_json(run/'session.json', {'execution_contract_id': p.CONTRACT, 'name': stage,
-            'mode': 'bootstrap' if stage=='bootstrap' else 'train', 'release_path': str(release),
-            'release_identity': release_id, 'execution_output': str(output), 'worker_identity': old_worker})
-        worker={'schema': 'b22-tracking42-worker-receipt-v1', 'execution_contract_id': p.CONTRACT,
-            'session_identity': p.identity(run/'session.json'), 'cleanup_errors': [],
-            'model_calls': {'schema': 'd1-model-api-ledger-20-v1', 'counts': {}, 'actor_rows': 0, 'critic_rows': 0},
-            'actual_pure_servo_advances': 0}
-        if stage=='bootstrap':
-            worker.update(status='COMPLETE', failure=None, bootstrap_verified42=True,
-                          actual_counts=dict.fromkeys(p.COUNT_KEYS, 0))
-        else:
-            worker.update(status='INCOMPLETE', execution_complete=False, actual_counts=None,
-                known_partial_counts=known, retry_permitted=False,
-                failure={'type': 'FileNotFoundError', 'message': p.PREDECESSOR_ERROR,
-                    'training_cleanup_errors': [],
-                    'traceback': 'File "runtime_support22.py", line 89, in atomic_training_io\n'
-                        'import curriculum22 as module\nFile "recipes22.py"\nFileNotFoundError: '+p.PREDECESSOR_ERROR+'\n'},
-                C_final={'construction_attempts': 2, 'construction_returns': 2,
-                    'control_attempts': 0, 'control_returns': 0, 'ccd_attempts': 0, 'ccd_returns': 0, 'violations': 0},
-                python=dict.fromkeys(('control_attempted', 'control_completed', 'native_attempted',
-                    'native_returned', 'native_failed', 'clock_advanced_substeps'), 0))
-        p.write_json(run/'worker_receipt.json', worker)
-        p.write_json(run/'supervisor_receipt.json', {
-            'schema': 'b22-tracking42-worker-supervision-v1', 'stage': stage,
-            'release_identity': release_id, 'session_identity': p.identity(run/'session.json'),
-            'worker_identity': old_worker, 'exit_code': code, 'failure': None,
-            'supervision_returned': True, 'cleanup': {'remaining': {}, 'signalled_identities': {}}})
-    p.write_json(output/'report.json', {'schema': 'b22-tracking42-supervision-v1',
-        'execution_contract_id': p.CONTRACT, 'status': 'INCOMPLETE', 'execution_started': True,
-        'actual_counts': None, 'known_actual_counts': known, 'active_stage': 'train_control',
-        'retry_permitted': False, 'release_identity': release_id, 'source': source,
-        'failure': {'type': 'ValueError', 'message': 'C42 worker did not complete with clean ownership'},
-        'predecessor_failure': {'schema': 'b22-tracking42-specific-predecessor-failure-v1',
-            'source_commit': p.EARLIER_FAILURE_COMMIT, 'historical_attempt_occurred': True,
-            'historical_actual_counts': None, 'historical_known_counts': known,
-            'historical_compiler_native_separate_from_new_budget': 2,
-            'model_load_or_learning_occurred': False, 'clean_process_closure': True,
-            'failure': {'type': 'TypeError', 'message': 'C18 installer needs the exact production world-upright env'},
-            'inputs': {str(earlier): p.EARLIER_FAILURE_IDENTITY}},
-        'cleanup': {'remaining': {}, 'signalled_identities': {}},
+    monkeypatch.setattr(p, 'OLDER_FAILURE_INPUTS', older)
+    worker_id={'bytes': 17, 'sha256': 'a'*64}
+    source={'git_commit': p.PREDECESSOR_COMMIT, 'authored': {str(p.WORKER): worker_id}}
+    p.write_json(release, {'schema': 'b22-tracking42-release-v1', 'execution_contract_id': p.CONTRACT,
+        'source': source, 'plan': {'output': str(output), 'limits': {k: p.LIMITS[k] for k in p.COUNT_KEYS}}})
+    failure={'type': 'ValueError', 'message': p.PREDECESSOR_ERROR}
+    p.write_json(run/'session.json', {'execution_contract_id': p.CONTRACT, 'name': 'train_control',
+        'mode': 'train', 'reward_arm': 'control', 'alpha': 1, 'execution_output': str(output),
+        'release_identity': p.identity(release), 'worker_identity': worker_id})
+    p.write_json(run/'supervisor_receipt.json', {'stage': 'train_control',
+        'release_identity': p.identity(release), 'session_identity': p.identity(run/'session.json'),
+        'worker_identity': worker_id, 'failure': failure, 'exit_code': None,
+        'supervision_returned': False, 'cleanup': {'remaining': {}}})
+    p.write_json(boot/'session.json', {})
+    p.write_json(boot/'supervisor_receipt.json', {})
+    p.write_json(boot/'worker_receipt.json', {'status': 'COMPLETE', 'bootstrap_verified42': True,
+        'session_identity': p.identity(boot/'session.json'), 'actual_counts': dict.fromkeys(p.COUNT_KEYS, 0)})
+    p.write_json(output/'report.json', {'status': 'INCOMPLETE', 'actual_counts': None,
+        'execution_started': True, 'active_stage': 'train_control', 'execution_contract_id': p.CONTRACT,
+        'failure': failure, 'source': source, 'release_identity': p.identity(release),
+        'known_actual_counts': dict.fromkeys(p.COUNT_KEYS, 0), 'cleanup': {'remaining': {}},
         'stages': [{'name': 'bootstrap', 'path': 'bootstrap/worker_receipt.json',
-            'report': p.identity(output/'bootstrap/worker_receipt.json'),
-            'independent_saved_reader_executed': False}]})
+            'report': p.identity(boot/'worker_receipt.json'), 'independent_saved_reader_executed': False}],
+        'predecessor_failure': {'inputs': {str(tmp_path/k): v for k,v in older.items()},
+            'historical_actual_counts': None, 'historical_known_counts': known,
+            'historical_compiler_native_separate_from_new_budget': 4,
+            'model_load_or_learning_occurred': False,
+            'earlier02_failure': {'historical_actual_counts': None, 'historical_known_counts': known,
+                                 'identity': p.identity(earlier)}}})
+    progress={'completed_controls': 26624,
+        'rollout': {'rollout_index': 25, 'transitions': 1024, 'num_timesteps_at_end': 26624},
+        'boundary': {'C_state': {'construction_attempts': 2, 'construction_returns': 2,
+            'control_attempts': 133120, 'control_returns': 133120}, 'python': {
+            'control_attempted': 26624, 'control_completed': 26624, 'native_attempted': 133120,
+            'native_returned': 133120, 'clock_advanced_substeps': 133120}}}
+    (run/'training').mkdir()
+    p.write_json(run/'training/progress_rollout_0025.json', progress)
+    p.write_json(run/'failure_learning_receipt.json', {'policy_state_changed': True,
+        'optimizer_state_changed': True, 'actor_mean_state_changed': True,
+        'actual': {'optimizer_steps': 387, 'transitions': 27000},
+        'construction': {'parent_final_zip_sha256': '7bd58b5d6114745b12b4284be3f861f973a5d31d9d596365a5b54cb5e0d76691'}})
+    p.write_json(run/'training/training_segment_receipt.json', {'native_returned': 135000})
+    payloads=('training/progress_rollout_0025.json', 'failure_learning_receipt.json',
+              'training/training_segment_receipt.json')
     def repin():
+        for name in payloads:
+            path=run/name
+            p.write_json(path.with_name(path.name+'.manifest.json'), {
+                'schema': 'd1-archive-transaction-13-v1',
+                'payloads': [{'file': path.name, **p.identity(path)}]}, replace=path.with_name(path.name+'.manifest.json').exists())
+        files=[release, output/'report.json', run/'session.json', run/'supervisor_receipt.json',
+               *[boot/name for name in ('session.json','supervisor_receipt.json','worker_receipt.json')],
+               *[run/name for name in payloads],
+               *[(run/name).with_name((run/name).name+'.manifest.json') for name in payloads]]
         monkeypatch.setattr(p, 'PREDECESSOR_INPUTS', {
-            str(path.relative_to(tmp_path)): p.identity(path)
-            for path in [release, output/'report.json', earlier,
-                *[output/stage/name for stage in ('bootstrap', 'train_control')
-                  for name in ('session.json', 'worker_receipt.json', 'supervisor_receipt.json')]]})
+            **older, **{str(path.relative_to(tmp_path)): p.identity(path) for path in files}})
     def mutate(name, keys, value, *, update_pin=True):
         path=output/name;data=p.read_json(path);cursor=data
         for key in keys[:-1]:cursor=cursor[key]
@@ -481,51 +480,119 @@ def predecessor_case(tmp_path, monkeypatch):
     return mutate
 
 
-def test_specific_predecessor_preserves_unknown_total_and_separate_compiler_spend(predecessor_case):
+def test_trained_predecessor_is_not_zero_or_unused_and_cannot_be_resumed(predecessor_case):
     proof=p.predecessor_failure42()
-    assert proof['historical_attempt_occurred'] is True
     assert proof['historical_actual_counts'] is None
-    assert proof['historical_known_counts']=={'controls': 0, 'normal_native': 0, 'compiler_native': 2}
-    assert proof['historical_compiler_native_separate_from_new_budget']==4
-    assert proof['earlier02_failure']['historical_actual_counts'] is None
-    assert proof['earlier02_failure']['historical_known_counts']['compiler_native']==2
-    assert proof['model_load_or_learning_occurred'] is False
-    assert proof['clean_process_closure'] is True
-    assert len(proof['inputs'])==9
+    assert proof['parent_reported_known_counts']==dict.fromkeys(p.COUNT_KEYS,0)
+    assert proof['parent_zero_known_does_not_mean_zero_work'] is True
+    assert proof['model_load_or_learning_occurred'] is True
+    assert proof['persisted_rollout_lower_bound']=={'controls':26624,'normal_native':133120,'compiler_native':2}
+    assert proof['additional_reported_lower_bound']=={'controls':27000,'normal_native':135000,'compiler_native':2}
+    assert proof['earlier02_03_known_compiler_native']==4
+    assert proof['historical_compiler_native_separate_from_new_budget']==6
+    assert proof['partial_checkpoint_reused'] is False
+    assert proof['new_attempt_is_independent_budget'] is True
 
 
-@pytest.mark.parametrize(('file','keys','value'), [
-    ('train_control/worker_receipt.json', ['known_partial_counts'], None),
-    ('train_control/worker_receipt.json', ['known_partial_counts','controls'], 1),
-    ('train_control/worker_receipt.json', ['known_partial_counts','controls'], False),
-    ('train_control/worker_receipt.json', ['known_partial_counts','normal_native'], 1),
-    ('train_control/worker_receipt.json', ['known_partial_counts','compiler_native'], 0),
-    ('train_control/worker_receipt.json', ['model_calls','counts'], {'learn': 1}),
-    ('train_control/worker_receipt.json', ['model_calls','counts'], {'load': 1}),
-    ('train_control/worker_receipt.json', ['cleanup_errors'], ['close failed']),
-    ('train_control/worker_receipt.json', ['failure','message'], 'other TypeError'),
-    ('train_control/worker_receipt.json', ['failure','type'], 'TypeError'),
-    ('train_control/worker_receipt.json', ['failure','traceback'], 'FileNotFoundError: '+p.PREDECESSOR_ERROR+'\n'),
-    ('train_control/worker_receipt.json', ['failure','training_cleanup_errors'], ['dirty']),
-    ('train_control/worker_receipt.json', ['C_final','construction_returns'], 1),
-    ('train_control/supervisor_receipt.json', ['cleanup','remaining'], {'123': 4}),
-    ('train_control/supervisor_receipt.json', ['exit_code'], None),
-    ('train_control/supervisor_receipt.json', ['session_identity'], {'bytes': 0, 'sha256': 'b'*64}),
-    ('report.json', ['actual_counts'], {'controls': 0, 'normal_native': 0, 'compiler_native': 2}),
-    ('report.json', ['known_actual_counts','controls'], 1),
-    ('report.json', ['cleanup','remaining'], {'123': 4}),
-    ('report.json', ['predecessor_failure'], None),
-    ('report.json', ['predecessor_failure','historical_known_counts','compiler_native'], 0),
-    ('report.json', ['predecessor_failure','model_load_or_learning_occurred'], True),
-    ('report.json', ['predecessor_failure','clean_process_closure'], False),
+@pytest.mark.parametrize(('file','keys','value'),[
+    ('report.json',['actual_counts'],{'controls':0,'normal_native':0,'compiler_native':0}),
+    ('report.json',['known_actual_counts'],None),
+    ('report.json',['predecessor_failure'],None),
+    ('report.json',['predecessor_failure','historical_compiler_native_separate_from_new_budget'],0),
+    ('report.json',['cleanup','remaining'],{'123':4}),
+    ('train_control/session.json',['worker_identity'],{'bytes':0,'sha256':'b'*64}),
+    ('train_control/training/progress_rollout_0025.json',['completed_controls'],0),
+    ('train_control/training/progress_rollout_0025.json',['boundary','C_state','control_returns'],0),
+    ('train_control/training/progress_rollout_0025.json',['boundary','python','native_returned'],True),
+    ('train_control/failure_learning_receipt.json',['policy_state_changed'],False),
+    ('train_control/failure_learning_receipt.json',['actual','optimizer_steps'],0),
+    ('train_control/failure_learning_receipt.json',['actual','transitions'],None),
+    ('train_control/training/training_segment_receipt.json',['native_returned'],0),
 ])
-def test_predecessor_cannot_hide_unknown_learning_spend_or_dirty_exit(predecessor_case, file, keys, value):
-    predecessor_case(file, keys, value)
-    with pytest.raises(ValueError, match='predecessor'):
-        p.predecessor_failure42()
+def test_trained_history_unknown_tampered_or_missing_learning_fails(predecessor_case,file,keys,value):
+    predecessor_case(file,keys,value)
+    with pytest.raises(ValueError,match='predecessor'):p.predecessor_failure42()
 
 
 def test_fixed_predecessor_bytes_cannot_be_rebaselined(predecessor_case):
-    predecessor_case('train_control/worker_receipt.json', ['status'], 'different', update_pin=False)
-    with pytest.raises(ValueError, match='receipt identity changed'):
-        p.predecessor_failure42()
+    predecessor_case('report.json',['status'],'different',update_pin=False)
+    with pytest.raises(ValueError,match='receipt identity changed'):p.predecessor_failure42()
+
+
+def test_minimum_includes_sample_that_triggers_runtime_stop(tmp_path,monkeypatch):
+    monkeypatch.setattr(p,'ROOT',tmp_path);monkeypatch.setattr(p,'OUTPUT',tmp_path/'unclaimed')
+    monkeypatch.setattr(p,'ADMISSIONS',tmp_path/'admissions')
+    monkeypatch.setattr(p,'unused_budget_origin42',dict)
+    monkeypatch.setattr(p,'predecessor_failure42',dict)
+    monkeypatch.setattr(p.os,'getpriority',lambda *a:10)
+    monkeypatch.setattr(p,'supervision',lambda:SimpleNamespace())
+    monkeypatch.setattr(p,'resource_guard_api42',lambda:SimpleNamespace(check_memory=lambda _:None))
+    bad=(2<<30)-1
+    monkeypatch.setattr(p,'resource_snapshot42',lambda:{'effective_available_bytes':bad})
+    report=p.execute42()
+    assert report['status']=='NOT_READY' and report['minimum_effective_bytes']==bad
+    assert report['execution_started'] is False
+
+
+def test_phase_cleanup_normal_exit_does_not_wait():
+    clock=Clock();calls=[]
+    host=SimpleNamespace(descendants=lambda _: {},signal_identity=lambda *a:pytest.fail('unexpected TERM'),
+        clean_descendants=lambda *a:(calls.append('fallback') or {'remaining':{}}))
+    record=p.phase_cleanup42(host,99,None,deadline=100,clock=clock,sleeper=clock.sleep)
+    assert clock.now==0 and calls==['fallback'] and record['term_attempted_identities']==[]
+
+
+def test_phase_cleanup_terms_each_owned_birth_once_including_new_children():
+    clock=Clock();terms=[]
+    def alive(_):
+        if clock.now<.25:return {1:10}
+        if clock.now<.5:return {1:10,2:20}
+        if clock.now<.75:return {1:11,2:20}
+        return {}
+    def term(pid,birth,number):
+        assert alive(99).get(pid)==birth
+        terms.append((pid,birth,number))
+    host=SimpleNamespace(descendants=alive,signal_identity=term,clean_descendants=lambda *a:{'remaining':{}})
+    record=p.phase_cleanup42(host,99,None,deadline=100,clock=clock,sleeper=clock.sleep)
+    assert [(pid,birth) for pid,birth,_ in terms]==[(1,10),(2,20),(1,11)]
+    assert all(number==p.signal.SIGTERM for _,_,number in terms)
+    assert record['grace_elapsed_s']==.75
+
+
+@pytest.mark.parametrize(('deadline','grace'),[(100,15),(7,2)])
+def test_phase_cleanup_bounded_grace_then_frozen_fallback(deadline,grace):
+    clock=Clock();terms=[]
+    def fallback(*args):clock.sleep(4.9);return {'remaining':{}}
+    host=SimpleNamespace(descendants=lambda _: {1:10},signal_identity=lambda *a:terms.append(a),
+                         clean_descendants=fallback)
+    record=p.phase_cleanup42(host,99,None,deadline=deadline,clock=clock,sleeper=clock.sleep)
+    assert len(terms)==1 and record['grace_elapsed_s']==grace
+    assert record['elapsed_s']==pytest.approx(grace+4.9)
+
+
+def test_cleanup_error_keeps_primary_failure_and_still_writes_actual_supervisor(tmp_path):
+    import ast
+    source=ast.parse((ROOT/'scripts/run_b22_tracking_reward42.py').read_text())
+    function=next(n for n in ast.walk(source) if isinstance(n,ast.FunctionDef) and n.name=='run_process')
+    clock=Clock();report={};run=tmp_path/'train_control';run.mkdir()
+    def failed_cleanup(*args):raise RuntimeError('cleanup failed')
+    real_host=SimpleNamespace(descendants=lambda _:{},signal_identity=lambda *a:None,
+                              clean_descendants=failed_cleanup)
+    def supervise(*args,host,**kwargs):
+        try:raise ValueError('resource stop')
+        finally:host.clean_descendants(99,None)
+    namespace={'time':SimpleNamespace(monotonic=clock),'os':p.os,'sys':p.sys,'subprocess':p.subprocess,
+        'SimpleNamespace':SimpleNamespace,'Path':Path,'report':report,'host':real_host,
+        'common':SimpleNamespace(supervise=supervise),'sample':lambda *a:None,'deadline':100,
+        'ROOT':tmp_path,'OUTPUT':tmp_path,'RELEASE':tmp_path/'release','WORKER':tmp_path/'worker',
+        'require':p.require,'identity':lambda _:{'bytes':1,'sha256':'a'*64},'write_json':p.write_json,
+        'phase_cleanup42':lambda *a,**kw:p.phase_cleanup42(*a,**kw,clock=clock,sleeper=clock.sleep)}
+    exec(compile(ast.fix_missing_locations(ast.Module(body=[function],type_ignores=[])), '<actual-run-process>', 'exec'), namespace)  # noqa: S102 -- execute only the owned production seam with fake dependencies
+    with pytest.raises(ValueError,match='resource stop'):
+        namespace['run_process']([],tmp_path/'worker.log',100,stage={'name':'train_control'})
+    receipt=p.read_json(run/'supervisor_receipt.json')
+    assert receipt['failure']=={'type':'ValueError','message':'resource stop'}
+    assert receipt['cleanup_error'] is not None
+    assert len(receipt['phase_cleanup_records'])==2
+    assert all(r['errors'][0]['message']=='cleanup failed' for r in receipt['phase_cleanup_records'])
+    assert len(report['phase_cleanup_records'][0]['records'])==2
