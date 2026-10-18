@@ -1,0 +1,145 @@
+{
+  "format": "b22-numpy38-interruption-analysis-v1",
+  "date": "2026-10-18",
+  "status": "INCOMPLETE_ARCHIVED",
+  "analysis_execution": {
+    "model_loads": 0,
+    "inference_calls": 0,
+    "environment_constructions": 0,
+    "physics_steps": 0
+  },
+  "execution_root": "/home/lyh/wheel-legged-control-lab/results/b22_numpy38_20261018_01",
+  "source_commit": "c99877ffc382de93211259372abd92a57a28a044",
+  "raw_supervision": {
+    "status": "INCOMPLETE",
+    "active_stage": "bootstrap",
+    "failure": "ValueError: C38 cold bootstrap failed",
+    "actual_counts": null,
+    "known_actual_counts": {
+      "controls": 0,
+      "normal_native": 0,
+      "compiler_native": 0
+    },
+    "actual_nn_counts": null,
+    "known_nn_counts": {
+      "predict_calls": 0,
+      "predict_rows": 0,
+      "ppo_load": 0,
+      "torch_load": 0
+    },
+    "elapsed_s": 30.826986694009975,
+    "minimum_effective_bytes": 8514629632,
+    "cleanup": {
+      "method": "linux_subreaper_ancestry_birth_tick",
+      "signalled_identities": {},
+      "remaining": {},
+      "elapsed_s": 0.014612730010412633
+    },
+    "nice": 10,
+    "retry_permitted": false,
+    "qualification_granted": false,
+    "automatic_model_replacement": false
+  },
+  "failure": {
+    "type": "UNBOUND_IMPORTED_DEPENDENCY",
+    "module": "mujoco._enums",
+    "worker_source": "scripts/run_b22_numpy_worker38.py:101",
+    "checker_source": "scripts/export_b22_numpy36.py:252",
+    "message": "C36 unbound numeric import: mujoco._enums",
+    "ram_stop": false,
+    "signal_stop": false
+  },
+  "resources": {
+    "samples": 10,
+    "minimum_effective_bytes": 8514629632,
+    "runtime_reserve_bytes": 4294967296,
+    "start_minimum_bytes": 6442450944
+  },
+  "observed_outputs": {
+    "bootstrap_report_exists": false,
+    "two_script_directories_exist": false,
+    "comparison_exists": false,
+    "complete_stage_readbacks": 0
+  },
+  "source_control_flow_inference": {
+    "expected_native_calls": 0,
+    "expected_inference_calls": 0,
+    "expected_environment_constructions": 0,
+    "basis": "Traceback reaches dependency_origins after zero-state/GOT binding/cache assertions; bootstrap path never loads actor weights, arms the native guard, constructs an environment, or invokes policy inference.",
+    "qualification": "Derived from the bound source and traceback, not a saved successful bootstrap receipt. Original null totals are retained; known zero is only the closed-stage subtotal."
+  },
+  "scope": {
+    "old38_retry_or_resume": false,
+    "old38_records_modified": false,
+    "numpy_closed_loop_compatibility": "NOT_EVALUATED",
+    "task_performance": "NOT_EVALUATED",
+    "new39_execution": "NOT_STARTED",
+    "new39_requires_independent_source_output_and_budget": true
+  },
+  "artifact_identities": {
+    "/home/lyh/wheel-legged-control-lab/results/b22_numpy38_20261018_01/report.json": {
+      "bytes": 3148,
+      "sha256": "0c27da6c7f905a7b65c6a46e674e334cb9b19f90b6b216cf29fb64ad7c40d68a"
+    },
+    "/home/lyh/wheel-legged-control-lab/results/b22_numpy38_20261018_01/release.json": {
+      "bytes": 910911,
+      "sha256": "2470c0ab7a5b6122225e3224ad0a2989b548dd9192cff48fd9be7a1648eb688f"
+    },
+    "/home/lyh/wheel-legged-control-lab/results/b22_numpy38_20261018_01/resources.jsonl": {
+      "bytes": 1285,
+      "sha256": "0b30da054f237f305f14e51bddcf5c339c8a7b4c611eb2461ae9d62eff10dea7"
+    },
+    "/home/lyh/wheel-legged-control-lab/results/b22_numpy38_20261018_01/bootstrap_stdout.log": {
+      "bytes": 914,
+      "sha256": "71e13ae2c8f2bd69a580efd7f8b076658c0fc8e714277e8e0d1bdecd864de77d"
+    },
+    "/home/lyh/wheel-legged-control-lab/results/b22_numpy38_20261018_01/bootstrap/session.json": {
+      "bytes": 888666,
+      "sha256": "5ac995702b053d00fbaf73f65964929ae99d60d7e85b7be8d01cccd9665b1a99"
+    }
+  },
+  "verified_frozen_authored_inputs": {
+    "/home/lyh/wheel-legged-control-lab/scripts/run_b22_numpy38.py": {
+      "bytes": 31707,
+      "sha256": "0675501fe193407d33aa1b4e97cc8875a4bcbf2e1391e1b426a2b1c2612bb431"
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/read_b22_numpy38.py": {
+      "bytes": 17069,
+      "sha256": "06a31268a23dc389d846d4e86853ee129727f4eb97b39735a477b468ed1ab847"
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/b22_numpy_backend38.py": {
+      "bytes": 11138,
+      "sha256": "183053fe4f81bdfff1388587b143cd0890d35b7739ac3fced4425e0b4dbcbd62"
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/run_b22_numpy_worker38.py": {
+      "bytes": 11000,
+      "sha256": "67ce51a4e5c2f06dc357cf813fd7ad787985533b0a7fe060f0bded409e71b48e"
+    },
+    "/home/lyh/wheel-legged-control-lab/tests/test_b22_numpy38.py": {
+      "bytes": 23598,
+      "sha256": "ebebcc9e930d10997b0fefcc1ec1cf98ce5e234bf9e237dfdf36fcd976a87374"
+    },
+    "/home/lyh/wheel-legged-control-lab/tests/test_b22_numpy_backend38.py": {
+      "bytes": 10798,
+      "sha256": "f6a372523bd63f7ff95c1e2a603ee83118af145242055db0ee5aa7a4eb26b6a7"
+    },
+    "/home/lyh/wheel-legged-control-lab/tests/test_b22_numpy_worker38.py": {
+      "bytes": 11553,
+      "sha256": "a76a188806e545a45f0b77c3b2b4b15e9210df1798e2da1cb569d35a08eb6e4e"
+    },
+    "/home/lyh/wheel-legged-control-lab/docs/b22_numpy38.md": {
+      "bytes": 5996,
+      "sha256": "6298d923a964668950d52eec1d9e2edb608203bd3efd9435516a6b5b2331bf94"
+    }
+  },
+  "analysis_source_sha256": {
+    "scripts/run_b22_numpy38.py": "0675501fe193407d33aa1b4e97cc8875a4bcbf2e1391e1b426a2b1c2612bb431",
+    "scripts/run_b22_numpy_worker38.py": "67ce51a4e5c2f06dc357cf813fd7ad787985533b0a7fe060f0bded409e71b48e",
+    "scripts/export_b22_numpy36.py": "8a89d8d1b82e59996bb09283050a40351a563fa19dbae37a4e17302893f466ce"
+  },
+  "limits": [
+    "No complete bootstrap proof was saved, so the original whole-attempt actual/NN null totals cannot be replaced with zero.",
+    "Only the eight authored frozen source files and the five small execution artifacts were rehashed; this analysis does not claim to revalidate every release dependency.",
+    "No NumPy actor inference or robot/environment construction was performed by this analysis."
+  ]
+}
