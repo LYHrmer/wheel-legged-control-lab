@@ -290,7 +290,8 @@ def reader_environment42():
 
 # shared 44 definitions
 sys.path.insert(0, str(ROOT/'scripts'))
-from b22_yawtrain44 import ALPHA, ARMS as ARMS44, FEEDFORWARD as FEEDFORWARD44  # noqa: E402,F401
+from b22_yawtrain44 import ARMS as ARMS44
+from b22_yawtrain44 import FEEDFORWARD as FEEDFORWARD44
 
 
 def stage_by_name42(name):
