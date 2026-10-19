@@ -1,0 +1,247 @@
+{
+  "schema": "wheel46-logsse-arm-evaluation-v1",
+  "baseline": "yaw feedforward 3.9 (zero residual)",
+  "hypothesis": "the exponential tracking shape is flat for the small errors that dominate the evaluation; a log squared-error term inside the existing two tracking terms raises the small-error gradient",
+  "training_run": "results/b22_logsse46_20261018_01",
+  "source_commit": "4cc4335",
+  "reward": {
+    "alpha": 8,
+    "beta": 8,
+    "cap": 4.0,
+    "schema": "d1-b22-training-tracking-log-sse-beta46-v1"
+  },
+  "training": {
+    "status": "COMPLETE",
+    "actual_counts": {
+      "controls": 32768,
+      "normal_native": 163840,
+      "compiler_native": 2
+    },
+    "training_valid": true,
+    "archive_valid": true,
+    "learning_valid": true,
+    "coverage_valid": true,
+    "paired_with_44_ffyaw": true,
+    "kl_stop_train_calls": 3
+  },
+  "numeric_export": {
+    "max_absolute_error": 2.9802322387695312e-08,
+    "symmetric_max_absolute_error": 2.9802322387695312e-08,
+    "sb3_predict_returns": 384,
+    "numpy_predict_returns": 384
+  },
+  "evaluation_run": "results/b22_yawff44_arm_ffsse_20261018_11/FF3.9",
+  "arms": {
+    "ffsse": {
+      "pooled_sse": {
+        "zero": 41.40748689464712,
+        "raw42": 37.41258135732404,
+        "mirror43": 36.579587908904635
+      },
+      "pooled_ratio_to_zero": {
+        "zero": 1.0,
+        "raw42": 0.9035221444979914,
+        "mirror43": 0.8834051678135868
+      },
+      "torque_cost_ratio_to_zero": {
+        "zero": 1.0,
+        "raw42": 1.027701803719806,
+        "mirror43": 1.0254822118905862
+      },
+      "tasks": {
+        "flat_0p6": {
+          "zero": {
+            "sse_total": 1.1306151519310728,
+            "sse_yaw": 1.8347966108605205e-07,
+            "torque_cost_sum": 11.222981489660755,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "raw42": {
+            "sse_total": 0.7497939648608309,
+            "sse_yaw": 0.035480751787354665,
+            "torque_cost_sum": 11.320363614482293,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "mirror43": {
+            "sse_total": 0.7618136231325958,
+            "sse_yaw": 2.3163424434630853e-07,
+            "torque_cost_sum": 11.333249327621107,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          }
+        },
+        "flat_1p6": {
+          "zero": {
+            "sse_total": 1.5612346988066017,
+            "sse_yaw": 1.0850623579570828e-06,
+            "torque_cost_sum": 19.455344778088566,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "raw42": {
+            "sse_total": 1.17587364813062,
+            "sse_yaw": 0.07606745227607775,
+            "torque_cost_sum": 20.300481073294524,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "mirror43": {
+            "sse_total": 1.099889892938952,
+            "sse_yaw": 1.0120622958451e-06,
+            "torque_cost_sum": 19.779324122385766,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          }
+        },
+        "flat_1p2_yaw": {
+          "zero": {
+            "sse_total": 3.648775647404543,
+            "sse_yaw": 1.8717707634323648,
+            "torque_cost_sum": 21.48622194255335,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "raw42": {
+            "sse_total": 3.0828169840750235,
+            "sse_yaw": 1.8306406324323659,
+            "torque_cost_sum": 22.18626648688262,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "mirror43": {
+            "sse_total": 3.655601029584888,
+            "sse_yaw": 2.2798120827631423,
+            "torque_cost_sum": 21.537295389887344,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          }
+        },
+        "bumps_0p4": {
+          "zero": {
+            "sse_total": 4.674006387762613,
+            "sse_yaw": 0.00011132028230562484,
+            "torque_cost_sum": 10.862614526359485,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "raw42": {
+            "sse_total": 4.453290628557003,
+            "sse_yaw": 0.13228391474737577,
+            "torque_cost_sum": 10.99554730640486,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "mirror43": {
+            "sse_total": 4.412836129762316,
+            "sse_yaw": 4.345096163809573e-05,
+            "torque_cost_sum": 11.055418518204025,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          }
+        },
+        "rough_0p35": {
+          "zero": {
+            "sse_total": 19.75143960941407,
+            "sse_yaw": 6.708511572327252,
+            "torque_cost_sum": 12.577079972159495,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "raw42": {
+            "sse_total": 19.056984185500454,
+            "sse_yaw": 6.112324636320196,
+            "torque_cost_sum": 12.824387717301924,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "mirror43": {
+            "sse_total": 17.346898719245647,
+            "sse_yaw": 5.873135107335091,
+            "torque_cost_sum": 12.68658741608906,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          }
+        },
+        "ramp_0p45_complete": {
+          "zero": {
+            "sse_total": 10.641415399328219,
+            "sse_yaw": 0.002927994229701507,
+            "torque_cost_sum": 29.30674925297257,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "raw42": {
+            "sse_total": 8.893821946200113,
+            "sse_yaw": 0.4612675390809078,
+            "torque_cost_sum": 30.19016947080377,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "mirror43": {
+            "sse_total": 9.302548514240238,
+            "sse_yaw": 0.0015494687487125599,
+            "torque_cost_sum": 31.192481314428953,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          }
+        }
+      },
+      "actor_counts": {
+        "raw42": {
+          "attempts": 9800,
+          "returns": 9800,
+          "predictions": 9800
+        },
+        "mirror43": {
+          "attempts": 19600,
+          "returns": 19600,
+          "predictions": 9800
+        }
+      },
+      "contribution": {
+        "raw": {
+          "RL_contribution_passed": false,
+          "all_six_policy_task_qualified": true,
+          "pooled_sse_ratio": 0.9035221444979914,
+          "pairs_no_worse_within_1p02": 6,
+          "cost_ratio": 1.0277018037198058,
+          "cost_gate_passed": true,
+          "reasons": [
+            "pooled policy/zero SSE ratio 0.9035221444979914 is above the required 0.85"
+          ]
+        },
+        "mirror": {
+          "RL_contribution_passed": false,
+          "all_six_policy_task_qualified": true,
+          "pooled_sse_ratio": 0.8834051678135868,
+          "pairs_no_worse_within_1p02": 6,
+          "cost_ratio": 1.0254822118905864,
+          "cost_gate_passed": true,
+          "reasons": [
+            "pooled policy/zero SSE ratio 0.8834051678135868 is above the required 0.85"
+          ]
+        }
+      }
+    }
+  }
+}
