@@ -18,9 +18,20 @@ MANIFEST = ROOT / "runtime/d1_b22/runtime_manifest_v27.json"
 @pytest.fixture(scope="module")
 def recipes():
     """Execute the frozen recipes22 source with the sealed spec, the way the 42 worker does."""
-    paths = json.loads(MANIFEST.read_text())["runtime_environment"]["PYTHONPATH"].split(os.pathsep)
+    registered_root = "/home/lyh/wheel-legged-control-lab"
+    entries = json.loads(MANIFEST.read_text())["runtime_environment"]["PYTHONPATH"].split(
+        os.pathsep
+    )
+    # The manifest records absolute paths of the original checkout; rebase them onto this one.
+    rebased = [
+        str(ROOT) + p[len(registered_root) :] if p.startswith(registered_root) else p
+        for p in entries
+    ]
     saved = list(sys.path)
-    sys.path[:0] = [str(ROOT / "runtime/d1_b22/research/continuation22"), *(p for p in paths if p)]
+    sys.path[:0] = [
+        str(ROOT / "runtime/d1_b22/research/continuation22"),
+        *(p for p in rebased if p and Path(p).is_dir() and str(ROOT) in p),
+    ]
     try:
         spec = json.loads(
             (ROOT / "results/d1_main_route_execution_20260930_22/spec22.json").read_text()
