@@ -176,3 +176,21 @@ def test_record_wrapper_restates_the_yaw_law():
     assert controller.last_record["nominal_unclipped_yaw_rps"] == pytest.approx(expected)
     assert controller.last_record["nominal_unlimited_yaw_rps"] == pytest.approx(expected)
     assert controller.last_record["command_feedforward_gain"] == 3.9
+
+
+def test_every_stage_session_passes_the_workers_numeric_gate(parent, monkeypatch):
+    """The parent's canonical session must satisfy the worker's own defaults for each stage."""
+    worker = load_module("w44_session_gate", ROOT / "scripts/worker_b22_yawtrain44.py")
+    monkeypatch.setattr(parent, "identity", lambda path: {"bytes": 1, "sha256": "0" * 64})
+    monkeypatch.setattr(parent, "worker_api", lambda: worker)
+    release = {"inputs": {}}
+    for stage in parent.stages42():
+        session = parent.make_session42(
+            stage,
+            release,
+            parent_pid=1,
+            nonce="0" * 48,
+            started=0.0,
+            wall_clock_utc="2026-10-19T00:00:00+00:00",
+        )
+        worker.validate_numeric_session42(session)

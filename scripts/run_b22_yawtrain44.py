@@ -19,9 +19,9 @@ from types import SimpleNamespace
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = 'C44_B22_yaw_feedforward_curriculum_comparison_v1'
-OUTPUT = ROOT/'results/b22_yawtrain44_20261018_01'
-RELEASE = ROOT/'results/b22_yawtrain44_plan_20261018_01.json'
-ADMISSIONS = ROOT/'results/b22_yawtrain44_admissions_20261018_01'
+OUTPUT = ROOT/'results/b22_yawtrain44_20261018_02'
+RELEASE = ROOT/'results/b22_yawtrain44_plan_20261018_02.json'
+ADMISSIONS = ROOT/'results/b22_yawtrain44_admissions_20261018_02'
 RESOURCE_REVISION = 'owned_cgroup_v5'
 DRIVER = ROOT/'scripts/run_b22_yawtrain44.py'
 WORKER = ROOT/'scripts/worker_b22_yawtrain44.py'
@@ -51,8 +51,8 @@ COUNT_KEYS = ('controls', 'normal_native', 'compiler_native')
 RESOURCE_POLICY = {'memory_high_bytes': 2048 << 20, 'memory_max_bytes': 3072 << 20,
                    'memory_swap_max_bytes': 0, 'oom_policy': 'kill',
                    'memory_oom_group': 1,
-                   'unit': 'wheel-b22-yawtrain44-owned01-20261018-01.service',
-                   'owned_scope': '/user.slice/user-1000.slice/user@1000.service/app.slice/wheel-b22-yawtrain44-owned01-20261018-01.service',
+                   'unit': 'wheel-b22-yawtrain44-owned02-20261018-01.service',
+                   'owned_scope': '/user.slice/user-1000.slice/user@1000.service/app.slice/wheel-b22-yawtrain44-owned02-20261018-01.service',
                    'reserve_scope': 'host and ancestors outside the owned job cgroup',
                    'covers': 'parent, source hashing, bootstrap, workers, saved readers, comparison'}
 _resource_guard42 = None
@@ -330,8 +330,9 @@ def make_session42(stage, release, *, parent_pid, nonce, started, wall_clock_utc
     if stage['mode'] == 'bootstrap':
         argv.append('--bootstrap')
     source_hashes = {**release['inputs'], str(RELEASE): identity(RELEASE)}
-    extra = {'yaw_feedforward': FEEDFORWARD44,
-             'curriculum': ARMS44[stage['reward_arm']]['curriculum'] if stage['mode'] == 'train' else None}
+    train = stage['mode'] == 'train'
+    extra = {'yaw_feedforward': FEEDFORWARD44 if train else None,
+             'curriculum': ARMS44[stage['reward_arm']]['curriculum'] if train else None}
     return {**config['shared_session'], **defaults, **stage, **extra,
             'schema': 'b22-tracking42-session-v1', 'execution_contract_id': CONTRACT,
             'resource_revision': RESOURCE_REVISION, 'resource_policy': dict(RESOURCE_POLICY),
