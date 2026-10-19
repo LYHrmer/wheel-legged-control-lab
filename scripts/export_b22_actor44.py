@@ -1,0 +1,60 @@
+"""NumPy export + SB3 parity of a completed 44 training arm (zero physics).
+
+A thin driver over the completed-42 probe: the probe's fixed numerical protocol (384 SB3 and
+384 NumPy predictions, 192 mirror projections, tolerance 1e-6) is run unchanged against the
+final checkpoint of one 44 arm; only the checkpoint folder, its SHA and the output identities
+are rebound.
+"""
+
+from __future__ import annotations
+
+import argparse
+import importlib.util
+import os
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+RUN = ROOT / "results/b22_yawtrain44_20261018_02"
+ARMS = ("ffcontrol", "ffyaw")
+
+
+def load_probe():
+    spec = importlib.util.spec_from_file_location(
+        "probe44_base", ROOT / "scripts/probe_b22_symmetry43.py"
+    )
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def bind(probe, arm: str) -> None:
+    unit = f"wheel-yawtrain44-numeric-{arm}-20261018-01.service"
+    probe.FOLDER = RUN / f"train_{arm}/final_checkpoint"
+    probe.MODEL_SHA = probe.sha(probe.FOLDER / "final_model.zip")
+    probe.OUTPUT = ROOT / f"results/b22_yawtrain44_numeric_{arm}_20261018_01"
+    probe.PLAN = ROOT / f"results/b22_yawtrain44_numeric_plan_{arm}_20261018_01.json"
+    probe.UNIT = unit
+    uid = os.getuid()
+    probe.SCOPE = f"/user.slice/user-{uid}.slice/user@{uid}.service/app.slice/{unit}"
+    probe.AUTHORED = (*probe.AUTHORED, "scripts/export_b22_actor44.py")
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--arm", choices=ARMS, required=True)
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument("--prepare", action="store_true")
+    group.add_argument("--execute", action="store_true")
+    args = parser.parse_args()
+    probe = load_probe()
+    bind(probe, args.arm)
+    sys.argv = [
+        sys.argv[0],
+        *(["--prepare"] if args.prepare else ["--execute"] if args.execute else []),
+    ]
+    return probe.main()
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
