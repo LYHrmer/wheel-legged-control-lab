@@ -15,8 +15,9 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-RUN = ROOT / "results/b22_yawtrain44_20261018_02"
-ARMS = ("ffcontrol", "ffyaw")
+DEFAULT_RUN = "b22_yawtrain44_20261018_02"
+RUN = ROOT / "results" / DEFAULT_RUN  # replaced by --run
+ARMS = ("ffcontrol", "ffyaw", "ffrough")
 
 
 def load_probe():
@@ -29,11 +30,12 @@ def load_probe():
 
 
 def bind(probe, arm: str) -> None:
-    unit = f"wheel-yawtrain44-numeric-{arm}-20261018-01.service"
+    run_tag = RUN.name
+    unit = f"wheel-{run_tag}-numeric-{arm}-20261018-01.service"
     probe.FOLDER = RUN / f"train_{arm}/final_checkpoint"
     probe.MODEL_SHA = probe.sha(probe.FOLDER / "final_model.zip")
-    probe.OUTPUT = ROOT / f"results/b22_yawtrain44_numeric_{arm}_20261018_01"
-    probe.PLAN = ROOT / f"results/b22_yawtrain44_numeric_plan_{arm}_20261018_01.json"
+    probe.OUTPUT = ROOT / f"results/{run_tag}_numeric_{arm}_20261018_01"
+    probe.PLAN = ROOT / f"results/{run_tag}_numeric_plan_{arm}_20261018_01.json"
     probe.UNIT = unit
     uid = os.getuid()
     probe.SCOPE = f"/user.slice/user-{uid}.slice/user@{uid}.service/app.slice/{unit}"
@@ -43,10 +45,14 @@ def bind(probe, arm: str) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--arm", choices=ARMS, required=True)
+    parser.add_argument("--run", help="results/ directory name of the completed training run")
     group = parser.add_mutually_exclusive_group()
     group.add_argument("--prepare", action="store_true")
     group.add_argument("--execute", action="store_true")
     args = parser.parse_args()
+    global RUN
+    if args.run:
+        RUN = ROOT / "results" / args.run
     probe = load_probe()
     bind(probe, args.arm)
     sys.argv = [
