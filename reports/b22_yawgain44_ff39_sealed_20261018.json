@@ -1,0 +1,101 @@
+{
+  "schema": "wheel44-yaw-feedforward-sealed-summary-v1",
+  "run": "results/b22_yawgain44_sealed_20261018_07",
+  "source_commit": "8efbae789b37b63dcedbbbf0bdb23af5cdc200fd",
+  "setting": "FF3.9 vs FF1.0 same job, same initial state",
+  "sealed_pooled_sse_candidate": 17.899826684434572,
+  "sealed_pooled_sse_baseline": 50.64532906002327,
+  "sealed_pooled_sse_ratio": 0.3534348974852203,
+  "sealed_torque_cost_ratio": 1.0702947839328016,
+  "sealed_all_passed": true,
+  "original_six_bitwise_matches": {
+    "ff3.9_equals_explore_05": true,
+    "ff1_equals_43_zero": true
+  },
+  "sealed_tasks": {
+    "final_yaw_left": {
+      "candidate": {
+        "sse_total": 3.387545473562767,
+        "sse_vx": 1.7192009808596282,
+        "sse_yaw": 1.6683444927031386,
+        "torque_cost_sum": 21.53750227728458,
+        "drive_completed_ticks": 680
+      },
+      "zero_baseline": {
+        "sse_total": 19.740991221256206,
+        "sse_vx": 1.4363593044409306,
+        "sse_yaw": 18.304631916815275,
+        "torque_cost_sum": 19.383458314650944,
+        "drive_completed_ticks": 680
+      },
+      "task_passed": true,
+      "stopping_passed": true,
+      "safety_passed": true,
+      "time_to_settle_s": 2.37,
+      "sse_ratio": 0.1715995633448847
+    },
+    "final_yaw_right": {
+      "candidate": {
+        "sse_total": 3.3494610554049986,
+        "sse_vx": 1.7200211652532555,
+        "sse_yaw": 1.6294398901517433,
+        "torque_cost_sum": 21.541836161727943,
+        "drive_completed_ticks": 680
+      },
+      "zero_baseline": {
+        "sse_total": 19.741517683300255,
+        "sse_vx": 1.436398383223725,
+        "sse_yaw": 18.30511930007653,
+        "torque_cost_sum": 19.382818548919783,
+        "drive_completed_ticks": 680
+      },
+      "task_passed": true,
+      "stopping_passed": true,
+      "safety_passed": true,
+      "time_to_settle_s": 2.37,
+      "sse_ratio": 0.16966583365768148
+    },
+    "final_bumps300": {
+      "candidate": {
+        "sse_total": 6.2216680013561865,
+        "sse_vx": 6.221635984570974,
+        "sse_yaw": 3.2016785212299044e-05,
+        "torque_cost_sum": 11.06910940434942,
+        "drive_completed_ticks": 495
+      },
+      "zero_baseline": {
+        "sse_total": 6.2216680013561865,
+        "sse_vx": 6.221635984570974,
+        "sse_yaw": 3.2016785212299044e-05,
+        "torque_cost_sum": 11.06910940434942,
+        "drive_completed_ticks": 495
+      },
+      "task_passed": true,
+      "stopping_passed": true,
+      "safety_passed": true,
+      "time_to_settle_s": 0.8,
+      "sse_ratio": 1.0
+    },
+    "final_bumps385": {
+      "candidate": {
+        "sse_total": 4.941152154110622,
+        "sse_vx": 4.94045506601508,
+        "sse_yaw": 0.0006970880955418606,
+        "torque_cost_sum": 11.521393483545662,
+        "drive_completed_ticks": 512
+      },
+      "zero_baseline": {
+        "sse_total": 4.941152154110622,
+        "sse_vx": 4.94045506601508,
+        "sse_yaw": 0.0006970880955418606,
+        "torque_cost_sum": 11.521393483545662,
+        "drive_completed_ticks": 512
+      },
+      "task_passed": true,
+      "stopping_passed": true,
+      "safety_passed": true,
+      "time_to_settle_s": 0.9500000000000001,
+      "sse_ratio": 1.0
+    }
+  }
+}
