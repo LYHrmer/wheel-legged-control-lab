@@ -24,7 +24,8 @@ ROOT = Path(__file__).resolve().parents[1]
 DRIVER = Path(__file__).resolve()
 RESULTS = ROOT / "results"
 MANIFEST = ROOT / "runtime/d1_b22/runtime_manifest_v27.json"
-NUMERIC = ROOT / "results/b22_symmetry43_numeric_20261018_03"
+DEFAULT_NUMERIC = "b22_symmetry43_numeric_20261018_03"
+NUMERIC = RESULTS / DEFAULT_NUMERIC  # replaced by --numeric
 MODEL_SHA = "44cbf9a4363ff42af78d8e54049e0dbade2bea74701e9a27073bcb9e656f3239"
 ACTORS = ("zero", "raw42", "mirror43")
 WALL_S = 2400
@@ -289,7 +290,11 @@ def execute(feedforwards: tuple[float, ...]) -> int:
                 env.pop(key, None)
             else:
                 env[key] = value
-        extra = ["--output", OUTPUT.name] + (["--cases", ",".join(CASES)] if CASES else [])
+        extra = ["--output", OUTPUT.name]
+        if CASES:
+            extra += ["--cases", ",".join(CASES)]
+        if NUMERIC.name != DEFAULT_NUMERIC:
+            extra += ["--numeric", NUMERIC.name]
         with (OUTPUT / f"worker_FF{feedforward:g}.log").open("x") as log:
             child = subprocess.Popen(
                 [
@@ -334,6 +339,18 @@ def execute(feedforwards: tuple[float, ...]) -> int:
     return int(any(codes.values()))
 
 
+def bind_numeric(directory: str) -> None:
+    """Use the NumPy export of another completed checkpoint (its report binds the model SHA)."""
+    global NUMERIC, MODEL_SHA
+    NUMERIC = RESULTS / directory
+    report = read(NUMERIC / "report.json")
+    if report["status"] != "COMPLETE" or report["error"] is not None:
+        raise RuntimeError("numeric export is not COMPLETE")
+    if report["max_absolute_error"] > 1e-6 or report["symmetric_max_absolute_error"] > 1e-6:
+        raise RuntimeError("numeric export exceeds the parity tolerance")
+    MODEL_SHA = report["base_checkpoint_sha256"]
+
+
 def main() -> int:
     global OUTPUT, CASES
     parser = argparse.ArgumentParser(description=__doc__)
@@ -347,7 +364,13 @@ def main() -> int:
     parser.add_argument(
         "--cases", help="comma list of preregistered case ids; default six originals"
     )
+    parser.add_argument(
+        "--numeric",
+        help="results/ directory of a COMPLETE NumPy export; default the 42 deficit8 export",
+    )
     args = parser.parse_args()
+    if args.numeric:
+        bind_numeric(args.numeric)
     OUTPUT = RESULTS / args.output
     if args.cases:
         CASES = tuple(args.cases.split(","))
