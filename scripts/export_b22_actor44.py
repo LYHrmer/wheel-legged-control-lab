@@ -17,7 +17,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_RUN = "b22_yawtrain44_20261018_02"
 RUN = ROOT / "results" / DEFAULT_RUN  # replaced by --run
-ARMS = ("ffcontrol", "ffyaw", "ffrough")
+ARMS = ("ffcontrol", "ffyaw", "ffrough", "ffsse")
 
 
 def load_probe():
