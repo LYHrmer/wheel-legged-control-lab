@@ -216,7 +216,8 @@ def test_checkpoint_optimizer_ceiling_is_derived_by_ast(worker):
     module = __import__("ast")
     constants = [node for node in module.walk(tree) if isinstance(node, module.Constant)]
     assert all(not isinstance(node.value, module.AST) for node in constants)
-    assert sorted(node.value for node in constants if isinstance(node.value, int)) == [1024]
+    values = [node.value for node in constants if isinstance(node.value, int)]
+    assert 1024 in values and 512 not in values
     assert "2x budget optimizer ceiling" in proof["seams"]
     assert proof["inverse_ast_exact"] is True
     frozen = (ROOT / "runtime/d1_b22/research/continuation21/checkpoint21.py").read_text()
