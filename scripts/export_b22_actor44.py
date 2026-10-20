@@ -29,13 +29,13 @@ def load_probe():
     return module
 
 
-def bind(probe, arm: str) -> None:
+def bind(probe, arm: str, revision: str = "20261018_01") -> None:
     run_tag = RUN.name
     unit = f"wheel-{run_tag}-numeric-{arm}-20261018-01.service"
     probe.FOLDER = RUN / f"train_{arm}/final_checkpoint"
     probe.MODEL_SHA = probe.sha(probe.FOLDER / "final_model.zip")
-    probe.OUTPUT = ROOT / f"results/{run_tag}_numeric_{arm}_20261018_01"
-    probe.PLAN = ROOT / f"results/{run_tag}_numeric_plan_{arm}_20261018_01.json"
+    probe.OUTPUT = ROOT / f"results/{run_tag}_numeric_{arm}_{revision}"
+    probe.PLAN = ROOT / f"results/{run_tag}_numeric_plan_{arm}_{revision}.json"
     probe.UNIT = unit
     uid = os.getuid()
     probe.SCOPE = f"/user.slice/user-{uid}.slice/user@{uid}.service/app.slice/{unit}"
@@ -46,6 +46,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--arm", choices=ARMS, required=True)
     parser.add_argument("--run", help="results/ directory name of the completed training run")
+    parser.add_argument("--revision", default="20261018_01", help="numeric output revision suffix")
     group = parser.add_mutually_exclusive_group()
     group.add_argument("--prepare", action="store_true")
     group.add_argument("--execute", action="store_true")
@@ -54,7 +55,7 @@ def main() -> int:
     if args.run:
         RUN = ROOT / "results" / args.run
     probe = load_probe()
-    bind(probe, args.arm)
+    bind(probe, args.arm, args.revision)
     sys.argv = [
         sys.argv[0],
         *(["--prepare"] if args.prepare else ["--execute"] if args.execute else []),
