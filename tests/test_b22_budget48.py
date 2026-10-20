@@ -103,7 +103,8 @@ def test_every_stage_session_passes_the_workers_numeric_gate(parent, worker, mon
 
 def test_worker_derivations_reach_the_training_path(worker):
     source = (ROOT / "scripts/worker_b22_budget48.py").read_text()
-    assert "spec['training']['controls_per_arm_per_stage']=session['controls']" in source
+    assert "spec['training']['controls_per_arm_per_stage']=controls" in source
+    assert "controls = training_controls48(session)" in source
     assert "train48.derive_learning(source)" in source
     assert "spec['training']['rollouts_per_arm_per_stage']" in source
     reader_source = (ROOT / "scripts/read_b22_budget48.py").read_text()
@@ -120,3 +121,19 @@ def test_reader_arm_table_matches_the_shared_definition():
             "controls": spec["controls"],
         }
     assert reader.CONTRACT == "C48_B22_budget_65536_v1"
+
+
+def test_bootstrap_example_resolves_to_the_arm_budget(worker):
+    example = {
+        "mode": "train",
+        "reward_arm": "ffyaw_b2_s31",
+        "controls": 0,
+        "alpha": 8,
+        "beta": 0,
+        "curriculum": "yaw_emphasis",
+    }
+    assert worker.training_controls48(example) == 65536
+    real = dict(example, controls=65536)
+    assert worker.training_controls48(real) == 65536
+    with pytest.raises(ValueError):
+        worker.training_controls48({"reward_arm": "unknown", "controls": 0})

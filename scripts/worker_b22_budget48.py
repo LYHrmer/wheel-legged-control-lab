@@ -566,9 +566,10 @@ def strict_module42(original):
 def runtime_modules42(env_type, session, quota):
     spec=read_json(SPEC_PATH);spec['training']['ppo_seed_by_stage']=[201001,session['ppo_seed']]
     if session['mode']=='train':
-        spec['training']['controls_per_arm_per_stage']=session['controls']
+        controls = training_controls48(session)
+        spec['training']['controls_per_arm_per_stage']=controls
         spec['training']['rollouts_per_arm_per_stage']=train48.ARMS[session['reward_arm']]['rollouts']
-        spec['training']['total_controls_max']=session['controls']
+        spec['training']['total_controls_max']=controls
     recipes,_=_exec_module42('recipes',{'_spec42':spec})
     train48.apply_curriculum(recipes,session.get('curriculum') or 'original')
     original=importlib.import_module('rl16_learning_11')
@@ -679,6 +680,13 @@ def evaluate42(session,runtime,guard,env,output,writer,counter):
     return {'floors':floors,'enabled_arms':['control','deficit8'],'cases':cases,
         'completed_controls':runtime.control_completed,'full_comparison_executed':len(cases)==18,
         'qualification_pending_independent_readback':True,'evaluation_reward_unchanged':True,'evaluation_gain':1}
+
+
+def training_controls48(session):
+    """The bootstrap example has no budget of its own; it must still declare the arm's real one."""
+    arm = session['reward_arm']
+    require(arm in train48.ARMS, 'C48 training example needs a registered arm')
+    return session['controls'] or train48.ARMS[arm]['controls']
 
 
 def seed_learning_module42(session):
