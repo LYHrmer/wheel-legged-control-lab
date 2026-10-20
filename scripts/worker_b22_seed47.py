@@ -677,7 +677,26 @@ def evaluate42(session,runtime,guard,env,output,writer,counter):
         'qualification_pending_independent_readback':True,'evaluation_reward_unchanged':True,'evaluation_gain':1}
 
 
+def seed_learning_module42(session):
+    """Register an in-memory copy of the frozen learning module with this run's stage seed.
+
+    ``learning21.load_warm_start20`` pins the PPO seed through ``STAGE_SEEDS``; the file on disk
+    stays untouched (its SHA is part of the frozen closure), only the loaded copy is updated.
+    """
+    import importlib.util
+    path = ROOT/SOURCES['learning'][0]
+    spec = importlib.util.spec_from_file_location('learning21', path)
+    module = importlib.util.module_from_spec(spec)
+    sys.modules['learning21'] = module
+    spec.loader.exec_module(module)
+    require(type(session.get('ppo_seed')) is int, 'C47 explicit ppo seed required')
+    module.STAGE_SEEDS = (module.STAGE_SEEDS[0], session['ppo_seed'])
+    return module
+
+
 def train42(session,runtime,guard,env,output,writer,counter):
+    learning = seed_learning_module42(session)
+    require(learning.STAGE_SEEDS[1] == session['ppo_seed'], 'C47 learning stage seed not applied')
     _,_,train,_=runtime_modules42(type(env),session,_quota42)
     return train.train(session,runtime,guard,env,output,writer,counter)
 

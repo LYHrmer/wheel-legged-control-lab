@@ -165,3 +165,25 @@ def test_parent_pairing_requires_equal_proofs_within_the_seed(tmp_path, monkeypa
     )
     with pytest.raises(ValueError):
         parent.verify_training_pair42()
+
+
+def test_learning_module_stage_seed_is_patched_in_memory(worker):
+    """The frozen learning21 pins STAGE_SEEDS; 47 must patch the loaded copy, not the file."""
+    registered_root = "/home/lyh/wheel-legged-control-lab"
+    entries = json.loads((ROOT / "runtime/d1_b22/runtime_manifest_v27.json").read_text())[
+        "runtime_environment"
+    ]["PYTHONPATH"].split(":")
+    rebased = [
+        str(ROOT) + p[len(registered_root) :] if p.startswith(registered_root) else p
+        for p in entries
+    ]
+    saved = list(sys.path)
+    sys.path[:0] = [p for p in rebased if p and Path(p).is_dir() and str(ROOT) in p]
+    try:
+        before = (ROOT / "runtime/d1_b22/research/continuation21/learning21.py").read_bytes()
+        module = worker.seed_learning_module42({"ppo_seed": 201021})
+    finally:
+        sys.path[:] = saved
+    assert module.STAGE_SEEDS == (201001, 201021)
+    assert sys.modules["learning21"] is module
+    assert (ROOT / "runtime/d1_b22/research/continuation21/learning21.py").read_bytes() == before

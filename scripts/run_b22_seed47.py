@@ -19,9 +19,9 @@ from types import SimpleNamespace
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = 'C47_B22_seed_replication_v1'
-OUTPUT = ROOT/'results/b22_seed47_20261018_01'
-RELEASE = ROOT/'results/b22_seed47_plan_20261018_01.json'
-ADMISSIONS = ROOT/'results/b22_seed47_admissions_20261018_01'
+OUTPUT = ROOT/'results/b22_seed47_20261018_02'
+RELEASE = ROOT/'results/b22_seed47_plan_20261018_02.json'
+ADMISSIONS = ROOT/'results/b22_seed47_admissions_20261018_02'
 RESOURCE_REVISION = 'owned_cgroup_v5'
 DRIVER = ROOT/'scripts/run_b22_seed47.py'
 WORKER = ROOT/'scripts/worker_b22_seed47.py'
@@ -51,8 +51,8 @@ COUNT_KEYS = ('controls', 'normal_native', 'compiler_native')
 RESOURCE_POLICY = {'memory_high_bytes': 2048 << 20, 'memory_max_bytes': 3072 << 20,
                    'memory_swap_max_bytes': 0, 'oom_policy': 'kill',
                    'memory_oom_group': 1,
-                   'unit': 'wheel-b22-seed47-owned01-20261018-01.service',
-                   'owned_scope': '/user.slice/user-1000.slice/user@1000.service/app.slice/wheel-b22-seed47-owned01-20261018-01.service',
+                   'unit': 'wheel-b22-seed47-owned02-20261018-01.service',
+                   'owned_scope': '/user.slice/user-1000.slice/user@1000.service/app.slice/wheel-b22-seed47-owned02-20261018-01.service',
                    'reserve_scope': 'host and ancestors outside the owned job cgroup',
                    'covers': 'parent, source hashing, bootstrap, workers, saved readers, comparison'}
 _resource_guard42 = None
