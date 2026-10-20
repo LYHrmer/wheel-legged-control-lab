@@ -13,7 +13,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from b22_yawtrain44 import ALPHA, FEEDFORWARD, YAW_EMPHASIS_SLOTS
+from b22_yawtrain44 import ALPHA, FEEDFORWARD, YAW_EMPHASIS_SLOTS, apply_curriculum
 
 CONTROLS = 65536
 ROLLOUTS = 64
