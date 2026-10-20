@@ -44,6 +44,11 @@ ARMS = {
 # (old, new, expected count) — every replacement must occur exactly this many times.
 LEARNING_REPLACEMENTS = (
     (
+        'require(type(max_steps) is int and max_steps == 512, "arm ceiling must be 512 steps")',
+        'require(type(max_steps) is int and max_steps == 1024, "arm ceiling must be 1024 steps")',
+        1,
+    ),
+    (
         'actual["num_timesteps"] != 32768 or actual["train_calls"] != 32',
         'actual["num_timesteps"] != 65536 or actual["train_calls"] != 64',
         1,
