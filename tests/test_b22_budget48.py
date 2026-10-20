@@ -42,8 +42,11 @@ def test_arm_definition():
 def test_learning_derivation_is_counted_and_complete():
     source = (ROOT / "runtime/d1_b22/research/continuation21/learning21.py").read_text()
     derived, proof = b.derive_learning(source)
-    assert derived != source and len(proof["replacements"]) == 10
+    assert derived != source and len(proof["replacements"]) == 9
     assert "BudgetSpec(65536, 1024, 256, 4)" in derived
+    assert (
+        'metadata["training_receipt"]["actual"]["num_timesteps"] == 32768' in derived
+    )  # parent history
     assert "BudgetSpec(32768" not in derived
     assert 'actual["num_timesteps"] != 32768' not in derived
     assert 'actual["train_calls"] != 32' not in derived

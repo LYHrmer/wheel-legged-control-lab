@@ -71,11 +71,6 @@ LEARNING_REPLACEMENTS = (
     ),
     ("BudgetSpec(32768, 1024, 256, 4).as_dict()", "BudgetSpec(65536, 1024, 256, 4).as_dict()", 1),
     (
-        'and metadata["training_receipt"]["actual"]["num_timesteps"] == 32768,',
-        'and metadata["training_receipt"]["actual"]["num_timesteps"] == 65536,',
-        1,
-    ),
-    (
         "require(len(clip_audit.train_records) == 32",
         "require(len(clip_audit.train_records) == 64",
         1,

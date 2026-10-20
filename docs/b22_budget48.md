@@ -55,3 +55,5 @@
 - **`_04`**：修订后的独立登记与输出。
 - **`_04`（失败，保留）**：bootstrap 通过；训练阶段在安装控制器时退出——共享模块又漏导出 `keep_record_consistent`（已知部分计数：controls 0 / normal-native 0 / compiler-native 2，均为环境构造而非训练）。修复后新增**静态 API 检查**：解析 parent/worker/reader 中所有 `train48.<attr>` 引用，逐一断言共享模块存在；该检查随后又抓出 `derived_verifier_source` 同样缺失。
 - **`_05`**：API 完整后重新登记。
+- **`_05`（失败，保留）**：训练阶段在 warm-start 加载时退出——派生把**父代历史回执**的 `num_timesteps == 32768` 也改成了 65536，而该字段记录的是 B22 自身当年用 32768 训练的结果。已从派生中移除该条（保留 32768），并加断言防止再次误改；训练审计的 64 条仍保留（那才是本轮）。已知部分计数：controls 0 / normal-native 0 / compiler-native 2。
+- **`_06`**：修正后的独立登记。
