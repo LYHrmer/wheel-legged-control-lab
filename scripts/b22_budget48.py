@@ -59,6 +59,11 @@ LEARNING_REPLACEMENTS = (
         1,
     ),
     (
+        "or len(audit.updates) != 32 or len(clip.train_records) != 32)",
+        "or len(audit.updates) != 64 or len(clip.train_records) != 64)",
+        1,
+    ),
+    (
         'violations.append("32 rollout/train-call and 32768 control closure differs")',
         'violations.append("64 rollout/train-call and 65536 control closure differs")',
         1,

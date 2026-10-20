@@ -65,3 +65,5 @@
 - **`_08`（失败，保留，已消耗完整训练量）**：训练跑满 65536 拍后，在 `predict_values` 调用处触发模型 API 上限——该上限按 2×rollout 设定，而实际是"每 rollout + 每回合截断"。已知计数：controls 65536 / normal-native 327680 / compiler-native 2，无合格最终模型。修复：上限改为带 64 次余量的安全上界（精确计数仍由独立 reader 校验）。
 - 同时补上读回端的两处旧计数（`"train":32`、`range(32)`），并新增"派生后不得残留旧计数"的强测试。
 - **`_09`**：修正后的独立登记。
+- **`_09`（失败，保留，已消耗完整训练量）**：训练跑满 65536 拍，但训练回执的资格审计拒绝了最终 checkpoint——`len(audit.updates) != 32 or len(clip.train_records) != 32` 这半行没有派生（同一条 `if` 的前两行已改）。实际计数：num_timesteps/transitions 65536、train_calls/rollouts 64、epochs 238、optimizer_steps 914，均为 2× 预算下的合理值。修复：补上该行，并新增"派生后不得残留独立 32"的正则测试（只允许文档字符串与父代历史行）。
+- **`_10`**：修正后的独立登记。

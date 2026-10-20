@@ -42,7 +42,7 @@ def test_arm_definition():
 def test_learning_derivation_is_counted_and_complete():
     source = (ROOT / "runtime/d1_b22/research/continuation21/learning21.py").read_text()
     derived, proof = b.derive_learning(source)
-    assert derived != source and len(proof["replacements"]) == 10
+    assert derived != source and len(proof["replacements"]) == 11
     assert "BudgetSpec(65536, 1024, 256, 4)" in derived
     assert (
         'metadata["training_receipt"]["actual"]["num_timesteps"] == 32768' in derived
@@ -192,3 +192,20 @@ def test_derived_sources_leave_no_stale_run_counters():
     derived_learning, _ = b.derive_learning(learning)
     stale = [line.strip() for line in derived_learning.splitlines() if "32768" in line]
     assert stale == ['and metadata["training_receipt"]["actual"]["num_timesteps"] == 32768,'], stale
+
+
+def test_derived_learning_leaves_no_standalone_run_counter():
+    import re
+
+    source = (ROOT / "runtime/d1_b22/research/continuation21/learning21.py").read_text()
+    derived, _ = b.derive_learning(source)
+    bad = [
+        line.strip()
+        for line in derived.splitlines()
+        if re.search(r"(?<![\d.])32(?![\d.])", line)
+        and 'metadata["training_receipt"]["actual"]["num_timesteps"]' not in line
+        and '"""' not in line
+        and not line.strip().startswith("#")
+    ]
+    assert not bad, bad
+    assert "BudgetSpec(32768" not in derived and "!= 32768" not in derived
