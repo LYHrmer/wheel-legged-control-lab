@@ -106,10 +106,10 @@ def test_every_stage_session_passes_the_workers_numeric_gate(parent, worker, mon
 
 def test_worker_derivations_reach_the_training_path(worker):
     source = (ROOT / "scripts/worker_b22_budget48.py").read_text()
-    assert "spec['training']['controls_per_arm_per_stage']=controls" in source
+    assert 'controls_per_arm_per_stage"] = controls' in source
     assert "controls = training_controls48(session)" in source
     assert "train48.derive_learning(source)" in source
-    assert "spec['training']['rollouts_per_arm_per_stage']" in source
+    assert 'rollouts_per_arm_per_stage"] =' in source
     reader_source = (ROOT / "scripts/read_b22_budget48.py").read_text()
     assert "train48.derive_reader(source)" in reader_source
 
@@ -166,3 +166,16 @@ def test_shared_module_exposes_every_name_the_pipelines_use():
     assert not missing, missing
     for name in ("ALPHA", "ARMS", "CONTROLS", "CURRICULUM", "ROLLOUTS", "YAW_EMPHASIS_SLOTS"):
         assert hasattr(b, name), name
+
+
+def test_model_api_limits_scale_with_the_arm_budget(worker):
+    for arm in b.ARMS:
+        session = worker.session_defaults42("train", arm)
+        limits = session["model_limits"]
+        assert limits["train"] == 64
+        assert limits["forward"] == 65536
+        assert limits["predict_values"] == 128
+        assert limits["evaluate_actions"] == limits["backward"] == 1024
+        assert limits["predict"] == 3 and limits["load"] == 2
+    boot = worker.session_defaults42("bootstrap", None)
+    assert set(boot["model_limits"].values()) == {0}
