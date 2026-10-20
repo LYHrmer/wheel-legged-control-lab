@@ -140,15 +140,26 @@ def test_bootstrap_example_resolves_to_the_arm_budget(worker):
 
 
 def test_shared_module_exposes_every_name_the_pipelines_use():
-    for name in (
-        "ALPHA",
-        "ARMS",
-        "CONTROLS",
-        "CURRICULUM",
-        "ROLLOUTS",
-        "YAW_EMPHASIS_SLOTS",
+    """Every ``train48.<attr>`` the parent/worker/reader reference must exist on the shared module."""
+    import ast
+
+    used = set()
+    for name in ("run_b22_budget48.py", "worker_b22_budget48.py", "read_b22_budget48.py"):
+        tree = ast.parse((ROOT / "scripts" / name).read_text())
+        for node in ast.walk(tree):
+            if (
+                isinstance(node, ast.Attribute)
+                and isinstance(node.value, ast.Name)
+                and node.value.id == "train48"
+            ):
+                used.add(node.attr)
+    assert {
         "apply_curriculum",
         "derive_learning",
         "derive_reader",
-    ):
+        "keep_record_consistent",
+    } <= used
+    missing = sorted(name for name in used if not hasattr(b, name))
+    assert not missing, missing
+    for name in ("ALPHA", "ARMS", "CONTROLS", "CURRICULUM", "ROLLOUTS", "YAW_EMPHASIS_SLOTS"):
         assert hasattr(b, name), name

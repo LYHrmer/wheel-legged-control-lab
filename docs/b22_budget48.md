@@ -53,3 +53,5 @@
 - **`_03`**：修订后的独立登记与输出。
 - **`_03`（失败，保留）**：`_02` 的修复提交里，共享模块仍未导入 `apply_curriculum`（ruff 格式化后精确替换未命中），bootstrap 再次在模型/环境之前退出。随后补导入并由"API 完整性"测试覆盖；`_03` 的登记清单绑定的是坏提交，不执行。
 - **`_04`**：修订后的独立登记与输出。
+- **`_04`（失败，保留）**：bootstrap 通过；训练阶段在安装控制器时退出——共享模块又漏导出 `keep_record_consistent`（已知部分计数：controls 0 / normal-native 0 / compiler-native 2，均为环境构造而非训练）。修复后新增**静态 API 检查**：解析 parent/worker/reader 中所有 `train48.<attr>` 引用，逐一断言共享模块存在；该检查随后又抓出 `derived_verifier_source` 同样缺失。
+- **`_05`**：API 完整后重新登记。

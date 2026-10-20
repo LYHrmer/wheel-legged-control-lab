@@ -13,7 +13,14 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from b22_yawtrain44 import ALPHA, FEEDFORWARD, YAW_EMPHASIS_SLOTS, apply_curriculum
+from b22_yawtrain44 import (
+    ALPHA,
+    FEEDFORWARD,
+    YAW_EMPHASIS_SLOTS,
+    apply_curriculum,
+    derived_verifier_source,
+    keep_record_consistent,
+)
 
 CONTROLS = 65536
 ROLLOUTS = 64
@@ -167,4 +174,6 @@ __all__ = (
     "apply_curriculum",
     "derive_learning",
     "derive_reader",
+    "derived_verifier_source",
+    "keep_record_consistent",
 )
