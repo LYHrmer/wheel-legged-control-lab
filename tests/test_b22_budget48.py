@@ -209,3 +209,17 @@ def test_derived_learning_leaves_no_standalone_run_counter():
     ]
     assert not bad, bad
     assert "BudgetSpec(32768" not in derived and "!= 32768" not in derived
+
+
+def test_checkpoint_optimizer_ceiling_is_derived_by_ast(worker):
+    tree, proof = worker.adapt_module42("checkpoint", optimizer_ceiling=1024)
+    constants = sorted(
+        node.value
+        for node in __import__("ast").walk(tree)
+        if isinstance(node, __import__("ast").Constant) and node.value in (512, 1024)
+    )
+    assert constants == [1024]
+    assert "2x budget optimizer ceiling" in proof["seams"]
+    assert proof["inverse_ast_exact"] is True
+    frozen = (ROOT / "runtime/d1_b22/research/continuation21/checkpoint21.py").read_text()
+    assert 'optimizer_steps"] > 512' in frozen  # the file on disk is untouched

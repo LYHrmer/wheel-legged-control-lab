@@ -663,7 +663,7 @@ def _dump42(tree):
     return ast.dump(tree, include_attributes=False)
 
 
-def adapt_module42(kind):
+def adapt_module42(kind, *, optimizer_ceiling=None):
     """Source-only AST derivation; no original module imports or execution."""
     name, digest = SOURCES[kind]
     raw = (ROOT / name).read_bytes()
@@ -769,6 +769,10 @@ def adapt_module42(kind):
                     ast.Constant("d1-b22-tracking42-heldout-record-v1"),
                     "C42 raw record identity",
                 )
+    if optimizer_ceiling is not None:
+        nodes = [n for n in ast.walk(tree) if isinstance(n, ast.Constant) and n.value == 512]
+        require(len(nodes) == 1, "C48 checkpoint optimizer ceiling seam changed")
+        put(nodes[0], "value", None, ast.Constant(optimizer_ceiling), "2x budget optimizer ceiling")
     result = copy.deepcopy(tree)
     for parent, field, index, old, _ in reversed(edits):
         if index is None:
@@ -785,8 +789,8 @@ def adapt_module42(kind):
     }
 
 
-def _exec_module42(kind, namespace=None):
-    tree, proof = adapt_module42(kind)
+def _exec_module42(kind, namespace=None, *, optimizer_ceiling=None):
+    tree, proof = adapt_module42(kind, optimizer_ceiling=optimizer_ceiling)
     module = ModuleType("b22_" + kind + "42")
     module.__file__ = str(WORKER)
     module.__dict__.update(namespace or {})
@@ -846,7 +850,9 @@ def runtime_modules42(env_type, session, quota):
     curriculum.WORLD_UPRIGHT_REWARD_SCHEMA = REWARD_SCHEMA
     _exec_module42("support")
     _exec_module42("metadata")
-    checkpoint, _ = _exec_module42("checkpoint")
+    checkpoint, _ = _exec_module42(
+        "checkpoint", optimizer_ceiling=1024 if session["mode"] == "train" else None
+    )
     final_save = checkpoint.save_final_and_verify
 
     def save_final(*args, **kwargs):
@@ -1620,8 +1626,8 @@ def bootstrap42(session, output, quota):
         if servo is not None:
             try:
                 servo.close()
-            except BaseException as error:
-                cleanup.append(str(error))  # noqa: BLE001 -- cleanup must invalidate success
+            except BaseException as error:  # noqa: BLE001 -- cleanup must invalidate success
+                cleanup.append(str(error))
             globals().pop("_servo_counter42", None)
         for number, handler in previous.items():
             signal.signal(number, handler)
