@@ -164,6 +164,7 @@ __all__ = (
     "ROLLOUTS",
     "SEEDS",
     "YAW_EMPHASIS_SLOTS",
+    "apply_curriculum",
     "derive_learning",
     "derive_reader",
 )

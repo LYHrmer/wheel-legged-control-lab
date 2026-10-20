@@ -137,3 +137,18 @@ def test_bootstrap_example_resolves_to_the_arm_budget(worker):
     assert worker.training_controls48(real) == 65536
     with pytest.raises(ValueError):
         worker.training_controls48({"reward_arm": "unknown", "controls": 0})
+
+
+def test_shared_module_exposes_every_name_the_pipelines_use():
+    for name in (
+        "ALPHA",
+        "ARMS",
+        "CONTROLS",
+        "CURRICULUM",
+        "ROLLOUTS",
+        "YAW_EMPHASIS_SLOTS",
+        "apply_curriculum",
+        "derive_learning",
+        "derive_reader",
+    ):
+        assert hasattr(b, name), name
