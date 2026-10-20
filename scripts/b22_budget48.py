@@ -88,6 +88,8 @@ LEARNING_REPLACEMENTS = (
 )
 
 READER_REPLACEMENTS = (
+    ('"train":32,"forward":N', '"train":64,"forward":N', 1),
+    ("for block_index in range(32):", "for block_index in range(64):", 1),
     ("N = 32768", "N = 65536", 1),
     (
         'and len(trains) == len(learned["updates"]) == 32',

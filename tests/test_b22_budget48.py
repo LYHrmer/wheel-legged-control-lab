@@ -62,7 +62,8 @@ def test_learning_derivation_is_counted_and_complete():
 def test_reader_derivation_is_counted_and_complete():
     source = (ROOT / "runtime/d1_b22/research/continuation22/read_training22.py").read_text()
     derived, proof = b.derive_reader(source)
-    assert derived != source and len(proof["replacements"]) == 9
+    assert derived != source and len(proof["replacements"]) == 11
+    assert '"train":64,"forward":N' in derived
     assert "N = 65536" in derived and "N = 32768" not in derived
     assert '== actual["transitions"] == 65536' in derived
     assert '== actual["train_calls"] == 64' in derived
@@ -173,9 +174,21 @@ def test_model_api_limits_scale_with_the_arm_budget(worker):
         session = worker.session_defaults42("train", arm)
         limits = session["model_limits"]
         assert limits["train"] == 64
-        assert limits["forward"] == 65536
-        assert limits["predict_values"] == 128
-        assert limits["evaluate_actions"] == limits["backward"] == 1024
+        # caps are safety upper bounds; exact counts are verified by the independent reader
+        assert limits["forward"] == 65536 + 64
+        assert limits["predict_values"] == 64 + 66 + 64
+        assert limits["evaluate_actions"] == limits["backward"] == 1024 + 64
         assert limits["predict"] == 3 and limits["load"] == 2
     boot = worker.session_defaults42("bootstrap", None)
     assert set(boot["model_limits"].values()) == {0}
+
+
+def test_derived_sources_leave_no_stale_run_counters():
+    reader = (ROOT / "runtime/d1_b22/research/continuation22/read_training22.py").read_text()
+    derived_reader, _ = b.derive_reader(reader)
+    for pattern in ("== 32", "32+truncated", "range(32)", '"train":32', "<= 512", "32768"):
+        assert pattern not in derived_reader, pattern
+    learning = (ROOT / "runtime/d1_b22/research/continuation21/learning21.py").read_text()
+    derived_learning, _ = b.derive_learning(learning)
+    stale = [line.strip() for line in derived_learning.splitlines() if "32768" in line]
+    assert stale == ['and metadata["training_receipt"]["actual"]["num_timesteps"] == 32768,'], stale

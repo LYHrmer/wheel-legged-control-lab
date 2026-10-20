@@ -62,3 +62,6 @@
 - **`_07`（失败，保留，已消耗真实训练量）**：训练完整跑了 64 个 rollout 后，在最后一个 rollout 的 `forward` 调用处触发模型 API 上限——worker 的上限表仍按 32×32768 写死。已知计数：controls 32768 / normal-native 163840 / compiler-native 2（约为目标预算的一半），无合格最终模型，不重试、不续用。
 - 修复：模型上限按臂预算派生（train=64、forward=65536、predict_values=128、evaluate_actions=backward=1024），并新增对应测试。
 - **`_08`**：修正后的独立登记。
+- **`_08`（失败，保留，已消耗完整训练量）**：训练跑满 65536 拍后，在 `predict_values` 调用处触发模型 API 上限——该上限按 2×rollout 设定，而实际是"每 rollout + 每回合截断"。已知计数：controls 65536 / normal-native 327680 / compiler-native 2，无合格最终模型。修复：上限改为带 64 次余量的安全上界（精确计数仍由独立 reader 校验）。
+- 同时补上读回端的两处旧计数（`"train":32`、`range(32)`），并新增"派生后不得残留旧计数"的强测试。
+- **`_09`**：修正后的独立登记。

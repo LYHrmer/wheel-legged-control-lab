@@ -200,6 +200,8 @@ def session_defaults42(mode, arm):
     metadata = read_json(ROOT / "runtime/d1_b22/checkpoint/final_metadata.json")
     controls = train48.ARMS[arm]["controls"] if mode == "train" else 30600 if mode == "eval" else 0
     rollouts = train48.ARMS[arm]["rollouts"] if mode == "train" else 0
+    episodes = controls // 1000 + 1
+    slack = 64
     limits = (
         {
             "load": 2,
@@ -207,11 +209,11 @@ def session_defaults42(mode, arm):
             "save": 2,
             "learn": 1,
             "train": rollouts,
-            "forward": controls,
+            "forward": controls + slack,
             "predict": 3,
-            "predict_values": 2 * rollouts,
-            "evaluate_actions": 16 * rollouts,
-            "backward": 16 * rollouts,
+            "predict_values": rollouts + episodes + slack,
+            "evaluate_actions": 16 * rollouts + slack,
+            "backward": 16 * rollouts + slack,
         }
         if mode == "train"
         else {
