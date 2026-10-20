@@ -772,7 +772,7 @@ def adapt_module42(kind, *, optimizer_ceiling=None):
     if optimizer_ceiling is not None:
         nodes = [n for n in ast.walk(tree) if isinstance(n, ast.Constant) and n.value == 512]
         require(len(nodes) == 1, "C48 checkpoint optimizer ceiling seam changed")
-        put(nodes[0], "value", None, ast.Constant(optimizer_ceiling), "2x budget optimizer ceiling")
+        put(nodes[0], "value", None, optimizer_ceiling, "2x budget optimizer ceiling")
     result = copy.deepcopy(tree)
     for parent, field, index, old, _ in reversed(edits):
         if index is None:
