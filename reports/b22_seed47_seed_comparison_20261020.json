@@ -1,0 +1,442 @@
+{
+  "schema": "wheel47-seed-replication-summary-v1",
+  "contract": "C47_B22_seed_replication_v1",
+  "source_commit": "7d1d0b1",
+  "training_run": "results/b22_seed47_20261018_02",
+  "training": {
+    "status": "COMPLETE",
+    "actual_counts": {
+      "controls": 65536,
+      "normal_native": 327680,
+      "compiler_native": 4
+    },
+    "paired_seed": 201021,
+    "pairing_passed": true,
+    "elapsed_s": 1899.165
+  },
+  "arms": {
+    "ffyaw_s21": {
+      "pooled_sse": {
+        "zero": 41.40748689464712,
+        "raw42": 35.69614997296617,
+        "mirror43": 35.551815944067734
+      },
+      "pooled_ratio_to_zero": {
+        "zero": 1.0,
+        "raw42": 0.8620699455580997,
+        "mirror43": 0.8585842467214215
+      },
+      "torque_cost_ratio_to_zero": {
+        "zero": 1.0,
+        "raw42": 1.048617068417356,
+        "mirror43": 1.0275185835046055
+      },
+      "tasks": {
+        "flat_0p6": {
+          "zero": {
+            "sse_total": 1.1306151519310728,
+            "sse_yaw": 1.8347966108605205e-07,
+            "torque_cost_sum": 11.222981489660755,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "raw42": {
+            "sse_total": 0.9259103486875713,
+            "sse_yaw": 0.026166397672956483,
+            "torque_cost_sum": 11.573121530276461,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "mirror43": {
+            "sse_total": 0.8996721274182221,
+            "sse_yaw": 2.428527760873397e-07,
+            "torque_cost_sum": 11.52077820032588,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          }
+        },
+        "flat_1p6": {
+          "zero": {
+            "sse_total": 1.5612346988066017,
+            "sse_yaw": 1.0850623579570828e-06,
+            "torque_cost_sum": 19.455344778088566,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "raw42": {
+            "sse_total": 1.523082139242044,
+            "sse_yaw": 0.03746130465005878,
+            "torque_cost_sum": 20.654074091315294,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "mirror43": {
+            "sse_total": 1.5371637431407972,
+            "sse_yaw": 1.1013974841128117e-05,
+            "torque_cost_sum": 20.33597397463918,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          }
+        },
+        "flat_1p2_yaw": {
+          "zero": {
+            "sse_total": 3.648775647404543,
+            "sse_yaw": 1.8717707634323648,
+            "torque_cost_sum": 21.48622194255335,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "raw42": {
+            "sse_total": 4.241192450082324,
+            "sse_yaw": 2.6386521771835114,
+            "torque_cost_sum": 21.569131277848065,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "mirror43": {
+            "sse_total": 3.5298021966622573,
+            "sse_yaw": 1.9863258229438996,
+            "torque_cost_sum": 21.886021568077627,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          }
+        },
+        "bumps_0p4": {
+          "zero": {
+            "sse_total": 4.674006387762613,
+            "sse_yaw": 0.00011132028230562484,
+            "torque_cost_sum": 10.862614526359485,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "raw42": {
+            "sse_total": 4.871937751038177,
+            "sse_yaw": 0.6467969076254659,
+            "torque_cost_sum": 11.156320151059214,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "mirror43": {
+            "sse_total": 4.405524618102409,
+            "sse_yaw": 3.624588737112681e-05,
+            "torque_cost_sum": 11.079082175657387,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          }
+        },
+        "rough_0p35": {
+          "zero": {
+            "sse_total": 19.75143960941407,
+            "sse_yaw": 6.708511572327252,
+            "torque_cost_sum": 12.577079972159495,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "raw42": {
+            "sse_total": 17.275298512864964,
+            "sse_yaw": 6.3129463624834505,
+            "torque_cost_sum": 12.682861951045531,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "mirror43": {
+            "sse_total": 18.809034636943277,
+            "sse_yaw": 6.290185428182506,
+            "torque_cost_sum": 12.794652871187425,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          }
+        },
+        "ramp_0p45_complete": {
+          "zero": {
+            "sse_total": 10.641415399328219,
+            "sse_yaw": 0.002927994229701507,
+            "torque_cost_sum": 29.30674925297257,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "raw42": {
+            "sse_total": 6.858728771051088,
+            "sse_yaw": 0.5514214803077975,
+            "torque_cost_sum": 32.37594783418888,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "mirror43": {
+            "sse_total": 6.370618621800767,
+            "sse_yaw": 0.003112307022190493,
+            "torque_cost_sum": 30.181485064758338,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          }
+        }
+      },
+      "contribution": {
+        "raw42": {
+          "ratio": 0.8620699455580997,
+          "pairs": 4,
+          "cost_ratio": 1.048617068417356,
+          "passed": false
+        },
+        "mirror43": {
+          "ratio": 0.8585842467214215,
+          "pairs": 6,
+          "cost_ratio": 1.027518583504605,
+          "passed": false
+        }
+      }
+    },
+    "ffsse_s21": {
+      "pooled_sse": {
+        "zero": 41.40748689464712,
+        "raw42": 38.20698110481371,
+        "mirror43": 36.79173249946584
+      },
+      "pooled_ratio_to_zero": {
+        "zero": 1.0,
+        "raw42": 0.9227070747380433,
+        "mirror43": 0.8885285067667804
+      },
+      "torque_cost_ratio_to_zero": {
+        "zero": 1.0,
+        "raw42": 1.0961396560331067,
+        "mirror43": 1.0716833366245286
+      },
+      "tasks": {
+        "flat_0p6": {
+          "zero": {
+            "sse_total": 1.1306151519310728,
+            "sse_yaw": 1.8347966108605205e-07,
+            "torque_cost_sum": 11.222981489660755,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "raw42": {
+            "sse_total": 0.7517348878549733,
+            "sse_yaw": 0.011840351507079305,
+            "torque_cost_sum": 11.989358641438029,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "mirror43": {
+            "sse_total": 0.7632444485490004,
+            "sse_yaw": 2.7025346871241073e-07,
+            "torque_cost_sum": 11.86783459215107,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          }
+        },
+        "flat_1p6": {
+          "zero": {
+            "sse_total": 1.5612346988066017,
+            "sse_yaw": 1.0850623579570828e-06,
+            "torque_cost_sum": 19.455344778088566,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "raw42": {
+            "sse_total": 1.5219150797789482,
+            "sse_yaw": 0.014409236385208296,
+            "torque_cost_sum": 23.34932308598174,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "mirror43": {
+            "sse_total": 1.5479255095721949,
+            "sse_yaw": 5.188727746067109e-06,
+            "torque_cost_sum": 22.356547633506697,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          }
+        },
+        "flat_1p2_yaw": {
+          "zero": {
+            "sse_total": 3.648775647404543,
+            "sse_yaw": 1.8717707634323648,
+            "torque_cost_sum": 21.48622194255335,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "raw42": {
+            "sse_total": 4.5608070390177495,
+            "sse_yaw": 3.0657378973496017,
+            "torque_cost_sum": 22.352191484710623,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "mirror43": {
+            "sse_total": 3.779883473523687,
+            "sse_yaw": 2.3355257942368044,
+            "torque_cost_sum": 22.4720577072105,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          }
+        },
+        "bumps_0p4": {
+          "zero": {
+            "sse_total": 4.674006387762613,
+            "sse_yaw": 0.00011132028230562484,
+            "torque_cost_sum": 10.862614526359485,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "raw42": {
+            "sse_total": 4.64030179931826,
+            "sse_yaw": 0.5119376808814119,
+            "torque_cost_sum": 11.283907496741403,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "mirror43": {
+            "sse_total": 4.416394614335876,
+            "sse_yaw": 3.6539070974229976e-05,
+            "torque_cost_sum": 11.230228238297151,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          }
+        },
+        "rough_0p35": {
+          "zero": {
+            "sse_total": 19.75143960941407,
+            "sse_yaw": 6.708511572327252,
+            "torque_cost_sum": 12.577079972159495,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "raw42": {
+            "sse_total": 20.369222994617616,
+            "sse_yaw": 6.975167013995625,
+            "torque_cost_sum": 12.877220949359009,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "mirror43": {
+            "sse_total": 20.256810257838264,
+            "sse_yaw": 6.97371620819033,
+            "torque_cost_sum": 12.891088148732173,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          }
+        },
+        "ramp_0p45_complete": {
+          "zero": {
+            "sse_total": 10.641415399328219,
+            "sse_yaw": 0.002927994229701507,
+            "torque_cost_sum": 29.30674925297257,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "raw42": {
+            "sse_total": 6.362999304226159,
+            "sse_yaw": 0.33724859690643355,
+            "torque_cost_sum": 33.14509698486234,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "mirror43": {
+            "sse_total": 6.027474195646814,
+            "sse_yaw": 0.0017517215251770333,
+            "torque_cost_sum": 31.61360559430717,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          }
+        }
+      },
+      "contribution": {
+        "raw42": {
+          "ratio": 0.9227070747380433,
+          "pairs": 4,
+          "cost_ratio": 1.0961396560331058,
+          "passed": false
+        },
+        "mirror43": {
+          "ratio": 0.8885285067667804,
+          "pairs": 4,
+          "cost_ratio": 1.0716833366245284,
+          "passed": false
+        }
+      }
+    }
+  },
+  "seed_table": {
+    "beta0": {
+      "201011": {
+        "raw": 0.9024309351093708,
+        "mirror": 0.9323957764017102,
+        "cost": 1.0459
+      },
+      "201021": {
+        "raw": 0.8620699455580997,
+        "mirror": 0.8585842467214215,
+        "cost": 1.0275185835046055
+      }
+    },
+    "beta8": {
+      "201011": {
+        "raw": 0.9035221444979914,
+        "mirror": 0.8834051678135868,
+        "cost": 1.0255
+      },
+      "201021": {
+        "raw": 0.9227070747380433,
+        "mirror": 0.8885285067667804,
+        "cost": 1.0716833366245286
+      }
+    }
+  },
+  "spread": {
+    "beta0": {
+      "mirror_spread": 0.0738115296802887,
+      "raw_spread": 0.0403609895512711,
+      "mirror_mean": 0.8954900115615658,
+      "raw_mean": 0.8822504403337352
+    },
+    "beta8": {
+      "mirror_spread": 0.005123338953193612,
+      "raw_spread": 0.019184930240051856,
+      "mirror_mean": 0.8859668372901837,
+      "raw_mean": 0.9131146096180174
+    }
+  },
+  "separation_rule": {
+    "mirror": "max(beta8)=0.8885 < min(beta0)=0.8586 ? False",
+    "raw": "max(beta8)=0.9227 < min(beta0)=0.8621 ? False"
+  },
+  "verdict": "shape effect not established; within-arm seed spread dominates the between-arm difference"
+}
