@@ -34,6 +34,7 @@ RECEIPT_RESERVE = 1 << 20
 EXTERNAL_FILE_LIMIT = 16 << 20
 _quota42 = None
 _ff44 = None
+_rollouts48 = 32
 _reward_base_by_type42 = {}
 SOURCES = {
     "worker": (
@@ -769,6 +770,21 @@ def adapt_module42(kind, *, optimizer_ceiling=None):
                     ast.Constant("d1-b22-tracking42-heldout-record-v1"),
                     "C42 raw record identity",
                 )
+    if kind == "worker" and _rollouts48 != 32:
+        ledgers = [
+            n
+            for n in ast.walk(tree)
+            if isinstance(n, ast.Dict)
+            and any(isinstance(k, ast.Constant) and k.value == "train" for k in n.keys)
+            and any(isinstance(v, ast.Constant) and v.value == 32 for v in n.values)
+        ]
+        require(len(ledgers) == 1, "C48 worker train ledger seam changed")
+        index = next(
+            i
+            for i, v in enumerate(ledgers[0].values)
+            if isinstance(v, ast.Constant) and v.value == 32
+        )
+        put(ledgers[0], "values", index, ast.Constant(_rollouts48), "2x budget train-call ledger")
     if optimizer_ceiling is not None:
         nodes = [n for n in ast.walk(tree) if isinstance(n, ast.Constant) and n.value == 512]
         require(len(nodes) == 1, "C48 checkpoint optimizer ceiling seam changed")
@@ -1667,6 +1683,9 @@ def main(argv=None):
     session = parent.validate_worker_launch42(args.session, args.output)
     validate_numeric_session42(session)
     globals()["_ff44"] = session.get("yaw_feedforward")
+    globals()["_rollouts48"] = (
+        train48.ARMS[session["reward_arm"]]["rollouts"] if session["mode"] == "train" else 0
+    )
     require(args.bootstrap is (session["mode"] == "bootstrap"), "C42 bootstrap flag/stage mismatch")
     quota = StageQuota42(
         args.output,

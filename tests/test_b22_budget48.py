@@ -222,3 +222,30 @@ def test_checkpoint_optimizer_ceiling_is_derived_by_ast(worker):
     assert proof["inverse_ast_exact"] is True
     frozen = (ROOT / "runtime/d1_b22/research/continuation21/checkpoint21.py").read_text()
     assert 'optimizer_steps"] > 512' in frozen  # the file on disk is untouched
+
+
+def test_worker_train_ledger_follows_the_rollout_count(worker):
+    import ast
+
+    worker._rollouts48 = 64
+    try:
+        tree, proof = worker.adapt_module42("worker")
+    finally:
+        worker._rollouts48 = 32
+    dicts = [
+        n
+        for n in ast.walk(tree)
+        if isinstance(n, ast.Dict)
+        and any(isinstance(k, ast.Constant) and k.value == "train" for k in n.keys)
+    ]
+    values = [
+        next(
+            v.value
+            for k, v in zip(n.keys, n.values)
+            if isinstance(k, ast.Constant) and k.value == "train"
+        )
+        for n in dicts
+    ]
+    assert 64 in values and 32 not in values
+    assert "2x budget train-call ledger" in proof["seams"]
+    assert proof["inverse_ast_exact"] is True
