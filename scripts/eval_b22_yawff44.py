@@ -264,7 +264,10 @@ def read_scores(feedforward: float) -> int:
                         checkpoint_sha256=canonical["checkpoint_sha256"],
                     )
                 )
-    pairs = reader._new_pairs(folder, parsed, ["raw42", "mirror43"])
+    # The contribution gate is defined on the six original tasks; a partial diagnostic run
+    # reports per-case scores only and must not fabricate a gate result.
+    full_matrix = len(order) == 6
+    pairs = reader._new_pairs(folder, parsed, ["raw42", "mirror43"]) if full_matrix else None
     result = {
         "feedforward": feedforward,
         "cases": scores,
@@ -272,7 +275,12 @@ def read_scores(feedforward: float) -> int:
         "contribution": {
             actor: maths.score.score_pairs(scores, policy_actor=actor)
             for actor in ("raw42", "mirror43")
-        },
+        }
+        if full_matrix
+        else None,
+        "contribution_skipped_reason": None
+        if full_matrix
+        else "partial case set: gate requires the six original tasks",
         "actor_counts": worker_result["actor_counts"],
     }
     (folder / "readback.json").write_text(json.dumps(result, default=str))
