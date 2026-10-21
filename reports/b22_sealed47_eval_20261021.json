@@ -1,0 +1,275 @@
+{
+  "schema": "wheel47-sealed-out-of-sample-v1",
+  "source_commit": "d3b329b",
+  "purpose": "test whether the original-six advantage of the 47 policies transfers to sealed cases they never saw",
+  "cases": [
+    "final_yaw_left",
+    "final_yaw_right",
+    "final_bumps300",
+    "final_bumps385"
+  ],
+  "runs": {
+    "ffyaw_s21": {
+      "tasks": {
+        "final_yaw_left": {
+          "zero": {
+            "sse_total": 3.387545473562767,
+            "sse_yaw": 1.6683444927031386,
+            "torque_cost_sum": 21.53750227728458,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "raw42": {
+            "sse_total": 3.3358995835874063,
+            "sse_yaw": 1.779711926877432,
+            "torque_cost_sum": 21.788997094524014,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "mirror43": {
+            "sse_total": 3.063228699213974,
+            "sse_yaw": 1.5668248043273945,
+            "torque_cost_sum": 22.065515461555368,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          }
+        },
+        "final_yaw_right": {
+          "zero": {
+            "sse_total": 3.3494610554049986,
+            "sse_yaw": 1.6294398901517433,
+            "torque_cost_sum": 21.541836161727943,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "raw42": {
+            "sse_total": 3.0290746025940845,
+            "sse_yaw": 1.5081275803771632,
+            "torque_cost_sum": 22.222426040761434,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "mirror43": {
+            "sse_total": 3.086297130436735,
+            "sse_yaw": 1.5902157170233824,
+            "torque_cost_sum": 22.056704478939306,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          }
+        },
+        "final_bumps300": {
+          "zero": {
+            "sse_total": 6.2216680013561865,
+            "sse_yaw": 3.2016785212299044e-05,
+            "torque_cost_sum": 11.06910940434942,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "raw42": {
+            "sse_total": 6.117408484048838,
+            "sse_yaw": 0.7001648201222164,
+            "torque_cost_sum": 11.301072672373603,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "mirror43": {
+            "sse_total": 5.846721185208619,
+            "sse_yaw": 3.12078482490043e-05,
+            "torque_cost_sum": 11.25268335178702,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          }
+        },
+        "final_bumps385": {
+          "zero": {
+            "sse_total": 4.941152154110622,
+            "sse_yaw": 0.0006970880955418606,
+            "torque_cost_sum": 11.521393483545662,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "raw42": {
+            "sse_total": 5.178341028055467,
+            "sse_yaw": 0.8204734208503592,
+            "torque_cost_sum": 11.827797907737153,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "mirror43": {
+            "sse_total": 4.622763352615147,
+            "sse_yaw": 0.00024399790112614097,
+            "torque_cost_sum": 11.757976545760226,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          }
+        }
+      },
+      "pooled_sse": {
+        "zero": 17.899826684434572,
+        "raw42": 17.660723698285796,
+        "mirror43": 16.619010367474473
+      },
+      "pooled_ratio_to_zero": {
+        "zero": 1.0,
+        "raw42": 0.9866421619402217,
+        "mirror43": 0.9284453229888601
+      },
+      "torque_cost_ratio_to_zero": {
+        "zero": 1.0,
+        "raw42": 1.0223915934434593,
+        "mirror43": 1.0222786972158382
+      },
+      "all_tasks_passed": true
+    },
+    "ffsse_s21": {
+      "tasks": {
+        "final_yaw_left": {
+          "zero": {
+            "sse_total": 3.387545473562767,
+            "sse_yaw": 1.6683444927031386,
+            "torque_cost_sum": 21.53750227728458,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "raw42": {
+            "sse_total": 3.4662069823275834,
+            "sse_yaw": 2.0791702401915515,
+            "torque_cost_sum": 22.707751769736937,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "mirror43": {
+            "sse_total": 2.975337540177116,
+            "sse_yaw": 1.617212328748778,
+            "torque_cost_sum": 22.791999640539323,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          }
+        },
+        "final_yaw_right": {
+          "zero": {
+            "sse_total": 3.3494610554049986,
+            "sse_yaw": 1.6294398901517433,
+            "torque_cost_sum": 21.541836161727943,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "raw42": {
+            "sse_total": 3.2505895684330985,
+            "sse_yaw": 1.776972995536917,
+            "torque_cost_sum": 22.90849085420528,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "mirror43": {
+            "sse_total": 2.977318391498782,
+            "sse_yaw": 1.618557751017608,
+            "torque_cost_sum": 22.801676526404457,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          }
+        },
+        "final_bumps300": {
+          "zero": {
+            "sse_total": 6.2216680013561865,
+            "sse_yaw": 3.2016785212299044e-05,
+            "torque_cost_sum": 11.06910940434942,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "raw42": {
+            "sse_total": 5.911749073046139,
+            "sse_yaw": 0.5941712788495466,
+            "torque_cost_sum": 11.412755012510312,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "mirror43": {
+            "sse_total": 5.871731702841733,
+            "sse_yaw": 9.742615114558068e-05,
+            "torque_cost_sum": 11.380511396718324,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          }
+        },
+        "final_bumps385": {
+          "zero": {
+            "sse_total": 4.941152154110622,
+            "sse_yaw": 0.0006970880955418606,
+            "torque_cost_sum": 11.521393483545662,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "raw42": {
+            "sse_total": 4.958263886014663,
+            "sse_yaw": 0.6923868774489383,
+            "torque_cost_sum": 11.968704303659425,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          },
+          "mirror43": {
+            "sse_total": 4.6797674041215265,
+            "sse_yaw": 4.0811542138681725e-05,
+            "torque_cost_sum": 11.916379078471277,
+            "task_passed": true,
+            "stopping_passed": true,
+            "safety_passed": true
+          }
+        }
+      },
+      "pooled_sse": {
+        "zero": 17.899826684434572,
+        "raw42": 17.586809509821485,
+        "mirror43": 16.50415503863916
+      },
+      "pooled_ratio_to_zero": {
+        "zero": 1.0,
+        "raw42": 0.9825128376865636,
+        "mirror43": 0.9220287620433181
+      },
+      "torque_cost_ratio_to_zero": {
+        "zero": 1.0,
+        "raw42": 1.0506756304867269,
+        "mirror43": 1.0490442073583344
+      },
+      "all_tasks_passed": true
+    }
+  },
+  "original_six_reference": {
+    "ffyaw_s21": {
+      "raw": 0.8621,
+      "mirror": 0.8586
+    },
+    "ffsse_s21": {
+      "raw": 0.9227,
+      "mirror": 0.8885
+    }
+  },
+  "gate": {
+    "applied": false,
+    "reason": "partial case set: the six-pair contribution gate requires the six original tasks"
+  }
+}
