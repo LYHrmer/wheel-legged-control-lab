@@ -3,9 +3,9 @@
 [![tests](https://github.com/LYHrmer/wheel-legged-control-lab/actions/workflows/tests.yml/badge.svg)](https://github.com/LYHrmer/wheel-legged-control-lab/actions/workflows/tests.yml)
 [![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-> **求职向概览：[PORTFOLIO.md](PORTFOLIO.md)** — 30 秒定位、可核验结果、三个面试故事、简历条目与边界。
+> **求职向概览（机器人控制方向）：[PORTFOLIO.md](PORTFOLIO.md)** — 30 秒定位、控制技能映射、可核验结果、面试故事、简历条目与边界。
 
-**30 秒版：** 16 自由度轮足机器人 + 同一层 VMC 基控，对照 LQR / 约束 MPC / 残差 PPO。残差 PPO 把高度 RMSE 从 99.3 mm 降到 22.4 mm（20 个配对种子、0 失败）；诊断驱动的偏航前馈把六任务跟踪 SSE 降低 28.2%；用 seed 复制证明单次训练结果的摆幅（7.4 点）大于臂间差异，因此不报告单点"最优"。
+**30 秒版：** 16 自由度轮足机器人的分层控制栈：VMC 基控 + LQR / 约束 MPC / 有界残差 PPO，决策 100 Hz、物理 500 Hz。20 个配对种子下约束 MPC 相对 LQR 无统计差别（回报同为 0.783），却要每拍 0.42–0.64 ms；模型失配 + 延迟时经典控制器高度 RMSE 劣化到 125 mm，2 维有界残差守住 33.8 mm。诊断驱动的偏航前馈把六任务跟踪 SSE 降低 28.2%。
 
 同一台轮足机器人，同一层 VMC 底层，三种外环策略的对照实验：**LQR、约束 MPC、有界残差 PPO**。下述成绩来自本仓库的MuJoCo仿真，未包含当前版本的实机验证。
 
