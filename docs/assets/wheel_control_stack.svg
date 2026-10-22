@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 600" width="1180" height="600" font-family="-apple-system, 'Segoe UI', 'Noto Sans CJK SC', 'Microsoft YaHei', sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+    <style>
+      .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; }
+      .core { fill: #eff6ff; stroke: #3b82f6; stroke-width: 2; }
+      .learn { fill: #f5f3ff; stroke: #8b5cf6; stroke-width: 2; }
+      .bench { fill: #f8fafc; stroke: #94a3b8; stroke-width: 1.5; stroke-dasharray: 6 4; }
+      .t { fill: #0f172a; font-size: 17px; font-weight: 600; }
+      .s { fill: #475569; font-size: 13px; }
+      .m { fill: #64748b; font-size: 13px; }
+      .band { fill: #f1f5f9; stroke: #e2e8f0; }
+      .flow { stroke: #475569; stroke-width: 1.6; fill: none; marker-end: url(#arrow); }
+      .dashflow { stroke: #94a3b8; stroke-width: 1.4; fill: none; stroke-dasharray: 5 4; marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="1180" height="600" fill="#ffffff"/>
+  <text x="40" y="46" class="t" font-size="22">轮足机器人分层控制栈</text>
+  <text x="40" y="72" class="s">同一层 VMC 基控，三种外环；状态快照保证同一控制拍内所有模块看到同一时刻状态</text>
+
+  <rect x="40" y="96" width="1100" height="40" rx="8" class="band"/>
+  <text x="60" y="122" class="m">决策 100 Hz · 物理 500 Hz（1 控制拍 = 5 × 2 ms）· 单机 CPU · MuJoCo</text>
+
+  <rect x="380" y="168" width="420" height="66" rx="10" class="core"/>
+  <text x="480" y="196" class="t">状态快照 D1StateEstimate</text>
+  <text x="404" y="220" class="s">不可变只读 · 位置/速度/姿态/关节/足端 Jacobian/接触 · 状态年龄</text>
+
+  <path class="flow" d="M590 234 L590 268"/>
+
+  <rect x="420" y="270" width="340" height="58" rx="10" class="core"/>
+  <text x="520" y="296" class="t">VMC 底层</text>
+  <text x="448" y="318" class="s">虚拟模型控制 · 支撑力分配 · 关节 PD · 轮速 PI</text>
+
+  <path class="flow" d="M310 336 L310 372"/>
+  <path class="flow" d="M500 336 L500 372"/>
+  <path class="flow" d="M690 336 L690 372"/>
+  <path class="flow" d="M870 336 L870 372"/>
+
+  <rect x="40" y="376" width="270" height="92" rx="10" class="box"/>
+  <text x="70" y="406" class="t">LQR 外环</text>
+  <text x="64" y="430" class="s">离散 Riccati（DARE）</text>
+  <text x="64" y="451" class="s">增益与闭环极点显式可查</text>
+
+  <rect x="335" y="376" width="270" height="92" rx="10" class="box"/>
+  <text x="365" y="406" class="t">约束 MPC 外环</text>
+  <text x="359" y="430" class="s">有限时域 + 输入约束</text>
+  <text x="359" y="451" class="s">逐拍求解 P95 0.42–0.64 ms</text>
+
+  <rect x="630" y="376" width="270" height="92" rx="10" class="learn"/>
+  <text x="660" y="406" class="t">有界残差 PPO</text>
+  <text x="654" y="430" class="s">2 / 16 维残差 · 动作裁剪 ±1</text>
+  <text x="654" y="451" class="s">叠加在基控上，可整体归零对照</text>
+
+  <rect x="925" y="376" width="215" height="92" rx="10" class="bench"/>
+  <text x="951" y="406" class="t">单轴辨识台架</text>
+  <text x="945" y="430" class="s">轮转子 / 重力单摆</text>
+  <text x="945" y="451" class="s">延迟与摩擦 · matched/mismatch</text>
+
+  <path class="flow" d="M175 468 L175 506"/>
+  <path class="flow" d="M470 468 L470 506"/>
+  <path class="flow" d="M765 468 L765 506"/>
+
+  <rect x="40" y="510" width="900" height="58" rx="10" class="box"/>
+  <text x="70" y="536" class="t">安全与限幅</text>
+  <text x="200" y="536" class="s">力矩上限（轮 12 N·m / 腿 80 N·m）· 关节限位 · 速度限幅 · 看门狗 · 单拍状态一致性</text>
+
+  <text x="40" y="590" class="m">证据：results/benchmark/randomized_audit.md（20 配对种子）· results/benchmark/metrics.md（失配 + 延迟）· docs/state_estimation.md · docs/actuator_identification.md</text>
+</svg>
