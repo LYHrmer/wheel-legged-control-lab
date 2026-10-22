@@ -1,0 +1,255 @@
+{
+  "schema": "b22-small-sample-diagnostics-v1",
+  "new_model_calls": 0,
+  "new_physics_steps": 0,
+  "checkpoints": {
+    "B22 parent": {
+      "leg_std_mean": 0.13876051351480448,
+      "wheel_std_mean": 0.13758871351208904,
+      "std_min": 0.1328191777474952,
+      "std_max": 0.14206325084959462,
+      "checkpoint_sha256": "7bd58b5d6114745b12b4284be3f861f973a5d31d9d596365a5b54cb5e0d76691",
+      "log_std_sha256": "0d981e408e673a27096ac457a8ea76f7765859a683cc0fb2a07b55aa41f2292a"
+    },
+    "44 ffyaw (s201011)": {
+      "leg_std_mean": 0.13983731821390374,
+      "wheel_std_mean": 0.13840744250383646,
+      "std_min": 0.132443984947148,
+      "std_max": 0.14480996352061554,
+      "checkpoint_sha256": "725dbc4ee9da5757b694cdf94e302e7b0ea5d844dbbcde6a4a0097b485b04fc5",
+      "log_std_sha256": "a04aa8952d3ad6fa8b3f811919de89bb298e811e179ee838a89d4d9518732640"
+    },
+    "46 ffsse (s201011)": {
+      "leg_std_mean": 0.1399346170900823,
+      "wheel_std_mean": 0.13842494640326758,
+      "std_min": 0.13243586987934786,
+      "std_max": 0.14496397679567224,
+      "checkpoint_sha256": "6493a2e77f6d02e61bab7c91937807ed5811810814e7a77a781ea00296d89eea",
+      "log_std_sha256": "aab07a93e357e92b92d9db984e7947bdc054cf44045ee4f0ebbd9287ae37f6ee"
+    },
+    "47 ffyaw (s201021)": {
+      "leg_std_mean": 0.13939404633734553,
+      "wheel_std_mean": 0.13884327388589995,
+      "std_min": 0.13213391393976046,
+      "std_max": 0.14545817404398453,
+      "checkpoint_sha256": "89dc6c5ae3555b7718ee3de80cf9743d33672178cffa8671f5c3e7f94d6a9d1f",
+      "log_std_sha256": "70cf6aa5ca6b7bb5dee90a1707027e63cea24384a1bf267171ed180316193dc7"
+    },
+    "47 ffsse (s201021)": {
+      "leg_std_mean": 0.13957873563626894,
+      "wheel_std_mean": 0.1384704227476192,
+      "std_min": 0.1329521488154616,
+      "std_max": 0.14353359069866203,
+      "checkpoint_sha256": "38960367bcc59c2ad3360d04b5571a26a0b4a27c7ae33a7ddbf7a1f11a3ae1e0",
+      "log_std_sha256": "f0c0fbdcf61db673fc8cc3fdd9998cda1d4e1aca479863b76ddc80ffb85ce1c6"
+    }
+  },
+  "residual_actions": {
+    "ffyaw_s21": {
+      "drive_ticks": 8020,
+      "pooled": {
+        "leg": {
+          "mean_abs": 0.05089630479725517,
+          "rms": 0.06194035063451099,
+          "saturation_fraction": 0.0
+        },
+        "wheel": {
+          "mean_abs": 0.02556976810893296,
+          "rms": 0.03141194734504161,
+          "saturation_fraction": 0.0
+        },
+        "mean_leg_residual_rms_per_tick": 0.0598025220707248,
+        "max_leg_residual_rms_per_tick": 0.1475300422214172
+      },
+      "per_case": {
+        "flat_0p6": {
+          "leg": {
+            "mean_abs": 0.04116894622700504,
+            "rms": 0.04801384192370902,
+            "saturation_fraction": 0.0
+          },
+          "wheel": {
+            "mean_abs": 0.01268290969478235,
+            "rms": 0.015878449328671298,
+            "saturation_fraction": 0.0
+          },
+          "mean_leg_residual_rms_per_tick": 0.04742152707380192,
+          "max_leg_residual_rms_per_tick": 0.0712801353163378
+        },
+        "flat_1p6": {
+          "leg": {
+            "mean_abs": 0.06298828994299079,
+            "rms": 0.07732775952432258,
+            "saturation_fraction": 0.0
+          },
+          "wheel": {
+            "mean_abs": 0.02280657397912162,
+            "rms": 0.0291433542948362,
+            "saturation_fraction": 0.0
+          },
+          "mean_leg_residual_rms_per_tick": 0.07444355766662036,
+          "max_leg_residual_rms_per_tick": 0.11127772204656744
+        },
+        "flat_1p2_yaw": {
+          "leg": {
+            "mean_abs": 0.05287644743260292,
+            "rms": 0.06515948480325426,
+            "saturation_fraction": 0.0
+          },
+          "wheel": {
+            "mean_abs": 0.024008739077271458,
+            "rms": 0.03157656880733495,
+            "saturation_fraction": 0.0
+          },
+          "mean_leg_residual_rms_per_tick": 0.06332016979128532,
+          "max_leg_residual_rms_per_tick": 0.10207075362131272
+        },
+        "bumps_0p4": {
+          "leg": {
+            "mean_abs": 0.04411070849774761,
+            "rms": 0.05020039407771501,
+            "saturation_fraction": 0.0
+          },
+          "wheel": {
+            "mean_abs": 0.016359715246229218,
+            "rms": 0.019649511030076085,
+            "saturation_fraction": 0.0
+          },
+          "mean_leg_residual_rms_per_tick": 0.04951543824344382,
+          "max_leg_residual_rms_per_tick": 0.07569706771625351
+        },
+        "rough_0p35": {
+          "leg": {
+            "mean_abs": 0.04176413595834532,
+            "rms": 0.04993506502241048,
+            "saturation_fraction": 0.0
+          },
+          "wheel": {
+            "mean_abs": 0.019153838245101532,
+            "rms": 0.02338651279385616,
+            "saturation_fraction": 0.0
+          },
+          "mean_leg_residual_rms_per_tick": 0.048827122939003945,
+          "max_leg_residual_rms_per_tick": 0.07925627803416863
+        },
+        "ramp_0p45_complete": {
+          "leg": {
+            "mean_abs": 0.05312843313880527,
+            "rms": 0.06649989948697395,
+            "saturation_fraction": 0.0
+          },
+          "wheel": {
+            "mean_abs": 0.04008335890485195,
+            "rms": 0.047533448954391884,
+            "saturation_fraction": 0.0
+          },
+          "mean_leg_residual_rms_per_tick": 0.06297329754292821,
+          "max_leg_residual_rms_per_tick": 0.1475300422214172
+        }
+      }
+    },
+    "ffsse_s21": {
+      "drive_ticks": 8020,
+      "pooled": {
+        "leg": {
+          "mean_abs": 0.05273759533163545,
+          "rms": 0.06676439284099087,
+          "saturation_fraction": 0.0
+        },
+        "wheel": {
+          "mean_abs": 0.038409911322503515,
+          "rms": 0.04615645458421742,
+          "saturation_fraction": 0.0
+        },
+        "mean_leg_residual_rms_per_tick": 0.06477744896818129,
+        "max_leg_residual_rms_per_tick": 0.14242768687095925
+      },
+      "per_case": {
+        "flat_0p6": {
+          "leg": {
+            "mean_abs": 0.036654625153310826,
+            "rms": 0.047465497728083186,
+            "saturation_fraction": 0.0
+          },
+          "wheel": {
+            "mean_abs": 0.02614628689384867,
+            "rms": 0.029777263676326052,
+            "saturation_fraction": 0.0
+          },
+          "mean_leg_residual_rms_per_tick": 0.04699097133967562,
+          "max_leg_residual_rms_per_tick": 0.06341782859358842
+        },
+        "flat_1p6": {
+          "leg": {
+            "mean_abs": 0.07450257321706212,
+            "rms": 0.09465006578651697,
+            "saturation_fraction": 0.0
+          },
+          "wheel": {
+            "mean_abs": 0.047310810961991794,
+            "rms": 0.05457866483380506,
+            "saturation_fraction": 0.0
+          },
+          "mean_leg_residual_rms_per_tick": 0.09011143177831009,
+          "max_leg_residual_rms_per_tick": 0.14242768687095925
+        },
+        "flat_1p2_yaw": {
+          "leg": {
+            "mean_abs": 0.06550328543012256,
+            "rms": 0.081779901905995,
+            "saturation_fraction": 0.0
+          },
+          "wheel": {
+            "mean_abs": 0.043394106572850435,
+            "rms": 0.055231732838149056,
+            "saturation_fraction": 0.0
+          },
+          "mean_leg_residual_rms_per_tick": 0.07861780887434928,
+          "max_leg_residual_rms_per_tick": 0.12010915425692616
+        },
+        "bumps_0p4": {
+          "leg": {
+            "mean_abs": 0.0348530434570825,
+            "rms": 0.0441882140527949,
+            "saturation_fraction": 0.0
+          },
+          "wheel": {
+            "mean_abs": 0.023448025645363184,
+            "rms": 0.029348627837568024,
+            "saturation_fraction": 0.0
+          },
+          "mean_leg_residual_rms_per_tick": 0.04389902566257114,
+          "max_leg_residual_rms_per_tick": 0.05562793883441845
+        },
+        "rough_0p35": {
+          "leg": {
+            "mean_abs": 0.03577578866126508,
+            "rms": 0.04766063892764364,
+            "saturation_fraction": 0.0
+          },
+          "wheel": {
+            "mean_abs": 0.02748179273336799,
+            "rms": 0.032131320939837185,
+            "saturation_fraction": 0.0
+          },
+          "mean_leg_residual_rms_per_tick": 0.04719997614347164,
+          "max_leg_residual_rms_per_tick": 0.06898896465153277
+        },
+        "ramp_0p45_complete": {
+          "leg": {
+            "mean_abs": 0.05365196210032133,
+            "rms": 0.06690265156466702,
+            "saturation_fraction": 0.0
+          },
+          "wheel": {
+            "mean_abs": 0.04611878663112046,
+            "rms": 0.055736606669924665,
+            "saturation_fraction": 0.0
+          },
+          "mean_leg_residual_rms_per_tick": 0.06514501322062968,
+          "max_leg_residual_rms_per_tick": 0.13310173786147853
+        }
+      }
+    }
+  }
+}
