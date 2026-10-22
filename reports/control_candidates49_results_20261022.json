@@ -1,0 +1,1268 @@
+{
+  "schema": "control-candidates49-results-v1",
+  "as_of": "2026-10-22",
+  "scope": "synthetic planar six-state MPC and fixed-axis single-wheel PI only; no D1 full-body or real-hardware result",
+  "preregistration": {
+    "path": "reports/control_candidates49_preregistration.json",
+    "bytes": 7360,
+    "sha256": "227285cdf4391a78513003dcda09185b09ab862da119b31c7558addba86a855c"
+  },
+  "frozen_registered_source_identities_verified": true,
+  "final_decision": "both candidates rejected at preflight; no full phase or parameter sweep",
+  "raw_meaning_field_caveat": "raw decision.meaning is emitted unconditionally as a preflight stage description; it is not an acceptance result. decision.accepted=false and failed gates govern this report. Raw artifacts are preserved unchanged.",
+  "candidates": {
+    "mpc": {
+      "scope": "synthetic six-state planar wheel-legged teaching model, two force actuators; not full-body D1",
+      "unique_variable": "Q[2,2] 90 -> 180; dependent terminal Riccati weight recomputed by unchanged controller",
+      "phase": "preflight",
+      "accepted": false,
+      "conclusion": "REJECTED_NO_FULL_RUN",
+      "seeds": [
+        490101,
+        490102,
+        490103
+      ],
+      "completed_episodes": 12,
+      "failed_or_partial_episodes": 0,
+      "control_samples": 4800,
+      "physics_steps": 48000,
+      "training_steps": 0,
+      "elapsed_seconds_child": 4.1387844369746745,
+      "unexecuted_full_episodes": 80,
+      "unexecuted_full_seeds": [
+        490201,
+        490202,
+        490203,
+        490204,
+        490205,
+        490206,
+        490207,
+        490208,
+        490209,
+        490210,
+        490211,
+        490212,
+        490213,
+        490214,
+        490215,
+        490216,
+        490217,
+        490218,
+        490219,
+        490220
+      ],
+      "failed_gates": [
+        "height_improvement_at_least_10_percent"
+      ],
+      "decision_as_recorded": {
+        "cohort_valid": true,
+        "all_episodes_complete": true,
+        "accepted": false,
+        "gates": {
+          "height_improvement_at_least_10_percent": false,
+          "nominal/velocity_rmse_mps_within_5_percent": true,
+          "nominal/pitch_rmse_deg_within_5_percent": true,
+          "nominal/max_abs_pitch_deg_within_5_percent": true,
+          "nominal/normalized_effort_rms_within_5_percent": true,
+          "nominal/wheel_force_rms_n_within_5_percent": true,
+          "nominal/leg_force_rms_n_within_5_percent": true,
+          "mismatch_delay/velocity_rmse_mps_within_5_percent": true,
+          "mismatch_delay/pitch_rmse_deg_within_5_percent": true,
+          "mismatch_delay/max_abs_pitch_deg_within_5_percent": true,
+          "mismatch_delay/normalized_effort_rms_within_5_percent": true,
+          "mismatch_delay/wheel_force_rms_n_within_5_percent": true,
+          "mismatch_delay/leg_force_rms_n_within_5_percent": true,
+          "solve_p95_within_20_ms": true
+        },
+        "details": {
+          "mismatch_height_ratio": 0.9986035076260134,
+          "nominal/velocity_rmse_mps_ratio": 1.0001725900064131,
+          "nominal/pitch_rmse_deg_ratio": 1.0002156247667464,
+          "nominal/max_abs_pitch_deg_ratio": 1.0005364053969759,
+          "nominal/normalized_effort_rms_ratio": 1.0000605032868726,
+          "nominal/wheel_force_rms_n_ratio": 1.0003317655535422,
+          "nominal/leg_force_rms_n_ratio": 1.0000508189948258,
+          "mismatch_delay/velocity_rmse_mps_ratio": 1.0001730715953931,
+          "mismatch_delay/pitch_rmse_deg_ratio": 1.0000614227354112,
+          "mismatch_delay/max_abs_pitch_deg_ratio": 1.0005066030555978,
+          "mismatch_delay/normalized_effort_rms_ratio": 1.042554219050595,
+          "mismatch_delay/wheel_force_rms_n_ratio": 0.9996896581918434,
+          "mismatch_delay/leg_force_rms_n_ratio": 1.045370313236514,
+          "candidate_max_episode_solve_p95_ms": 0.4418499884195626
+        },
+        "meaning": "eligible for independent full comparison"
+      },
+      "groups": [
+        {
+          "scenario": "nominal",
+          "profile": "benchmark",
+          "seeds": [
+            490101,
+            490102,
+            490103
+          ],
+          "arms": {
+            "baseline": {
+              "height_rmse_mm": {
+                "mean": 19.72725506718536,
+                "min": 19.72725506718536,
+                "max": 19.72725506718536
+              },
+              "velocity_rmse_mps": {
+                "mean": 0.5339406733046111,
+                "min": 0.5339406733046111,
+                "max": 0.5339406733046111
+              },
+              "pitch_rmse_deg": {
+                "mean": 2.16897085304417,
+                "min": 2.16897085304417,
+                "max": 2.16897085304417
+              },
+              "normalized_effort_rms": {
+                "mean": 0.3804260799990347,
+                "min": 0.38042607999903477,
+                "max": 0.38042607999903477
+              },
+              "wheel_force_rms_n": {
+                "mean": 7.990388566993578,
+                "min": 7.990388566993579,
+                "max": 7.990388566993579
+              },
+              "leg_force_rms_n": {
+                "mean": 137.44929418971236,
+                "min": 137.44929418971236,
+                "max": 137.44929418971236
+              }
+            },
+            "candidate": {
+              "height_rmse_mm": {
+                "mean": 17.924975009593453,
+                "min": 17.924975009593453,
+                "max": 17.924975009593453
+              },
+              "velocity_rmse_mps": {
+                "mean": 0.5340328261288411,
+                "min": 0.5340328261288411,
+                "max": 0.5340328261288411
+              },
+              "pitch_rmse_deg": {
+                "mean": 2.1694385368784372,
+                "min": 2.1694385368784372,
+                "max": 2.1694385368784372
+              },
+              "normalized_effort_rms": {
+                "mean": 0.3804490970272867,
+                "min": 0.3804490970272867,
+                "max": 0.3804490970272867
+              },
+              "wheel_force_rms_n": {
+                "mean": 7.993039502679523,
+                "min": 7.993039502679523,
+                "max": 7.993039502679523
+              },
+              "leg_force_rms_n": {
+                "mean": 137.45627922468262,
+                "min": 137.45627922468262,
+                "max": 137.45627922468262
+              }
+            }
+          },
+          "candidate_over_baseline": {
+            "height_rmse_mm": 0.9086400996259307,
+            "velocity_rmse_mps": 1.0001725900064131,
+            "pitch_rmse_deg": 1.0002156247667464,
+            "normalized_effort_rms": 1.0000605032868726,
+            "wheel_force_rms_n": 1.0003317655535422,
+            "leg_force_rms_n": 1.0000508189948258
+          }
+        },
+        {
+          "scenario": "mismatch_delay",
+          "profile": "benchmark",
+          "seeds": [
+            490101,
+            490102,
+            490103
+          ],
+          "arms": {
+            "baseline": {
+              "height_rmse_mm": {
+                "mean": 125.23093625233741,
+                "min": 125.2276404117815,
+                "max": 125.23656699083818
+              },
+              "velocity_rmse_mps": {
+                "mean": 0.5301971417963278,
+                "min": 0.5294291597723381,
+                "max": 0.5316647163462361
+              },
+              "pitch_rmse_deg": {
+                "mean": 2.577910648913709,
+                "min": 2.5589468895754743,
+                "max": 2.597729199518149
+              },
+              "normalized_effort_rms": {
+                "mean": 0.43708065550528774,
+                "min": 0.43696384042691533,
+                "max": 0.4373063522144593
+              },
+              "wheel_force_rms_n": {
+                "mean": 12.405676786232307,
+                "min": 12.339159951295548,
+                "max": 12.512963388785447
+              },
+              "leg_force_rms_n": {
+                "mean": 155.57282642753356,
+                "min": 155.56293191704117,
+                "max": 155.5875365406322
+              }
+            },
+            "candidate": {
+              "height_rmse_mm": {
+                "mean": 125.05605220487382,
+                "min": 125.05189331802741,
+                "max": 125.06161870452198
+              },
+              "velocity_rmse_mps": {
+                "mean": 0.5302889038615314,
+                "min": 0.5295250289314049,
+                "max": 0.531706731163539
+              },
+              "pitch_rmse_deg": {
+                "mean": 2.5780689912374113,
+                "min": 2.5589881794842544,
+                "max": 2.5977733282799607
+              },
+              "normalized_effort_rms": {
+                "mean": 0.4556802814624374,
+                "min": 0.4555675743131083,
+                "max": 0.45589092184224034
+              },
+              "wheel_force_rms_n": {
+                "mean": 12.40182678606706,
+                "min": 12.335959968067929,
+                "max": 12.50876896470213
+              },
+              "leg_force_rms_n": {
+                "mean": 162.63121429364057,
+                "min": 162.6246974417905,
+                "max": 162.64161621345286
+              }
+            }
+          },
+          "candidate_over_baseline": {
+            "height_rmse_mm": 0.9986035076260134,
+            "velocity_rmse_mps": 1.0001730715953931,
+            "pitch_rmse_deg": 1.0000614227354112,
+            "normalized_effort_rms": 1.042554219050595,
+            "wheel_force_rms_n": 0.9996896581918433,
+            "leg_force_rms_n": 1.045370313236514
+          }
+        }
+      ],
+      "episodes_all_seeds": [
+        {
+          "controller": "baseline",
+          "scenario": "nominal",
+          "success": 1,
+          "velocity_rmse_mps": 0.5339406733046111,
+          "pitch_rmse_deg": 2.16897085304417,
+          "max_abs_pitch_deg": 4.4485818740693555,
+          "height_rmse_mm": 19.72725506718536,
+          "normalized_effort_rms": 0.38042607999903477,
+          "mean_reward": 0.8812997719545658,
+          "solve_p95_ms": 0.3645690158009529,
+          "steps": 400,
+          "physics_steps": 4000,
+          "completed": true,
+          "wheel_force_rms_n": 7.990388566993579,
+          "leg_force_rms_n": 137.44929418971236,
+          "solve_calls": 401,
+          "q_height": 90.0,
+          "seed": 490101,
+          "profile": "benchmark",
+          "arm": "baseline"
+        },
+        {
+          "controller": "candidate",
+          "scenario": "nominal",
+          "success": 1,
+          "velocity_rmse_mps": 0.5340328261288411,
+          "pitch_rmse_deg": 2.1694385368784372,
+          "max_abs_pitch_deg": 4.450968117395496,
+          "height_rmse_mm": 17.924975009593453,
+          "normalized_effort_rms": 0.3804490970272867,
+          "mean_reward": 0.8823288811597115,
+          "solve_p95_ms": 0.3661049995571375,
+          "steps": 400,
+          "physics_steps": 4000,
+          "completed": true,
+          "wheel_force_rms_n": 7.993039502679523,
+          "leg_force_rms_n": 137.45627922468262,
+          "solve_calls": 401,
+          "q_height": 180.0,
+          "seed": 490101,
+          "profile": "benchmark",
+          "arm": "candidate"
+        },
+        {
+          "controller": "baseline",
+          "scenario": "mismatch_delay",
+          "success": 1,
+          "velocity_rmse_mps": 0.5294291597723381,
+          "pitch_rmse_deg": 2.5589468895754743,
+          "max_abs_pitch_deg": 5.288453327422402,
+          "height_rmse_mm": 125.23656699083818,
+          "normalized_effort_rms": 0.43696384042691533,
+          "mean_reward": 0.7506032413814672,
+          "solve_p95_ms": 0.43328298488631845,
+          "steps": 400,
+          "physics_steps": 4000,
+          "completed": true,
+          "wheel_force_rms_n": 12.364907018615929,
+          "leg_force_rms_n": 155.56293191704117,
+          "solve_calls": 401,
+          "q_height": 90.0,
+          "seed": 490101,
+          "profile": "benchmark",
+          "arm": "baseline"
+        },
+        {
+          "controller": "candidate",
+          "scenario": "mismatch_delay",
+          "success": 1,
+          "velocity_rmse_mps": 0.5295250289314049,
+          "pitch_rmse_deg": 2.5589881794842544,
+          "max_abs_pitch_deg": 5.291408401232936,
+          "height_rmse_mm": 125.06161870452198,
+          "normalized_effort_rms": 0.4555823482319635,
+          "mean_reward": 0.7508932793371785,
+          "solve_p95_ms": 0.4317350103519857,
+          "steps": 400,
+          "physics_steps": 4000,
+          "completed": true,
+          "wheel_force_rms_n": 12.360751425431122,
+          "leg_force_rms_n": 162.6273292256783,
+          "solve_calls": 401,
+          "q_height": 180.0,
+          "seed": 490101,
+          "profile": "benchmark",
+          "arm": "candidate"
+        },
+        {
+          "controller": "candidate",
+          "scenario": "nominal",
+          "success": 1,
+          "velocity_rmse_mps": 0.5340328261288411,
+          "pitch_rmse_deg": 2.1694385368784372,
+          "max_abs_pitch_deg": 4.450968117395496,
+          "height_rmse_mm": 17.924975009593453,
+          "normalized_effort_rms": 0.3804490970272867,
+          "mean_reward": 0.8823288811597115,
+          "solve_p95_ms": 0.3428749623708427,
+          "steps": 400,
+          "physics_steps": 4000,
+          "completed": true,
+          "wheel_force_rms_n": 7.993039502679523,
+          "leg_force_rms_n": 137.45627922468262,
+          "solve_calls": 401,
+          "q_height": 180.0,
+          "seed": 490102,
+          "profile": "benchmark",
+          "arm": "candidate"
+        },
+        {
+          "controller": "baseline",
+          "scenario": "nominal",
+          "success": 1,
+          "velocity_rmse_mps": 0.5339406733046111,
+          "pitch_rmse_deg": 2.16897085304417,
+          "max_abs_pitch_deg": 4.4485818740693555,
+          "height_rmse_mm": 19.72725506718536,
+          "normalized_effort_rms": 0.38042607999903477,
+          "mean_reward": 0.8812997719545658,
+          "solve_p95_ms": 0.3420209977775812,
+          "steps": 400,
+          "physics_steps": 4000,
+          "completed": true,
+          "wheel_force_rms_n": 7.990388566993579,
+          "leg_force_rms_n": 137.44929418971236,
+          "solve_calls": 401,
+          "q_height": 90.0,
+          "seed": 490102,
+          "profile": "benchmark",
+          "arm": "baseline"
+        },
+        {
+          "controller": "candidate",
+          "scenario": "mismatch_delay",
+          "success": 1,
+          "velocity_rmse_mps": 0.531706731163539,
+          "pitch_rmse_deg": 2.5977733282799607,
+          "max_abs_pitch_deg": 5.389213322060168,
+          "height_rmse_mm": 125.05464459207208,
+          "normalized_effort_rms": 0.45589092184224034,
+          "mean_reward": 0.7504519783855395,
+          "solve_p95_ms": 0.4338269936852157,
+          "steps": 400,
+          "physics_steps": 4000,
+          "completed": true,
+          "wheel_force_rms_n": 12.50876896470213,
+          "leg_force_rms_n": 162.6246974417905,
+          "solve_calls": 401,
+          "q_height": 180.0,
+          "seed": 490102,
+          "profile": "benchmark",
+          "arm": "candidate"
+        },
+        {
+          "controller": "baseline",
+          "scenario": "mismatch_delay",
+          "success": 1,
+          "velocity_rmse_mps": 0.5316647163462361,
+          "pitch_rmse_deg": 2.597729199518149,
+          "max_abs_pitch_deg": 5.3860627357889745,
+          "height_rmse_mm": 125.22860135439257,
+          "normalized_effort_rms": 0.4373063522144593,
+          "mean_reward": 0.7501451212753903,
+          "solve_p95_ms": 0.4455930320546031,
+          "steps": 400,
+          "physics_steps": 4000,
+          "completed": true,
+          "wheel_force_rms_n": 12.512963388785447,
+          "leg_force_rms_n": 155.56801082492737,
+          "solve_calls": 401,
+          "q_height": 90.0,
+          "seed": 490102,
+          "profile": "benchmark",
+          "arm": "baseline"
+        },
+        {
+          "controller": "baseline",
+          "scenario": "nominal",
+          "success": 1,
+          "velocity_rmse_mps": 0.5339406733046111,
+          "pitch_rmse_deg": 2.16897085304417,
+          "max_abs_pitch_deg": 4.4485818740693555,
+          "height_rmse_mm": 19.72725506718536,
+          "normalized_effort_rms": 0.38042607999903477,
+          "mean_reward": 0.8812997719545658,
+          "solve_p95_ms": 0.34336099633947015,
+          "steps": 400,
+          "physics_steps": 4000,
+          "completed": true,
+          "wheel_force_rms_n": 7.990388566993579,
+          "leg_force_rms_n": 137.44929418971236,
+          "solve_calls": 401,
+          "q_height": 90.0,
+          "seed": 490103,
+          "profile": "benchmark",
+          "arm": "baseline"
+        },
+        {
+          "controller": "candidate",
+          "scenario": "nominal",
+          "success": 1,
+          "velocity_rmse_mps": 0.5340328261288411,
+          "pitch_rmse_deg": 2.1694385368784372,
+          "max_abs_pitch_deg": 4.450968117395496,
+          "height_rmse_mm": 17.924975009593453,
+          "normalized_effort_rms": 0.3804490970272867,
+          "mean_reward": 0.8823288811597115,
+          "solve_p95_ms": 0.35585399018600583,
+          "steps": 400,
+          "physics_steps": 4000,
+          "completed": true,
+          "wheel_force_rms_n": 7.993039502679523,
+          "leg_force_rms_n": 137.45627922468262,
+          "solve_calls": 401,
+          "q_height": 180.0,
+          "seed": 490103,
+          "profile": "benchmark",
+          "arm": "candidate"
+        },
+        {
+          "controller": "baseline",
+          "scenario": "mismatch_delay",
+          "success": 1,
+          "velocity_rmse_mps": 0.5294975492704094,
+          "pitch_rmse_deg": 2.5770558576475042,
+          "max_abs_pitch_deg": 5.423091949297641,
+          "height_rmse_mm": 125.2276404117815,
+          "normalized_effort_rms": 0.4369717738744886,
+          "mean_reward": 0.7511360930575545,
+          "solve_p95_ms": 0.4258060362190008,
+          "steps": 400,
+          "physics_steps": 4000,
+          "completed": true,
+          "wheel_force_rms_n": 12.339159951295548,
+          "leg_force_rms_n": 155.5875365406322,
+          "solve_calls": 401,
+          "q_height": 90.0,
+          "seed": 490103,
+          "profile": "benchmark",
+          "arm": "baseline"
+        },
+        {
+          "controller": "candidate",
+          "scenario": "mismatch_delay",
+          "success": 1,
+          "velocity_rmse_mps": 0.5296349514896503,
+          "pitch_rmse_deg": 2.577445465948019,
+          "max_abs_pitch_deg": 5.425141386622869,
+          "height_rmse_mm": 125.05189331802741,
+          "normalized_effort_rms": 0.4555675743131083,
+          "mean_reward": 0.7514198542214152,
+          "solve_p95_ms": 0.4418499884195626,
+          "steps": 400,
+          "physics_steps": 4000,
+          "completed": true,
+          "wheel_force_rms_n": 12.335959968067929,
+          "leg_force_rms_n": 162.64161621345286,
+          "solve_calls": 401,
+          "q_height": 180.0,
+          "seed": 490103,
+          "profile": "benchmark",
+          "arm": "candidate"
+        }
+      ],
+      "verification": {
+        "manifest_entries_verified": 39,
+        "exact_registered_cohort": true,
+        "trajectory_checks": [
+          {
+            "episode": "490101_nominal_benchmark_baseline",
+            "trajectory_rows": 400,
+            "primary_metric_recomputed": true
+          },
+          {
+            "episode": "490101_nominal_benchmark_candidate",
+            "trajectory_rows": 400,
+            "primary_metric_recomputed": true
+          },
+          {
+            "episode": "490101_mismatch_delay_benchmark_baseline",
+            "trajectory_rows": 400,
+            "primary_metric_recomputed": true
+          },
+          {
+            "episode": "490101_mismatch_delay_benchmark_candidate",
+            "trajectory_rows": 400,
+            "primary_metric_recomputed": true
+          },
+          {
+            "episode": "490102_nominal_benchmark_candidate",
+            "trajectory_rows": 400,
+            "primary_metric_recomputed": true
+          },
+          {
+            "episode": "490102_nominal_benchmark_baseline",
+            "trajectory_rows": 400,
+            "primary_metric_recomputed": true
+          },
+          {
+            "episode": "490102_mismatch_delay_benchmark_candidate",
+            "trajectory_rows": 400,
+            "primary_metric_recomputed": true
+          },
+          {
+            "episode": "490102_mismatch_delay_benchmark_baseline",
+            "trajectory_rows": 400,
+            "primary_metric_recomputed": true
+          },
+          {
+            "episode": "490103_nominal_benchmark_baseline",
+            "trajectory_rows": 400,
+            "primary_metric_recomputed": true
+          },
+          {
+            "episode": "490103_nominal_benchmark_candidate",
+            "trajectory_rows": 400,
+            "primary_metric_recomputed": true
+          },
+          {
+            "episode": "490103_mismatch_delay_benchmark_baseline",
+            "trajectory_rows": 400,
+            "primary_metric_recomputed": true
+          },
+          {
+            "episode": "490103_mismatch_delay_benchmark_candidate",
+            "trajectory_rows": 400,
+            "primary_metric_recomputed": true
+          }
+        ],
+        "full_run_directories_observed": [],
+        "resource_samples_checked": 12
+      },
+      "source_files": [
+        {
+          "path": "results/mpc49_preflight_20261022_01/summary.json",
+          "bytes": 10800,
+          "sha256": "06d1775a209adc66ee51f694c935ce4b5656e6cc03163db2fe3874611a2f9831"
+        },
+        {
+          "path": "results/mpc49_preflight_20261022_01/manifest.json",
+          "bytes": 4757,
+          "sha256": "0cc79af16abeb116a4b4accd79cb23d3d650cb4704f1c4c4d717d6fd90301740"
+        },
+        {
+          "path": "results/mpc49_preflight_20261022_01/experiment.json",
+          "bytes": 284,
+          "sha256": "db483dcad87bb7560e7e95e9c91438a4548edeb0e631d2f89527728d3af048c8"
+        },
+        {
+          "path": "results/mpc49_preflight_20261022_01/registration.json",
+          "bytes": 7360,
+          "sha256": "227285cdf4391a78513003dcda09185b09ab862da119b31c7558addba86a855c"
+        },
+        {
+          "path": "results/mpc49_preflight_20261022_01_supervision/report.json",
+          "bytes": 968,
+          "sha256": "20ce73c75a0e1b5d17ddcd2f32532f6167da301807e246143f8b7163d3a8e3ac"
+        },
+        {
+          "path": "results/mpc49_preflight_20261022_01_supervision/resources.jsonl",
+          "bytes": 21553,
+          "sha256": "0e3e68982b40ae7a1069bf2b894d0a98c4160c626da6845342a0fd73d542b1e5"
+        }
+      ],
+      "supervision": {
+        "schema": "bounded-control-job49-v1",
+        "status": "COMPLETE",
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "scripts/control_candidates49.py",
+          "--candidate",
+          "mpc",
+          "--phase",
+          "preflight",
+          "--output",
+          "results/mpc49_preflight_20261022_01"
+        ],
+        "scope": "/user.slice/user-1000.slice/user@1000.service/app.slice/control49-mpc-preflight-20261022-01.service",
+        "timeout_s": 600.0,
+        "supervisor_sha256": "4ed57d66a443d360764ab2773d509c1513ca004265e58fd2ddce842cb9dcee3d",
+        "minimum_effective_bytes": 7322832896,
+        "peak_group_bytes": 118870016,
+        "child_started": true,
+        "returncode": 0,
+        "error": null,
+        "signals": [],
+        "retry_permitted": false,
+        "cpu_affinity": [
+          0
+        ],
+        "final_memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "child_pid": 651261,
+        "owned_process_group_empty": true,
+        "child_reaped": true,
+        "elapsed_s": 15.09347052598605
+      }
+    },
+    "pi": {
+      "scope": "synthetic fixed-axis single-wheel actuator bench; not rolling contact, full-body D1 or hardware",
+      "unique_variable": "total feedforward multiplier1.0->0.75",
+      "phase": "preflight",
+      "accepted": false,
+      "conclusion": "REJECTED_NO_FULL_RUN",
+      "seeds": [
+        490101,
+        490102,
+        490103
+      ],
+      "completed_episodes": 12,
+      "failed_or_partial_episodes": 0,
+      "control_samples": 36000,
+      "physics_steps": 36000,
+      "training_steps": 0,
+      "elapsed_seconds_child": 2.302008799975738,
+      "unexecuted_full_episodes": 36,
+      "unexecuted_full_seeds": [
+        490301,
+        490302,
+        490303
+      ],
+      "failed_gates": [
+        "matched/stress_rmse_within_5_percent",
+        "mismatch/stress_rmse_within_5_percent"
+      ],
+      "decision_as_recorded": {
+        "cohort_valid": true,
+        "all_episodes_complete": true,
+        "accepted": false,
+        "gates": {
+          "matched/stress_saturation_reduced_5pp": true,
+          "matched/stress_rmse_within_5_percent": false,
+          "mismatch/stress_saturation_reduced_5pp": true,
+          "mismatch/stress_rmse_within_5_percent": false,
+          "no_speed_guard_triggered": true
+        },
+        "details": {
+          "matched/stress_saturation_reduction_pp": 11.966666666666665,
+          "matched/stress_rmse_ratio": 1.2010719991069694,
+          "mismatch/stress_saturation_reduction_pp": 11.322222222222218,
+          "mismatch/stress_rmse_ratio": 1.1921850833388654
+        },
+        "meaning": "eligible for independent full comparison"
+      },
+      "groups": [
+        {
+          "scenario": "matched",
+          "profile": "stress",
+          "seeds": [
+            490101,
+            490102,
+            490103
+          ],
+          "arms": {
+            "baseline": {
+              "velocity_rmse_rad_s": {
+                "mean": 2.735805850884411,
+                "min": 2.73579893321615,
+                "max": 2.7358128777712145
+              },
+              "saturation_fraction": {
+                "mean": 0.5556666666666666,
+                "min": 0.5556666666666666,
+                "max": 0.5556666666666666
+              },
+              "command_torque_rms_nm": {
+                "mean": 1.6892192874387026,
+                "min": 1.6892188401787895,
+                "max": 1.689220135289032
+              }
+            },
+            "candidate": {
+              "velocity_rmse_rad_s": {
+                "mean": 3.285899802490283,
+                "min": 3.2858890748580682,
+                "max": 3.285912472028725
+              },
+              "saturation_fraction": {
+                "mean": 0.436,
+                "min": 0.436,
+                "max": 0.436
+              },
+              "command_torque_rms_nm": {
+                "mean": 1.60468123957828,
+                "min": 1.6046809399824506,
+                "max": 1.6046814143368548
+              }
+            }
+          },
+          "candidate_over_baseline": {
+            "velocity_rmse_rad_s": 1.2010719991069694,
+            "saturation_fraction": 0.7846430713857229,
+            "command_torque_rms_nm": 0.9499543673879047
+          },
+          "saturation_reduction_percentage_points": 11.966666666666665
+        },
+        {
+          "scenario": "mismatch",
+          "profile": "stress",
+          "seeds": [
+            490101,
+            490102,
+            490103
+          ],
+          "arms": {
+            "baseline": {
+              "velocity_rmse_rad_s": {
+                "mean": 2.7329254336718214,
+                "min": 2.7329155105779614,
+                "max": 2.732933705755425
+              },
+              "saturation_fraction": {
+                "mean": 0.5638888888888888,
+                "min": 0.5636666666666666,
+                "max": 0.564
+              },
+              "command_torque_rms_nm": {
+                "mean": 1.6950133590536405,
+                "min": 1.6950123208642496,
+                "max": 1.6950141062338022
+              }
+            },
+            "candidate": {
+              "velocity_rmse_rad_s": {
+                "mean": 3.2581529359009456,
+                "min": 3.2581418823090686,
+                "max": 3.258168891178104
+              },
+              "saturation_fraction": {
+                "mean": 0.4506666666666666,
+                "min": 0.45066666666666666,
+                "max": 0.45066666666666666
+              },
+              "command_torque_rms_nm": {
+                "mean": 1.6113899647209913,
+                "min": 1.6113895905124138,
+                "max": 1.6113903993619278
+              }
+            }
+          },
+          "candidate_over_baseline": {
+            "velocity_rmse_rad_s": 1.1921850833388654,
+            "saturation_fraction": 0.7992118226600986,
+            "command_torque_rms_nm": 0.9506650529413303
+          },
+          "saturation_reduction_percentage_points": 11.322222222222218
+        }
+      ],
+      "episodes_all_seeds": [
+        {
+          "steps": 3000,
+          "duration_s": 6.0,
+          "velocity_rmse_rad_s": 2.73579893321615,
+          "velocity_mae_rad_s": 2.1606264965901056,
+          "peak_velocity_error_rad_s": 4.825076141694641,
+          "integrated_absolute_error_rad": 12.963758979540634,
+          "command_torque_rms_nm": 1.6892188401787895,
+          "applied_torque_rms_nm": 1.6884293362022318,
+          "peak_requested_torque_nm": 3.343916131455919,
+          "saturation_fraction": 0.5556666666666666,
+          "integration_frozen_fraction": 0.5553333333333333,
+          "speed_guard_triggered": false,
+          "completed": true,
+          "physics_steps": 3000,
+          "seed": 490101,
+          "scenario": "matched",
+          "profile": "stress",
+          "arm": "baseline"
+        },
+        {
+          "steps": 3000,
+          "duration_s": 6.0,
+          "velocity_rmse_rad_s": 3.2858890748580682,
+          "velocity_mae_rad_s": 2.843770377555136,
+          "peak_velocity_error_rad_s": 5.37896424848719,
+          "integrated_absolute_error_rad": 17.06262226533082,
+          "command_torque_rms_nm": 1.6046814143368548,
+          "applied_torque_rms_nm": 1.6041281570902215,
+          "peak_requested_torque_nm": 2.6580998411446353,
+          "saturation_fraction": 0.436,
+          "integration_frozen_fraction": 0.436,
+          "speed_guard_triggered": false,
+          "completed": true,
+          "physics_steps": 3000,
+          "seed": 490101,
+          "scenario": "matched",
+          "profile": "stress",
+          "arm": "candidate"
+        },
+        {
+          "steps": 3000,
+          "duration_s": 6.0,
+          "velocity_rmse_rad_s": 2.7329155105779614,
+          "velocity_mae_rad_s": 2.1505095088562043,
+          "peak_velocity_error_rad_s": 4.819415095622556,
+          "integrated_absolute_error_rad": 12.903057053137227,
+          "command_torque_rms_nm": 1.6950136500628699,
+          "applied_torque_rms_nm": 1.694226846450258,
+          "peak_requested_torque_nm": 3.395174612859695,
+          "saturation_fraction": 0.564,
+          "integration_frozen_fraction": 0.564,
+          "speed_guard_triggered": false,
+          "completed": true,
+          "physics_steps": 3000,
+          "seed": 490101,
+          "scenario": "mismatch",
+          "profile": "stress",
+          "arm": "baseline"
+        },
+        {
+          "steps": 3000,
+          "duration_s": 6.0,
+          "velocity_rmse_rad_s": 3.2581418823090686,
+          "velocity_mae_rad_s": 2.8124992174768995,
+          "peak_velocity_error_rad_s": 5.349285196023782,
+          "integrated_absolute_error_rad": 16.874995304861397,
+          "command_torque_rms_nm": 1.6113899042886328,
+          "applied_torque_rms_nm": 1.610827041802062,
+          "peak_requested_torque_nm": 2.6925782351376686,
+          "saturation_fraction": 0.45066666666666666,
+          "integration_frozen_fraction": 0.4513333333333333,
+          "speed_guard_triggered": false,
+          "completed": true,
+          "physics_steps": 3000,
+          "seed": 490101,
+          "scenario": "mismatch",
+          "profile": "stress",
+          "arm": "candidate"
+        },
+        {
+          "steps": 3000,
+          "duration_s": 6.0,
+          "velocity_rmse_rad_s": 3.2858978605840554,
+          "velocity_mae_rad_s": 2.8437851629304665,
+          "peak_velocity_error_rad_s": 5.378877776728876,
+          "integrated_absolute_error_rad": 17.0627109775828,
+          "command_torque_rms_nm": 1.6046809399824506,
+          "applied_torque_rms_nm": 1.6041276750365585,
+          "peak_requested_torque_nm": 2.6580571078130983,
+          "saturation_fraction": 0.436,
+          "integration_frozen_fraction": 0.436,
+          "speed_guard_triggered": false,
+          "completed": true,
+          "physics_steps": 3000,
+          "seed": 490102,
+          "scenario": "matched",
+          "profile": "stress",
+          "arm": "candidate"
+        },
+        {
+          "steps": 3000,
+          "duration_s": 6.0,
+          "velocity_rmse_rad_s": 2.7358057416658674,
+          "velocity_mae_rad_s": 2.160640161259267,
+          "peak_velocity_error_rad_s": 4.824940249638436,
+          "integrated_absolute_error_rad": 12.963840967555603,
+          "command_torque_rms_nm": 1.6892188868482867,
+          "applied_torque_rms_nm": 1.688429382893551,
+          "peak_requested_torque_nm": 3.343933445967782,
+          "saturation_fraction": 0.5556666666666666,
+          "integration_frozen_fraction": 0.5556666666666666,
+          "speed_guard_triggered": false,
+          "completed": true,
+          "physics_steps": 3000,
+          "seed": 490102,
+          "scenario": "matched",
+          "profile": "stress",
+          "arm": "baseline"
+        },
+        {
+          "steps": 3000,
+          "duration_s": 6.0,
+          "velocity_rmse_rad_s": 3.258148034215664,
+          "velocity_mae_rad_s": 2.8125115357399997,
+          "peak_velocity_error_rad_s": 5.349183300037085,
+          "integrated_absolute_error_rad": 16.87506921444,
+          "command_torque_rms_nm": 1.6113903993619278,
+          "applied_torque_rms_nm": 1.610827528949973,
+          "peak_requested_torque_nm": 2.69243597789809,
+          "saturation_fraction": 0.45066666666666666,
+          "integration_frozen_fraction": 0.4513333333333333,
+          "speed_guard_triggered": false,
+          "completed": true,
+          "physics_steps": 3000,
+          "seed": 490102,
+          "scenario": "mismatch",
+          "profile": "stress",
+          "arm": "candidate"
+        },
+        {
+          "steps": 3000,
+          "duration_s": 6.0,
+          "velocity_rmse_rad_s": 2.732927084682078,
+          "velocity_mae_rad_s": 2.1505294905624237,
+          "peak_velocity_error_rad_s": 4.8193007681644815,
+          "integrated_absolute_error_rad": 12.903176943374543,
+          "command_torque_rms_nm": 1.6950123208642496,
+          "applied_torque_rms_nm": 1.6942255166343538,
+          "peak_requested_torque_nm": 3.3951919273715583,
+          "saturation_fraction": 0.564,
+          "integration_frozen_fraction": 0.5643333333333334,
+          "speed_guard_triggered": false,
+          "completed": true,
+          "physics_steps": 3000,
+          "seed": 490102,
+          "scenario": "mismatch",
+          "profile": "stress",
+          "arm": "baseline"
+        },
+        {
+          "steps": 3000,
+          "duration_s": 6.0,
+          "velocity_rmse_rad_s": 2.7358128777712145,
+          "velocity_mae_rad_s": 2.1606450291488613,
+          "peak_velocity_error_rad_s": 4.825083012667452,
+          "integrated_absolute_error_rad": 12.963870174893167,
+          "command_torque_rms_nm": 1.689220135289032,
+          "applied_torque_rms_nm": 1.6884306319180626,
+          "peak_requested_torque_nm": 3.3440748911622054,
+          "saturation_fraction": 0.5556666666666666,
+          "integration_frozen_fraction": 0.5556666666666666,
+          "speed_guard_triggered": false,
+          "completed": true,
+          "physics_steps": 3000,
+          "seed": 490103,
+          "scenario": "matched",
+          "profile": "stress",
+          "arm": "baseline"
+        },
+        {
+          "steps": 3000,
+          "duration_s": 6.0,
+          "velocity_rmse_rad_s": 3.285912472028725,
+          "velocity_mae_rad_s": 2.843797099672985,
+          "peak_velocity_error_rad_s": 5.378984724309131,
+          "integrated_absolute_error_rad": 17.06278259803791,
+          "command_torque_rms_nm": 1.604681364415534,
+          "applied_torque_rms_nm": 1.6041282379330637,
+          "peak_requested_torque_nm": 2.6582711870031934,
+          "saturation_fraction": 0.436,
+          "integration_frozen_fraction": 0.436,
+          "speed_guard_triggered": false,
+          "completed": true,
+          "physics_steps": 3000,
+          "seed": 490103,
+          "scenario": "matched",
+          "profile": "stress",
+          "arm": "candidate"
+        },
+        {
+          "steps": 3000,
+          "duration_s": 6.0,
+          "velocity_rmse_rad_s": 2.732933705755425,
+          "velocity_mae_rad_s": 2.150533698440077,
+          "peak_velocity_error_rad_s": 4.819444477686947,
+          "integrated_absolute_error_rad": 12.903202190640462,
+          "command_torque_rms_nm": 1.6950141062338022,
+          "applied_torque_rms_nm": 1.6942273028330372,
+          "peak_requested_torque_nm": 3.395333372565981,
+          "saturation_fraction": 0.5636666666666666,
+          "integration_frozen_fraction": 0.5643333333333334,
+          "speed_guard_triggered": false,
+          "completed": true,
+          "physics_steps": 3000,
+          "seed": 490103,
+          "scenario": "mismatch",
+          "profile": "stress",
+          "arm": "baseline"
+        },
+        {
+          "steps": 3000,
+          "duration_s": 6.0,
+          "velocity_rmse_rad_s": 3.258168891178104,
+          "velocity_mae_rad_s": 2.81252969090496,
+          "peak_velocity_error_rad_s": 5.3493124795448,
+          "integrated_absolute_error_rad": 16.87517814542976,
+          "command_torque_rms_nm": 1.6113895905124138,
+          "applied_torque_rms_nm": 1.610826859514144,
+          "peak_requested_torque_nm": 2.692755097290867,
+          "saturation_fraction": 0.45066666666666666,
+          "integration_frozen_fraction": 0.4513333333333333,
+          "speed_guard_triggered": false,
+          "completed": true,
+          "physics_steps": 3000,
+          "seed": 490103,
+          "scenario": "mismatch",
+          "profile": "stress",
+          "arm": "candidate"
+        }
+      ],
+      "verification": {
+        "manifest_entries_verified": 39,
+        "exact_registered_cohort": true,
+        "trajectory_checks": [
+          {
+            "episode": "490101_matched_stress_baseline",
+            "trajectory_rows": 3000,
+            "primary_metric_recomputed": true
+          },
+          {
+            "episode": "490101_matched_stress_candidate",
+            "trajectory_rows": 3000,
+            "primary_metric_recomputed": true
+          },
+          {
+            "episode": "490101_mismatch_stress_baseline",
+            "trajectory_rows": 3000,
+            "primary_metric_recomputed": true
+          },
+          {
+            "episode": "490101_mismatch_stress_candidate",
+            "trajectory_rows": 3000,
+            "primary_metric_recomputed": true
+          },
+          {
+            "episode": "490102_matched_stress_candidate",
+            "trajectory_rows": 3000,
+            "primary_metric_recomputed": true
+          },
+          {
+            "episode": "490102_matched_stress_baseline",
+            "trajectory_rows": 3000,
+            "primary_metric_recomputed": true
+          },
+          {
+            "episode": "490102_mismatch_stress_candidate",
+            "trajectory_rows": 3000,
+            "primary_metric_recomputed": true
+          },
+          {
+            "episode": "490102_mismatch_stress_baseline",
+            "trajectory_rows": 3000,
+            "primary_metric_recomputed": true
+          },
+          {
+            "episode": "490103_matched_stress_baseline",
+            "trajectory_rows": 3000,
+            "primary_metric_recomputed": true
+          },
+          {
+            "episode": "490103_matched_stress_candidate",
+            "trajectory_rows": 3000,
+            "primary_metric_recomputed": true
+          },
+          {
+            "episode": "490103_mismatch_stress_baseline",
+            "trajectory_rows": 3000,
+            "primary_metric_recomputed": true
+          },
+          {
+            "episode": "490103_mismatch_stress_candidate",
+            "trajectory_rows": 3000,
+            "primary_metric_recomputed": true
+          }
+        ],
+        "full_run_directories_observed": [],
+        "resource_samples_checked": 10
+      },
+      "source_files": [
+        {
+          "path": "results/pi49_preflight_20261022_01/summary.json",
+          "bytes": 9685,
+          "sha256": "6ff6f3e268e8ec09bac83cc4b0632c75b01a354dd5ab93d1310182ca60c07956"
+        },
+        {
+          "path": "results/pi49_preflight_20261022_01/manifest.json",
+          "bytes": 4541,
+          "sha256": "5b5c998b3c86777cee10208ce5a36e18128c0d9889c3437ca90ebada62f3e6b4"
+        },
+        {
+          "path": "results/pi49_preflight_20261022_01/experiment.json",
+          "bytes": 283,
+          "sha256": "7b3ccc523b8349a8c578772e36883f4ba1d4b7bc0e796408faa42e5fa589cb04"
+        },
+        {
+          "path": "results/pi49_preflight_20261022_01/registration.json",
+          "bytes": 7360,
+          "sha256": "227285cdf4391a78513003dcda09185b09ab862da119b31c7558addba86a855c"
+        },
+        {
+          "path": "results/pi49_preflight_20261022_01_supervision/report.json",
+          "bytes": 966,
+          "sha256": "0d1ea39c20c6e90eaeb7b924a1d7a156acd57949cc0528a2c1c19e8ea5dc1693"
+        },
+        {
+          "path": "results/pi49_preflight_20261022_01_supervision/resources.jsonl",
+          "bytes": 17910,
+          "sha256": "ddb47550b945ac02f911b44682c87ab7171b190523ce76176e625ab6541cffec"
+        }
+      ],
+      "supervision": {
+        "schema": "bounded-control-job49-v1",
+        "status": "COMPLETE",
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "scripts/control_candidates49.py",
+          "--candidate",
+          "pi",
+          "--phase",
+          "preflight",
+          "--output",
+          "results/pi49_preflight_20261022_01"
+        ],
+        "scope": "/user.slice/user-1000.slice/user@1000.service/app.slice/control49-pi-preflight-20261022-01.service",
+        "timeout_s": 600.0,
+        "supervisor_sha256": "4ed57d66a443d360764ab2773d509c1513ca004265e58fd2ddce842cb9dcee3d",
+        "minimum_effective_bytes": 7258165248,
+        "peak_group_bytes": 116289536,
+        "child_started": true,
+        "returncode": 0,
+        "error": null,
+        "signals": [],
+        "retry_permitted": false,
+        "cpu_affinity": [
+          0
+        ],
+        "final_memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "child_pid": 651490,
+        "owned_process_group_empty": true,
+        "child_reaped": true,
+        "elapsed_s": 13.077640647010412
+      }
+    }
+  },
+  "aggregate": {
+    "candidates_tested": 2,
+    "candidates_accepted": 0,
+    "candidates_rejected": 2,
+    "episodes_completed": 24,
+    "episodes_failed_or_partial": 0,
+    "control_samples": 40800,
+    "physics_steps": 84000,
+    "training_steps": 0,
+    "full_episodes_executed": 0,
+    "full_episodes_not_launched": 116,
+    "new_parameter_sweep": false
+  },
+  "limits": [
+    "All seeds vary only synthetic measurement noise; nominal MPC has no noise and identical trajectories across seeds.",
+    "No confidence interval or significance claim is made from these preflights.",
+    "MPC mismatch_delay combines mass/damping changes,40ms whole-command delay,sensor noise and a push; effects cannot be attributed to delay alone.",
+    "PI mismatch fit has estimated delay4 at search boundary; the controller does not invert the delay.",
+    "Neither rejected candidate replaces the current controller or policy."
+  ],
+  "read_only_screening": {
+    "source": {
+      "path": "results/control49_inspect_20261022_01/summary.json",
+      "bytes": 1603,
+      "sha256": "4ea38a5cb780a3aff4aef37bcb2428ca3813f063374c999b6423edbb5c246909"
+    },
+    "summary": {
+      "candidate": "mpc",
+      "phase": "inspect",
+      "registration_sha256": "227285cdf4391a78513003dcda09185b09ab862da119b31c7558addba86a855c",
+      "versions": {
+        "numpy": "2.2.6",
+        "scipy": "1.15.3",
+        "mujoco": "3.12.0"
+      },
+      "created_utc": "2026-10-22T14:22:54.462292+00:00",
+      "status": "complete",
+      "inspection": {
+        "physics_steps": 0,
+        "training_steps": 0,
+        "cases": [
+          {
+            "scenario": "matched",
+            "source": "results/wheel_control/matched/stress_identified_ff.csv",
+            "sha256": "b2738358f222bb8087a122e83a663a845ba4854131a1a159f01261b16e7aab7a",
+            "samples": 3000,
+            "recorded_saturation_fraction": 0.5556666666666666,
+            "frozen_feedback_counterfactual_saturation_fraction": 0.4056666666666667
+          },
+          {
+            "scenario": "mismatch",
+            "source": "results/wheel_control/mismatch/stress_identified_ff.csv",
+            "sha256": "6d271a90f884acf47db91d63706fdac8db43d7b18b5fdcd80810781f3720a7e1",
+            "samples": 3000,
+            "recorded_saturation_fraction": 0.5636666666666666,
+            "frozen_feedback_counterfactual_saturation_fraction": 0.421
+          }
+        ],
+        "limitation": "Counterfactual holds recorded P and I fixed; real feedback and anti-windup change. Only a directional screening calculation, not a closed-loop performance claim. Planar MPC mismatch_delay delays the whole control by 2*0.02s and also changes mass/damping, measurement noise and push; no isolated delay attribution. Nominal MPC seeds are deterministic repetitions, not independent statistical evidence."
+      },
+      "elapsed_seconds": 0.04184940201230347
+    },
+    "interpretation": "fixed historical P and I, only feedforward*.75; directional counterfactual, never closed-loop performance"
+  }
+}

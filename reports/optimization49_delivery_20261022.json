@@ -1,0 +1,346 @@
+{
+  "schema": "control49-delivery-v1",
+  "date": "2026-10-22",
+  "initial_head": "696a67adaebe8148db3f561bcc94dc0381917004",
+  "experiment_execution_finished": true,
+  "new_experiment_training_steps": 0,
+  "qualified_new_control_candidates": 0,
+  "full_candidate_matrices_run": 0,
+  "explicit_candidate_integration_substeps": 105350,
+  "integration_scope_note": "21350 estimator + 48000 planar MPC + 36000 fixed-axis PI; excludes test fixtures and uninstrumented model compiler internals. D1 showcase separately adds12000 recorded native steps.",
+  "candidate_failures": {
+    "estimator_fallen_episodes": 4,
+    "mpc_failed_episodes": 0,
+    "pi_failed_episodes": 0
+  },
+  "local_validation": {
+    "new_candidate_tests_passed": 23,
+    "new_showcase_tests_passed": 16,
+    "ruff_src_tests_examples_scripts": "PASS",
+    "full_suite_01": "FAILED_COLLECTION_29_missing_existing_dependency_path",
+    "full_suite_02": "INCOMPLETE_systemd_oomd_SIGKILL_at_40_percent",
+    "full_suite_pass_claimed": false
+  },
+  "frozen_integrity": {
+    "v27_manifest": {
+      "path": "runtime/d1_b22/runtime_manifest_v27.json",
+      "bytes": 856947,
+      "sha256": "d3c38429362e82745179f2c526b2ee52d805526df390d52346c805e5a51fff09"
+    },
+    "local_frozen_inputs_checked": 928,
+    "mismatches": [],
+    "experiment48_rerun": false,
+    "manifest_rebound": false,
+    "frozen_sources_modified": false
+  },
+  "reports": [
+    {
+      "path": "reports/showcase49_results_20261022.json",
+      "bytes": 6191,
+      "sha256": "17066644a06cecccad74ccdfc8bac9df021bdbe03bf983a9f58ee6788ad412e5"
+    },
+    {
+      "path": "reports/training49_diagnostic.json",
+      "bytes": 97815,
+      "sha256": "52501c2d34c028581597813082290a4e73f57baa08e5e3073c0e01b08ee7b53f"
+    },
+    {
+      "path": "reports/estimator49_results_20261022.json",
+      "bytes": 31768,
+      "sha256": "af32756632b00987ce2455672e5bed79a7b1d48dd0e5ff87cd98caa3aafbbeea"
+    },
+    {
+      "path": "reports/control_candidates49_results_20261022.json",
+      "bytes": 46377,
+      "sha256": "2dff28e5f92a43bd96d708eb24fa4d26ce9e793b22b56b0e6c7541fbb0b388a0"
+    },
+    {
+      "path": "reports/control_candidates49_preregistration.json",
+      "bytes": 7360,
+      "sha256": "227285cdf4391a78513003dcda09185b09ab862da119b31c7558addba86a855c"
+    }
+  ],
+  "resource_receipts": [
+    {
+      "attempt": "showcase49_flat_20261022_01_supervision",
+      "receipt": {
+        "path": "results/showcase49_flat_20261022_01_supervision/report.json",
+        "bytes": 900,
+        "sha256": "e4ed9ca2a338f36a89e5a16e78e99319347a53fba499aaf83c541a83480cdc0d"
+      },
+      "status": "COMPLETE",
+      "returncode": 0,
+      "error": null,
+      "elapsed_s": 20.15217150602257,
+      "minimum_effective_bytes": 4525432832,
+      "peak_group_bytes": 947068928,
+      "final_memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "signals": []
+    },
+    {
+      "attempt": "showcase49_flat_20261022_02_supervision",
+      "receipt": {
+        "path": "results/showcase49_flat_20261022_02_supervision/report.json",
+        "bytes": 938,
+        "sha256": "3fefd08de66da0c086a026e30959acf1bf087bec5b9e361e92a4a63675025b35"
+      },
+      "status": "COMPLETE",
+      "returncode": 0,
+      "error": null,
+      "elapsed_s": 19.560442704008892,
+      "minimum_effective_bytes": 4624015360,
+      "peak_group_bytes": 817704960,
+      "final_memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "owned_process_group_empty": true,
+      "signals": []
+    },
+    {
+      "attempt": "showcase49_yaw_20261022_01_supervision",
+      "receipt": {
+        "path": "results/showcase49_yaw_20261022_01_supervision/report.json",
+        "bytes": 935,
+        "sha256": "1d72308e70e3db683940540e0b8aebd518c370edb0f72a7e3045e581ae7ce26e"
+      },
+      "status": "COMPLETE",
+      "returncode": 0,
+      "error": null,
+      "elapsed_s": 19.403896512987558,
+      "minimum_effective_bytes": 4736876544,
+      "peak_group_bytes": 737005568,
+      "final_memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "owned_process_group_empty": true,
+      "signals": []
+    },
+    {
+      "attempt": "tests49_20261022_01_supervision",
+      "receipt": {
+        "path": "results/tests49_20261022_01_supervision/report.json",
+        "bytes": 960,
+        "sha256": "7652c7a8a7af18ace0d26d64ccd19dccd891c4f6dccaf2a5a66417e4cf418c5f"
+      },
+      "status": "COMPLETE",
+      "returncode": 0,
+      "error": null,
+      "elapsed_s": 12.072515719977673,
+      "minimum_effective_bytes": 4599263232,
+      "peak_group_bytes": 176492544,
+      "final_memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "owned_process_group_empty": true,
+      "signals": []
+    },
+    {
+      "attempt": "estimator49_offline_20261022_01_supervision",
+      "receipt": {
+        "path": "results/estimator49_offline_20261022_01_supervision/report.json",
+        "bytes": 946,
+        "sha256": "1c958405383719a17ea5bee318f4094481cfc35908e5dc59b4e2203bce9cea6b"
+      },
+      "status": "COMPLETE",
+      "returncode": 0,
+      "error": null,
+      "elapsed_s": 50.340041237999685,
+      "minimum_effective_bytes": 2848083968,
+      "peak_group_bytes": 687144960,
+      "final_memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "owned_process_group_empty": true,
+      "signals": []
+    },
+    {
+      "attempt": "estimator49_preflight_20261022_01_supervision",
+      "receipt": {
+        "path": "results/estimator49_preflight_20261022_01_supervision/report.json",
+        "bytes": 1037,
+        "sha256": "a0c79225ce6d7a41928450f4b094bf10660bd7ae1203f4a5744f46843b35cad2"
+      },
+      "status": "COMPLETE",
+      "returncode": 0,
+      "error": null,
+      "elapsed_s": 64.37332092603901,
+      "minimum_effective_bytes": 3485708288,
+      "peak_group_bytes": 935280640,
+      "final_memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "owned_process_group_empty": true,
+      "signals": []
+    },
+    {
+      "attempt": "control49_inspect_20261022_01_supervision",
+      "receipt": {
+        "path": "results/control49_inspect_20261022_01_supervision/report.json",
+        "bytes": 970,
+        "sha256": "b8dc57fb2d54e0e60a8d6a5422faa1ab66930fef2a50f712f38c15ca02f69dac"
+      },
+      "status": "COMPLETE",
+      "returncode": 0,
+      "error": null,
+      "elapsed_s": 11.060668694030028,
+      "minimum_effective_bytes": 7216209920,
+      "peak_group_bytes": 41390080,
+      "final_memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "owned_process_group_empty": true,
+      "signals": []
+    },
+    {
+      "attempt": "mpc49_preflight_20261022_01_supervision",
+      "receipt": {
+        "path": "results/mpc49_preflight_20261022_01_supervision/report.json",
+        "bytes": 968,
+        "sha256": "20ce73c75a0e1b5d17ddcd2f32532f6167da301807e246143f8b7163d3a8e3ac"
+      },
+      "status": "COMPLETE",
+      "returncode": 0,
+      "error": null,
+      "elapsed_s": 15.09347052598605,
+      "minimum_effective_bytes": 7322832896,
+      "peak_group_bytes": 118870016,
+      "final_memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "owned_process_group_empty": true,
+      "signals": []
+    },
+    {
+      "attempt": "pi49_preflight_20261022_01_supervision",
+      "receipt": {
+        "path": "results/pi49_preflight_20261022_01_supervision/report.json",
+        "bytes": 966,
+        "sha256": "0d1ea39c20c6e90eaeb7b924a1d7a156acd57949cc0528a2c1c19e8ea5dc1693"
+      },
+      "status": "COMPLETE",
+      "returncode": 0,
+      "error": null,
+      "elapsed_s": 13.077640647010412,
+      "minimum_effective_bytes": 7258165248,
+      "peak_group_bytes": 116289536,
+      "final_memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "owned_process_group_empty": true,
+      "signals": []
+    },
+    {
+      "attempt": "verification49_suite_20261022_01",
+      "receipt": {
+        "path": "results/verification49_suite_20261022_01/report.json",
+        "bytes": 929,
+        "sha256": "cc1c443d844be4a44bd9e26d7236e6049accea0b374edd50e700b7fbd2996556"
+      },
+      "status": "INCOMPLETE",
+      "returncode": 2,
+      "error": "RuntimeError: child exited 2",
+      "elapsed_s": 21.12675933301216,
+      "minimum_effective_bytes": 6770110464,
+      "peak_group_bytes": 892612608,
+      "final_memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "owned_process_group_empty": true,
+      "signals": []
+    },
+    {
+      "attempt": "verification49_suite_20261022_02",
+      "receipt": {
+        "path": "results/verification49_suite_20261022_02/external_terminal_receipt.json",
+        "bytes": 2829,
+        "sha256": "c523175fcf1b750a1264695a7825365341b0987c3daca5f9e3541ca417b601f3"
+      },
+      "status": "INCOMPLETE",
+      "reason": "systemd-oomd killed the entire unit; SIGKILL is not catchable"
+    },
+    {
+      "attempt": "verification49_showcase_tests_20261022_01",
+      "receipt": {
+        "path": "results/verification49_showcase_tests_20261022_01/report.json",
+        "bytes": 913,
+        "sha256": "47aab3c2ec0afead3348370ff3e6062434369b4f182b41d9696d50c42d32080b"
+      },
+      "status": "COMPLETE",
+      "returncode": 0,
+      "error": null,
+      "elapsed_s": 11.0711822109879,
+      "minimum_effective_bytes": 6884392960,
+      "peak_group_bytes": 32788480,
+      "final_memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "owned_process_group_empty": true,
+      "signals": []
+    }
+  ],
+  "unresolved": [
+    "B22 frozen entry has pre-existing source drift; no rebind performed.",
+    "B22 RL contribution threshold remains unmet; new training not admitted.",
+    "Offline estimator improvement did not transfer to closed-loop tracking.",
+    "MPC mismatch height tracking and PI saturation/tracking tradeoff remain unresolved.",
+    "D1 ROS2 adaptation and20ms real-time deadline not verified.",
+    "Local wheel fullsuite hit systemd-oomd under unchanged limits; final remote CI must be checked by exact commit SHA."
+  ]
+}

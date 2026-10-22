@@ -1,0 +1,195 @@
+{
+  "schema": "showcase49-presentation-results-v1",
+  "status": "COMPLETE",
+  "source": "COMPLETE C31 B22+C18 suite; original actor, gain1.0",
+  "items": [
+    {
+      "profile": "flat_1p6",
+      "actor": "frozen B22 + C18, gain 1.0",
+      "source_suite_report": {
+        "bytes": 4826,
+        "sha256": "2720b7f6913cf95b356adff44619b684e7401dcddfd5239207d935c13f382c6a"
+      },
+      "source_readback": {
+        "bytes": 33414,
+        "sha256": "4d607295df17d08c28e4782bb5060904f2ef1c6b479eafb14900c9590107f0eb"
+      },
+      "source_states": {
+        "bytes": 1711364,
+        "sha256": "6fc05b51581b19ffcdb8d0153cc56b68f65d89ef54610c6fddeef49f43d067ae"
+      },
+      "compiled_geometry_matches_archive": true,
+      "source_controls": 1600,
+      "png_frames": 321,
+      "gif_frames": 321,
+      "fps": 20,
+      "simulation_duration_s": 16.0,
+      "playback_duration_s": 16.05,
+      "gif": {
+        "bytes": 2964907,
+        "sha256": "acf935affc1617a287166c084423c2f56fb63062a3b2756504a53580b816a21c"
+      },
+      "renderer": {
+        "bytes": 11856,
+        "sha256": "9355100d7671e6e30e3290730aa09852f3f55ea6fc71432a8768fa46c29b3d00"
+      },
+      "png_manifest": {
+        "bytes": 39164,
+        "sha256": "7895b413aed6113c12eb0f871794f6c6e6dbb39a1458e9ff83304f99e53e843c"
+      },
+      "visual_only_changes": {
+        "camera_distance_m": 1.8,
+        "floor_color": [
+          0.72,
+          0.77,
+          0.82
+        ],
+        "world_grid_spacing_m": 0.5,
+        "grid_changes_physics": false
+      },
+      "physics_step_calls": 0,
+      "policy_calls": 0,
+      "model_compilations": 1,
+      "compiler_internal_steps_instrumented": false,
+      "new_performance_evidence": false,
+      "asset": "docs/assets/b22_flat_1p6.gif",
+      "local_record": "results/showcase49_flat_20261022_02",
+      "resource_supervision": {
+        "schema": "bounded-control-job49-v1",
+        "status": "COMPLETE",
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "scripts/render_b22_showcase49.py",
+          "--profile",
+          "flat_1p6",
+          "--output",
+          "results/showcase49_flat_20261022_02"
+        ],
+        "scope": "/user.slice/user-1000.slice/user@1000.service/app.slice/control49-wheel-flat-20261022-02.service",
+        "timeout_s": 600.0,
+        "supervisor_sha256": "66cc7be122c4c67ca7d0d6ef424713e899cc47ea9c151e6d3440dc3190978b95",
+        "minimum_effective_bytes": 4624015360,
+        "peak_group_bytes": 817704960,
+        "child_started": true,
+        "returncode": 0,
+        "error": null,
+        "signals": [],
+        "retry_permitted": false,
+        "cpu_affinity": [
+          0
+        ],
+        "final_memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "child_pid": 637053,
+        "owned_process_group_empty": true,
+        "child_reaped": true,
+        "elapsed_s": 19.560442704008892
+      }
+    },
+    {
+      "profile": "yaw_1p2",
+      "actor": "frozen B22 + C18, gain 1.0",
+      "source_suite_report": {
+        "bytes": 4826,
+        "sha256": "2720b7f6913cf95b356adff44619b684e7401dcddfd5239207d935c13f382c6a"
+      },
+      "source_readback": {
+        "bytes": 31251,
+        "sha256": "8ffc460b5bbddf172323e2a0fc9ebf9f02dc873a4e31b75dc2b9edf72ae54fb4"
+      },
+      "source_states": {
+        "bytes": 1711364,
+        "sha256": "1cdf321cbd6ee3e2ed9d33fc966a9f9e112e9e2674d3f3481dfeae7acef17912"
+      },
+      "compiled_geometry_matches_archive": true,
+      "source_controls": 1600,
+      "png_frames": 321,
+      "gif_frames": 321,
+      "fps": 20,
+      "simulation_duration_s": 16.0,
+      "playback_duration_s": 16.05,
+      "gif": {
+        "bytes": 2894289,
+        "sha256": "e5d7bc633d8db33a89e9c528d77412bbac272a726ac1480b8dd108b979e0efa9"
+      },
+      "renderer": {
+        "bytes": 11856,
+        "sha256": "9355100d7671e6e30e3290730aa09852f3f55ea6fc71432a8768fa46c29b3d00"
+      },
+      "png_manifest": {
+        "bytes": 39164,
+        "sha256": "f1d11498a2666677946303fd77de74f9ebbeb31567907ae8db49a81c51de7f30"
+      },
+      "visual_only_changes": {
+        "camera_distance_m": 1.8,
+        "floor_color": [
+          0.72,
+          0.77,
+          0.82
+        ],
+        "world_grid_spacing_m": 0.5,
+        "grid_changes_physics": false
+      },
+      "physics_step_calls": 0,
+      "policy_calls": 0,
+      "model_compilations": 1,
+      "compiler_internal_steps_instrumented": false,
+      "new_performance_evidence": false,
+      "asset": "docs/assets/b22_yaw_1p2.gif",
+      "local_record": "results/showcase49_yaw_20261022_01",
+      "resource_supervision": {
+        "schema": "bounded-control-job49-v1",
+        "status": "COMPLETE",
+        "command": [
+          "/usr/bin/python3",
+          "-B",
+          "scripts/render_b22_showcase49.py",
+          "--profile",
+          "yaw_1p2",
+          "--output",
+          "results/showcase49_yaw_20261022_01"
+        ],
+        "scope": "/user.slice/user-1000.slice/user@1000.service/app.slice/control49-wheel-yaw-20261022-01.service",
+        "timeout_s": 600.0,
+        "supervisor_sha256": "66cc7be122c4c67ca7d0d6ef424713e899cc47ea9c151e6d3440dc3190978b95",
+        "minimum_effective_bytes": 4736876544,
+        "peak_group_bytes": 737005568,
+        "child_started": true,
+        "returncode": 0,
+        "error": null,
+        "signals": [],
+        "retry_permitted": false,
+        "cpu_affinity": [
+          0
+        ],
+        "final_memory_events": {
+          "low": 0,
+          "high": 0,
+          "max": 0,
+          "oom": 0,
+          "oom_kill": 0,
+          "oom_group_kill": 0
+        },
+        "child_pid": 638015,
+        "owned_process_group_empty": true,
+        "child_reaped": true,
+        "elapsed_s": 19.403896512987558
+      }
+    }
+  ],
+  "frozen_entry_blocker": {
+    "v26_changed_sources": 4,
+    "v27_changed_sources": 1,
+    "v27_drift": "/usr/lib/x86_64-linux-gnu/libXtst.so.6.1.0",
+    "manifests_modified": false
+  },
+  "retained_visual_prototype": "results/showcase49_flat_20261022_01",
+  "performance_claim_added": false
+}

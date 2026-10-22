@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "registered_date": "2026-10-22",
+  "scope": "new synthetic planar MPC and fixed-axis wheel comparisons; no D1/B22 training or hardware claims",
+  "immutable_archive": "Do not edit frozen sources or runtime/d1_b22/runtime_manifest_v27.json; do not run or reuse archived experiment48; fresh output directories only; no resume/overwrite",
+  "resource_contract": {
+    "execution": "root-owned serial systemd; CPU and one environment",
+    "Nice": 10,
+    "threads": 1,
+    "MemoryHigh_bytes": 2147483648,
+    "MemoryMax_bytes": 3221225472,
+    "MemorySwapMax_bytes": 0,
+    "startup_effective_available_bytes": 4294967296,
+    "runtime_reserved_available_bytes": 2147483648
+  },
+  "training_steps": 0,
+  "source_sha256": {
+    "scripts/control_candidates49.py": "605f3e78e8c9a04be1e2fc77b3f090bfb31d046e3d3216978df453076f50856d",
+    "scripts/evaluate_wheel_control.py": "3d788570f09739ac09d3f18f0b193366d4f8ac424fb5ffbe8f1402942544f32d",
+    "src/wheel_legged_control/controllers.py": "9a83b860fad2c27ab017828948ceb7fd925d26f417b8d2379bb6bf5309f1c5b6",
+    "src/wheel_legged_control/env.py": "0840d9046b12bb187b4dd98bb1d9b2aaf085fd51357f77538f0213c3dc8036af",
+    "src/wheel_legged_control/model.py": "92b909eaf5e425a2df29036c7a2053e4ae80695a0a8d1c1964a2554dfdefc91e",
+    "src/wheel_legged_control/rewards.py": "cfecf7b726a08d65d03fc913066059cec5422a3fbf735389360960599130c4da",
+    "src/wheel_legged_control/experiments.py": "7b5f8d73fa61aff9cd59c3ec384d11f5dab8c2399b29aafb8c241aff774b1cc4",
+    "src/wheel_legged_control/assets/wheel_legged_planar.xml": "a0153542f4d7211b2adc9894fc0123306d8f4d77c88d14951e7d9163dec46ef3",
+    "src/wheel_legged_control/wheel_control.py": "e46735a96a52a1617f2471cf9be4d357f40212025b835abd6528ea3f683c4129",
+    "src/wheel_legged_control/actuator_bench.py": "edb0e7c65076c9cd7dc108797cf695e9d8405b485a576c4a5ae712b420303625",
+    "src/wheel_legged_control/actuator_identification.py": "07af57632b5acfe8dd74a6f363879e072ff12393d4ebe7a2604216108a07c790",
+    "results/wheel_control/experiment.json": "34c864065dd2846a3c0b38cbadb83351c451c01d17e88478d73a8a94751e128d",
+    "results/wheel_control/summary.json": "5273be9bf6fca1763a4095285b4ec383b2a61d22d4768bf41223ce7204578d47",
+    "results/wheel_control/matched/fit.json": "26e252467f42a763065dd5a6d778b2de152a7a7265b8a8d6b82e5d0d93dd88e5",
+    "results/wheel_control/matched/stress_identified_ff.csv": "b2738358f222bb8087a122e83a663a845ba4854131a1a159f01261b16e7aab7a",
+    "results/wheel_control/mismatch/fit.json": "eeb91e5f8a9c2dc6f24117708c3c6069eed8760fabd456c7423b87d80725ba9d",
+    "results/wheel_control/mismatch/stress_identified_ff.csv": "6d271a90f884acf47db91d63706fdac8db43d7b18b5fdcd80810781f3720a7e1"
+  },
+  "mpc": {
+    "hypothesis": "doubling height-state weight can reduce combined-model-mismatch height tracking error without worsening tracking, effort or solve time",
+    "unique_variable": "Q[2,2] 90 -> 180; dependent terminal Riccati weight recomputed by unchanged controller",
+    "fixed": "all other Q entries, R, horizon20, constraints, nominal model, scenario initial state, command sequence, noise pairing and optimizer",
+    "scenarios": [
+      "nominal",
+      "mismatch_delay"
+    ],
+    "profiles": [
+      "benchmark"
+    ],
+    "preflight_seeds": [
+      490101,
+      490102,
+      490103
+    ],
+    "full_seeds": [
+      490201,
+      490202,
+      490203,
+      490204,
+      490205,
+      490206,
+      490207,
+      490208,
+      490209,
+      490210,
+      490211,
+      490212,
+      490213,
+      490214,
+      490215,
+      490216,
+      490217,
+      490218,
+      490219,
+      490220
+    ],
+    "episode_seconds": 8,
+    "preflight_episodes": 12,
+    "full_episodes": 80,
+    "preflight_control_steps_max": 4800,
+    "full_control_steps_max": 32000,
+    "scenario_caveat": "mismatch_delay=mass1.25,damping1.35,2 control-step command delay(40ms),sensor_noise1,push-45N@4.2s for0.1s; env.step queues entire MPC+residual, including pure MPC zero-residual runs. Combined stress, no isolated delay claim. Nominal zero-noise trajectory is seed-independent and its repeated runs are not independent statistical evidence.",
+    "metric_timing": "post-transition state compared with command that drove that transition, matching archived experiments.compute_metrics; all samples including startup",
+    "preflight_rule": "all12 episodes complete; mismatch mean height RMSE ratio<=.90; per-scenario speed,pitch RMS,pitch peak,normalized effort,wheel force RMS,leg force RMS ratios<=1.05; candidate max episode solveP95<=20ms; no significance claim",
+    "full_rule": "same gates on80 complete episodes and paired two-sided95% Student-t interval for mismatch height candidate-baseline difference entirely below0; seeds are independent noise realizations, not a hardware population",
+    "failure_rule": "any missing, duplicate, failed or partial episode disqualifies the cohort; raw trajectories and failures retained"
+  },
+  "pi": {
+    "hypothesis": "reducing total identified feedforward by25% reduces stress saturation without material tracking regression",
+    "unique_variable": "total feedforward multiplier1.0->0.75",
+    "fixed": "saved fit parameters (no refit); PI kp.12,ki.6;2Nm limit;dt.002;truth(.017,.105,.043,delay2); noise scale1; paired noise stream; known physical inertia unchanged",
+    "implementation": "scale controller-only load inertia and continuous feedforward coefficients algebraically; do not change plant or original fit; existing compute retains conditional integration on the scaled torque",
+    "scenarios": [
+      "matched",
+      "mismatch"
+    ],
+    "profiles": [
+      "tracking",
+      "reversal",
+      "stress"
+    ],
+    "preflight_seeds": [
+      490101,
+      490102,
+      490103
+    ],
+    "full_seeds": [
+      490301,
+      490302,
+      490303
+    ],
+    "episode_seconds": 6,
+    "preflight_episodes": 12,
+    "full_episodes": 36,
+    "preflight_physics_steps_max": 36000,
+    "full_physics_steps_max": 108000,
+    "inspection": "read recorded stress CSV torque components; fixed-feedback counterfactual is directional only, not a closed-loop prediction",
+    "preflight_rule": "all12 pressure episodes complete; each object mean saturation reduction>=5percentage points; stress mean RMSE ratio<=1.05; no speed guard trigger",
+    "full_rule": "all36 episodes complete; each object stress mean saturation reduction>=5percentage points; every object/task mean RMSE ratio<=1.05; no speed guard trigger",
+    "scope": "seeds vary measurement noise only; two synthetic objects (matched and extra Stribeck friction.08Nm); fit mismatch delay4 is at search boundary and no inverse delay compensation is used",
+    "failure_rule": "reject without multiplier sweep; preserve all failures/partial runs",
+    "failure_preservation": "PI follows frozen evaluator sampling/noise/order exactly while flushing each completed transition to CSV; SIGTERM/SIGINT raise and save failure.json; source PI implementation and frozen evaluator are unchanged."
+  },
+  "execution_order": "inspect -> mpc preflight -> mpc full only if preflight passes -> pi preflight -> pi full only if preflight passes; no automatic rerun",
+  "admission": "Full requires exact preregistration SHA, complete accepted preflight summary and verified artifact hashes. No training or saved-model invocation."
+}

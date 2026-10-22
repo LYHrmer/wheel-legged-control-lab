@@ -1,0 +1,456 @@
+{
+  "schema": "estimator49-final-results-v1",
+  "status": "complete_candidate_rejected",
+  "decision": "Reject constant_velocity post-fusion candidate; do not execute the full matrix. Offline direction passed, closed-loop preflight violated tracking RMSE gate.",
+  "sole_variable": {
+    "latency_compensation": [
+      "none",
+      "constant_velocity"
+    ]
+  },
+  "preregistration_path": "docs/experiments49/estimator_latency49_preregistered.json",
+  "preregistration_sha256": "1dc81575a18a65de5224b81371909da67ddae589ed6c5beece36f6d65343af03",
+  "script_path": "scripts/estimator_candidate49.py",
+  "script_sha256": "4e26b694df4274a2431ab469ee38613aee88a587e740a4c63c5dce6a9ef7fcb1",
+  "source_closure": {
+    "bound_inputs": 131,
+    "all_unchanged_at_report_time": true,
+    "both_phase_end_rechecks_passed": true
+  },
+  "offline": {
+    "path": "results/estimator49_offline_20261022_01",
+    "status": "complete",
+    "gate": {
+      "passed": true,
+      "raw_mean_pitch_rmse_rad": 0.033364473018812575,
+      "candidate_mean_pitch_rmse_rad": 0.02915340746783053,
+      "candidate_over_raw_pitch_ratio": 0.8737859414531249,
+      "terrain_pitch_ratios": {
+        "flat": 0.8644013078981607,
+        "ramp_up_4": 0.8723600406161035,
+        "ramp_down_4": 0.8880354929211233,
+        "bumps_5mm": 0.8724040717147159
+      },
+      "archive_replay_pass": true,
+      "interpretation": "offline direction only; no closed-loop improvement claim"
+    },
+    "cases": 36,
+    "archive_time_limit_cases": 19,
+    "archive_fallen_prefixes": 17,
+    "archive_observed_steps": 13375,
+    "all_prefixes_included": true,
+    "compensation_counts": {
+      "applied": 8914,
+      "kinematic_horizon_exceeded": 4461
+    },
+    "terrain_means": {
+      "flat": {
+        "cases": 9,
+        "archive_outcomes": {
+          "fallen": 5,
+          "time_limit": 4
+        },
+        "raw_mean_pitch_rmse_rad": 0.03461996824964456,
+        "candidate_mean_pitch_rmse_rad": 0.02992554583438556,
+        "candidate_over_raw_ratio": 0.8644013078981607
+      },
+      "ramp_up_4": {
+        "cases": 9,
+        "archive_outcomes": {
+          "fallen": 6,
+          "time_limit": 3
+        },
+        "raw_mean_pitch_rmse_rad": 0.03276679120036733,
+        "candidate_mean_pitch_rmse_rad": 0.028584439302411828,
+        "candidate_over_raw_ratio": 0.8723600406161035
+      },
+      "ramp_down_4": {
+        "cases": 9,
+        "archive_outcomes": {
+          "fallen": 5,
+          "time_limit": 4
+        },
+        "raw_mean_pitch_rmse_rad": 0.029614684637501252,
+        "candidate_mean_pitch_rmse_rad": 0.02629889106976704,
+        "candidate_over_raw_ratio": 0.8880354929211233
+      },
+      "bumps_5mm": {
+        "cases": 9,
+        "archive_outcomes": {
+          "time_limit": 8,
+          "fallen": 1
+        },
+        "raw_mean_pitch_rmse_rad": 0.03645644798773718,
+        "candidate_mean_pitch_rmse_rad": 0.03180475366475768,
+        "candidate_over_raw_ratio": 0.8724040717147159
+      }
+    },
+    "new_controls": 0,
+    "new_explicit_integration_substeps": 0,
+    "limitation": "Replay constructs nominal kinematic observer models and evaluates stored truth only for errors. It does not establish a closed-loop benefit; fallen archive prefixes retain their original lengths."
+  },
+  "preflight": {
+    "path": "results/estimator49_preflight_20261022_01",
+    "status": "complete",
+    "registered_executions_finished": 12,
+    "gate": {
+      "passed": false,
+      "completions": {
+        "2": {
+          "none": 4,
+          "constant_velocity": 4
+        }
+      },
+      "delay20_completion_gain": 0,
+      "common_complete_pairs": 3,
+      "common_raw_tracking_rmse_mps": 0.25893219121018946,
+      "common_candidate_tracking_rmse_mps": 0.30253847387202165,
+      "common_tracking_rmse_ratio": 1.168408116650257,
+      "replay_and_provenance_pass": true,
+      "common_tracking_rmse_ratios_by_delay": {
+        "2": 1.168408116650257
+      },
+      "termination_counts_by_arm": {
+        "none": {
+          "time_limit": 4,
+          "fallen": 2
+        },
+        "constant_velocity": {
+          "time_limit": 4,
+          "fallen": 2
+        }
+      },
+      "no_extra_falls": true,
+      "failed_cases": [
+        "flat_bias_delay2_seed17_none",
+        "flat_bias_delay2_seed29_none",
+        "flat_bias_delay2_seed29_constant_velocity",
+        "flat_bias_delay2_seed43_constant_velocity"
+      ],
+      "interpretation": "development matrix; ideal-seed repeats are not independent samples"
+    },
+    "tracking_rmse_change_percent": 16.84081166502569,
+    "pairs": [
+      {
+        "terrain": "flat",
+        "noise": "noise",
+        "seed": 17,
+        "delay_ms": 20,
+        "baseline": {
+          "steps": 400,
+          "termination_reason": "time_limit",
+          "tracking_rmse_mps": 0.2552972424511128
+        },
+        "candidate": {
+          "steps": 400,
+          "termination_reason": "time_limit",
+          "tracking_rmse_mps": 0.3607483181464718
+        },
+        "common_complete": true
+      },
+      {
+        "terrain": "flat",
+        "noise": "noise",
+        "seed": 29,
+        "delay_ms": 20,
+        "baseline": {
+          "steps": 400,
+          "termination_reason": "time_limit",
+          "tracking_rmse_mps": 0.2850287637620891
+        },
+        "candidate": {
+          "steps": 400,
+          "termination_reason": "time_limit",
+          "tracking_rmse_mps": 0.20869406326709458
+        },
+        "common_complete": true
+      },
+      {
+        "terrain": "flat",
+        "noise": "noise",
+        "seed": 43,
+        "delay_ms": 20,
+        "baseline": {
+          "steps": 400,
+          "termination_reason": "time_limit",
+          "tracking_rmse_mps": 0.23647056741736652
+        },
+        "candidate": {
+          "steps": 400,
+          "termination_reason": "time_limit",
+          "tracking_rmse_mps": 0.3381730402024986
+        },
+        "common_complete": true
+      },
+      {
+        "terrain": "flat",
+        "noise": "bias",
+        "seed": 17,
+        "delay_ms": 20,
+        "baseline": {
+          "steps": 337,
+          "termination_reason": "fallen",
+          "tracking_rmse_mps": 0.321194079587271
+        },
+        "candidate": {
+          "steps": 400,
+          "termination_reason": "time_limit",
+          "tracking_rmse_mps": 0.3164086877594147
+        },
+        "common_complete": false
+      },
+      {
+        "terrain": "flat",
+        "noise": "bias",
+        "seed": 29,
+        "delay_ms": 20,
+        "baseline": {
+          "steps": 386,
+          "termination_reason": "fallen",
+          "tracking_rmse_mps": 0.24591125098196934
+        },
+        "candidate": {
+          "steps": 149,
+          "termination_reason": "fallen",
+          "tracking_rmse_mps": 0.23292102284966196
+        },
+        "common_complete": false
+      },
+      {
+        "terrain": "flat",
+        "noise": "bias",
+        "seed": 43,
+        "delay_ms": 20,
+        "baseline": {
+          "steps": 400,
+          "termination_reason": "time_limit",
+          "tracking_rmse_mps": 0.3118846507974002
+        },
+        "candidate": {
+          "steps": 198,
+          "termination_reason": "fallen",
+          "tracking_rmse_mps": 0.31100197913956124
+        },
+        "common_complete": false
+      }
+    ],
+    "failed_cases": [
+      {
+        "case": "flat_bias_delay2_seed17_none",
+        "steps": 337,
+        "duration_s": 3.37,
+        "termination_reason": "fallen",
+        "saved_files": [
+          "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed17_none.json",
+          "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed17_none.csv",
+          "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed17_none_measurements.jsonl",
+          "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed17_none_measurements.npz"
+        ]
+      },
+      {
+        "case": "flat_bias_delay2_seed29_none",
+        "steps": 386,
+        "duration_s": 3.86,
+        "termination_reason": "fallen",
+        "saved_files": [
+          "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed29_none.json",
+          "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed29_none.csv",
+          "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed29_none_measurements.jsonl",
+          "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed29_none_measurements.npz"
+        ]
+      },
+      {
+        "case": "flat_bias_delay2_seed29_constant_velocity",
+        "steps": 149,
+        "duration_s": 1.49,
+        "termination_reason": "fallen",
+        "saved_files": [
+          "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed29_constant_velocity.json",
+          "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed29_constant_velocity.csv",
+          "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed29_constant_velocity_measurements.jsonl",
+          "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed29_constant_velocity_measurements.npz"
+        ]
+      },
+      {
+        "case": "flat_bias_delay2_seed43_constant_velocity",
+        "steps": 198,
+        "duration_s": 1.98,
+        "termination_reason": "fallen",
+        "saved_files": [
+          "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed43_constant_velocity.json",
+          "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed43_constant_velocity.csv",
+          "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed43_constant_velocity_measurements.jsonl",
+          "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed43_constant_velocity_measurements.npz"
+        ]
+      }
+    ],
+    "candidate_compensation_counts": {
+      "bypassed": 6,
+      "applied": 929,
+      "kinematic_horizon_exceeded": 1012
+    },
+    "new_controls": 4270,
+    "new_explicit_integration_substeps": 21350
+  },
+  "full": {
+    "status": "not_run",
+    "authorized_by_gate": false,
+    "reason": "Preflight gate failed; no threshold change, resweep or rerun.",
+    "planned_cases": 144,
+    "actual_cases": 0,
+    "actual_controls": 0
+  },
+  "budget": {
+    "new_training_controls": 0,
+    "new_policy_inference_calls": 0,
+    "completed_control_intervals": 4270,
+    "explicit_integration_substeps": 21350,
+    "control_dt_s": 0.01,
+    "physics_dt_s": 0.002,
+    "simulated_seconds": 42.7,
+    "counting_semantics": "Control-loop counts from preserved CSV rows; explicit integration substeps=completed controls*5. These are not native-hook/compiler-inclusive counters from archived B22 protocol.",
+    "model_construction_internal_native_calls": null,
+    "model_construction_note": "MuJoCo compile/initialization and observer forward-kinematics internal calls were not separately instrumented. Do not claim compiler-inclusive total native calls."
+  },
+  "independent_saved_csv_audit": {
+    "offline_cases": 36,
+    "preflight_cases": 12,
+    "max_absolute_rmse_recompute_difference": 1.6653345369377348e-16,
+    "baseline_vs_original_archive_cases": 6,
+    "max_common_numeric_field_difference": 0.0,
+    "zero_new_physics": true
+  },
+  "unresolved": [
+    "Offline attitude error improvement did not translate to closed-loop tracking improvement.",
+    "Completion count remained 4/6; one bias case recovered but another newly fell. All four failed executions are retained.",
+    "About half of preflight candidate control steps rejected kinematic extrapolation; thresholds were kept fixed.",
+    "No full 144-case validation, no new 0ms closed-loop matrix, no deployment or hardware claim.",
+    "Model construction internal native-call totals were not separately counted."
+  ],
+  "artifact_sha256": {
+    "results/estimator49_offline_20261022_01/attempt.json": "88fbaaf9ba4b7ab6b68bf299322dc9a365bd3f86574612cc45d828cf18b4f768",
+    "results/estimator49_offline_20261022_01/bumps_5mm_bias_delay2_seed17_offline_pair.csv": "2ffe45a05d2d47e383b0437e7d6137d917a4541b073ce484d18542d628c68b5c",
+    "results/estimator49_offline_20261022_01/bumps_5mm_bias_delay2_seed17_offline_pair.json": "de0d6ed23a4cf065ec9dce3be2152edb910ae3454bbccac3a6db4425d999f2c9",
+    "results/estimator49_offline_20261022_01/bumps_5mm_bias_delay2_seed29_offline_pair.csv": "7e1ad1c91e8b1bfa51ff75043895bcb6d2c800796d77e6b401aebfc2e9ef2c6b",
+    "results/estimator49_offline_20261022_01/bumps_5mm_bias_delay2_seed29_offline_pair.json": "8d5824374d3a6b5aa1d0f6683c0f3844e1c0e4dab095d1b441896f922ae389c1",
+    "results/estimator49_offline_20261022_01/bumps_5mm_bias_delay2_seed43_offline_pair.csv": "c0ae337fbb89ba9915c965f04a59303761c836781907ab74db70db988f8e2b53",
+    "results/estimator49_offline_20261022_01/bumps_5mm_bias_delay2_seed43_offline_pair.json": "776e715813acbb04717c93440e84f08e230106e6ea7f315b80944c18325a8873",
+    "results/estimator49_offline_20261022_01/bumps_5mm_ideal_delay2_seed17_offline_pair.csv": "88676974ee4d7a723d6c4b535edf9ab1507f0f46161bf47f3c3debebedd958ed",
+    "results/estimator49_offline_20261022_01/bumps_5mm_ideal_delay2_seed17_offline_pair.json": "9cb4839747f956868fb63624ef65651a3c511859eb3b41c98a2dbb47e9afd948",
+    "results/estimator49_offline_20261022_01/bumps_5mm_ideal_delay2_seed29_offline_pair.csv": "88676974ee4d7a723d6c4b535edf9ab1507f0f46161bf47f3c3debebedd958ed",
+    "results/estimator49_offline_20261022_01/bumps_5mm_ideal_delay2_seed29_offline_pair.json": "f5eb8ea0bd4026ec5589a463b22e244de40d4215fc96e740aa780859852ed6fe",
+    "results/estimator49_offline_20261022_01/bumps_5mm_ideal_delay2_seed43_offline_pair.csv": "88676974ee4d7a723d6c4b535edf9ab1507f0f46161bf47f3c3debebedd958ed",
+    "results/estimator49_offline_20261022_01/bumps_5mm_ideal_delay2_seed43_offline_pair.json": "4e6e69e57a222fdbd987760df13beb58eb475c642438075a0516be2d4317d203",
+    "results/estimator49_offline_20261022_01/bumps_5mm_noise_delay2_seed17_offline_pair.csv": "8dd535fe3dd45b55eb31f9a2a155765a99a4134661b66e1af29bd19e781c5d12",
+    "results/estimator49_offline_20261022_01/bumps_5mm_noise_delay2_seed17_offline_pair.json": "4af1341f0ed19ec86a6cb52a63966e1ff18f55e2ef5fc4b8f39c7455df3bb165",
+    "results/estimator49_offline_20261022_01/bumps_5mm_noise_delay2_seed29_offline_pair.csv": "af166cddb99814758a7e9b1e72af12a213023f18866251a33cfbeb0535274095",
+    "results/estimator49_offline_20261022_01/bumps_5mm_noise_delay2_seed29_offline_pair.json": "ac15e54461696652779771311a25d8505218dd2d0f180910edaf5f97dafc8b7c",
+    "results/estimator49_offline_20261022_01/bumps_5mm_noise_delay2_seed43_offline_pair.csv": "d81c708ffb0942ef59d50fd0fc9d972352525f0e6f9a6cb9156e7f9ed205c8d3",
+    "results/estimator49_offline_20261022_01/bumps_5mm_noise_delay2_seed43_offline_pair.json": "a8e5fc1aa31a45602f88becd7a7625669efb4649ef2bc280bb163de56625dffd",
+    "results/estimator49_offline_20261022_01/flat_bias_delay2_seed17_offline_pair.csv": "2d1f102cb5503551fe51b3ca9ddec1a5a73906514fa2bcb7e1955d4c39caf1fc",
+    "results/estimator49_offline_20261022_01/flat_bias_delay2_seed17_offline_pair.json": "a52d908b0ee76188f5d3d8feb07641cef081b4bc8152e1ba0159599ba0cf37f5",
+    "results/estimator49_offline_20261022_01/flat_bias_delay2_seed29_offline_pair.csv": "4254fc0e85b95947894a8fa15cdf2145d47f104c6a1c6296354892d40a86c460",
+    "results/estimator49_offline_20261022_01/flat_bias_delay2_seed29_offline_pair.json": "9e5597ebf001d94cc8a84c753350d492399e26dcd5bde808cbad550932356e9e",
+    "results/estimator49_offline_20261022_01/flat_bias_delay2_seed43_offline_pair.csv": "bfaccf0916208b164dd8dca5fc0b6945a2047577056011ded543f2ebd46dc6ad",
+    "results/estimator49_offline_20261022_01/flat_bias_delay2_seed43_offline_pair.json": "2a2d5c525558fa40e4695b75872df027e81923388640233b4a14859f51f478d3",
+    "results/estimator49_offline_20261022_01/flat_ideal_delay2_seed17_offline_pair.csv": "facdc86635151a91e5b9f4e33f5a6ee128ad928c61ead40f975fab5e30d50227",
+    "results/estimator49_offline_20261022_01/flat_ideal_delay2_seed17_offline_pair.json": "16a48fd0b64908c89342f96cac8781ad46643bdcba8f31c987e66c306fc9145d",
+    "results/estimator49_offline_20261022_01/flat_ideal_delay2_seed29_offline_pair.csv": "facdc86635151a91e5b9f4e33f5a6ee128ad928c61ead40f975fab5e30d50227",
+    "results/estimator49_offline_20261022_01/flat_ideal_delay2_seed29_offline_pair.json": "08c33340c93c67e4831f954a180153ce1ab0924915aeac6cab49e7c527f20bc8",
+    "results/estimator49_offline_20261022_01/flat_ideal_delay2_seed43_offline_pair.csv": "facdc86635151a91e5b9f4e33f5a6ee128ad928c61ead40f975fab5e30d50227",
+    "results/estimator49_offline_20261022_01/flat_ideal_delay2_seed43_offline_pair.json": "7d228033f95842eac81d9de5e2ac5c33fbba6909cd40ce301687168269f763e4",
+    "results/estimator49_offline_20261022_01/flat_noise_delay2_seed17_offline_pair.csv": "7f6437a55016e49078a98df497ef96b0e2bc3510fd4815eac121b4f4a2b52e78",
+    "results/estimator49_offline_20261022_01/flat_noise_delay2_seed17_offline_pair.json": "d26a7b99413f32daad3a064773ee59c1106c6aadf3d25864218f3206df31e4df",
+    "results/estimator49_offline_20261022_01/flat_noise_delay2_seed29_offline_pair.csv": "5f6ec49170b75c7894fdc9499c0406eb93b34378998e87ff9b0d4edab26ed271",
+    "results/estimator49_offline_20261022_01/flat_noise_delay2_seed29_offline_pair.json": "c0be02f494c1ac5f25fcadc7e915b01cdcd6dbbcb99359fc71fab4e375761e82",
+    "results/estimator49_offline_20261022_01/flat_noise_delay2_seed43_offline_pair.csv": "8b1fb0f89006318fac5fc5c8318592f7997ce5861d03dc518a78f1d02ace7650",
+    "results/estimator49_offline_20261022_01/flat_noise_delay2_seed43_offline_pair.json": "ce6572e1db23b22ecdea53dd073ab78ce88851a1333e0e9238bf3b7419a6410b",
+    "results/estimator49_offline_20261022_01/ramp_down_4_bias_delay2_seed17_offline_pair.csv": "f0d4e800497c7e13a2184cae0437f7e58cd30723f06004d10b4745f189ceb126",
+    "results/estimator49_offline_20261022_01/ramp_down_4_bias_delay2_seed17_offline_pair.json": "c897886e3bc5c36f327a7d2016a6e3589b1bf5a53c6d726f70f77fedbc5fad1a",
+    "results/estimator49_offline_20261022_01/ramp_down_4_bias_delay2_seed29_offline_pair.csv": "9f8a8587f60d6cc46f8507a482688d3d72bb6cb55483ce04ba260043acad1d9c",
+    "results/estimator49_offline_20261022_01/ramp_down_4_bias_delay2_seed29_offline_pair.json": "8017a21dc6e264d08f2c28485c065844636c028b7ffa95e624a5d96ba8e566be",
+    "results/estimator49_offline_20261022_01/ramp_down_4_bias_delay2_seed43_offline_pair.csv": "995dbed090615181c023278252704f13c41c8133c211cf43d63424591b6ba3c1",
+    "results/estimator49_offline_20261022_01/ramp_down_4_bias_delay2_seed43_offline_pair.json": "e67cc3297175fa773479bcf33415a1ba66cd2f78c1e48fed8b3fbb9782988ec3",
+    "results/estimator49_offline_20261022_01/ramp_down_4_ideal_delay2_seed17_offline_pair.csv": "6b5a8364e6d464d90bc9c7b75ec6b8385001be91fd7300b8acbb312badab1713",
+    "results/estimator49_offline_20261022_01/ramp_down_4_ideal_delay2_seed17_offline_pair.json": "e674c58d21fd3e232b3e325e6a0b855f07eeac534264251871019a1b9473ef4e",
+    "results/estimator49_offline_20261022_01/ramp_down_4_ideal_delay2_seed29_offline_pair.csv": "6b5a8364e6d464d90bc9c7b75ec6b8385001be91fd7300b8acbb312badab1713",
+    "results/estimator49_offline_20261022_01/ramp_down_4_ideal_delay2_seed29_offline_pair.json": "bbbba13688c9e8c9945a6ebbee7836614de3108ccc72822a47d3fc36fa7132fe",
+    "results/estimator49_offline_20261022_01/ramp_down_4_ideal_delay2_seed43_offline_pair.csv": "6b5a8364e6d464d90bc9c7b75ec6b8385001be91fd7300b8acbb312badab1713",
+    "results/estimator49_offline_20261022_01/ramp_down_4_ideal_delay2_seed43_offline_pair.json": "d300aa548b05e6ce8f8f9643232799046c0a2ac0949f9f4bb2044048c346ba1d",
+    "results/estimator49_offline_20261022_01/ramp_down_4_noise_delay2_seed17_offline_pair.csv": "a2560a2e581c58f09b4cd616777250afb1469cd091f6a8f6d5eb777a3892227f",
+    "results/estimator49_offline_20261022_01/ramp_down_4_noise_delay2_seed17_offline_pair.json": "742b6d4b530645642fde898ebe783adcc80d5c12dcb7992393c5f8d0efde7718",
+    "results/estimator49_offline_20261022_01/ramp_down_4_noise_delay2_seed29_offline_pair.csv": "ec0788dfcd0e0ec46598cf3f12d18fd01056f2e5a1f5ded65402f2fabe3c3b4b",
+    "results/estimator49_offline_20261022_01/ramp_down_4_noise_delay2_seed29_offline_pair.json": "b1074066c74c2a60e5d4e0e2d4bf933e9e1d5af6102f7a60874f17eb79d8582f",
+    "results/estimator49_offline_20261022_01/ramp_down_4_noise_delay2_seed43_offline_pair.csv": "3233394b217fb476a32ccb8f2d046fc4ffa21d6ad00eda5a26639acee8abb9de",
+    "results/estimator49_offline_20261022_01/ramp_down_4_noise_delay2_seed43_offline_pair.json": "e61792bdd39319637daef0ea6801b35bfc3e4e147c25be3d4e673cd9a91b00aa",
+    "results/estimator49_offline_20261022_01/ramp_up_4_bias_delay2_seed17_offline_pair.csv": "4284ee340dfd61621c85a8668d15d61e0d7f868d910afe5a1a228f81fcc6f560",
+    "results/estimator49_offline_20261022_01/ramp_up_4_bias_delay2_seed17_offline_pair.json": "13e20570c8a371f3c9c9306625e24a122597da4cea49a856eb47d4e6c8a289d1",
+    "results/estimator49_offline_20261022_01/ramp_up_4_bias_delay2_seed29_offline_pair.csv": "8f2aae9251187645d9ea45490bc6d31bbaec297b7ca04ab41facfe487f92284c",
+    "results/estimator49_offline_20261022_01/ramp_up_4_bias_delay2_seed29_offline_pair.json": "ac84e6c9ec381ac1eba78174ed2e8a4be81917fc24e29b0364e0ed49cfbc8d04",
+    "results/estimator49_offline_20261022_01/ramp_up_4_bias_delay2_seed43_offline_pair.csv": "8469c90ec1e1ec8a6046f875721d69cef879ced1fd64238661c054696e394038",
+    "results/estimator49_offline_20261022_01/ramp_up_4_bias_delay2_seed43_offline_pair.json": "ff19d2490b4ff7224c741701723a28abf2b5da8075f45c27f455ded750d2a705",
+    "results/estimator49_offline_20261022_01/ramp_up_4_ideal_delay2_seed17_offline_pair.csv": "832f5be1911175602f8b68d81cc7daa33639912f387a17e1aecfd19664a267b8",
+    "results/estimator49_offline_20261022_01/ramp_up_4_ideal_delay2_seed17_offline_pair.json": "ec0272896d5a8b5d8eea3928e33532024079541b42e38b806959082875200279",
+    "results/estimator49_offline_20261022_01/ramp_up_4_ideal_delay2_seed29_offline_pair.csv": "832f5be1911175602f8b68d81cc7daa33639912f387a17e1aecfd19664a267b8",
+    "results/estimator49_offline_20261022_01/ramp_up_4_ideal_delay2_seed29_offline_pair.json": "d49b28cd1b1caa5f643b7d7344bc2ac3c4f54fa1e67557c14c837e19861069b6",
+    "results/estimator49_offline_20261022_01/ramp_up_4_ideal_delay2_seed43_offline_pair.csv": "832f5be1911175602f8b68d81cc7daa33639912f387a17e1aecfd19664a267b8",
+    "results/estimator49_offline_20261022_01/ramp_up_4_ideal_delay2_seed43_offline_pair.json": "34f656b1471db20dd9d76bbf1e4fd22b941b5be6e80ea570b0bb90213dda60d3",
+    "results/estimator49_offline_20261022_01/ramp_up_4_noise_delay2_seed17_offline_pair.csv": "09f7e6a5e7200035320b7a7cd6c5f10e2428694e1370953c66aa27ff06b95a11",
+    "results/estimator49_offline_20261022_01/ramp_up_4_noise_delay2_seed17_offline_pair.json": "1de97997cb60d780368f8231f42db243276060576e0bdb96fe88c12ccc582e1b",
+    "results/estimator49_offline_20261022_01/ramp_up_4_noise_delay2_seed29_offline_pair.csv": "449592350d2216da0c0d1c01e1b46728645ddd24c327295d70a70b886090cb9d",
+    "results/estimator49_offline_20261022_01/ramp_up_4_noise_delay2_seed29_offline_pair.json": "3e774ae06ff9fc8133ba8b55f6800af33f9bb7c45315fd2cf2a9fd87f122fb0c",
+    "results/estimator49_offline_20261022_01/ramp_up_4_noise_delay2_seed43_offline_pair.csv": "0ff168f1f5c9ed90ab87e126fde753667dcf04cdd9328374a5f1e4236fb8f611",
+    "results/estimator49_offline_20261022_01/ramp_up_4_noise_delay2_seed43_offline_pair.json": "b3ba02f30a19de842b612feabe3768341ba255b1a6dc494d20d2cbbe17d4bda1",
+    "results/estimator49_offline_20261022_01/summary.json": "52fe242287078678d64e2cfeddfe11f9a8f35c084ba6b6c5cb00f10cac11b9f9",
+    "results/estimator49_preflight_20261022_01/attempt.json": "78eb70b68d1e009613e73414601ac1a20d2bf1f2d55f3b61659efc00c12b2bbf",
+    "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed17_constant_velocity.csv": "b7ef0cca5a44c145de43e6d27478447d055c63c94a4c6d4f3f3c08f6f59c4c1e",
+    "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed17_constant_velocity.json": "86874d3b0401a200d47b4445041f65df4ef5470db278b9bea6c785ba467cccd8",
+    "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed17_constant_velocity_measurements.jsonl": "c189fcdd08296a457999e66492bc3109c0c5d52d60e839ac4ac8467e3cd70e1e",
+    "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed17_constant_velocity_measurements.npz": "dac68cf5a6c48a7e4119d7774046f0f9a9d383e75cc46c1324f7e321ff480402",
+    "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed17_none.csv": "63294da2a0e1d40ced528e73c5cd43c7f82b17bf3649f57906602cab8d5088d1",
+    "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed17_none.json": "8852f9e8b0fb1fa30a2901de715b5cca50cd704b7928ef9c2ee977467719a468",
+    "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed17_none_measurements.jsonl": "40c03528ff0e18531d485d8ae66da8bce14f93c3f3173bcd074b765b34656c14",
+    "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed17_none_measurements.npz": "aba93c0151cbe59dc8799c8163088b17d0094126a9c7b0812f676f9a4290c50e",
+    "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed29_constant_velocity.csv": "d5abb8cbb3e14c2fd8488130d7353622d1a71e5a4e8c518e02ea66caaf19586f",
+    "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed29_constant_velocity.json": "3fade09828b104ea7b6687ee1d323f82fb8f172f7e33d09a49e1c826c33403aa",
+    "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed29_constant_velocity_measurements.jsonl": "d20335e7dc355b0ce5b792337bd42163c00f8110533b7c696c5dd61269320330",
+    "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed29_constant_velocity_measurements.npz": "bc10e690e94cbcf39b63d9bce584d976d871e7fe120f8ace19b3bfb45bf82ef4",
+    "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed29_none.csv": "baa03829847c5f58798ad7660b9d38e281c279a574a92affad1b86419a8d031b",
+    "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed29_none.json": "130c415095b16b3c90394e2d4d74181311755562ca9ab4603f22071f71816044",
+    "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed29_none_measurements.jsonl": "59365f6ce6e60407bd3695032a75478789dc329442d85dc4c0ad1af3354c0a96",
+    "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed29_none_measurements.npz": "8f1bb2847a0fcea09b58d58a76e5394c9385798c48165985c9fb13c1f0c0b320",
+    "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed43_constant_velocity.csv": "5f9dc5105ebc7628859cb4cde9abe4892ac9fe7081c0a353d95922c282c3b391",
+    "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed43_constant_velocity.json": "263d9cf21d767cf5358e1ef8357d97a99500b6994eacd3aae406d52f1fe62ab8",
+    "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed43_constant_velocity_measurements.jsonl": "f05d175dc498f10327e8b9b7accd72900587a29df1a2db7e79313d0723ebd987",
+    "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed43_constant_velocity_measurements.npz": "3658f7b563ba10711d411e6632f5701ce5114adafb11aec0540538cf4df10387",
+    "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed43_none.csv": "f21c979038c89123548f7d0c0e90a478cbc1c31fb6feef6020e3b60db1be1b05",
+    "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed43_none.json": "cb814e85dd7c94186c9b4ebbf43a3557752627213da5c8a7379dd91ba37ba792",
+    "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed43_none_measurements.jsonl": "2af1e5b4c3822012ca7dd22fd89668c3cae0a240eb0bf4f694ddb3eda9a44fe1",
+    "results/estimator49_preflight_20261022_01/flat_bias_delay2_seed43_none_measurements.npz": "84b555fb791cd900d76f36f4975b62f0748a1c823f0ab42c6ab4d6ac4acf61c9",
+    "results/estimator49_preflight_20261022_01/flat_noise_delay2_seed17_constant_velocity.csv": "f7a8be9d5c3850d572862a706a347f67e2d1acd9730dd2315167a298078316cd",
+    "results/estimator49_preflight_20261022_01/flat_noise_delay2_seed17_constant_velocity.json": "a527ff8cbeed426f96cc18f98749953e91c330786b25e01e3cefcfa1c32300ae",
+    "results/estimator49_preflight_20261022_01/flat_noise_delay2_seed17_constant_velocity_measurements.jsonl": "fb43421a3f640fd81e2da776ffaa26cf1dde2d7b530108afafda14a0a32988db",
+    "results/estimator49_preflight_20261022_01/flat_noise_delay2_seed17_constant_velocity_measurements.npz": "f0a4535ba7c2c20473559c3de766c40a12e42701a4fe0950d6d369fbf7d4dd4d",
+    "results/estimator49_preflight_20261022_01/flat_noise_delay2_seed17_none.csv": "fe7dd6b5472df264e9358da81bd6adf4bc9fc58d2fbeca7887a05693530ef2b8",
+    "results/estimator49_preflight_20261022_01/flat_noise_delay2_seed17_none.json": "71c398cadce5acee301ce3927fd36c8e19452bf92c87c8321dbbec8eb07603dc",
+    "results/estimator49_preflight_20261022_01/flat_noise_delay2_seed17_none_measurements.jsonl": "b6959e178834af9698d03c69e980883db128493c282b8a2cead87cbd8baaa705",
+    "results/estimator49_preflight_20261022_01/flat_noise_delay2_seed17_none_measurements.npz": "15c1d1c79403c72af3a8dd8d7276910b458f09a5268be593275086bddac24254",
+    "results/estimator49_preflight_20261022_01/flat_noise_delay2_seed29_constant_velocity.csv": "7c15861f90976210c35b2e792725257578dbddb32c01c2aea3ebacdfa7b4cd7e",
+    "results/estimator49_preflight_20261022_01/flat_noise_delay2_seed29_constant_velocity.json": "11a2d02f621e0aa773cfeb72f77699d02287cf4948d90a7c2035ca4c47c22646",
+    "results/estimator49_preflight_20261022_01/flat_noise_delay2_seed29_constant_velocity_measurements.jsonl": "b9195d57bcf23ff3d9698e19c7dd88925ce59d8eb7ed54c735e5f3399dd2bc92",
+    "results/estimator49_preflight_20261022_01/flat_noise_delay2_seed29_constant_velocity_measurements.npz": "77bc12bee7062895a4d73e6968cc1fc178a4241ae8e2d28f599c1feb38678ac0",
+    "results/estimator49_preflight_20261022_01/flat_noise_delay2_seed29_none.csv": "f764290466d108659bf846e762c55bd639b92159650d8e4c40d035df600cebeb",
+    "results/estimator49_preflight_20261022_01/flat_noise_delay2_seed29_none.json": "2ad56018765b1ea0c75d7c857ba51c17927dcf98a8cd70447cc222e1ece0638b",
+    "results/estimator49_preflight_20261022_01/flat_noise_delay2_seed29_none_measurements.jsonl": "7ef1b2631545bd4e3d2fa4610142b55d4b2f394f82d008c7cc6394aae7cbceaf",
+    "results/estimator49_preflight_20261022_01/flat_noise_delay2_seed29_none_measurements.npz": "f3378f0e3867ebf90e0b6aecc0086459737f50c122ca058f217349885144a58a",
+    "results/estimator49_preflight_20261022_01/flat_noise_delay2_seed43_constant_velocity.csv": "52c1a57be73cb70f08e5831cce0dab27a55b99cdd4507a8fd4b6d6edad3fcb48",
+    "results/estimator49_preflight_20261022_01/flat_noise_delay2_seed43_constant_velocity.json": "12112d18b0faff6623994e664622b8f5cd94205ba3b0a165cfa9fc9788c61a43",
+    "results/estimator49_preflight_20261022_01/flat_noise_delay2_seed43_constant_velocity_measurements.jsonl": "0186e08801a0f7c7d8b7a0343c6b307923b5bb6c1eedf6b5d72217bda7faba27",
+    "results/estimator49_preflight_20261022_01/flat_noise_delay2_seed43_constant_velocity_measurements.npz": "72cc2402a693c8e3fabe61e3af5fef559facd77fef9e72253499023581cd52b8",
+    "results/estimator49_preflight_20261022_01/flat_noise_delay2_seed43_none.csv": "2a037bcc642ed44247efbc6eb87cb26b52a1a3f24c1cc615050b73a68a8f5c0c",
+    "results/estimator49_preflight_20261022_01/flat_noise_delay2_seed43_none.json": "8ee412638fc6f1473835b93ab61c8ac3942704df080bcc39a98a625d3941501a",
+    "results/estimator49_preflight_20261022_01/flat_noise_delay2_seed43_none_measurements.jsonl": "18f817d8da725aea4aee0f1de412fed71b998d3a86fe706f0d2008daf7fc7f90",
+    "results/estimator49_preflight_20261022_01/flat_noise_delay2_seed43_none_measurements.npz": "b9ecaed102f08d975c08e2c92d12a60f0a130fc263f18557e9a160e0784d5dc5",
+    "results/estimator49_preflight_20261022_01/summary.json": "4bd12867d2cfb311e7519eb9eecb72e9cd349301a30be693ce405453f1481e60"
+  }
+}
