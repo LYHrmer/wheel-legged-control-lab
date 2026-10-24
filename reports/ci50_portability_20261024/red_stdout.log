@@ -1,0 +1,50 @@
+FF...                                                                    [100%]
+=================================== FAILURES ===================================
+__________ test_exact_admission_plan_has_no_training_or_native_budget __________
+
+    def test_exact_admission_plan_has_no_training_or_native_budget():
+        admission = module50()
+>       plan = admission.validate_plan50()
+
+tests/test_b22_sigma50_admission.py:24: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+scripts/admit_b22_sigma50.py:117: in validate_plan50
+    require(plan == {"schema": SCHEMA, "arms": list(ARMS), "output": str(OUTPUT), "unit": UNIT,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = False
+message = 'admission preregistration differs from the exact implementation'
+
+    def require(value, message):
+        if not value:
+>           raise ValueError(message)
+E           ValueError: admission preregistration differs from the exact implementation
+
+scripts/admit_b22_sigma50.py:41: ValueError
+___________________ test_admission_plan_rejects_budget_drift ___________________
+
+tmp_path = PosixPath('/tmp/pytest-of-lyh/pytest-46/test_admission_plan_rejects_bu0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x70ec22056290>
+
+    def test_admission_plan_rejects_budget_drift(tmp_path, monkeypatch):
+        admission = module50()
+>       plan = admission.validate_plan50()
+
+tests/test_b22_sigma50_admission.py:34: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+scripts/admit_b22_sigma50.py:117: in validate_plan50
+    require(plan == {"schema": SCHEMA, "arms": list(ARMS), "output": str(OUTPUT), "unit": UNIT,
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+value = False
+message = 'admission preregistration differs from the exact implementation'
+
+    def require(value, message):
+        if not value:
+>           raise ValueError(message)
+E           ValueError: admission preregistration differs from the exact implementation
+
+scripts/admit_b22_sigma50.py:41: ValueError
+=========================== short test summary info ============================
+FAILED tests/test_b22_sigma50_admission.py::test_exact_admission_plan_has_no_training_or_native_budget
+FAILED tests/test_b22_sigma50_admission.py::test_admission_plan_rejects_budget_drift
