@@ -1,0 +1,19 @@
+F.....                                                                   [100%]
+=================================== FAILURES ===================================
+__________ test_exact_admission_plan_has_no_training_or_native_budget __________
+
+    def test_exact_admission_plan_has_no_training_or_native_budget():
+        admission = module50()
+        plan = admission.validate_plan50()
+        assert plan["model_api_limits"]["predict"] == 2
+        assert plan["minimum_complete_counts"]["predict_rows"] == 64
+        assert plan["training_controls"] == plan["native_steps"] == plan["mujoco_constructions"] == 0
+        assert plan["training_attempts_consumed"] == 0
+>       assert not any(name in sys.modules for name in ("torch", "mujoco", "stable_baselines3"))
+E       assert not True
+E        +  where True = any(<generator object test_exact_admission_plan_has_no_training_or_native_budget.<locals>.<genexpr> at 0x7f9e0ee2fc30>)
+
+tests/test_b22_sigma50_admission.py:29: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_b22_sigma50_admission.py::test_exact_admission_plan_has_no_training_or_native_budget
+1 failed, 5 passed in 0.08s

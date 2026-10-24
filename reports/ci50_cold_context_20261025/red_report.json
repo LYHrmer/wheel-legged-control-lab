@@ -1,0 +1,36 @@
+{
+  "schema": "bounded-control-job49-v1",
+  "status": "INCOMPLETE",
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "/home/lyh/control_optimization_20261024/check_ci50_cold_context.py",
+    "--output",
+    "/home/lyh/wheel-legged-control-lab/results/ci50_cold_red_20261025_01"
+  ],
+  "scope": "/user.slice/user-1000.slice/user@1000.service/app.slice/control50-ci-cold-red-20261025-01.service",
+  "timeout_s": 180.0,
+  "supervisor_sha256": "4ed57d66a443d360764ab2773d509c1513ca004265e58fd2ddce842cb9dcee3d",
+  "minimum_effective_bytes": 7800795136,
+  "peak_group_bytes": 42573824,
+  "child_started": true,
+  "returncode": 1,
+  "error": "RuntimeError: child exited 1",
+  "signals": [],
+  "retry_permitted": false,
+  "cpu_affinity": [
+    0
+  ],
+  "final_memory_events": {
+    "low": 0,
+    "high": 0,
+    "max": 0,
+    "oom": 0,
+    "oom_kill": 0,
+    "oom_group_kill": 0
+  },
+  "child_pid": 842775,
+  "owned_process_group_empty": true,
+  "child_reaped": true,
+  "elapsed_s": 11.071875310037285
+}
