@@ -34,7 +34,7 @@
 
 [系统日志](../reports/training50_terminal_20261024_01/oomd_journal.txt)明确记录：祖先 `user@1000.service` 的 memory pressure 为 **72.36% > 50%**，伴随 reclaim 持续超过 20 秒；systemd-oomd 杀死该任务单元的 6 个进程，主进程 `SIGKILL`。这与内核 cgroup `oom_kill=0` 不矛盾，不能将后者解释成未被系统杀死。
 
-118 个资源样本中，最低有效可用内存 **8,150,683,648 bytes（7.5909 GiB）**，记录到的单元峰值 **2,148,007,936 bytes（2.000488 GiB）**。MemoryHigh 2 GiB、MemoryMax 3 GiB、swap 0 保持不变；最后样本 `high=10491`、`max/oom/oom_kill=0`。这不是触及 3 GiB 硬上限，也没有触及 2 GiB 可用内存保留线。Nice10、单核/库线程 1 的启动设置未改变。
+118 个资源样本中，最低有效可用内存 **8,150,683,648 bytes（7.5909 GiB）**，记录到的单元峰值 **2,148,007,936 bytes（2.000488 GiB）**。MemoryHigh 2 GiB、MemoryMax 3 GiB、swap 0 保持不变；最后样本 `high=10491`、`max/oom/oom_kill=0`。已保存样本未观测到触及 3 GiB 硬上限或 2 GiB 可用内存保留线；系统日志记录的终止原因为祖先 memory pressure。Nice10、单核/库线程 1 的启动设置未改变。
 
 这些是终止前的样本，不是缺失的终态资源回执。来源扫描页缓存、依赖导入工作集与祖先内其他负载对 reclaim 的各自贡献尚未分离；没有通过重跑证明具体内存根因，也没有修改 oomd、放宽资源限额或停止其他程序。
 
