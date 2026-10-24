@@ -1,0 +1,390 @@
+{
+  "schema": "b22-sigma50-external-terminal-v1",
+  "observed_at": "2026-10-24T01:27:29.875859+00:00",
+  "status": "INCOMPLETE",
+  "interpretation": "External terminal evidence; original RUNNING snapshot and missing worker/supervisor final receipts remain unchanged. This is not a complete training receipt.",
+  "execution_git_commit": "24c55bd8de778c7cfac49e32bc2d4f197592f829",
+  "execution_contract_id": "C50_B22_initial_sigma_v1",
+  "unit": "control50-wheel-train-20261024-01.service",
+  "termination": {
+    "reason": "systemd-oomd ancestor memory-pressure kill",
+    "signal": "SIGKILL",
+    "killed_processes": 6,
+    "ancestor": "/user.slice/user-1000.slice/user@1000.service",
+    "pressure_percent": 72.36,
+    "threshold_percent": 50.0,
+    "threshold_duration_seconds_gt": 20,
+    "unit_wall_seconds": 122.018,
+    "unit_cpu_seconds": 41.727,
+    "wall_scope": "entire prepare/bootstrap/active-worker unit, not completed training duration",
+    "resource_root_cause": "Exact reclaim/working-set contribution is not established; no rerun or pressure-setting changes."
+  },
+  "bootstrap": {
+    "status": "COMPLETE",
+    "actual_counts": {
+      "compiler_native": 0,
+      "controls": 0,
+      "normal_native": 0
+    },
+    "model_calls": {
+      "actor_rows": 0,
+      "counts": {},
+      "critic_rows": 0,
+      "limits": {
+        "backward": 0,
+        "evaluate_actions": 0,
+        "forward": 0,
+        "learn": 0,
+        "load": 0,
+        "predict": 0,
+        "predict_values": 0,
+        "save": 0,
+        "torch_load": 0,
+        "train": 0
+      },
+      "schema": "d1-model-api-ledger-20-v1"
+    }
+  },
+  "training": {
+    "planned_attempts": 6,
+    "consumed_attempts": 1,
+    "complete_attempts": 0,
+    "incomplete_attempts": 1,
+    "not_run_attempts": 5,
+    "stages": [
+      {
+        "arm": "baseline_s51",
+        "status": "INCOMPLETE",
+        "actual_counts": null
+      },
+      {
+        "arm": "candidate_s51",
+        "status": "NOT_RUN",
+        "actual_counts": {
+          "controls": 0,
+          "normal_native": 0,
+          "compiler_native": 0
+        }
+      },
+      {
+        "arm": "baseline_s61",
+        "status": "NOT_RUN",
+        "actual_counts": {
+          "controls": 0,
+          "normal_native": 0,
+          "compiler_native": 0
+        }
+      },
+      {
+        "arm": "candidate_s61",
+        "status": "NOT_RUN",
+        "actual_counts": {
+          "controls": 0,
+          "normal_native": 0,
+          "compiler_native": 0
+        }
+      },
+      {
+        "arm": "baseline_s71",
+        "status": "NOT_RUN",
+        "actual_counts": {
+          "controls": 0,
+          "normal_native": 0,
+          "compiler_native": 0
+        }
+      },
+      {
+        "arm": "candidate_s71",
+        "status": "NOT_RUN",
+        "actual_counts": {
+          "controls": 0,
+          "normal_native": 0,
+          "compiler_native": 0
+        }
+      }
+    ],
+    "known_completed_stage_counts": {
+      "compiler_native": 0,
+      "controls": 0,
+      "normal_native": 0
+    },
+    "actual_total_counts": null,
+    "unknown_active_stage_counts": [
+      "controls",
+      "normal_native",
+      "compiler_native",
+      "model_calls",
+      "pure_servo_advances"
+    ],
+    "retry_permitted": false,
+    "resume_permitted": false,
+    "replacement_seed_permitted": false,
+    "checkpoint_qualification": "NONE"
+  },
+  "evaluation": {
+    "status": "NOT_RUN",
+    "exports": 0,
+    "physical_controls": 0,
+    "complete_model_evaluations": 0
+  },
+  "primary_diagnostic": {
+    "status": "NOT_ASSESSED",
+    "baseline_R": null,
+    "candidate_R": null,
+    "mean_and_range": null,
+    "directional_passed": null
+  },
+  "performance_qualification": {
+    "status": "NOT_ASSESSED",
+    "passed": null,
+    "default_policy_changed": false
+  },
+  "resources": {
+    "samples": 118,
+    "minimum_effective_available_bytes": 8150683648,
+    "maximum_observed_cgroup_peak_bytes": 2148007936,
+    "last_observed_memory_events": {
+      "low": 0,
+      "high": 10491,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0
+    },
+    "last_sample_elapsed_seconds": 121.7863007519627,
+    "last_sample_is_not_final_receipt": true,
+    "memory_high_bytes": 2147483648,
+    "memory_max_bytes": 3221225472,
+    "memory_swap_max_bytes": 0,
+    "owned_cgroup_absent_at_readback": true,
+    "recorded_worker_pid_absent_at_readback": true
+  },
+  "model_admission": {
+    "status": "COMPLETE",
+    "ppo_loads": 2,
+    "torch_loads": 6,
+    "predict_calls": 2,
+    "probe_rows": 64,
+    "training_controls": 0,
+    "physical_steps": 0,
+    "independent_initial_proofs": 2
+  },
+  "source_audit": {
+    "entries": 4072,
+    "bytes": 4053653469,
+    "permitted_differences": 1,
+    "difference": "exact preregistered libXtst identity only",
+    "report_identity": {
+      "bytes": 845791,
+      "sha256": "9cbaebcee06051f20bc136baca23bb084d42c698463f553dae282ae37fd710af"
+    }
+  },
+  "v27_identity_unchanged": {
+    "bytes": 856947,
+    "sha256": "d3c38429362e82745179f2c526b2ee52d805526df390d52346c805e5a51fff09"
+  },
+  "authored_identities_unchanged": {
+    "/home/lyh/wheel-legged-control-lab/scripts/b22_sigma50_contract.py": {
+      "bytes": 9002,
+      "sha256": "cd393d07728d3beacbde23aec797c60014cfa88c97e138851c78df3a5eb2424d"
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/run_b22_sigma50.py": {
+      "bytes": 15743,
+      "sha256": "cb5e4b8f870096d865da55a08c2903b572cce0da2fb159d5d2d6ab5c7951286a"
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/worker_b22_sigma50.py": {
+      "bytes": 11463,
+      "sha256": "7ffc34cade51c778651fe34dc48ed843b231b5e24ece1d07d2d88a04785ea810"
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/read_b22_sigma50.py": {
+      "bytes": 21693,
+      "sha256": "c2a8e04ad8464d8708736878a8cae9a8b752252d61e5018211b90ce285560d3b"
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/eval_b22_sigma50.py": {
+      "bytes": 48749,
+      "sha256": "d2f15b7ede794d2b16207aac139b00a2673099018009c7a28e37d41eb98a8d3e"
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/audit_b22_sources50.py": {
+      "bytes": 8478,
+      "sha256": "ae42ee12ce3a0be42af78c6cee7616e0c2ee0f4b53694bea1085c4a7a2d3879b"
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/admit_b22_sigma50.py": {
+      "bytes": 20965,
+      "sha256": "9bbb74fc5ad2b749dc8abd9bd56d314fdd3d3f4a93efbece11c1348e0a86d732"
+    },
+    "/home/lyh/wheel-legged-control-lab/docs/experiments50/training_admission50_preregistered.json": {
+      "bytes": 1525,
+      "sha256": "178135cc674b038d08b0f0d3215f46588a87585a635c9a60a049a1ad3e8edd34"
+    },
+    "/home/lyh/wheel-legged-control-lab/tests/test_b22_sigma50_admission.py": {
+      "bytes": 2946,
+      "sha256": "cbd773cf81fd4e8b9bd04bb2202e3a6e0e3e27ba40f619b12274847518a98c12"
+    },
+    "/home/lyh/wheel-legged-control-lab/tests/test_b22_sigma50_worker.py": {
+      "bytes": 8641,
+      "sha256": "c94ed5dc25a268d4fb79e2d5f7ae48201422cd7fe967babf6c7b7474e41e3771"
+    },
+    "/home/lyh/wheel-legged-control-lab/tests/test_b22_sigma50_reader.py": {
+      "bytes": 8291,
+      "sha256": "378699e4d4d6763790fb3cd819ea7d7b6d35fb9e4bd46a0b80aecfa026ffd294"
+    },
+    "/home/lyh/wheel-legged-control-lab/tests/test_b22_sigma50_eval.py": {
+      "bytes": 8379,
+      "sha256": "410930aee3c6c1c2849f45aeeba6b43b645633af7b8045e19f8db782abf7f654"
+    },
+    "/home/lyh/wheel-legged-control-lab/tests/test_b22_sources50.py": {
+      "bytes": 3768,
+      "sha256": "3d477fed9b503139326d27a25cda170e624e1b4728307ca94ae1f60ba799e8be"
+    },
+    "/home/lyh/wheel-legged-control-lab/docs/b22_sigma50_preregistration.md": {
+      "bytes": 7255,
+      "sha256": "67fe9b13260f4fddab49697ff0d408a0c533b850d4d2ef5f6a61fc0fc37bf49c"
+    },
+    "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/yaw_feedforward44.py": {
+      "bytes": 3588,
+      "sha256": "146dfb3b900047c7d45b80ba96efcf38fee1eb9af8a901838ce93e5964e6418e"
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/b22_yawtrain44.py": {
+      "bytes": 3650,
+      "sha256": "5693b7e7a2284174d0f7e40ca6c40d80c5cc4b25ff020edb1ea7002e64b41110"
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/b22_reward46.py": {
+      "bytes": 3986,
+      "sha256": "ad0b53cb0ed23654ba31809c71f486de0ce05cc5ac6147b91a1b6c964d0fc66b"
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/b22_tracking_reward42.py": {
+      "bytes": 2869,
+      "sha256": "d05651d3e01bc5d4794721da3b403c95bfbc9be1364591ecbcddfbb59958e68e"
+    },
+    "/home/lyh/wheel-legged-control-lab/scripts/resource_guard42.py": {
+      "bytes": 9324,
+      "sha256": "2fd0cbed467f36185a8fc442fe88f628a0566354404ea865260a6a76fb1f8fa2"
+    }
+  },
+  "release": {
+    "path": "results/b22_sigma50_plan_20261024_01.json",
+    "bytes": 929603,
+    "sha256": "eb5eeae63d8a1da029700e5d4f2c29fa4bf332c997a9e04b355b70d0bf2e240e"
+  },
+  "archived_raw_files": {
+    "results/b22_sigma50_20261024_01/bootstrap/bootstrap42_proof.json": {
+      "bytes": 15868,
+      "sha256": "0c3d0c0d0f63258d3f15e9c8c7ac31e39f6125fa1c4cd00ed1c3717ed1bc992b"
+    },
+    "results/b22_sigma50_20261024_01/bootstrap/environment_mutation_receipt.json": {
+      "bytes": 4195,
+      "sha256": "5157e749a61ffd350d0ecc2f50b4f7a552d944dd73264252889be7d0a3829b27"
+    },
+    "results/b22_sigma50_20261024_01/bootstrap/session.json": {
+      "bytes": 1768108,
+      "sha256": "71db5c83a1c1dcb6260a8f41144a232d39b3ca3ca9edb24b13250b092a534af4"
+    },
+    "results/b22_sigma50_20261024_01/bootstrap/supervisor_receipt.json": {
+      "bytes": 1632,
+      "sha256": "562bbacce4feb9918c8b85554ca9297846c634f4fdac510f20626c587a8f2707"
+    },
+    "results/b22_sigma50_20261024_01/bootstrap/worker_receipt.json": {
+      "bytes": 1499,
+      "sha256": "e66d66feb13241656af5d1344a00715ad09693d8ad5c94855ae746ab8d1898cd"
+    },
+    "results/b22_sigma50_20261024_01/bootstrap_reservation.json": {
+      "bytes": 661,
+      "sha256": "4f0f003f21b15e0b02d510ebb40ec3d081931ddec75dce23a694a8654be7e053"
+    },
+    "results/b22_sigma50_20261024_01/bootstrap_stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "results/b22_sigma50_20261024_01/report.json": {
+      "bytes": 15019,
+      "sha256": "913fb2dec5b3a9e2f9ef5d0b392aa13ec1dcc0e411ae821f7a27ab88e6873e93"
+    },
+    "results/b22_sigma50_20261024_01/train_baseline_s51/adapter42_proof.json": {
+      "bytes": 5544,
+      "sha256": "28d5a30232ed07f041e5ac69c8037647374172cb1e84e2665f6040a46df99e2a"
+    },
+    "results/b22_sigma50_20261024_01/train_baseline_s51/session.json": {
+      "bytes": 1768534,
+      "sha256": "c0c8b8aff6081f3eacd16cb49f0f490d8222c18d5ab01c11e9434651737e3c9b"
+    },
+    "results/b22_sigma50_20261024_01/train_baseline_s51/worker_pid.json": {
+      "bytes": 150,
+      "sha256": "7e6e2e2b98efd6db0fc4a76cf644ea952b64376e725ba101234cb2fa595b7687"
+    },
+    "results/b22_sigma50_20261024_01/train_baseline_s51_reservation.json": {
+      "bytes": 698,
+      "sha256": "e08e9f760d8afb8b4b72b77faf3b340f66ce1388d5f7aaa77e3c2bf9f650eec5"
+    },
+    "results/b22_sigma50_20261024_01/train_baseline_s51_stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "results/b22_sigma50_train_20261024_01_supervision/resources.jsonl": {
+      "bytes": 212604,
+      "sha256": "a858641c2498f745d05131501e3c4093f0016d5e4ed8174c22037aba0f9aec44"
+    },
+    "results/b22_sigma50_train_20261024_01_supervision/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "results/b22_sigma50_train_20261024_01_supervision/stdout.log": {
+      "bytes": 273,
+      "sha256": "f6d11a21bec7e54dfa782e74567951be5ce71963786da92ea0ee8f8cec75b4e6"
+    }
+  },
+  "committed_evidence_files": {
+    "reports/training50_terminal_20261024_01/admission_reader_report.json": {
+      "bytes": 2821,
+      "sha256": "413e1d203a2decd9aba4ed8b4598f01e39b466dd2c9f40fc260e23015b7fe902"
+    },
+    "reports/training50_terminal_20261024_01/admission_report.json": {
+      "bytes": 3516,
+      "sha256": "8b3e33d70e1eefab0f9cc0660da9c60177593d81c0e984b8111f7b67c9d92eff"
+    },
+    "reports/training50_terminal_20261024_01/admission_supervision.json": {
+      "bytes": 918,
+      "sha256": "a2928e805d4f47affe37eeda4e6390325a3ab7d3a38b3d5fa3ec50936f3b5c08"
+    },
+    "reports/training50_terminal_20261024_01/baseline_reservation.json": {
+      "bytes": 698,
+      "sha256": "e08e9f760d8afb8b4b72b77faf3b340f66ce1388d5f7aaa77e3c2bf9f650eec5"
+    },
+    "reports/training50_terminal_20261024_01/baseline_worker_pid.json": {
+      "bytes": 150,
+      "sha256": "7e6e2e2b98efd6db0fc4a76cf644ea952b64376e725ba101234cb2fa595b7687"
+    },
+    "reports/training50_terminal_20261024_01/bootstrap_receipt.json": {
+      "bytes": 1499,
+      "sha256": "e66d66feb13241656af5d1344a00715ad09693d8ad5c94855ae746ab8d1898cd"
+    },
+    "reports/training50_terminal_20261024_01/collected_unit_state.txt": {
+      "bytes": 69,
+      "sha256": "5deced6dfcd92b97ed338a71b97a533ae77b57e2ba9a77a97ec89921a4a56bea"
+    },
+    "reports/training50_terminal_20261024_01/oomd_journal.txt": {
+      "bytes": 316,
+      "sha256": "325b25707279ccb8609b68cf3357e7fa3a70c4b8a9dd6d2f50692af027dffc9e"
+    },
+    "reports/training50_terminal_20261024_01/parent_last_report.json": {
+      "bytes": 15019,
+      "sha256": "913fb2dec5b3a9e2f9ef5d0b392aa13ec1dcc0e411ae821f7a27ab88e6873e93"
+    },
+    "reports/training50_terminal_20261024_01/resources.jsonl": {
+      "bytes": 212604,
+      "sha256": "a858641c2498f745d05131501e3c4093f0016d5e4ed8174c22037aba0f9aec44"
+    },
+    "reports/training50_terminal_20261024_01/unit_journal.txt": {
+      "bytes": 1293,
+      "sha256": "7555990582c8c9216c83279e9ec55e8cb116d587302058bcc542e163775d3996"
+    }
+  },
+  "validation": {
+    "new_unique_tests_passed": 63,
+    "source_tests": 10,
+    "estimator_tests": 12,
+    "training_admission_tests": 41,
+    "retained_prior_test_failure": "verification50_reader_eval_20261024_02: 27 passed / 1 failed; test fixture inherited LD preload settings, corrected before execution; production source guard unchanged",
+    "full_local_suite_repeated": false
+  },
+  "new_performance_claim": false
+}

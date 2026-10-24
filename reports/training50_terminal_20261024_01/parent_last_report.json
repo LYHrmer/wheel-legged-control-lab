@@ -1,0 +1,354 @@
+{
+  "schema": "b22-tracking42-supervision-v1",
+  "status": "RUNNING",
+  "execution_contract_id": "C50_B22_initial_sigma_v1",
+  "failure": null,
+  "actual_counts": null,
+  "resource_revision": "owned_cgroup_v5",
+  "resource_policy": {
+    "memory_high_bytes": 2147483648,
+    "memory_max_bytes": 3221225472,
+    "memory_swap_max_bytes": 0,
+    "oom_policy": "kill",
+    "memory_oom_group": 1,
+    "unit": "control50-wheel-train-20261024-01.service",
+    "owned_scope": "/user.slice/user-1000.slice/user@1000.service/app.slice/control50-wheel-train-20261024-01.service",
+    "reserve_scope": "host and ancestors outside the owned job cgroup",
+    "covers": "parent, source hashing, bootstrap, workers, saved readers, comparison"
+  },
+  "predecessor_failure": {
+    "schema": "b22-sigma50-no-resumption-v1",
+    "inputs": {}
+  },
+  "known_actual_counts": {
+    "controls": 0,
+    "normal_native": 0,
+    "compiler_native": 0
+  },
+  "stages": [
+    {
+      "name": "bootstrap",
+      "path": "bootstrap/worker_receipt.json",
+      "report": {
+        "bytes": 1499,
+        "sha256": "e66d66feb13241656af5d1344a00715ad09693d8ad5c94855ae746ab8d1898cd"
+      },
+      "independent_saved_reader_executed": false
+    }
+  ],
+  "execution_started": true,
+  "retry_permitted": false,
+  "minimum_effective_bytes": 8150683648,
+  "last_memory_snapshot": {
+    "available_ram_bytes": 8550907904,
+    "cgroup_remaining_bytes": null,
+    "effective_available_bytes": 8550907904,
+    "owned": {
+      "path": "/user.slice/user-1000.slice/user@1000.service/app.slice/control50-wheel-train-20261024-01.service",
+      "filesystem_path": "/sys/fs/cgroup/user.slice/user-1000.slice/user@1000.service/app.slice/control50-wheel-train-20261024-01.service",
+      "inode": 75211,
+      "device": 29,
+      "current_bytes": 2147184640,
+      "high_bytes": 2147483648,
+      "max_bytes": 3221225472,
+      "remaining_bytes": 1074040832,
+      "swap_current_bytes": 0,
+      "swap_max_bytes": 0,
+      "oom_group": 1,
+      "events": {
+        "low": 0,
+        "high": 6899,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "peak_bytes": 2148003840,
+      "sampled_max_bytes": 2147553280
+    },
+    "raw_ancestors": [
+      {
+        "path": "/user.slice/user-1000.slice/user@1000.service/app.slice/control50-wheel-train-20261024-01.service",
+        "owned": true,
+        "current_bytes": 2147184640,
+        "max_bytes": 3221225472,
+        "remaining_bytes": 1074040832
+      },
+      {
+        "path": "/user.slice/user-1000.slice/user@1000.service/app.slice",
+        "owned": false,
+        "max_bytes": null,
+        "current_bytes": 11822661632,
+        "remaining_bytes": null
+      },
+      {
+        "path": "/user.slice/user-1000.slice/user@1000.service",
+        "owned": false,
+        "max_bytes": null,
+        "current_bytes": 12890525696,
+        "remaining_bytes": null
+      },
+      {
+        "path": "/user.slice/user-1000.slice",
+        "owned": false,
+        "max_bytes": null,
+        "current_bytes": 13441536000,
+        "remaining_bytes": null
+      },
+      {
+        "path": "/user.slice",
+        "owned": false,
+        "max_bytes": null,
+        "current_bytes": 13453430784,
+        "remaining_bytes": null
+      },
+      {
+        "path": "/",
+        "owned": false,
+        "root_limit_not_exposed": true
+      }
+    ],
+    "errors": [],
+    "accounting_scope": "host_and_external_ancestors_excluding_exact_owned_unit",
+    "self_scope": "/user.slice/user-1000.slice/user@1000.service/app.slice/control50-wheel-train-20261024-01.service"
+  },
+  "active_stage": "train_baseline_s51",
+  "elapsed_s": 61.1424652650021,
+  "release_identity": {
+    "bytes": 929603,
+    "sha256": "eb5eeae63d8a1da029700e5d4f2c29fa4bf332c997a9e04b355b70d0bf2e240e"
+  },
+  "source": {
+    "git_commit": "24c55bd8de778c7cfac49e32bc2d4f197592f829",
+    "authored": {
+      "/home/lyh/wheel-legged-control-lab/scripts/b22_sigma50_contract.py": {
+        "bytes": 9002,
+        "sha256": "cd393d07728d3beacbde23aec797c60014cfa88c97e138851c78df3a5eb2424d"
+      },
+      "/home/lyh/wheel-legged-control-lab/scripts/run_b22_sigma50.py": {
+        "bytes": 15743,
+        "sha256": "cb5e4b8f870096d865da55a08c2903b572cce0da2fb159d5d2d6ab5c7951286a"
+      },
+      "/home/lyh/wheel-legged-control-lab/scripts/worker_b22_sigma50.py": {
+        "bytes": 11463,
+        "sha256": "7ffc34cade51c778651fe34dc48ed843b231b5e24ece1d07d2d88a04785ea810"
+      },
+      "/home/lyh/wheel-legged-control-lab/scripts/read_b22_sigma50.py": {
+        "bytes": 21693,
+        "sha256": "c2a8e04ad8464d8708736878a8cae9a8b752252d61e5018211b90ce285560d3b"
+      },
+      "/home/lyh/wheel-legged-control-lab/scripts/eval_b22_sigma50.py": {
+        "bytes": 48749,
+        "sha256": "d2f15b7ede794d2b16207aac139b00a2673099018009c7a28e37d41eb98a8d3e"
+      },
+      "/home/lyh/wheel-legged-control-lab/scripts/audit_b22_sources50.py": {
+        "bytes": 8478,
+        "sha256": "ae42ee12ce3a0be42af78c6cee7616e0c2ee0f4b53694bea1085c4a7a2d3879b"
+      },
+      "/home/lyh/wheel-legged-control-lab/scripts/admit_b22_sigma50.py": {
+        "bytes": 20965,
+        "sha256": "9bbb74fc5ad2b749dc8abd9bd56d314fdd3d3f4a93efbece11c1348e0a86d732"
+      },
+      "/home/lyh/wheel-legged-control-lab/docs/experiments50/training_admission50_preregistered.json": {
+        "bytes": 1525,
+        "sha256": "178135cc674b038d08b0f0d3215f46588a87585a635c9a60a049a1ad3e8edd34"
+      },
+      "/home/lyh/wheel-legged-control-lab/tests/test_b22_sigma50_admission.py": {
+        "bytes": 2946,
+        "sha256": "cbd773cf81fd4e8b9bd04bb2202e3a6e0e3e27ba40f619b12274847518a98c12"
+      },
+      "/home/lyh/wheel-legged-control-lab/tests/test_b22_sigma50_worker.py": {
+        "bytes": 8641,
+        "sha256": "c94ed5dc25a268d4fb79e2d5f7ae48201422cd7fe967babf6c7b7474e41e3771"
+      },
+      "/home/lyh/wheel-legged-control-lab/tests/test_b22_sigma50_reader.py": {
+        "bytes": 8291,
+        "sha256": "378699e4d4d6763790fb3cd819ea7d7b6d35fb9e4bd46a0b80aecfa026ffd294"
+      },
+      "/home/lyh/wheel-legged-control-lab/tests/test_b22_sigma50_eval.py": {
+        "bytes": 8379,
+        "sha256": "410930aee3c6c1c2849f45aeeba6b43b645633af7b8045e19f8db782abf7f654"
+      },
+      "/home/lyh/wheel-legged-control-lab/tests/test_b22_sources50.py": {
+        "bytes": 3768,
+        "sha256": "3d477fed9b503139326d27a25cda170e624e1b4728307ca94ae1f60ba799e8be"
+      },
+      "/home/lyh/wheel-legged-control-lab/docs/b22_sigma50_preregistration.md": {
+        "bytes": 7255,
+        "sha256": "67fe9b13260f4fddab49697ff0d408a0c533b850d4d2ef5f6a61fc0fc37bf49c"
+      },
+      "/home/lyh/wheel-legged-control-lab/src/wheel_legged_control/d1/yaw_feedforward44.py": {
+        "bytes": 3588,
+        "sha256": "146dfb3b900047c7d45b80ba96efcf38fee1eb9af8a901838ce93e5964e6418e"
+      },
+      "/home/lyh/wheel-legged-control-lab/scripts/b22_yawtrain44.py": {
+        "bytes": 3650,
+        "sha256": "5693b7e7a2284174d0f7e40ca6c40d80c5cc4b25ff020edb1ea7002e64b41110"
+      },
+      "/home/lyh/wheel-legged-control-lab/scripts/b22_reward46.py": {
+        "bytes": 3986,
+        "sha256": "ad0b53cb0ed23654ba31809c71f486de0ce05cc5ac6147b91a1b6c964d0fc66b"
+      },
+      "/home/lyh/wheel-legged-control-lab/scripts/b22_tracking_reward42.py": {
+        "bytes": 2869,
+        "sha256": "d05651d3e01bc5d4794721da3b403c95bfbc9be1364591ecbcddfbb59958e68e"
+      },
+      "/home/lyh/wheel-legged-control-lab/scripts/resource_guard42.py": {
+        "bytes": 9324,
+        "sha256": "2fd0cbed467f36185a8fc442fe88f628a0566354404ea865260a6a76fb1f8fa2"
+      }
+    },
+    "source_audit_identity": {
+      "bytes": 845791,
+      "sha256": "9cbaebcee06051f20bc136baca23bb084d42c698463f553dae282ae37fd710af"
+    },
+    "parent_derivation50": {
+      "source": "/home/lyh/wheel-legged-control-lab/scripts/run_b22_seed47.py",
+      "source_identity": {
+        "bytes": 37414,
+        "sha256": "77fc77be60d195e1da5860a5f0a6dd1a31261aa8d063c36465054edc08e2468a"
+      },
+      "inverse_ast_exact": true,
+      "seams": [
+        "global CONTRACT",
+        "global OUTPUT",
+        "global RELEASE",
+        "global ADMISSIONS",
+        "global DRIVER",
+        "global WORKER",
+        "global READER",
+        "module import b22_seed47",
+        "module import b22_seed47",
+        "module import b22_seed47",
+        "old CLI disabled in private derivation"
+      ],
+      "derived_ast_sha256": "2945f5f411b4ac1c73ac75ea0109f0ab6521e2c2e7b29e5c0d90d0da86555e07"
+    },
+    "model_admission50": {
+      "schema": "b22-sigma50-admission-binding-v1",
+      "path": "/home/lyh/wheel-legged-control-lab/results/b22_sigma50_model_admission_20261024_01/report.json",
+      "report_identity": {
+        "bytes": 3516,
+        "sha256": "8b3e33d70e1eefab0f9cc0660da9c60177593d81c0e984b8111f7b67c9d92eff"
+      },
+      "files": {
+        "/home/lyh/wheel-legged-control-lab/results/b22_sigma50_model_admission_20261024_01/registration.json": {
+          "bytes": 906041,
+          "sha256": "55d55ed69b04b053049ba213770a399beed91ea52d6af14d6678de6e504784d2"
+        },
+        "/home/lyh/wheel-legged-control-lab/results/b22_sigma50_model_admission_20261024_01/reader_report.json": {
+          "bytes": 2821,
+          "sha256": "413e1d203a2decd9aba4ed8b4598f01e39b466dd2c9f40fc260e23015b7fe902"
+        },
+        "/home/lyh/wheel-legged-control-lab/results/b22_sigma50_model_admission_20261024_01/read.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "/home/lyh/wheel-legged-control-lab/results/b22_sigma50_model_admission_20261024_01/worker_report.json": {
+          "bytes": 5904,
+          "sha256": "7de03d2e91139a482ba99b80109ef967e5c577e0f64685e97a06038d0f666c00"
+        },
+        "/home/lyh/wheel-legged-control-lab/results/b22_sigma50_model_admission_20261024_01/worker.log": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "/home/lyh/wheel-legged-control-lab/results/b22_sigma50_model_admission_20261024_01/report.json": {
+          "bytes": 3516,
+          "sha256": "8b3e33d70e1eefab0f9cc0660da9c60177593d81c0e984b8111f7b67c9d92eff"
+        },
+        "/home/lyh/wheel-legged-control-lab/results/b22_sigma50_model_admission_20261024_01/baseline_s51/initial_hashes.json": {
+          "bytes": 355,
+          "sha256": "8098e11483326f056434112005632cebc048b498b524cc5e54288021e719d28e"
+        },
+        "/home/lyh/wheel-legged-control-lab/results/b22_sigma50_model_admission_20261024_01/baseline_s51/probe_actions.f32.bin": {
+          "bytes": 2048,
+          "sha256": "e758c79730cb3b954c27e893532bc40bf48aa94f371c98008797c22b5cfadeef"
+        },
+        "/home/lyh/wheel-legged-control-lab/results/b22_sigma50_model_admission_20261024_01/baseline_s51/session.json": {
+          "bytes": 846871,
+          "sha256": "e3d6a8d8d9d1bee560161a4b07c893f3c984682eb76aa953e1890ddef5ccf48a"
+        },
+        "/home/lyh/wheel-legged-control-lab/results/b22_sigma50_model_admission_20261024_01/baseline_s51/parentage.json": {
+          "bytes": 1023,
+          "sha256": "840574f450818b81d767a0fd03b632b87717278448147300755b9cdd6ac9aa84"
+        },
+        "/home/lyh/wheel-legged-control-lab/results/b22_sigma50_model_admission_20261024_01/baseline_s51/initial_sigma50/tensors.npz": {
+          "bytes": 1757590,
+          "sha256": "8bcbb13763c020243b52385d112fe915583186196847c1b96fcf811eee9e722a"
+        },
+        "/home/lyh/wheel-legged-control-lab/results/b22_sigma50_model_admission_20261024_01/baseline_s51/initial_sigma50/receipt.json": {
+          "bytes": 3173,
+          "sha256": "24b881b9b9e5ec765b814e4b6f4c3d7e68bc7774c2feed555b725c49ed92154d"
+        },
+        "/home/lyh/wheel-legged-control-lab/results/b22_sigma50_model_admission_20261024_01/baseline_s51/initial_sigma50/proof.json": {
+          "bytes": 217299,
+          "sha256": "549b89b1edf92ca6dafce3d69e2ff197c2778e3c01650127c400a9e416ee2b92"
+        },
+        "/home/lyh/wheel-legged-control-lab/results/b22_sigma50_model_admission_20261024_01/candidate_s51/initial_hashes.json": {
+          "bytes": 355,
+          "sha256": "776a590d38471bee2b76f8ea8e85cea979f32f419e27466f8e24116f547bf649"
+        },
+        "/home/lyh/wheel-legged-control-lab/results/b22_sigma50_model_admission_20261024_01/candidate_s51/probe_actions.f32.bin": {
+          "bytes": 2048,
+          "sha256": "e758c79730cb3b954c27e893532bc40bf48aa94f371c98008797c22b5cfadeef"
+        },
+        "/home/lyh/wheel-legged-control-lab/results/b22_sigma50_model_admission_20261024_01/candidate_s51/session.json": {
+          "bytes": 846873,
+          "sha256": "663ac13a5d420936587f6bd73ffbfd39fbd78a280f0dfdade6b6577f41ae7a2f"
+        },
+        "/home/lyh/wheel-legged-control-lab/results/b22_sigma50_model_admission_20261024_01/candidate_s51/parentage.json": {
+          "bytes": 1023,
+          "sha256": "976ef997c3d2a6fce20ca31335133959c942a2432b3c8ff53a3f92a8bdb88963"
+        },
+        "/home/lyh/wheel-legged-control-lab/results/b22_sigma50_model_admission_20261024_01/candidate_s51/initial_sigma50/tensors.npz": {
+          "bytes": 1757590,
+          "sha256": "41d2b49b51aac15b2ae0d42815af3cdb1f58d25ba47385e11ca77e260477be4d"
+        },
+        "/home/lyh/wheel-legged-control-lab/results/b22_sigma50_model_admission_20261024_01/candidate_s51/initial_sigma50/receipt.json": {
+          "bytes": 3174,
+          "sha256": "e3ad3b57c75fc35fe1163d30c68c3d26a04a6bebaffbbc2f25bb98de950df14c"
+        },
+        "/home/lyh/wheel-legged-control-lab/results/b22_sigma50_model_admission_20261024_01/candidate_s51/initial_sigma50/proof.json": {
+          "bytes": 217300,
+          "sha256": "b73b7b1f11c64c8091bbed054f2f71bca8acea601f06075cb5f47e9b92d91b1c"
+        }
+      },
+      "training_attempts_consumed": 0,
+      "predict_api_calls": 2,
+      "probe_rows": 64
+    }
+  },
+  "phase_cleanup_records": [
+    {
+      "log": "bootstrap_stdout.log",
+      "records": [
+        {
+          "method": "owned_birth_identity_term_grace_then_frozen_cleanup",
+          "term_attempted_identities": [],
+          "errors": [],
+          "fallback": {
+            "method": "linux_subreaper_ancestry_birth_tick",
+            "signalled_identities": {},
+            "remaining": {},
+            "elapsed_s": 0.014334736973978579
+          },
+          "grace_elapsed_s": 0.013425229990389198,
+          "elapsed_s": 0.027763118967413902
+        },
+        {
+          "method": "owned_birth_identity_term_grace_then_frozen_cleanup",
+          "term_attempted_identities": [],
+          "errors": [],
+          "fallback": {
+            "method": "linux_subreaper_ancestry_birth_tick",
+            "signalled_identities": {},
+            "remaining": {},
+            "elapsed_s": 0.013981559022795409
+          },
+          "grace_elapsed_s": 0.007058416027575731,
+          "elapsed_s": 0.0210418050410226
+        }
+      ]
+    }
+  ]
+}
