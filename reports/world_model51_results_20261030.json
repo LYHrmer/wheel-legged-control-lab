@@ -1,0 +1,3042 @@
+{
+  "schema": "offline-world-model51-result-v1",
+  "status": "COMPLETE",
+  "failure": null,
+  "new_physics_steps": 0,
+  "policy_updates": 0,
+  "simulator_imported": false,
+  "protocol_sha256": "6991d68a4ac38dffda5939430bd475ce9ba94f09c445952a68f329af815e5b55",
+  "seeds": [
+    {
+      "seed": 51001,
+      "status": "COMPLETE",
+      "failure": null,
+      "training": {
+        "updates": 2000,
+        "cpu_seconds": 3.074173765000001,
+        "export_max_abs_difference": 1.9073486328125e-06,
+        "curve": [
+          {
+            "update": 1,
+            "mse": 0.020691746845841408,
+            "cpu_s": 1.4486045909999987
+          },
+          {
+            "update": 100,
+            "mse": 0.022550100460648537,
+            "cpu_s": 1.5310500289999993
+          },
+          {
+            "update": 200,
+            "mse": 0.0557447150349617,
+            "cpu_s": 1.6120448560000007
+          },
+          {
+            "update": 300,
+            "mse": 0.01428790483623743,
+            "cpu_s": 1.6940275860000007
+          },
+          {
+            "update": 400,
+            "mse": 0.015011178329586983,
+            "cpu_s": 1.7763196739999998
+          },
+          {
+            "update": 500,
+            "mse": 0.01422618143260479,
+            "cpu_s": 1.8573177990000005
+          },
+          {
+            "update": 600,
+            "mse": 0.011053575202822685,
+            "cpu_s": 1.9393043030000001
+          },
+          {
+            "update": 700,
+            "mse": 0.013901208527386189,
+            "cpu_s": 2.0213025159999987
+          },
+          {
+            "update": 800,
+            "mse": 0.011516239494085312,
+            "cpu_s": 2.103300431000001
+          },
+          {
+            "update": 900,
+            "mse": 0.013616945594549179,
+            "cpu_s": 2.185298965000001
+          },
+          {
+            "update": 1000,
+            "mse": 0.03336157649755478,
+            "cpu_s": 2.267274049000001
+          },
+          {
+            "update": 1100,
+            "mse": 0.017172403633594513,
+            "cpu_s": 2.3482725359999996
+          },
+          {
+            "update": 1200,
+            "mse": 0.023493319749832153,
+            "cpu_s": 2.428258551999999
+          },
+          {
+            "update": 1300,
+            "mse": 0.013248157687485218,
+            "cpu_s": 2.5082568690000002
+          },
+          {
+            "update": 1400,
+            "mse": 0.013936745934188366,
+            "cpu_s": 2.588254666000001
+          },
+          {
+            "update": 1500,
+            "mse": 0.014763789251446724,
+            "cpu_s": 2.668242136
+          },
+          {
+            "update": 1600,
+            "mse": 0.01296576764434576,
+            "cpu_s": 2.749561717999999
+          },
+          {
+            "update": 1700,
+            "mse": 0.00986051931977272,
+            "cpu_s": 2.829534840000001
+          },
+          {
+            "update": 1800,
+            "mse": 0.010118246078491211,
+            "cpu_s": 2.910513624
+          },
+          {
+            "update": 1900,
+            "mse": 0.014238998293876648,
+            "cpu_s": 2.991512086
+          },
+          {
+            "update": 2000,
+            "mse": 0.01012839563190937,
+            "cpu_s": 3.072510091999998
+          }
+        ]
+      },
+      "scores": {
+        "train": {
+          "1": {
+            "horizon": 1,
+            "physical_seconds": 0.01,
+            "episodes": [
+              {
+                "episode": 8,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.13348803593698902,
+                "base_linear_rmse_mps": 0.0007647930351842698,
+                "base_angular_rmse_rps": 0.0056307367688428365,
+                "joint_velocity_rmse_rps": 0.04595352456848497,
+                "position_rmse_m": 0.0006449924680715686,
+                "orientation_rmse_rad": 7.521343199895169e-05
+              },
+              {
+                "episode": 9,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.1255935602052097,
+                "base_linear_rmse_mps": 0.0008533386288086268,
+                "base_angular_rmse_rps": 0.005478274135410605,
+                "joint_velocity_rmse_rps": 0.04375978291253386,
+                "position_rmse_m": 0.0010111875709804586,
+                "orientation_rmse_rad": 7.358484615381508e-05
+              },
+              {
+                "episode": 10,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.1828892247267949,
+                "base_linear_rmse_mps": 0.001144647622668665,
+                "base_angular_rmse_rps": 0.0060585102503934625,
+                "joint_velocity_rmse_rps": 0.057278591327367165,
+                "position_rmse_m": 0.001081980060611412,
+                "orientation_rmse_rad": 9.819723065670396e-05
+              },
+              {
+                "episode": 11,
+                "terrain": "bumps",
+                "windows": 1000,
+                "velocity_nrmse": 0.19622380768507805,
+                "base_linear_rmse_mps": 0.0006436475172553837,
+                "base_angular_rmse_rps": 0.006067067937700289,
+                "joint_velocity_rmse_rps": 0.0745937284747285,
+                "position_rmse_m": 0.0006800604697811284,
+                "orientation_rmse_rad": 7.267201160910849e-05
+              },
+              {
+                "episode": 12,
+                "terrain": "rough",
+                "windows": 1000,
+                "velocity_nrmse": 0.27350006732558874,
+                "base_linear_rmse_mps": 0.00120965088593662,
+                "base_angular_rmse_rps": 0.007017927367452664,
+                "joint_velocity_rmse_rps": 0.13140633663248405,
+                "position_rmse_m": 0.0006235241331932854,
+                "orientation_rmse_rad": 0.00012024158800987792
+              },
+              {
+                "episode": 13,
+                "terrain": "ramp",
+                "windows": 1000,
+                "velocity_nrmse": 0.1439060351264637,
+                "base_linear_rmse_mps": 0.0008174176708356653,
+                "base_angular_rmse_rps": 0.005810281071271705,
+                "joint_velocity_rmse_rps": 0.0524337592715408,
+                "position_rmse_m": 0.0007422648229064977,
+                "orientation_rmse_rad": 7.969651945250974e-05
+              },
+              {
+                "episode": 14,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.1014742282193414,
+                "base_linear_rmse_mps": 0.0006488398720680761,
+                "base_angular_rmse_rps": 0.005528232778291939,
+                "joint_velocity_rmse_rps": 0.03510950800031707,
+                "position_rmse_m": 0.000994000906264927,
+                "orientation_rmse_rad": 7.329360021375904e-05
+              },
+              {
+                "episode": 15,
+                "terrain": "ramp",
+                "windows": 1000,
+                "velocity_nrmse": 0.1401153683401128,
+                "base_linear_rmse_mps": 0.0008962061726102996,
+                "base_angular_rmse_rps": 0.006214393105320574,
+                "joint_velocity_rmse_rps": 0.052856581548480615,
+                "position_rmse_m": 0.0009458297460444878,
+                "orientation_rmse_rad": 8.401519659800727e-05
+              }
+            ],
+            "velocity_nrmse": 0.16214879094569729,
+            "by_terrain": {
+              "flat": 0.13586126227208375,
+              "bumps": 0.19622380768507805,
+              "rough": 0.27350006732558874,
+              "ramp": 0.14201070173328822
+            }
+          },
+          "8": {
+            "horizon": 8,
+            "physical_seconds": 0.08,
+            "episodes": [
+              {
+                "episode": 8,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.47773844051857545,
+                "base_linear_rmse_mps": 0.004579112560646205,
+                "base_angular_rmse_rps": 0.016545382342835275,
+                "joint_velocity_rmse_rps": 0.31043566504774656,
+                "position_rmse_m": 0.004318533768909811,
+                "orientation_rmse_rad": 0.0012732666184811251
+              },
+              {
+                "episode": 9,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.41132860333469545,
+                "base_linear_rmse_mps": 0.005388763887855905,
+                "base_angular_rmse_rps": 0.01540459516440484,
+                "joint_velocity_rmse_rps": 0.2503473123335472,
+                "position_rmse_m": 0.007676222267162199,
+                "orientation_rmse_rad": 0.001273321889478596
+              },
+              {
+                "episode": 10,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.4437038566639471,
+                "base_linear_rmse_mps": 0.00625224621374291,
+                "base_angular_rmse_rps": 0.016365536315210656,
+                "joint_velocity_rmse_rps": 0.2692676293086571,
+                "position_rmse_m": 0.008429615493829309,
+                "orientation_rmse_rad": 0.0013666338906258872
+              },
+              {
+                "episode": 11,
+                "terrain": "bumps",
+                "windows": 125,
+                "velocity_nrmse": 0.822432489840203,
+                "base_linear_rmse_mps": 0.00495364000095275,
+                "base_angular_rmse_rps": 0.01668497173275446,
+                "joint_velocity_rmse_rps": 0.5791161378111105,
+                "position_rmse_m": 0.004511228264641359,
+                "orientation_rmse_rad": 0.0013642850663623505
+              },
+              {
+                "episode": 12,
+                "terrain": "rough",
+                "windows": 125,
+                "velocity_nrmse": 1.0735867375286035,
+                "base_linear_rmse_mps": 0.006773198635105724,
+                "base_angular_rmse_rps": 0.024538438815634483,
+                "joint_velocity_rmse_rps": 0.9096941393750134,
+                "position_rmse_m": 0.004343375512555605,
+                "orientation_rmse_rad": 0.002003165819928552
+              },
+              {
+                "episode": 13,
+                "terrain": "ramp",
+                "windows": 125,
+                "velocity_nrmse": 0.5252320059158316,
+                "base_linear_rmse_mps": 0.004604082530853004,
+                "base_angular_rmse_rps": 0.015954172070321144,
+                "joint_velocity_rmse_rps": 0.34728335195059107,
+                "position_rmse_m": 0.005568829642061944,
+                "orientation_rmse_rad": 0.0014176907512895394
+              },
+              {
+                "episode": 14,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.39583611564602894,
+                "base_linear_rmse_mps": 0.0049378276906554735,
+                "base_angular_rmse_rps": 0.011354063182659137,
+                "joint_velocity_rmse_rps": 0.22127725742246507,
+                "position_rmse_m": 0.007408605955398572,
+                "orientation_rmse_rad": 0.0010295142386709101
+              },
+              {
+                "episode": 15,
+                "terrain": "ramp",
+                "windows": 125,
+                "velocity_nrmse": 0.47957235720753427,
+                "base_linear_rmse_mps": 0.005475172012716065,
+                "base_angular_rmse_rps": 0.015692152607048426,
+                "joint_velocity_rmse_rps": 0.32731699277795345,
+                "position_rmse_m": 0.007329735900837627,
+                "orientation_rmse_rad": 0.0013295885629369744
+              }
+            ],
+            "velocity_nrmse": 0.5786788258319274,
+            "by_terrain": {
+              "flat": 0.43215175404081174,
+              "bumps": 0.822432489840203,
+              "rough": 1.0735867375286035,
+              "ramp": 0.5024021815616829
+            }
+          }
+        },
+        "validation": {
+          "1": {
+            "horizon": 1,
+            "physical_seconds": 0.01,
+            "episodes": [
+              {
+                "episode": 16,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.18273643747387902,
+                "base_linear_rmse_mps": 0.0010098340251178965,
+                "base_angular_rmse_rps": 0.005785330684581039,
+                "joint_velocity_rmse_rps": 0.05472150411122704,
+                "position_rmse_m": 0.0008269587137503376,
+                "orientation_rmse_rad": 8.724169597177529e-05
+              },
+              {
+                "episode": 17,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.17039676949601337,
+                "base_linear_rmse_mps": 0.0010908190254131436,
+                "base_angular_rmse_rps": 0.006012523109978747,
+                "joint_velocity_rmse_rps": 0.05536053636688018,
+                "position_rmse_m": 0.00099029679807387,
+                "orientation_rmse_rad": 8.227700610363096e-05
+              },
+              {
+                "episode": 18,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.24111330295451303,
+                "base_linear_rmse_mps": 0.001501466320277626,
+                "base_angular_rmse_rps": 0.006602833199858709,
+                "joint_velocity_rmse_rps": 0.07853706514632287,
+                "position_rmse_m": 0.0008494647290111795,
+                "orientation_rmse_rad": 9.208391689895655e-05
+              },
+              {
+                "episode": 19,
+                "terrain": "bumps",
+                "windows": 1000,
+                "velocity_nrmse": 0.20264142043831643,
+                "base_linear_rmse_mps": 0.0006434718766136893,
+                "base_angular_rmse_rps": 0.006273716411535199,
+                "joint_velocity_rmse_rps": 0.08295906707547279,
+                "position_rmse_m": 0.0007386557602485364,
+                "orientation_rmse_rad": 7.66653747498185e-05
+              },
+              {
+                "episode": 20,
+                "terrain": "rough",
+                "windows": 1000,
+                "velocity_nrmse": 0.3970526876359131,
+                "base_linear_rmse_mps": 0.0013264997456482236,
+                "base_angular_rmse_rps": 0.008146835514798882,
+                "joint_velocity_rmse_rps": 0.15276799852082337,
+                "position_rmse_m": 0.000619720497809325,
+                "orientation_rmse_rad": 0.00013834311831399093
+              },
+              {
+                "episode": 21,
+                "terrain": "ramp",
+                "windows": 1000,
+                "velocity_nrmse": 0.15323742114740554,
+                "base_linear_rmse_mps": 0.0009731736241831378,
+                "base_angular_rmse_rps": 0.006366634518850152,
+                "joint_velocity_rmse_rps": 0.06108357765195033,
+                "position_rmse_m": 0.0009405481001000588,
+                "orientation_rmse_rad": 7.994894951039066e-05
+              },
+              {
+                "episode": 22,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.11689262645225058,
+                "base_linear_rmse_mps": 0.0007209864659493305,
+                "base_angular_rmse_rps": 0.005777657710581424,
+                "joint_velocity_rmse_rps": 0.042741984547570305,
+                "position_rmse_m": 0.00105986179388391,
+                "orientation_rmse_rad": 7.105082706807002e-05
+              },
+              {
+                "episode": 23,
+                "terrain": "ramp",
+                "windows": 1000,
+                "velocity_nrmse": 0.16579760906288382,
+                "base_linear_rmse_mps": 0.000969835342584276,
+                "base_angular_rmse_rps": 0.006627946115972176,
+                "joint_velocity_rmse_rps": 0.07238942517352431,
+                "position_rmse_m": 0.0008139037981169554,
+                "orientation_rmse_rad": 8.68414829598637e-05
+              }
+            ],
+            "velocity_nrmse": 0.20373353433264685,
+            "by_terrain": {
+              "flat": 0.177784784094164,
+              "bumps": 0.20264142043831643,
+              "rough": 0.3970526876359131,
+              "ramp": 0.15951751510514467
+            }
+          },
+          "8": {
+            "horizon": 8,
+            "physical_seconds": 0.08,
+            "episodes": [
+              {
+                "episode": 16,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.5900853699341579,
+                "base_linear_rmse_mps": 0.005781175884728283,
+                "base_angular_rmse_rps": 0.016849581970960335,
+                "joint_velocity_rmse_rps": 0.3718687637005226,
+                "position_rmse_m": 0.006002452047882551,
+                "orientation_rmse_rad": 0.0013812662851117082
+              },
+              {
+                "episode": 17,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.7694763912684665,
+                "base_linear_rmse_mps": 0.00750953055742356,
+                "base_angular_rmse_rps": 0.02230702759001185,
+                "joint_velocity_rmse_rps": 0.4411077174425852,
+                "position_rmse_m": 0.007427945718784337,
+                "orientation_rmse_rad": 0.0017668905311862986
+              },
+              {
+                "episode": 18,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 1.0065726578650118,
+                "base_linear_rmse_mps": 0.010716663533335644,
+                "base_angular_rmse_rps": 0.026811386302481803,
+                "joint_velocity_rmse_rps": 0.66596666151204,
+                "position_rmse_m": 0.006282575792181231,
+                "orientation_rmse_rad": 0.0020041682603370967
+              },
+              {
+                "episode": 19,
+                "terrain": "bumps",
+                "windows": 125,
+                "velocity_nrmse": 0.9096888902766704,
+                "base_linear_rmse_mps": 0.004707932851184487,
+                "base_angular_rmse_rps": 0.017401310720307803,
+                "joint_velocity_rmse_rps": 0.6747213780944978,
+                "position_rmse_m": 0.00510946086868318,
+                "orientation_rmse_rad": 0.0013930168254370483
+              },
+              {
+                "episode": 20,
+                "terrain": "rough",
+                "windows": 125,
+                "velocity_nrmse": 1.533922563292948,
+                "base_linear_rmse_mps": 0.008626980483625618,
+                "base_angular_rmse_rps": 0.0364665925763105,
+                "joint_velocity_rmse_rps": 1.2291018321616494,
+                "position_rmse_m": 0.004309707881608786,
+                "orientation_rmse_rad": 0.0028783869736452887
+              },
+              {
+                "episode": 21,
+                "terrain": "ramp",
+                "windows": 125,
+                "velocity_nrmse": 0.6480681064480379,
+                "base_linear_rmse_mps": 0.006549386054700671,
+                "base_angular_rmse_rps": 0.020156881559620823,
+                "joint_velocity_rmse_rps": 0.4877631588714764,
+                "position_rmse_m": 0.00719579538646765,
+                "orientation_rmse_rad": 0.0015640708100608984
+              },
+              {
+                "episode": 22,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.5423690785303071,
+                "base_linear_rmse_mps": 0.005301322619426255,
+                "base_angular_rmse_rps": 0.015418008448281943,
+                "joint_velocity_rmse_rps": 0.32524248536542605,
+                "position_rmse_m": 0.007783463590268919,
+                "orientation_rmse_rad": 0.0012975648896755415
+              },
+              {
+                "episode": 23,
+                "terrain": "ramp",
+                "windows": 125,
+                "velocity_nrmse": 0.716904395859855,
+                "base_linear_rmse_mps": 0.005973185490925517,
+                "base_angular_rmse_rps": 0.022876365319250653,
+                "joint_velocity_rmse_rps": 0.5429227043744561,
+                "position_rmse_m": 0.0060247864362858086,
+                "orientation_rmse_rad": 0.0017856844678903723
+              }
+            ],
+            "velocity_nrmse": 0.8396359316844318,
+            "by_terrain": {
+              "flat": 0.7271258743994858,
+              "bumps": 0.9096888902766704,
+              "rough": 1.533922563292948,
+              "ramp": 0.6824862511539465
+            }
+          }
+        },
+        "test": {
+          "1": {
+            "horizon": 1,
+            "physical_seconds": 0.01,
+            "episodes": [
+              {
+                "episode": 24,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.1801947949619675,
+                "base_linear_rmse_mps": 0.0009539771531654704,
+                "base_angular_rmse_rps": 0.005945174550850715,
+                "joint_velocity_rmse_rps": 0.05788847779818345,
+                "position_rmse_m": 0.0008206543598422455,
+                "orientation_rmse_rad": 8.923335910033385e-05
+              },
+              {
+                "episode": 25,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.19360792059079357,
+                "base_linear_rmse_mps": 0.001062847172420737,
+                "base_angular_rmse_rps": 0.006081622993498714,
+                "joint_velocity_rmse_rps": 0.06057487088808154,
+                "position_rmse_m": 0.0010037048832814588,
+                "orientation_rmse_rad": 9.201556287219883e-05
+              },
+              {
+                "episode": 26,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.27036330848113405,
+                "base_linear_rmse_mps": 0.002075533305478259,
+                "base_angular_rmse_rps": 0.007931407404754277,
+                "joint_velocity_rmse_rps": 0.09034600156820102,
+                "position_rmse_m": 0.0008431220004000347,
+                "orientation_rmse_rad": 0.00011786012531034469
+              },
+              {
+                "episode": 27,
+                "terrain": "bumps",
+                "windows": 1000,
+                "velocity_nrmse": 0.17664072600786926,
+                "base_linear_rmse_mps": 0.0006256886462374293,
+                "base_angular_rmse_rps": 0.0058820053478097776,
+                "joint_velocity_rmse_rps": 0.08601560152936352,
+                "position_rmse_m": 0.0007870130398778624,
+                "orientation_rmse_rad": 7.2229093441603e-05
+              },
+              {
+                "episode": 28,
+                "terrain": "rough",
+                "windows": 1000,
+                "velocity_nrmse": 0.3526611069578606,
+                "base_linear_rmse_mps": 0.0012615566548183463,
+                "base_angular_rmse_rps": 0.007412512771809725,
+                "joint_velocity_rmse_rps": 0.14112117241495523,
+                "position_rmse_m": 0.0006533715810689024,
+                "orientation_rmse_rad": 0.00010584040226874387
+              },
+              {
+                "episode": 29,
+                "terrain": "ramp",
+                "windows": 1000,
+                "velocity_nrmse": 0.15922995639072196,
+                "base_linear_rmse_mps": 0.0008812393977391318,
+                "base_angular_rmse_rps": 0.0063144469949649494,
+                "joint_velocity_rmse_rps": 0.061333695020606295,
+                "position_rmse_m": 0.0008919982977831011,
+                "orientation_rmse_rad": 8.408887479190286e-05
+              },
+              {
+                "episode": 30,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.14771678917256242,
+                "base_linear_rmse_mps": 0.0009824740267158,
+                "base_angular_rmse_rps": 0.006134043837117613,
+                "joint_velocity_rmse_rps": 0.052955790802343625,
+                "position_rmse_m": 0.0011352458696768377,
+                "orientation_rmse_rad": 7.567387035979313e-05
+              },
+              {
+                "episode": 31,
+                "terrain": "ramp",
+                "windows": 1000,
+                "velocity_nrmse": 0.1771712743119407,
+                "base_linear_rmse_mps": 0.0010900732745476108,
+                "base_angular_rmse_rps": 0.006695436266553331,
+                "joint_velocity_rmse_rps": 0.0733398638495205,
+                "position_rmse_m": 0.0007333283036163198,
+                "orientation_rmse_rad": 9.129586191387834e-05
+              }
+            ],
+            "velocity_nrmse": 0.20719823460935627,
+            "by_terrain": {
+              "flat": 0.19797070330161437,
+              "bumps": 0.17664072600786926,
+              "rough": 0.3526611069578606,
+              "ramp": 0.16820061535133135
+            }
+          },
+          "8": {
+            "horizon": 8,
+            "physical_seconds": 0.08,
+            "episodes": [
+              {
+                "episode": 24,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.6027638320500893,
+                "base_linear_rmse_mps": 0.005520042811274758,
+                "base_angular_rmse_rps": 0.01881870514604657,
+                "joint_velocity_rmse_rps": 0.41331886466795925,
+                "position_rmse_m": 0.005844886401271682,
+                "orientation_rmse_rad": 0.001491512977636712
+              },
+              {
+                "episode": 25,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.5248667277456087,
+                "base_linear_rmse_mps": 0.005819182296044087,
+                "base_angular_rmse_rps": 0.01759162531736472,
+                "joint_velocity_rmse_rps": 0.3010921228517643,
+                "position_rmse_m": 0.007728486475034363,
+                "orientation_rmse_rad": 0.0013732943740132964
+              },
+              {
+                "episode": 26,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 1.1058796292106778,
+                "base_linear_rmse_mps": 0.014829761235317079,
+                "base_angular_rmse_rps": 0.03936188158856381,
+                "joint_velocity_rmse_rps": 0.7168508113819037,
+                "position_rmse_m": 0.006130856772790473,
+                "orientation_rmse_rad": 0.002967271132980852
+              },
+              {
+                "episode": 27,
+                "terrain": "bumps",
+                "windows": 125,
+                "velocity_nrmse": 0.8590281165205739,
+                "base_linear_rmse_mps": 0.004715259694302927,
+                "base_angular_rmse_rps": 0.01738592905109872,
+                "joint_velocity_rmse_rps": 0.6974850883253593,
+                "position_rmse_m": 0.005490007174045217,
+                "orientation_rmse_rad": 0.001348066732127293
+              },
+              {
+                "episode": 28,
+                "terrain": "rough",
+                "windows": 125,
+                "velocity_nrmse": 1.4439226421383784,
+                "base_linear_rmse_mps": 0.00801573757037776,
+                "base_angular_rmse_rps": 0.03318158170109213,
+                "joint_velocity_rmse_rps": 1.1099361753666488,
+                "position_rmse_m": 0.004483306216351086,
+                "orientation_rmse_rad": 0.0025412386944132083
+              },
+              {
+                "episode": 29,
+                "terrain": "ramp",
+                "windows": 125,
+                "velocity_nrmse": 0.6761025277535113,
+                "base_linear_rmse_mps": 0.005767093757344255,
+                "base_angular_rmse_rps": 0.017071315424590686,
+                "joint_velocity_rmse_rps": 0.4736818340381204,
+                "position_rmse_m": 0.006664950975523479,
+                "orientation_rmse_rad": 0.0014330974914500245
+              },
+              {
+                "episode": 30,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.711911954129702,
+                "base_linear_rmse_mps": 0.007323761712907481,
+                "base_angular_rmse_rps": 0.01570523898808731,
+                "joint_velocity_rmse_rps": 0.44189621713310917,
+                "position_rmse_m": 0.008191793599671914,
+                "orientation_rmse_rad": 0.001312713667196501
+              },
+              {
+                "episode": 31,
+                "terrain": "ramp",
+                "windows": 125,
+                "velocity_nrmse": 0.696456174343467,
+                "base_linear_rmse_mps": 0.006479734409816424,
+                "base_angular_rmse_rps": 0.019135439942376986,
+                "joint_velocity_rmse_rps": 0.5067977494324293,
+                "position_rmse_m": 0.005327022012051051,
+                "orientation_rmse_rad": 0.0015288144031912968
+              }
+            ],
+            "velocity_nrmse": 0.8276164504865011,
+            "by_terrain": {
+              "flat": 0.7363555357840195,
+              "bumps": 0.8590281165205739,
+              "rough": 1.4439226421383784,
+              "ramp": 0.6862793510484891
+            }
+          }
+        }
+      },
+      "gate": {
+        "passed": false,
+        "ratios": {
+          "1": 0.8453016671466816,
+          "8": 1.274276018204647
+        },
+        "reasons": [
+          "h8: error ratio exceeds preregistered gate",
+          "flat: h8 degradation exceeds preregistered gate",
+          "bumps: h8 degradation exceeds preregistered gate",
+          "ramp: h8 degradation exceeds preregistered gate"
+        ]
+      }
+    },
+    {
+      "seed": 51002,
+      "status": "COMPLETE",
+      "failure": null,
+      "training": {
+        "updates": 2000,
+        "cpu_seconds": 1.6204525819999986,
+        "export_max_abs_difference": 9.5367431640625e-07,
+        "curve": [
+          {
+            "update": 1,
+            "mse": 0.020691746845841408,
+            "cpu_s": 0.002001084999999847
+          },
+          {
+            "update": 100,
+            "mse": 0.022251969203352928,
+            "cpu_s": 0.08199891599999987
+          },
+          {
+            "update": 200,
+            "mse": 0.0556931346654892,
+            "cpu_s": 0.16299678000000029
+          },
+          {
+            "update": 300,
+            "mse": 0.013970699161291122,
+            "cpu_s": 0.244983972
+          },
+          {
+            "update": 400,
+            "mse": 0.014903588220477104,
+            "cpu_s": 0.3249821570000009
+          },
+          {
+            "update": 500,
+            "mse": 0.013849870301783085,
+            "cpu_s": 0.4069708279999986
+          },
+          {
+            "update": 600,
+            "mse": 0.011038717813789845,
+            "cpu_s": 0.4869687700000007
+          },
+          {
+            "update": 700,
+            "mse": 0.014497559517621994,
+            "cpu_s": 0.5689559289999977
+          },
+          {
+            "update": 800,
+            "mse": 0.011095230467617512,
+            "cpu_s": 0.6502436879999998
+          },
+          {
+            "update": 900,
+            "mse": 0.013763011433184147,
+            "cpu_s": 0.7312417690000004
+          },
+          {
+            "update": 1000,
+            "mse": 0.034040968865156174,
+            "cpu_s": 0.812226729999999
+          },
+          {
+            "update": 1100,
+            "mse": 0.016672680154442787,
+            "cpu_s": 0.8932093719999976
+          },
+          {
+            "update": 1200,
+            "mse": 0.023715171962976456,
+            "cpu_s": 0.9731978849999976
+          },
+          {
+            "update": 1300,
+            "mse": 0.013126570731401443,
+            "cpu_s": 1.0541956799999994
+          },
+          {
+            "update": 1400,
+            "mse": 0.014254099689424038,
+            "cpu_s": 1.1351937250000006
+          },
+          {
+            "update": 1500,
+            "mse": 0.014338775537908077,
+            "cpu_s": 1.216180830999999
+          },
+          {
+            "update": 1600,
+            "mse": 0.012944801710546017,
+            "cpu_s": 1.296179071000001
+          },
+          {
+            "update": 1700,
+            "mse": 0.0099527258425951,
+            "cpu_s": 1.3761658489999995
+          },
+          {
+            "update": 1800,
+            "mse": 0.010369566269218922,
+            "cpu_s": 1.4571641289999988
+          },
+          {
+            "update": 1900,
+            "mse": 0.014101113192737103,
+            "cpu_s": 1.5381521979999988
+          },
+          {
+            "update": 2000,
+            "mse": 0.01071067713201046,
+            "cpu_s": 1.6194528529999985
+          }
+        ]
+      },
+      "scores": {
+        "train": {
+          "1": {
+            "horizon": 1,
+            "physical_seconds": 0.01,
+            "episodes": [
+              {
+                "episode": 8,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.14017125964077723,
+                "base_linear_rmse_mps": 0.0007724666208100197,
+                "base_angular_rmse_rps": 0.005519274734984478,
+                "joint_velocity_rmse_rps": 0.04670496685611933,
+                "position_rmse_m": 0.00029998472194488185,
+                "orientation_rmse_rad": 9.24085482943015e-05
+              },
+              {
+                "episode": 9,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.12633201195093802,
+                "base_linear_rmse_mps": 0.0008785214835995399,
+                "base_angular_rmse_rps": 0.005437186085623347,
+                "joint_velocity_rmse_rps": 0.044733537790125955,
+                "position_rmse_m": 0.00036963051604265454,
+                "orientation_rmse_rad": 0.00010534209161004306
+              },
+              {
+                "episode": 10,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.18241644826548886,
+                "base_linear_rmse_mps": 0.001175020471857917,
+                "base_angular_rmse_rps": 0.0060349415022770405,
+                "joint_velocity_rmse_rps": 0.057046902345119686,
+                "position_rmse_m": 0.000338675695528722,
+                "orientation_rmse_rad": 0.0001271036669618692
+              },
+              {
+                "episode": 11,
+                "terrain": "bumps",
+                "windows": 1000,
+                "velocity_nrmse": 0.19757945632576235,
+                "base_linear_rmse_mps": 0.0007002507175066,
+                "base_angular_rmse_rps": 0.006128164418329502,
+                "joint_velocity_rmse_rps": 0.07451566402619654,
+                "position_rmse_m": 0.0002991255437655898,
+                "orientation_rmse_rad": 8.328218798346687e-05
+              },
+              {
+                "episode": 12,
+                "terrain": "rough",
+                "windows": 1000,
+                "velocity_nrmse": 0.2708612354805189,
+                "base_linear_rmse_mps": 0.0012829021865290722,
+                "base_angular_rmse_rps": 0.0069577884604805134,
+                "joint_velocity_rmse_rps": 0.1333064465240995,
+                "position_rmse_m": 0.0003282324724190578,
+                "orientation_rmse_rad": 0.00013209972320836526
+              },
+              {
+                "episode": 13,
+                "terrain": "ramp",
+                "windows": 1000,
+                "velocity_nrmse": 0.14472388345183704,
+                "base_linear_rmse_mps": 0.000942394885074895,
+                "base_angular_rmse_rps": 0.005810479447116711,
+                "joint_velocity_rmse_rps": 0.0571689713224931,
+                "position_rmse_m": 0.0004690567528371135,
+                "orientation_rmse_rad": 0.00010192670901661582
+              },
+              {
+                "episode": 14,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.10022201884417763,
+                "base_linear_rmse_mps": 0.0006858043222554984,
+                "base_angular_rmse_rps": 0.0054638628068574,
+                "joint_velocity_rmse_rps": 0.03682092020643084,
+                "position_rmse_m": 0.0003764713872487919,
+                "orientation_rmse_rad": 0.00011152388436167612
+              },
+              {
+                "episode": 15,
+                "terrain": "ramp",
+                "windows": 1000,
+                "velocity_nrmse": 0.1419501050791695,
+                "base_linear_rmse_mps": 0.0008406708254883772,
+                "base_angular_rmse_rps": 0.0062491619245762745,
+                "joint_velocity_rmse_rps": 0.05487472274978726,
+                "position_rmse_m": 0.0004862336593704233,
+                "orientation_rmse_rad": 0.00010630716281390542
+              }
+            ],
+            "velocity_nrmse": 0.1630320523798337,
+            "by_terrain": {
+              "flat": 0.13728543467534543,
+              "bumps": 0.19757945632576235,
+              "rough": 0.2708612354805189,
+              "ramp": 0.14333699426550328
+            }
+          },
+          "8": {
+            "horizon": 8,
+            "physical_seconds": 0.08,
+            "episodes": [
+              {
+                "episode": 8,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.4927126895637228,
+                "base_linear_rmse_mps": 0.004422620573334281,
+                "base_angular_rmse_rps": 0.01545713279170785,
+                "joint_velocity_rmse_rps": 0.3633896895559689,
+                "position_rmse_m": 0.0020568667615228566,
+                "orientation_rmse_rad": 0.001235242419938158
+              },
+              {
+                "episode": 9,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.40830505121088967,
+                "base_linear_rmse_mps": 0.0052243434900817376,
+                "base_angular_rmse_rps": 0.016146828701093,
+                "joint_velocity_rmse_rps": 0.29824719007308054,
+                "position_rmse_m": 0.002722974915564359,
+                "orientation_rmse_rad": 0.001454656655856347
+              },
+              {
+                "episode": 10,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.4028672265549337,
+                "base_linear_rmse_mps": 0.006054276072858266,
+                "base_angular_rmse_rps": 0.01691736973367445,
+                "joint_velocity_rmse_rps": 0.2828070462547371,
+                "position_rmse_m": 0.0023945296530179017,
+                "orientation_rmse_rad": 0.0015647878881824503
+              },
+              {
+                "episode": 11,
+                "terrain": "bumps",
+                "windows": 125,
+                "velocity_nrmse": 0.7844943362557714,
+                "base_linear_rmse_mps": 0.00469945804489621,
+                "base_angular_rmse_rps": 0.016890649874001948,
+                "joint_velocity_rmse_rps": 0.5704400218432034,
+                "position_rmse_m": 0.0020066280759717158,
+                "orientation_rmse_rad": 0.0014067439894068009
+              },
+              {
+                "episode": 12,
+                "terrain": "rough",
+                "windows": 125,
+                "velocity_nrmse": 1.1023002684177647,
+                "base_linear_rmse_mps": 0.007520131638613414,
+                "base_angular_rmse_rps": 0.025049715658794762,
+                "joint_velocity_rmse_rps": 0.954249264682107,
+                "position_rmse_m": 0.002394577483714796,
+                "orientation_rmse_rad": 0.002077265560061404
+              },
+              {
+                "episode": 13,
+                "terrain": "ramp",
+                "windows": 125,
+                "velocity_nrmse": 0.48397132966551737,
+                "base_linear_rmse_mps": 0.006443648481202807,
+                "base_angular_rmse_rps": 0.0165983689736251,
+                "joint_velocity_rmse_rps": 0.3857655230604856,
+                "position_rmse_m": 0.003631791525729494,
+                "orientation_rmse_rad": 0.0015510225591041321
+              },
+              {
+                "episode": 14,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.32475526048951886,
+                "base_linear_rmse_mps": 0.0044873426170757335,
+                "base_angular_rmse_rps": 0.012102256446714497,
+                "joint_velocity_rmse_rps": 0.2315994561899861,
+                "position_rmse_m": 0.002721712887180688,
+                "orientation_rmse_rad": 0.0012712462952875565
+              },
+              {
+                "episode": 15,
+                "terrain": "ramp",
+                "windows": 125,
+                "velocity_nrmse": 0.484968525855502,
+                "base_linear_rmse_mps": 0.005437416985169098,
+                "base_angular_rmse_rps": 0.016852559757953203,
+                "joint_velocity_rmse_rps": 0.4000807771554055,
+                "position_rmse_m": 0.003758824000251027,
+                "orientation_rmse_rad": 0.0016146552094903012
+              }
+            ],
+            "velocity_nrmse": 0.5605468360017025,
+            "by_terrain": {
+              "flat": 0.4071600569547663,
+              "bumps": 0.7844943362557714,
+              "rough": 1.1023002684177647,
+              "ramp": 0.4844699277605097
+            }
+          }
+        },
+        "validation": {
+          "1": {
+            "horizon": 1,
+            "physical_seconds": 0.01,
+            "episodes": [
+              {
+                "episode": 16,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.18183328207781946,
+                "base_linear_rmse_mps": 0.0010032981669963548,
+                "base_angular_rmse_rps": 0.005663081239303747,
+                "joint_velocity_rmse_rps": 0.055113612763389386,
+                "position_rmse_m": 0.00028480736519689414,
+                "orientation_rmse_rad": 0.00011234304026667443
+              },
+              {
+                "episode": 17,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.16591218039146263,
+                "base_linear_rmse_mps": 0.0011413620543891413,
+                "base_angular_rmse_rps": 0.0058805672482516525,
+                "joint_velocity_rmse_rps": 0.05503741457012098,
+                "position_rmse_m": 0.0003514780034908162,
+                "orientation_rmse_rad": 0.00010041359933749831
+              },
+              {
+                "episode": 18,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.24790810613898245,
+                "base_linear_rmse_mps": 0.0015754936135569093,
+                "base_angular_rmse_rps": 0.006545889513308027,
+                "joint_velocity_rmse_rps": 0.0743353709586963,
+                "position_rmse_m": 0.000319378714272034,
+                "orientation_rmse_rad": 0.00010144021700436697
+              },
+              {
+                "episode": 19,
+                "terrain": "bumps",
+                "windows": 1000,
+                "velocity_nrmse": 0.2155031853700798,
+                "base_linear_rmse_mps": 0.0007270540578208441,
+                "base_angular_rmse_rps": 0.006338078725768557,
+                "joint_velocity_rmse_rps": 0.08627332202411886,
+                "position_rmse_m": 0.00029314349822003537,
+                "orientation_rmse_rad": 8.379013362117281e-05
+              },
+              {
+                "episode": 20,
+                "terrain": "rough",
+                "windows": 1000,
+                "velocity_nrmse": 0.4031504842486645,
+                "base_linear_rmse_mps": 0.00137143286543641,
+                "base_angular_rmse_rps": 0.00794501879108324,
+                "joint_velocity_rmse_rps": 0.15380475950551153,
+                "position_rmse_m": 0.00029844357662559614,
+                "orientation_rmse_rad": 0.00014610021013289576
+              },
+              {
+                "episode": 21,
+                "terrain": "ramp",
+                "windows": 1000,
+                "velocity_nrmse": 0.15990718289518988,
+                "base_linear_rmse_mps": 0.0008934722525576105,
+                "base_angular_rmse_rps": 0.006350087832636808,
+                "joint_velocity_rmse_rps": 0.06187369690658293,
+                "position_rmse_m": 0.00046699550591894253,
+                "orientation_rmse_rad": 0.00011093076122353467
+              },
+              {
+                "episode": 22,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.11305128309172371,
+                "base_linear_rmse_mps": 0.000865107732638026,
+                "base_angular_rmse_rps": 0.0057273575297696255,
+                "joint_velocity_rmse_rps": 0.045854276494794274,
+                "position_rmse_m": 0.00040934304687312523,
+                "orientation_rmse_rad": 0.00010894290417388849
+              },
+              {
+                "episode": 23,
+                "terrain": "ramp",
+                "windows": 1000,
+                "velocity_nrmse": 0.171839601388882,
+                "base_linear_rmse_mps": 0.0009561335675764534,
+                "base_angular_rmse_rps": 0.0069401017388200596,
+                "joint_velocity_rmse_rps": 0.08271799476294747,
+                "position_rmse_m": 0.00045036695598949867,
+                "orientation_rmse_rad": 0.0001229150568882683
+              }
+            ],
+            "velocity_nrmse": 0.20738816320035056,
+            "by_terrain": {
+              "flat": 0.17717621292499705,
+              "bumps": 0.2155031853700798,
+              "rough": 0.4031504842486645,
+              "ramp": 0.16587339214203595
+            }
+          },
+          "8": {
+            "horizon": 8,
+            "physical_seconds": 0.08,
+            "episodes": [
+              {
+                "episode": 16,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.6230330265442224,
+                "base_linear_rmse_mps": 0.005539818224495492,
+                "base_angular_rmse_rps": 0.015963001889335044,
+                "joint_velocity_rmse_rps": 0.43264487870482765,
+                "position_rmse_m": 0.001980771628002862,
+                "orientation_rmse_rad": 0.0014659608876521786
+              },
+              {
+                "episode": 17,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.5308354180289473,
+                "base_linear_rmse_mps": 0.006980560091090293,
+                "base_angular_rmse_rps": 0.02042778820863349,
+                "joint_velocity_rmse_rps": 0.3892254450957399,
+                "position_rmse_m": 0.0025268830450847868,
+                "orientation_rmse_rad": 0.0014752114036021785
+              },
+              {
+                "episode": 18,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.7312785929130016,
+                "base_linear_rmse_mps": 0.009592301194823488,
+                "base_angular_rmse_rps": 0.025325621100667866,
+                "joint_velocity_rmse_rps": 0.5367395052735814,
+                "position_rmse_m": 0.0021692606364813014,
+                "orientation_rmse_rad": 0.0017023638963784078
+              },
+              {
+                "episode": 19,
+                "terrain": "bumps",
+                "windows": 125,
+                "velocity_nrmse": 0.9390640526911893,
+                "base_linear_rmse_mps": 0.005384469719579891,
+                "base_angular_rmse_rps": 0.018410831225717475,
+                "joint_velocity_rmse_rps": 0.7461657921538863,
+                "position_rmse_m": 0.001898674696514446,
+                "orientation_rmse_rad": 0.0014524884922522132
+              },
+              {
+                "episode": 20,
+                "terrain": "rough",
+                "windows": 125,
+                "velocity_nrmse": 1.5380333786457485,
+                "base_linear_rmse_mps": 0.009306087117375987,
+                "base_angular_rmse_rps": 0.03592831680647495,
+                "joint_velocity_rmse_rps": 1.2354888918479356,
+                "position_rmse_m": 0.0020410720565855523,
+                "orientation_rmse_rad": 0.002759169951220489
+              },
+              {
+                "episode": 21,
+                "terrain": "ramp",
+                "windows": 125,
+                "velocity_nrmse": 0.6169361344048673,
+                "base_linear_rmse_mps": 0.005926996079729637,
+                "base_angular_rmse_rps": 0.020831256468913626,
+                "joint_velocity_rmse_rps": 0.48264405081204437,
+                "position_rmse_m": 0.003627859927803435,
+                "orientation_rmse_rad": 0.0019162061594483024
+              },
+              {
+                "episode": 22,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.4244505181643017,
+                "base_linear_rmse_mps": 0.006404150133824725,
+                "base_angular_rmse_rps": 0.014672474438002129,
+                "joint_velocity_rmse_rps": 0.3258957501302996,
+                "position_rmse_m": 0.003045263558928709,
+                "orientation_rmse_rad": 0.0012864983099310336
+              },
+              {
+                "episode": 23,
+                "terrain": "ramp",
+                "windows": 125,
+                "velocity_nrmse": 0.7259241469710764,
+                "base_linear_rmse_mps": 0.006018086098341927,
+                "base_angular_rmse_rps": 0.026506644208911155,
+                "joint_velocity_rmse_rps": 0.593047676219133,
+                "position_rmse_m": 0.0035987334584480974,
+                "orientation_rmse_rad": 0.002370141743933774
+              }
+            ],
+            "velocity_nrmse": 0.7661944085454193,
+            "by_terrain": {
+              "flat": 0.5773993889126183,
+              "bumps": 0.9390640526911893,
+              "rough": 1.5380333786457485,
+              "ramp": 0.6714301406879719
+            }
+          }
+        },
+        "test": {
+          "1": {
+            "horizon": 1,
+            "physical_seconds": 0.01,
+            "episodes": [
+              {
+                "episode": 24,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.18239178994088817,
+                "base_linear_rmse_mps": 0.0009797905938781618,
+                "base_angular_rmse_rps": 0.005880699166134181,
+                "joint_velocity_rmse_rps": 0.05655658051639926,
+                "position_rmse_m": 0.0003024951250132663,
+                "orientation_rmse_rad": 0.00011251810171203518
+              },
+              {
+                "episode": 25,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.19376982489237515,
+                "base_linear_rmse_mps": 0.001142387898457377,
+                "base_angular_rmse_rps": 0.006116629662396874,
+                "joint_velocity_rmse_rps": 0.05960120386485423,
+                "position_rmse_m": 0.00034930768190996196,
+                "orientation_rmse_rad": 0.00012504036037226673
+              },
+              {
+                "episode": 26,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.2991052105492774,
+                "base_linear_rmse_mps": 0.0022062575288238234,
+                "base_angular_rmse_rps": 0.007573557515000324,
+                "joint_velocity_rmse_rps": 0.09148704076469451,
+                "position_rmse_m": 0.00037995335404736346,
+                "orientation_rmse_rad": 0.00011779646191228134
+              },
+              {
+                "episode": 27,
+                "terrain": "bumps",
+                "windows": 1000,
+                "velocity_nrmse": 0.1821725851883681,
+                "base_linear_rmse_mps": 0.0006811512452645244,
+                "base_angular_rmse_rps": 0.005928327251040643,
+                "joint_velocity_rmse_rps": 0.08640604566182482,
+                "position_rmse_m": 0.0002931834345099221,
+                "orientation_rmse_rad": 7.645056227120062e-05
+              },
+              {
+                "episode": 28,
+                "terrain": "rough",
+                "windows": 1000,
+                "velocity_nrmse": 0.3573983096846001,
+                "base_linear_rmse_mps": 0.001308129041956247,
+                "base_angular_rmse_rps": 0.007432845381904229,
+                "joint_velocity_rmse_rps": 0.14455903772678014,
+                "position_rmse_m": 0.00030346029350420626,
+                "orientation_rmse_rad": 0.00012173062426295792
+              },
+              {
+                "episode": 29,
+                "terrain": "ramp",
+                "windows": 1000,
+                "velocity_nrmse": 0.17224341186758838,
+                "base_linear_rmse_mps": 0.0008782323830380448,
+                "base_angular_rmse_rps": 0.006362975648447999,
+                "joint_velocity_rmse_rps": 0.06240119445047392,
+                "position_rmse_m": 0.00044121611187269473,
+                "orientation_rmse_rad": 0.00010809904551056656
+              },
+              {
+                "episode": 30,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.11962756911848997,
+                "base_linear_rmse_mps": 0.0009968079059287053,
+                "base_angular_rmse_rps": 0.006101970894830589,
+                "joint_velocity_rmse_rps": 0.052721367203847826,
+                "position_rmse_m": 0.0004195479803308457,
+                "orientation_rmse_rad": 0.00011473435585797775
+              },
+              {
+                "episode": 31,
+                "terrain": "ramp",
+                "windows": 1000,
+                "velocity_nrmse": 0.17453778945955595,
+                "base_linear_rmse_mps": 0.0012715158286924605,
+                "base_angular_rmse_rps": 0.006816370789596525,
+                "joint_velocity_rmse_rps": 0.07508017679327668,
+                "position_rmse_m": 0.0004304943767470758,
+                "orientation_rmse_rad": 0.00011639673768047895
+              }
+            ],
+            "velocity_nrmse": 0.2101558113376429,
+            "by_terrain": {
+              "flat": 0.19872359862525765,
+              "bumps": 0.1821725851883681,
+              "rough": 0.3573983096846001,
+              "ramp": 0.17339060066357215
+            }
+          },
+          "8": {
+            "horizon": 8,
+            "physical_seconds": 0.08,
+            "episodes": [
+              {
+                "episode": 24,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.5708059930172619,
+                "base_linear_rmse_mps": 0.005482287003568564,
+                "base_angular_rmse_rps": 0.018371513988605193,
+                "joint_velocity_rmse_rps": 0.39349123597159763,
+                "position_rmse_m": 0.002069726790998148,
+                "orientation_rmse_rad": 0.0015683340735537553
+              },
+              {
+                "episode": 25,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.46309267301294976,
+                "base_linear_rmse_mps": 0.006417811713422355,
+                "base_angular_rmse_rps": 0.01885928211706384,
+                "joint_velocity_rmse_rps": 0.30764692763472123,
+                "position_rmse_m": 0.0024749701507003493,
+                "orientation_rmse_rad": 0.0017106068877050255
+              },
+              {
+                "episode": 26,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.9224691318704332,
+                "base_linear_rmse_mps": 0.013967757504519045,
+                "base_angular_rmse_rps": 0.03532004748721908,
+                "joint_velocity_rmse_rps": 0.6739568988608345,
+                "position_rmse_m": 0.0026763752517836286,
+                "orientation_rmse_rad": 0.0024792724550534687
+              },
+              {
+                "episode": 27,
+                "terrain": "bumps",
+                "windows": 125,
+                "velocity_nrmse": 0.8420675226381007,
+                "base_linear_rmse_mps": 0.004609278972876855,
+                "base_angular_rmse_rps": 0.017937098219523887,
+                "joint_velocity_rmse_rps": 0.7154085330696153,
+                "position_rmse_m": 0.001930537833487359,
+                "orientation_rmse_rad": 0.001335957856648791
+              },
+              {
+                "episode": 28,
+                "terrain": "rough",
+                "windows": 125,
+                "velocity_nrmse": 1.4786317730135807,
+                "base_linear_rmse_mps": 0.008850762121635344,
+                "base_angular_rmse_rps": 0.03498284496104193,
+                "joint_velocity_rmse_rps": 1.171767978083269,
+                "position_rmse_m": 0.0021532817383427215,
+                "orientation_rmse_rad": 0.0026754490124471174
+              },
+              {
+                "episode": 29,
+                "terrain": "ramp",
+                "windows": 125,
+                "velocity_nrmse": 0.6672281823557515,
+                "base_linear_rmse_mps": 0.005684317413298415,
+                "base_angular_rmse_rps": 0.017799798311733773,
+                "joint_velocity_rmse_rps": 0.5172685887387872,
+                "position_rmse_m": 0.003415167245486754,
+                "orientation_rmse_rad": 0.0016560574353758014
+              },
+              {
+                "episode": 30,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.4597845847612018,
+                "base_linear_rmse_mps": 0.006460462526384541,
+                "base_angular_rmse_rps": 0.014665374391396825,
+                "joint_velocity_rmse_rps": 0.3547194931681716,
+                "position_rmse_m": 0.003223218726557323,
+                "orientation_rmse_rad": 0.0013975182171979779
+              },
+              {
+                "episode": 31,
+                "terrain": "ramp",
+                "windows": 125,
+                "velocity_nrmse": 0.7114646557214566,
+                "base_linear_rmse_mps": 0.00842597031375354,
+                "base_angular_rmse_rps": 0.021006707403787798,
+                "joint_velocity_rmse_rps": 0.5542746157870233,
+                "position_rmse_m": 0.0033013315584149746,
+                "orientation_rmse_rad": 0.0018916156122233017
+              }
+            ],
+            "velocity_nrmse": 0.764443064548842,
+            "by_terrain": {
+              "flat": 0.6040380956654616,
+              "bumps": 0.8420675226381007,
+              "rough": 1.4786317730135807,
+              "ramp": 0.689346419038604
+            }
+          }
+        }
+      },
+      "gate": {
+        "passed": false,
+        "ratios": {
+          "1": 0.8573676219741849,
+          "8": 1.1770083398714954
+        },
+        "reasons": [
+          "h8: error ratio exceeds preregistered gate",
+          "flat: h8 degradation exceeds preregistered gate",
+          "bumps: h8 degradation exceeds preregistered gate",
+          "ramp: h8 degradation exceeds preregistered gate"
+        ]
+      }
+    },
+    {
+      "seed": 51003,
+      "status": "COMPLETE",
+      "failure": null,
+      "training": {
+        "updates": 2000,
+        "cpu_seconds": 1.6221557959999977,
+        "export_max_abs_difference": 9.5367431640625e-07,
+        "curve": [
+          {
+            "update": 1,
+            "mse": 0.020691746845841408,
+            "cpu_s": 0.0010011739999988833
+          },
+          {
+            "update": 100,
+            "mse": 0.02233326993882656,
+            "cpu_s": 0.08199938399999951
+          },
+          {
+            "update": 200,
+            "mse": 0.05583132803440094,
+            "cpu_s": 0.16198621699999904
+          },
+          {
+            "update": 300,
+            "mse": 0.013772315345704556,
+            "cpu_s": 0.24298423299999783
+          },
+          {
+            "update": 400,
+            "mse": 0.014833013527095318,
+            "cpu_s": 0.3229824319999999
+          },
+          {
+            "update": 500,
+            "mse": 0.014118941500782967,
+            "cpu_s": 0.40398058899999967
+          },
+          {
+            "update": 600,
+            "mse": 0.011651281267404556,
+            "cpu_s": 0.4849786149999993
+          },
+          {
+            "update": 700,
+            "mse": 0.01420897152274847,
+            "cpu_s": 0.5669766569999979
+          },
+          {
+            "update": 800,
+            "mse": 0.011598063632845879,
+            "cpu_s": 0.6489747399999999
+          },
+          {
+            "update": 900,
+            "mse": 0.01327317301183939,
+            "cpu_s": 0.728972976999998
+          },
+          {
+            "update": 1000,
+            "mse": 0.03276282921433449,
+            "cpu_s": 0.8099718289999984
+          },
+          {
+            "update": 1100,
+            "mse": 0.017383774742484093,
+            "cpu_s": 0.8912337679999993
+          },
+          {
+            "update": 1200,
+            "mse": 0.023215852677822113,
+            "cpu_s": 0.9732188449999981
+          },
+          {
+            "update": 1300,
+            "mse": 0.012970956042408943,
+            "cpu_s": 1.0552173379999985
+          },
+          {
+            "update": 1400,
+            "mse": 0.01379130594432354,
+            "cpu_s": 1.1362024879999986
+          },
+          {
+            "update": 1500,
+            "mse": 0.014214874245226383,
+            "cpu_s": 1.2171823419999974
+          },
+          {
+            "update": 1600,
+            "mse": 0.01247070636600256,
+            "cpu_s": 1.2981806200000001
+          },
+          {
+            "update": 1700,
+            "mse": 0.009477827697992325,
+            "cpu_s": 1.379178527999997
+          },
+          {
+            "update": 1800,
+            "mse": 0.010315037332475185,
+            "cpu_s": 1.4601766459999972
+          },
+          {
+            "update": 1900,
+            "mse": 0.014405020512640476,
+            "cpu_s": 1.5401593619999971
+          },
+          {
+            "update": 2000,
+            "mse": 0.010471966117620468,
+            "cpu_s": 1.6201575969999986
+          }
+        ]
+      },
+      "scores": {
+        "train": {
+          "1": {
+            "horizon": 1,
+            "physical_seconds": 0.01,
+            "episodes": [
+              {
+                "episode": 8,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.13595045222123464,
+                "base_linear_rmse_mps": 0.0007444652510654661,
+                "base_angular_rmse_rps": 0.005595300613719621,
+                "joint_velocity_rmse_rps": 0.04492462387383768,
+                "position_rmse_m": 7.411712721740807e-05,
+                "orientation_rmse_rad": 9.869964317916535e-05
+              },
+              {
+                "episode": 9,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.12708427162826375,
+                "base_linear_rmse_mps": 0.0007625403627195947,
+                "base_angular_rmse_rps": 0.005461043237063371,
+                "joint_velocity_rmse_rps": 0.04470598947277254,
+                "position_rmse_m": 0.0001753261430949751,
+                "orientation_rmse_rad": 0.0002045101490008793
+              },
+              {
+                "episode": 10,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.1835161541941911,
+                "base_linear_rmse_mps": 0.0011182624086691654,
+                "base_angular_rmse_rps": 0.006056352691984758,
+                "joint_velocity_rmse_rps": 0.056244214966150535,
+                "position_rmse_m": 0.00018520212891772104,
+                "orientation_rmse_rad": 0.0002051072279928486
+              },
+              {
+                "episode": 11,
+                "terrain": "bumps",
+                "windows": 1000,
+                "velocity_nrmse": 0.1955045756665717,
+                "base_linear_rmse_mps": 0.0006910911505470606,
+                "base_angular_rmse_rps": 0.006101693409460874,
+                "joint_velocity_rmse_rps": 0.07456670112140015,
+                "position_rmse_m": 6.404560972130394e-05,
+                "orientation_rmse_rad": 9.420738738911436e-05
+              },
+              {
+                "episode": 12,
+                "terrain": "rough",
+                "windows": 1000,
+                "velocity_nrmse": 0.2710410951997884,
+                "base_linear_rmse_mps": 0.0012237173593170638,
+                "base_angular_rmse_rps": 0.007091362456264091,
+                "joint_velocity_rmse_rps": 0.1313948393237436,
+                "position_rmse_m": 9.887520305037079e-05,
+                "orientation_rmse_rad": 0.0001609364618127887
+              },
+              {
+                "episode": 13,
+                "terrain": "ramp",
+                "windows": 1000,
+                "velocity_nrmse": 0.14517439372337684,
+                "base_linear_rmse_mps": 0.0009097945193443294,
+                "base_angular_rmse_rps": 0.005875632581466139,
+                "joint_velocity_rmse_rps": 0.053917394186957235,
+                "position_rmse_m": 0.0001187849705537328,
+                "orientation_rmse_rad": 0.00014501497453309962
+              },
+              {
+                "episode": 14,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.10104916050753743,
+                "base_linear_rmse_mps": 0.0005010459019618267,
+                "base_angular_rmse_rps": 0.005517239229515295,
+                "joint_velocity_rmse_rps": 0.03452067087500163,
+                "position_rmse_m": 0.00019333540773527994,
+                "orientation_rmse_rad": 0.00021475588829465188
+              },
+              {
+                "episode": 15,
+                "terrain": "ramp",
+                "windows": 1000,
+                "velocity_nrmse": 0.14187685816969717,
+                "base_linear_rmse_mps": 0.0008776741356321294,
+                "base_angular_rmse_rps": 0.006314043892832759,
+                "joint_velocity_rmse_rps": 0.05401897671594041,
+                "position_rmse_m": 0.00012551872410594196,
+                "orientation_rmse_rad": 0.00015480197228618395
+              }
+            ],
+            "velocity_nrmse": 0.16264962016383264,
+            "by_terrain": {
+              "flat": 0.13690000963780674,
+              "bumps": 0.1955045756665717,
+              "rough": 0.2710410951997884,
+              "ramp": 0.143525625946537
+            }
+          },
+          "8": {
+            "horizon": 8,
+            "physical_seconds": 0.08,
+            "episodes": [
+              {
+                "episode": 8,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.44731168045832886,
+                "base_linear_rmse_mps": 0.0038349028831360424,
+                "base_angular_rmse_rps": 0.01480481286914788,
+                "joint_velocity_rmse_rps": 0.32179770395889945,
+                "position_rmse_m": 0.00046457555318522295,
+                "orientation_rmse_rad": 0.0013020595301449565
+              },
+              {
+                "episode": 9,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.3805621538947664,
+                "base_linear_rmse_mps": 0.0038898243044748694,
+                "base_angular_rmse_rps": 0.015526786939181561,
+                "joint_velocity_rmse_rps": 0.2771043397237412,
+                "position_rmse_m": 0.0013986794022883815,
+                "orientation_rmse_rad": 0.0020321303114201185
+              },
+              {
+                "episode": 10,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.4134278150427349,
+                "base_linear_rmse_mps": 0.005335349407593589,
+                "base_angular_rmse_rps": 0.015387842417926246,
+                "joint_velocity_rmse_rps": 0.28435644078135097,
+                "position_rmse_m": 0.0014651949066928694,
+                "orientation_rmse_rad": 0.0018347952951173682
+              },
+              {
+                "episode": 11,
+                "terrain": "bumps",
+                "windows": 125,
+                "velocity_nrmse": 0.7127401158404464,
+                "base_linear_rmse_mps": 0.0039426035985121715,
+                "base_angular_rmse_rps": 0.016500900925421672,
+                "joint_velocity_rmse_rps": 0.53449989098821,
+                "position_rmse_m": 0.0005347190734862559,
+                "orientation_rmse_rad": 0.0014540206647874836
+              },
+              {
+                "episode": 12,
+                "terrain": "rough",
+                "windows": 125,
+                "velocity_nrmse": 1.0655826783222795,
+                "base_linear_rmse_mps": 0.006797842552022916,
+                "base_angular_rmse_rps": 0.024857676685778124,
+                "joint_velocity_rmse_rps": 0.937431355257929,
+                "position_rmse_m": 0.0009313817581623188,
+                "orientation_rmse_rad": 0.002231376669507591
+              },
+              {
+                "episode": 13,
+                "terrain": "ramp",
+                "windows": 125,
+                "velocity_nrmse": 0.47174501493109305,
+                "base_linear_rmse_mps": 0.005268032721853262,
+                "base_angular_rmse_rps": 0.016444677316962877,
+                "joint_velocity_rmse_rps": 0.3669388775204922,
+                "position_rmse_m": 0.0008165068590470676,
+                "orientation_rmse_rad": 0.0017776708619699421
+              },
+              {
+                "episode": 14,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.31127608361485615,
+                "base_linear_rmse_mps": 0.0026726940778206486,
+                "base_angular_rmse_rps": 0.011826568955818045,
+                "joint_velocity_rmse_rps": 0.2278565903470538,
+                "position_rmse_m": 0.0014858018921759216,
+                "orientation_rmse_rad": 0.0019950300994708054
+              },
+              {
+                "episode": 15,
+                "terrain": "ramp",
+                "windows": 125,
+                "velocity_nrmse": 0.48098187091233935,
+                "base_linear_rmse_mps": 0.004862233026046965,
+                "base_angular_rmse_rps": 0.01691652865543623,
+                "joint_velocity_rmse_rps": 0.38305726152757685,
+                "position_rmse_m": 0.0009221552585333743,
+                "orientation_rmse_rad": 0.0017940852979472413
+              }
+            ],
+            "velocity_nrmse": 0.5354534266271056,
+            "by_terrain": {
+              "flat": 0.38814443325267156,
+              "bumps": 0.7127401158404464,
+              "rough": 1.0655826783222795,
+              "ramp": 0.4763634429217162
+            }
+          }
+        },
+        "validation": {
+          "1": {
+            "horizon": 1,
+            "physical_seconds": 0.01,
+            "episodes": [
+              {
+                "episode": 16,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.18801687006480927,
+                "base_linear_rmse_mps": 0.0009838646757027538,
+                "base_angular_rmse_rps": 0.005875588086583003,
+                "joint_velocity_rmse_rps": 0.05976054940334934,
+                "position_rmse_m": 0.00015130675821692949,
+                "orientation_rmse_rad": 0.00015445503533727636
+              },
+              {
+                "episode": 17,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.16164143368396208,
+                "base_linear_rmse_mps": 0.0010243716970288464,
+                "base_angular_rmse_rps": 0.005910879622344004,
+                "joint_velocity_rmse_rps": 0.05439638282487375,
+                "position_rmse_m": 0.0001511104307885759,
+                "orientation_rmse_rad": 0.00018619499590732526
+              },
+              {
+                "episode": 18,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.22410409878685306,
+                "base_linear_rmse_mps": 0.001490883036534152,
+                "base_angular_rmse_rps": 0.006717890022894496,
+                "joint_velocity_rmse_rps": 0.07487699933521262,
+                "position_rmse_m": 0.00013322308084922537,
+                "orientation_rmse_rad": 0.0001597067854693969
+              },
+              {
+                "episode": 19,
+                "terrain": "bumps",
+                "windows": 1000,
+                "velocity_nrmse": 0.21281429992695394,
+                "base_linear_rmse_mps": 0.0007331626646569362,
+                "base_angular_rmse_rps": 0.006332569863847945,
+                "joint_velocity_rmse_rps": 0.0853747789162981,
+                "position_rmse_m": 6.21623866367071e-05,
+                "orientation_rmse_rad": 9.874000144035553e-05
+              },
+              {
+                "episode": 20,
+                "terrain": "rough",
+                "windows": 1000,
+                "velocity_nrmse": 0.40740311812818186,
+                "base_linear_rmse_mps": 0.0013376009351833472,
+                "base_angular_rmse_rps": 0.008098854557529291,
+                "joint_velocity_rmse_rps": 0.1512710093503876,
+                "position_rmse_m": 8.28178066613952e-05,
+                "orientation_rmse_rad": 0.00015147091830625795
+              },
+              {
+                "episode": 21,
+                "terrain": "ramp",
+                "windows": 1000,
+                "velocity_nrmse": 0.16045111493095643,
+                "base_linear_rmse_mps": 0.0009398776862940621,
+                "base_angular_rmse_rps": 0.006390866900198257,
+                "joint_velocity_rmse_rps": 0.06021544666775185,
+                "position_rmse_m": 0.0001300650812581915,
+                "orientation_rmse_rad": 0.00015818671724107013
+              },
+              {
+                "episode": 22,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.11149407833648455,
+                "base_linear_rmse_mps": 0.0005595189256022543,
+                "base_angular_rmse_rps": 0.005728070003370077,
+                "joint_velocity_rmse_rps": 0.04337303717556712,
+                "position_rmse_m": 0.00018514411148500223,
+                "orientation_rmse_rad": 0.00021432471034307538
+              },
+              {
+                "episode": 23,
+                "terrain": "ramp",
+                "windows": 1000,
+                "velocity_nrmse": 0.16661128026162425,
+                "base_linear_rmse_mps": 0.0009865930968932079,
+                "base_angular_rmse_rps": 0.0066942028972659445,
+                "joint_velocity_rmse_rps": 0.07184305576408727,
+                "position_rmse_m": 0.00012796184825866432,
+                "orientation_rmse_rad": 0.00017755298577357747
+              }
+            ],
+            "velocity_nrmse": 0.20406703676497817,
+            "by_terrain": {
+              "flat": 0.17131412021802725,
+              "bumps": 0.21281429992695394,
+              "rough": 0.40740311812818186,
+              "ramp": 0.16353119759629034
+            }
+          },
+          "8": {
+            "horizon": 8,
+            "physical_seconds": 0.08,
+            "episodes": [
+              {
+                "episode": 16,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.6674304732889028,
+                "base_linear_rmse_mps": 0.005468435329967173,
+                "base_angular_rmse_rps": 0.01947772308875137,
+                "joint_velocity_rmse_rps": 0.4713928505649611,
+                "position_rmse_m": 0.0009340244171222007,
+                "orientation_rmse_rad": 0.001677922822632522
+              },
+              {
+                "episode": 17,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.552227754947401,
+                "base_linear_rmse_mps": 0.006239815064379798,
+                "base_angular_rmse_rps": 0.022779518226332653,
+                "joint_velocity_rmse_rps": 0.37064709932945333,
+                "position_rmse_m": 0.0013004103261041284,
+                "orientation_rmse_rad": 0.001773022146445942
+              },
+              {
+                "episode": 18,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.7888542711983396,
+                "base_linear_rmse_mps": 0.009617478532937328,
+                "base_angular_rmse_rps": 0.03125573569173165,
+                "joint_velocity_rmse_rps": 0.5639118247466662,
+                "position_rmse_m": 0.0011346092237840247,
+                "orientation_rmse_rad": 0.0016794859823393554
+              },
+              {
+                "episode": 19,
+                "terrain": "bumps",
+                "windows": 125,
+                "velocity_nrmse": 0.8559996902149514,
+                "base_linear_rmse_mps": 0.004615771214946174,
+                "base_angular_rmse_rps": 0.01737672383063511,
+                "joint_velocity_rmse_rps": 0.6793495822170343,
+                "position_rmse_m": 0.0004939005563215677,
+                "orientation_rmse_rad": 0.001432218597879457
+              },
+              {
+                "episode": 20,
+                "terrain": "rough",
+                "windows": 125,
+                "velocity_nrmse": 1.6235761683068726,
+                "base_linear_rmse_mps": 0.008688759472316569,
+                "base_angular_rmse_rps": 0.03729839978345129,
+                "joint_velocity_rmse_rps": 1.3044398298287376,
+                "position_rmse_m": 0.000649975261462954,
+                "orientation_rmse_rad": 0.002769547128540627
+              },
+              {
+                "episode": 21,
+                "terrain": "ramp",
+                "windows": 125,
+                "velocity_nrmse": 0.5839070592883089,
+                "base_linear_rmse_mps": 0.005692647884712412,
+                "base_angular_rmse_rps": 0.020152795250114694,
+                "joint_velocity_rmse_rps": 0.4455728533781484,
+                "position_rmse_m": 0.0009278028459088587,
+                "orientation_rmse_rad": 0.002086455774838254
+              },
+              {
+                "episode": 22,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.4076590523608964,
+                "base_linear_rmse_mps": 0.0029229996141725448,
+                "base_angular_rmse_rps": 0.014688590314819056,
+                "joint_velocity_rmse_rps": 0.3156047103697663,
+                "position_rmse_m": 0.0014063310551946863,
+                "orientation_rmse_rad": 0.0019282873716836239
+              },
+              {
+                "episode": 23,
+                "terrain": "ramp",
+                "windows": 125,
+                "velocity_nrmse": 0.6178120485190853,
+                "base_linear_rmse_mps": 0.005817534700950186,
+                "base_angular_rmse_rps": 0.022769352309823302,
+                "joint_velocity_rmse_rps": 0.49951726467938423,
+                "position_rmse_m": 0.00095759618175387,
+                "orientation_rmse_rad": 0.0025800714670131033
+              }
+            ],
+            "velocity_nrmse": 0.7621833147655948,
+            "by_terrain": {
+              "flat": 0.6040428879488849,
+              "bumps": 0.8559996902149514,
+              "rough": 1.6235761683068726,
+              "ramp": 0.6008595539036972
+            }
+          }
+        },
+        "test": {
+          "1": {
+            "horizon": 1,
+            "physical_seconds": 0.01,
+            "episodes": [
+              {
+                "episode": 24,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.18526765733112893,
+                "base_linear_rmse_mps": 0.0009399601137590947,
+                "base_angular_rmse_rps": 0.0060780803425538625,
+                "joint_velocity_rmse_rps": 0.05872807588722447,
+                "position_rmse_m": 0.00014979531353905332,
+                "orientation_rmse_rad": 0.00015942147410018641
+              },
+              {
+                "episode": 25,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.19814922738764082,
+                "base_linear_rmse_mps": 0.0010822800888375878,
+                "base_angular_rmse_rps": 0.006115671163756945,
+                "joint_velocity_rmse_rps": 0.06029602834935883,
+                "position_rmse_m": 0.00017366570861381613,
+                "orientation_rmse_rad": 0.00019553088010587538
+              },
+              {
+                "episode": 26,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.2829113105278103,
+                "base_linear_rmse_mps": 0.0020073012128640107,
+                "base_angular_rmse_rps": 0.007852560777415874,
+                "joint_velocity_rmse_rps": 0.09603743533671864,
+                "position_rmse_m": 0.00012367779278880454,
+                "orientation_rmse_rad": 0.00016695174656656782
+              },
+              {
+                "episode": 27,
+                "terrain": "bumps",
+                "windows": 1000,
+                "velocity_nrmse": 0.17391802126295694,
+                "base_linear_rmse_mps": 0.0006821669125532531,
+                "base_angular_rmse_rps": 0.005881568029978652,
+                "joint_velocity_rmse_rps": 0.08406446666574477,
+                "position_rmse_m": 6.77553144392523e-05,
+                "orientation_rmse_rad": 0.00010290542909587949
+              },
+              {
+                "episode": 28,
+                "terrain": "rough",
+                "windows": 1000,
+                "velocity_nrmse": 0.3672688043363065,
+                "base_linear_rmse_mps": 0.001292442597117062,
+                "base_angular_rmse_rps": 0.0075232445251935875,
+                "joint_velocity_rmse_rps": 0.1442924538971468,
+                "position_rmse_m": 8.266487977275335e-05,
+                "orientation_rmse_rad": 0.00013003831869032358
+              },
+              {
+                "episode": 29,
+                "terrain": "ramp",
+                "windows": 1000,
+                "velocity_nrmse": 0.16761777617602114,
+                "base_linear_rmse_mps": 0.0008709107390274596,
+                "base_angular_rmse_rps": 0.006378733948115067,
+                "joint_velocity_rmse_rps": 0.05951837735258321,
+                "position_rmse_m": 0.00012540004673190734,
+                "orientation_rmse_rad": 0.00014861672549593914
+              },
+              {
+                "episode": 30,
+                "terrain": "flat",
+                "windows": 1000,
+                "velocity_nrmse": 0.125853899899608,
+                "base_linear_rmse_mps": 0.0007372075174724419,
+                "base_angular_rmse_rps": 0.006080587514297496,
+                "joint_velocity_rmse_rps": 0.054222107525350435,
+                "position_rmse_m": 0.0001873937319337626,
+                "orientation_rmse_rad": 0.0002250494895961906
+              },
+              {
+                "episode": 31,
+                "terrain": "ramp",
+                "windows": 1000,
+                "velocity_nrmse": 0.17275681138115528,
+                "base_linear_rmse_mps": 0.0012521842158436788,
+                "base_angular_rmse_rps": 0.006677888795301298,
+                "joint_velocity_rmse_rps": 0.06631980760101747,
+                "position_rmse_m": 0.00012391984429403925,
+                "orientation_rmse_rad": 0.0001620509587248524
+              }
+            ],
+            "velocity_nrmse": 0.2092179385378285,
+            "by_terrain": {
+              "flat": 0.198045523786547,
+              "bumps": 0.17391802126295694,
+              "rough": 0.3672688043363065,
+              "ramp": 0.1701872937785882
+            }
+          },
+          "8": {
+            "horizon": 8,
+            "physical_seconds": 0.08,
+            "episodes": [
+              {
+                "episode": 24,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.5481833564004118,
+                "base_linear_rmse_mps": 0.005294325708531795,
+                "base_angular_rmse_rps": 0.02097902940983906,
+                "joint_velocity_rmse_rps": 0.39577216380327845,
+                "position_rmse_m": 0.0010764420323410868,
+                "orientation_rmse_rad": 0.001646870172731856
+              },
+              {
+                "episode": 25,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.5012074732983297,
+                "base_linear_rmse_mps": 0.00587763178332839,
+                "base_angular_rmse_rps": 0.018584694138130554,
+                "joint_velocity_rmse_rps": 0.33688712863668074,
+                "position_rmse_m": 0.001319427849245213,
+                "orientation_rmse_rad": 0.0018882217005052133
+              },
+              {
+                "episode": 26,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 1.0559116297841087,
+                "base_linear_rmse_mps": 0.013397813958860135,
+                "base_angular_rmse_rps": 0.044459009554533566,
+                "joint_velocity_rmse_rps": 0.8117455946615034,
+                "position_rmse_m": 0.001113028269271762,
+                "orientation_rmse_rad": 0.0026878139537243537
+              },
+              {
+                "episode": 27,
+                "terrain": "bumps",
+                "windows": 125,
+                "velocity_nrmse": 0.7722470293833354,
+                "base_linear_rmse_mps": 0.0043450175296609736,
+                "base_angular_rmse_rps": 0.01740831395127934,
+                "joint_velocity_rmse_rps": 0.6712086984826812,
+                "position_rmse_m": 0.0005749150437996938,
+                "orientation_rmse_rad": 0.0014690564577972865
+              },
+              {
+                "episode": 28,
+                "terrain": "rough",
+                "windows": 125,
+                "velocity_nrmse": 1.5143913880796958,
+                "base_linear_rmse_mps": 0.00805320038598971,
+                "base_angular_rmse_rps": 0.03344540568187476,
+                "joint_velocity_rmse_rps": 1.2052793749038446,
+                "position_rmse_m": 0.0007226547316230621,
+                "orientation_rmse_rad": 0.0024915055577872385
+              },
+              {
+                "episode": 29,
+                "terrain": "ramp",
+                "windows": 125,
+                "velocity_nrmse": 0.6248974824940418,
+                "base_linear_rmse_mps": 0.004910828876710491,
+                "base_angular_rmse_rps": 0.018445989250745785,
+                "joint_velocity_rmse_rps": 0.4891447406219864,
+                "position_rmse_m": 0.0009082231001860965,
+                "orientation_rmse_rad": 0.0017796364211675013
+              },
+              {
+                "episode": 30,
+                "terrain": "flat",
+                "windows": 125,
+                "velocity_nrmse": 0.4275920175096859,
+                "base_linear_rmse_mps": 0.0037235635061424045,
+                "base_angular_rmse_rps": 0.01459413235833271,
+                "joint_velocity_rmse_rps": 0.3683110567491884,
+                "position_rmse_m": 0.0015758616395461552,
+                "orientation_rmse_rad": 0.0022479905843006873
+              },
+              {
+                "episode": 31,
+                "terrain": "ramp",
+                "windows": 125,
+                "velocity_nrmse": 0.6945789025921838,
+                "base_linear_rmse_mps": 0.007567118643247514,
+                "base_angular_rmse_rps": 0.020982462861320654,
+                "joint_velocity_rmse_rps": 0.4992456295276054,
+                "position_rmse_m": 0.000857660800552496,
+                "orientation_rmse_rad": 0.0020051115266123617
+              }
+            ],
+            "velocity_nrmse": 0.7673761599427241,
+            "by_terrain": {
+              "flat": 0.633223619248134,
+              "bumps": 0.7722470293833354,
+              "rough": 1.5143913880796958,
+              "ramp": 0.6597381925431127
+            }
+          }
+        }
+      },
+      "gate": {
+        "passed": false,
+        "ratios": {
+          "1": 0.8535414048119135,
+          "8": 1.1815244090208379
+        },
+        "reasons": [
+          "h8: error ratio exceeds preregistered gate",
+          "flat: h8 degradation exceeds preregistered gate",
+          "rough: h8 degradation exceeds preregistered gate",
+          "ramp: h8 degradation exceeds preregistered gate"
+        ]
+      }
+    }
+  ],
+  "candidate_passed": false,
+  "decision": "DO_NOT_START_POLICY_TRAINING",
+  "source_policy_seed": 201021,
+  "model_initialization_seeds": [
+    51001,
+    51002,
+    51003
+  ],
+  "interpretation": "recorded-torque-conditioned physical-state prediction only",
+  "execution_commit": "6033ee0f1388b39e8dab5bcca08fefdb106737fc",
+  "baseline": {
+    "train": {
+      "1": {
+        "horizon": 1,
+        "physical_seconds": 0.01,
+        "episodes": [
+          {
+            "episode": 8,
+            "terrain": "flat",
+            "windows": 1000,
+            "velocity_nrmse": 0.19406853810288202,
+            "base_linear_rmse_mps": 0.0007816160333478783,
+            "base_angular_rmse_rps": 0.005718672776775975,
+            "joint_velocity_rmse_rps": 0.05367905248646681,
+            "position_rmse_m": 2.0977406291567866e-05,
+            "orientation_rmse_rad": 6.945308340586465e-05
+          },
+          {
+            "episode": 9,
+            "terrain": "flat",
+            "windows": 1000,
+            "velocity_nrmse": 0.19441642378581836,
+            "base_linear_rmse_mps": 0.0008518894076601102,
+            "base_angular_rmse_rps": 0.005586856877714915,
+            "joint_velocity_rmse_rps": 0.05187208452989159,
+            "position_rmse_m": 1.4429090323053892e-05,
+            "orientation_rmse_rad": 6.588947685935661e-05
+          },
+          {
+            "episode": 10,
+            "terrain": "flat",
+            "windows": 1000,
+            "velocity_nrmse": 0.25366534174287153,
+            "base_linear_rmse_mps": 0.0011994761700078857,
+            "base_angular_rmse_rps": 0.006247077120353536,
+            "joint_velocity_rmse_rps": 0.06572776295663188,
+            "position_rmse_m": 3.031420711182169e-05,
+            "orientation_rmse_rad": 9.259605354487527e-05
+          },
+          {
+            "episode": 11,
+            "terrain": "bumps",
+            "windows": 1000,
+            "velocity_nrmse": 0.26753277390288205,
+            "base_linear_rmse_mps": 0.0006976062962333137,
+            "base_angular_rmse_rps": 0.006143840634945159,
+            "joint_velocity_rmse_rps": 0.08652680899854896,
+            "position_rmse_m": 1.7048306874063365e-05,
+            "orientation_rmse_rad": 6.63349440730157e-05
+          },
+          {
+            "episode": 12,
+            "terrain": "rough",
+            "windows": 1000,
+            "velocity_nrmse": 0.38768802011911907,
+            "base_linear_rmse_mps": 0.001298288907021515,
+            "base_angular_rmse_rps": 0.0073377180281497196,
+            "joint_velocity_rmse_rps": 0.16710225603921203,
+            "position_rmse_m": 3.8390267468803274e-05,
+            "orientation_rmse_rad": 0.00012224833984775355
+          },
+          {
+            "episode": 13,
+            "terrain": "ramp",
+            "windows": 1000,
+            "velocity_nrmse": 0.19652055201952387,
+            "base_linear_rmse_mps": 0.0008341670793783846,
+            "base_angular_rmse_rps": 0.005863309255354929,
+            "joint_velocity_rmse_rps": 0.07074692967737148,
+            "position_rmse_m": 1.109453462191207e-05,
+            "orientation_rmse_rad": 6.793992213647533e-05
+          },
+          {
+            "episode": 14,
+            "terrain": "flat",
+            "windows": 1000,
+            "velocity_nrmse": 0.17572036769849586,
+            "base_linear_rmse_mps": 0.0005195235734117659,
+            "base_angular_rmse_rps": 0.005507154153972554,
+            "joint_velocity_rmse_rps": 0.04584944189801371,
+            "position_rmse_m": 1.0468354264181135e-05,
+            "orientation_rmse_rad": 5.8096739354800217e-05
+          },
+          {
+            "episode": 15,
+            "terrain": "ramp",
+            "windows": 1000,
+            "velocity_nrmse": 0.19307361501312778,
+            "base_linear_rmse_mps": 0.0008573912500855474,
+            "base_angular_rmse_rps": 0.006309906455057274,
+            "joint_velocity_rmse_rps": 0.06932381350725135,
+            "position_rmse_m": 1.0730501471237223e-05,
+            "orientation_rmse_rad": 7.198211704986775e-05
+          }
+        ],
+        "velocity_nrmse": 0.23283570404809006,
+        "by_terrain": {
+          "flat": 0.20446766783251694,
+          "bumps": 0.26753277390288205,
+          "rough": 0.38768802011911907,
+          "ramp": 0.19479708351632583
+        }
+      },
+      "8": {
+        "horizon": 8,
+        "physical_seconds": 0.08,
+        "episodes": [
+          {
+            "episode": 8,
+            "terrain": "flat",
+            "windows": 125,
+            "velocity_nrmse": 0.29803337000459135,
+            "base_linear_rmse_mps": 0.0034780517997442394,
+            "base_angular_rmse_rps": 0.016090085007891167,
+            "joint_velocity_rmse_rps": 0.2453006987763457,
+            "position_rmse_m": 0.00017936643338173003,
+            "orientation_rmse_rad": 0.0012363132165352953
+          },
+          {
+            "episode": 9,
+            "terrain": "flat",
+            "windows": 125,
+            "velocity_nrmse": 0.2620343002260917,
+            "base_linear_rmse_mps": 0.004042699975634353,
+            "base_angular_rmse_rps": 0.016178275335724572,
+            "joint_velocity_rmse_rps": 0.19459466271556286,
+            "position_rmse_m": 0.00017963337889988063,
+            "orientation_rmse_rad": 0.0012954188066004423
+          },
+          {
+            "episode": 10,
+            "terrain": "flat",
+            "windows": 125,
+            "velocity_nrmse": 0.3461050543201299,
+            "base_linear_rmse_mps": 0.00532500012412783,
+            "base_angular_rmse_rps": 0.016465442044957854,
+            "joint_velocity_rmse_rps": 0.23280590851683938,
+            "position_rmse_m": 0.00025600724386962744,
+            "orientation_rmse_rad": 0.0013526542689383967
+          },
+          {
+            "episode": 11,
+            "terrain": "bumps",
+            "windows": 125,
+            "velocity_nrmse": 0.7333953047433157,
+            "base_linear_rmse_mps": 0.003580994817190069,
+            "base_angular_rmse_rps": 0.01694914520042148,
+            "joint_velocity_rmse_rps": 0.5867094325568241,
+            "position_rmse_m": 0.0002090869560592596,
+            "orientation_rmse_rad": 0.0013230951675510725
+          },
+          {
+            "episode": 12,
+            "terrain": "rough",
+            "windows": 125,
+            "velocity_nrmse": 1.3844762782301459,
+            "base_linear_rmse_mps": 0.006903972144821093,
+            "base_angular_rmse_rps": 0.027679111285952237,
+            "joint_velocity_rmse_rps": 1.2333713991632045,
+            "position_rmse_m": 0.0004210902092071217,
+            "orientation_rmse_rad": 0.0021907373558829424
+          },
+          {
+            "episode": 13,
+            "terrain": "ramp",
+            "windows": 125,
+            "velocity_nrmse": 0.5357397752294069,
+            "base_linear_rmse_mps": 0.004131750985163041,
+            "base_angular_rmse_rps": 0.016476700982392418,
+            "joint_velocity_rmse_rps": 0.49331193674777646,
+            "position_rmse_m": 0.00018804896344142791,
+            "orientation_rmse_rad": 0.001405066555927999
+          },
+          {
+            "episode": 14,
+            "terrain": "flat",
+            "windows": 125,
+            "velocity_nrmse": 0.19489192631817334,
+            "base_linear_rmse_mps": 0.0020597321007360288,
+            "base_angular_rmse_rps": 0.010976328133366187,
+            "joint_velocity_rmse_rps": 0.15959041599919793,
+            "position_rmse_m": 9.806635057858377e-05,
+            "orientation_rmse_rad": 0.0009204466195788742
+          },
+          {
+            "episode": 15,
+            "terrain": "ramp",
+            "windows": 125,
+            "velocity_nrmse": 0.5250417908127036,
+            "base_linear_rmse_mps": 0.0046136802618231216,
+            "base_angular_rmse_rps": 0.01681749288067931,
+            "joint_velocity_rmse_rps": 0.48972681722155015,
+            "position_rmse_m": 0.00020206569493543013,
+            "orientation_rmse_rad": 0.0013856392116489923
+          }
+        ],
+        "velocity_nrmse": 0.5349647249855698,
+        "by_terrain": {
+          "flat": 0.2752661627172466,
+          "bumps": 0.7333953047433157,
+          "rough": 1.3844762782301459,
+          "ramp": 0.5303907830210552
+        }
+      }
+    },
+    "validation": {
+      "1": {
+        "horizon": 1,
+        "physical_seconds": 0.01,
+        "episodes": [
+          {
+            "episode": 16,
+            "terrain": "flat",
+            "windows": 1000,
+            "velocity_nrmse": 0.22366323299717017,
+            "base_linear_rmse_mps": 0.0010125645897522974,
+            "base_angular_rmse_rps": 0.005814990141675663,
+            "joint_velocity_rmse_rps": 0.06136376377292036,
+            "position_rmse_m": 2.5057659843308445e-05,
+            "orientation_rmse_rad": 8.124007431819838e-05
+          },
+          {
+            "episode": 17,
+            "terrain": "flat",
+            "windows": 1000,
+            "velocity_nrmse": 0.21093822949737734,
+            "base_linear_rmse_mps": 0.0010792757849726856,
+            "base_angular_rmse_rps": 0.00590311281022344,
+            "joint_velocity_rmse_rps": 0.059862689886639654,
+            "position_rmse_m": 3.118733938667829e-05,
+            "orientation_rmse_rad": 7.608294214494234e-05
+          },
+          {
+            "episode": 18,
+            "terrain": "flat",
+            "windows": 1000,
+            "velocity_nrmse": 0.2501169232974127,
+            "base_linear_rmse_mps": 0.0014718323299106363,
+            "base_angular_rmse_rps": 0.00647789657341883,
+            "joint_velocity_rmse_rps": 0.07307039831925181,
+            "position_rmse_m": 5.106967981584551e-05,
+            "orientation_rmse_rad": 8.743116795313295e-05
+          },
+          {
+            "episode": 19,
+            "terrain": "bumps",
+            "windows": 1000,
+            "velocity_nrmse": 0.24329587372628433,
+            "base_linear_rmse_mps": 0.0006809256225467748,
+            "base_angular_rmse_rps": 0.006333582004091318,
+            "joint_velocity_rmse_rps": 0.09289208657690226,
+            "position_rmse_m": 1.6053276712791197e-05,
+            "orientation_rmse_rad": 6.773737586621342e-05
+          },
+          {
+            "episode": 20,
+            "terrain": "rough",
+            "windows": 1000,
+            "velocity_nrmse": 0.40922285971411526,
+            "base_linear_rmse_mps": 0.0013307515331340608,
+            "base_angular_rmse_rps": 0.008074479410600808,
+            "joint_velocity_rmse_rps": 0.15479062076884592,
+            "position_rmse_m": 3.867508100459646e-05,
+            "orientation_rmse_rad": 0.0001321168988165242
+          },
+          {
+            "episode": 21,
+            "terrain": "ramp",
+            "windows": 1000,
+            "velocity_nrmse": 0.19573244535342815,
+            "base_linear_rmse_mps": 0.0008993456003955373,
+            "base_angular_rmse_rps": 0.006284603292681019,
+            "joint_velocity_rmse_rps": 0.07365361593340858,
+            "position_rmse_m": 1.1763366998769972e-05,
+            "orientation_rmse_rad": 7.131395174346912e-05
+          },
+          {
+            "episode": 22,
+            "terrain": "flat",
+            "windows": 1000,
+            "velocity_nrmse": 0.17948809463713758,
+            "base_linear_rmse_mps": 0.0005747911575619593,
+            "base_angular_rmse_rps": 0.005691239774082277,
+            "joint_velocity_rmse_rps": 0.05194221741210886,
+            "position_rmse_m": 1.1174963888181638e-05,
+            "orientation_rmse_rad": 6.0914986723404955e-05
+          },
+          {
+            "episode": 23,
+            "terrain": "ramp",
+            "windows": 1000,
+            "velocity_nrmse": 0.21510948765580465,
+            "base_linear_rmse_mps": 0.0009152512454069098,
+            "base_angular_rmse_rps": 0.0068292440637483754,
+            "joint_velocity_rmse_rps": 0.0831007828100496,
+            "position_rmse_m": 1.360473492154498e-05,
+            "orientation_rmse_rad": 7.588150781781844e-05
+          }
+        ],
+        "velocity_nrmse": 0.24094589335984126,
+        "by_terrain": {
+          "flat": 0.21605162010727444,
+          "bumps": 0.24329587372628433,
+          "rough": 0.40922285971411526,
+          "ramp": 0.2054209665046164
+        }
+      },
+      "8": {
+        "horizon": 8,
+        "physical_seconds": 0.08,
+        "episodes": [
+          {
+            "episode": 16,
+            "terrain": "flat",
+            "windows": 125,
+            "velocity_nrmse": 0.3413786020299366,
+            "base_linear_rmse_mps": 0.0043130042898608485,
+            "base_angular_rmse_rps": 0.016212258798050713,
+            "joint_velocity_rmse_rps": 0.27039875107802375,
+            "position_rmse_m": 0.0002208490853105866,
+            "orientation_rmse_rad": 0.001277209021029145
+          },
+          {
+            "episode": 17,
+            "terrain": "flat",
+            "windows": 125,
+            "velocity_nrmse": 0.37727549837857716,
+            "base_linear_rmse_mps": 0.006264023966952675,
+            "base_angular_rmse_rps": 0.020798662890017305,
+            "joint_velocity_rmse_rps": 0.3114575022125561,
+            "position_rmse_m": 0.00031711578404687205,
+            "orientation_rmse_rad": 0.0016144575685810448
+          },
+          {
+            "episode": 18,
+            "terrain": "flat",
+            "windows": 125,
+            "velocity_nrmse": 0.5389414642898595,
+            "base_linear_rmse_mps": 0.009210445722116949,
+            "base_angular_rmse_rps": 0.026513267618791355,
+            "joint_velocity_rmse_rps": 0.42980771574092475,
+            "position_rmse_m": 0.0004970048833231461,
+            "orientation_rmse_rad": 0.0019800761107388477
+          },
+          {
+            "episode": 19,
+            "terrain": "bumps",
+            "windows": 125,
+            "velocity_nrmse": 0.8061283531720669,
+            "base_linear_rmse_mps": 0.003562357396713104,
+            "base_angular_rmse_rps": 0.018238696402161678,
+            "joint_velocity_rmse_rps": 0.6915759598014829,
+            "position_rmse_m": 0.00021623383819099166,
+            "orientation_rmse_rad": 0.0013837190042689967
+          },
+          {
+            "episode": 20,
+            "terrain": "rough",
+            "windows": 125,
+            "velocity_nrmse": 1.3906718904050859,
+            "base_linear_rmse_mps": 0.008217505689453964,
+            "base_angular_rmse_rps": 0.03682845525438689,
+            "joint_velocity_rmse_rps": 1.1581742262635808,
+            "position_rmse_m": 0.0004491189752675665,
+            "orientation_rmse_rad": 0.0028448541206727803
+          },
+          {
+            "episode": 21,
+            "terrain": "ramp",
+            "windows": 125,
+            "velocity_nrmse": 0.57750189486008,
+            "base_linear_rmse_mps": 0.005030534273984662,
+            "base_angular_rmse_rps": 0.01943691615400795,
+            "joint_velocity_rmse_rps": 0.537202535522472,
+            "position_rmse_m": 0.00022144366923681686,
+            "orientation_rmse_rad": 0.0015257013848133814
+          },
+          {
+            "episode": 22,
+            "terrain": "flat",
+            "windows": 125,
+            "velocity_nrmse": 0.27580247004207326,
+            "base_linear_rmse_mps": 0.002383151592516764,
+            "base_angular_rmse_rps": 0.014406841144589275,
+            "joint_velocity_rmse_rps": 0.24836701835599537,
+            "position_rmse_m": 0.00011647995423591939,
+            "orientation_rmse_rad": 0.0011949807545164992
+          },
+          {
+            "episode": 23,
+            "terrain": "ramp",
+            "windows": 125,
+            "velocity_nrmse": 0.608233529849102,
+            "base_linear_rmse_mps": 0.0042914442216930426,
+            "base_angular_rmse_rps": 0.02574300439443898,
+            "joint_velocity_rmse_rps": 0.5409921629456501,
+            "position_rmse_m": 0.00020984362248001957,
+            "orientation_rmse_rad": 0.0019254806289586556
+          }
+        ],
+        "velocity_nrmse": 0.6144917128783476,
+        "by_terrain": {
+          "flat": 0.38334950868511164,
+          "bumps": 0.8061283531720669,
+          "rough": 1.3906718904050859,
+          "ramp": 0.5928677123545909
+        }
+      }
+    },
+    "test": {
+      "1": {
+        "horizon": 1,
+        "physical_seconds": 0.01,
+        "episodes": [
+          {
+            "episode": 24,
+            "terrain": "flat",
+            "windows": 1000,
+            "velocity_nrmse": 0.2278224162937984,
+            "base_linear_rmse_mps": 0.00096711746186082,
+            "base_angular_rmse_rps": 0.005894299435781387,
+            "joint_velocity_rmse_rps": 0.06391964002761522,
+            "position_rmse_m": 2.640579240057769e-05,
+            "orientation_rmse_rad": 8.342098651273302e-05
+          },
+          {
+            "episode": 25,
+            "terrain": "flat",
+            "windows": 1000,
+            "velocity_nrmse": 0.25405781618031015,
+            "base_linear_rmse_mps": 0.0011028666445027694,
+            "base_angular_rmse_rps": 0.006117413153023386,
+            "joint_velocity_rmse_rps": 0.06696412058352127,
+            "position_rmse_m": 2.5458606715451383e-05,
+            "orientation_rmse_rad": 8.649118713724703e-05
+          },
+          {
+            "episode": 26,
+            "terrain": "flat",
+            "windows": 1000,
+            "velocity_nrmse": 0.27666322955557937,
+            "base_linear_rmse_mps": 0.0020311591982733693,
+            "base_angular_rmse_rps": 0.007669509846048048,
+            "joint_velocity_rmse_rps": 0.08445404193927988,
+            "position_rmse_m": 8.819649757862183e-05,
+            "orientation_rmse_rad": 0.00011852732969779489
+          },
+          {
+            "episode": 27,
+            "terrain": "bumps",
+            "windows": 1000,
+            "velocity_nrmse": 0.22288482891667089,
+            "base_linear_rmse_mps": 0.000636256469318161,
+            "base_angular_rmse_rps": 0.00588726889084817,
+            "joint_velocity_rmse_rps": 0.09344555214842745,
+            "position_rmse_m": 1.535519031834511e-05,
+            "orientation_rmse_rad": 6.303888558898329e-05
+          },
+          {
+            "episode": 28,
+            "terrain": "rough",
+            "windows": 1000,
+            "velocity_nrmse": 0.3721838968647207,
+            "base_linear_rmse_mps": 0.001200133375590475,
+            "base_angular_rmse_rps": 0.007399477731448173,
+            "joint_velocity_rmse_rps": 0.15021844941624193,
+            "position_rmse_m": 3.238425494377371e-05,
+            "orientation_rmse_rad": 0.00010269774608391973
+          },
+          {
+            "episode": 29,
+            "terrain": "ramp",
+            "windows": 1000,
+            "velocity_nrmse": 0.19727806347067078,
+            "base_linear_rmse_mps": 0.0008313008489595076,
+            "base_angular_rmse_rps": 0.006339549951067218,
+            "joint_velocity_rmse_rps": 0.07242448839280428,
+            "position_rmse_m": 1.172647764941809e-05,
+            "orientation_rmse_rad": 7.310855230873568e-05
+          },
+          {
+            "episode": 30,
+            "terrain": "flat",
+            "windows": 1000,
+            "velocity_nrmse": 0.19068085408670415,
+            "base_linear_rmse_mps": 0.0007601799355248296,
+            "base_angular_rmse_rps": 0.006110437683892272,
+            "joint_velocity_rmse_rps": 0.05973108084443454,
+            "position_rmse_m": 1.2006350101131674e-05,
+            "orientation_rmse_rad": 6.399461919387015e-05
+          },
+          {
+            "episode": 31,
+            "terrain": "ramp",
+            "windows": 1000,
+            "velocity_nrmse": 0.21936892503517236,
+            "base_linear_rmse_mps": 0.0010856320790872001,
+            "base_angular_rmse_rps": 0.006689050333728611,
+            "joint_velocity_rmse_rps": 0.08129144500374295,
+            "position_rmse_m": 1.2520737748148254e-05,
+            "orientation_rmse_rad": 7.86884078398346e-05
+          }
+        ],
+        "velocity_nrmse": 0.24511750380045333,
+        "by_terrain": {
+          "flat": 0.237306079029098,
+          "bumps": 0.22288482891667089,
+          "rough": 0.3721838968647207,
+          "ramp": 0.20832349425292157
+        }
+      },
+      "8": {
+        "horizon": 8,
+        "physical_seconds": 0.08,
+        "episodes": [
+          {
+            "episode": 24,
+            "terrain": "flat",
+            "windows": 125,
+            "velocity_nrmse": 0.36068159294068847,
+            "base_linear_rmse_mps": 0.0042537714426181495,
+            "base_angular_rmse_rps": 0.017598934748986248,
+            "joint_velocity_rmse_rps": 0.29780040322516055,
+            "position_rmse_m": 0.00023517924739610788,
+            "orientation_rmse_rad": 0.0013649160340306113
+          },
+          {
+            "episode": 25,
+            "terrain": "flat",
+            "windows": 125,
+            "velocity_nrmse": 0.38535949874245784,
+            "base_linear_rmse_mps": 0.005057952441336875,
+            "base_angular_rmse_rps": 0.0161547756168434,
+            "joint_velocity_rmse_rps": 0.2604836343602882,
+            "position_rmse_m": 0.00023808416799090773,
+            "orientation_rmse_rad": 0.0012891435948139802
+          },
+          {
+            "episode": 26,
+            "terrain": "flat",
+            "windows": 125,
+            "velocity_nrmse": 0.7419902609742439,
+            "base_linear_rmse_mps": 0.013709567236197926,
+            "base_angular_rmse_rps": 0.0384104386732861,
+            "joint_velocity_rmse_rps": 0.5426327666044715,
+            "position_rmse_m": 0.0007918585414977123,
+            "orientation_rmse_rad": 0.0029402106815350003
+          },
+          {
+            "episode": 27,
+            "terrain": "bumps",
+            "windows": 125,
+            "velocity_nrmse": 0.7562794416353756,
+            "base_linear_rmse_mps": 0.0033707936613487284,
+            "base_angular_rmse_rps": 0.017515398933224763,
+            "joint_velocity_rmse_rps": 0.7015086281223802,
+            "position_rmse_m": 0.00020534381112625216,
+            "orientation_rmse_rad": 0.001280213177863031
+          },
+          {
+            "episode": 28,
+            "terrain": "rough",
+            "windows": 125,
+            "velocity_nrmse": 1.4205212264322205,
+            "base_linear_rmse_mps": 0.006995067665087304,
+            "base_angular_rmse_rps": 0.03336964280834519,
+            "joint_velocity_rmse_rps": 1.166081411715164,
+            "position_rmse_m": 0.00039371525789247435,
+            "orientation_rmse_rad": 0.0025607163634007515
+          },
+          {
+            "episode": 29,
+            "terrain": "ramp",
+            "windows": 125,
+            "velocity_nrmse": 0.5542625708138957,
+            "base_linear_rmse_mps": 0.004017245210071468,
+            "base_angular_rmse_rps": 0.017846895213604514,
+            "joint_velocity_rmse_rps": 0.5177103408354453,
+            "position_rmse_m": 0.00018322509806501598,
+            "orientation_rmse_rad": 0.0014659851789922866
+          },
+          {
+            "episode": 30,
+            "terrain": "flat",
+            "windows": 125,
+            "velocity_nrmse": 0.35127797427263086,
+            "base_linear_rmse_mps": 0.003515737681297352,
+            "base_angular_rmse_rps": 0.013992097491321895,
+            "joint_velocity_rmse_rps": 0.31280224336365114,
+            "position_rmse_m": 0.0001723379469636183,
+            "orientation_rmse_rad": 0.0011126186606808996
+          },
+          {
+            "episode": 31,
+            "terrain": "ramp",
+            "windows": 125,
+            "velocity_nrmse": 0.6254653133478013,
+            "base_linear_rmse_mps": 0.005425452465239232,
+            "base_angular_rmse_rps": 0.020683655372492473,
+            "joint_velocity_rmse_rps": 0.5567314185381356,
+            "position_rmse_m": 0.00023546458586543378,
+            "orientation_rmse_rad": 0.0015737572284349264
+          }
+        ],
+        "velocity_nrmse": 0.6494797348949143,
+        "by_terrain": {
+          "flat": 0.4598273317325053,
+          "bumps": 0.7562794416353756,
+          "rough": 1.4205212264322205,
+          "ramp": 0.5898639420808485
+        }
+      }
+    }
+  },
+  "source_identities_unchanged": true,
+  "test_h8_seed_summary": {
+    "mean": 0.7864785583260224,
+    "minimum": 0.764443064548842,
+    "maximum": 0.8276164504865011,
+    "range": 0.06317338593765909
+  },
+  "artifact_bytes": 19838810,
+  "wall_seconds": 28.7122182759922,
+  "cpu_seconds": 25.103203142999998,
+  "raw_report": {
+    "path": "results/world_model51_20261030_01/report.json",
+    "bytes": 113890,
+    "sha256": "5849205ff0703b271d783feb9d5f43e526ce5c910f73e2f35b4567e5b767a9ed"
+  },
+  "supervision": {
+    "schema": "bounded-control-job49-v1",
+    "status": "COMPLETE",
+    "command": [
+      "/usr/bin/python3",
+      "-B",
+      "/home/lyh/wheel-legged-control-lab/scripts/run_world_model51.py",
+      "--protocol",
+      "/home/lyh/wheel-legged-control-lab/docs/experiments51/world_model51_preregistered.json",
+      "--output",
+      "/home/lyh/wheel-legged-control-lab/results/world_model51_20261030_01"
+    ],
+    "scope": "/user.slice/user-1000.slice/user@1000.service/app.slice/wm51-pilot-20261030-01.service",
+    "timeout_s": 2100.0,
+    "supervisor_sha256": "4ed57d66a443d360764ab2773d509c1513ca004265e58fd2ddce842cb9dcee3d",
+    "minimum_effective_bytes": 9640914944,
+    "peak_group_bytes": 992481280,
+    "child_started": true,
+    "returncode": 0,
+    "error": null,
+    "signals": [],
+    "retry_permitted": false,
+    "cpu_affinity": [
+      0
+    ],
+    "final_memory_events": {
+      "low": 0,
+      "high": 0,
+      "max": 0,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0
+    },
+    "child_pid": 230728,
+    "owned_process_group_empty": true,
+    "child_reaped": true,
+    "elapsed_s": 41.33130640198942
+  },
+  "environment": {
+    "python": "3.10.12",
+    "packages": {
+      "numpy": "2.2.6",
+      "torch": "2.13.0",
+      "pytest": "8.4.2",
+      "ruff": "0.16.5",
+      "matplotlib": "3.10.6"
+    },
+    "cuda_visible_devices_for_pilot": "",
+    "device_used": "cpu",
+    "cpu_affinity_for_pilot": [
+      0
+    ]
+  },
+  "raw_artifact_total_bytes": 19952700,
+  "artifacts": {
+    "baseline.npz": {
+      "bytes": 12580,
+      "sha256": "658e70d5ae039891b326e9d26261276c46f22ed4c82bc2481c3702c9aaec7655"
+    },
+    "baseline_scores.json": {
+      "bytes": 22600,
+      "sha256": "24a9edf64e4666d7240eb4247545be50c97b785e2d9f21ab2e9f0b9eac4620c6"
+    },
+    "data_receipt.json": {
+      "bytes": 51939,
+      "sha256": "df161dbfe88eb751d5377e164fd4060ecf2f9c11c5a7acbd56ce84769d0fc418"
+    },
+    "report.json": {
+      "bytes": 113890,
+      "sha256": "5849205ff0703b271d783feb9d5f43e526ce5c910f73e2f35b4567e5b767a9ed"
+    },
+    "seed_51001/model.npz": {
+      "bytes": 56147,
+      "sha256": "072d116a4e7eb8ff10549633599de874466a3d120c332ee6dc3439a560c3c017"
+    },
+    "seed_51001/result.json": {
+      "bytes": 26677,
+      "sha256": "976c4914211ad3f92c9a4a2118e1041ec09cabf7e15c3925427ccfa541e7b676"
+    },
+    "seed_51001/updates.jsonl": {
+      "bytes": 1526,
+      "sha256": "69878b387dbae4ca8cd4d1d9f68e9ac5648b893a3db76fcabb13a0edc72eccee"
+    },
+    "seed_51002/model.npz": {
+      "bytes": 56153,
+      "sha256": "2e046efe5593b67eb985e5e3c1c0b7833dbb7e7db5f665e65d6a91ef0eb17b87"
+    },
+    "seed_51002/result.json": {
+      "bytes": 26749,
+      "sha256": "0360e1326ca025592251f237a34d1b05d22f5ed8c06b427a80633b12812f7c18"
+    },
+    "seed_51002/updates.jsonl": {
+      "bytes": 1552,
+      "sha256": "79d358407139358d19321405c715f472179497d70a31ce261e6911c23e4f424a"
+    },
+    "seed_51003/model.npz": {
+      "bytes": 56187,
+      "sha256": "291e096492d432aa29b09d7ea43bc18dd7cbca2f3298bdb17231f63c9dfb0805"
+    },
+    "seed_51003/result.json": {
+      "bytes": 26778,
+      "sha256": "18177901823feeb78aae50d8f9119e5657ddce7d5b8fd593f339ca552e4a7043"
+    },
+    "seed_51003/updates.jsonl": {
+      "bytes": 1561,
+      "sha256": "835e7b66464ba1ec588c08bb453d30f36ec75bb0ddb0951c98c87f5e248c9cc8"
+    },
+    "transitions.npz": {
+      "bytes": 19498361,
+      "sha256": "c46a5421847887f27bb1fec354ea6cd30c1eb191fba1aa3fe3878758783d42c1"
+    }
+  },
+  "unit_tests": {
+    "scientific_boundary_tests": 6,
+    "status": "PASS",
+    "supervision": {
+      "schema": "bounded-control-job49-v1",
+      "status": "COMPLETE",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "pytest",
+        "tests/test_world_model51.py",
+        "-q"
+      ],
+      "scope": "/user.slice/user-1000.slice/user@1000.service/app.slice/wm51-tests-20261030-02.service",
+      "timeout_s": 120.0,
+      "supervisor_sha256": "4ed57d66a443d360764ab2773d509c1513ca004265e58fd2ddce842cb9dcee3d",
+      "minimum_effective_bytes": 9863188480,
+      "peak_group_bytes": 47833088,
+      "child_started": true,
+      "returncode": 0,
+      "error": null,
+      "signals": [],
+      "retry_permitted": false,
+      "cpu_affinity": [
+        0
+      ],
+      "final_memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "child_pid": 229981,
+      "owned_process_group_empty": true,
+      "child_reaped": true,
+      "elapsed_s": 11.063379717001226
+    }
+  },
+  "source_policy_qualification": false,
+  "limitations": [
+    "single PPO stream, repeated initial states and course templates, oracle inputs",
+    "three model initializations are not independent policy or environment seeds",
+    "recorded future torques; neither closed-loop policy evaluation nor full SuperMimic",
+    "45D state omits solver warm-start and full terrain/contact representation"
+  ]
+}
