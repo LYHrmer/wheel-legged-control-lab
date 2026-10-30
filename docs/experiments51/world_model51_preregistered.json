@@ -1,0 +1,247 @@
+{
+  "schema": "world-model51-preregistration-v1",
+  "question": "Does a small nonlinear residual improve recorded-torque-conditioned physical-state prediction?",
+  "source_run": "results/b22_seed47_20261018_02",
+  "source_policy_training_seed": 201021,
+  "source_policy_qualification": false,
+  "episodes": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31
+  ],
+  "splits": {
+    "train": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "validation": [
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ],
+    "test": [
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31
+    ]
+  },
+  "state": "qpos23 + qvel22; 45 dimensions; all future physical states predicted",
+  "inputs_at_each_step": "current state + safe torque request16 + fixed terrain onehot4; logged future torque sequence is exogenous",
+  "actuator_admission": "all 5 substeps requested/limited/delayed/applied exactly equal current safe request; otherwise stop",
+  "unique_variable": "add two 64-unit tanh layers and a zero-initialized residual output to fixed ridge predictor",
+  "seeds": [
+    51001,
+    51002,
+    51003
+  ],
+  "fit": {
+    "ridge": 0.001,
+    "updates": 2000,
+    "batch_size": 256,
+    "batch_seed": 51000,
+    "learning_rate": 0.001,
+    "cpu_seconds_per_seed": 480
+  },
+  "gates": {
+    "h1": 1.0,
+    "h8": 0.9,
+    "terrain_h8": 1.05,
+    "denominator_floor": 1e-08
+  },
+  "primary": "episode-equal mean of 8-step endpoint qvel RMSE normalized by train state std (floor 1e-3); nonoverlapping windows",
+  "selection": "final checkpoint after exactly 2000 updates; no hyperparameter search, early stopping, best-seed selection or test-driven changes",
+  "budget": {
+    "model_updates_total": 6000,
+    "model_fits": 3,
+    "new_simulator_steps": 0,
+    "policy_updates": 0,
+    "total_cpu_seconds": 1800,
+    "artifact_bytes_max": 104857600,
+    "nice": 10,
+    "threads": 1,
+    "memory_high_gib": 2,
+    "memory_max_gib": 3,
+    "swap_bytes": 0,
+    "admission_gib": 4,
+    "reserve_gib": 2
+  },
+  "limitations": [
+    "three network initializations, not three environment/policy seeds",
+    "in-distribution chronological holdout of shared course templates, not unseen-terrain generalization",
+    "plant torque seam only; PI/servo/reference generator and policy-gradient validity are outside scope",
+    "original policy contribution qualification remains false",
+    "no 48 data or rerun; no v27 rebinding or frozen-source edits",
+    "same-terrain initial states repeat; oracle provider has no measurement noise; one chronological PPO stream, not independent environment replication"
+  ],
+  "inputs": {
+    "results/b22_seed47_20261018_02/report.json": {
+      "bytes": 11868,
+      "sha256": "bcebc1cbafbe6c57ffb09f3d3e45c407ae58a8eb44dee5a116a97ec8d6e75fd5"
+    },
+    "results/b22_seed47_20261018_02/train_ffyaw_s21_readback.json": {
+      "bytes": 280774,
+      "sha256": "ed55157af0efd9abe178798bd8b422cffdd348338e4863f8bd0a85df209515ae"
+    },
+    "results/b22_seed47_20261018_02/train_ffyaw_s21/training/training_segment_receipt.json": {
+      "bytes": 2805,
+      "sha256": "f1105cdf039fcd80fbbf511cedcabbd1a44d07f741b46369db08f91d2bc515e3"
+    },
+    "results/b22_seed47_20261018_02/train_ffyaw_s21/training/curriculum_events.ndjson": {
+      "bytes": 49002,
+      "sha256": "5a4936f6b7354867482cd9cd5b1fd5cf9947a2a8238e5b3db605666d7099e002"
+    }
+  },
+  "frozen_inputs": {
+    "scripts/b22_sigma50_contract.py": {
+      "bytes": 9002,
+      "sha256": "cd393d07728d3beacbde23aec797c60014cfa88c97e138851c78df3a5eb2424d"
+    },
+    "scripts/run_b22_sigma50.py": {
+      "bytes": 15743,
+      "sha256": "cb5e4b8f870096d865da55a08c2903b572cce0da2fb159d5d2d6ab5c7951286a"
+    },
+    "scripts/worker_b22_sigma50.py": {
+      "bytes": 11463,
+      "sha256": "7ffc34cade51c778651fe34dc48ed843b231b5e24ece1d07d2d88a04785ea810"
+    },
+    "scripts/read_b22_sigma50.py": {
+      "bytes": 21693,
+      "sha256": "c2a8e04ad8464d8708736878a8cae9a8b752252d61e5018211b90ce285560d3b"
+    },
+    "scripts/eval_b22_sigma50.py": {
+      "bytes": 48749,
+      "sha256": "d2f15b7ede794d2b16207aac139b00a2673099018009c7a28e37d41eb98a8d3e"
+    },
+    "scripts/audit_b22_sources50.py": {
+      "bytes": 8478,
+      "sha256": "ae42ee12ce3a0be42af78c6cee7616e0c2ee0f4b53694bea1085c4a7a2d3879b"
+    },
+    "scripts/admit_b22_sigma50.py": {
+      "bytes": 20965,
+      "sha256": "9bbb74fc5ad2b749dc8abd9bd56d314fdd3d3f4a93efbece11c1348e0a86d732"
+    },
+    "docs/experiments50/training_admission50_preregistered.json": {
+      "bytes": 1525,
+      "sha256": "178135cc674b038d08b0f0d3215f46588a87585a635c9a60a049a1ad3e8edd34"
+    },
+    "tests/test_b22_sigma50_admission.py": {
+      "bytes": 2946,
+      "sha256": "cbd773cf81fd4e8b9bd04bb2202e3a6e0e3e27ba40f619b12274847518a98c12"
+    },
+    "tests/test_b22_sigma50_worker.py": {
+      "bytes": 8641,
+      "sha256": "c94ed5dc25a268d4fb79e2d5f7ae48201422cd7fe967babf6c7b7474e41e3771"
+    },
+    "tests/test_b22_sigma50_reader.py": {
+      "bytes": 8291,
+      "sha256": "378699e4d4d6763790fb3cd819ea7d7b6d35fb9e4bd46a0b80aecfa026ffd294"
+    },
+    "tests/test_b22_sigma50_eval.py": {
+      "bytes": 8379,
+      "sha256": "410930aee3c6c1c2849f45aeeba6b43b645633af7b8045e19f8db782abf7f654"
+    },
+    "tests/test_b22_sources50.py": {
+      "bytes": 3768,
+      "sha256": "3d477fed9b503139326d27a25cda170e624e1b4728307ca94ae1f60ba799e8be"
+    },
+    "docs/b22_sigma50_preregistration.md": {
+      "bytes": 7255,
+      "sha256": "67fe9b13260f4fddab49697ff0d408a0c533b850d4d2ef5f6a61fc0fc37bf49c"
+    },
+    "src/wheel_legged_control/d1/yaw_feedforward44.py": {
+      "bytes": 3588,
+      "sha256": "146dfb3b900047c7d45b80ba96efcf38fee1eb9af8a901838ce93e5964e6418e"
+    },
+    "scripts/b22_yawtrain44.py": {
+      "bytes": 3650,
+      "sha256": "5693b7e7a2284174d0f7e40ca6c40d80c5cc4b25ff020edb1ea7002e64b41110"
+    },
+    "scripts/b22_reward46.py": {
+      "bytes": 3986,
+      "sha256": "ad0b53cb0ed23654ba31809c71f486de0ce05cc5ac6147b91a1b6c964d0fc66b"
+    },
+    "scripts/b22_tracking_reward42.py": {
+      "bytes": 2869,
+      "sha256": "d05651d3e01bc5d4794721da3b403c95bfbc9be1364591ecbcddfbb59958e68e"
+    },
+    "scripts/resource_guard42.py": {
+      "bytes": 9324,
+      "sha256": "2fd0cbed467f36185a8fc442fe88f628a0566354404ea865260a6a76fb1f8fa2"
+    },
+    "runtime/d1_b22/runtime_manifest_v27.json": {
+      "bytes": 856947,
+      "sha256": "d3c38429362e82745179f2c526b2ee52d805526df390d52346c805e5a51fff09"
+    },
+    "runtime/d1_b22/research/continuation18/controller18.py": {
+      "bytes": 9242,
+      "sha256": "b8f3b1d59880ca0bff7d7d4791ba823a101d396dd9f614e25414b83bd2133aba"
+    },
+    "runtime/d1_b22/research/continuation22/curriculum22.py": {
+      "bytes": 32434,
+      "sha256": "53932c20efc59ec0488328a9ea82d7a1904ec9f9f3e497bf9583d6a686db57e5"
+    },
+    "src/wheel_legged_control/d1/actuator_channel.py": {
+      "bytes": 9480,
+      "sha256": "e8100e976a7de18bdd39b4743cfdc0df8c5ae89ca11e337f828104cb424e6a0e"
+    },
+    "scripts/run_bounded49.py": {
+      "bytes": 6802,
+      "sha256": "4ed57d66a443d360764ab2773d509c1513ca004265e58fd2ddce842cb9dcee3d"
+    }
+  },
+  "implementation": {
+    "scripts/world_model51.py": {
+      "bytes": 16068,
+      "sha256": "d1c620e9fe2d2cd0e90c49b45f3b66d9720f7c7f634a1d07af0a0050bacbcd92"
+    },
+    "scripts/run_world_model51.py": {
+      "bytes": 7381,
+      "sha256": "266222af17ba9b23ac8910f3b26743ecc1635d65a63b468b91da06b208dfb854"
+    },
+    "tests/test_world_model51.py": {
+      "bytes": 3868,
+      "sha256": "a44a4a27498dc4c6f83a8db06a6c879061319b6c36f272b1aeec037d3b35a235"
+    },
+    "docs/world_model51_preregistration.md": {
+      "bytes": 6159,
+      "sha256": "99a1a4f1d414677b2e4e30aaaa080cf60256675c51695210852a0b5d67a8f19f"
+    }
+  }
+}
