@@ -1,0 +1,38 @@
+{
+  "schema": "bounded-control-job49-v1",
+  "status": "COMPLETE",
+  "command": [
+    "/usr/bin/python3",
+    "-B",
+    "-m",
+    "pytest",
+    "tests/test_delay_mpc82.py",
+    "tests/test_delay_mpc82_runner.py",
+    "-q"
+  ],
+  "scope": "/user.slice/user-1000.slice/user@1000.service/app.slice/wheel-mpc82-tests01-20261103.service",
+  "timeout_s": 120.0,
+  "supervisor_sha256": "4ed57d66a443d360764ab2773d509c1513ca004265e58fd2ddce842cb9dcee3d",
+  "minimum_effective_bytes": 10087882752,
+  "peak_group_bytes": 160743424,
+  "child_started": true,
+  "returncode": 0,
+  "error": null,
+  "signals": [],
+  "retry_permitted": false,
+  "cpu_affinity": [
+    0
+  ],
+  "final_memory_events": {
+    "low": 0,
+    "high": 0,
+    "max": 0,
+    "oom": 0,
+    "oom_kill": 0,
+    "oom_group_kill": 0
+  },
+  "child_pid": 432881,
+  "owned_process_group_empty": true,
+  "child_reaped": true,
+  "elapsed_s": 12.076141658995766
+}

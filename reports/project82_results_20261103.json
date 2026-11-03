@@ -1,0 +1,934 @@
+{
+  "schema": "project82-delivery-v1",
+  "date": "2026-11-03",
+  "base_head": "8b993a955b0c480ff6073af8a932d83495a4317b",
+  "status": "COMPLETE_BOUNDED_SCOPE",
+  "all_project_problems_solved": false,
+  "results": {
+    "mpc": {
+      "status": "COMPLETE",
+      "verification_after": "COMPLETE",
+      "decision": {
+        "accepted": false,
+        "all_episodes_complete": true,
+        "cohort_valid": true,
+        "performance_gates": {
+          "height_improvement_at_least_10_percent": false,
+          "nominal/velocity_rmse_mps_within_5_percent": true,
+          "nominal/pitch_rmse_deg_within_5_percent": true,
+          "nominal/max_abs_pitch_deg_within_5_percent": true,
+          "nominal/normalized_effort_rms_within_5_percent": true,
+          "nominal/wheel_force_rms_n_within_5_percent": true,
+          "nominal/leg_force_rms_n_within_5_percent": true,
+          "mismatch_delay/velocity_rmse_mps_within_5_percent": false,
+          "mismatch_delay/pitch_rmse_deg_within_5_percent": false,
+          "mismatch_delay/max_abs_pitch_deg_within_5_percent": false,
+          "mismatch_delay/normalized_effort_rms_within_5_percent": true,
+          "mismatch_delay/wheel_force_rms_n_within_5_percent": true,
+          "mismatch_delay/leg_force_rms_n_within_5_percent": true,
+          "solve_p95_within_20_ms": true
+        },
+        "details": {
+          "mismatch_height_ratio": 1.0004660587425,
+          "nominal/velocity_rmse_mps_ratio": 1.0,
+          "nominal/pitch_rmse_deg_ratio": 1.0,
+          "nominal/max_abs_pitch_deg_ratio": 1.0,
+          "nominal/normalized_effort_rms_ratio": 1.0,
+          "nominal/wheel_force_rms_n_ratio": 1.0,
+          "nominal/leg_force_rms_n_ratio": 1.0,
+          "mismatch_delay/velocity_rmse_mps_ratio": 1.0764503439395015,
+          "mismatch_delay/pitch_rmse_deg_ratio": 1.1650145811120745,
+          "mismatch_delay/max_abs_pitch_deg_ratio": 1.1146338785845327,
+          "mismatch_delay/normalized_effort_rms_ratio": 0.9852944789136991,
+          "mismatch_delay/wheel_force_rms_n_ratio": 1.0472246437063757,
+          "mismatch_delay/leg_force_rms_n_ratio": 0.9809936598037574,
+          "candidate_max_episode_solve_p95_ms": 0.4812179831787944
+        },
+        "integrity_gates": {
+          "all_metric_crosschecks": true,
+          "six_original49_baselines_exact": true,
+          "all_three_nominal_candidate_baseline_exact": true,
+          "all_queue_checks": true,
+          "all_original_model_snapshots_preserved": true
+        },
+        "meaning": "REJECTED: original performance or integrity gates did not all pass",
+        "legacy_stage_meaning_unmodified": "eligible for independent full comparison",
+        "full_status": "NOT_RUN",
+        "solver_scope": "unchanged frozen optimizer; finite controls and original per-episode P95 gate,not a new optimizer-optimality certificate"
+      },
+      "full_status": "NOT_RUN",
+      "cpu_seconds": 6.208706351,
+      "wall_seconds": 6.279218674026197,
+      "control_steps": 4800,
+      "integration_steps": 48000,
+      "solve_calls": 4812
+    },
+    "new_tests": {
+      "passed": 22,
+      "existing_dependency_warnings": 2
+    },
+    "training_updates": 0,
+    "estimator_new_physics_steps": 0,
+    "PI_new_physics_steps": 0
+  },
+  "readbacks": {
+    "control_evidence82": {
+      "status": "COMPLETE",
+      "schema": "control-evidence82-readback-v1",
+      "checks": 474229,
+      "new_physics_steps": 0,
+      "new_model_calls": 0,
+      "new_parameter_updates": 0,
+      "cpu_seconds": 0.929292635,
+      "script_sha256": "4ffb43e83e63c08a357a139fdae058c8fa27887481ee4f5268f288d36adbf87f"
+    },
+    "pi_discrete82": {
+      "schema": "pi-discrete82-readback-v1",
+      "status": "COMPLETE",
+      "verification_after": "COMPLETE",
+      "new_physics_steps": 0,
+      "new_model_calls": 0,
+      "new_parameter_updates": 0,
+      "rows_checked": 36000,
+      "reference": "r(t)=18*sin(2*pi*t), dr/dt=36*pi*cos(2*pi*t); t=k*0.002",
+      "next_reference": "k<2999: next CSV row; k=2999: fixed analytic reference at t=6.0",
+      "continuous_formula": "M*analytic_reference_acceleration[k]+b*r[k]+friction(r[k])",
+      "discrete_formula": "M*(r[k+1]-r[k])/dt+b*r[k+1]+friction(r[k])",
+      "recorded_balance": "M*(v_next-v_pre)/dt+b*v_next+friction(v_pre)-applied_torque",
+      "source_verification_before": "COMPLETE",
+      "cpu_seconds": 0.767181016,
+      "wall_seconds": 0.8756701969832648,
+      "first_repeated_reference_receipt": {
+        "seed": 490101,
+        "scenario": "matched",
+        "profile": "stress",
+        "arm": "baseline",
+        "status": "COMPLETE",
+        "rows_checked": 3000,
+        "checks": 27000,
+        "max_check_gaps": {
+          "fixed_pretransition_time": {
+            "absolute_gap": 0.0,
+            "index": 0
+          },
+          "analytic_reference_velocity": {
+            "absolute_gap": 0.0,
+            "index": 0
+          },
+          "analytic_reference_acceleration": {
+            "absolute_gap": 0.0,
+            "index": 0
+          },
+          "next_reference_at_fixed_time": {
+            "absolute_gap": 0.0,
+            "index": 0
+          },
+          "known_initial_velocity": {
+            "absolute_gap": 0.0,
+            "index": 0
+          },
+          "known_initial_position": {
+            "absolute_gap": 0.0,
+            "index": 0
+          },
+          "actual_two_step_command_delay": {
+            "absolute_gap": 0.0,
+            "index": 0
+          },
+          "tracking_error_is_pretransition": {
+            "absolute_gap": 0.0,
+            "index": 0
+          },
+          "implicitfast_recorded_inverse_balance": {
+            "absolute_gap": 8.881784197001252e-15,
+            "index": 378
+          },
+          "velocity_pre_next_continuity": {
+            "absolute_gap": 0.0,
+            "index": 1
+          },
+          "position_pre_next_continuity": {
+            "absolute_gap": 0.0,
+            "index": 1
+          }
+        },
+        "continuous_reference_inverse": {
+          "rows": 3000,
+          "abs_gt_2Nm_count": 1512,
+          "abs_gt_2Nm_fraction": 0.504,
+          "peak_abs_Nm": 2.8955873773636327,
+          "peak_signed_Nm": 2.8955873773636327,
+          "peak_index": 2058,
+          "peak_time_s": 4.116,
+          "minimum_abs_distance_to_2Nm": 0.003997322468163533
+        },
+        "discrete_reference_inverse": {
+          "rows": 3000,
+          "abs_gt_2Nm_count": 1512,
+          "abs_gt_2Nm_fraction": 0.504,
+          "peak_abs_Nm": 2.90448655515009,
+          "peak_signed_Nm": 2.90448655515009,
+          "peak_index": 2557,
+          "peak_time_s": 5.114,
+          "minimum_abs_distance_to_2Nm": 0.00048311281528357064
+        },
+        "recorded_discrete_balance": {
+          "max_abs_Nm": 8.881784197001252e-15,
+          "signed_residual_at_max_Nm": -8.881784197001252e-15,
+          "index": 378,
+          "time_s": 0.756
+        },
+        "discrete_minus_continuous_max_abs_Nm": 0.027306099681243756,
+        "last_target": {
+          "time_s": 6.0,
+          "velocity_rad_s": -2.6452370861582827e-14,
+          "origin": "fixed analytic stress reference; no physics continuation"
+        }
+      },
+      "total_checks": 324000
+    },
+    "estimator_crosscheck82": {
+      "schema": "d1-estimator49-50-crosscheck82-v1",
+      "status": "COMPLETE",
+      "verification_after": "COMPLETE",
+      "checks": 242072,
+      "csv_rows_checked": 10765,
+      "cases_completed": 30,
+      "new_model_calls": 0,
+      "new_physics_steps": 0,
+      "new_parameter_updates": 0,
+      "original_gates_changed": false,
+      "partial_cases_cannot_qualify": true,
+      "source_binding_scope": "all registered Python source files plus both entry scripts; not a repeat hash of all old assets/NPZ closures",
+      "cpu_seconds": 0.263210787,
+      "wall_seconds": 0.3476358410262037,
+      "script_sha256": "c49836e12f4173235336d4201d9fe8ad4d1fa7f1fcfc1cfc5edb2d70ae53ab98"
+    },
+    "mpc_independent82": {
+      "schema": "mpc-independent82-readback-v1",
+      "status": "COMPLETE",
+      "verification_after": "COMPLETE",
+      "new_physics_steps": 0,
+      "new_model_calls": 0,
+      "new_parameter_updates": 0,
+      "rows_checked": 4800,
+      "scalar_checks": 9746,
+      "source_and_artifact_hashes_reverified": 85,
+      "cpu_seconds": 0.17790134700000002,
+      "wall_seconds": 0.17817791699781083,
+      "decision": {
+        "accepted": false,
+        "performance_gates": {
+          "height_improvement_at_least_10_percent": false,
+          "nominal/velocity_rmse_mps_within_5_percent": true,
+          "nominal/pitch_rmse_deg_within_5_percent": true,
+          "nominal/max_abs_pitch_deg_within_5_percent": true,
+          "nominal/normalized_effort_rms_within_5_percent": true,
+          "nominal/wheel_force_rms_n_within_5_percent": true,
+          "nominal/leg_force_rms_n_within_5_percent": true,
+          "mismatch_delay/velocity_rmse_mps_within_5_percent": false,
+          "mismatch_delay/pitch_rmse_deg_within_5_percent": false,
+          "mismatch_delay/max_abs_pitch_deg_within_5_percent": false,
+          "mismatch_delay/normalized_effort_rms_within_5_percent": true,
+          "mismatch_delay/wheel_force_rms_n_within_5_percent": true,
+          "mismatch_delay/leg_force_rms_n_within_5_percent": true,
+          "solve_p95_within_20_ms": true
+        },
+        "details": {
+          "mismatch_height_ratio": 1.0004660587425,
+          "nominal/velocity_rmse_mps_ratio": 1.0,
+          "nominal/pitch_rmse_deg_ratio": 1.0,
+          "nominal/max_abs_pitch_deg_ratio": 1.0,
+          "nominal/normalized_effort_rms_ratio": 1.0,
+          "nominal/wheel_force_rms_n_ratio": 1.0,
+          "nominal/leg_force_rms_n_ratio": 1.0,
+          "mismatch_delay/velocity_rmse_mps_ratio": 1.0764503439395012,
+          "mismatch_delay/pitch_rmse_deg_ratio": 1.1650145811120745,
+          "mismatch_delay/max_abs_pitch_deg_ratio": 1.1146338785845327,
+          "mismatch_delay/normalized_effort_rms_ratio": 0.9852944789136991,
+          "mismatch_delay/wheel_force_rms_n_ratio": 1.0472246437063757,
+          "mismatch_delay/leg_force_rms_n_ratio": 0.9809936598037574,
+          "candidate_max_episode_solve_p95_ms": 0.4812179831787944
+        },
+        "failed_performance_gates": [
+          "height_improvement_at_least_10_percent",
+          "mismatch_delay/velocity_rmse_mps_within_5_percent",
+          "mismatch_delay/pitch_rmse_deg_within_5_percent",
+          "mismatch_delay/max_abs_pitch_deg_within_5_percent"
+        ],
+        "full_status": "NOT_RUN",
+        "qualification": "original development preflight only"
+      },
+      "height_posthoc_pooled": [
+        {
+          "scenario": "nominal",
+          "arm": "baseline",
+          "rows": 1200,
+          "error_bias_m": -0.0007463146319993056,
+          "error_mse_m2": 0.0003891645924857906,
+          "error_rmse_mm": 19.727255067185364,
+          "bias_squared_fraction_of_mse": 0.0014312338293124547,
+          "centered_error_variance_m2": 0.0003886076069558543,
+          "last_two_seconds": {
+            "interval": "6.0 < post-transition time_s <= 8.0; posthoc, not a gate",
+            "rows": 300,
+            "extension_mean_m": -0.0025745877017619083,
+            "extension_min_m": -0.015823588944345452,
+            "extension_max_m": -0.00015713294582308574,
+            "target_extension_mean_m": 0.0,
+            "height_error_mean_m": -0.0025745877017619083,
+            "xml_lower_limit_m": -0.12,
+            "mean_signed_distance_from_lower_limit_m": 0.1174254122982381,
+            "mean_absolute_distance_from_lower_limit_m": 0.1174254122982381
+          }
+        },
+        {
+          "scenario": "nominal",
+          "arm": "candidate",
+          "rows": 1200,
+          "error_bias_m": -0.0007463146319993056,
+          "error_mse_m2": 0.0003891645924857906,
+          "error_rmse_mm": 19.727255067185364,
+          "bias_squared_fraction_of_mse": 0.0014312338293124547,
+          "centered_error_variance_m2": 0.0003886076069558543,
+          "last_two_seconds": {
+            "interval": "6.0 < post-transition time_s <= 8.0; posthoc, not a gate",
+            "rows": 300,
+            "extension_mean_m": -0.0025745877017619083,
+            "extension_min_m": -0.015823588944345452,
+            "extension_max_m": -0.00015713294582308574,
+            "target_extension_mean_m": 0.0,
+            "height_error_mean_m": -0.0025745877017619083,
+            "xml_lower_limit_m": -0.12,
+            "mean_signed_distance_from_lower_limit_m": 0.1174254122982381,
+            "mean_absolute_distance_from_lower_limit_m": 0.1174254122982381
+          }
+        },
+        {
+          "scenario": "mismatch_delay",
+          "arm": "baseline",
+          "rows": 1200,
+          "error_bias_m": -0.12079199077706365,
+          "error_mse_m2": 0.01568278741064351,
+          "error_rmse_mm": 125.23093631624538,
+          "bias_squared_fraction_of_mse": 0.9303642684070238,
+          "centered_error_variance_m2": 0.0010920823747572793,
+          "last_two_seconds": {
+            "interval": "6.0 < post-transition time_s <= 8.0; posthoc, not a gate",
+            "rows": 300,
+            "extension_mean_m": -0.12004386452472664,
+            "extension_min_m": -0.12004617621326145,
+            "extension_max_m": -0.12004246451044437,
+            "target_extension_mean_m": 0.0,
+            "height_error_mean_m": -0.12004386452472664,
+            "xml_lower_limit_m": -0.12,
+            "mean_signed_distance_from_lower_limit_m": -4.3864524726633196e-05,
+            "mean_absolute_distance_from_lower_limit_m": 4.3864524726633196e-05
+          }
+        },
+        {
+          "scenario": "mismatch_delay",
+          "arm": "candidate",
+          "rows": 1200,
+          "error_bias_m": -0.1208654617604442,
+          "error_mse_m2": 0.015697409010356794,
+          "error_rmse_mm": 125.28930126054976,
+          "bias_squared_fraction_of_mse": 0.9306287322275332,
+          "centered_error_variance_m2": 0.001088949163791399,
+          "last_two_seconds": {
+            "interval": "6.0 < post-transition time_s <= 8.0; posthoc, not a gate",
+            "rows": 300,
+            "extension_mean_m": -0.12005130107428698,
+            "extension_min_m": -0.12005358146128267,
+            "extension_max_m": -0.12004978718702686,
+            "target_extension_mean_m": 0.0,
+            "height_error_mean_m": -0.12005130107428698,
+            "xml_lower_limit_m": -0.12,
+            "mean_signed_distance_from_lower_limit_m": -5.1301074286987845e-05,
+            "mean_absolute_distance_from_lower_limit_m": 5.1301074286987845e-05
+          }
+        }
+      ],
+      "original_execution_counts_reconstructed": {
+        "control_steps": 4800,
+        "integration_steps": 48000,
+        "solve_calls": 4812,
+        "initial_solve_calls": 12
+      }
+    }
+  },
+  "resources": {
+    "control_readback01": {
+      "schema": "bounded-control-job49-v1",
+      "status": "COMPLETE",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/home/lyh/project82_review_20261103/control_evidence82.py",
+        "--output",
+        "/home/lyh/project82_review_20261103/control_evidence82.json"
+      ],
+      "scope": "/user.slice/user-1000.slice/user@1000.service/app.slice/wheel-project82-control-readback01-20261103.service",
+      "timeout_s": 360.0,
+      "supervisor_sha256": "4ed57d66a443d360764ab2773d509c1513ca004265e58fd2ddce842cb9dcee3d",
+      "minimum_effective_bytes": 7133405184,
+      "peak_group_bytes": 68571136,
+      "child_started": true,
+      "returncode": 0,
+      "error": null,
+      "signals": [],
+      "retry_permitted": false,
+      "cpu_affinity": [
+        0
+      ],
+      "final_memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "child_pid": 420074,
+      "owned_process_group_empty": true,
+      "child_reaped": true,
+      "elapsed_s": 12.074068265996175
+    },
+    "pi_readback01": {
+      "schema": "bounded-control-job49-v1",
+      "status": "COMPLETE",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/home/lyh/project82_review_20261103/pi_discrete82.py",
+        "--output",
+        "/home/lyh/project82_review_20261103/pi_discrete82.json"
+      ],
+      "scope": "/user.slice/user-1000.slice/user@1000.service/app.slice/wheel-pi82-readback01-20261103.service",
+      "timeout_s": 360.0,
+      "supervisor_sha256": "4ed57d66a443d360764ab2773d509c1513ca004265e58fd2ddce842cb9dcee3d",
+      "minimum_effective_bytes": 10223001600,
+      "peak_group_bytes": 46489600,
+      "child_started": true,
+      "returncode": 0,
+      "error": null,
+      "signals": [],
+      "retry_permitted": false,
+      "cpu_affinity": [
+        0
+      ],
+      "final_memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "child_pid": 435503,
+      "owned_process_group_empty": true,
+      "child_reaped": true,
+      "elapsed_s": 11.075395036983537
+    },
+    "estimator_readback01": {
+      "schema": "bounded-control-job49-v1",
+      "status": "COMPLETE",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/home/lyh/project82_review_20261103/estimator_crosscheck82.py",
+        "--output",
+        "/home/lyh/project82_review_20261103/estimator_crosscheck82.json"
+      ],
+      "scope": "/user.slice/user-1000.slice/user@1000.service/app.slice/wheel-estimator82-readback01-20261103.service",
+      "timeout_s": 360.0,
+      "supervisor_sha256": "4ed57d66a443d360764ab2773d509c1513ca004265e58fd2ddce842cb9dcee3d",
+      "minimum_effective_bytes": 10214477824,
+      "peak_group_bytes": 43569152,
+      "child_started": true,
+      "returncode": 0,
+      "error": null,
+      "signals": [],
+      "retry_permitted": false,
+      "cpu_affinity": [
+        0
+      ],
+      "final_memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "child_pid": 435271,
+      "owned_process_group_empty": true,
+      "child_reaped": true,
+      "elapsed_s": 11.073598588001914
+    },
+    "mpc_tests01": {
+      "schema": "bounded-control-job49-v1",
+      "status": "COMPLETE",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "pytest",
+        "tests/test_delay_mpc82.py",
+        "tests/test_delay_mpc82_runner.py",
+        "-q"
+      ],
+      "scope": "/user.slice/user-1000.slice/user@1000.service/app.slice/wheel-mpc82-tests01-20261103.service",
+      "timeout_s": 120.0,
+      "supervisor_sha256": "4ed57d66a443d360764ab2773d509c1513ca004265e58fd2ddce842cb9dcee3d",
+      "minimum_effective_bytes": 10087882752,
+      "peak_group_bytes": 160743424,
+      "child_started": true,
+      "returncode": 0,
+      "error": null,
+      "signals": [],
+      "retry_permitted": false,
+      "cpu_affinity": [
+        0
+      ],
+      "final_memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "child_pid": 432881,
+      "owned_process_group_empty": true,
+      "child_reaped": true,
+      "elapsed_s": 12.076141658995766
+    },
+    "mpc_execution01_supervision": {
+      "schema": "bounded-control-job49-v1",
+      "status": "COMPLETE",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/home/lyh/wheel-legged-control-lab/scripts/delay_mpc82.py",
+        "--plan",
+        "/home/lyh/wheel-legged-control-lab/docs/experiments82/delay_mpc82_preregistered.json",
+        "--output",
+        "/home/lyh/wheel-legged-control-lab/results/delay_mpc82_20261103_01"
+      ],
+      "scope": "/user.slice/user-1000.slice/user@1000.service/app.slice/wheel-mpc82-execution01-20261103.service",
+      "timeout_s": 420.0,
+      "supervisor_sha256": "4ed57d66a443d360764ab2773d509c1513ca004265e58fd2ddce842cb9dcee3d",
+      "minimum_effective_bytes": 10012528640,
+      "peak_group_bytes": 109670400,
+      "child_started": true,
+      "returncode": 0,
+      "error": null,
+      "signals": [],
+      "retry_permitted": false,
+      "cpu_affinity": [
+        0
+      ],
+      "final_memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "child_pid": 434511,
+      "owned_process_group_empty": true,
+      "child_reaped": true,
+      "elapsed_s": 17.088482296006987
+    },
+    "mpc_readback01": {
+      "schema": "bounded-control-job49-v1",
+      "status": "COMPLETE",
+      "command": [
+        "/usr/bin/python3",
+        "-B",
+        "/home/lyh/project82_review_20261103/mpc_independent82.py",
+        "--output",
+        "/home/lyh/project82_review_20261103/mpc_independent82.json"
+      ],
+      "scope": "/user.slice/user-1000.slice/user@1000.service/app.slice/project82-mpc-independent01.service",
+      "timeout_s": 120.0,
+      "supervisor_sha256": "4ed57d66a443d360764ab2773d509c1513ca004265e58fd2ddce842cb9dcee3d",
+      "minimum_effective_bytes": 10226774016,
+      "peak_group_bytes": 34152448,
+      "child_started": true,
+      "returncode": 0,
+      "error": null,
+      "signals": [],
+      "retry_permitted": false,
+      "cpu_affinity": [
+        0
+      ],
+      "final_memory_events": {
+        "low": 0,
+        "high": 0,
+        "max": 0,
+        "oom": 0,
+        "oom_kill": 0,
+        "oom_group_kill": 0
+      },
+      "child_pid": 437311,
+      "owned_process_group_empty": true,
+      "child_reaped": true,
+      "elapsed_s": 11.075689880002756
+    }
+  },
+  "resource_contract": {
+    "serial_local_heavy_jobs": true,
+    "Nice": 10,
+    "cpu_threads": 1,
+    "MemoryHigh_bytes": 2147483648,
+    "MemoryMax_bytes": 3221225472,
+    "MemorySwapMax_bytes": 0,
+    "startup_available_bytes": 4294967296,
+    "runtime_reserve_bytes": 2147483648
+  },
+  "frozen_before": {
+    "status": "PASS",
+    "groups": [
+      {
+        "root": "/home/lyh/ddt_ros2_ws",
+        "plan": "docs/experiments81/objective81_preregistered.json",
+        "plan_sha256": "987db250df14869b9f8ce72ab3522d3356de646233341c9a66c4bbccb3d6cf20",
+        "files": 1390
+      },
+      {
+        "root": "/home/lyh/wheel-legged-control-lab",
+        "plan": "reports/control_candidates49_preregistration.json",
+        "plan_sha256": "227285cdf4391a78513003dcda09185b09ab862da119b31c7558addba86a855c",
+        "files": 17
+      }
+    ],
+    "v27_sha256": "d3c38429362e82745179f2c526b2ee52d805526df390d52346c805e5a51fff09",
+    "failures": [],
+    "cpu_seconds": 0.075133702,
+    "new_physics_steps": 0,
+    "new_model_calls": 0,
+    "new_parameter_updates": 0
+  },
+  "frozen_after": {
+    "status": "PASS",
+    "groups": [
+      {
+        "root": "/home/lyh/ddt_ros2_ws",
+        "plan": "docs/experiments81/objective81_preregistered.json",
+        "plan_sha256": "987db250df14869b9f8ce72ab3522d3356de646233341c9a66c4bbccb3d6cf20",
+        "files": 1390
+      },
+      {
+        "root": "/home/lyh/wheel-legged-control-lab",
+        "plan": "reports/control_candidates49_preregistration.json",
+        "plan_sha256": "227285cdf4391a78513003dcda09185b09ab862da119b31c7558addba86a855c",
+        "files": 17
+      }
+    ],
+    "v27_sha256": "d3c38429362e82745179f2c526b2ee52d805526df390d52346c805e5a51fff09",
+    "failures": [],
+    "cpu_seconds": 0.088995736,
+    "new_physics_steps": 0,
+    "new_model_calls": 0,
+    "new_parameter_updates": 0
+  },
+  "mpc82_source_bindings_verified_after": 32,
+  "new_code_sha256": {
+    "src/wheel_legged_control/delay_mpc82.py": "1e2591e35813364fcc38747512685306abc8745f4931b510109361da6739bfef",
+    "scripts/delay_mpc82.py": "87828359d3276736b4d244432fdc1c7f8980efca65009692d2bee9cf2a30887b",
+    "tests/test_delay_mpc82.py": "afacc74c7c53ef7e89535f30be5c1fb1aca937636a7a754c52fcdcb2bce26b91",
+    "tests/test_delay_mpc82_runner.py": "cea94ed2438ecf9e0da6cfd58528c36aa50533f5d0c4cd5996da8d69a7ae484e",
+    "docs/experiments82/delay_mpc82_preregistered.json": "ea7847eafc8deca1b38879523708b963a3743b74cf04193d5ca916b0343f2b76"
+  },
+  "public_artifacts": {
+    "docs/assets/project82/control_evidence82.py": {
+      "bytes": 11151,
+      "sha256": "4ffb43e83e63c08a357a139fdae058c8fa27887481ee4f5268f288d36adbf87f",
+      "original_bytes": 11151,
+      "original_sha256": "4ffb43e83e63c08a357a139fdae058c8fa27887481ee4f5268f288d36adbf87f",
+      "source": "/home/lyh/project82_review_20261103/control_evidence82.py"
+    },
+    "docs/assets/project82/control_evidence82.json.gz": {
+      "bytes": 17105,
+      "sha256": "2f9cd647885818d1c0b2b7edc0585d67a1ec0039e2368a717e0a3bd0bad25a4e",
+      "original_bytes": 150778,
+      "original_sha256": "2619eea79c4cd3381e048395b9ee84a8339896862261eacc66365a99b214fd33",
+      "source": "/home/lyh/project82_review_20261103/control_evidence82.json"
+    },
+    "docs/assets/project82/pi_discrete82.py": {
+      "bytes": 13253,
+      "sha256": "8e7c15194a783bbcb189bdca61f4d1002100ce612917a316a789bc5872a9e613",
+      "original_bytes": 13253,
+      "original_sha256": "8e7c15194a783bbcb189bdca61f4d1002100ce612917a316a789bc5872a9e613",
+      "source": "/home/lyh/project82_review_20261103/pi_discrete82.py"
+    },
+    "docs/assets/project82/pi_discrete82.json.gz": {
+      "bytes": 3583,
+      "sha256": "d8f348847f4bc746e765910ff963d4577fc33116d5e5686d4a4190149a08359c",
+      "original_bytes": 36918,
+      "original_sha256": "c5f1a4cab17ea830287a675399c6e77f890f0b474dc0a714a1f981e9beb1c136",
+      "source": "/home/lyh/project82_review_20261103/pi_discrete82.json"
+    },
+    "docs/assets/project82/pi_discrete82.json.initial.json": {
+      "bytes": 149,
+      "sha256": "4252da7bbc4ec50a0390d6b3bac277d2fc4ddc85d4372ce310dcc0ed342bcbe2",
+      "original_bytes": 149,
+      "original_sha256": "4252da7bbc4ec50a0390d6b3bac277d2fc4ddc85d4372ce310dcc0ed342bcbe2",
+      "source": "/home/lyh/project82_review_20261103/pi_discrete82.json.initial.json"
+    },
+    "docs/assets/project82/estimator_crosscheck82.py": {
+      "bytes": 23305,
+      "sha256": "c49836e12f4173235336d4201d9fe8ad4d1fa7f1fcfc1cfc5edb2d70ae53ab98",
+      "original_bytes": 23305,
+      "original_sha256": "c49836e12f4173235336d4201d9fe8ad4d1fa7f1fcfc1cfc5edb2d70ae53ab98",
+      "source": "/home/lyh/project82_review_20261103/estimator_crosscheck82.py"
+    },
+    "docs/assets/project82/estimator_crosscheck82.json.gz": {
+      "bytes": 13517,
+      "sha256": "e17cb9a12e2622c2c91e71d57c74c61675404f0a271fc5b81f5745b265177d1b",
+      "original_bytes": 84184,
+      "original_sha256": "6508f54aa50b28abcd49c52b33483bfde16ccbf8591c9376539efa25b96240cd",
+      "source": "/home/lyh/project82_review_20261103/estimator_crosscheck82.json"
+    },
+    "docs/assets/project82/mpc_independent82.py": {
+      "bytes": 25815,
+      "sha256": "257b26a9e101b00591654c94a0c86fc4ddeebb3dc6d450fe26dfbf89dac37673",
+      "original_bytes": 25815,
+      "original_sha256": "257b26a9e101b00591654c94a0c86fc4ddeebb3dc6d450fe26dfbf89dac37673",
+      "source": "/home/lyh/project82_review_20261103/mpc_independent82.py"
+    },
+    "docs/assets/project82/mpc_independent82.json.gz": {
+      "bytes": 9287,
+      "sha256": "305dccf25e6c6eb3d6bdcd26ad8163f9abe44e40b855a56ba59a34f1ae773438",
+      "original_bytes": 55285,
+      "original_sha256": "dad3785215453e538a09bae4415fc643d2992d12eae0c094f2a5a943b1057ee4",
+      "source": "/home/lyh/project82_review_20261103/mpc_independent82.json"
+    },
+    "docs/assets/project82/mpc_independent82.json.initial.json": {
+      "bytes": 153,
+      "sha256": "e5480554ab3da5605a9d74565c8dc0e7691a14e520b17a23a2bca5082c214994",
+      "original_bytes": 153,
+      "original_sha256": "e5480554ab3da5605a9d74565c8dc0e7691a14e520b17a23a2bca5082c214994",
+      "source": "/home/lyh/project82_review_20261103/mpc_independent82.json.initial.json"
+    },
+    "docs/assets/project82/plan82.md": {
+      "bytes": 4412,
+      "sha256": "72ed76a9ba69be8728117d25cda2dc4941283b8a9ebacf104551f8a48cc6b761",
+      "original_bytes": 4412,
+      "original_sha256": "72ed76a9ba69be8728117d25cda2dc4941283b8a9ebacf104551f8a48cc6b761",
+      "source": "/home/lyh/project82_review_20261103/plan82.md"
+    },
+    "docs/assets/project82/integrity82.py": {
+      "bytes": 1924,
+      "sha256": "562211b02abb098643dc55302e7d0cc517ba0c7b1508a301a9d51fa937025f84",
+      "original_bytes": 1924,
+      "original_sha256": "562211b02abb098643dc55302e7d0cc517ba0c7b1508a301a9d51fa937025f84",
+      "source": "/home/lyh/project82_review_20261103/integrity82.py"
+    },
+    "docs/assets/project82/integrity_before82.json": {
+      "bytes": 720,
+      "sha256": "0819a477ff5847a6c076f7c35287a1762c508668dda33172b455765d3ac04731",
+      "original_bytes": 720,
+      "original_sha256": "0819a477ff5847a6c076f7c35287a1762c508668dda33172b455765d3ac04731",
+      "source": "/home/lyh/project82_review_20261103/integrity_before82.json"
+    },
+    "docs/assets/project82/integrity_after82.json": {
+      "bytes": 720,
+      "sha256": "2d0434e41753474e76fbfbc111a2a4b8c213f5a19b87cf32a19013c68bbda1f3",
+      "original_bytes": 720,
+      "original_sha256": "2d0434e41753474e76fbfbc111a2a4b8c213f5a19b87cf32a19013c68bbda1f3",
+      "source": "/home/lyh/project82_review_20261103/integrity_after82.json"
+    },
+    "docs/assets/project82/supervision/control_readback01/report.json": {
+      "bytes": 964,
+      "sha256": "9b73a879407d811c1e32214fa96c58c8b8de05fffa3f7b5720777bce3f9b17f6",
+      "original_bytes": 964,
+      "original_sha256": "9b73a879407d811c1e32214fa96c58c8b8de05fffa3f7b5720777bce3f9b17f6",
+      "source": "/home/lyh/project82_review_20261103/control_readback01/report.json"
+    },
+    "docs/assets/project82/supervision/control_readback01/resources.jsonl.gz": {
+      "bytes": 1212,
+      "sha256": "728e41938fa5ad370775bd5248f0867c80367ebdbe79156a3b3ef140d161a4eb",
+      "original_bytes": 16467,
+      "original_sha256": "c3c215620f6af5fc165eb4603d1e1838edb20e7c932a67558e7d97e8051f97c9",
+      "source": "/home/lyh/project82_review_20261103/control_readback01/resources.jsonl"
+    },
+    "docs/assets/project82/supervision/control_readback01/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_bytes": 0,
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/home/lyh/project82_review_20261103/control_readback01/stderr.log"
+    },
+    "docs/assets/project82/supervision/control_readback01/stdout.log": {
+      "bytes": 84,
+      "sha256": "fe9983a77aff11168a0715da8954c2e8960fa9293886c926a390f4f2723f25eb",
+      "original_bytes": 84,
+      "original_sha256": "fe9983a77aff11168a0715da8954c2e8960fa9293886c926a390f4f2723f25eb",
+      "source": "/home/lyh/project82_review_20261103/control_readback01/stdout.log"
+    },
+    "docs/assets/project82/supervision/pi_readback01/report.json": {
+      "bytes": 942,
+      "sha256": "d365369c044dd586a70ed93decfaa6f5e723316a0c49651caddf83ac737a0538",
+      "original_bytes": 942,
+      "original_sha256": "d365369c044dd586a70ed93decfaa6f5e723316a0c49651caddf83ac737a0538",
+      "source": "/home/lyh/project82_review_20261103/pi_readback01/report.json"
+    },
+    "docs/assets/project82/supervision/pi_readback01/resources.jsonl.gz": {
+      "bytes": 1075,
+      "sha256": "953de3322ac5f985239b4ca67411a8c4a3d947f6ad8a772688c1df1ffc782cdc",
+      "original_bytes": 14202,
+      "original_sha256": "5edaf754bda369b5c304d2d2a824f93d3b154f0378ac6b330fbe01ca681793a8",
+      "source": "/home/lyh/project82_review_20261103/pi_readback01/resources.jsonl"
+    },
+    "docs/assets/project82/supervision/pi_readback01/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_bytes": 0,
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/home/lyh/project82_review_20261103/pi_readback01/stderr.log"
+    },
+    "docs/assets/project82/supervision/pi_readback01/stdout.log": {
+      "bytes": 108,
+      "sha256": "63af9eb11206dc5d85a0de2d01889dc683c6b7fd39b729dfe453d5c74a654ed1",
+      "original_bytes": 108,
+      "original_sha256": "63af9eb11206dc5d85a0de2d01889dc683c6b7fd39b729dfe453d5c74a654ed1",
+      "source": "/home/lyh/project82_review_20261103/pi_readback01/stdout.log"
+    },
+    "docs/assets/project82/supervision/estimator_readback01/report.json": {
+      "bytes": 967,
+      "sha256": "b0c48ffc2b8358fa404ecced9e1aba5c03e1a2ffe7e011724c55f40fdb8e083e",
+      "original_bytes": 967,
+      "original_sha256": "b0c48ffc2b8358fa404ecced9e1aba5c03e1a2ffe7e011724c55f40fdb8e083e",
+      "source": "/home/lyh/project82_review_20261103/estimator_readback01/report.json"
+    },
+    "docs/assets/project82/supervision/estimator_readback01/resources.jsonl.gz": {
+      "bytes": 1087,
+      "sha256": "4bf82804044d55ac05616885346a026bb6c2030366e915572c6559e218a1daf2",
+      "original_bytes": 14424,
+      "original_sha256": "e26553f4983a13be901010429c09148881620ab667c2d86769ed5d0206065b1e",
+      "source": "/home/lyh/project82_review_20261103/estimator_readback01/resources.jsonl"
+    },
+    "docs/assets/project82/supervision/estimator_readback01/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_bytes": 0,
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/home/lyh/project82_review_20261103/estimator_readback01/stderr.log"
+    },
+    "docs/assets/project82/supervision/estimator_readback01/stdout.log": {
+      "bytes": 116,
+      "sha256": "328d0b82075494865da706f40ffa1ff75a2d9e90a8675a1344a9482fbece9950",
+      "original_bytes": 116,
+      "original_sha256": "328d0b82075494865da706f40ffa1ff75a2d9e90a8675a1344a9482fbece9950",
+      "source": "/home/lyh/project82_review_20261103/estimator_readback01/stdout.log"
+    },
+    "docs/assets/project82/supervision/mpc_tests01/report.json": {
+      "bytes": 910,
+      "sha256": "bc24f647df2ffc23ece34f5aa6329cfd6fc26c4a27154ea89fafb1bcb624399a",
+      "original_bytes": 910,
+      "original_sha256": "bc24f647df2ffc23ece34f5aa6329cfd6fc26c4a27154ea89fafb1bcb624399a",
+      "source": "/home/lyh/project82_review_20261103/mpc_tests01/report.json"
+    },
+    "docs/assets/project82/supervision/mpc_tests01/resources.jsonl.gz": {
+      "bytes": 1186,
+      "sha256": "28a8574f41679e6b3892434ec9b565062b4edf6d6b4dac8ad47bb4af56221177",
+      "original_bytes": 15917,
+      "original_sha256": "02849d605d8d7bd2b2cfcb17a422459a640ce9a36490b3dda16107b0f7436983",
+      "source": "/home/lyh/project82_review_20261103/mpc_tests01/resources.jsonl"
+    },
+    "docs/assets/project82/supervision/mpc_tests01/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_bytes": 0,
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/home/lyh/project82_review_20261103/mpc_tests01/stderr.log"
+    },
+    "docs/assets/project82/supervision/mpc_tests01/stdout.log": {
+      "bytes": 984,
+      "sha256": "4097169a43ead76dca6e69629cb6133372d90fc992c7ac6051717a696938a0b7",
+      "original_bytes": 984,
+      "original_sha256": "4097169a43ead76dca6e69629cb6133372d90fc992c7ac6051717a696938a0b7",
+      "source": "/home/lyh/project82_review_20261103/mpc_tests01/stdout.log"
+    },
+    "docs/assets/project82/supervision/mpc_execution01_supervision/report.json": {
+      "bytes": 1068,
+      "sha256": "9bb10a8f603730997d17d63e527a86c32d2c738938052eb625f85c125c2ca261",
+      "original_bytes": 1068,
+      "original_sha256": "9bb10a8f603730997d17d63e527a86c32d2c738938052eb625f85c125c2ca261",
+      "source": "/home/lyh/project82_review_20261103/mpc_execution01_supervision/report.json"
+    },
+    "docs/assets/project82/supervision/mpc_execution01_supervision/resources.jsonl.gz": {
+      "bytes": 1631,
+      "sha256": "ce9dd20cec415a3b5b6301ec50937e67315539b30f366ffaa597374a12633648",
+      "original_bytes": 25016,
+      "original_sha256": "4a0d46736001d6dd6ea33bb25b6d233d3a7e194e7ae0bd1eafaa3afbbffbf43a",
+      "source": "/home/lyh/project82_review_20261103/mpc_execution01_supervision/resources.jsonl"
+    },
+    "docs/assets/project82/supervision/mpc_execution01_supervision/stderr.log": {
+      "bytes": 372,
+      "sha256": "04b8876f42a7c4ed9da1f8f9503949a6fec4ce861932ef083681a45f213d6126",
+      "original_bytes": 372,
+      "original_sha256": "04b8876f42a7c4ed9da1f8f9503949a6fec4ce861932ef083681a45f213d6126",
+      "source": "/home/lyh/project82_review_20261103/mpc_execution01_supervision/stderr.log"
+    },
+    "docs/assets/project82/supervision/mpc_execution01_supervision/stdout.log": {
+      "bytes": 2254,
+      "sha256": "ce97b774ff1a79592e87304f7ad320f722dc7fe61bdc1f860e94a498296b6306",
+      "original_bytes": 2254,
+      "original_sha256": "ce97b774ff1a79592e87304f7ad320f722dc7fe61bdc1f860e94a498296b6306",
+      "source": "/home/lyh/project82_review_20261103/mpc_execution01_supervision/stdout.log"
+    },
+    "docs/assets/project82/supervision/mpc_readback01/report.json": {
+      "bytes": 947,
+      "sha256": "1a5f0ebd4dab3bd5b9b63434f35764ac394bec1aa6f6e127889d16d5cbb96b5a",
+      "original_bytes": 947,
+      "original_sha256": "1a5f0ebd4dab3bd5b9b63434f35764ac394bec1aa6f6e127889d16d5cbb96b5a",
+      "source": "/home/lyh/project82_review_20261103/mpc_readback01/report.json"
+    },
+    "docs/assets/project82/supervision/mpc_readback01/resources.jsonl.gz": {
+      "bytes": 1078,
+      "sha256": "406ea5ae1c6c1f7e837ab572807b401dbda420c0ee323aa0d4e44863e9f6b7da",
+      "original_bytes": 14103,
+      "original_sha256": "101b762e67fb29dd6bc90de29a659b2ed55c1f95f788b9049f30e2d16b57d2f7",
+      "source": "/home/lyh/project82_review_20261103/mpc_readback01/resources.jsonl"
+    },
+    "docs/assets/project82/supervision/mpc_readback01/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_bytes": 0,
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/home/lyh/project82_review_20261103/mpc_readback01/stderr.log"
+    },
+    "docs/assets/project82/supervision/mpc_readback01/stdout.log": {
+      "bytes": 115,
+      "sha256": "ff3e1e7410e0a0c9f6bb820878c7ec75f114ce10cca8b11279bfb5ad5e703eff",
+      "original_bytes": 115,
+      "original_sha256": "ff3e1e7410e0a0c9f6bb820878c7ec75f114ce10cca8b11279bfb5ad5e703eff",
+      "source": "/home/lyh/project82_review_20261103/mpc_readback01/stdout.log"
+    },
+    "docs/assets/project82/delay_mpc82_20261103_01.zip": {
+      "sha256": "00f807690e2dc6f2f4c2ed7c78b2051039ca748ed78cab00428d6cd0fb3eaea7",
+      "bytes": 996363,
+      "original_files": 51,
+      "original_total_bytes": 2841441,
+      "source": "/home/lyh/wheel-legged-control-lab/results/delay_mpc82_20261103_01",
+      "complete_new_execution": true
+    }
+  },
+  "CI": "Exact final commit CI is checked after commit/push; this is not a CI-success claim.",
+  "interpretation_limits": [
+    "No archive48 rerun, runtime_v27 rebinding, frozen-source modification, partial promotion or new training.",
+    "Only MPC82 performed new physics in this batch; all evidence readers are standard-library data audits.",
+    "All original performance gates remain in force; a complete failed candidate is rejected.",
+    "Native test-only core is not connected to ROS, actor_server34 or hardware.",
+    "Historical raw artifacts are required to rerun their readback scripts; this package does not claim all old data is published.",
+    "Only the complete new MPC execution is additionally published as raw data.",
+    "Readback scripts intentionally retain the exact executed absolute paths and source hashes.",
+    "Tests, deterministic checks and shared-reset models are not independent statistical replications.",
+    "No source cleanup, failed-artifact deletion or experiment continuation was performed."
+  ]
+}
