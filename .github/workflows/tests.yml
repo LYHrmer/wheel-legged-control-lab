@@ -27,7 +27,15 @@ jobs:
       - run: pip install "torch>=2.8,<3" --index-url https://download.pytorch.org/whl/cpu
       # pyproject.toml is frozen and allows any 3.x; README's tolerance note was recomputed on 3.12.0,
       # so CI pins the same version to keep the benchmark numbers comparable across runs.
-      - run: pip install -e ".[rl,dev]" "mujoco==3.12.0"
+      - run: pip install -e ".[rl,dev]" "mujoco==3.12.0" "ruff==0.17.5"
       - run: python -c "import mujoco; assert mujoco.__version__ == '3.12.0', mujoco.__version__; print('mujoco', mujoco.__version__)"
       - run: pytest
-      - run: ruff check src tests examples scripts
+      - name: Check Ruff findings against the frozen NumPy 39 source
+        run: |
+          # Ruff 0.17.4 extended SIM102 to this archived elif branch (astral-sh/ruff#29814).
+          echo 'd946e7a28ba7f1da44bc34d9668f9a1d27c08a5294e7a6aa20f48b9fca7ed4a5  scripts/run_b22_numpy39.py' | sha256sum --check
+          report="$RUNNER_TEMP/ruff.json"
+          ruff check --exit-zero --output-format json src tests examples scripts > "$report"
+          jq -e --arg file "$GITHUB_WORKSPACE/scripts/run_b22_numpy39.py" \
+            'map([.filename, .code, .location.row, .location.column]) == [[$file, "SIM102", 152, 17]]' \
+            "$report" || { cat "$report"; exit 1; }
