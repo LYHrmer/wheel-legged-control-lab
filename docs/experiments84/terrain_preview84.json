@@ -1,0 +1,37 @@
+{
+  "protocol": "d1-measured-terrain-preview84-v1",
+  "registered_on": "2026-11-19",
+  "wheel_parent": "876053401d8663f2bc98cadb8244b80b7fbe38f8",
+  "ddt_parent": "8bf315f1a04b284c6c97855fa32f830894706a1b",
+  "question": "Can a bounded pitch reference based on the measured forward wheel tracks improve ramp entry over the same proprioceptive controller?",
+  "sensor": {
+    "body_origin_xyz_m": [[0.195, 0.190, 0.055], [0.195, -0.190, 0.055]],
+    "depression_deg": [74, 56, 43, 33], "range_m": [0.14, 1.45],
+    "hz": 6, "latency_s": 0.04, "maximum_capture_age_s": 0.25,
+    "lookahead_s": 0.8, "min_observed_segment_m": 0.035,
+    "max_grade_deg": 12, "max_track_disagreement_deg": 3,
+    "range_noise": "ideal simulated first-return distance; independent noisy delayed proprioception",
+    "query": "Estimated distance since capture plus front-axle offset plus 0.8 times the commanded speed; adjacent measured endpoints on each track are mandatory."
+  },
+  "screen": {
+    "static_body_pitch_roll_deg": [[0, 0], [-2, 2], [2, -2]],
+    "static_surface_deg": [0, 4, -4], "maximum_error_deg": 1,
+    "reject": ["occluded", "expired", "future"], "unseen_geometry_invariance": true
+  },
+  "paired_trials": {
+    "seed": [8417, 8429, 8443], "grade_deg": [0, 4, -4], "arm": ["off", "on", "inverted"],
+    "sole_treatment": "Signed preview-minus-proprioceptive pitch correction multiplied by 0, +1 or -1",
+    "max_cases": 27, "max_duration_s": 6, "control_dt_s": 0.01, "target_speed_mps": 0.35,
+    "startup": "0.3 s stand then 0.3 s smooth ramp to target",
+    "front_axle_start_before_toe_m": 0.40, "smooth_grade_transition_m": 0.12,
+    "max_extra_share_of_remaining_longitudinal_force": 0.2, "full_range_slew_time_s": 0.1,
+    "grade_mismatch_deadband_deg": 0.2, "grade_normalization_deg": 4,
+    "sensor_detect_min_deg": 0.5, "correct_delta_min_rad": 0.00001, "consecutive_correct_ticks": 3,
+    "max_task_steps": 16200, "max_one_cold_identification_control_equivalents": 511,
+    "max_native_steps_with_identification": 83555, "training_updates": 0,
+    "primary_window": "From actual front-wheel contact with ramp to 0.4 m of forward travel past ramp toe. Compare truth body pitch after removing operating point with physical ground tangent at body center. A stopped/failed/incomplete traversal fails.",
+    "pass": "Each of six on/off ramp pairs advances the 0.4 m and improves primary RMSE, median paired improvement >=10%, correct sign for >=3 ticks before contact in every on ramp, on beats inverted median primary RMSE for each grade sign; velocity RMSE and joint torque RMS each no more than 5% worse in every on/off comparison including flat; no additional falls or torque-limit violations.",
+    "presentation": "Fixed seed 8417, +4 and -4 degrees, off and on side by side, PNGs to GIF <=5000000 bytes each and MP4, from stored trajectories without integration."
+  },
+  "execution": "CPU single environment, serial physics/render/torch verification, one thread one CPU, systemd Nice=10 MemoryHigh=2GiB MemoryMax=3GiB MemorySwapMax=0 MemoryOOMGroup=yes, >=4GiB to start and >=2GiB in run; preserve every terminal failure and partial. No retry, replacement or continuation of trials."
+}

@@ -9,6 +9,8 @@
 
 ## 看控制过程
 
+**地形预瞄对照。** 同一车辆、同一 ±4° 坡、同一噪声序列。完整录像对齐前轮触坡、俯仰误差与实际修正。全部 924 个闭环测量包均未覆盖所需的两条轮迹。可以从原始关节姿态复算每一束射线打到了哪里。[播放 12 秒并排对照](docs/assets/project84/terrain_preview84.mp4) · [上坡动图](docs/assets/project84/terrain_preview84_up.gif) · [下坡动图](docs/assets/project84/terrain_preview84_down.gif) · [验收和失败分析](docs/terrain_preview84_results_20261119.md)
+
 | 完整直行与停车 | 完整双向转向与停车 |
 |---|---|
 | ![B22/C18 直行](docs/assets/b22_flat_1p6.gif) | ![B22/C18 转向](docs/assets/b22_yaw_1p2.gif) |
