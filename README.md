@@ -12,6 +12,8 @@
 
 **轮足能否在触坡前调姿？** 同屏视频左侧仅用本体估计，右侧启用前视测距。固定种子在 3.13 秒触坡，原安装的前视修正全程为零。27 个工况中 21 个走满 6 秒，6 个跌倒。逐束复查找到前腿遮挡，逐拍力余量又揭示了执行瓶颈。[上下坡 MP4](docs/assets/project84/terrain_preview84.mp4) · [上坡 GIF](docs/assets/project84/terrain_preview84_up.gif) · [下坡 GIF](docs/assets/project84/terrain_preview84_down.gif) · [数据与复算](docs/terrain_preview84_results_20261119.md) · [感知 PPO 与 SuperMimic 式训练方案](docs/terrain_preview84_rl_followup_20261119.md)
 
+**前轮触坡前能看清多少、第一拍能施加多少力？** 新安装在六个留出工况把正确坡向确认提前到触坡前 1.81–2.40 s。另取六个起点施加成对支撑脉冲，四处首拍实发力矩有差异，两处被腿力上下限全部裁掉。六条零预瞄动作基线均未走完 0.40 m 评分窗。[两项短仿真对照图](docs/assets/project85/sensing_and_torque.png) · [逐工况结果与原始轨迹](docs/terrain_action85_results_20261120.md)
+
 本轮素材、三个被拒绝的控制候选及验证中止记录集中在[49 交付记录](docs/optimization49_delivery_20261022.md)。
 
 **50 后续结果：** [腿部 PD 输入消融与训练记录](docs/optimization50_delivery_20261024.md)已归档。18 场控制预检中，相对新鲜基线的共同完整配对 RMSE 恶化 18.66%，候选拒绝；初始探索尺度的六臂训练在首基线被 systemd-oomd 中断，0/6 完整，其余 5 次未运行，无法判定三 seed 极差。下方继续展示原完整合格策略，不新增性能结论。
