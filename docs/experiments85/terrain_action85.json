@@ -1,0 +1,47 @@
+{
+  "protocol": "d1-terrain-sensing-and-axle-response85-v1",
+  "registered_on": "2026-11-20",
+  "wheel_parent": "a3a830a2008095057d74c413a8847829d6b113b5",
+  "d1_parent": "71bd23932fda7a5c8cd096a91960afb0de0363cd",
+  "source_plan": "docs/terrain_preview84_rl_followup_20261119.md",
+  "previous_recordings_sha256": "ad09724e24d845a7e2eca17e652da42b02a7904c4004301680e6294d3f78983a",
+  "fixed": "Round 84 ramp placement, blend, 0.35 m/s target, startup, four-wheel model, noisy 20 ms delayed proprioception, 100 Hz controller, 5 native steps, termination and 0.40 m scoring distance. Zero training updates.",
+  "heldout_sensing": {
+    "terrain": ["up", "down"],
+    "seeds": [8517, 8529, 8543],
+    "max_controls_per_case": 600,
+    "max_controls": 3600,
+    "mount_forward_displacement_m": 0.16,
+    "reference_near_depression_deg": 74,
+    "candidate_near_depression_deg": 82,
+    "other_depressions_deg": [56, 43, 33],
+    "measurement": "Read both virtual mounts on the identical physical baseline trajectory. Geometry, pose, schedule, query and estimator are shared; the sole change is near-beam depression. No terrain-derived action is applied. Keep the original 6 Hz sample clock, 40 ms delivery delay, 250 ms capture TTL, range clipping, 0.035 m minimum adjacent segment, grade and track-agreement limits.",
+    "historic": "Use the same recorded capture pose and query for both angles, all 308 previously deduplicated exposure poses. Use capture truth for attitude levelling only for this offline geometric audit. Report separately from the causal online signal.",
+    "success": "In every unseen case a delivered, unexpired packet covering both wheel tracks gives the correct slope sign at >=0.5 deg for at least three consecutive control ticks of that same packet. All three commands must precede actual loaded front wheel contact with the toe by at least one tick at confirmation. Missing contact, missing support, wrong sign or missing lead is recorded. Report first valid delivery, coverage, wrong-sign exposures, false ground support, falls and passage of the original 0.40 m window.",
+    "truth_diagnostic": "Simulator object identity may be used to audit whether the endpoints are ground hits. It is unavailable to the control and slope-estimation path."
+  },
+  "axle_response": {
+    "terrain": ["up", "down"],
+    "seeds": [8561, 8573, 8587],
+    "prefix_per_point_cap": 400,
+    "prefix_total_cap": 2400,
+    "trigger": "First pre-action state with a loaded front-wheel/floor contact in [toe-0.05m,toe), before any front wheel first touches the slope. Geometric trigger is an experimenter intervention. No post-hoc trigger, replacement or retry.",
+    "branch_signs": [-1, 0, 1],
+    "steps_per_branch": 64,
+    "pulse_steps": 16,
+    "transfer_fraction_body_weight": 0.02,
+    "measurement": "Restore the same physics, estimator, RNG and controller checkpoint for all three interventions. For 16 ticks shift bounded vertical support between front and rear axles, holding its sum and the wheel-drive path fixed for identical state. Set transfer to zero for the remaining 48 ticks. Record actuator torque after clipping and per-axle physically loaded wheel contact normal forces.",
+    "success": "Each of six points must yield distinct positive/negative realized commands (first-tick actual leg torque L-inf separation >1e-8 Nm), an observed axle load response above numerical tolerance 1e-8 N in shared loaded samples, no new fall or torque violation, and >=0.01 degree absolute difference in pitch RMSE on identical relative ticks following actual entry by all three branches. Missing common post-contact ticks yield no RMSE. Early stops and missing/partial branches do not qualify. The complete 0.40 m score window is separately required on the six unseen zero-residual routes.",
+    "interpretation": "The exogenous pulse is a plant-response diagnostic independent of whether sensing qualifies. A sensor failure or a missing zero-residual score window keeps the combined learning gate closed even if the isolated action changes pitch. No learned or sensor-triggered performance claim."
+  },
+  "budget": {
+    "single_cold_identification_controls": 511,
+    "heldout_controls_max": 3600,
+    "branch_controls_max": 1152,
+    "prefix_controls_max": 2400,
+    "all_controls_including_identification_max": 7152,
+    "all_native_steps_including_identification_max": 35760,
+    "prefix_allocation": "One process shares one legacy model identification. Charge its 511 controls inside the original 7152 total. Before any development prefix, fix one common per-point limit min(400, floor((7152 - 511 - actual heldout controls - 1152)/6)). No reallocation, extra integrations or training."
+  },
+  "resource_and_retention": "Serial CPU, one core and one thread, Nice=10, MemoryHigh=2GiB, MemoryMax=3GiB, swap=0, >=4GiB effective available for startup and >=2GiB while running. Existing supervisor 83. Isolated new output. Every failure and partial is retained, with no overwrite or resumed physical runs."
+}
