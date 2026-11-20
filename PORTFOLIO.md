@@ -9,6 +9,8 @@
 
 ## 看控制过程
 
+**全身策略怎样驱动 D1。** 独立 D1 项目让策略直接协调四条腿和四个轮子，比较同一坡道上原策略、屏蔽测距 PPO 和使用测距 PPO 的速度、姿态和通过距离。[全身策略与关节 PD 的配对实测和视频](https://github.com/LYHrmer/ddt-d1-rl-lab/blob/main/docs/full_body_perception87.md)
+
 **地形预瞄对照。** 同一车辆、同一 ±4° 坡、同一噪声序列。完整录像对齐前轮触坡、俯仰误差与实际修正。全部 924 个闭环测量包均未覆盖所需的两条轮迹。可以从原始关节姿态复算每一束射线打到了哪里。[播放 12 秒并排对照](docs/assets/project84/terrain_preview84.mp4) · [上坡动图](docs/assets/project84/terrain_preview84_up.gif) · [下坡动图](docs/assets/project84/terrain_preview84_down.gif) · [验收和失败分析](docs/terrain_preview84_results_20261119.md)
 
 **从预瞄读数追到关节实发力矩。** 固定车身轨迹，只改一束测距的俯角，六条路线都更早确认了坡向。再从六个独立开发起点分别还原同一状态，测出两处正负支撑指令在第一拍都变成零。每个点的触坡时刻、力矩、跌倒和完整评分窗口均可复查。[感知与动作对照图](docs/assets/project85/sensing_and_torque.png) · [逐拍数据及失败定位](docs/terrain_action85_results_20261120.md)
